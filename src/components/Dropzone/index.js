@@ -3,6 +3,8 @@ import {useDropzone} from "react-dropzone";
 import {Center, useColorModeValue, Icon, Heading, Text} from "@chakra-ui/react";
 import {AiOutlineCloudUpload} from "react-icons/ai";
 
+import {acceptExts} from "@configs/uploads";
+
 export default function Dropzone({onFileAccepted}) {
 	const onDrop = useCallback(
 		(acceptedFiles) => {
@@ -13,7 +15,7 @@ export default function Dropzone({onFileAccepted}) {
 
 	const {getRootProps, getInputProps, isDragActive} = useDropzone({
 		onDrop,
-		accept: ".gif, .jpg, .jpeg, .png",
+		accept: acceptExts,
 		maxFiles: 1,
 		multiple: false,
 	});
