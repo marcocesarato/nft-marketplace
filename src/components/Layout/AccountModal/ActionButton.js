@@ -3,6 +3,7 @@ import {Button} from "@chakra-ui/react";
 export default function ActionButton(props) {
 	return (
 		<Button
+			as="a"
 			size="sm"
 			fontSize="13px"
 			fontWeight="normal"

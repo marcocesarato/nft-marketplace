@@ -3,16 +3,18 @@ import {useEffect} from "react";
 import {useMoralis} from "react-moralis";
 import Providers from "@app/Providers";
 import Layout from "@components/Layout";
+import useLocalStorage from "@hooks/useLocalStorage";
 import ErrorBoundary from "@errors/ErrorBoundary";
 
 function Page({Component, pageProps}) {
 	const {isWeb3Enabled, enableWeb3, isAuthenticated, isWeb3EnableLoading} = useMoralis();
+	const [connectorId] = useLocalStorage("connectorId");
+
 	useEffect(() => {
-		const connectorId = window.localStorage.getItem("connectorId");
 		if (isAuthenticated && !isWeb3Enabled && !isWeb3EnableLoading)
 			enableWeb3({provider: connectorId});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isAuthenticated, isWeb3Enabled]);
+	}, [isAuthenticated, isWeb3Enabled, connectorId]);
 
 	return <Component {...pageProps} />;
 }

@@ -58,8 +58,6 @@ export default function NativeTransactions() {
 	if (!data || data.length === 0)
 		return <Header title="Transactions" subtitle="No transactions found on the account." />;
 
-	console.log(data);
-
 	let key = 0;
 	return (
 		<Table

@@ -2,7 +2,6 @@ import {
 	Box,
 	Flex,
 	HStack,
-	Link,
 	IconButton,
 	useDisclosure,
 	useColorModeValue,
@@ -10,27 +9,13 @@ import {
 	Text,
 } from "@chakra-ui/react";
 import {HamburgerIcon, CloseIcon} from "@chakra-ui/icons";
-import NextLink from "next/link";
 
+import useAccount from "@hooks/useAccount";
+
+import NavLink from "./NavLink";
+import AccountModal from "../AccountModal";
 import ConnectButton from "./ConnectButton";
-import AccountModal from "./AccountModal";
 import {ColorModeSwitcher} from "./ColorModeSwitcher";
-import useAccount from "@app/hooks/useAccount";
-
-const NavLink = ({link}) => (
-	<NextLink href={link.href} passHref>
-		<Link
-			px={2}
-			py={1}
-			rounded={"md"}
-			_hover={{
-				textDecoration: "none",
-				bg: useColorModeValue("gray.200", "gray.700"),
-			}}>
-			{link.label}
-		</Link>
-	</NextLink>
-);
 
 export default function Navbar() {
 	const {isAuthenticated} = useAccount();
@@ -72,7 +57,7 @@ export default function Navbar() {
 					</HStack>
 				</HStack>
 				<Flex alignItems={"center"}>
-					<ConnectButton handleOpenModal={onModalOpen} />
+					<ConnectButton openAccountModal={onModalOpen} />
 					<AccountModal isOpen={isModalOpen} onClose={onModalClose} />
 					<ColorModeSwitcher />
 				</Flex>

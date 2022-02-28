@@ -1,2 +1,2 @@
-export const formatAddress = (address) =>
-	address && `${address.slice(0, 6)}...${address.slice(address.length - 4, address.length)}`;
+export const formatAddress = (address, max = 6) =>
+	address && `${address.slice(0, max)}...${address.slice(address.length - 4, address.length)}`;

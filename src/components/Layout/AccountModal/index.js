@@ -9,12 +9,21 @@ import {
 	ModalFooter,
 	ModalCloseButton,
 	Text,
+	Editable,
+	EditableInput,
+	EditablePreview,
 } from "@chakra-ui/react";
 import {ExternalLinkIcon, CopyIcon} from "@chakra-ui/icons";
 import Avatar from "@components/Avatar";
 import {formatAddress} from "@app/utils/formatters";
 import {getExplorer} from "@utils/networks";
+
+import ErrorAlert from "@errors/ErrorAlert";
+
 import useAccount from "@hooks/useAccount";
+import useBalance from "@hooks/useBalance";
+import useDebounce from "@hooks/useDebounce";
+
 import {useRouter} from "next/router";
 import NextLink from "next/link";
 
@@ -23,7 +32,8 @@ import LinkButton from "./LinkButton";
 import DisconnectButton from "./DisconnectButton";
 
 export default function AccountModal({isOpen, onClose}) {
-	const {account, logout, chainId, balance, balanceNativeName} = useAccount();
+	const {account, username, logout, chainId, setUserData, userError} = useAccount();
+	const {data: balance} = useBalance();
 	const router = useRouter();
 
 	function handleLogout() {
@@ -31,6 +41,12 @@ export default function AccountModal({isOpen, onClose}) {
 		onClose();
 		router.push("/");
 	}
+
+	function handleChangeUsername(event) {
+		setUserData({username: event.target.value});
+	}
+
+	const changeUsername = useDebounce(handleChangeUsername.bind(this), 500);
 
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} isCentered size="md">
@@ -47,24 +63,35 @@ export default function AccountModal({isOpen, onClose}) {
 					}}
 				/>
 				<ModalBody>
+					{userError && (
+						<ErrorAlert error={"Update user data error!"} message={userError.message} />
+					)}
 					<Box
 						borderRadius="md"
 						border="1px"
 						borderStyle="solid"
 						borderColor="gray.600"
 						p={5}>
-						<Flex alignItems="center" mt={2} mb={4} lineHeight={1}>
+						<Flex alignItems="center" mb={4} lineHeight={1}>
 							<Avatar />
 							<Text
 								color="white"
-								fontSize="xl"
+								fontSize="2xl"
 								fontWeight="semibold"
-								ml="2"
+								ml="4"
 								lineHeight="1.1">
-								{account && formatAddress(account)}
+								<Editable defaultValue={username}>
+									<EditablePreview />
+									<EditableInput onChange={changeUsername} />
+								</Editable>
+							</Text>
+						</Flex>
+						<Flex alignItems="center" mb={4} lineHeight={1}>
+							<Text color="gray.400" fontSize="sm" textAlign="right" lineHeight="1.1">
+								{account && formatAddress(account, 30)}
 							</Text>
 							<Text color="gray.400" ml="auto" fontSize="sm">
-								{balance?.formatted} {balanceNativeName}
+								{balance?.formatted}
 							</Text>
 						</Flex>
 						<Flex alignContent="center" my={3}>

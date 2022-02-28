@@ -2,9 +2,11 @@ import {Text, Grid, GridItem} from "@chakra-ui/react";
 import Image from "next/image";
 import {connectors} from "@configs/connectors";
 import useAccount from "@hooks/useAccount";
+import useLocalStorage from "@hooks/useLocalStorage";
 
-function AuthenticationModal({...props}) {
+export default function WalletConnect({onClose}) {
 	const {authenticate, enableWeb3} = useAccount();
+	const [connectorId, setConnectorId] = useLocalStorage("connectorId");
 	return (
 		<Grid templateColumns={"1fr 1fr"} rowGap={5}>
 			{connectors.map(({title, icon, connectorId}, key) => (
@@ -24,8 +26,8 @@ function AuthenticationModal({...props}) {
 								signingMessage: "Authenticate",
 							});
 							await enableWeb3({provider: connectorId});
-							window.localStorage.setItem("connectorId", connectorId);
-							props?.onClose();
+							setConnectorId(connectorId);
+							onClose && onClose();
 						} catch (e) {
 							console.error(e);
 						}
@@ -39,5 +41,3 @@ function AuthenticationModal({...props}) {
 		</Grid>
 	);
 }
-
-export default AuthenticationModal;
