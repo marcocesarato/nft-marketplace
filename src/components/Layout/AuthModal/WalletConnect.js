@@ -6,7 +6,7 @@ import useLocalStorage from "@hooks/useLocalStorage";
 
 export default function WalletConnect({onClose}) {
 	const {authenticate, enableWeb3} = useAccount();
-	const [connectorId, setConnectorId] = useLocalStorage("connectorId");
+	const [, setConnectorId] = useLocalStorage("connectorId");
 	return (
 		<Grid templateColumns={"1fr 1fr"} rowGap={5}>
 			{connectors.map(({title, icon, connectorId}, key) => (

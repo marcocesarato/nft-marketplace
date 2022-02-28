@@ -1,5 +1,4 @@
 import {useState} from "react";
-import {Heading} from "@chakra-ui/react";
 import {useMoralis} from "react-moralis";
 
 import Product from "@components/Product";

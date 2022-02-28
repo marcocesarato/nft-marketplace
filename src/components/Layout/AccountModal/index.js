@@ -25,7 +25,6 @@ import useBalance from "@hooks/useBalance";
 import useDebounce from "@hooks/useDebounce";
 
 import {useRouter} from "next/router";
-import NextLink from "next/link";
 
 import ActionButton from "./ActionButton";
 import LinkButton from "./LinkButton";
@@ -40,6 +39,11 @@ export default function AccountModal({isOpen, onClose}) {
 		logout();
 		onClose();
 		router.push("/");
+	}
+
+	function handleViewTransactions() {
+		onClose();
+		router.push("/transactions");
 	}
 
 	function handleChangeUsername(event) {
@@ -74,17 +78,16 @@ export default function AccountModal({isOpen, onClose}) {
 						p={5}>
 						<Flex alignItems="center" mb={4} lineHeight={1}>
 							<Avatar />
-							<Text
-								color="white"
-								fontSize="2xl"
-								fontWeight="semibold"
-								ml="4"
-								lineHeight="1.1">
-								<Editable defaultValue={username}>
-									<EditablePreview />
-									<EditableInput onChange={changeUsername} />
-								</Editable>
-							</Text>
+							<Editable defaultValue={username}>
+								<EditablePreview
+									color="white"
+									fontSize="2xl"
+									fontWeight="semibold"
+									ml="4"
+									lineHeight="1.1"
+								/>
+								<EditableInput onChange={changeUsername} />
+							</Editable>
 						</Flex>
 						<Flex alignItems="center" mb={4} lineHeight={1}>
 							<Text color="gray.400" fontSize="sm" textAlign="right" lineHeight="1.1">
@@ -108,9 +111,9 @@ export default function AccountModal({isOpen, onClose}) {
 							</LinkButton>
 						</Flex>
 						<Flex alignItems="center" mt={6}>
-							<NextLink href={"/transactions"} passHref>
-								<ActionButton onClick={onClose}>View transactions</ActionButton>
-							</NextLink>
+							<ActionButton onClick={handleViewTransactions}>
+								View transactions
+							</ActionButton>
 						</Flex>
 					</Box>
 				</ModalBody>
