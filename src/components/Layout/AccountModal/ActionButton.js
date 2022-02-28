@@ -7,7 +7,7 @@ export default function ActionButton(props) {
 			size="sm"
 			fontSize="13px"
 			fontWeight="normal"
-			ml="auto"
+			ml={2}
 			px={4}
 			height="26px"
 			bg="gray.700"

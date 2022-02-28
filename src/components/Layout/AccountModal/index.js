@@ -46,6 +46,11 @@ export default function AccountModal({isOpen, onClose}) {
 		router.push("/transactions");
 	}
 
+	function handleBuyCrypto() {
+		onClose();
+		router.push("/crypto");
+	}
+
 	function handleChangeUsername(event) {
 		setUserData({username: event.target.value});
 	}
@@ -78,14 +83,14 @@ export default function AccountModal({isOpen, onClose}) {
 						p={5}>
 						<Flex alignItems="center" mb={4} lineHeight={1}>
 							<Avatar />
-							<Editable defaultValue={username}>
-								<EditablePreview
-									color="white"
-									fontSize="2xl"
-									fontWeight="semibold"
-									ml="4"
-									lineHeight="1.1"
-								/>
+							<Editable
+								color="white"
+								fontSize="2xl"
+								fontWeight="semibold"
+								ml="4"
+								lineHeight="1.1"
+								defaultValue={username}>
+								<EditablePreview />
 								<EditableInput onChange={changeUsername} />
 							</Editable>
 						</Flex>
@@ -110,7 +115,8 @@ export default function AccountModal({isOpen, onClose}) {
 								View on Explorer
 							</LinkButton>
 						</Flex>
-						<Flex alignItems="center" mt={6}>
+						<Flex justifyContent={"flex-end"} mt={6}>
+							<ActionButton onClick={handleBuyCrypto}>Buy crypto</ActionButton>
 							<ActionButton onClick={handleViewTransactions}>
 								View transactions
 							</ActionButton>

@@ -68,7 +68,7 @@ export default function useNFTMetadata() {
 					//Set
 					setMetadata(NFT, metadata);
 					//Log
-					console.verbose("withMetadata() Late-load for NFT Metadata " + NFT.token_uri, {
+					console.debug("withMetadata() Late-load for NFT Metadata " + NFT.token_uri, {
 						metadata,
 					});
 				} //Valid Result
