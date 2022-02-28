@@ -1,4 +1,4 @@
-import {useMoralis, useNativeTransactions} from "react-moralis";
+import {useMoralis, useERC20Transfers} from "react-moralis";
 import {Button, Box} from "@chakra-ui/react";
 
 import Table from "@components/Table";
@@ -9,8 +9,8 @@ import {formatAddress} from "@utils/formatters";
 import {getExplorer} from "@utils/networks";
 
 export default function NativeTransactions() {
-	const {data, chainId, isLoading} = useNativeTransactions();
-	const {Moralis} = useMoralis();
+	const {data, isLoading} = useERC20Transfers();
+	const {Moralis, chainId} = useMoralis();
 	const columns = [
 		{
 			title: "From",
@@ -30,7 +30,7 @@ export default function NativeTransactions() {
 			key: "value",
 			render: (value) =>
 				// missing second argument in FromWei, decimals
-				parseFloat(Moralis.Units.FromWei(value)).toFixed(6),
+				parseFloat(Moralis.Units.FromWei(value)),
 		},
 		{
 			title: "Timestamp",
@@ -40,8 +40,8 @@ export default function NativeTransactions() {
 		},
 		{
 			title: "",
-			dataIndex: "hash",
-			key: "hash",
+			dataIndex: "transaction_hash",
+			key: "transaction_hash",
 			render: (hash) => (
 				<Box textAlign="right">
 					<a href={`${getExplorer(chainId)}/tx/${hash}`} target="_blank" rel="noreferrer">
