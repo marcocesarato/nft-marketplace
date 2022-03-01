@@ -1,59 +1,19 @@
-import Coin98 from "@assets/walletIcons/Coin98.svg";
-import MathWallet from "@assets/walletIcons/MathWallet.svg";
-import Metamask from "@assets/walletIcons/MetaMask.svg";
-import Others from "@assets/walletIcons/Others.svg";
-import SafePal from "@assets/walletIcons/SafePal.svg";
-import TokenPocket from "@assets/walletIcons/TokenPocket.svg";
-import TrustWallet from "@assets/walletIcons/TrustWallet.svg";
-import WalletConnect from "@assets/walletIcons/WalletConnect.svg";
+import Metamask from "@assets/svg/wallets/MetaMask.svg";
+import WalletConnect from "@assets/svg/wallets/WalletConnect.svg";
 
 export const connectors = [
 	{
 		title: "Metamask",
+		subititle: "Connect to your Metamask wallet",
 		icon: Metamask,
 		connectorId: "injected",
 		priority: 1,
 	},
 	{
 		title: "WalletConnect",
+		subititle: "Scan with WalletConnect to connect",
 		icon: WalletConnect,
 		connectorId: "walletconnect",
 		priority: 2,
-	},
-	{
-		title: "Trust Wallet",
-		icon: TrustWallet,
-		connectorId: "injected",
-		priority: 3,
-	},
-	{
-		title: "MathWallet",
-		icon: MathWallet,
-		connectorId: "injected",
-		priority: 999,
-	},
-	{
-		title: "TokenPocket",
-		icon: TokenPocket,
-		connectorId: "injected",
-		priority: 999,
-	},
-	{
-		title: "SafePal",
-		icon: SafePal,
-		connectorId: "injected",
-		priority: 999,
-	},
-	{
-		title: "Coin98",
-		icon: Coin98,
-		connectorId: "injected",
-		priority: 999,
-	},
-	{
-		title: "Others",
-		icon: Others,
-		connectorId: "injected",
-		priority: 999,
 	},
 ];
