@@ -26,7 +26,10 @@ export default function ConnectButton({openAccountModal}) {
 			{isAuthenticated ? (
 				<Flex alignItems="center" borderRadius="xl" py="0">
 					<Box px="3">
-						<Text fontSize="md" display={{base: "none", md: "block"}}>
+						<Text
+							fontSize="md"
+							fontWeight="medium"
+							display={{base: "none", md: "block"}}>
 							{balance?.formatted}
 						</Text>
 					</Box>
@@ -36,7 +39,7 @@ export default function ConnectButton({openAccountModal}) {
 				<>
 					<Button
 						onClick={onOpen}
-						fontSize="lg"
+						fontSize="md"
 						fontWeight="medium"
 						borderRadius="xl"
 						border="1px solid transparent">

@@ -1,9 +1,9 @@
-import {ChakraProvider} from "@chakra-ui/react";
-import {QueryClient, QueryClientProvider} from "react-query";
 import {MoralisProvider} from "react-moralis";
+import {QueryClient, QueryClientProvider} from "react-query";
+import {ChakraProvider} from "@chakra-ui/react";
 
-import {GlobalProvider} from "@contexts/Global";
 import {moralisAppId, moralisServerUrl} from "@configs/moralis";
+import {GlobalProvider} from "@contexts/Global";
 
 const queryClient = new QueryClient({
 	defaultOptions: {

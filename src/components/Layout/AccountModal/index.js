@@ -94,7 +94,7 @@ export default function AccountModal({isOpen, onClose}) {
 						</Flex>
 						<Flex alignItems="center" mb={4} lineHeight={1}>
 							<Text color="gray.400" fontSize="sm" textAlign="right" lineHeight="1.1">
-								{account && formatAddress(account, 30)}
+								{account && formatAddress(account, 15)}
 							</Text>
 							<Text color="gray.400" ml="auto" fontSize="sm">
 								{balance?.formatted}

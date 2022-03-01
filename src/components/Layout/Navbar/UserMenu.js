@@ -27,7 +27,7 @@ export default function UserMenu({openAccountModal}) {
 			<MenuButton as={Button} borderRadius="xl" m="1px" px={3} height="38px">
 				<Flex alignItems="center" justifyContent="center">
 					<Avatar />
-					<Text fontSize="md" fontWeight="medium" mx="2">
+					<Text fontSize="md" fontWeight="500" mx="2">
 						{username}
 					</Text>
 				</Flex>

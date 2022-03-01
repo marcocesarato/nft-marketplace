@@ -12,6 +12,7 @@ export default function ActionButton(props) {
 			height="26px"
 			bg="gray.700"
 			color="gray.400"
+			cursor="pointer"
 			_hover={{
 				background: "blue.900",
 				color: "blue.300",
