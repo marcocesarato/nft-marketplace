@@ -1,8 +1,9 @@
-import {ethers} from "ethers";
 import {useQuery} from "react-query";
 import axios from "axios";
-import {NFTContract, MarketContract, NFTAddress, MarketAddress} from "@configs/contracts";
+import {ethers} from "ethers";
+
 import {ChainUrl} from "@configs/chain";
+import {MarketAddress, MarketContract, NFTAddress, NFTContract} from "@configs/contracts";
 import {formatUnits} from "@utils/units";
 
 const useMarketItems = () => {

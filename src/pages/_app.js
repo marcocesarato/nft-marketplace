@@ -1,16 +1,14 @@
-import "focus-visible/dist/focus-visible";
 import {useEffect} from "react";
-
 import {useMoralis} from "react-moralis";
 
 import Providers from "@app/Providers";
 import Layout from "@components/Layout";
-
+import ErrorBoundary from "@errors/ErrorBoundary";
 import useAccount from "@hooks/useAccount";
 import useLocalStorage from "@hooks/useLocalStorage";
 import useWeb3 from "@hooks/useWeb3";
 
-import ErrorBoundary from "@errors/ErrorBoundary";
+import "focus-visible/dist/focus-visible";
 
 function Page({Component, pageProps}) {
 	const {Moralis, isInitialized} = useMoralis();

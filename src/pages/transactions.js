@@ -1,12 +1,10 @@
-import {Button, Box} from "@chakra-ui/react";
+import {Box, Button} from "@chakra-ui/react";
 
-import Table from "@components/Table";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
-
+import Table from "@components/Table";
 import useAccount from "@hooks/useAccount";
 import useTransfers from "@hooks/useTransfers";
-
 import {formatAddress} from "@utils/formatters";
 import {getExplorer} from "@utils/networks";
 import {formatUnits} from "@utils/units";

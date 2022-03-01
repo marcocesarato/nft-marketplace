@@ -1,9 +1,10 @@
-import {Text, Grid, GridItem} from "@chakra-ui/react";
+import {Grid, GridItem, Text} from "@chakra-ui/react";
 import Image from "next/image";
+
 import {connectors} from "@configs/connectors";
 import useAccount from "@hooks/useAccount";
-import useWeb3 from "@hooks/useWeb3";
 import useLocalStorage from "@hooks/useLocalStorage";
+import useWeb3 from "@hooks/useWeb3";
 
 export default function WalletConnect({onClose}) {
 	const {authenticate} = useAccount();

@@ -1,6 +1,7 @@
 import {useEffect, useRef} from "react";
-import Jazzicon from "@metamask/jazzicon";
 import styled from "@emotion/styled";
+import Jazzicon from "@metamask/jazzicon";
+
 import useAccount from "@hooks/useAccount";
 
 const StyledIdenticon = styled.div`

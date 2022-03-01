@@ -1,7 +1,7 @@
 import {useCallback} from "react";
 import {useDropzone} from "react-dropzone";
-import {Center, useColorModeValue, Icon, Heading, Text} from "@chakra-ui/react";
 import {AiOutlineCloudUpload} from "react-icons/ai";
+import {Center, Heading, Icon, Text, useColorModeValue} from "@chakra-ui/react";
 
 import {acceptExts} from "@configs/uploads";
 

@@ -1,11 +1,12 @@
 import {useEffect} from "react";
-import {Button, Box, Flex, Text, useDisclosure} from "@chakra-ui/react";
+import {Box, Button, Flex, Text, useDisclosure} from "@chakra-ui/react";
+
 import useAccount from "@hooks/useAccount";
 import useBalance from "@hooks/useBalance";
 import useWeb3 from "@hooks/useWeb3";
 
-import UserMenu from "./UserMenu";
 import AuthModal from "../AuthModal";
+import UserMenu from "./UserMenu";
 
 export default function ConnectButton({openAccountModal}) {
 	const {isAuthenticated} = useAccount();

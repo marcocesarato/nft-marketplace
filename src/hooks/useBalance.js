@@ -1,6 +1,7 @@
-import {useConfig} from "@contexts/Global";
 import {useEffect} from "react";
 import {useNativeBalance} from "react-moralis";
+
+import {useConfig} from "@contexts/Global";
 
 export default function useBalance() {
 	const {addConfig} = useConfig();

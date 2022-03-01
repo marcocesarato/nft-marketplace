@@ -1,5 +1,6 @@
-import {useQuery} from "react-query";
 import {useNFTBalances} from "react-moralis";
+import {useQuery} from "react-query";
+
 import {isString} from "@utils/objects";
 
 import useIPFS from "./useIPFS";

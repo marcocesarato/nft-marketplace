@@ -1,8 +1,8 @@
-import {ethers} from "ethers";
 import {useQuery} from "react-query";
 import axios from "axios";
+import {ethers} from "ethers";
 
-import {NFTContract, MarketContract, NFTAddress, MarketAddress} from "@configs/contracts";
+import {MarketAddress, MarketContract, NFTAddress, NFTContract} from "@configs/contracts";
 import {formatUnits} from "@utils/units";
 
 import useWeb3 from "./useWeb3";

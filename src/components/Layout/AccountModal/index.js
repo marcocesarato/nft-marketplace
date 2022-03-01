@@ -1,34 +1,32 @@
+import {CopyIcon, ExternalLinkIcon} from "@chakra-ui/icons";
 import {
 	Box,
-	Flex,
-	Modal,
-	ModalOverlay,
-	ModalContent,
-	ModalHeader,
-	ModalBody,
-	ModalFooter,
-	ModalCloseButton,
-	Text,
 	Editable,
 	EditableInput,
 	EditablePreview,
+	Flex,
+	Modal,
+	ModalBody,
+	ModalCloseButton,
+	ModalContent,
+	ModalFooter,
+	ModalHeader,
+	ModalOverlay,
+	Text,
 } from "@chakra-ui/react";
-import {ExternalLinkIcon, CopyIcon} from "@chakra-ui/icons";
-import Avatar from "@components/Avatar";
+import {useRouter} from "next/router";
+
 import {formatAddress} from "@app/utils/formatters";
-import {getExplorer} from "@utils/networks";
-
+import Avatar from "@components/Avatar";
 import ErrorAlert from "@errors/ErrorAlert";
-
 import useAccount from "@hooks/useAccount";
 import useBalance from "@hooks/useBalance";
 import useDebounce from "@hooks/useDebounce";
-
-import {useRouter} from "next/router";
+import {getExplorer} from "@utils/networks";
 
 import ActionButton from "./ActionButton";
-import LinkButton from "./LinkButton";
 import DisconnectButton from "./DisconnectButton";
+import LinkButton from "./LinkButton";
 
 export default function AccountModal({isOpen, onClose}) {
 	const {account, username, logout, chainId, setUserData, userError} = useAccount();

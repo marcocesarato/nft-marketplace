@@ -1,21 +1,21 @@
+import {CloseIcon, HamburgerIcon} from "@chakra-ui/icons";
 import {
 	Box,
 	Flex,
 	HStack,
 	IconButton,
-	useDisclosure,
-	useColorModeValue,
 	Stack,
 	Text,
+	useColorModeValue,
+	useDisclosure,
 } from "@chakra-ui/react";
-import {HamburgerIcon, CloseIcon} from "@chakra-ui/icons";
 
 import useAccount from "@hooks/useAccount";
 
-import NavLink from "./NavLink";
 import AccountModal from "../AccountModal";
-import ConnectButton from "./ConnectButton";
 import {ColorModeSwitcher} from "./ColorModeSwitcher";
+import ConnectButton from "./ConnectButton";
+import NavLink from "./NavLink";
 
 export default function Navbar() {
 	const {isAuthenticated} = useAccount();

@@ -1,11 +1,11 @@
-import Metamask from "@assets/walletIcons/MetaMask.svg";
 import Coin98 from "@assets/walletIcons/Coin98.svg";
-import WalletConnect from "@assets/walletIcons/WalletConnect.svg";
 import MathWallet from "@assets/walletIcons/MathWallet.svg";
-import TokenPocket from "@assets/walletIcons/TokenPocket.svg";
-import SafePal from "@assets/walletIcons/SafePal.svg";
-import TrustWallet from "@assets/walletIcons/TrustWallet.svg";
+import Metamask from "@assets/walletIcons/MetaMask.svg";
 import Others from "@assets/walletIcons/Others.svg";
+import SafePal from "@assets/walletIcons/SafePal.svg";
+import TokenPocket from "@assets/walletIcons/TokenPocket.svg";
+import TrustWallet from "@assets/walletIcons/TrustWallet.svg";
+import WalletConnect from "@assets/walletIcons/WalletConnect.svg";
 
 export const connectors = [
 	{

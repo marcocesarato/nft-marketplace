@@ -1,11 +1,10 @@
 import {Box} from "@chakra-ui/react";
 
-import Product from "@components/Product";
 import Catalog from "@components/Catalog";
 import Content from "@components/Content";
-import Loading from "@components/Loading";
 import Header from "@components/Header";
-
+import Loading from "@components/Loading";
+import Product from "@components/Product";
 import useMarketItemsCreated from "@hooks/useMarketItemsCreated";
 
 export default function CreatorDashboard() {

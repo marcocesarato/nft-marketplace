@@ -1,15 +1,13 @@
 import {ethers} from "ethers";
-import useMarketItems from "@hooks/useMarketItems";
 
-import Product from "@components/Product";
 import Catalog from "@components/Catalog";
 import Content from "@components/Content";
-import Loading from "@components/Loading";
 import Header from "@components/Header";
-
-import {MarketContract, NFTAddress, MarketAddress} from "@configs/contracts";
+import Loading from "@components/Loading";
+import Product from "@components/Product";
+import {MarketAddress,MarketContract, NFTAddress} from "@configs/contracts";
+import useMarketItems from "@hooks/useMarketItems";
 import useWeb3 from "@hooks/useWeb3";
-
 import {parseUnits} from "@utils/units";
 
 export default function Explore() {

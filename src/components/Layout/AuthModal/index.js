@@ -1,19 +1,20 @@
+import {useEffect} from "react";
 import {
 	Alert,
-	AlertIcon,
-	Box,
-	AlertTitle,
 	AlertDescription,
+	AlertIcon,
+	AlertTitle,
+	Box,
 	Modal,
-	ModalHeader,
 	ModalBody,
-	ModalContent,
 	ModalCloseButton,
+	ModalContent,
 	ModalFooter,
+	ModalHeader,
 	ModalOverlay,
 } from "@chakra-ui/react";
+
 import useAccount from "@hooks/useAccount";
-import {useEffect} from "react";
 
 import WalletConnect from "./WalletConnect";
 

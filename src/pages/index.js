@@ -1,4 +1,4 @@
-import {Box, Button, Heading, Stack, Text, LightMode, Img} from "@chakra-ui/react";
+import {Box, Button, Heading, Img, LightMode, Stack, Text} from "@chakra-ui/react";
 import Link from "next/link";
 
 export default function Home() {

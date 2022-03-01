@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useMoralis} from "react-moralis";
 import {Center} from "@chakra-ui/react";
 

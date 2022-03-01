@@ -1,16 +1,17 @@
 import {
 	Button,
+	Flex,
 	Menu,
 	MenuButton,
-	MenuList,
-	MenuItem,
 	MenuDivider,
-	Flex,
+	MenuItem,
+	MenuList,
 	Text,
 } from "@chakra-ui/react";
 import {useRouter} from "next/router";
-import useAccount from "@hooks/useAccount";
+
 import Avatar from "@components/Avatar";
+import useAccount from "@hooks/useAccount";
 
 export default function UserMenu({openAccountModal}) {
 	const {username, logout} = useAccount();

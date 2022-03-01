@@ -1,7 +1,7 @@
 import {useMoralis} from "react-moralis";
-import {formatAddress} from "@utils/formatters";
 
-import useWeb3 from "./useWeb3";
+import useWeb3 from "@hooks/useWeb3";
+import {formatAddress} from "@utils/formatters";
 
 export default function useAccount() {
 	const {web3} = useWeb3();

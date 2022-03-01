@@ -1,14 +1,15 @@
 import {
 	Box,
-	useBreakpointValue,
-	useColorModeValue,
-	Heading,
-	Text,
-	Stack,
-	Image,
 	Button,
 	Flex,
+	Heading,
+	Image,
+	Stack,
+	Text,
+	useBreakpointValue,
+	useColorModeValue,
 } from "@chakra-ui/react";
+
 import {useConfig} from "@contexts/Global";
 
 export default function Product({data, onBuy, rootProps}) {
