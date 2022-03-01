@@ -3,6 +3,7 @@ import {useQuery} from "react-query";
 import axios from "axios";
 import {NFTContract, MarketContract, NFTAddress, MarketAddress} from "@configs/contracts";
 import {ChainUrl} from "@configs/chain";
+import {formatUnits} from "@utils/units";
 
 const useMarketItems = () => {
 	return useQuery("marketItems", async () => {
@@ -19,7 +20,7 @@ const useMarketItems = () => {
 			data.map(async (i) => {
 				const tokenUri = await tokenContract.tokenURI(i.tokenId);
 				const meta = await axios.get(tokenUri);
-				let price = ethers.utils.formatUnits(i.price.toString(), "ether");
+				let price = formatUnits(i.price, "ether");
 				return {
 					price,
 					tokenId: i.tokenId.toNumber(),

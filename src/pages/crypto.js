@@ -7,12 +7,12 @@ export default function Crypto() {
 	const {Moralis} = useMoralis();
 	useEffect(() => {
 		if (!Moralis?.["Plugins"]?.["fiat"]) return null;
-		async function initPlugin() {
+		async function initRamperPlugin() {
 			Moralis.Plugins.fiat
 				.buy({}, {disableTriggers: true})
 				.then((data) => setRamper(data.data));
 		}
-		initPlugin();
+		initRamperPlugin();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [Moralis.Plugins]);
 

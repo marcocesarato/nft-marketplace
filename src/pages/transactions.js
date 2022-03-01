@@ -1,16 +1,19 @@
-import {useMoralis, useERC20Transfers} from "react-moralis";
 import {Button, Box} from "@chakra-ui/react";
 
 import Table from "@components/Table";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
 
+import useAccount from "@hooks/useAccount";
+import useTransfers from "@hooks/useTransfers";
+
 import {formatAddress} from "@utils/formatters";
 import {getExplorer} from "@utils/networks";
+import {formatUnits} from "@utils/units";
 
-export default function NativeTransactions() {
-	const {data, isLoading} = useERC20Transfers();
-	const {Moralis, chainId} = useMoralis();
+export default function Transactions() {
+	const {chainId} = useAccount();
+	const {data, isLoading} = useTransfers();
 	const columns = [
 		{
 			title: "From",
@@ -28,9 +31,7 @@ export default function NativeTransactions() {
 			title: "Value",
 			dataIndex: "value",
 			key: "value",
-			render: (value) =>
-				// missing second argument in FromWei, decimals
-				parseFloat(Moralis.Units.FromWei(value)),
+			render: (value) => formatUnits(value),
 		},
 		{
 			title: "Timestamp",

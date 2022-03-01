@@ -3,22 +3,24 @@ import {useQuery} from "react-query";
 import axios from "axios";
 
 import {NFTContract, MarketContract, NFTAddress, MarketAddress} from "@configs/contracts";
-import useAccount from "@hooks/useAccount";
+import {formatUnits} from "@utils/units";
+
+import useWeb3 from "./useWeb3";
 
 const useCreatedMarketItems = () => {
-	const {provider} = useAccount();
+	const {web3} = useWeb3();
 	return useQuery("marketItemsCreated", async () => {
-		if (!provider) return [];
-		const signer = provider.getSigner();
+		if (!web3) return [];
+		const signer = web3.getSigner();
 		const marketContract = new ethers.Contract(MarketAddress, MarketContract.abi, signer);
-		const tokenContract = new ethers.Contract(NFTAddress, NFTContract.abi, provider);
+		const tokenContract = new ethers.Contract(NFTAddress, NFTContract.abi, web3);
 		const data = await marketContract.fetchItemsCreated();
 
 		return await Promise.all(
 			data.map(async (i) => {
 				const tokenUri = await tokenContract.tokenURI(i.tokenId);
 				const meta = await axios.get(tokenUri);
-				let price = ethers.utils.formatUnits(i.price.toString(), "ether");
+				let price = formatUnits(i.price.toString(), "ether");
 				return {
 					price,
 					tokenId: i.tokenId.toNumber(),

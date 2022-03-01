@@ -2,10 +2,12 @@ import {Text, Grid, GridItem} from "@chakra-ui/react";
 import Image from "next/image";
 import {connectors} from "@configs/connectors";
 import useAccount from "@hooks/useAccount";
+import useWeb3 from "@hooks/useWeb3";
 import useLocalStorage from "@hooks/useLocalStorage";
 
 export default function WalletConnect({onClose}) {
-	const {authenticate, enableWeb3} = useAccount();
+	const {authenticate} = useAccount();
+	const {enableWeb3} = useWeb3();
 	const [, setConnectorId] = useLocalStorage("connectorId");
 	return (
 		<Grid templateColumns={"1fr 1fr"} rowGap={5}>

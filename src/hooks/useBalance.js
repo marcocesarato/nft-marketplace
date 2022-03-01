@@ -2,7 +2,7 @@ import {useConfig} from "@contexts/Global";
 import {useEffect} from "react";
 import {useNativeBalance} from "react-moralis";
 
-const useBalance = () => {
+export default function useBalance() {
 	const {addConfig} = useConfig();
 	const balance = useNativeBalance();
 
@@ -12,6 +12,4 @@ const useBalance = () => {
 	}, [balance?.nativeToken]);
 
 	return balance;
-};
-
-export default useBalance;
+}

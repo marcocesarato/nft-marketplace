@@ -1,7 +1,10 @@
 import {useMoralis} from "react-moralis";
 import {formatAddress} from "@utils/formatters";
 
+import useWeb3 from "./useWeb3";
+
 export default function useAccount() {
+	const {web3} = useWeb3();
 	const {
 		setUserData,
 		userError,
@@ -14,9 +17,7 @@ export default function useAccount() {
 		authError,
 		signup,
 		logout,
-		web3,
 		chainId,
-		enableWeb3,
 		user,
 	} = useMoralis();
 	const account = web3?.provider?.selectedAddress;
@@ -27,11 +28,9 @@ export default function useAccount() {
 	return {
 		isAuthenticating,
 		isAuthenticated: isAuthenticated && account && web3,
-		provider: web3,
 		account,
 		username: username,
 		user,
-		enableWeb3,
 		auth,
 		authenticate,
 		login,

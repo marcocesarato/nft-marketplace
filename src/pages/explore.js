@@ -8,17 +8,19 @@ import Loading from "@components/Loading";
 import Header from "@components/Header";
 
 import {MarketContract, NFTAddress, MarketAddress} from "@configs/contracts";
-import useAccount from "@hooks/useAccount";
+import useWeb3 from "@hooks/useWeb3";
+
+import {parseUnits} from "@utils/units";
 
 export default function Explore() {
-	const {provider} = useAccount();
+	const {web3} = useWeb3();
 	const {refetch, data, error, isError, isLoading, isSuccess} = useMarketItems();
 	async function purchaseItem(nft) {
-		const signer = provider.getSigner();
+		const signer = web3.getSigner();
 		const contract = new ethers.Contract(MarketAddress, MarketContract.abi, signer);
 
 		/* user will be prompted to pay the asking proces to complete the transaction */
-		const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
+		const price = parseUnits(nft.price, "ether");
 		const transaction = await contract.createMarketSale(NFTAddress, nft.tokenId, {
 			value: price,
 		});

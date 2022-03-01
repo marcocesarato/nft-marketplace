@@ -1,13 +1,21 @@
 import "focus-visible/dist/focus-visible";
 import {useEffect} from "react";
+
 import {useMoralis} from "react-moralis";
+
 import Providers from "@app/Providers";
 import Layout from "@components/Layout";
+
+import useAccount from "@hooks/useAccount";
 import useLocalStorage from "@hooks/useLocalStorage";
+import useWeb3 from "@hooks/useWeb3";
+
 import ErrorBoundary from "@errors/ErrorBoundary";
 
 function Page({Component, pageProps}) {
-	const {isWeb3Enabled, enableWeb3, isAuthenticated, isWeb3EnableLoading} = useMoralis();
+	const {Moralis, isInitialized} = useMoralis();
+	const {isAuthenticated} = useAccount();
+	const {enableWeb3, isWeb3Enabled, isWeb3EnableLoading} = useWeb3();
 	const [connectorId] = useLocalStorage("connectorId");
 
 	useEffect(() => {
@@ -15,6 +23,10 @@ function Page({Component, pageProps}) {
 			enableWeb3({provider: connectorId});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isAuthenticated, isWeb3Enabled, connectorId]);
+
+	useEffect(() => {
+		if (isInitialized) Moralis.initPlugins();
+	}, [isInitialized, Moralis]);
 
 	return <Component {...pageProps} />;
 }

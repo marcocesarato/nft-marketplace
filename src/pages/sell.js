@@ -3,20 +3,23 @@ import {ethers} from "ethers";
 import {useRouter} from "next/router";
 import {Image, FormControl, FormLabel, Input, Button, Stack} from "@chakra-ui/react";
 
-import useAccount from "@hooks/useAccount";
+import {NFTContract, MarketContract, NFTAddress, MarketAddress} from "@configs/contracts";
+
+import useWeb3 from "@hooks/useWeb3";
 import useBalance from "@hooks/useBalance";
 import useIPFS from "@hooks/useIPFS";
 
 import Content from "@components/Content";
 import Loader from "@components/Loader";
 import Header from "@components/Header";
-import {NFTContract, MarketContract, NFTAddress, MarketAddress} from "@configs/contracts";
 import Dropzone from "@components/Dropzone";
+
+import {parseUnits} from "@utils/units";
 
 export default function CreateItem() {
 	const {nativeToken} = useBalance();
 	const {saveIPFS} = useIPFS();
-	const {provider} = useAccount();
+	const {web3} = useWeb3();
 	const [fileUrl, setFileUrl] = useState(null);
 	const [formInput, updateFormInput] = useState({price: "", name: "", description: ""});
 	const [isProcessing, setProcessing] = useState(false);
@@ -32,7 +35,7 @@ export default function CreateItem() {
 	}
 
 	async function createSale(url) {
-		const signer = provider.getSigner();
+		const signer = web3.getSigner();
 
 		let contract = new ethers.Contract(NFTAddress, NFTContract.abi, signer);
 		let transaction = await contract.createToken(url);
@@ -43,7 +46,7 @@ export default function CreateItem() {
 
 		contract = new ethers.Contract(MarketAddress, MarketContract.abi, signer);
 
-		const price = ethers.utils.parseUnits(formInput.price, "ether");
+		const price = parseUnits(formInput.price, "ether");
 		transaction = await contract.createMarketItem(NFTAddress, tokenId, price);
 
 		await transaction.wait();
