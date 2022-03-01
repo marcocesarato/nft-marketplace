@@ -28,7 +28,7 @@ export default function useAccount() {
 	return {
 		isAuthenticating,
 		isLogged: isAuthenticated,
-		isAuthenticated: isAuthenticated && account && web3,
+		isAuthenticated: isAuthenticated && account && web3, // When web3 is authenticated
 		account,
 		username: username,
 		user,
