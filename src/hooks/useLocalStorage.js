@@ -4,8 +4,8 @@ function getStorageValue(key, defaultValue) {
 	// Getting stored value
 	try {
 		if (typeof window !== "undefined") {
-			const saved = localStorage.getItem(key);
-			const initial = saved !== null ? JSON.parse(saved) : defaultValue;
+			const saved = window.localStorage.getItem(key);
+			const initial = saved != null ? JSON.parse(saved) : defaultValue;
 			return initial;
 		}
 	} catch (e) {
@@ -21,7 +21,7 @@ export default function useLocalStorage(key, defaultValue) {
 
 	useEffect(() => {
 		// Storing input name
-		localStorage.setItem(key, JSON.stringify(value));
+		window.localStorage.setItem(key, JSON.stringify(value || null));
 	}, [key, value]);
 
 	return [value, setValue];

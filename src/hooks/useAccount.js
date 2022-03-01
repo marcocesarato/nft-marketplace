@@ -4,7 +4,6 @@ import useWeb3 from "@hooks/useWeb3";
 import {formatAddress} from "@utils/formatters";
 
 export default function useAccount() {
-	const {web3} = useWeb3();
 	const {
 		setUserData,
 		userError,
@@ -20,6 +19,7 @@ export default function useAccount() {
 		chainId,
 		user,
 	} = useMoralis();
+	const {web3} = useWeb3();
 	const account = web3?.provider?.selectedAddress;
 
 	let username = user?.get("username") || account;
@@ -27,6 +27,7 @@ export default function useAccount() {
 
 	return {
 		isAuthenticating,
+		isLogged: isAuthenticated,
 		isAuthenticated: isAuthenticated && account && web3,
 		account,
 		username: username,

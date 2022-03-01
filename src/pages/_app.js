@@ -12,15 +12,14 @@ import "focus-visible/dist/focus-visible";
 
 function Page({Component, pageProps}) {
 	const {Moralis, isInitialized} = useMoralis();
-	const {isAuthenticated} = useAccount();
+	const {isLogged} = useAccount();
 	const {enableWeb3, isWeb3Enabled, isWeb3EnableLoading} = useWeb3();
 	const [connectorId] = useLocalStorage("connectorId");
 
 	useEffect(() => {
-		if (isAuthenticated && !isWeb3Enabled && !isWeb3EnableLoading)
-			enableWeb3({provider: connectorId});
+		if (isLogged && !isWeb3Enabled && !isWeb3EnableLoading) enableWeb3({provider: connectorId});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isAuthenticated, isWeb3Enabled, connectorId]);
+	}, [isLogged, isWeb3Enabled, connectorId]);
 
 	useEffect(() => {
 		if (isInitialized) Moralis.initPlugins();

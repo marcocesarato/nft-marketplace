@@ -1,9 +1,9 @@
 const initialState = {
 	config: {
 		nativeToken: {
-			name: "",
-			symbol: "",
-			decimals: 0,
+			name: "MATIC",
+			symbol: "MATIC",
+			decimals: 5,
 		},
 	},
 };
