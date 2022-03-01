@@ -1,18 +1,50 @@
 {
 	"extends": ["react-app", "plugin:@next/next/recommended", "prettier"],
+	"plugins": ["simple-import-sort", "import"],
 	"env": {
 		"node": true,
 		"browser": true,
 		"jest": true
+	},
+	"parserOptions": {
+		"sourceType": "module"
 	},
 	"rules": {
 		"jsx-a11y/anchor-is-valid": "warn"
 	},
 	"overrides": [
 		{
-			"files": ["src/app/*"],
+			"files": ["./src/*.js", "./src/*.jsx"],
 			"rules": {
-				"import/no-default-export": "error"
+				"simple-import-sort/exports": "warn",
+				"import/first": "warn",
+				"import/newline-after-import": "warn",
+				"import/no-duplicates": "warn",
+				"simple-import-sort/imports": [
+					"warn",
+					{
+						"groups": [
+							// Packages `react` related packages come first.
+							["^react", "^next\\", "^@?\\w"],
+							// Internal packages.
+							[
+								"^@(app|pages|artifacts|configs|contexts|components|errors|hooks|utils|assets)(/.*|$)"
+							],
+							// Side effect imports.
+							["^\\u0000"],
+							// Parent imports. Put `..` last.
+							[
+								"^\\.\\.(?!/?$)",
+								"^\\.\\./?$",
+								"^\\./(?=.*/)(?!/?$)",
+								"^\\.(?!/?$)",
+								"^\\./?$"
+							],
+							// Style or data imports.
+							["^.+\\.?(css|json)$"]
+						]
+					}
+				]
 			}
 		},
 		{

@@ -4,6 +4,7 @@
 		"paths": {
 			"@/*": ["/*"],
 			"@app/*": ["src/*"],
+			"@pages/*": ["src/*"],
 			"@assets/*": ["assets/*"],
 			"@artifacts/*": ["artifacts/*"],
 			"@configs/*": ["src/configs/*"],
