@@ -4,6 +4,9 @@ const Dotenv = require("dotenv-webpack");
 
 module.exports = {
 	reactStrictMode: true,
+	experimental: {
+		outputStandalone: true,
+	},
 	webpack: (config) => {
 		config.resolve.alias = {
 			...config.resolve.alias,
