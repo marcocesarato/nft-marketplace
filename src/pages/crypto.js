@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useMoralis} from "react-moralis";
-import {Center} from "@chakra-ui/react";
+import {Center, Box} from "@chakra-ui/react";
 
 export default function Crypto() {
 	const [ramper, setRamper] = useState();
@@ -18,19 +18,17 @@ export default function Crypto() {
 
 	return (
 		<Center flex="1" p="8">
-			<iframe
+			<Box
+				as="iframe"
 				src={ramper}
 				title="ramper"
 				frameBorder="no"
 				allow="accelerometer; autoplay; camera; gyroscope; payment;"
-				style={{
-					width: "420px",
-					height: "625px",
-					boxShadow: "0 0.5rem 1.2rem rgb(189 197 209 / 20%)",
-					border: "1px solid #e7eaf3",
-					borderRadius: "1rem",
-					backgroundColor: "white",
-				}}
+				w="420px"
+				h="625px"
+				boxShadow="lg"
+				borderRadius="xl"
+				bg="gray.100"
 			/>
 		</Center>
 	);
