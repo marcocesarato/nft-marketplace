@@ -7,6 +7,7 @@ module.exports = {
 	experimental: {
 		outputStandalone: true,
 	},
+	poweredByHeader: false,
 	webpack: (config) => {
 		config.resolve.alias = {
 			...config.resolve.alias,

@@ -6,8 +6,8 @@ import Header from "@components/Header";
 import Loading from "@components/Loading";
 import Product from "@components/Product";
 import {MarketAddress, MarketContract, NFTAddress} from "@configs/contracts";
-import useMarketItems from "@hooks/useMarketItems";
 import useAccount from "@hooks/useAccount";
+import useMarketItems from "@hooks/useMarketItems";
 import useWeb3 from "@hooks/useWeb3";
 import {parseUnits} from "@utils/units";
 

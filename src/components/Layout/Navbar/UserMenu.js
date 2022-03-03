@@ -1,3 +1,4 @@
+import {useRouter} from "next/router";
 import {
 	Button,
 	Flex,
@@ -8,7 +9,6 @@ import {
 	MenuList,
 	Text,
 } from "@chakra-ui/react";
-import {useRouter} from "next/router";
 
 import Avatar from "@components/Avatar";
 import useAccount from "@hooks/useAccount";

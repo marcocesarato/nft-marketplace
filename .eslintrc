@@ -1,6 +1,11 @@
 {
-	"extends": ["react-app", "plugin:@next/next/recommended", "prettier"],
-	"plugins": ["simple-import-sort", "import"],
+	"extends": [
+		"react-app",
+		"plugin:@next/next/recommended",
+		"prettier",
+		"plugin:prettier/recommended"
+	],
+	"plugins": ["simple-import-sort", "import", "prettier"],
 	"env": {
 		"node": true,
 		"browser": true,
@@ -10,11 +15,12 @@
 		"sourceType": "module"
 	},
 	"rules": {
+		"prettier/prettier": "error",
 		"jsx-a11y/anchor-is-valid": "warn"
 	},
 	"overrides": [
 		{
-			"files": ["./src/*.js", "./src/*.jsx"],
+			"files": ["./src/*.js", "./src/*.jsx", "./src/**/*.js", "./src/**/*.jsx"],
 			"rules": {
 				"simple-import-sort/exports": "warn",
 				"import/first": "warn",
@@ -28,7 +34,7 @@
 							["^react", "^next/", "^@?\\w"],
 							// Internal packages.
 							[
-								"^@(app|pages|artifacts|configs|contexts|components|errors|hooks|utils|assets)(/.*|$)"
+								"^@(app|pages|artifacts|configs|contexts|components|errors|hooks|utils|models|assets)(/.*|$)"
 							],
 							// Side effect imports.
 							["^\\u0000"],

@@ -1,3 +1,4 @@
+import {useRouter} from "next/router";
 import {CopyIcon, ExternalLinkIcon} from "@chakra-ui/icons";
 import {
 	Box,
@@ -14,7 +15,6 @@ import {
 	ModalOverlay,
 	Text,
 } from "@chakra-ui/react";
-import {useRouter} from "next/router";
 
 import {formatAddress} from "@app/utils/formatters";
 import Avatar from "@components/Avatar";

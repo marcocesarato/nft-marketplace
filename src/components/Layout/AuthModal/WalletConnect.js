@@ -1,5 +1,5 @@
-import {Grid, GridItem, Text} from "@chakra-ui/react";
 import Image from "next/image";
+import {Grid, GridItem, Text} from "@chakra-ui/react";
 
 import {connectors} from "@configs/connectors";
 import useAccount from "@hooks/useAccount";

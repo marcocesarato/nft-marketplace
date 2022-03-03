@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useMoralis} from "react-moralis";
-import {Center, Box} from "@chakra-ui/react";
+import {Box, Center} from "@chakra-ui/react";
 
 export default function Crypto() {
 	const [ramper, setRamper] = useState();

@@ -1,7 +1,7 @@
 import {useState} from "react";
+import {useRouter} from "next/router";
 import {Button, FormControl, FormLabel, Image, Input, Stack} from "@chakra-ui/react";
 import {ethers} from "ethers";
-import {useRouter} from "next/router";
 
 import Content from "@components/Content";
 import Dropzone from "@components/Dropzone";
