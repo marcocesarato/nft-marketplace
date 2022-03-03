@@ -9,5 +9,6 @@
 	"eslint.validate": ["javascript", "typescript"],
 	"[solidity]": {
 		"editor.defaultFormatter": "JuanBlanco.solidity"
-	}
+	},
+	"prettier.eslintIntegration": true
 }
