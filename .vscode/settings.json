@@ -1,14 +1,46 @@
 {
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"search.exclude": {
+		"**/.husky": true,
+		"**/.next": true,
+		"**/artifacts": true,
+		"**/cache": true,
+		"**/out": true,
+		"**/node_modules": true
+	},
+	"files.exclude": {
+		"**/.git": true,
+		"**/.DS_Store": true,
+		"**/.husky": true,
+		"**/.next": true,
+		"**/artifacts": true,
+		"**/cache": true,
+		"**/out": true,
+		"**/node_modules": true,
+		"**/*.js.map": true
+	},
+	"files.watcherExclude": {
+		"**/.git/objects/**": true,
+		"**/.git/subtree-cache/**": true,
+		"**/node_modules/*/**": true
+	},
+	"files.encoding": "utf8",
+	"editor.tabSize": 4,
 	"editor.formatOnPaste": true,
 	"editor.formatOnSave": true,
-	"eslint.format.enable": true,
+	"editor.insertSpaces": true,
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": true
 	},
+	"eslint.format.enable": true,
 	"eslint.validate": ["javascript", "typescript"],
 	"[solidity]": {
 		"editor.defaultFormatter": "JuanBlanco.solidity"
 	},
-	"prettier.eslintIntegration": true
+	"prettier.eslintIntegration": true,
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	}
 }
