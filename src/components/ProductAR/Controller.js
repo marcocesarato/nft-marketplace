@@ -1,134 +1,239 @@
-import * as THREE from "three";
-import {Matrix4, Vector3} from "three";
-import {ARButton} from "three/examples/jsm/webxr/ARButton";
+import {
+	AmbientLight,
+	AmbientLightProbe,
+	//AxesHelper,
+	//CameraHelper,
+	DirectionalLight,
+	Matrix4,
+	Mesh,
+	PCFSoftShadowMap,
+	PerspectiveCamera,
+	PlaneBufferGeometry,
+	Scene,
+	ShadowMaterial,
+	Vector2,
+	Vector3,
+	WebGLRenderer,
+} from "three";
 
-import Picture from "./elements/Picture";
+import AugmentedMaterial from "./material/AugmentedMaterial";
+import Cursor from "./object/Cursor";
+import Picture from "./object/Picture";
+import DepthDataTexture from "./texture/DepthDataTexture";
+import XRManager from "./XRManager";
 
-/**
- * Creates a THREE.Scene containing lights that case shadows,
- * and a mesh that will receive shadows.
- *
- * @return {THREE.Scene}
- */
-function createScene() {
-	const scene = new THREE.Scene();
+export default class Controller {
+	isArRunning = false;
 
-	// The materials will render as a black mesh
-	// without lights in our scenes. Let's add an ambient light
-	// so our material can be visible, as well as a directional light
-	// for the shadow.
-	const light = new THREE.AmbientLight(0xffffff, 1);
-	const directionalLight = new THREE.DirectionalLight(0xffeecc, 0.5);
-	directionalLight.position.set(10, 15, 10);
+	container = null;
 
-	// We want this light to cast shadow.
-	directionalLight.castShadow = true;
+	picture = null;
+	pictureMaxWidth = 100;
+	pictureMaxHeight = 100;
 
-	/*const helper = new THREE.CameraHelper(directionalLight.shadow.camera);
-	scene.add(helper);*/
+	scene = new Scene();
+	pose = null;
+	shadowMaterial = null;
+	ambientLight = null;
+	floorMesh = null;
 
-	// Make a large plane to receive our shadows
-	const planeGeometry = new THREE.PlaneGeometry(2000, 2000);
-	// Rotate our plane to be parallel to the floor
-	planeGeometry.rotateX(-Math.PI / 2);
+	canvas = null;
+	glContext = null;
+	xrGlBinding = null;
+	renderer = null;
 
-	// Create a mesh with a shadow material, resulting in a mesh
-	// that only renders shadows once we flip the `receiveShadow` property.
-	const shadowMesh = new THREE.Mesh(
-		planeGeometry,
-		new THREE.ShadowMaterial({
-			color: 0x111111,
-			opacity: 0.2,
-		}),
-	);
+	firstReticleFound = false;
+	firstReticleCallback = null;
 
-	// Give it a name so we can reference it later, and set `receiveShadow`
-	// to true so that it can render our model's shadow.
-	shadowMesh.name = "shadowMesh";
-	shadowMesh.receiveShadow = true;
-	shadowMesh.position.y = 10000;
+	XROnOffCallback = null;
 
-	// Add lights and shadow material to scene.
-	scene.add(shadowMesh);
-	scene.add(light);
-	scene.add(directionalLight);
+	hitTestSource = null;
+	hitTestSourceRequested = false;
 
-	return scene;
-}
+	lightProbe = null;
+	xrLightProbe = null;
 
-export default function Controller(element) {
-	let controller;
-	let reticle;
-	let picture;
-	let isArRunning = false;
-	let firstReticleFound = false;
-	let firstReticleCallback;
-	let XROnOffCallback;
+	depthDataTexture = null;
 
-	const renderer = new THREE.WebGLRenderer({
-		antialias: true,
-		alpha: true,
-		autoClear: true,
-	});
-	renderer.setPixelRatio(window.devicePixelRatio);
-	renderer.setSize(window.innerWidth, window.innerHeight);
-	renderer.xr.enabled = true;
-	renderer.shadowMap.enabled = true;
-	renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-	renderer.setAnimationLoop(render);
+	aX = new Vector3();
+	aY = new Vector3();
+	aZ = new Vector3();
+	yUp = new Vector3(0, 1, 0);
+	xUp = new Vector3(1, 0, 0);
 
-	const arbutton = ARButton.createButton(renderer, {
-		requiredFeatures: ["hit-test"],
-		optionalFeatures: ["dom-overlay", "dom-overlay-for-handheld-ar"],
-		domOverlay: {root: element},
-	});
+	resolution = new Vector2();
+	camera = new PerspectiveCamera(60, 1, 0.1, 10);
+	reticle = null;
 
-	const camera = new THREE.PerspectiveCamera(
-		75,
-		window.innerWidth / window.innerHeight,
-		0.1,
-		1000,
-	);
+	constructor(container) {
+		this.container = container;
 
-	const scene = createScene();
-	//scene.add(new THREE.AxesHelper(1));
+		// Scene
+		this.createScene();
+		//this.scene.add(new AxesHelper(1));
 
-	reticle = new THREE.Mesh(
-		new THREE.RingBufferGeometry(0.15, 0.2, 32).rotateX(-Math.PI / 2),
-		new THREE.MeshBasicMaterial(),
-	);
-	// if false does not change position, rotation etc properties the matrix property automatically
-	reticle.matrixAutoUpdate = false;
-	reticle.visible = false;
-	scene.add(reticle);
-	//reticle.add(new THREE.AxesHelper(0.5));
+		// Camera
+		this.camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+		this.resolution.set(window.innerWidth, window.innerHeight);
 
-	controller = renderer.xr.getController(0);
-	controller.addEventListener("select", () => {
-		// called on camera/screen tap
-		placePicture();
-	});
-	scene.add(controller);
+		// Reticle
+		this.reticle = new Cursor();
+		//this.reticle.add(new AxesHelper(0.5));
+		this.scene.add(this.reticle);
 
-	function isInsideXR() {
-		return isArRunning;
+		// Renderer
+		this.createRenderer();
+
+		this.controller = this.renderer.xr.getController(0);
+		this.controller.addEventListener("select", () => {
+			// called on camera/screen tap
+			this.placePicture();
+		});
+		this.scene.add(this.controller);
+
+		// Render loop
+		this.renderer.setAnimationLoop((time, frame) => {
+			this.render(time, frame);
+		});
+
+		// Resize this.renderer
+		window.addEventListener(
+			"resize",
+			() => {
+				this.resize();
+			},
+			false,
+		);
 	}
 
-	function openXR() {
-		if (!isArRunning) {
-			arbutton.click();
-			if (XROnOffCallback) XROnOffCallback(true);
+	/**
+	 * Creates a Scene containing lights that case shadows,
+	 * and a mesh that will receive shadows.
+	 *
+	 * @return {Scene}
+	 */
+	createScene() {
+		this.depthDataTexture = new DepthDataTexture();
+
+		// The materials will render as a black mesh
+		// without lights in our scenes. Let's add an ambient light
+		// so our material can be visible, as well as a directional light
+		// for the shadow.
+		this.ambientLight = new AmbientLight(0x333333, 1);
+		this.scene.add(this.ambientLight);
+
+		this.directionalLight = new DirectionalLight();
+		this.directionalLight.castShadow = true;
+		this.directionalLight.shadow.mapSize.set(1024, 1024);
+		this.directionalLight.shadow.camera.far = 20;
+		this.directionalLight.shadow.camera.near = 0.1;
+		this.directionalLight.shadow.camera.left = -5;
+		this.directionalLight.shadow.camera.right = 5;
+		this.directionalLight.shadow.camera.bottom = -5;
+		this.directionalLight.shadow.camera.top = 5;
+		this.scene.add(this.directionalLight);
+
+		//const helper = new CameraHelper(this.directionalLight.shadow.camera);
+		//this.scene.add(helper);
+
+		this.lightProbe = new AmbientLightProbe();
+		this.scene.add(this.lightProbe);
+
+		this.shadowMaterial = new ShadowMaterial({opacity: 0.5});
+		this.shadowMaterial = AugmentedMaterial.transform(
+			this.shadowMaterial,
+			this.depthDataTexture,
+		);
+
+		this.floorMesh = new Mesh(new PlaneBufferGeometry(100, 100, 1, 1), this.shadowMaterial);
+		this.floorMesh.rotation.set(-Math.PI / 2, 0, 0);
+		this.floorMesh.castShadow = false;
+		this.floorMesh.receiveShadow = true;
+		this.scene.add(this.floorMesh);
+	}
+
+	/**
+	 * Create and setup webgl this.renderer object.
+	 * @param {*} canvas
+	 */
+	createRenderer() {
+		this.canvas = document.createElement("canvas");
+		this.container.appendChild(this.canvas);
+
+		this.glContext = this.canvas.getContext("webgl2", {xrCompatible: true});
+
+		this.renderer = new WebGLRenderer({
+			context: this.glContext,
+			antialias: true,
+			alpha: true,
+			canvas: this.canvas,
+			depth: true,
+			powerPreference: "high-performance",
+			precision: "highp",
+			preserveDrawingBuffer: false,
+			premultipliedAlpha: true,
+			logarithmicDepthBuffer: false,
+			stencil: true,
+		});
+
+		this.renderer.shadowMap.enabled = true;
+		this.renderer.shadowMap.type = PCFSoftShadowMap;
+		this.renderer.sortObjects = false;
+		this.renderer.physicallyCorrectLights = true;
+
+		this.renderer.setPixelRatio(window.devicePixelRatio);
+		this.renderer.setSize(window.innerWidth, window.innerHeight);
+		this.renderer.xr.enabled = true;
+	}
+
+	/**
+	 * Resize the canvas and this.renderer size.
+	 */
+	resize() {
+		this.resolution.set(window.innerWidth, window.innerHeight);
+
+		this.camera.aspect = this.resolution.x / this.resolution.y;
+		this.camera.updateProjectionMatrix();
+
+		this.renderer.setSize(this.resolution.x, this.resolution.y);
+		this.renderer.setPixelRatio(window.devicePixelRatio);
+	}
+
+	isInsideXR() {
+		return this.isArRunning;
+	}
+
+	openXR() {
+		if (!this.isArRunning) {
+			XRManager.start(
+				this.renderer,
+				{
+					optionalFeatures: [
+						"dom-overlay",
+						"dom-overlay-for-handheld-ar",
+						"light-estimation",
+						"depth-sensing",
+					],
+					domOverlay: {root: this.container},
+					requiredFeatures: ["hit-test"],
+				},
+				function (error) {
+					console.error("Error starting the AR session. ", error);
+				},
+			);
+			if (this.XROnOffCallback) this.XROnOffCallback(true);
 		}
 	}
 
-	function closeXR() {
-		if (isArRunning && arbutton) {
-			arbutton.click();
-			if (XROnOffCallback) XROnOffCallback(false);
+	closeXR() {
+		if (this.isArRunning && this.button) {
+			XRManager.end();
+			this.forceContextLoss();
+			if (this.XROnOffCallback) this.XROnOffCallback(false);
 		}
 	}
 
-	function getPictureSize(picture) {
+	getPictureSize(picture) {
 		return new Promise((resolve, reject) => {
 			let img = new Image();
 			img.onload = () => resolve({height: img.height, width: img.width});
@@ -137,57 +242,51 @@ export default function Controller(element) {
 		});
 	}
 
-	function calculateSize(width, height) {
-		const maxWidth = 100; // Conventional max width for the image
-		const maxHeight = 100; // Conventional max height for the image
+	scalePictureSize(width, height) {
 		let ratio = 0;
-		let scaledWidth = maxWidth;
-		let scaledHeight = maxWidth;
+		let scaledWidth = this.pictureMaxWidth;
+		let scaledHeight = this.pictureMaxHeight;
 		// Check if the current width is larger than the max
-		if (width > maxWidth) {
-			ratio = maxWidth / width;
-			scaledWidth = maxWidth;
+		if (width > this.pictureMaxWidth) {
+			ratio = this.pictureMaxWidth / width;
 			scaledHeight = height * ratio;
 			height = height * ratio;
 			width = width * ratio;
 		}
 		// Check if current height is larger than max
-		if (height > maxHeight) {
-			ratio = maxHeight / height;
-			scaledWidth = maxHeight;
+		if (height > this.pictureMaxHeight) {
+			ratio = this.pictureMaxHeight / height;
 			scaledWidth = width * ratio;
-			width = width * ratio;
-			height = height * ratio;
 		}
 
 		return {width: scaledWidth, height: scaledHeight};
 	}
 
-	async function setPicture(src) {
-		if (picture) removePicture();
-		const {width, height} = await getPictureSize(src);
-		const size = calculateSize(width, height);
-		picture = new Picture(src, size.width, size.height);
+	async setPicture(src) {
+		if (this.picture) this.removePicture();
+		const {width, height} = await this.getPictureSize(src);
+		const size = this.scalePictureSize(width, height);
+		this.picture = new Picture(src, size.width, size.height, this.depthDataTexture);
 	}
 
-	const setPicturePlaceCallback = (callback) => {
+	setPicturePlaceCallback(callback) {
 		document.addEventListener("ar-picture-place", callback);
-	};
+	}
 
-	const setPictureRemoveCallback = (callback) => {
+	setPictureRemoveCallback(callback) {
 		document.addEventListener("ar-picture-remove", callback);
-	};
+	}
 
-	function placePicture() {
-		if (!isArRunning) return;
+	placePicture() {
+		if (!this.isArRunning) return;
 
-		let ok = isReticle();
+		let ok = this.isReticle();
 		if (ok) {
-			picture.position.setFromMatrixPosition(reticle.matrix);
-			picture.rotation.setFromRotationMatrix(reticle.matrix);
+			this.picture.position.setFromMatrixPosition(this.reticle.matrix);
+			this.picture.rotation.setFromRotationMatrix(this.reticle.matrix);
 
-			scene.add(picture);
-			reticle.visible = false;
+			this.scene.add(this.picture);
+			this.reticle.visible = false;
 
 			const picturePlace = new Event("ar-picture-place");
 			document.dispatchEvent(picturePlace);
@@ -195,107 +294,176 @@ export default function Controller(element) {
 		return ok;
 	}
 
-	function removePicture() {
-		scene.remove(picture);
+	removePicture() {
+		this.scene.remove(this.picture);
 		const pictureRemove = new Event("ar-picture-remove");
 		document.dispatchEvent(pictureRemove);
 	}
 
-	function isPicturePlaced() {
-		if (picture) {
-			return picture.parent === scene;
+	isPicturePlaced() {
+		if (this.picture) {
+			return this.picture.parent === this.scene;
 		} else return false;
 	}
 
-	function isReticle() {
-		return reticle.visible;
+	isReticle() {
+		return this.reticle.visible;
 	}
 
-	let aX = new Vector3();
-	let aY = new Vector3();
-	let aZ = new Vector3();
-	let yUp = new Vector3(0, 1, 0);
-	//let xUp = new Vector3(1, 0, 0);
+	render(timestamp, frame) {
+		this.isArRunning = !!frame;
+		if (this.isArRunning) {
+			if (!this.isPicturePlaced()) {
+				let referenceSpace = this.renderer.xr.getReferenceSpace();
+				let session = this.renderer.xr.getSession();
 
-	let hitTestSource = null;
-	let hitTestSourceRequested = false;
-
-	function render(timestamp, frame) {
-		isArRunning = !!frame;
-
-		if (isArRunning) {
-			if (!isPicturePlaced()) {
-				let referenceSpace = renderer.xr.getReferenceSpace();
-				let session = renderer.xr.getSession();
-
-				// init hittest on vr enter
-				if (hitTestSourceRequested === false) {
-					session.requestReferenceSpace("viewer").then(function (referenceSpace) {
-						session
-							.requestHitTestSource({space: referenceSpace})
-							.then(function (source) {
-								hitTestSource = source;
-							});
-					});
-					session.addEventListener("end", function () {
-						hitTestSourceRequested = false;
-						hitTestSource = null;
-					});
-					hitTestSourceRequested = true;
+				if (!this.xrGlBinding) {
+					// eslint-disable-next-line no-undef
+					this.xrGlBinding = new XRWebGLBinding(session, this.glContext);
 				}
 
-				if (hitTestSource) {
-					let hitTestResults = frame.getHitTestResults(hitTestSource);
+				// init hittest on vr enter
+				if (this.hitTestSourceRequested === false) {
+					session.requestReferenceSpace("viewer").then((ref) => {
+						session.requestHitTestSource({space: ref}).then((source) => {
+							this.hitTestSource = source;
+						});
+					});
+					session.addEventListener("end", () => {
+						this.hitTestSourceRequested = false;
+						this.hitTestSource = null;
+					});
+					session.requestLightProbe().then((probe) => {
+						this.xrLightProbe = probe;
+					});
+					this.hitTestSourceRequested = true;
+				}
+
+				// Process lighting condition from probe
+				if (this.xrLightProbe) {
+					let lightEstimate;
+					try {
+						lightEstimate = frame.getLightEstimate(this.xrLightProbe);
+					} catch (e) {}
+
+					if (lightEstimate) {
+						let directionalPosition = new Vector3(
+							lightEstimate.primaryLightDirection.x,
+							lightEstimate.primaryLightDirection.y,
+							lightEstimate.primaryLightDirection.z,
+						);
+						directionalPosition.multiplyScalar(5);
+
+						let intensity = Math.max(
+							1.0,
+							Math.max(
+								lightEstimate.primaryLightIntensity.x,
+								Math.max(
+									lightEstimate.primaryLightIntensity.y,
+									lightEstimate.primaryLightIntensity.z,
+								),
+							),
+						);
+						this.directionalLight.position.copy(directionalPosition);
+						this.directionalLight.color.setRGB(
+							lightEstimate.primaryLightIntensity.x / intensity,
+							lightEstimate.primaryLightIntensity.y / intensity,
+							lightEstimate.primaryLightIntensity.z / intensity,
+						);
+						this.directionalLight.intensity = intensity;
+
+						this.lightProbe.sh.fromArray(lightEstimate.sphericalHarmonicsCoefficients);
+					}
+				}
+
+				if (this.hitTestSource) {
+					let hitTestResults = frame.getHitTestResults(this.hitTestSource);
 					if (hitTestResults.length) {
 						let hit = hitTestResults[0];
-						reticle.visible = true;
+						this.reticle.visible = true;
 
-						if (!firstReticleFound) {
-							firstReticleFound = true;
-							if (firstReticleCallback) firstReticleCallback();
+						if (!this.firstReticleFound) {
+							this.firstReticleFound = true;
+							if (this.firstReticleCallback) this.firstReticleCallback();
 						}
 
-						reticle.matrix.fromArray(hit.getPose(referenceSpace).transform.matrix);
+						this.reticle.matrix.fromArray(hit.getPose(referenceSpace).transform.matrix);
 
-						reticle.matrix.extractBasis(aX, aY, aZ);
-						let alpha = Math.asin(aX.dot(yUp)); // assumes that both vec3 are normalized
+						this.reticle.matrix.extractBasis(this.aX, this.aY, this.aZ);
+						let alpha = Math.asin(this.aX.dot(this.yUp)); // assumes that both vec3 are normalized
 
 						if (Math.abs(alpha) > 0.17) {
 							let m = new Matrix4();
 							m.makeRotationY(Math.PI + alpha);
-							reticle.matrix.multiply(m);
+							this.reticle.matrix.multiply(m);
 						}
+
+						// Update physics floor plane
+						let position = new Vector3();
+						position.setFromMatrixPosition(this.reticle.matrix);
+						this.floorMesh.position.y = position.y;
 					} else {
-						reticle.visible = false;
+						this.reticle.visible = false;
+					}
+				}
+
+				// Handle depth
+				let viewerPose = frame.getViewerPose(referenceSpace);
+				if (viewerPose) {
+					this.pose = viewerPose;
+					for (let view of this.pose.views) {
+						let depthData;
+
+						try {
+							depthData = frame.getDepthInformation(view);
+						} catch (e) {}
+
+						if (depthData) {
+							// Update textures
+							this.depthDataTexture.updateDepth(depthData);
+
+							// Update normal matrix
+							AugmentedMaterial.updateUniforms(
+								this.scene,
+								depthData.normTextureFromNormView.matrix,
+							);
+						}
 					}
 				}
 			}
 		}
-		renderer.render(scene, camera);
+		this.renderer.render(this.scene, this.camera);
 	}
 
-	return {
-		openXR,
-		closeXR,
-		isInsideXR,
-		isReticle,
-		isPicturePlaced,
-		setPicture,
-		placePicture,
-		removePicture,
-		setOnFirstReticleCallback(c) {
-			firstReticleCallback = c;
-		},
-		isArWorking(c) {
-			if (!navigator.xr || !navigator.xr.isSessionSupported) c(false);
-			navigator.xr.isSessionSupported("immersive-ar").then((supported) => {
-				c(!!supported);
-			});
-		},
-		setOpenCloseCallback(c) {
-			XROnOffCallback = c;
-		},
-		setPicturePlaceCallback,
-		setPictureRemoveCallback,
-	};
+	setOnFirstReticleCallback(c) {
+		this.firstReticleCallback = c;
+	}
+
+	setOpenCloseCallback(c) {
+		this.XROnOffCallback = c;
+	}
+
+	isArWorking(c) {
+		if (!navigator.xr || !navigator.xr.isSessionSupported) c(false);
+		navigator.xr.isSessionSupported("immersive-ar").then((supported) => {
+			c(!!supported);
+		});
+	}
+
+	forceContextLoss() {
+		try {
+			if (this.renderer !== null) {
+				this.renderer.dispose();
+				this.renderer.forceContextLoss();
+				this.renderer = null;
+			}
+		} catch (e) {
+			this.renderer = null;
+			throw new Error("Failed to destroy WebGL context.");
+		}
+
+		if (this.canvas !== null) {
+			this.container.removeChild(this.canvas);
+		}
+	}
 }

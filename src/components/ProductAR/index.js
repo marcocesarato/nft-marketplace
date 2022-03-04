@@ -11,9 +11,9 @@ import Controller from "./Controller";
 export const MotionBox = motion(Box); // Animated box
 
 export default function ProductAR({image, onClose}) {
+	const [init, setInit] = useState(false);
 	const [showTip, setShowTip] = useState(true);
-	const [isArWorking, setIsArWorking] = useState(null);
-	const [init, setInit] = useState(null);
+	const [isArWorking, setIsArWorking] = useState(false);
 	const [buttonText, setButtonText] = useState(null);
 	const [controller, setController] = useState(null);
 	const refOverlay = useRef(null);
@@ -46,7 +46,7 @@ export default function ProductAR({image, onClose}) {
 		if (controller && !isArWorking) {
 			controller.isArWorking((ok) => {
 				setIsArWorking(ok);
-				controller.openXR(refOverlay.current);
+				controller.openXR();
 				controller.setPicture(image);
 			});
 			controller.setOpenCloseCallback((insideXR) => {
@@ -71,6 +71,11 @@ export default function ProductAR({image, onClose}) {
 	return (
 		<Flex ref={refOverlay} position="relative" height="50vh">
 			<Flex
+				position="absolute"
+				width="100%"
+				height="100%"
+				top="0"
+				left="0"
 				bg={!isArWorking ? "gray.900" : null}
 				borderRadius="lg"
 				flex={1}
