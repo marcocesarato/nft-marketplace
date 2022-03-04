@@ -13,7 +13,7 @@ import {
 
 import {useConfig} from "@contexts/Global";
 
-import ProductDetails from "./ProductDetails";
+import ProductModal from "./ProductModal";
 
 export default function Product({data, onPurchase, rootProps}) {
 	const {nativeToken} = useConfig();
@@ -111,7 +111,7 @@ export default function Product({data, onPurchase, rootProps}) {
 					)}
 				</Box>
 			</Stack>
-			<ProductDetails data={data} isOpen={isOpen} onClose={onClose} onPurchase={onPurchase} />
+			<ProductModal data={data} isOpen={isOpen} onClose={onClose} onPurchase={onPurchase} />
 		</>
 	);
 }
