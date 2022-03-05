@@ -37,7 +37,7 @@ export default class XRManager {
 			}
 
 			navigator.xr
-				.requestSession("immersive-ar", sessionInit)
+				?.requestSession("immersive-ar", sessionInit)
 				.then(onSessionStarted)
 				.catch(onError);
 		}

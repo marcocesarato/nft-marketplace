@@ -44,7 +44,7 @@ export default function ProductXR({image, onClose}) {
 
 	useEffect(() => {
 		if (controller && !isSupported) {
-			controller.isSupported((result) => {
+			controller.checkIsSupported((result) => {
 				setSupported(result);
 				if (result) {
 					controller.init();
@@ -95,7 +95,7 @@ export default function ProductXR({image, onClose}) {
 					/>
 				)}
 				{isSupported === false && (
-					<Text color="gray.100">
+					<Text color="gray.100" textAlign="center" p={4}>
 						Your current browser does not support required technology.
 					</Text>
 				)}

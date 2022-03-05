@@ -340,7 +340,7 @@ export default class XRController {
 				let session = this.renderer.xr.getSession();
 
 				try {
-					if (!this.xrGlBinding) {
+					if (this.glContext && !this.xrGlBinding) {
 						// eslint-disable-next-line no-undef
 						this.xrGlBinding = new XRWebGLBinding(session, this.glContext);
 					}
@@ -473,9 +473,9 @@ export default class XRController {
 		this.onToggleCallback = c;
 	}
 
-	isSupported(callback) {
+	checkIsSupported(callback) {
 		if (!navigator.xr || !navigator.xr.isSessionSupported) callback(false);
-		navigator.xr.isSessionSupported("immersive-ar").then((supported) => {
+		navigator.xr?.isSessionSupported("immersive-ar").then((supported) => {
 			callback(!!supported);
 		});
 	}
