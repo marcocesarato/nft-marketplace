@@ -22,14 +22,18 @@ import Picture from "./object/Picture";
 import DepthDataTexture from "./texture/DepthDataTexture";
 import XRManager from "./XRManager";
 
-export default class Controller {
-	isArRunning = false;
+export default class XRController {
+	isRunning = false;
 
 	container = null;
 
 	picture = null;
 	pictureMaxWidth = 100;
 	pictureMaxHeight = 100;
+	picturePlacedEventName = "ar-picture-placed";
+	pictureRemovedEventName = "ar-picture-removed";
+	picturePlacedCallback = null;
+	pictureRemovedCallback = null;
 
 	scene = new Scene();
 	pose = null;
@@ -45,7 +49,7 @@ export default class Controller {
 	firstReticleFound = false;
 	firstReticleCallback = null;
 
-	XROnOffCallback = null;
+	onToggleCallback = null;
 
 	hitTestSource = null;
 	hitTestSourceRequested = false;
@@ -67,7 +71,9 @@ export default class Controller {
 
 	constructor(container) {
 		this.container = container;
+	}
 
+	init() {
 		// Scene
 		this.createScene();
 		//this.scene.add(new AxesHelper(1));
@@ -199,12 +205,8 @@ export default class Controller {
 		this.renderer.setPixelRatio(window.devicePixelRatio);
 	}
 
-	isInsideXR() {
-		return this.isArRunning;
-	}
-
-	openXR() {
-		if (!this.isArRunning) {
+	open() {
+		if (!this.isRunning) {
 			XRManager.start(
 				this.renderer,
 				{
@@ -221,16 +223,18 @@ export default class Controller {
 					console.error("Error starting the AR session. ", error);
 				},
 			);
-			if (this.XROnOffCallback) this.XROnOffCallback(true);
+			if (this.onToggleCallback) this.onToggleCallback(true);
 		}
 	}
 
-	closeXR() {
-		if (this.isArRunning && this.button) {
+	close() {
+		if (this.isRunning && this.button) {
 			XRManager.end();
 			this.forceContextLoss();
-			if (this.XROnOffCallback) this.XROnOffCallback(false);
+			if (this.onToggleCallback) this.onToggleCallback(false);
 		}
+		document.removeEventListener(this.picturePlacedEventName, this.picturePlacedCallback);
+		document.addEventListener(this.pictureRemovedEventName, this.pictureRemovedCallback);
 	}
 
 	getPictureSize(picture) {
@@ -269,16 +273,24 @@ export default class Controller {
 		this.picture = new Picture(src, size.width, size.height, this.depthDataTexture);
 	}
 
-	setPicturePlaceCallback(callback) {
-		document.addEventListener("ar-picture-place", callback);
+	onPicturePlaced(callback) {
+		if (this.picturePlacedCallback) {
+			document.removeEventListener(this.picturePlacedEventName, this.picturePlacedCallback);
+		}
+		this.picturePlacedCallback = callback;
+		document.addEventListener(this.picturePlacedEventName, this.picturePlacedCallback);
 	}
 
-	setPictureRemoveCallback(callback) {
-		document.addEventListener("ar-picture-remove", callback);
+	onPictureRemoved(callback) {
+		if (this.pictureRemovedCallback) {
+			document.removeEventListener(this.pictureRemovedEventName, this.pictureRemovedCallback);
+		}
+		this.pictureRemovedCallback = callback;
+		document.addEventListener(this.pictureRemovedEventName, this.pictureRemovedCallback);
 	}
 
 	placePicture() {
-		if (!this.isArRunning) return;
+		if (!this.isRunning) return;
 
 		let ok = this.isReticle();
 		if (ok) {
@@ -288,7 +300,7 @@ export default class Controller {
 			this.scene.add(this.picture);
 			this.reticle.visible = false;
 
-			const picturePlace = new Event("ar-picture-place");
+			const picturePlace = new Event(this.picturePlacedEventName);
 			document.dispatchEvent(picturePlace);
 		}
 		return ok;
@@ -296,7 +308,7 @@ export default class Controller {
 
 	removePicture() {
 		this.scene.remove(this.picture);
-		const pictureRemove = new Event("ar-picture-remove");
+		const pictureRemove = new Event(this.pictureRemovedEventName);
 		document.dispatchEvent(pictureRemove);
 	}
 
@@ -311,15 +323,19 @@ export default class Controller {
 	}
 
 	render(timestamp, frame) {
-		this.isArRunning = !!frame;
-		if (this.isArRunning) {
+		this.isRunning = !!frame;
+		if (this.isRunning) {
 			if (!this.isPicturePlaced()) {
 				let referenceSpace = this.renderer.xr.getReferenceSpace();
 				let session = this.renderer.xr.getSession();
 
-				if (!this.xrGlBinding) {
-					// eslint-disable-next-line no-undef
-					this.xrGlBinding = new XRWebGLBinding(session, this.glContext);
+				try {
+					if (!this.xrGlBinding) {
+						// eslint-disable-next-line no-undef
+						this.xrGlBinding = new XRWebGLBinding(session, this.glContext);
+					}
+				} catch (e) {
+					console.error(e);
 				}
 
 				// init hittest on vr enter
@@ -435,18 +451,18 @@ export default class Controller {
 		this.renderer.render(this.scene, this.camera);
 	}
 
-	setOnFirstReticleCallback(c) {
+	onFirstReticle(c) {
 		this.firstReticleCallback = c;
 	}
 
-	setOpenCloseCallback(c) {
-		this.XROnOffCallback = c;
+	onToggle(c) {
+		this.onToggleCallback = c;
 	}
 
-	isArWorking(c) {
-		if (!navigator.xr || !navigator.xr.isSessionSupported) c(false);
+	isSupported(callback) {
+		if (!navigator.xr || !navigator.xr.isSessionSupported) callback(false);
 		navigator.xr.isSessionSupported("immersive-ar").then((supported) => {
-			c(!!supported);
+			callback(!!supported);
 		});
 	}
 

@@ -6,24 +6,24 @@ import {createBrowserHistory} from "history";
 
 import stabilizationIcon from "@assets/images/stabilization.gif";
 
-import Controller from "./Controller";
+import XRController from "./XRController";
 
 export const MotionBox = motion(Box); // Animated box
 
 export default function ProductAR({image, onClose}) {
 	const [init, setInit] = useState(false);
 	const [showTip, setShowTip] = useState(true);
-	const [isArWorking, setIsArWorking] = useState(false);
+	const [isSupported, setSupported] = useState(false);
 	const [buttonText, setButtonText] = useState(null);
 	const [controller, setController] = useState(null);
 	const refOverlay = useRef(null);
 	const history = useMemo(() => createBrowserHistory(), []); // Browser history
 
 	const handleOnClose = useCallback(() => {
-		setIsArWorking(false);
-		controller.closeXR();
+		setSupported(false);
+		controller.close();
 		onClose && onClose();
-	}, [controller, setIsArWorking, onClose]);
+	}, [controller, setSupported, onClose]);
 
 	useEffect(() => {
 		return history.listen((location) => {
@@ -35,7 +35,7 @@ export default function ProductAR({image, onClose}) {
 
 	useEffect(() => {
 		if (!init && refOverlay?.current) {
-			const app = new Controller(refOverlay?.current);
+			const app = new XRController(refOverlay?.current);
 			setController(app);
 			setInit(true);
 		}
@@ -43,26 +43,29 @@ export default function ProductAR({image, onClose}) {
 	}, [init, refOverlay?.current]);
 
 	useEffect(() => {
-		if (controller && !isArWorking) {
-			controller.isArWorking((ok) => {
-				setIsArWorking(ok);
-				controller.openXR();
-				controller.setPicture(image);
+		if (controller && !isSupported) {
+			controller.isSupported((result) => {
+				setSupported(result);
+				if (result) {
+					controller.init();
+					controller.open();
+					controller.setPicture(image);
+				}
 			});
-			controller.setOpenCloseCallback((insideXR) => {
+			controller.onToggle((insideXR) => {
 				if (insideXR === false) setButtonText(null);
 			});
-			controller.setOnFirstReticleCallback(() => {
+			controller.onFirstReticle(() => {
 				setShowTip(false);
 			});
-			controller.setPicturePlaceCallback(() => {
+			controller.onPicturePlaced(() => {
 				setButtonText("Reposition panel");
 			});
-			controller.setPictureRemoveCallback(() => {
+			controller.onPictureRemoved(() => {
 				setButtonText(null);
 			});
 		}
-	}, [controller, isArWorking, image, handleOnClose]);
+	}, [controller, isSupported, image, handleOnClose]);
 
 	const onResetClick = () => {
 		controller.removePicture();
@@ -76,13 +79,13 @@ export default function ProductAR({image, onClose}) {
 				height="100%"
 				top="0"
 				left="0"
-				bg={!isArWorking ? "gray.900" : null}
+				bg={!isSupported ? "gray.900" : null}
 				borderRadius="lg"
 				flex={1}
 				flexDirection="column"
 				alignItems="center"
 				justifyContent="center">
-				{isArWorking && (
+				{isSupported && (
 					<CloseButton
 						color="gray.100"
 						position="absolute"
@@ -91,12 +94,12 @@ export default function ProductAR({image, onClose}) {
 						onClick={handleOnClose}
 					/>
 				)}
-				{isArWorking === false && (
+				{isSupported === false && (
 					<Text color="gray.100">
 						Your current browser does not support required technology.
 					</Text>
 				)}
-				{isArWorking && showTip && (
+				{isSupported && showTip && (
 					<>
 						<MotionBox
 							mt="-100px"
@@ -123,7 +126,7 @@ export default function ProductAR({image, onClose}) {
 						</Text>
 					</>
 				)}
-				{isArWorking && buttonText && (
+				{isSupported && buttonText && (
 					<Button
 						colorScheme="whiteAlpha"
 						position="absolute"
