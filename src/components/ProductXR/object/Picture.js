@@ -13,8 +13,6 @@ export default class Picture extends Group {
 			roughness: 0.3,
 			metalness: 0.1,
 			reflectivity: 0.3,
-			clearcoat: 1,
-			clearcoeatRoughness: 0.3,
 		};
 		const pictureMats = [
 			new MeshPhysicalMaterial(attrs),

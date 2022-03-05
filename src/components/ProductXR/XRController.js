@@ -42,8 +42,8 @@ export default class XRController {
 	floorMesh = null;
 
 	canvas = null;
-	glContext = null;
-	xrGlBinding = null;
+	gl = null;
+	glBinding = null;
 	renderer = null;
 
 	firstReticleFound = false;
@@ -80,6 +80,9 @@ export default class XRController {
 
 		// Camera
 		this.camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+		this.camera.matrixAutoUpdate = false;
+
+		// Resolution
 		this.resolution.set(window.innerWidth, window.innerHeight);
 
 		// Reticle
@@ -121,7 +124,7 @@ export default class XRController {
 	createScene() {
 		this.depthDataTexture = new DepthDataTexture();
 
-		this.ambientLight = new AmbientLight(0xffffff, 0.5);
+		this.ambientLight = new AmbientLight(0xffffff);
 		this.scene.add(this.ambientLight);
 
 		this.directionalLight = new DirectionalLight();
@@ -162,10 +165,10 @@ export default class XRController {
 		this.canvas = document.createElement("canvas");
 		this.container.appendChild(this.canvas);
 
-		this.glContext = this.canvas.getContext("webgl2", {xrCompatible: true});
+		this.gl = this.canvas.getContext("webgl2", {xrCompatible: true});
 
 		this.renderer = new WebGLRenderer({
-			context: this.glContext,
+			context: this.gl,
 			antialias: true,
 			alpha: true,
 			canvas: this.canvas,
@@ -208,14 +211,17 @@ export default class XRController {
 				{
 					optionalFeatures: [
 						"dom-overlay",
-						"dom-overlay-for-handheld-ar",
 						"light-estimation",
 						"depth-sensing",
+						"local-floor",
+						"bounded-floor",
+						"hand-tracking",
+						"layers",
 					],
 					domOverlay: {root: this.container},
 					requiredFeatures: ["hit-test"],
 				},
-				function (error) {
+				(error) => {
 					console.error("Error starting the AR session. ", error);
 				},
 			);
@@ -335,14 +341,15 @@ export default class XRController {
 	render(timestamp, frame) {
 		this.isRunning = !!frame;
 		if (this.isRunning) {
+			let session = this.renderer.xr.getSession();
+
 			if (!this.isPicturePlaced()) {
 				let referenceSpace = this.renderer.xr.getReferenceSpace();
-				let session = this.renderer.xr.getSession();
 
 				try {
-					if (this.glContext && !this.xrGlBinding) {
+					if (this.gl && !this.glBinding) {
 						// eslint-disable-next-line no-undef
-						this.xrGlBinding = new XRWebGLBinding(session, this.glContext);
+						this.glBinding = new XRWebGLBinding(session, this.gl);
 					}
 				} catch (e) {
 					console.error(e);
@@ -438,6 +445,8 @@ export default class XRController {
 				}
 
 				// Handle depth
+				// Retrieve the pose of the device.
+				// getViewerPose can return null while the session attempts to establish tracking.
 				let viewerPose = frame.getViewerPose(referenceSpace);
 				if (viewerPose) {
 					this.pose = viewerPose;
