@@ -121,11 +121,7 @@ export default class XRController {
 	createScene() {
 		this.depthDataTexture = new DepthDataTexture();
 
-		// The materials will render as a black mesh
-		// without lights in our scenes. Let's add an ambient light
-		// so our material can be visible, as well as a directional light
-		// for the shadow.
-		this.ambientLight = new AmbientLight(0x333333, 1);
+		this.ambientLight = new AmbientLight(0xffffff, 0.5);
 		this.scene.add(this.ambientLight);
 
 		this.directionalLight = new DirectionalLight();
@@ -270,7 +266,7 @@ export default class XRController {
 		if (this.picture) this.removePicture();
 		const {width, height} = await this.getPictureSize(src);
 		const size = this.scalePictureSize(width, height);
-		this.picture = new Picture(src, size.width, size.height, this.depthDataTexture);
+		this.picture = new Picture(src, size.width, size.height);
 	}
 
 	onPicturePlaced(callback) {
@@ -292,18 +288,32 @@ export default class XRController {
 	placePicture() {
 		if (!this.isRunning) return;
 
-		let ok = this.isReticle();
-		if (ok) {
+		let visible = this.isReticleVisible();
+		if (visible) {
 			this.picture.position.setFromMatrixPosition(this.reticle.matrix);
 			this.picture.rotation.setFromRotationMatrix(this.reticle.matrix);
 
 			this.scene.add(this.picture);
+
+			this.picture.traverse((child) => {
+				if (child instanceof Mesh) {
+					child.castShadow = true;
+					child.receiveShadow = true;
+					child.material = AugmentedMaterial.transform(
+						child.material,
+						this.depthDataTexture,
+					);
+				}
+			});
+			this.picture.updateMatrix();
+			this.picture.updateMatrixWorld(true);
+
 			this.reticle.visible = false;
 
 			const picturePlace = new Event(this.picturePlacedEventName);
 			document.dispatchEvent(picturePlace);
 		}
-		return ok;
+		return visible;
 	}
 
 	removePicture() {
@@ -318,7 +328,7 @@ export default class XRController {
 		} else return false;
 	}
 
-	isReticle() {
+	isReticleVisible() {
 		return this.reticle.visible;
 	}
 
@@ -369,6 +379,7 @@ export default class XRController {
 							lightEstimate.primaryLightDirection.z,
 						);
 						directionalPosition.multiplyScalar(5);
+						this.directionalLight.position.copy(directionalPosition);
 
 						let intensity = Math.max(
 							1.0,
@@ -380,12 +391,15 @@ export default class XRController {
 								),
 							),
 						);
-						this.directionalLight.position.copy(directionalPosition);
-						this.directionalLight.color.setRGB(
-							lightEstimate.primaryLightIntensity.x / intensity,
-							lightEstimate.primaryLightIntensity.y / intensity,
-							lightEstimate.primaryLightIntensity.z / intensity,
-						);
+
+						// Colors from 0 to 1
+						const color = {
+							red: lightEstimate.primaryLightIntensity.x / intensity,
+							green: lightEstimate.primaryLightIntensity.y / intensity,
+							blue: lightEstimate.primaryLightIntensity.z / intensity,
+						};
+						//this.ambientLight.color.setRGB(color.red, color.green, color.blue);
+						this.directionalLight.color.setRGB(color.red, color.green, color.blue);
 						this.directionalLight.intensity = intensity;
 
 						this.lightProbe.sh.fromArray(lightEstimate.sphericalHarmonicsCoefficients);

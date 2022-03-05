@@ -1,22 +1,28 @@
-import {BoxBufferGeometry, Group, Mesh, MeshBasicMaterial, TextureLoader} from "three";
-
-import AugmentedMaterial from "../material/AugmentedMaterial";
+import {BoxBufferGeometry, Group, Mesh, MeshPhysicalMaterial, TextureLoader} from "three";
 
 const texture = new TextureLoader();
 
 export default class Picture extends Group {
-	constructor(src, width, height, depthDataTexture) {
+	constructor(src, width, height) {
 		super();
 		height = parseFloat(height) / 100;
 		width = parseFloat(width) / 100;
 
+		const attrs = {
+			color: "#333333",
+			roughness: 0.3,
+			metalness: 0.1,
+			reflectivity: 0.3,
+			clearcoat: 1,
+			clearcoeatRoughness: 0.3,
+		};
 		const pictureMats = [
-			new MeshBasicMaterial({color: "#333"}),
-			new MeshBasicMaterial({color: "#333"}),
-			new MeshBasicMaterial({map: texture.load(src)}),
-			new MeshBasicMaterial({color: "#333"}),
-			new MeshBasicMaterial({color: "#333"}),
-			new MeshBasicMaterial({color: "#333"}),
+			new MeshPhysicalMaterial(attrs),
+			new MeshPhysicalMaterial(attrs),
+			new MeshPhysicalMaterial({...attrs, color: null, map: texture.load(src)}),
+			new MeshPhysicalMaterial(attrs),
+			new MeshPhysicalMaterial(attrs),
+			new MeshPhysicalMaterial(attrs),
 		];
 
 		const d = (width + height) / 40;
@@ -24,7 +30,6 @@ export default class Picture extends Group {
 		const pictureMesh = new Mesh(pictureGeo, pictureMats);
 		pictureMesh.castShadow = true;
 		pictureMesh.receiveShadow = true;
-		pictureMesh.material = AugmentedMaterial.transform(pictureMesh.material, depthDataTexture);
 		this.add(pictureMesh);
 	}
 }
