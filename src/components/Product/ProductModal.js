@@ -11,7 +11,7 @@ import {
 	useDisclosure,
 } from "@chakra-ui/react";
 
-import ProductAR from "@components/ProductAR";
+import ProductXR from "@components/ProductXR";
 
 import ProductDetails from "./ProductDetails";
 
@@ -43,7 +43,7 @@ export default function ProductModal({data, onClose, onPurchase, ...props}) {
 							allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
 							allowFullScreen
 						/>)*/
-						<ProductAR image={data.image} onClose={onCloseVR} />
+						<ProductXR image={data.image} onClose={onCloseVR} />
 					)}
 				</ModalBody>
 				<ModalFooter>
