@@ -13,7 +13,7 @@ export const MotionBox = motion(Box); // Animated box
 export default function ProductAR({image, onClose}) {
 	const [init, setInit] = useState(false);
 	const [showTip, setShowTip] = useState(true);
-	const [isSupported, setSupported] = useState(false);
+	const [isSupported, setSupported] = useState(null);
 	const [buttonText, setButtonText] = useState(null);
 	const [controller, setController] = useState(null);
 	const refOverlay = useRef(null);
