@@ -25,7 +25,7 @@ export default class AugmentedMaterial {
 
 		material.onBeforeCompile = (shader) => {
 			// Pass uniforms from userData to the
-			for (let i in material.userData) {
+			for (const i in material.userData) {
 				shader.uniforms[i] = material.userData[i];
 			}
 
@@ -42,7 +42,7 @@ export default class AugmentedMaterial {
 			varying float vDepth;
 			` + shader.fragmentShader;
 
-			var fragmentEntryPoint = "#include <clipping_planes_fragment>";
+			let fragmentEntryPoint = "#include <clipping_planes_fragment>";
 			if (material instanceof ShadowMaterial) {
 				fragmentEntryPoint = "#include <fog_fragment>";
 			}

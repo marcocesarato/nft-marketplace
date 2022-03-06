@@ -3371,6 +3371,11 @@
   dependencies:
     "@sinonjs/fake-timers" "^7.1.0"
 
+"@types/three@^0.127.1":
+  version "0.127.1"
+  resolved "https://registry.yarnpkg.com/@types/three/-/three-0.127.1.tgz#0978054e5daa6485946a3f1518a76412186ae81f"
+  integrity sha512-e90iYq3zde3axANg7BPZY0fKrez1AzveamIIFk23PMh9WtCx91geokDy+yEAIymdIldgUpvezAP6+zCV3oekXw==
+
 "@types/underscore@*":
   version "1.11.2"
   resolved "https://registry.npmjs.org/@types/underscore/-/underscore-1.11.2.tgz"
@@ -5456,6 +5461,11 @@ caniuse-lite@^1.0.30001283, caniuse-lite@^1.0.30001312:
   version "1.0.30001312"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001312.tgz#e11eba4b87e24d22697dae05455d5aea28550d5f"
   integrity sha512-Wiz1Psk2MEK0pX3rUzWaunLTZzqS2JYZFzNKqAiJGiuxIjRPLgV6+VDPOg6lQOUxmDwhTlh198JsTTi8Hzw6aQ==
+
+cannon-es@^0.19.0:
+  version "0.19.0"
+  resolved "https://registry.yarnpkg.com/cannon-es/-/cannon-es-0.19.0.tgz#f62fa04097e375877db8f3895f27bb6d499395c0"
+  integrity sha512-fu9UXrjFmAQXq3JyBVPbtyc53suX+QHzikZEJykxroVNnIx1xHq0jZenK8qwhdwbBAtDL9n/47TyPELuSQwZuA==
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -12474,6 +12484,13 @@ text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.npmjs.org/text-table/-/text-table-0.2.0.tgz"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
+
+three-to-cannon@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/three-to-cannon/-/three-to-cannon-4.0.2.tgz#5123d897d3dee6bc37e4c48a71dc3e7fe2d87266"
+  integrity sha512-JhhR3+cljNrdwkzgRrENLVFvusojq5YWUmvsngKeLp9tOI8k7+GCjFyE/M2mRpyBz+dtzDxCXBfCs+blEi9uBg==
+  dependencies:
+    "@types/three" "^0.127.1"
 
 three@^0.138.2:
   version "0.138.2"

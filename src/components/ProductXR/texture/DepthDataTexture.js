@@ -7,9 +7,9 @@ import {DataTexture, LinearFilter, LuminanceAlphaFormat, UnsignedByteType} from 
  */
 export default class DepthDataTexture extends DataTexture {
 	constructor() {
-		var width = 160;
-		var height = 90;
-		var data = new Uint8Array(width * height);
+		const width = 160;
+		const height = 90;
+		const data = new Uint8Array(width * height);
 
 		super(data, width, height, LuminanceAlphaFormat, UnsignedByteType);
 
@@ -23,7 +23,7 @@ export default class DepthDataTexture extends DataTexture {
 	 * @param {*} depthData
 	 */
 	updateDepth(depthData) {
-		var dataBuffer = depthData.data;
+		const dataBuffer = depthData.data;
 		this.image.data = new Uint8Array(
 			dataBuffer.buffer,
 			dataBuffer.byteOffset,

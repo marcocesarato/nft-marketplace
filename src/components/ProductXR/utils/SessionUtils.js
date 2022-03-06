@@ -4,9 +4,9 @@
 let currentSession = null;
 
 /**
- * XR manager is used to manage wich XR session is currently running and prevent multiple sessions from running concorrently.
+ * Used to manage wich XR session is currently running and prevent multiple sessions from running concorrently.
  */
-export default class XRManager {
+export default class SessionUtils {
 	/**
 	 * Start webxr session for immersive-ar with the provided session configuration.
 	 *

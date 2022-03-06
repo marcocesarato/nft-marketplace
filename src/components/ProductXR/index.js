@@ -129,6 +129,7 @@ export default function ProductXR({image, onClose}) {
 				{isSupported && buttonText && (
 					<Button
 						colorScheme="whiteAlpha"
+						color="gray.100"
 						position="absolute"
 						size="lg"
 						bottom={5}

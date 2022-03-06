@@ -1,3 +1,4 @@
+import {Body, GSSolver, NaiveBroadphase, Plane, SplitSolver, Vec3, World} from "cannon-es";
 import {
 	AmbientLight,
 	AmbientLightProbe,
@@ -18,9 +19,9 @@ import {
 
 import AugmentedMaterial from "./material/AugmentedMaterial";
 import Cursor from "./object/Cursor";
-import Picture from "./object/Picture";
 import DepthDataTexture from "./texture/DepthDataTexture";
-import XRManager from "./XRManager";
+import LoaderUtils from "./utils/LoaderUtils";
+import SessionUtils from "./utils/SessionUtils";
 
 export default class XRController {
 	isRunning = false;
@@ -28,8 +29,7 @@ export default class XRController {
 	container = null;
 
 	picture = null;
-	pictureMaxWidth = 100;
-	pictureMaxHeight = 100;
+	pictureUrl = null;
 	picturePlacedEventName = "ar-picture-placed";
 	pictureRemovedEventName = "ar-picture-removed";
 	picturePlacedCallback = null;
@@ -39,7 +39,10 @@ export default class XRController {
 	pose = null;
 	shadowMaterial = null;
 	ambientLight = null;
+	floor = null;
 	floorMesh = null;
+
+	world = null;
 
 	canvas = null;
 	gl = null;
@@ -76,7 +79,7 @@ export default class XRController {
 	init() {
 		// Scene
 		this.createScene();
-		//this.scene.add(new AxesHelper(1));
+		this.createWorld();
 
 		// Camera
 		this.camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -87,7 +90,6 @@ export default class XRController {
 
 		// Reticle
 		this.reticle = new Cursor();
-		//this.reticle.add(new AxesHelper(0.5));
 		this.scene.add(this.reticle);
 
 		// Renderer
@@ -113,6 +115,10 @@ export default class XRController {
 			},
 			false,
 		);
+
+		// Helpers
+		//this.scene.add(new AxesHelper(1));
+		//this.reticle.add(new AxesHelper(0.5));
 	}
 
 	/**
@@ -155,6 +161,34 @@ export default class XRController {
 		this.floorMesh.castShadow = false;
 		this.floorMesh.receiveShadow = true;
 		this.scene.add(this.floorMesh);
+	}
+
+	/**
+	 * Create physics this.world for collistion simulation.
+	 */
+	createWorld() {
+		this.world = new World();
+		this.world.gravity.set(0, -9.8, 0);
+		this.world.defaultContactMaterial.contactEquationStiffness = 1e9;
+		this.world.defaultContactMaterial.contactEquationRelaxation = 4;
+		this.world.quatNormalizeSkip = 0;
+		this.world.quatNormalizeFast = false;
+
+		this.world.broadphase = new NaiveBroadphase();
+		this.world.broadphase.useBoundingBoxes = true;
+
+		var solver = new GSSolver();
+		solver.tolerance = 0.1;
+		solver.iterations = 7;
+		this.world.solver = new SplitSolver(solver);
+
+		this.floor = new Body();
+		this.floor.type = Body.STATIC;
+		this.floor.position.set(0, 0, 0);
+		this.floor.velocity.set(0, 0, 0);
+		this.floor.quaternion.setFromAxisAngle(new Vec3(1, 0, 0), -Math.PI / 2);
+		this.floor.addShape(new Plane());
+		this.world.addBody(this.floor);
 	}
 
 	/**
@@ -206,7 +240,7 @@ export default class XRController {
 
 	open() {
 		if (!this.isRunning) {
-			XRManager.start(
+			SessionUtils.start(
 				this.renderer,
 				{
 					optionalFeatures: [
@@ -231,7 +265,7 @@ export default class XRController {
 
 	close() {
 		if (this.isRunning && this.button) {
-			XRManager.end();
+			SessionUtils.end();
 			this.forceContextLoss();
 			if (this.onToggleCallback) this.onToggleCallback(false);
 		}
@@ -239,40 +273,9 @@ export default class XRController {
 		document.addEventListener(this.pictureRemovedEventName, this.pictureRemovedCallback);
 	}
 
-	getPictureSize(picture) {
-		return new Promise((resolve, reject) => {
-			let img = new Image();
-			img.onload = () => resolve({height: img.height, width: img.width});
-			img.onerror = reject;
-			img.src = picture;
-		});
-	}
-
-	scalePictureSize(width, height) {
-		let ratio = 0;
-		let scaledWidth = this.pictureMaxWidth;
-		let scaledHeight = this.pictureMaxHeight;
-		// Check if the current width is larger than the max
-		if (width > this.pictureMaxWidth) {
-			ratio = this.pictureMaxWidth / width;
-			scaledHeight = height * ratio;
-			height = height * ratio;
-			width = width * ratio;
-		}
-		// Check if current height is larger than max
-		if (height > this.pictureMaxHeight) {
-			ratio = this.pictureMaxHeight / height;
-			scaledWidth = width * ratio;
-		}
-
-		return {width: scaledWidth, height: scaledHeight};
-	}
-
 	async setPicture(src) {
 		if (this.picture) this.removePicture();
-		const {width, height} = await this.getPictureSize(src);
-		const size = this.scalePictureSize(width, height);
-		this.picture = new Picture(src, size.width, size.height);
+		this.pictureUrl = src;
 	}
 
 	onPicturePlaced(callback) {
@@ -296,28 +299,12 @@ export default class XRController {
 
 		let visible = this.isReticleVisible();
 		if (visible) {
-			this.picture.position.setFromMatrixPosition(this.reticle.matrix);
-			this.picture.rotation.setFromRotationMatrix(this.reticle.matrix);
-
-			this.scene.add(this.picture);
-
-			this.picture.traverse((child) => {
-				if (child instanceof Mesh) {
-					child.castShadow = true;
-					child.receiveShadow = true;
-					child.material = AugmentedMaterial.transform(
-						child.material,
-						this.depthDataTexture,
-					);
-				}
+			LoaderUtils.loadPicture(this, this.pictureUrl, 1, (picture) => {
+				this.picture = picture;
+				this.reticle.visible = false;
+				const picturePlace = new Event(this.picturePlacedEventName);
+				document.dispatchEvent(picturePlace);
 			});
-			this.picture.updateMatrix();
-			this.picture.updateMatrixWorld(true);
-
-			this.reticle.visible = false;
-
-			const picturePlace = new Event(this.picturePlacedEventName);
-			document.dispatchEvent(picturePlace);
 		}
 		return visible;
 	}
@@ -341,10 +328,10 @@ export default class XRController {
 	render(timestamp, frame) {
 		this.isRunning = !!frame;
 		if (this.isRunning) {
-			let session = this.renderer.xr.getSession();
+			const session = this.renderer.xr.getSession();
 
 			if (!this.isPicturePlaced()) {
-				let referenceSpace = this.renderer.xr.getReferenceSpace();
+				const referenceSpace = this.renderer.xr.getReferenceSpace();
 
 				try {
 					if (this.gl && !this.glBinding) {
@@ -380,7 +367,7 @@ export default class XRController {
 					} catch (e) {}
 
 					if (lightEstimate) {
-						let directionalPosition = new Vector3(
+						const directionalPosition = new Vector3(
 							lightEstimate.primaryLightDirection.x,
 							lightEstimate.primaryLightDirection.y,
 							lightEstimate.primaryLightDirection.z,
@@ -388,7 +375,7 @@ export default class XRController {
 						directionalPosition.multiplyScalar(5);
 						this.directionalLight.position.copy(directionalPosition);
 
-						let intensity = Math.max(
+						const intensity = Math.max(
 							1.0,
 							Math.max(
 								lightEstimate.primaryLightIntensity.x,
@@ -414,9 +401,9 @@ export default class XRController {
 				}
 
 				if (this.hitTestSource) {
-					let hitTestResults = frame.getHitTestResults(this.hitTestSource);
+					const hitTestResults = frame.getHitTestResults(this.hitTestSource);
 					if (hitTestResults.length) {
-						let hit = hitTestResults[0];
+						const hit = hitTestResults[0];
 						this.reticle.visible = true;
 
 						if (!this.firstReticleFound) {
@@ -427,17 +414,21 @@ export default class XRController {
 						this.reticle.matrix.fromArray(hit.getPose(referenceSpace).transform.matrix);
 
 						this.reticle.matrix.extractBasis(this.aX, this.aY, this.aZ);
-						let alpha = Math.asin(this.aX.dot(this.yUp)); // assumes that both vec3 are normalized
+						const alpha = Math.asin(this.aX.dot(this.yUp)); // assumes that both vec3 are normalized
 
 						if (Math.abs(alpha) > 0.17) {
-							let m = new Matrix4();
+							const m = new Matrix4();
 							m.makeRotationY(Math.PI + alpha);
 							this.reticle.matrix.multiply(m);
 						}
 
 						// Update physics floor plane
-						let position = new Vector3();
+						const position = new Vector3();
 						position.setFromMatrixPosition(this.reticle.matrix);
+						if (position.y < this.floor.position.y) {
+							this.floor.position.y = position.y;
+						}
+
 						this.floorMesh.position.y = position.y;
 					} else {
 						this.reticle.visible = false;
@@ -447,10 +438,10 @@ export default class XRController {
 				// Handle depth
 				// Retrieve the pose of the device.
 				// getViewerPose can return null while the session attempts to establish tracking.
-				let viewerPose = frame.getViewerPose(referenceSpace);
+				const viewerPose = frame.getViewerPose(referenceSpace);
 				if (viewerPose) {
 					this.pose = viewerPose;
-					for (let view of this.pose.views) {
+					for (const view of this.pose.views) {
 						let depthData;
 
 						try {
