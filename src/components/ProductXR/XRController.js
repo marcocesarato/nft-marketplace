@@ -1,10 +1,9 @@
 import {Body, GSSolver, NaiveBroadphase, Plane, SplitSolver, Vec3, World} from "cannon-es";
 import {
 	AmbientLight,
-	AmbientLightProbe,
 	//AxesHelper,
 	//CameraHelper,
-	DirectionalLight,
+	HemisphereLight,
 	Matrix4,
 	Mesh,
 	PCFSoftShadowMap,
@@ -19,6 +18,7 @@ import {
 
 import AugmentedMaterial from "./material/AugmentedMaterial";
 import Cursor from "./object/Cursor";
+import EstimatedLight from "./object/EstimatedLight";
 import DepthDataTexture from "./texture/DepthDataTexture";
 import LoaderUtils from "./utils/LoaderUtils";
 import SessionUtils from "./utils/SessionUtils";
@@ -38,7 +38,6 @@ export default class XRController {
 	scene = new Scene();
 	pose = null;
 	shadowMaterial = null;
-	ambientLight = null;
 	floor = null;
 	floorMesh = null;
 
@@ -57,8 +56,8 @@ export default class XRController {
 	hitTestSource = null;
 	hitTestSourceRequested = false;
 
-	lightProbe = null;
-	xrLightProbe = null;
+	ambientLight = null;
+	xrLight = null;
 
 	depthDataTexture = null;
 
@@ -77,6 +76,9 @@ export default class XRController {
 	}
 
 	init() {
+		// Renderer
+		this.createRenderer();
+
 		// Scene
 		this.createScene();
 		this.createWorld();
@@ -91,9 +93,6 @@ export default class XRController {
 		// Reticle
 		this.reticle = new Cursor();
 		this.scene.add(this.reticle);
-
-		// Renderer
-		this.createRenderer();
 
 		this.controller = this.renderer.xr.getController(0);
 		this.controller.addEventListener("select", () => {
@@ -130,25 +129,34 @@ export default class XRController {
 	createScene() {
 		this.depthDataTexture = new DepthDataTexture();
 
+		// Ligths
 		this.ambientLight = new AmbientLight(0xffffff);
 		this.scene.add(this.ambientLight);
 
-		this.directionalLight = new DirectionalLight();
-		this.directionalLight.castShadow = true;
-		this.directionalLight.shadow.mapSize.set(1024, 1024);
-		this.directionalLight.shadow.camera.far = 20;
-		this.directionalLight.shadow.camera.near = 0.1;
-		this.directionalLight.shadow.camera.left = -5;
-		this.directionalLight.shadow.camera.right = 5;
-		this.directionalLight.shadow.camera.bottom = -5;
-		this.directionalLight.shadow.camera.top = 5;
-		this.scene.add(this.directionalLight);
+		const defaultLight = new HemisphereLight();
+		defaultLight.position.set(0.5, 1, 0.25);
+		this.scene.add(defaultLight);
 
-		//const helper = new CameraHelper(this.directionalLight.shadow.camera);
-		//this.scene.add(helper);
+		this.xrLight = new EstimatedLight(this.renderer);
+		this.xrLight.addEventListener("estimationstart", () => {
+			// Swap the default light out for the estimated one one we start getting some estimated values.
+			this.scene.add(this.xrLight);
+			this.scene.remove(defaultLight);
+			// The estimated lighting also provides an environment cubemap, which we can apply here.
+			if (this.xrLight.environment) {
+				this.scene.environment = this.xrLight.environment;
+			}
+		});
 
-		this.lightProbe = new AmbientLightProbe();
-		this.scene.add(this.lightProbe);
+		this.xrLight.addEventListener("estimationend", () => {
+			// Swap the lights back when we stop receiving estimated values.
+			this.scene.add(defaultLight);
+			this.scene.remove(this.xrLight);
+			this.scene.environment = null;
+		});
+
+		this.scene.add(defaultLight);
+		//this.scene.add(this.lightProbe);
 
 		this.shadowMaterial = new ShadowMaterial({opacity: 0.5});
 		this.shadowMaterial = AugmentedMaterial.transform(
@@ -357,47 +365,6 @@ export default class XRController {
 						this.xrLightProbe = probe;
 					});
 					this.hitTestSourceRequested = true;
-				}
-
-				// Process lighting condition from probe
-				if (this.xrLightProbe) {
-					let lightEstimate;
-					try {
-						lightEstimate = frame.getLightEstimate(this.xrLightProbe);
-					} catch (e) {}
-
-					if (lightEstimate) {
-						const directionalPosition = new Vector3(
-							lightEstimate.primaryLightDirection.x,
-							lightEstimate.primaryLightDirection.y,
-							lightEstimate.primaryLightDirection.z,
-						);
-						directionalPosition.multiplyScalar(5);
-						this.directionalLight.position.copy(directionalPosition);
-
-						const intensity = Math.max(
-							1.0,
-							Math.max(
-								lightEstimate.primaryLightIntensity.x,
-								Math.max(
-									lightEstimate.primaryLightIntensity.y,
-									lightEstimate.primaryLightIntensity.z,
-								),
-							),
-						);
-
-						// Colors from 0 to 1
-						const color = {
-							red: lightEstimate.primaryLightIntensity.x / intensity,
-							green: lightEstimate.primaryLightIntensity.y / intensity,
-							blue: lightEstimate.primaryLightIntensity.z / intensity,
-						};
-						//this.ambientLight.color.setRGB(color.red, color.green, color.blue);
-						this.directionalLight.color.setRGB(color.red, color.green, color.blue);
-						this.directionalLight.intensity = intensity;
-
-						this.lightProbe.sh.fromArray(lightEstimate.sphericalHarmonicsCoefficients);
-					}
 				}
 
 				if (this.hitTestSource) {
