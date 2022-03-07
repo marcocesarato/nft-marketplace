@@ -5,6 +5,8 @@ import {ChakraProvider} from "@chakra-ui/react";
 import {moralisAppId, moralisServerUrl} from "@configs/moralis";
 import {GlobalProvider} from "@contexts/Global";
 
+import theme from "./theme";
+
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
@@ -15,7 +17,7 @@ const queryClient = new QueryClient({
 
 function Providers({children}) {
 	return (
-		<ChakraProvider>
+		<ChakraProvider resetCSS theme={theme}>
 			<MoralisProvider appId={moralisAppId} serverUrl={moralisServerUrl}>
 				<QueryClientProvider client={queryClient}>
 					<GlobalProvider>{children}</GlobalProvider>
