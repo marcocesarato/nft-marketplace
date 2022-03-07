@@ -1,19 +1,12 @@
 import {MoralisProvider} from "react-moralis";
-import {QueryClient, QueryClientProvider} from "react-query";
+import {QueryClientProvider} from "react-query";
 import {ChakraProvider} from "@chakra-ui/react";
 
 import {moralisAppId, moralisServerUrl} from "@configs/moralis";
+import queryClient from "@configs/query";
 import {GlobalProvider} from "@contexts/Global";
 
 import theme from "./theme";
-
-const queryClient = new QueryClient({
-	defaultOptions: {
-		queries: {
-			refetchOnWindowFocus: false,
-		},
-	},
-});
 
 function Providers({children}) {
 	return (
