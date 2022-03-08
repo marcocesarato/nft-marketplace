@@ -178,6 +178,8 @@ The `contracts` directory contains all the smart contracts (made with [Solidity]
 - [Axios](https://github.com/axios/axios)
 - [Solidity](https://docs.soliditylang.org/)
 - [Mongoose](https://mongoosejs.com/)
+
+
 ## Background information
 
 Before creating our own NFT, let’s take a look at the technologies and features that make NFTs work.
