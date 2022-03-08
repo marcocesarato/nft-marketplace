@@ -1,21 +1,20 @@
 # NFT Marketplace
 
-## Index
+## Summary
 
-- [NFT Marketplace](#nft-marketplace)
-  - [Index](#index)
-  - [Setup](#setup)
+- [Setup](#setup)
     - [Local Setup](#local-setup)
     - [Using Docker](#using-docker)
     - [Deploying to Google Cloud Run](#deploying-to-google-cloud-run)
-  - [Configuration](#configuration)
+- [Configuration](#configuration)
     - [Requirements](#requirements)
     - [Configure Moralis](#configure-moralis)
     - [Configure Hardhat](#configure-hardhat)
-  - [Project Structure](#project-structure)
-  - [Technology Stack](#technology-stack)
-  - [Conding Style](#conding-style)
-  - [How Contribute](#how-contribute)
+- [Project Structure](#project-structure)
+- [Technology Stack](#technology-stack)
+- [Coding style](#coding-style)
+- [How to contribute](#how-to-contribute)
+
 
 ## Setup
 
@@ -166,10 +165,10 @@ The `contracts` directory contains all the smart contracts (made with [Solidity]
 - [MongoDB](https://www.mongodb.com/)
 - [Mongoose](https://mongoosejs.com/)
 
-## Conding Style
+## Coding style
 
 Follow the guide lines [HERE](./CODING_STYLE.md)
 
-## How Contribute
+## How to contribute
 
 Follow the guide lines [HERE](./CONTRIBUTING.md)
