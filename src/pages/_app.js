@@ -1,8 +1,10 @@
-import {useEffect} from "react";
+import {Suspense, useEffect, useState} from "react";
 import {useMoralis} from "react-moralis";
+import ssrPrepass from "react-ssr-prepass";
 
 import Providers from "@app/Providers";
 import Layout from "@components/Layout";
+import Loading from "@components/Loading";
 import ErrorBoundary from "@errors/ErrorBoundary";
 import useAccount from "@hooks/useAccount";
 import useLocalStorage from "@hooks/useLocalStorage";
@@ -33,11 +35,28 @@ function App({Component, pageProps}) {
 		<Providers>
 			<Layout>
 				<ErrorBoundary>
-					<Page Component={Component} pageProps={pageProps} />
+					<Suspense fallback={<Loading />}>
+						<Page Component={Component} pageProps={pageProps} />
+					</Suspense>
 				</ErrorBoundary>
 			</Layout>
 		</Providers>
 	);
 }
 
-export default App;
+function SSRLoader(props) {
+	const [init, setInit] = useState(false);
+	useEffect(() => {
+		const load = async () => {
+			await ssrPrepass(<App {...props} />);
+			setInit(true);
+		};
+		load();
+	}, [props]);
+
+	if (!init) return null;
+
+	return <App {...props} />;
+}
+
+export default SSRLoader;

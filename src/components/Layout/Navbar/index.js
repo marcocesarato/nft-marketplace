@@ -31,6 +31,7 @@ export default function Navbar() {
 	if (isAuthenticated) {
 		links.push(
 			{label: "Dashboard", href: "/creator-dashboard"},
+			{label: "My Gallery", href: "/my-gallery"},
 			{label: "My Assets", href: "/my-assets"},
 			{label: "Sell Asset", href: "/sell"},
 		);
