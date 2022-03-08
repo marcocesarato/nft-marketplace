@@ -1,10 +1,10 @@
 import {useEffect, useRef, useState} from "react";
 import {useFrame} from "@react-three/fiber";
-import * as THREE from "three";
+import {Quaternion, Vector3} from "three";
 
 import Frame, {GOLDENRATIO} from "./Frame";
 
-export default function Frames({images, q = new THREE.Quaternion(), p = new THREE.Vector3()}) {
+export default function Frames({images, q = new Quaternion(), p = new Vector3()}) {
 	const ref = useRef();
 	const clicked = useRef();
 	const [item, setItem] = useState(null);

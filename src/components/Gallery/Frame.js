@@ -1,18 +1,11 @@
 import {useRef, useState} from "react";
 import {Image, Text, useCursor} from "@react-three/drei";
 import {useFrame} from "@react-three/fiber";
-import * as THREE from "three";
+import {Color, MathUtils} from "three";
 
 export const GOLDENRATIO = 1.61803398875;
 
-export default function Frame({
-	url,
-	text,
-	id,
-	c = new THREE.Color(),
-	disableHover = false,
-	...props
-}) {
+export default function Frame({url, text, id, c = new Color(), disableHover = false, ...props}) {
 	const [hovered, hover] = useState(false);
 	const [rnd] = useState(() => Math.random());
 	const image = useRef();
@@ -20,12 +13,12 @@ export default function Frame({
 	useCursor(hovered);
 	useFrame((state) => {
 		image.current.material.zoom = 2 + Math.sin(rnd * 10000 + state.clock.elapsedTime / 3) / 2;
-		image.current.scale.x = THREE.MathUtils.lerp(
+		image.current.scale.x = MathUtils.lerp(
 			image.current.scale.x,
 			0.85 * (hovered ? 0.85 : 1),
 			0.1,
 		);
-		image.current.scale.y = THREE.MathUtils.lerp(
+		image.current.scale.y = MathUtils.lerp(
 			image.current.scale.y,
 			0.9 * (hovered ? 0.905 : 1),
 			0.1,
