@@ -48,7 +48,7 @@ export default function MyAssets() {
 				{data?.map((nft) => {
 					return (
 						<Product
-							key={`${nft?.block_number}${nft?.block_number_minted}`}
+							key={`${nft?.token_address}${nft?.token_id}`}
 							data={nft?.metadata}
 						/>
 					);
