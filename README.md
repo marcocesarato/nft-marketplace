@@ -37,33 +37,33 @@ To run this project locally, follow these steps.
 
 2. Install the dependencies (`yarn` suggested):
 
-        ```sh
-        yarn
-        # or
-        npm install
-        ```
+    ```sh
+    yarn
+    # or
+    npm install
+    ```
 
 3. Start the local Hardhat node (**optional** on local environment, for test or main network just follow the [configuration](#configuration))
 
-        ```sh
-        npx hardhat node
-        ```
+    ```sh
+    npx hardhat node
+    ```
 
 4. With the network running, deploy the contracts to the local network in a separate terminal window. Change network depends your needs. (**optional** only if contracts never been deployed before)
 
-        ```sh
-        npx hardhat run scripts/deploy.js --network localhost
-        ```
+    ```sh
+    npx hardhat run scripts/deploy.js --network localhost
+    ```
 
 5. Start the app
 
-        ```sh
-        yarn dev
-        # or
-        npm run dev
-        ```
+    ```sh
+    yarn dev
+    # or
+    npm run dev
+    ```
 
-        Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ### Using Docker
 
