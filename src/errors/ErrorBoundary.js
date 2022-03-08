@@ -1,5 +1,6 @@
 import React from "react";
-
+import {ErrorBoundary as ReactErrorBoundary} from "react-error-boundary";
+import {FiChevronDown, FiChevronUp} from "react-icons/fi";
 import {
 	Alert,
 	AlertDescription,
@@ -10,8 +11,6 @@ import {
 	Collapse,
 	useDisclosure,
 } from "@chakra-ui/react";
-import {ErrorBoundary as ReactErrorBoundary} from "react-error-boundary";
-import {FiChevronDown, FiChevronUp} from "react-icons/fi";
 
 const ErrorFallback = ({error}) => {
 	const {isOpen, onToggle} = useDisclosure();

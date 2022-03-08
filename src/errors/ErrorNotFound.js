@@ -1,5 +1,6 @@
-import {Box, Heading, Text, Button, Center} from "@chakra-ui/react";
 import NextLink from "next/link";
+import {Box, Button, Center, Heading, Text} from "@chakra-ui/react";
+
 export default function ErrorNotFound() {
 	return (
 		<Center flex="1" p="8">
