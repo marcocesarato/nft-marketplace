@@ -34,7 +34,7 @@
 							["^react", "^next/", "^@?\\w"],
 							// Internal packages.
 							[
-								"^@(app|artifacts|configs|contexts|components|errors|hooks|utils|models|assets)(/.*|$)"
+								"^@(app|types|artifacts|configs|contexts|components|errors|hooks|utils|models|assets)(/.*|$)"
 							],
 							// Side effect imports.
 							["^\\u0000"],

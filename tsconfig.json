@@ -26,6 +26,7 @@
 			"@contexts/*": ["src/contexts/*"],
 			"@errors/*": ["src/errors/*"],
 			"@hooks/*": ["src/hooks/*"],
+			"@types/*": ["src/types/*"],
 			"@utils/*": ["src/utils/*"]
 		},
 		"typeRoots": ["node_modules/@types", "src/types"]
