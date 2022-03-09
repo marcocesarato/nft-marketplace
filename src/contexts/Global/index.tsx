@@ -1,11 +1,11 @@
-import {createContext, useReducer, useContext} from "react";
+import {createContext, useContext, useReducer} from "react";
 
-import reducer from "./reducer";
 import initialState from "./initialState";
+import reducer from "./reducer";
 
 export const GlobalContext = createContext(initialState);
 
-export const GlobalProvider = ({children}) => {
+export const GlobalProvider = ({children}): JSX.Element => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 
 	function addConfig(item) {

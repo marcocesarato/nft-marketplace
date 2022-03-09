@@ -190,7 +190,7 @@ You can skip the process of creating your own node and instead use one hosted on
 
 ### Main
 
-- Web framework - [React](https://reactjs.org/) / [NextJS](https://nextjs.org/) (with [Static Export](https://nextjs.org/docs/advanced-features/static-html-export))
+- Web framework - [React](https://reactjs.org/) / [NextJS](https://nextjs.org/) (with [TypeScript](https://www.typescriptlang.org/))
 - Solidity development environment - [Hardhat](https://hardhat.org/)
 - File Storage - [IPFS](https://ipfs.io/)
 - Ethereum Client Library - [Ethers](https://github.com/ethers-io/ethers.js) / [React Moralis](https://github.com/MoralisWeb3/react-moralis)
@@ -256,7 +256,7 @@ The project uses NextJS and the source code is mostly contained within the `src`
 
 The source's folders hiearachy should mantain the following example structure:
 
-```
+```text
 - src/
 --- components/
 ----- MainComponent/

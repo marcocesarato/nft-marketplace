@@ -20,7 +20,7 @@
 	},
 	"overrides": [
 		{
-			"files": ["./src/*.js", "./src/*.jsx", "./src/**/*.js", "./src/**/*.jsx"],
+			"files": ["*.js", "*.jsx", "*.ts", "*.tsx"],
 			"rules": {
 				"simple-import-sort/exports": "warn",
 				"import/first": "warn",
