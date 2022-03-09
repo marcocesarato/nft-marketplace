@@ -21,7 +21,7 @@
         - [Nodes and clients](#nodes-and-clients)
 - [Technology Stack](#technology-stack)
     - [Main](#main)
-    - [Libraries](#libraries)
+    - [Other](#other)
 - [Project Structure](#project-structure)
     - [Folders](#folders)
     - [Source hierarchy](#source-hierarchy)
@@ -197,8 +197,10 @@ You can skip the process of creating your own node and instead use one hosted on
 - Database (only metadata) - [MongoDB](https://www.mongodb.com/)
 - Virtual Reality - [WebXR](https://immersive-web.github.io/) / [ThreeJS](https://threejs.org/)
 
-### Libraries
+### Other
 
+- [Solidity](https://docs.soliditylang.org/)
+- [Mongoose](https://mongoosejs.com/)
 - [React Error Boundary](https://github.com/bvaughn/react-error-boundary)
 - [React Query](https://react-query.tanstack.com/)
 - [React Three Fiber](https://docs.pmnd.rs/react-three-fiber)
@@ -206,12 +208,10 @@ You can skip the process of creating your own node and instead use one hosted on
 - [React Icons](https://react-icons.github.io/react-icons/)
 - [Chakra UI](https://chakra-ui.com/)
 - [Axios](https://github.com/axios/axios)
-- [Solidity](https://docs.soliditylang.org/)
-- [Mongoose](https://mongoosejs.com/)
 
 ## Project Structure
 
-The project uses NextJS and the source code is mostly contained within the `src` path (Alias `@app`).
+The project uses NextJS and the source code is mostly contained within the `src` path (Alias: `@app`).
 
 ### Folders
 
@@ -235,7 +235,7 @@ The project uses NextJS and the source code is mostly contained within the `src`
 
     Like pages folder, api folder indicate the route of the react application. Any file inside the folder `pages/api` is mapped to `/api/*` and will be treated as an API endpoint instead of a page. They are server-side only bundles and won't increase your client-side bundle size.
 
-- **Configs folder** (Path: `src/configs` | Alias: `@Configs`)
+- **Configs folder** (Path: `src/configs` | Alias: `@configs`)
 
     This folder consists of some configuration files where we store environment variables. We will use this file to set up multi-environment configurations or settings in the application (like address of the contracts deployed).
 
