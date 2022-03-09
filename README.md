@@ -257,23 +257,21 @@ The project uses NextJS and the source code is mostly contained within the `src`
 The source's folders hiearachy should mantain the following example structure:
 
 ```text
-- src/
---- components/
------ MainComponent/
-------- index.js
-------- MainComponent.spec.js
-------- SubComponent.js
-------- SubComponent.spec.js
-------- style.css
------ List/
-------- index.js
-------- style.css
---- hooks/
------ useData/
-------- index.js
---- contexts/
------ Global/
-------- index.js
+├── components
+│   ├── Component
+│   │   ├── SubComponent
+│   │   │   ├── SubComponent.spec.tsx
+│   │   │   ├── index.tsx
+│   │   ├──  Component.spec.tsx
+│   │   ├──  index.tsx
+├── hooks
+│   ├── useData
+│   │   ├──  index.ts
+├── contexts
+│   ├── Global
+│   │   ├──  index.tsx
+│   │   ├──  reducer.ts
+│   │   ├──  initialState.ts
 ```
 
 ## Coding Style
