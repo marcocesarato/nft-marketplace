@@ -23,8 +23,10 @@
     - [Main](#main)
     - [Libraries](#libraries)
 - [Project Structure](#project-structure)
-- [Coding style](#coding-style)
-- [How to contribute](#how-to-contribute)
+    - [Folders](#folders)
+    - [Source hierarchy](#source-hierarchy)
+- [Coding Style](#coding-style)
+- [How to Contribute](#how-to-contribute)
 
 ## Setup
 
@@ -90,11 +92,11 @@ CHAIN_MAINNET_URL=
 # Private account key for signing transactions
 ACCOUNT_PRIVATE=
 
-# Works on local/dev environment
+# Moralis on local/dev environment
 MORALIS_DEV_SERVER_URL=
 MORALIS_DEV_APPLICATION_ID=
 
-# Works on production environment
+# Moralis on production environment
 MORALIS_SERVER_URL=
 MORALIS_APPLICATION_ID=
 ```
@@ -209,42 +211,75 @@ You can skip the process of creating your own node and instead use one hosted on
 
 ## Project Structure
 
-The project uses NextJS and the source code is mostly contained within the `src` path.
-The pages are contained within the `src/pages` and API for backend services on `src/pages/api`.
+The project uses NextJS and the source code is mostly contained within the `src` path (Alias `@app`).
+
+### Folders
+
+- **Components folder** (Path: `src/components` | Alias: `@components`)
+
+    Components are the building blocks of any react project. This folder consists of a collection of UI components like buttons, modals, inputs, loader, etc., that can be used across various files in the project. Errors components are contained inside `src/errors` folder.
+
+- **Hooks folder** (Path: `src/hooks` | Alias: `@hooks`)
+
+    This folder consist in a collection of React Hooks which are still only used by components. Only hooks that can be consumed by all React components end up in the hooks/folder.
+
+- **Contexts folder** (Path: `src/contexts` | Alias: `@contexts`)
+  
+    Like hooks, the same strategy may apply for contexts which needs to be accessed globally by all your other files.
+
+- **Pages folder** (Path: `src/pages`)
+
+    The files in the pages folder indicate the route of the react application. Each file in this folder contains its route. A page can contain its subfolder. Each page has its state and is usually used to call an async operation. It usually consists of various components grouped.
+
+- **Api folder** (Path: `src/pages/api`)
+
+    Like pages folder, api folder indicate the route of the react application. Any file inside the folder `pages/api` is mapped to `/api/*` and will be treated as an API endpoint instead of a page. They are server-side only bundles and won't increase your client-side bundle size.
+
+- **Configs folder** (Path: `src/configs` | Alias: `@Configs`)
+
+    This folder consists of some configuration files where we store environment variables. We will use this file to set up multi-environment configurations or settings in the application (like address of the contracts deployed).
+
+- **Utils folder** (Path: `src/utils` | Alias: `@utils`)
+
+    Utils folder consists of some repeatedly used functions that are commonly used in the project. It should contain only common js functions & objects like dropdown options, regex condition, data formatting, etc.
+
+- **Contracts folder**  (Path: `contracts` | Alias: `@contracts`)
+
+    The contracts folder contains all the smart contracts (using [Solidity](https://docs.soliditylang.org/)) that need to be deployed on the blockchain and make our project work.
+
+- **Scripts folder** (Path: `scripts`)
+
+    This folder contains generic scripts but in particular here we can find the deploy script that allows us to deploy our smart contracts on the blockchain via hardhat.
 
 
-**Components Folder**
+### Source hierarchy
 
-Components are the building blocks of any react project. This folder consists of a collection of UI components like buttons, modals, inputs, loader, etc., that can be used across various files in the project.
+The source's folders hiearachy should mantain the following example structure:
 
-**Pages Folder**
+```
+- src/
+--- components/
+----- MainComponent/
+------- index.js
+------- MainComponent.spec.js
+------- SubComponent.js
+------- SubComponent.spec.js
+------- style.css
+----- List/
+------- index.js
+------- style.css
+--- hooks/
+----- useData/
+------- index.js
+--- contexts/
+----- Global/
+------- index.js
+```
 
-The files in the pages folder indicate the route of the react application. Each file in this folder contains its route. A page can contain its subfolder. Each page has its state and is usually used to call an async operation. It usually consists of various components grouped.
-
-**Api Folder**
-
-Like pages folder, api folder indicate the route of the react application. Any file inside the folder `pages/api` is mapped to `/api/*` and will be treated as an API endpoint instead of a page. They are server-side only bundles and won't increase your client-side bundle size.
-
-**Config Folder**
-
-This folder consists of some configuration files where we store environment variables. We will use this file to set up multi-environment configurations or settings in the application (like address of the contracts deployed).
-
-**Utils Folder**
-
-Utils folder consists of some repeatedly used functions that are commonly used in the project. It should contain only common js functions & objects like dropdown options, regex condition, data formatting, etc.
-
-**Contracts Folder**
-
-The contracts folder contains all the smart contracts (using [Solidity](https://docs.soliditylang.org/)) that need to be deployed on the blockchain and make our project work.
-
-**Scripts Folder**
-
-This folder contains generic scripts but in particular here we can find the deploy script that allows us to deploy our smart contracts on the blockchain via hardhat.
-
-## Coding style
+## Coding Style
 
 Follow the guidelines [HERE](./CODING_STYLE.md)
 
-## How to contribute
+## How to Contribute
 
 Follow the guidelines [HERE](./CONTRIBUTING.md)
