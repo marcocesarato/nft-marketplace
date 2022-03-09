@@ -33,7 +33,7 @@ async function main() {
 		`export const NFTAddress = "${nftAddress}";`;
 
 	let data = JSON.stringify(config);
-	fs.writeFileSync("src/configs/deploys.js", JSON.parse(data));
+	fs.writeFileSync("src/configs/deploys.ts", JSON.parse(data));
 }
 
 main()
