@@ -7,23 +7,11 @@ Use the VR viewer to see all your NFTs digital art on the wall of your home in r
 - [Summary](#summary)
 - [Setup](#setup)
     - [Local Setup](#local-setup)
+    - [Using Docker](#using-docker)
     - [Configuration](#configuration)
         - [Configure Moralis and Hardhat](#configure-moralis-and-hardhat)
-    - [Using Docker](#using-docker)
-    - [Deploying to Google Cloud Run](#deploying-to-google-cloud-run)
 - [Requirements](#requirements)
-    - [Background information](#background-information)
-        - [Fungible vs. non-fungible](#fungible-vs-non-fungible)
-        - [Blockchain](#blockchain)
-        - [Minting ERC721 tokens](#minting-erc721-tokens)
-        - [Smart contracts and NFTs](#smart-contracts-and-nfts)
-        - [Public networks: Mainnet vs. Testnet](#public-networks-mainnet-vs-testnet)
-        - [Private networks](#private-networks)
-        - [Faucets](#faucets)
-        - [Nodes and clients](#nodes-and-clients)
-        - [Minting](#minting)
-        - [Gas Fees](#gas-fees)
-        - [Metadata File](#metadata-file)
+    - [Background informations](#background-informations)
 - [Technology Stack](#technology-stack)
     - [Main](#main)
     - [Other](#other)
@@ -31,13 +19,10 @@ Use the VR viewer to see all your NFTs digital art on the wall of your home in r
 - [Structure](#structure)
     - [Folders](#folders)
     - [Source hierarchy](#source-hierarchy)
-- [How to Release](#how-to-release)
-    - [First Release](#first-release)
-    - [Release with autobump](#release-with-autobump)
-    - [Release imperatively](#release-imperatively)
-    - [Prevent hooks](#prevent-hooks)
 - [Coding Style](#coding-style)
 - [How to Contribute](#how-to-contribute)
+- [How to Release](#how-to-release)
+- [How to Deploy](#how-to-deploy)
 
 ## Setup
 
@@ -78,6 +63,14 @@ To run this project locally, follow these steps.
     Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 
+### Using Docker
+
+1. [Install Docker](https://docs.docker.com/get-docker/) on your machine.
+1. Build your container: `docker build -t nft-marketplace .`.
+1. Run your container: `docker run -p 3000:3000 nft-marketplace`.
+
+You can view your images created with `docker images`.
+
 ### Configuration
 
 #### Configure Moralis and Hardhat
@@ -112,27 +105,6 @@ MORALIS_SERVER_URL=
 MORALIS_APPLICATION_ID=
 ```
 
-
-### Using Docker
-
-1. [Install Docker](https://docs.docker.com/get-docker/) on your machine.
-1. Build your container: `docker build -t nft-marketplace .`.
-1. Run your container: `docker run -p 3000:3000 nft-marketplace`.
-
-You can view your images created with `docker images`.
-
-### Deploying to Google Cloud Run
-
-1. Install the [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) so you can use `gcloud` on the command line.
-1. Run `gcloud auth login` to log in to your account.
-1. [Create a new project](https://cloud.google.com/run/docs/quickstarts/build-and-deploy) in Google Cloud Run (e.g. `nft-marketplace`). Ensure billing is turned on.
-1. Build your container image using Cloud Build: `gcloud builds submit --tag gcr.io/PROJECT-ID/nft-marketplace --project PROJECT-ID`. This will also enable Cloud Build for your project.
-1. Deploy to Cloud Run: `gcloud run deploy --image gcr.io/PROJECT-ID/nft-marketplace --project PROJECT-ID --platform managed`. Choose a region of your choice.
-
-     - You will be prompted for the service name: press Enter to accept the default name, `nft-marketplace`.
-     - You will be prompted for [region](https://cloud.google.com/run/docs/quickstarts/build-and-deploy#follow-cloud-run): select the region of your choice, for example `us-central1`.
-     - You will be prompted to **allow unauthenticated invocations**: respond `y`.
-
 ## Requirements
 
 - [NodeJS](https://nodejs.org/en/download/)
@@ -141,80 +113,11 @@ You can view your images created with `docker images`.
 - [Moralis](https://moralis.io/) Account
 - [WebXR API Emulator](https://blog.mozvr.com/webxr-emulator-extension/) *(optional)*
 
-### Background information
+### Background informations
 
-Before creating our own NFT, let’s take a look at the technologies and features that make NFTs work.
+If you are new in the blockchain world and you need more background information about read this page.
 
-#### Fungible vs. non-fungible
-
-[Fungibility](https://www.investopedia.com/terms/f/fungibility.asp#:~:text=Fungibility%20is%20the%20ability%20of,equal%20value%20between%20the%20assets.) is essentially the ability to exchange an item for a similar item of the same value. Consider a five-dollar bill. It always equals the same amount anywhere in the world. You can exchange five one-dollar bills for a single five-dollar bill, and they are worth the same value all the time.
-
-On the other hand, non-fungible items do not have the same value in comparison to each other. For example, an exact replica of the Mona Lisa is not equal in value to the original painting, despite being the same in every way. Non-fungible items are inherently unique and cannot be considered equivalent to any other item.
-
-An item can be both fungible and non-fungible. For example, while two seats in economy class on a plane are worth the same price, one person may place sentimental value on a window seat, decreasing the value of every other seat for that person.
-
-#### Blockchain
-
-A [blockchain](https://ethereum.org/en/developers/docs/intro-to-ethereum/#what-is-a-blockchain) is a public database or digital ledger that keeps track of transactions. It is replicated across several computer systems that are part of the chain. We’ll build our NFT on the Ethereum blockchain.
-
-#### Minting ERC721 tokens
-
-Minting is the process of creating something for the first time, or in our case, publishing a unique instance of our [ERC721 token](https://docs.alchemy.com/alchemy/tutorials/how-to-create-an-nft/how-to-mint-a-nft) on the blockchain. [ERC-721](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/) is the standard for creating an NFT, and an ERC721 token is a unique representation of digital content published to the Ethereum blockchain. No two tokens are ever the same, so each time you mint a new token with the same block of code, a new address will be generated.
-
-#### Smart contracts and NFTs
-
-[Smart contracts](https://ethereum.org/en/developers/docs/smart-contracts/) are simple programs that are deployed to the blockchain and run as-is, meaning they’re not controlled by a user. We can use a smart contract to create and track our tokens.
-
-An NFT is a digital store of data that conforms to the ERC-721 standard and lives on a public blockchain. NFTs contain information or data about the asset they represent, which could be a digital item like a Tweet or a physical item like a [hoodie](https://www.theguardian.com/fashion/2021/apr/15/virtual-hoodie-sells-non-fungible-token-nft-overpriced).
-
-A smart contract can be considered an NFT if it implements the ERC-721 standard, and an NFT is an instance of a smart contract. Each time we mint a new NFT, we use the smart contract code that has been deployed to the blockchain.
-
-#### Public networks: Mainnet vs. Testnet
-
-Ethereum uses multiple networks. The network used in production is usually referred to as Mainnet and the others, which are used for testing, are called Testnet. We’ll deploy the NFT we create to the [Mumbai Testnet](https://mumbai.polygonscan.com/), a proof-of-work Testnet for Polygon.
-
-Note that when we eventually deploy our NFT, either to production or to the Mainnet, the transaction history and balances we have on the Mumbai Testnet will not carry over. Think of the Testnet as a public staging/development environment and the Mainnet as a production environment.
-
-#### Private networks
-
-A network is considered private if its nodes are not connected to the public blockchain. You can run the Ethereum blockchain on a private network, like your local machine, or on a group of machines, like consortium networks, that are not accessible on the Mainnet or Testnet.
-
-Running the Ethereum blockchain on a group of machines like an intranet would require validating transactions with a [node](https://ethereum.org/en/developers/docs/nodes-and-clients/), an Ethereum software running on a client that verifies blocks and transaction data.
-
-[HardHat](https://hardhat.org/) and [Ganache](https://www.trufflesuite.com/ganache) are two examples of Ethereum blockchain development environments that you can run on your local machine to compile, test, deploy, and debug your smart contract application.
-
-We’ll run our application on a public network so that it can be accessed by anyone connected to the network.
-
-#### Faucets
-
-To test our application, we need to get Ether (ETH), the Ethereum cryptocurrency, from a faucet. Faucets, like the [Mumbai Faucet](https://faucet.polygon.technology/), are web apps that allow you to specify and send test ETH to an address, which you can then use to complete transactions on a Testnet.
-
-The price of ETH on exchanges is determined by transactions occurring on the Mainnet at any given time. If you choose to run your Ethereum application on a private network, you don’t need test ETH.
-
-#### Nodes and clients
-
-As previously mentioned, nodes verify blocks and transaction data. You can create your own node using clients like [Geth](https://geth.ethereum.org/downloads/) and [OpenEthereum](https://github.com/openethereum/openethereum/releases/) and contribute to the Ethereum blockchain by validating transactions and blocks on the blockchain.
-
-You can skip the process of creating your own node and instead use one hosted on the cloud with a [node-as-a-service](https://ethereum.org/en/developers/docs/nodes-and-clients/nodes-as-a-service/) platform like [Alchemy](https://www.alchemyapi.io/) or [Moralis](https://moralis.io/). We can quickly move from development to production and ensure that we get important metrics for our application.
-
-#### Minting
-Minting basically refers to the process of turning digital art into a part of the Ethereum blockchain as a public ledger. NFTs ensure representation for your digital artwork. At the same time, it also ensures that the artwork can be flexibly traded or purchased in the market.
-One thing to note is that every transaction on the blockchain has a cost. So when you want to mint, buy or sell an NFT, you need to pay the price called gas fee.
-
-#### Gas Fees
-Gas fees are payments made by users to compensate for the computing energy required to process and validate transactions on the Ethereum blockchain. A higher gas limit means that you must do more work to execute a transaction using crypto or a smart contract.
-
-For this reason we will use a MongoDB to store non-static metadata, like user preferences or tags on products, so we dont't need to pay a gas fee.
-
-#### Metadata
-
-As mentioned above Minting is pretty much a 3 step process
-
-1. Upload the image to IPFS
-2. Create and upload a metadata JSON file to IPFS
-3. Pin the CID that is returned for each of these
-
-The metadata file can contain multiple keys as many as you like, however you must have the 3 required keys: name, description and image.
+**[Go to the page >](./docs/infos.md)**
 
 ## Technology Stack
 
@@ -308,67 +211,19 @@ The source's folders hiearachy should mantain the following example structure:
 │   │   ├──  initialState.ts
 ```
 
-## How to Release
-
-If you follow the [Conventional Commits](https://conventionalcommits.org/) specification like suggested on "[How to Contribute](#how-to-contribute)" section, you can release and run the execution of the automated tools like the [CHANGELOG.md](./CHANGELOG.md) generator and the autobump of the [semver](https://semver.org/lang/it/).
-
-How the the logic of autobump works:
-
-- **PATCH:** Commit of the type fix that patches a bug in your codebase.
-- **MINOR:** Commit of the type feat that introduces a new feature to the codebase.
-- **MAJOR:** A commit that has a footer BREAKING CHANGE:, or appends a ! after the type/scope, introduces a breaking API change. A BREAKING CHANGE can be part of commits of any type.
-
-### First Release
-
-To generate your changelog for your first release, simply do:
-
-```sh
-yarn release -- --first-release
-# or
-npm run release -- --first-release
-```
-
-This will tag a release **without bumping the version**.
-
-### Release with autobump
-
-```sh
-yarn release
-# or
-npm run release
-```
-
-As long as your git commit messages are conventional and accurate, you no longer need to specify the [semver](https://semver.org/lang/it/) type and you get CHANGELOG generation for free!
-
-### Release imperatively
-
-To bypass the automated version bump use `--release-as` with the argument `major`, `minor` or `patch`.
-
-Suppose the last version of your code is `1.0.0`, you've only landed `fix:` commits, but
-you would like your next release to be a `minor`. Simply run the following:
-
-```bash
-yarn release -- --release-as minor
-# or
-yarn release -- --release-as 1.1.0
-```
-
-You will get version `1.1.0` rather than what would be the auto-generated version `1.0.1`.
-
-> **NOTE:** you can combine `--release-as` and `--prerelease` to generate a release. This is useful when publishing experimental feature(s).
-
-### Prevent hooks
-
-If you use git hooks, like pre-commit, to test your code before committing, you can prevent hooks from being verified during the commit step by passing the `--no-verify` option:
-
-```sh
-yarn release -- --no-verify
-```
-
 ## Coding Style
 
-Follow the guidelines [HERE](./CODING_STYLE.md)
+**[Go to the guidelines >](./CODING_STYLE.md)**
 
 ## How to Contribute
 
-Follow the guidelines [HERE](./CONTRIBUTING.md)
+**[Go to the guidelines >](./CONTRIBUTING.md)**
+
+## How to Release
+
+**[Go to the page >](./docs/release.md)**
+
+## How to Deploy
+
+**[Go to the page >](./docs/deploy.md)**
+
