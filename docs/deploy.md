@@ -1,8 +1,3 @@
----
-title: How to Deploy
-page_id: deploy
----
-
 # How to Deploy
 
 ## Deploying to Google Cloud Run

@@ -1,8 +1,3 @@
----
-title: How to Release
-page_id: release
----
-
 # How to Release
 
 If you follow the [Conventional Commits](https://conventionalcommits.org/) specification like suggested on "[How to Contribute](../CONTRIBUTING.md)" page, you can release and run the execution of the automated tools like the [CHANGELOG](../CHANGELOG.md) generator and the autobump of the [semver](https://semver.org/lang/it/).

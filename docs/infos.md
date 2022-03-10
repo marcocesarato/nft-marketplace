@@ -1,8 +1,3 @@
----
-title: Background information
-page_id: background-info
----
-
 # Background information
 
 Before creating our own NFT, let’s take a look at the technologies and features that make NFTs work.
