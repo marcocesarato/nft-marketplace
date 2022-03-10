@@ -1,5 +1,7 @@
 # NFT Marketplace
 
+Use the VR viewer to see all your NFTs digital art on the wall of your home in real time and interact with them.
+
 ## Summary
 
 - [Summary](#summary)
@@ -22,7 +24,8 @@
 - [Technology Stack](#technology-stack)
     - [Main](#main)
     - [Other](#other)
-- [Project Structure](#project-structure)
+- [Workflow](#workflow)
+- [Structure](#structure)
     - [Folders](#folders)
     - [Source hierarchy](#source-hierarchy)
 - [How to Release](#how-to-release)
@@ -214,45 +217,49 @@ You can skip the process of creating your own node and instead use one hosted on
 - [Chakra UI](https://chakra-ui.com/)
 - [Axios](https://github.com/axios/axios)
 
-## Project Structure
+## Workflow
 
-The project uses NextJS and the source code is mostly contained within the `src` path (Alias: `@app`).
+[![](https://mermaid.ink/img/pako:eNp9k0FP4zAQhf_KyOdWe-CWQyWqUgESaEVZccllGk9aq46nOx5TRYj_jtMklEKFT1b8vjczz86bqdiSKUyk_4lCRQuHG8GmDJAX7xWWTqKCpb3nFg4su9rzoT_u1i2K3aJOp7PZ3HO1q7boQgGLXh_ZO-u0hYqDClYaT-RJ3sGDTwFPpEnCCQC0VijGiyWXkmUUbAErfKVRCnzka7cBDBau53fdFxR1tatw7CFj_easkZPjddItBe0IgoPTLbzQ-qpHRlUGHjhseDG_pD-g96QQ3SZgHoqO3dy_PP_wmN39Xa7yDMpZFBWzCTwun6EhRYuKPdCJzocessIASTwog5CKo5zESGa37GlhL_TqOEXf_iz-9d5W5P0EcvIh1iTAAuvUdr3EX7N6GuuuP8-_QEPjF-TDrOdzDoleJP7829su38A6_QabiWlIGnQ2P-e3zqo0-UYaKk2Rt5ZqTF5LU4b3LE1Hn5v8OFlMUaOPNDGYlFdtqEyhkmgUDb_EoHr_AL6LGFk)](https://mermaid.live/edit/#pako:eNp9k0FP4zAQhf_KyOdWe-CWQyWqUgESaEVZccllGk9aq46nOx5TRYj_jtMklEKFT1b8vjczz86bqdiSKUyk_4lCRQuHG8GmDJAX7xWWTqKCpb3nFg4su9rzoT_u1i2K3aJOp7PZ3HO1q7boQgGLXh_ZO-u0hYqDClYaT-RJ3sGDTwFPpEnCCQC0VijGiyWXkmUUbAErfKVRCnzka7cBDBau53fdFxR1tatw7CFj_easkZPjddItBe0IgoPTLbzQ-qpHRlUGHjhseDG_pD-g96QQ3SZgHoqO3dy_PP_wmN39Xa7yDMpZFBWzCTwun6EhRYuKPdCJzocessIASTwog5CKo5zESGa37GlhL_TqOEXf_iz-9d5W5P0EcvIh1iTAAuvUdr3EX7N6GuuuP8-_QEPjF-TDrOdzDoleJP7829su38A6_QabiWlIGnQ2P-e3zqo0-UYaKk2Rt5ZqTF5LU4b3LE1Hn5v8OFlMUaOPNDGYlFdtqEyhkmgUDb_EoHr_AL6LGFk)
+
+## Structure
+
+The project's source code is mostly contained within the `src` path (Alias: `@app`).
 
 ### Folders
 
-- **Components folder** (Path: `src/components` | Alias: `@components`)
+- **Components** (Path: `src/components` | Alias: `@components`)
 
     Components are the building blocks of any react project. This folder consists of a collection of UI components like buttons, modals, inputs, loader, etc., that can be used across various files in the project. Errors components are contained inside `src/errors` folder.
 
-- **Hooks folder** (Path: `src/hooks` | Alias: `@hooks`)
+- **Hooks** (Path: `src/hooks` | Alias: `@hooks`)
 
     This folder consist in a collection of React Hooks which are still only used by components. Only hooks that can be consumed by all React components end up in the hooks/folder.
 
-- **Contexts folder** (Path: `src/contexts` | Alias: `@contexts`)
+- **Contexts** (Path: `src/contexts` | Alias: `@contexts`)
   
     Like hooks, the same strategy may apply for contexts which needs to be accessed globally by all your other files.
 
-- **Pages folder** (Path: `src/pages`)
+- **Pages** (Path: `src/pages`)
 
     The files in the pages folder indicate the route of the react application. Each file in this folder contains its route. A page can contain its subfolder. Each page has its state and is usually used to call an async operation. It usually consists of various components grouped.
 
-- **Api folder** (Path: `src/pages/api`)
+- **Api** (Path: `src/pages/api`)
 
     Like pages folder, api folder indicate the route of the react application. Any file inside the folder `pages/api` is mapped to `/api/*` and will be treated as an API endpoint instead of a page. They are server-side only bundles and won't increase your client-side bundle size.
 
-- **Configs folder** (Path: `src/configs` | Alias: `@configs`)
+- **Configs** (Path: `src/configs` | Alias: `@configs`)
 
     This folder consists of some configuration files where we store environment variables. We will use this file to set up multi-environment configurations or settings in the application (like address of the contracts deployed).
 
-- **Utils folder** (Path: `src/utils` | Alias: `@utils`)
+- **Utils** (Path: `src/utils` | Alias: `@utils`)
 
     Utils folder consists of some repeatedly used functions that are commonly used in the project. It should contain only common js functions & objects like dropdown options, regex condition, data formatting, etc.
 
-- **Contracts folder**  (Path: `contracts` | Alias: `@contracts`)
+- **Smart contracts**  (Path: `contracts`)
 
     The contracts folder contains all the smart contracts (using [Solidity](https://docs.soliditylang.org/)) that need to be deployed on the blockchain and make our project work.
 
-- **Scripts folder** (Path: `scripts`)
+- **Scripts** (Path: `scripts`)
 
     This folder contains generic scripts but in particular here we can find the deploy script that allows us to deploy our smart contracts on the blockchain via hardhat.
 
