@@ -21,6 +21,9 @@ Use the VR viewer to see all your NFTs digital art on the wall of your home in r
         - [Private networks](#private-networks)
         - [Faucets](#faucets)
         - [Nodes and clients](#nodes-and-clients)
+        - [Minting](#minting)
+        - [Gas Fees](#gas-fees)
+        - [Metadata File](#metadata-file)
 - [Technology Stack](#technology-stack)
     - [Main](#main)
     - [Other](#other)
@@ -193,6 +196,25 @@ The price of ETH on exchanges is determined by transactions occurring on the Mai
 As previously mentioned, nodes verify blocks and transaction data. You can create your own node using clients like [Geth](https://geth.ethereum.org/downloads/) and [OpenEthereum](https://github.com/openethereum/openethereum/releases/) and contribute to the Ethereum blockchain by validating transactions and blocks on the blockchain.
 
 You can skip the process of creating your own node and instead use one hosted on the cloud with a [node-as-a-service](https://ethereum.org/en/developers/docs/nodes-and-clients/nodes-as-a-service/) platform like [Alchemy](https://www.alchemyapi.io/) or [Moralis](https://moralis.io/). We can quickly move from development to production and ensure that we get important metrics for our application.
+
+#### Minting
+Minting basically refers to the process of turning digital art into a part of the Ethereum blockchain as a public ledger. NFTs ensure representation for your digital artwork. At the same time, it also ensures that the artwork can be flexibly traded or purchased in the market.
+One thing to note is that every transaction on the blockchain has a cost. So when you want to mint, buy or sell an NFT, you need to pay the price called gas fee.
+
+#### Gas Fees
+Gas fees are payments made by users to compensate for the computing energy required to process and validate transactions on the Ethereum blockchain. A higher gas limit means that you must do more work to execute a transaction using crypto or a smart contract.
+
+For this reason we will use a MongoDB to store non-static metadata, like user preferences or tags on products, so we dont't need to pay a gas fee.
+
+#### Metadata
+
+As mentioned above Minting is pretty much a 3 step process
+
+1. Upload the image to IPFS
+2. Create and upload a metadata JSON file to IPFS
+3. Pin the CID that is returned for each of these
+
+The metadata file can contain multiple keys as many as you like, however you must have the 3 required keys: name, description and image.
 
 ## Technology Stack
 
