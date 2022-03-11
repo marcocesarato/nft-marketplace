@@ -87,7 +87,7 @@ To deploy to Polygon test or main networks we need to configure hardhat so we ne
 NEXT_PUBLIC_WORKSPACE_URL=$CLIENT_URL
 
 # MongoDB
-MONGODB_URI=mongodb://mongo:27017/
+MONGODB_URI=mongodb://mongo:27017/mdata
 
 # WebSocket and JSON RPC
 CHAIN_TESTNET_URL=
