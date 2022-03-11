@@ -18,6 +18,7 @@ export default function CreateItem() {
 	const {saveIPFS} = useIPFS();
 	const {web3} = useWeb3();
 	const [fileUrl, setFileUrl] = useState(null);
+	const [message, setMessage] = useState("");
 	const [formInput, updateFormInput] = useState({price: "", name: "", description: ""});
 	const [isProcessing, setProcessing] = useState(false);
 	const router = useRouter();
@@ -34,6 +35,7 @@ export default function CreateItem() {
 	async function createSale(url) {
 		const signer = web3.getSigner();
 
+		setMessage("Minting token... Follow the instructions on your wallet.");
 		let contract = new ethers.Contract(NFTAddress, NFTContract.abi, signer);
 		let transaction = await contract.createToken(url);
 		let tx = await transaction.wait();
@@ -41,14 +43,15 @@ export default function CreateItem() {
 		let value = event.args[2];
 		let tokenId = value.toNumber();
 
+		setMessage("Approve this item for sale... Follow the instructions on your wallet.");
 		contract = new ethers.Contract(MarketAddress, MarketContract.abi, signer);
 
 		const price = parseUnits(formInput.price, "ether");
 		transaction = await contract.createMarketItem(NFTAddress, tokenId, price);
 
 		await transaction.wait();
-		setProcessing(false);
-		router.push("/");
+		setMessage("Item approved! Redirecting to explore...");
+		router.push("/explore");
 	}
 
 	async function createMarket() {
@@ -62,6 +65,7 @@ export default function CreateItem() {
 		});
 		try {
 			setProcessing(true);
+			setMessage("Uploading metadata...");
 			const url = await saveIPFS("metadata.json", {base64: btoa(data)});
 			createSale(url);
 		} catch (error) {
@@ -70,13 +74,11 @@ export default function CreateItem() {
 		}
 	}
 
-	if (isProcessing)
-		return <Loader message="We are processing your transaction. Please check your wallet..." />;
+	if (isProcessing) return <Loader message={message} />;
 	return (
 		<Content alignItems="center">
 			<Stack align="stretch" width="100%" maxWidth={768}>
 				<Header title="Sell assets" subtitle="Fill the form and sell your digital asset." />
-				;
 				<FormControl>
 					<FormLabel>Asset Name</FormLabel>
 					<Input
