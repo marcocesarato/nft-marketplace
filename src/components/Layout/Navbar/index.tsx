@@ -17,7 +17,7 @@ import {ColorModeSwitcher} from "./ColorModeSwitcher";
 import ConnectButton from "./ConnectButton";
 import NavLink from "./NavLink";
 
-export default function Navbar() {
+export default function Navbar(): JSX.Element {
 	const {isAuthenticated} = useAccount();
 	const {isOpen, onOpen, onClose} = useDisclosure();
 	const {isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose} = useDisclosure();

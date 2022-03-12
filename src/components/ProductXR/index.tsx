@@ -10,7 +10,7 @@ import XRController from "./XRController";
 
 export const MotionBox = motion(Box); // Animated box
 
-export default function ProductXR({image, onClose}) {
+export default function ProductXR({image, onClose}): JSX.Element {
 	const [init, setInit] = useState(false);
 	const [showTip, setShowTip] = useState(true);
 	const [isSupported, setSupported] = useState(null);

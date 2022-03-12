@@ -5,7 +5,7 @@ import {Center, Heading, Icon, Text, useColorModeValue} from "@chakra-ui/react";
 
 import {acceptExts} from "@configs/uploads";
 
-export default function Dropzone({onFileAccepted}) {
+export default function Dropzone({onFileAccepted}): JSX.Element {
 	const onDrop = useCallback(
 		(acceptedFiles) => {
 			onFileAccepted(acceptedFiles[0]);

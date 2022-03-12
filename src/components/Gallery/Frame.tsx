@@ -5,7 +5,14 @@ import {Color, MathUtils} from "three";
 
 export const GOLDENRATIO = 1.61803398875;
 
-export default function Frame({url, text, id, c = new Color(), disableHover = false, ...props}) {
+export default function Frame({
+	url,
+	text,
+	id,
+	c = new Color(),
+	disableHover = false,
+	...props
+}): JSX.Element {
 	const [hovered, hover] = useState(false);
 	const [rnd] = useState(() => Math.random());
 	const image = useRef();

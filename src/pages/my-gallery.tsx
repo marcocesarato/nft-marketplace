@@ -5,7 +5,7 @@ import Header from "@components/Header";
 import Loading from "@components/Loading";
 import useNFTs from "@hooks/useNFTs";
 
-export default function MyGallery() {
+export default function MyGallery(): JSX.Element {
 	const {data, error, isError, isSuccess, isLoading} = useNFTs();
 	if (isError) return <Header title="Error" subtitle={error.message} />;
 	if (isLoading) return <Loading />;

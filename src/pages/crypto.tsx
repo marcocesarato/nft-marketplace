@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useMoralis} from "react-moralis";
 import {Box, Center} from "@chakra-ui/react";
 
-export default function Crypto() {
+export default function Crypto(): JSX.Element {
 	const [ramper, setRamper] = useState();
 	const {Moralis} = useMoralis();
 	useEffect(() => {

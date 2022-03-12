@@ -1,7 +1,7 @@
 import NextLink from "next/link";
 import {Link, useColorModeValue} from "@chakra-ui/react";
 
-export default function NavLink({link}) {
+export default function NavLink({link}): JSX.Element {
 	return (
 		<NextLink href={link.href} passHref>
 			<Link

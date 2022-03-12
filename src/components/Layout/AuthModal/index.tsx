@@ -18,7 +18,7 @@ import useAccount from "@hooks/useAccount";
 
 import WalletConnect from "./WalletConnect";
 
-export default function AuthModal({onClose, ...props}) {
+export default function AuthModal({onClose, ...props}): JSX.Element {
 	const {authError, user, account} = useAccount();
 
 	useEffect(() => {

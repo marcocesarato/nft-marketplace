@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-function getStorageValue(key, defaultValue) {
+function getStorageValue(key: string, defaultValue?: any) {
 	// Getting stored value
 	try {
 		if (typeof window !== "undefined") {
@@ -14,7 +14,7 @@ function getStorageValue(key, defaultValue) {
 	}
 }
 
-export default function useLocalStorage(key, defaultValue) {
+export default function useLocalStorage(key: string, defaultValue?: any) {
 	const [value, setValue] = useState(() => {
 		return getStorageValue(key, defaultValue);
 	});

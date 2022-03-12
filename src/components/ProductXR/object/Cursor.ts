@@ -8,7 +8,7 @@ import * as BufferGeometryUtils from "three/examples/jsm/utils/BufferGeometryUti
  * @extends {Mesh}
  */
 export default class Cursor extends Mesh {
-	constructor(geometry, material) {
+	constructor(geometry?, material?) {
 		if (!geometry) {
 			const ring = new RingBufferGeometry(0.045, 0.05, 32).rotateX(-Math.PI / 2);
 			const dot = new CircleBufferGeometry(0.005, 32).rotateX(-Math.PI / 2);

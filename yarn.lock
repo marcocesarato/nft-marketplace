@@ -3160,6 +3160,11 @@
   resolved "https://registry.yarnpkg.com/@types/webidl-conversions/-/webidl-conversions-6.1.1.tgz#e33bc8ea812a01f63f90481c666334844b12a09e"
   integrity sha512-XAahCdThVuCFDQLT7R7Pk/vqeObFNL3YqRyFZg+AqAP/W1/w3xHaIxuW7WszQqTbIBOPRcItYJIou3i/mppu3Q==
 
+"@types/webxr@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@types/webxr/-/webxr-0.2.3.tgz#6e04a6c4aff9a6e9ae4265ad3eae6545dcfdcf0a"
+  integrity sha512-MCxbyG4KIcx8+g1RwX9uRYsEfRncWLKtGhzSFh+j8fNOgnuzuBAabGJZz45iU4JvPeqaKaLRqQt6o92NMprmwQ==
+
 "@types/whatwg-url@^8.2.1":
   version "8.2.1"
   resolved "https://registry.yarnpkg.com/@types/whatwg-url/-/whatwg-url-8.2.1.tgz#f1aac222dab7c59e011663a0cb0a3117b2ef05d4"

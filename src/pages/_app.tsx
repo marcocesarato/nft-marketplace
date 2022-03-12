@@ -12,7 +12,7 @@ import useWeb3 from "@hooks/useWeb3";
 
 import "focus-visible/dist/focus-visible";
 
-function Page({Component, pageProps}) {
+function Page({Component, pageProps}): JSX.Element {
 	const {Moralis, isInitialized} = useMoralis();
 	const {isLogged} = useAccount();
 	const {enableWeb3, isWeb3Enabled, isWeb3EnableLoading} = useWeb3();
@@ -30,7 +30,7 @@ function Page({Component, pageProps}) {
 	return <Component {...pageProps} />;
 }
 
-function App({Component, pageProps}) {
+function App({Component, pageProps}): JSX.Element {
 	return (
 		<Providers>
 			<Layout>
@@ -44,7 +44,7 @@ function App({Component, pageProps}) {
 	);
 }
 
-function SSRLoader(props) {
+function SSRLoader(props): JSX.Element {
 	const [init, setInit] = useState(false);
 	useEffect(() => {
 		const load = async () => {

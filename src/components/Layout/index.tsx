@@ -4,7 +4,7 @@ import Viewport from "@components/Viewport";
 
 import Navbar from "./Navbar";
 
-export default function Layout({children}) {
+export default function Layout({children}): JSX.Element {
 	return (
 		<Viewport>
 			<Navbar />

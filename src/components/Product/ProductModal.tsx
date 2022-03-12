@@ -15,14 +15,14 @@ import ProductXR from "@components/ProductXR";
 
 import ProductDetails from "./ProductDetails";
 
-export default function ProductModal({data, onClose, onPurchase, ...props}) {
+export default function ProductModal({data, onClose, onPurchase, isOpen, ...props}): JSX.Element {
 	const {isOpen: isOpenVR, onOpen: onOpenVR, onClose: onCloseVR} = useDisclosure();
 	const handleClose = () => {
 		onClose();
 		onCloseVR();
 	};
 	return (
-		<Modal size="6xl" onClose={handleClose} {...props}>
+		<Modal size="6xl" onClose={handleClose} isOpen={isOpen} {...props}>
 			<ModalOverlay />
 			<ModalContent>
 				<ModalHeader />

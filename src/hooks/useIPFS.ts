@@ -10,8 +10,8 @@ export default function useIPFS() {
 
 	const saveIPFS = async (name, file) => {
 		const upload = await saveFile(name, file, {saveIPFS: true});
-		if (upload?.ipfs) {
-			return resolveLink(upload.ipfs());
+		if (upload?.["ipfs"]) {
+			return resolveLink(upload?.["ipfs"]());
 		}
 		return upload;
 	};

@@ -1,29 +1,8 @@
-import {useEffect} from "react";
 import {Flex, useMediaQuery} from "@chakra-ui/react";
 
-const isBrowser = typeof window !== "undefined";
+import useFixViewport from "./useFixViewport";
 
-const useFixViewport = () => {
-	useEffect(() => {
-		const updateCssViewportHeight = () => {
-			let vh = window.innerHeight * 0.01;
-			document.documentElement.style.setProperty("--vh", `${vh}px`);
-		};
-
-		if (isBrowser) {
-			updateCssViewportHeight();
-			window.addEventListener("resize", updateCssViewportHeight);
-		}
-
-		return () => {
-			if (isBrowser) {
-				window.removeEventListener("resize", updateCssViewportHeight);
-			}
-		};
-	}, []);
-};
-
-export default function Viewport(props) {
+export default function Viewport(props): JSX.Element {
 	const [isStandalone] = useMediaQuery("(display-mode: standalone)");
 	useFixViewport();
 

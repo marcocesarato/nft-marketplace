@@ -1,6 +1,6 @@
 import {Box, SimpleGrid} from "@chakra-ui/react";
 
-export default function Catalog(props) {
+export default function Catalog(props): JSX.Element {
 	return (
 		<Box mt={2} alignItems="flex-start">
 			<SimpleGrid

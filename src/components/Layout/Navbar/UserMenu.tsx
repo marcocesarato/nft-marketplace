@@ -13,7 +13,7 @@ import {
 import Avatar from "@components/Avatar";
 import useAccount from "@hooks/useAccount";
 
-export default function UserMenu({openAccountModal}) {
+export default function UserMenu({openAccountModal}): JSX.Element {
 	const {username, logout} = useAccount();
 	const router = useRouter();
 

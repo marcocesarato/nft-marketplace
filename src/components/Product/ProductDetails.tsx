@@ -11,7 +11,7 @@ import {
 
 import {useConfig} from "@contexts/Global";
 
-export default function ProductDetails({data, onClose, onPurchase}) {
+export default function ProductDetails({data, onPurchase}): JSX.Element {
 	const {nativeToken} = useConfig();
 	return (
 		<SimpleGrid columns={{base: 1, lg: 2}} spacing={{base: 8, md: 10}}>

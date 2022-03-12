@@ -50,7 +50,10 @@ export default function useNFTMetadata() {
 					});
 				}
 				//Handle Setbacks
-				else if (metadata?.detail && metadata.detail.includes("Request was throttled")) {
+				else if (
+					metadata?.["detail"] &&
+					metadata?.["detail"].includes("Request was throttled")
+				) {
 					//Log
 					console.warn(
 						"useVerifyMetadata.withMetadata() Bad Result for:" +

@@ -1,6 +1,6 @@
 import {Alert, AlertDescription, AlertIcon, AlertTitle, Box} from "@chakra-ui/react";
 
-export default function ErrorAlert({error, message}) {
+export default function ErrorAlert({error, message}): JSX.Element {
 	return (
 		<Alert status="error" mb={5}>
 			<AlertIcon />

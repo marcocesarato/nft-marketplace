@@ -1,6 +1,7 @@
 import {useNFTBalances} from "react-moralis";
 import {useQuery} from "react-query";
 
+import {TNFT} from "@app/types";
 import {isString} from "@utils/objects";
 
 import useIPFS from "./useIPFS";
@@ -10,7 +11,7 @@ const useNFTs = () => {
 	const {getNFTBalances} = useNFTBalances(null, {autoFetch: false});
 	const {withMetadata} = useNFTMetadata();
 	const {resolveLink} = useIPFS();
-	return useQuery("NFTs", async () => {
+	return useQuery<TNFT[], Error>("NFTs", async () => {
 		const data = await getNFTBalances();
 		if (data?.result) {
 			return await Promise.all(
@@ -20,8 +21,11 @@ const useNFTs = () => {
 					}
 					if (nft?.metadata) {
 						if (isString(nft.metadata)) nft.metadata = JSON.parse(nft.metadata);
-						if (nft.metadata?.data) nft.metadata = nft.metadata.data;
-						nft.image = resolveLink(nft.metadata?.image);
+						if (typeof nft.metadata === "object") {
+							if (nft.metadata["data"]) nft.metadata = nft.metadata["data"];
+							if (nft.metadata["image"])
+								nft.metadata["image"] = resolveLink(nft.metadata["image"]);
+						}
 					}
 					return nft;
 				}),

@@ -10,7 +10,7 @@ import useNFTs from "@hooks/useNFTs";
 
 //import useMarketItemsOwned from "@hooks/useMarketItemsOwned";
 
-export default function MyAssets() {
+export default function MyAssets(): JSX.Element {
 	const {Moralis} = useMoralis();
 	const {data, error, isError, isSuccess, isLoading} = useNFTs();
 	//const {data, error, isError, isLoading, isSuccess} = useMarketItemsOwned();
@@ -19,10 +19,11 @@ export default function MyAssets() {
 	async function transfer(nft, amount, receiver) {
 		console.log(nft, amount, receiver);
 		const options = {
-			type: nft?.contract_type?.toLowerCase(),
-			tokenId: nft?.token_id,
+			type: nft.contract_type?.toLowerCase(),
+			tokenId: nft.token_id,
 			receiver,
-			contractAddress: nft?.token_address,
+			contractAddress: nft.token_address,
+			amount: nft.amount,
 		};
 		if (options.type === "erc1155") {
 			options.amount = amount ?? nft.amount;

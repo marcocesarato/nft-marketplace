@@ -1,9 +1,11 @@
 import {createContext, useContext, useReducer} from "react";
 
+import {TGenericObject, TGlobalContext} from "@app/types";
+
 import initialState from "./initialState";
 import reducer from "./reducer";
 
-export const GlobalContext = createContext(initialState);
+export const GlobalContext = createContext<TGlobalContext>(initialState);
 
 export const GlobalProvider = ({children}): JSX.Element => {
 	const [state, dispatch] = useReducer(reducer, initialState);
@@ -36,7 +38,7 @@ export const useGlobalContext = () => {
 	return context;
 };
 
-export const useConfig = () => {
+export const useConfig = (): TGenericObject => {
 	const {config, addConfig, removeConfig} = useGlobalContext();
 	return {...config, addConfig, removeConfig};
 };

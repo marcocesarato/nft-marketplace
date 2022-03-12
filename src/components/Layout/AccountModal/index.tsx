@@ -28,7 +28,7 @@ import ActionButton from "./ActionButton";
 import DisconnectButton from "./DisconnectButton";
 import LinkButton from "./LinkButton";
 
-export default function AccountModal({isOpen, onClose}) {
+export default function AccountModal({isOpen, onClose}): JSX.Element {
 	const {account, username, logout, chainId, setUserData, userError} = useAccount();
 	const {data: balance} = useBalance();
 	const router = useRouter();

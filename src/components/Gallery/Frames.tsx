@@ -4,7 +4,7 @@ import {Quaternion, Vector3} from "three";
 
 import Frame, {GOLDENRATIO} from "./Frame";
 
-export default function Frames({images, q = new Quaternion(), p = new Vector3()}) {
+export default function Frames({images, q = new Quaternion(), p = new Vector3()}): JSX.Element {
 	const ref = useRef();
 	const clicked = useRef();
 	const [item, setItem] = useState(null);

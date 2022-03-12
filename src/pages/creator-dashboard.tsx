@@ -7,7 +7,7 @@ import Loading from "@components/Loading";
 import Product from "@components/Product";
 import useMarketItemsCreated from "@hooks/useMarketItemsCreated";
 
-export default function CreatorDashboard() {
+export default function CreatorDashboard(): JSX.Element {
 	const {data, error, isError, isLoading, isSuccess} = useMarketItemsCreated();
 	const sold = data?.filter((i) => i.sold) || [];
 

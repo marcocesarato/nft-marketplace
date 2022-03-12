@@ -20,7 +20,7 @@ export default function useAccount() {
 		user,
 	} = useMoralis();
 	const {web3} = useWeb3();
-	const account = web3?.provider?.selectedAddress;
+	const account = web3?.provider?.["selectedAddress"];
 
 	let username = user?.get("username") || account;
 	username = username?.length > 15 ? formatAddress(account) : username;

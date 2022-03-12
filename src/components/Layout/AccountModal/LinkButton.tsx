@@ -1,6 +1,6 @@
 import {Link} from "@chakra-ui/react";
 
-export default function LinkButton(props) {
+export default function LinkButton(props): JSX.Element {
 	return (
 		<Link
 			fontSize="sm"

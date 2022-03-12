@@ -11,8 +11,8 @@ const StyledIdenticon = styled.div`
 	background-color: black;
 `;
 
-export default function Avatar() {
-	const ref = useRef();
+export default function Avatar(): JSX.Element {
+	const ref = useRef<HTMLDivElement>();
 	const {account} = useAccount();
 
 	useEffect(() => {

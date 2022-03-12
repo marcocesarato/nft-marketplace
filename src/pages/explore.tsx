@@ -11,7 +11,7 @@ import useMarketItems from "@hooks/useMarketItems";
 import useWeb3 from "@hooks/useWeb3";
 import {parseUnits} from "@utils/units";
 
-export default function Explore() {
+export default function Explore(): JSX.Element {
 	const {web3} = useWeb3();
 	const {isAuthenticated} = useAccount();
 	const {refetch, data, error, isError, isLoading, isSuccess} = useMarketItems();

@@ -1,6 +1,6 @@
 import {Button} from "@chakra-ui/react";
 
-export default function DisconnectButton({onDisconnect}) {
+export default function DisconnectButton({onDisconnect}): JSX.Element {
 	return (
 		<Button
 			bg="gray.700"

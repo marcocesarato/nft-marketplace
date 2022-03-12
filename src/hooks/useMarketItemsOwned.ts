@@ -2,6 +2,7 @@ import {useQuery} from "react-query";
 import axios from "axios";
 import {ethers} from "ethers";
 
+import {TMarketItem} from "@app/types";
 import {MarketAddress, MarketContract, NFTAddress, NFTContract} from "@configs/contracts";
 import {formatUnits} from "@utils/units";
 
@@ -9,7 +10,7 @@ import useWeb3 from "./useWeb3";
 
 const useOwnedMarketItems = () => {
 	const {web3} = useWeb3();
-	return useQuery("marketItemsOwned", async () => {
+	return useQuery<TMarketItem[], Error>("marketItemsOwned", async () => {
 		if (!web3) return [];
 		const signer = web3.getSigner();
 		const marketContract = new ethers.Contract(MarketAddress, MarketContract.abi, signer);

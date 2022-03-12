@@ -6,7 +6,7 @@ import useAccount from "@hooks/useAccount";
 import useLocalStorage from "@hooks/useLocalStorage";
 import useWeb3 from "@hooks/useWeb3";
 
-export default function WalletConnect({onClose}) {
+export default function WalletConnect({onClose}): JSX.Element {
 	const {authenticate} = useAccount();
 	const {enableWeb3} = useWeb3();
 	const [, setConnectorId] = useLocalStorage("connectorId");

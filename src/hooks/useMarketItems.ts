@@ -2,12 +2,13 @@ import {useQuery} from "react-query";
 import axios from "axios";
 import {ethers} from "ethers";
 
+import {TMarketItem} from "@app/types";
 import {ChainUrl} from "@configs/chain";
 import {MarketAddress, MarketContract, NFTAddress, NFTContract} from "@configs/contracts";
 import {formatUnits} from "@utils/units";
 
 const useMarketItems = () => {
-	return useQuery("marketItems", async () => {
+	return useQuery<TMarketItem[], Error>("marketItems", async () => {
 		/* create a generic provider and query for unsold market items */
 		const provider = new ethers.providers.JsonRpcProvider(ChainUrl);
 		const tokenContract = new ethers.Contract(NFTAddress, NFTContract.abi, provider);

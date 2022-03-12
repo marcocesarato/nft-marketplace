@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {Box, Button, Heading, Img, LightMode, Stack, Text} from "@chakra-ui/react";
 
-export default function Home() {
+export default function Home(): JSX.Element {
 	return (
 		<Box>
 			<Box as="section" py="7.5rem">

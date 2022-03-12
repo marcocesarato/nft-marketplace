@@ -8,7 +8,7 @@ import useWeb3 from "@hooks/useWeb3";
 import AuthModal from "../AuthModal";
 import UserMenu from "./UserMenu";
 
-export default function ConnectButton({openAccountModal}) {
+export default function ConnectButton({openAccountModal}): JSX.Element {
 	const {isAuthenticated} = useAccount();
 	const {enableWeb3} = useWeb3();
 	const {data: balance} = useBalance();

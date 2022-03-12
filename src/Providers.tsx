@@ -8,7 +8,7 @@ import {GlobalProvider} from "@contexts/Global";
 
 import theme from "./theme";
 
-function Providers({children}) {
+function Providers({children}): JSX.Element {
 	return (
 		<ChakraProvider resetCSS theme={theme}>
 			<MoralisProvider appId={moralisAppId} serverUrl={moralisServerUrl}>

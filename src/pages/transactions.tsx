@@ -9,7 +9,7 @@ import {formatAddress} from "@utils/formatters";
 import {getExplorer} from "@utils/networks";
 import {formatUnits} from "@utils/units";
 
-export default function Transactions() {
+export default function Transactions(): JSX.Element {
 	const {chainId} = useAccount();
 	const {data, isLoading} = useTransfers();
 	const columns = [

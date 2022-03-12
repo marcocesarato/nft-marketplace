@@ -1,7 +1,7 @@
 import NextLink from "next/link";
 import {Box, Button, Center, Heading, Text} from "@chakra-ui/react";
 
-export default function ErrorNotFound() {
+export default function ErrorNotFound(): JSX.Element {
 	return (
 		<Center flex="1" p="8">
 			<Box textAlign="center" py={10} px={6}>

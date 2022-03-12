@@ -1,4 +1,6 @@
-const initialState = {
+import {TGlobalContext} from "@app/types";
+
+const initialState: TGlobalContext = {
 	config: {
 		nativeToken: {
 			name: "MATIC",
@@ -6,6 +8,8 @@ const initialState = {
 			decimals: 5,
 		},
 	},
+	addConfig: () => {},
+	removeConfig: () => {},
 };
 
 export default initialState;

@@ -1,6 +1,6 @@
 import {Button} from "@chakra-ui/react";
 
-export default function ActionButton(props) {
+export default function ActionButton(props): JSX.Element {
 	return (
 		<Button
 			as="a"

@@ -2,7 +2,7 @@ import {Box, Table, Tbody, Td, Th, Thead, Tr, useColorModeValue} from "@chakra-u
 
 import Header from "../Header";
 
-export default function SourceTable({title, subtitle, data, columns, rowKey}) {
+export default function SourceTable({title, subtitle, data, columns, rowKey}): JSX.Element {
 	return (
 		<Box py="12">
 			<Box
@@ -24,7 +24,7 @@ export default function SourceTable({title, subtitle, data, columns, rowKey}) {
 							</Tr>
 						</Thead>
 						<Tbody>
-							{data.result.map((row) => (
+							{data.map((row) => (
 								<Tr key={rowKey(row)}>
 									{columns.map((column, index) => {
 										const cell = row[column.key];

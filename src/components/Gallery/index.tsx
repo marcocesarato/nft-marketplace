@@ -19,7 +19,7 @@ const imagesDisposition = [
 	{position: [2, 0, 2.75], rotation: [0, -Math.PI / 2.5, 0]},
 ];
 
-export default function Gallery({data}) {
+export default function Gallery({data}): JSX.Element {
 	const images = data.slice(0, imagesDisposition.length).map((nft, i) => {
 		return {
 			id: `${nft?.token_address}${nft?.token_id}`,

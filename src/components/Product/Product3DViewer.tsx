@@ -4,7 +4,7 @@ import {Canvas} from "@react-three/fiber";
 
 import Frame from "@components/Gallery/Frame";
 
-export default function Product3DViewer({data}) {
+export default function Product3DViewer({data}): JSX.Element {
 	return (
 		<Canvas shadows dpr={[1, 2]} camera={{position: [0, 0, 0], fov: 60}}>
 			<Suspense fallback={null}>

@@ -15,7 +15,7 @@ import {useConfig} from "@contexts/Global";
 
 import ProductModal from "./ProductModal";
 
-export default function Product({data, onPurchase, rootProps}) {
+export default function Product({data, onPurchase = null, ...rootProps}): JSX.Element {
 	const {nativeToken} = useConfig();
 	const {isOpen, onOpen, onClose} = useDisclosure();
 	return (

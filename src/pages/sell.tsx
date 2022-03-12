@@ -13,7 +13,7 @@ import useIPFS from "@hooks/useIPFS";
 import useWeb3 from "@hooks/useWeb3";
 import {parseUnits} from "@utils/units";
 
-export default function CreateItem() {
+export default function CreateItem(): JSX.Element {
 	const {nativeToken} = useBalance();
 	const {saveIPFS} = useIPFS();
 	const {web3} = useWeb3();
