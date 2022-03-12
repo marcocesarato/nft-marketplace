@@ -1,16 +1,22 @@
-import {Flex} from "@chakra-ui/react";
-
-import Viewport from "@components/Viewport";
+import Viewport from "@app/components/Viewport";
+import Sidebar from "@layouts/Sidebar";
 
 import Navbar from "../Navbar";
+import MainPanel from "./MainPanel";
+import PanelContainer from "./PanelContainer";
 
-export default function Main({children}): JSX.Element {
+export default function Main({children}: {children: React.ReactNode}): JSX.Element {
 	return (
 		<Viewport>
-			<Navbar />
-			<Flex flex="1" flexDirection="column">
-				{children}
-			</Flex>
+			<Sidebar title={"Marketplace"} />
+			<MainPanel
+				w={{
+					base: "100%",
+					lg: "calc(100% - 275px)",
+				}}>
+				<Navbar />
+				<PanelContainer>{children}</PanelContainer>
+			</MainPanel>
 		</Viewport>
 	);
 }

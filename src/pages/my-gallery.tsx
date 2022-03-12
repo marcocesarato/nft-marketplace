@@ -13,7 +13,7 @@ export default function MyGallery(): JSX.Element {
 		return <Header title="Gallery" subtitle="No items on marketplace." />;
 
 	return (
-		<Center height="calc(100vh - 64px)" width="100vw">
+		<Center height="calc(100vh - 94px)" width={{md: "100vw", lg: "calc(100vw - 290px)"}}>
 			<Gallery data={data} />
 		</Center>
 	);

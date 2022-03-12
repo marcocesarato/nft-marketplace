@@ -1,8 +1,8 @@
-import {Flex, useMediaQuery} from "@chakra-ui/react";
+import {Box, Flex, useMediaQuery} from "@chakra-ui/react";
 
 import useFixViewport from "./useFixViewport";
 
-export default function Viewport(props): JSX.Element {
+export default function Viewport({children, ...props}): JSX.Element {
 	const [isStandalone] = useMediaQuery("(display-mode: standalone)");
 	useFixViewport();
 
@@ -20,7 +20,8 @@ export default function Viewport(props): JSX.Element {
 					  }
 					: {}
 			}
-			{...props}
-		/>
+			{...props}>
+			<Box>{children}</Box>
+		</Flex>
 	);
 }

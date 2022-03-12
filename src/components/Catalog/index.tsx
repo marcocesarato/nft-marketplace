@@ -6,10 +6,10 @@ export default function Catalog(props): JSX.Element {
 			<SimpleGrid
 				mx="auto"
 				columns={{
-					base: 2,
-					md: 3,
-					lg: 4,
-					xl: 5,
+					base: 1,
+					md: 2,
+					lg: 3,
+					xl: 4,
 				}}
 				columnGap={{base: "4", md: "6"}}
 				rowGap={{base: "8", md: "10"}}

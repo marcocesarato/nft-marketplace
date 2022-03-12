@@ -1,18 +1,28 @@
 import {extendTheme} from "@chakra-ui/react";
-import {createBreakpoints} from "@chakra-ui/theme-tools";
 
-const breakpoints = createBreakpoints({
-	sm: "40em",
-	md: "52em",
-	lg: "64em",
-	xl: "80em",
-});
+import {CardComponent} from "./additions/card/Card";
+import {CardBodyComponent} from "./additions/card/CardBody";
+import {CardHeaderComponent} from "./additions/card/CardHeader";
+import {MainPanelComponent} from "./additions/layout/MainPanel";
+import {PanelContainerComponent} from "./additions/layout/PanelContainer";
+import {badgeStyles} from "./components/badge";
+import {buttonStyles} from "./components/button";
+import {drawerStyles} from "./components/drawer";
+import {linkStyles} from "./components/link";
+import {breakpoints} from "./foundations/breakpoints";
+import {globalStyles} from "./styles";
+// import { mode } from "@chakra-ui/theme-tools";
 
-const theme = extendTheme({
-	colors: {
-		black: "#16161D",
-	},
-	breakpoints,
-});
-
-export default theme;
+export default extendTheme(
+	{breakpoints}, // Breakpoints
+	globalStyles,
+	buttonStyles, // Button styles
+	badgeStyles, // Badge styles
+	linkStyles, // Link styles
+	drawerStyles, // Sidebar variant for Chakra's drawer
+	CardComponent, // Card component
+	CardBodyComponent, // Card Body component
+	CardHeaderComponent, // Card Header component
+	MainPanelComponent, // Main Panel component
+	PanelContainerComponent, // Panel Container component
+);

@@ -28,7 +28,6 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 				{...rootProps}>
 				<Box
 					role={"group"}
-					maxW={"330px"}
 					w={"full"}
 					bg={useColorModeValue("gray.200", "gray.900")}
 					rounded={"lg"}
@@ -60,7 +59,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 						<Image
 							rounded={"lg"}
 							height={230}
-							width={282}
+							width="100%"
 							objectFit={"cover"}
 							boxShadow={"md"}
 							alt={data?.name}

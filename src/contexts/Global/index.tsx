@@ -1,4 +1,5 @@
 import {createContext, useContext, useReducer} from "react";
+import {useDisclosure} from "@chakra-ui/react";
 
 import {TGenericObject, TGlobalContext} from "@app/types";
 
@@ -9,6 +10,7 @@ export const GlobalContext = createContext<TGlobalContext>(initialState);
 
 export const GlobalProvider = ({children}): JSX.Element => {
 	const [state, dispatch] = useReducer(reducer, initialState);
+	const {isOpen: isMenuOpen, onToggle: onToggleMenu} = useDisclosure();
 
 	function addConfig(item) {
 		dispatch({
@@ -23,11 +25,15 @@ export const GlobalProvider = ({children}): JSX.Element => {
 		});
 	}
 
-	return (
-		<GlobalContext.Provider value={{...state, addConfig, removeConfig}}>
-			{children}
-		</GlobalContext.Provider>
-	);
+	const globalState = {
+		...state,
+		addConfig,
+		removeConfig,
+		isMenuOpen,
+		onToggleMenu,
+	};
+
+	return <GlobalContext.Provider value={globalState}>{children}</GlobalContext.Provider>;
 };
 
 export const useGlobalContext = () => {
@@ -41,6 +47,11 @@ export const useGlobalContext = () => {
 export const useConfig = (): TGenericObject => {
 	const {config, addConfig, removeConfig} = useGlobalContext();
 	return {...config, addConfig, removeConfig};
+};
+
+export const useMenu = () => {
+	const {isMenuOpen, onToggleMenu} = useGlobalContext();
+	return {isMenuOpen, onToggleMenu};
 };
 
 export default useGlobalContext;

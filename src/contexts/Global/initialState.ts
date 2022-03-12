@@ -10,6 +10,8 @@ const initialState: TGlobalContext = {
 	},
 	addConfig: () => {},
 	removeConfig: () => {},
+	isMenuOpen: false,
+	onToggleMenu: () => {},
 };
 
 export default initialState;

@@ -32,9 +32,8 @@ export default function Home(): JSX.Element {
 						<LightMode>
 							<Link href="/explore" passHref>
 								<Button
-									href="/explore"
 									size="lg"
-									colorScheme="blue"
+									colorScheme="purple"
 									px="8"
 									fontWeight="bold"
 									fontSize="md">

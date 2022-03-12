@@ -16,12 +16,12 @@ import {
 	Text,
 } from "@chakra-ui/react";
 
-import {formatAddress} from "@app/utils/formatters";
 import Avatar from "@components/Avatar";
 import ErrorAlert from "@errors/ErrorAlert";
 import useAccount from "@hooks/useAccount";
 import useBalance from "@hooks/useBalance";
 import useDebounce from "@hooks/useDebounce";
+import {formatAddress} from "@utils/formatters";
 import {getExplorer} from "@utils/networks";
 
 import ActionButton from "./ActionButton";

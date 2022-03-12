@@ -5,7 +5,7 @@ import useAccount from "@hooks/useAccount";
 import useBalance from "@hooks/useBalance";
 import useWeb3 from "@hooks/useWeb3";
 
-import AuthModal from "../../components/AuthModal";
+import AuthModal from "../AuthModal";
 import UserMenu from "./UserMenu";
 
 export default function ConnectButton({openAccountModal}): JSX.Element {
