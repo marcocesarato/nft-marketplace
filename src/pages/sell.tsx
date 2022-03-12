@@ -45,9 +45,12 @@ export default function CreateItem(): JSX.Element {
 
 		setMessage("Approve this item for sale... Follow the instructions on your wallet.");
 		contract = new ethers.Contract(MarketAddress, MarketContract.abi, signer);
+		let listingPrice = await contract.getListingPrice();
 
 		const price = parseUnits(formInput.price, "ether");
-		transaction = await contract.createMarketItem(NFTAddress, tokenId, price);
+		transaction = await contract.createMarketItem(NFTAddress, tokenId, price, {
+			value: listingPrice,
+		});
 
 		await transaction.wait();
 		setMessage("Item approved! Redirecting to explore...");

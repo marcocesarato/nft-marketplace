@@ -25,10 +25,10 @@ export type TMarketItem = {
 	tokenId: int;
 	seller: string;
 	owner: string;
+	creator?: string;
 	image: string;
 	name: string;
 	description: string;
-	sold?: boolean;
 };
 
 export type TTransfers = {

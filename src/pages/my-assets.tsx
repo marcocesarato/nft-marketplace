@@ -1,42 +1,36 @@
 import {useState} from "react";
-import {useMoralis} from "react-moralis";
+import {ethers} from "ethers";
 
 import Catalog from "@components/Catalog";
 import Content from "@components/Content";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
 import Product from "@components/Product";
+import {MarketAddress, MarketContract} from "@configs/contracts";
 import useNFTs from "@hooks/useNFTs";
+import useWeb3 from "@hooks/useWeb3";
+import {parseUnits} from "@utils/units";
 
 //import useMarketItemsOwned from "@hooks/useMarketItemsOwned";
 
 export default function MyAssets(): JSX.Element {
-	const {Moralis} = useMoralis();
+	const {web3} = useWeb3();
 	const {data, error, isError, isSuccess, isLoading} = useNFTs();
 	//const {data, error, isError, isLoading, isSuccess} = useMarketItemsOwned();
 	const [isPending, setIsPending] = useState(false);
 
-	async function transfer(nft, amount, receiver) {
-		console.log(nft, amount, receiver);
-		const options = {
-			type: nft.contract_type?.toLowerCase(),
-			tokenId: nft.token_id,
-			receiver,
-			contractAddress: nft.token_address,
-			amount: nft.amount,
-		};
-		if (options.type === "erc1155") {
-			options.amount = amount ?? nft.amount;
-		}
+	async function resaleItem(id, amount) {
 		setIsPending(true);
-		try {
-			const tx = await Moralis.transfer(options);
-			console.log(tx);
-			setIsPending(false);
-		} catch (e) {
-			alert(e.message);
-			setIsPending(false);
-		}
+		const signer = web3.getSigner();
+		const priceFormatted = parseUnits(amount, "ether");
+		let contract = new ethers.Contract(MarketAddress, MarketContract.abi, signer);
+		let listingPrice = await contract.getListingPrice();
+
+		listingPrice = listingPrice.toString();
+		let transaction = await contract.resaleMarketItem(id, priceFormatted, {
+			value: listingPrice,
+		});
+		await transaction.wait();
 	}
 
 	if (isError) return <Header title="Error" subtitle={error.message} />;
