@@ -10,9 +10,9 @@ import {
 	useDisclosure,
 } from "@chakra-ui/react";
 
+import AccountModal from "@components/AccountModal";
 import useAccount from "@hooks/useAccount";
 
-import AccountModal from "../AccountModal";
 import {ColorModeSwitcher} from "./ColorModeSwitcher";
 import ConnectButton from "./ConnectButton";
 import NavLink from "./NavLink";
@@ -53,7 +53,9 @@ export default function Navbar(): JSX.Element {
 					</Box>
 					<HStack as={"nav"} spacing={4} display={{base: "none", md: "flex"}}>
 						{links.map((link) => (
-							<NavLink key={link.href} link={link} />
+							<NavLink key={link.href} link={link.href}>
+								{link.label}
+							</NavLink>
 						))}
 					</HStack>
 				</HStack>
@@ -68,8 +70,8 @@ export default function Navbar(): JSX.Element {
 				<Box pb={4} display={{md: "none"}}>
 					<Stack as={"nav"} spacing={4}>
 						{links.map((link) => (
-							<NavLink key={link.href} link={link}>
-								{link}
+							<NavLink key={link.href} link={link.href}>
+								{link.label}
 							</NavLink>
 						))}
 					</Stack>

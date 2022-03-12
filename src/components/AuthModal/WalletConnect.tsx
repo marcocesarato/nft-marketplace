@@ -1,15 +1,16 @@
 import Image from "next/image";
 import {Grid, GridItem, Text} from "@chakra-ui/react";
 
+import {TWeb3Provider} from "@app/types";
 import {connectors} from "@configs/connectors";
 import useAccount from "@hooks/useAccount";
 import useLocalStorage from "@hooks/useLocalStorage";
 import useWeb3 from "@hooks/useWeb3";
 
-export default function WalletConnect({onClose}): JSX.Element {
+export default function WalletConnect(): JSX.Element {
 	const {authenticate} = useAccount();
 	const {enableWeb3} = useWeb3();
-	const [, setConnectorId] = useLocalStorage("connectorId");
+	const [, setConnectorId] = useLocalStorage<TWeb3Provider>("connectorId");
 	return (
 		<Grid templateColumns={"1fr 1fr"} rowGap={5}>
 			{connectors.map(({title, icon, connectorId}, key) => {

@@ -18,7 +18,7 @@ import useAccount from "@hooks/useAccount";
 
 import WalletConnect from "./WalletConnect";
 
-export default function AuthModal({onClose, ...props}): JSX.Element {
+export default function AuthModal({onClose, isOpen, ...props}): JSX.Element {
 	const {authError, user, account} = useAccount();
 
 	useEffect(() => {
@@ -29,7 +29,7 @@ export default function AuthModal({onClose, ...props}): JSX.Element {
 	}, [user]);
 
 	return (
-		<Modal {...props} onClose={onClose}>
+		<Modal {...props} isOpen={isOpen} onClose={onClose}>
 			<ModalOverlay />
 			<ModalContent>
 				<ModalHeader>Connect wallet</ModalHeader>

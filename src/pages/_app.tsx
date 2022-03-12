@@ -3,12 +3,13 @@ import {useMoralis} from "react-moralis";
 import ssrPrepass from "react-ssr-prepass";
 
 import Providers from "@app/Providers";
-import Layout from "@components/Layout";
+import {TWeb3Provider} from "@app/types";
 import Loading from "@components/Loading";
 import ErrorBoundary from "@errors/ErrorBoundary";
 import useAccount from "@hooks/useAccount";
 import useLocalStorage from "@hooks/useLocalStorage";
 import useWeb3 from "@hooks/useWeb3";
+import MainLayout from "@layouts/Main";
 
 import "focus-visible/dist/focus-visible";
 
@@ -16,7 +17,7 @@ function Page({Component, pageProps}): JSX.Element {
 	const {Moralis, isInitialized} = useMoralis();
 	const {isLogged} = useAccount();
 	const {enableWeb3, isWeb3Enabled, isWeb3EnableLoading} = useWeb3();
-	const [connectorId] = useLocalStorage("connectorId");
+	const [connectorId] = useLocalStorage<TWeb3Provider>("connectorId");
 
 	useEffect(() => {
 		if (isLogged && !isWeb3Enabled && !isWeb3EnableLoading) enableWeb3({provider: connectorId});
@@ -33,13 +34,13 @@ function Page({Component, pageProps}): JSX.Element {
 function App({Component, pageProps}): JSX.Element {
 	return (
 		<Providers>
-			<Layout>
+			<MainLayout>
 				<ErrorBoundary>
 					<Suspense fallback={<Loading />}>
 						<Page Component={Component} pageProps={pageProps} />
 					</Suspense>
 				</ErrorBoundary>
-			</Layout>
+			</MainLayout>
 		</Providers>
 	);
 }

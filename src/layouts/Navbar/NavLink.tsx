@@ -1,9 +1,9 @@
 import NextLink from "next/link";
 import {Link, useColorModeValue} from "@chakra-ui/react";
 
-export default function NavLink({link}): JSX.Element {
+export default function NavLink({link, children}): JSX.Element {
 	return (
-		<NextLink href={link.href} passHref>
+		<NextLink href={link} passHref>
 			<Link
 				px={2}
 				py={1}
@@ -12,7 +12,7 @@ export default function NavLink({link}): JSX.Element {
 					textDecoration: "none",
 					bg: useColorModeValue("gray.200", "gray.700"),
 				}}>
-				{link.label}
+				{children}
 			</Link>
 		</NextLink>
 	);

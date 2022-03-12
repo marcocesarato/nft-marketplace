@@ -22,6 +22,7 @@
 			"@assets/*": ["assets/*"],
 			"@artifacts/*": ["artifacts/*"],
 			"@configs/*": ["src/configs/*"],
+			"@layouts/*": ["src/layouts/*"],
 			"@components/*": ["src/components/*"],
 			"@contexts/*": ["src/contexts/*"],
 			"@errors/*": ["src/errors/*"],
