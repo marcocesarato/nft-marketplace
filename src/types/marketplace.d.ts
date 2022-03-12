@@ -31,7 +31,7 @@ export type TMarketItem = {
 	sold?: boolean;
 };
 
-export type TTransaction = {
+export type TTransfers = {
 	transaction_hash: string;
 	address: string;
 	block_timestamp: string;
