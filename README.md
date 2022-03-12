@@ -1,6 +1,6 @@
 # NFT Marketplace
 
-Use the VR viewer to see all your NFTs digital art on the wall of your home in real time and interact with them.
+Watch your Digital Art on the wall of your home. Use the VR viewer to see all your NFTs digital art on the wall of your home in real time and interact with them.
 
 ## Summary
 
