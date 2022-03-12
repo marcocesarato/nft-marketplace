@@ -23,10 +23,7 @@ export default function Navbar(): JSX.Element {
 		<Box px={4} my="15px">
 			<Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
 				<InputGroup flex={1} mr={4} boxShadow="sm">
-					<InputLeftElement
-						pointerEvents="none"
-						children={<SearchIcon color="purple.500" />}
-					/>
+					<InputLeftElement pointerEvents="none" children={<SearchIcon color="main" />} />
 					<Input
 						border={0}
 						focusBorderColor="none"

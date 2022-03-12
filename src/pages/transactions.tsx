@@ -44,7 +44,7 @@ export default function Transactions(): JSX.Element {
 			render: (hash) => (
 				<Box textAlign="right">
 					<a href={`${getExplorer(chainId)}/tx/${hash}`} target="_blank" rel="noreferrer">
-						<Button variant="link" colorScheme="blue">
+						<Button variant="link" colorScheme="purple">
 							View on explorer
 						</Button>
 					</a>

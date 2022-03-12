@@ -6,12 +6,12 @@ export default function DisconnectButton({onDisconnect}): JSX.Element {
 			bg="gray.700"
 			color="gray.100"
 			_hover={{
-				background: "blue.900",
-				color: "blue.300",
+				background: "purple.900",
+				color: "purple.300",
 			}}
 			_active={{
-				background: "blue.900",
-				color: "blue.300",
+				background: "purple.900",
+				color: "purple.300",
 			}}
 			isFullWidth
 			onClick={onDisconnect}>

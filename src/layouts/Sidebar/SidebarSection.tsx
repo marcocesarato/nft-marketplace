@@ -61,10 +61,10 @@ function SidebarSection(props): JSX.Element {
 					}}
 					py="12px"
 					borderRadius="15px"
-					boxShadow="md"
+					boxShadow="sm"
 					w="100%">
 					<Flex>
-						<IconBox bg="purple.500" color="white" h="30px" w="30px" me="12px">
+						<IconBox bg="main" color="white" h="30px" w="30px" me="12px">
 							{props.icon}
 						</IconBox>
 						<Text color={activeColor} my="auto" fontSize="sm">
@@ -92,7 +92,7 @@ function SidebarSection(props): JSX.Element {
 					borderRadius="15px"
 					w="100%">
 					<Flex>
-						<IconBox bg={inactiveBg} color="purple.500" h="30px" w="30px" me="12px">
+						<IconBox bg={inactiveBg} color="main" h="30px" w="30px" me="12px">
 							{props.icon}
 						</IconBox>
 						<Text color={inactiveColor} my="auto" fontSize="sm">

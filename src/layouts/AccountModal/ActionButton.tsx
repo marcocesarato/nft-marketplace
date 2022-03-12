@@ -14,12 +14,12 @@ export default function ActionButton(props): JSX.Element {
 			color="gray.400"
 			cursor="pointer"
 			_hover={{
-				background: "blue.900",
-				color: "blue.300",
+				background: "purple.900",
+				color: "purple.300",
 			}}
 			_active={{
-				background: "blue.900",
-				color: "blue.300",
+				background: "purple.900",
+				color: "purple.300",
 			}}
 			{...props}
 		/>
