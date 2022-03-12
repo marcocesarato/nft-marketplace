@@ -180,6 +180,10 @@ The project's source code is mostly contained within the `src` path (Alias: `@ap
 
     Utils folder consists of some repeatedly used functions that are commonly used in the project. It should contain only common js functions & objects like dropdown options, regex condition, data formatting, etc.
 
+- **Layouts** (Path: `src/layouts` | Alias: `@layouts`)
+
+    As the name says, it contains layouts available to the whole project like header, footer, etc. We can store the header, footer, or sidebar code here and call it.
+
 - **Smart contracts**  (Path: `contracts`)
 
     The contracts folder contains all the smart contracts (using [Solidity](https://docs.soliditylang.org/)) that need to be deployed on the blockchain and make our project work.
