@@ -1,7 +1,7 @@
-import {GenericObject} from "@app/types";
+import {TGenericObject} from "./globals";
 
 export type TGlobalContext = {
-	config: GenericObject;
-	addConfig: (payload: GenericObject) => void;
-	removeConfig: (payload: GenericObject) => void;
+	config: TGenericObject;
+	addConfig: (payload: TGenericObject) => void;
+	removeConfig: (payload: TGenericObject) => void;
 };
