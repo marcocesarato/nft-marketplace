@@ -2,8 +2,8 @@ import {AiOutlineShoppingCart} from "react-icons/ai";
 import {
 	Box,
 	Button,
-	Flex,
 	Heading,
+	HStack,
 	Image,
 	Stack,
 	Text,
@@ -77,7 +77,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 						</Heading>
 					</Stack>
 					{onPurchase && (
-						<Box
+						<HStack
 							opacity={0.8}
 							alignItems="center"
 							justifyContent="space-between"
@@ -107,7 +107,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 								}}>
 								<AiOutlineShoppingCart />
 							</Button>
-						</Box>
+						</HStack>
 					)}
 				</Box>
 			</Stack>
