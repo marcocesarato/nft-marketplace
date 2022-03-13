@@ -49,6 +49,7 @@ export default function Gallery({data}): JSX.Element {
 						maxDepthThreshold={1.4}
 						color="#101010"
 						metalness={0.5}
+						mirror={0}
 					/>
 				</mesh>
 			</group>

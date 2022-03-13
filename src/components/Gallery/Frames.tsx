@@ -1,25 +1,26 @@
 import {useEffect, useRef, useState} from "react";
 import {useFrame} from "@react-three/fiber";
-import {Quaternion, Vector3} from "three";
+import {Group, Quaternion, Vector3} from "three";
 
-import Frame, {GOLDENRATIO} from "./Frame";
+import Frame from "./Frame";
 
 export default function Frames({images, q = new Quaternion(), p = new Vector3()}): JSX.Element {
 	const ref = useRef();
-	const clicked = useRef();
 	const [item, setItem] = useState(null);
 	useEffect(() => {
-		clicked.current = ref.current.getObjectByName(item);
-		if (clicked.current) {
-			clicked.current.parent.updateWorldMatrix(true, true);
-			clicked.current.parent.localToWorld(p.set(0, GOLDENRATIO / 2, 1.25));
-			clicked.current.parent.getWorldQuaternion(q);
+		if (!ref?.current) return;
+		const reference = ref?.current as Group;
+		const clicked = reference.getObjectByName(item);
+		if (clicked) {
+			clicked.parent.updateWorldMatrix(true, true);
+			clicked.parent.localToWorld(p.set(0, 1 /* Ratio adjust */ / 2, 1.25));
+			clicked.parent.getWorldQuaternion(q);
 		} else {
 			p.set(0, 0, 5.5);
 			q.identity();
 		}
 	});
-	useFrame((state, dt) => {
+	useFrame((state) => {
 		state.camera.position.lerp(p, 0.025);
 		state.camera.quaternion.slerp(q, 0.025);
 	});

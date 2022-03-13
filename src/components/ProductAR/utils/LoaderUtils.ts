@@ -3,6 +3,8 @@ import {Mesh, Vector3} from "three";
 import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
 import {ShapeType, threeToCannon} from "three-to-cannon";
 
+import {pictureSize} from "@utils/image";
+
 import AugmentedMaterial from "../material/AugmentedMaterial";
 import Picture from "../object/Picture";
 import ObjectUtils from "./ObjectUtils";
@@ -75,19 +77,10 @@ export default class LoaderUtils {
 	 * Load Picture and place in scene.
 	 */
 	static loadPicture(context, url, scale, onLoaded) {
-		this.getPictureSize(url).then(({width, height}) => {
+		pictureSize(url).then(({width, height}) => {
 			const size = this.scalePictureSize(width, height);
 			const picture = new Picture(url, size.width, size.height);
 			this.loadObject(context, picture, scale, onLoaded);
-		});
-	}
-
-	static getPictureSize(picture) {
-		return new Promise((resolve, reject) => {
-			let img = new Image();
-			img.onload = () => resolve({height: img.height, width: img.width});
-			img.onerror = reject;
-			img.src = picture;
 		});
 	}
 

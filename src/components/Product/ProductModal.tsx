@@ -1,7 +1,6 @@
 import {ReactNode, useState} from "react";
 import {AiOutlineShoppingCart} from "react-icons/ai";
 import {
-	Button,
 	Modal,
 	ModalBody,
 	ModalCloseButton,

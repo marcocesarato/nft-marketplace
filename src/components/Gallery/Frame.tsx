@@ -1,40 +1,50 @@
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {Image, Text, useCursor} from "@react-three/drei";
 import {useFrame} from "@react-three/fiber";
 import {Color, MathUtils} from "three";
 
-export const GOLDENRATIO = 1.61803398875;
+import {pictureSize} from "@app/utils/image";
 
 export default function Frame({
 	url,
 	text = "",
 	id = null,
-	c = new Color(),
+	color = new Color(),
 	disableHover = false,
 	...props
 }): JSX.Element {
 	const [hovered, hover] = useState(false);
-	const [rnd] = useState(() => Math.random());
 	const image = useRef();
 	const frame = useRef();
+	const [ratio, setRatio] = useState(1);
+	const [direction, setDirection] = useState("vertical");
+	const scaleX = direction === "vertical" ? 1 : ratio;
+	const scaleY = direction === "vertical" ? ratio : 1;
 	useCursor(hovered);
 	useFrame((state) => {
-		image.current.material.zoom = 2 + Math.sin(rnd * 10000 + state.clock.elapsedTime / 3) / 2;
-		image.current.scale.x = MathUtils.lerp(
-			image.current.scale.x,
-			0.85 * (hovered ? 0.85 : 1),
-			0.1,
-		);
-		image.current.scale.y = MathUtils.lerp(
-			image.current.scale.y,
-			0.9 * (hovered ? 0.905 : 1),
-			0.1,
-		);
-		frame.current.material.color.lerp(
-			c.set(hovered ? "orange" : "white").convertSRGBToLinear(),
+		if (!image?.current || !frame?.current) return;
+		const img = image.current as any;
+		img.scale.x = MathUtils.lerp(img.scale.x, 0.85 * (hovered ? 0.85 : 1), 0.1);
+		img.scale.y = MathUtils.lerp(img.scale.y, 0.9 * (hovered ? 0.905 : 1), 0.1);
+		(frame.current as any).material.color.lerp(
+			color.set(hovered ? "orange" : "white").convertSRGBToLinear(),
 			0.1,
 		);
 	});
+	useEffect(() => {
+		const loadPicture = async () => {
+			const sizes = await pictureSize(url);
+			if (sizes.width > sizes.height) {
+				setRatio(sizes.width / sizes.height);
+				setDirection("horizontal");
+			} else {
+				setRatio(sizes.height / sizes.width);
+				setDirection("vertical");
+			}
+		};
+		loadPicture();
+	}, [url]);
+
 	return (
 		<group {...props}>
 			<mesh
@@ -44,8 +54,8 @@ export default function Frame({
 					hover(true && !disableHover);
 				}}
 				onPointerOut={() => hover(false)}
-				scale={[1, GOLDENRATIO, 0.05]}
-				position={[0, GOLDENRATIO / 2, 0]}>
+				scale={[scaleX, scaleY, 0.05]}
+				position={[0, scaleY / 2, 0]}>
 				<boxGeometry />
 				<meshStandardMaterial
 					color="#151515"
@@ -68,7 +78,7 @@ export default function Frame({
 					maxWidth={0.1}
 					anchorX="left"
 					anchorY="top"
-					position={[0.55, GOLDENRATIO, 0]}
+					position={[scaleX / 1.8, scaleY, 0]}
 					fontSize={0.025}>
 					{text}
 				</Text>
