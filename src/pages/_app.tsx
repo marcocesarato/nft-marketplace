@@ -4,6 +4,7 @@ import ssrPrepass from "react-ssr-prepass";
 
 import Providers from "@app/Providers";
 import {TWeb3Provider} from "@app/types";
+import Loader from "@components/Loader";
 import Loading from "@components/Loading";
 import ErrorBoundary from "@errors/ErrorBoundary";
 import useAccount from "@hooks/useAccount";
@@ -15,7 +16,7 @@ import "focus-visible/dist/focus-visible";
 
 function Page({Component, pageProps}): JSX.Element {
 	const {Moralis, isInitialized} = useMoralis();
-	const {isLogged} = useAccount();
+	const {isLogged, isAuthenticating} = useAccount();
 	const {enableWeb3, isWeb3Enabled, isWeb3EnableLoading} = useWeb3();
 	const [connectorId] = useLocalStorage<TWeb3Provider>("connectorId");
 
@@ -27,6 +28,8 @@ function Page({Component, pageProps}): JSX.Element {
 	useEffect(() => {
 		if (isInitialized) Moralis.initPlugins();
 	}, [isInitialized, Moralis]);
+
+	if (isAuthenticating || isWeb3EnableLoading) return <Loader />;
 
 	return <Component {...pageProps} />;
 }
