@@ -139,6 +139,7 @@ If you are new in the blockchain world and you need more background information 
 - [React Three Fiber](https://docs.pmnd.rs/react-three-fiber)
 - [React Three XR](https://github.com/pmndrs/react-xr)
 - [React Icons](https://react-icons.github.io/react-icons/)
+- [React i18next for NextJS](https://github.com/isaachinman/next-i18next)
 - [Chakra UI](https://chakra-ui.com/)
 - [Axios](https://github.com/axios/axios)
 
