@@ -11,15 +11,15 @@ import {
 	useDisclosure,
 } from "@chakra-ui/react";
 
-import ProductXR from "@components/ProductXR";
+import ProductAR from "@components/ProductAR";
 
 import ProductDetails from "./ProductDetails";
 
 export default function ProductModal({data, onClose, onPurchase, isOpen, ...props}): JSX.Element {
-	const {isOpen: isOpenVR, onOpen: onOpenVR, onClose: onCloseVR} = useDisclosure();
+	const {isOpen: isOpenAR, onOpen: onOpenAR, onClose: onCloseAR} = useDisclosure();
 	const handleClose = () => {
 		onClose();
-		onCloseVR();
+		onCloseAR();
 	};
 	return (
 		<Modal size="6xl" onClose={handleClose} isOpen={isOpen} {...props}>
@@ -28,7 +28,7 @@ export default function ProductModal({data, onClose, onPurchase, isOpen, ...prop
 				<ModalHeader />
 				<ModalCloseButton />
 				<ModalBody position="relative">
-					{!isOpenVR ? (
+					{!isOpenAR ? (
 						<ProductDetails data={data} onPurchase={onPurchase} />
 					) : (
 						/*(<Box
@@ -43,7 +43,7 @@ export default function ProductModal({data, onClose, onPurchase, isOpen, ...prop
 							allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
 							allowFullScreen
 						/>)*/
-						<ProductXR image={data.image} onClose={onCloseVR} />
+						<ProductAR image={data.image} onClose={onCloseAR} />
 					)}
 				</ModalBody>
 				<ModalFooter>
@@ -53,8 +53,8 @@ export default function ProductModal({data, onClose, onPurchase, isOpen, ...prop
 						py={"7"}
 						mr={2}
 						textTransform={"uppercase"}
-						onClick={isOpenVR ? onCloseVR : onOpenVR}>
-						{isOpenVR ? "Close VR" : "Open VR"}
+						onClick={isOpenAR ? onCloseAR : onOpenAR}>
+						{isOpenAR ? "Close AR" : "Open AR"}
 					</Button>
 					{onPurchase && (
 						<Button
