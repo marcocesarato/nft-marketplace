@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
 import type {XRSystem} from "webxr";
 
-const xr = (navigator as any)?.xr as XRSystem;
-
 export default function useWebXR() {
+	const xr = (navigator as any)?.xr as XRSystem;
+
 	const [supportsVRSession, setSupportsVRSession] = useState(false);
 	const [supportsARSession, setSupportsARSession] = useState(false);
 

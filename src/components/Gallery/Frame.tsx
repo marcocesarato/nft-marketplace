@@ -7,8 +7,8 @@ export const GOLDENRATIO = 1.61803398875;
 
 export default function Frame({
 	url,
-	text,
-	id,
+	text = "",
+	id = null,
 	c = new Color(),
 	disableHover = false,
 	...props
