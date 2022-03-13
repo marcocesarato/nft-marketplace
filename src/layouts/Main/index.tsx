@@ -14,7 +14,7 @@ export default function Main({children}: {children: React.ReactNode}): JSX.Eleme
 			<MainPanel
 				w={{
 					base: "100%",
-					lg: isOpenSidebar ? "calc(100% - 60px)" : "calc(100% - 250px)",
+					lg: isOpenSidebar ? "calc(100% - 70px)" : "calc(100% - 260px)",
 				}}>
 				<Navbar />
 				<PanelContainer>{children}</PanelContainer>
