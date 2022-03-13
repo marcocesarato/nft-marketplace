@@ -1,11 +1,17 @@
-export default function useDebounce(func, delay) {
-	let timer;
-	return function () {
-		let self = this;
-		let args = arguments;
-		clearTimeout(timer);
-		timer = setTimeout(() => {
-			func.apply(self, args);
+import {useEffect, useState} from "react";
+
+export default function useDebounce(value: string, delay: number = 500) {
+	const [debouncedValue, setDebouncedValue] = useState(value);
+
+	useEffect(() => {
+		const handler: NodeJS.Timeout = setTimeout(() => {
+			setDebouncedValue(value);
 		}, delay);
-	};
+
+		return () => {
+			clearTimeout(handler);
+		};
+	}, [value, delay]);
+
+	return debouncedValue;
 }

@@ -20,7 +20,7 @@ import Avatar from "@components/Avatar";
 import ErrorAlert from "@errors/ErrorAlert";
 import useAccount from "@hooks/useAccount";
 import useBalance from "@hooks/useBalance";
-import useDebounce from "@hooks/useDebounce";
+import useDebounceCallback from "@hooks/useDebounceCallback";
 import {formatAddress} from "@utils/formatters";
 import {getExplorer} from "@utils/networks";
 
@@ -53,7 +53,7 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 		setUserData({username: event.target.value});
 	}
 
-	const changeUsername = useDebounce(handleChangeUsername.bind(this), 500);
+	const changeUsername = useDebounceCallback(handleChangeUsername.bind(this), 500);
 
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} isCentered size="md">
