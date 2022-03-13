@@ -12,7 +12,7 @@ export const GlobalProvider = ({children}): JSX.Element => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const {isOpen: isMenuOpen, onToggle: onToggleMenu} = useDisclosure();
 
-	function addConfig(item) {
+	function setConfig(item) {
 		dispatch({
 			type: "ADD_CONFIG",
 			payload: item,
@@ -27,7 +27,7 @@ export const GlobalProvider = ({children}): JSX.Element => {
 
 	const globalState = {
 		...state,
-		addConfig,
+		setConfig,
 		removeConfig,
 		isMenuOpen,
 		onToggleMenu,
@@ -45,8 +45,8 @@ export const useGlobalContext = () => {
 };
 
 export const useConfig = (): TGenericObject => {
-	const {config, addConfig, removeConfig} = useGlobalContext();
-	return {...config, addConfig, removeConfig};
+	const {config, setConfig, removeConfig} = useGlobalContext();
+	return {...config, setConfig, removeConfig};
 };
 
 export const useMenu = () => {

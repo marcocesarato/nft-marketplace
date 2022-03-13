@@ -15,6 +15,14 @@ export const globalStyles = {
 			body: {
 				bg: mode("gray.50", "gray.800")(props),
 			},
+			"&::-webkit-scrollbar": {
+				width: "0",
+				borderRadius: "15px",
+				backgroundColor: `rgba(0, 0, 0, 0)`,
+			},
+			"&::-webkit-scrollbar-thumb": {
+				backgroundColor: "transparent",
+			},
 		}),
 	},
 };

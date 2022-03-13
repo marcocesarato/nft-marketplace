@@ -71,5 +71,13 @@ const chartOptions = {
 };
 
 export default function LineChart({chartData}): JSX.Element {
-	return <ReactApexChart options={chartOptions} series={chartData} type="line" height={250} />;
+	return (
+		<ReactApexChart
+			options={chartOptions}
+			series={chartData}
+			type="line"
+			height={250}
+			w="100%"
+		/>
+	);
 }

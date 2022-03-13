@@ -1,12 +1,30 @@
+import {ComponentProps, ReactNode} from "react";
 import NavLink from "next/link";
 import {useRouter} from "next/router";
-import {Button, Flex, Text, useColorModeValue as mode} from "@chakra-ui/react";
+import {Box, Button, Flex, Text, useColorModeValue as mode} from "@chakra-ui/react";
 
 import IconBox from "./IconBox";
 
-function SidebarSection(props): JSX.Element {
+interface SidebarSectionProps extends ComponentProps<typeof Box> {
+	category?: boolean;
+	icon?: ReactNode | string;
+	href?: string;
+	onClick?: () => void;
+	compress?: boolean;
+	label: string;
+}
+
+function SidebarSection({
+	category,
+	label,
+	href = "#",
+	compress = false,
+	icon,
+	onClick,
+	...props
+}: SidebarSectionProps): JSX.Element {
 	const router = useRouter();
-	const activeRoute = (routeName) => {
+	const activeRoute = (routeName: string) => {
 		return router?.asPath === routeName ? "active" : "";
 	};
 
@@ -15,14 +33,9 @@ function SidebarSection(props): JSX.Element {
 	const activeColor = mode("gray.700", "white");
 	const inactiveColor = mode("gray.400", "gray.400");
 
-	if (props.redirect) {
-		return null;
-	}
-	if (props.category) {
-		const st = {};
-		st[props["state"]] = !props.state[props.state];
+	if (category) {
 		return (
-			<div key={props.label}>
+			<div key={label}>
 				<Text
 					color={activeColor}
 					fontWeight="bold"
@@ -32,49 +45,57 @@ function SidebarSection(props): JSX.Element {
 						xl: "16px",
 					}}
 					py="12px">
-					{props.label}
+					{label}
 				</Text>
 			</div>
 		);
 	}
-	const isActive = activeRoute(props.href) === "active";
+	const isActive = activeRoute(href) === "active";
 
 	return (
-		<NavLink href={props.href} key={props.href} passHref>
-			<Button
-				boxSize="initial"
-				justifyContent="flex-start"
-				alignItems="center"
-				bg={isActive ? activeBg : "transparent"}
-				mb={{
-					xl: "12px",
-				}}
-				mx={{
-					xl: "auto",
-				}}
-				ps={{
-					sm: "10px",
-					xl: "16px",
-				}}
-				py="12px"
-				borderRadius="15px"
-				boxShadow={isActive ? "sm" : null}
-				w="100%">
-				<Flex>
-					<IconBox
-						bg={isActive ? "main" : inactiveBg}
-						color={isActive ? "white" : "main"}
-						h="30px"
-						w="30px"
-						me="12px">
-						{props.icon}
-					</IconBox>
-					<Text color={isActive ? activeColor : inactiveColor} my="auto" fontSize="sm">
-						{props.label}
-					</Text>
-				</Flex>
-			</Button>
-		</NavLink>
+		<Box {...props} w={!compress ? "full" : "50px"}>
+			<NavLink href={href} key={href} passHref>
+				<Button
+					transition="width 0.2s linear"
+					height="54px"
+					boxSize="initial"
+					justifyContent="flex-start"
+					alignItems="center"
+					bg={isActive ? activeBg : "transparent"}
+					mb={"5px"}
+					mx={{
+						xl: "auto",
+					}}
+					ps={{
+						sm: "10px",
+						xl: compress ? "10px" : "16px",
+					}}
+					py="12px"
+					borderRadius="15px"
+					onClick={onClick}
+					boxShadow={isActive ? "sm" : null}
+					w="100%">
+					<Flex>
+						<IconBox
+							bg={isActive ? "main" : inactiveBg}
+							color={isActive ? "white" : "main"}
+							h="30px"
+							w="30px"
+							me="12px">
+							{icon}
+						</IconBox>
+						{!compress && (
+							<Text
+								color={isActive ? activeColor : inactiveColor}
+								my="auto"
+								fontSize="sm">
+								{label}
+							</Text>
+						)}
+					</Flex>
+				</Button>
+			</NavLink>
+		</Box>
 	);
 }
 

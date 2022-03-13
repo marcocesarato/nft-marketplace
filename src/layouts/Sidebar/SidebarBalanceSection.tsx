@@ -1,4 +1,4 @@
-import {Heading} from "@chakra-ui/react";
+import {Box, Heading} from "@chakra-ui/react";
 
 import {LineChart} from "@components/Chart";
 import useAccount from "@hooks/useAccount";
@@ -6,15 +6,15 @@ import useBalance from "@hooks/useBalance";
 
 import SidebarSection from "./SidebarSection";
 
-function SidebarBalanceSection({state}): JSX.Element {
+function SidebarBalanceSection(): JSX.Element {
 	const {isAuthenticated} = useAccount();
 	const {data: balance} = useBalance();
 	if (!isAuthenticated) return null;
 	return (
-		<>
-			<SidebarSection category label="Balance" state={state} />
+		<Box w="full">
+			<SidebarSection category label="Balance" />
 			<Heading ps="15px" fontSize={"2xl"} fontWeight={500}>
-				{balance.formatted}
+				{balance?.formatted}
 			</Heading>
 			<LineChart
 				chartData={[
@@ -24,7 +24,7 @@ function SidebarBalanceSection({state}): JSX.Element {
 					},
 				]}
 			/>
-		</>
+		</Box>
 	);
 }
 

@@ -4,11 +4,11 @@ import {useNativeBalance} from "react-moralis";
 import {useConfig} from "@contexts/Global";
 
 export default function useBalance() {
-	const {addConfig} = useConfig();
+	const {setConfig} = useConfig();
 	const balance = useNativeBalance();
 
 	useEffect(() => {
-		addConfig({nativeToken: balance?.nativeToken});
+		setConfig({nativeToken: balance?.nativeToken});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [balance?.nativeToken]);
 

@@ -77,7 +77,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 						</Heading>
 					</Stack>
 					{onPurchase && (
-						<Flex
+						<Box
 							opacity={0.8}
 							alignItems="center"
 							justifyContent="space-between"
@@ -107,7 +107,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 								}}>
 								<AiOutlineShoppingCart />
 							</Button>
-						</Flex>
+						</Box>
 					)}
 				</Box>
 			</Stack>

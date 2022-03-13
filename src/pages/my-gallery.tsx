@@ -4,16 +4,23 @@ import Gallery from "@components/Gallery";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
 import useNFTs from "@hooks/useNFTs";
+import useSidebar from "@hooks/useSidebar";
 
 export default function MyGallery(): JSX.Element {
 	const {data, error, isError, isSuccess, isLoading} = useNFTs();
+	const [isOpenSidebar] = useSidebar();
 	if (isError) return <Header title="Error" subtitle={error.message} />;
 	if (isLoading) return <Loading />;
 	if (isSuccess && !data.length)
 		return <Header title="Gallery" subtitle="No items on marketplace." />;
 
 	return (
-		<Center height="calc(100vh - 94px)" width={{md: "100vw", lg: "calc(100vw - 290px)"}}>
+		<Center
+			height="calc(100vh - 94px)"
+			width={{
+				md: "100vw",
+				lg: isOpenSidebar ? "calc(100vw - 100px)" : "calc(100vw - 290px)",
+			}}>
 			<Gallery data={data} />
 		</Center>
 	);
