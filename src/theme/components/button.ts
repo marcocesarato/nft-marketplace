@@ -15,13 +15,18 @@ export const buttonStyles = {
 					_active: {
 						bg: "transparent",
 						transform: "none",
+						outline: "none",
 						borderColor: "transparent",
 					},
 					_focus: {
+						outline: "none",
 						boxShadow: "none",
+						borderColor: "transparent",
 					},
 					_hover: {
+						outline: "none",
 						boxShadow: "none",
+						borderColor: "transparent",
 					},
 				},
 			},
