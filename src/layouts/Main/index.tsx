@@ -1,4 +1,4 @@
-import Viewport from "@app/components/Viewport";
+import Viewport from "@components/Viewport";
 import Sidebar from "@layouts/Sidebar";
 
 import Navbar from "../Navbar";

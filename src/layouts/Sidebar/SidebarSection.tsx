@@ -26,81 +26,54 @@ function SidebarSection(props): JSX.Element {
 				<Text
 					color={activeColor}
 					fontWeight="bold"
-					mb={{
-						xl: "12px",
-					}}
 					mx="auto"
 					ps={{
 						sm: "10px",
 						xl: "16px",
 					}}
 					py="12px">
-					{document.documentElement.dir === "rtl" ? props.rtlName : props.name}
+					{props.label}
 				</Text>
-				<SidebarSection {...props.views} />
 			</div>
 		);
 	}
+	const isActive = activeRoute(props.href) === "active";
+
 	return (
-		<NavLink href={props.href} key={props.href}>
-			{activeRoute(props.href) === "active" ? (
-				<Button
-					boxSize="initial"
-					justifyContent="flex-start"
-					alignItems="center"
-					bg={activeBg}
-					mb={{
-						xl: "12px",
-					}}
-					mx={{
-						xl: "auto",
-					}}
-					ps={{
-						sm: "10px",
-						xl: "16px",
-					}}
-					py="12px"
-					borderRadius="15px"
-					boxShadow="sm"
-					w="100%">
-					<Flex>
-						<IconBox bg="main" color="white" h="30px" w="30px" me="12px">
-							{props.icon}
-						</IconBox>
-						<Text color={activeColor} my="auto" fontSize="sm">
-							{props.label}
-						</Text>
-					</Flex>
-				</Button>
-			) : (
-				<Button
-					boxSize="initial"
-					justifyContent="flex-start"
-					alignItems="center"
-					bg="transparent"
-					mb={{
-						xl: "12px",
-					}}
-					mx={{
-						xl: "auto",
-					}}
-					py="12px"
-					ps={{
-						sm: "10px",
-						xl: "16px",
-					}}
-					borderRadius="15px"
-					w="100%">
-					<Flex>
-						<IconBox bg={inactiveBg} color="main" h="30px" w="30px" me="12px">
-							{props.icon}
-						</IconBox>
-						<Text color={inactiveColor} my="auto" fontSize="sm">
-							{props.label}
-						</Text>
-					</Flex>
-				</Button>
-			)}
+		<NavLink href={props.href} key={props.href} passHref>
+			<Button
+				boxSize="initial"
+				justifyContent="flex-start"
+				alignItems="center"
+				bg={isActive ? activeBg : "transparent"}
+				mb={{
+					xl: "12px",
+				}}
+				mx={{
+					xl: "auto",
+				}}
+				ps={{
+					sm: "10px",
+					xl: "16px",
+				}}
+				py="12px"
+				borderRadius="15px"
+				boxShadow={isActive ? "sm" : null}
+				w="100%">
+				<Flex>
+					<IconBox
+						bg={isActive ? "main" : inactiveBg}
+						color={isActive ? "white" : "main"}
+						h="30px"
+						w="30px"
+						me="12px">
+						{props.icon}
+					</IconBox>
+					<Text color={isActive ? activeColor : inactiveColor} my="auto" fontSize="sm">
+						{props.label}
+					</Text>
+				</Flex>
+			</Button>
 		</NavLink>
 	);
 }

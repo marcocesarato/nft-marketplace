@@ -3,6 +3,7 @@ import {Box, useColorModeValue as mode} from "@chakra-ui/react";
 
 import useRoutes from "@hooks/useRoutes";
 
+import SidebarBalanceSection from "./SidebarBalanceSection";
 import SidebarContent from "./SidebarContent";
 import SidebarResponsive from "./SidebarResponsive";
 import SidebarSection from "./SidebarSection";
@@ -21,9 +22,16 @@ function Sidebar({title, sidebarVariant = null}): JSX.Element {
 		sidebarMargins = "16px 0px 16px 16px";
 	}
 	const state = {};
-	const createSections = () => {
+	const createRoutes = () => {
 		return routes.map((prop, key) => <SidebarSection key={key} {...prop} state={state} />);
 	};
+
+	const Content = (): JSX.Element => (
+		<>
+			{createRoutes()}
+			<SidebarBalanceSection state={state} />
+		</>
+	);
 
 	return (
 		<>
@@ -42,11 +50,15 @@ function Sidebar({title, sidebarVariant = null}): JSX.Element {
 						pe="20px"
 						m={sidebarMargins}
 						borderRadius={sidebarRadius}>
-						<SidebarContent title={title}>{createSections()}</SidebarContent>
+						<SidebarContent title={title}>
+							<Content />
+						</SidebarContent>
 					</Box>
 				</Box>
 			</Box>
-			<SidebarResponsive title={title}>{createSections()}</SidebarResponsive>
+			<SidebarResponsive title={title}>
+				<Content />
+			</SidebarResponsive>
 		</>
 	);
 }

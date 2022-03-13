@@ -1,4 +1,6 @@
-import ReactApexChart from "react-apexcharts";
+import dynamic from "next/dynamic";
+
+const ReactApexChart = dynamic(() => import("react-apexcharts"), {ssr: false});
 
 const chartOptions = {
 	chart: {
@@ -16,7 +18,6 @@ const chartOptions = {
 		curve: "smooth",
 	},
 	xaxis: {
-		type: "datetime",
 		categories: [
 			"Jan",
 			"Feb",
@@ -33,7 +34,7 @@ const chartOptions = {
 		],
 		labels: {
 			style: {
-				colors: "#c8cfca",
+				colors: "#718096",
 				fontSize: "12px",
 			},
 		},
@@ -41,7 +42,7 @@ const chartOptions = {
 	yaxis: {
 		labels: {
 			style: {
-				colors: "#c8cfca",
+				colors: "#718096",
 				fontSize: "12px",
 			},
 		},
@@ -60,15 +61,15 @@ const chartOptions = {
 			shadeIntensity: 0.5,
 			gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
 			inverseColors: true,
-			opacityFrom: 0.8,
-			opacityTo: 0,
+			opacityFrom: 1,
+			opacityTo: 0.3,
 			stops: [],
 		},
-		colors: ["#4FD1C5", "#2D3748"],
+		colors: ["#4FD1C5", "#2C7A7B"],
 	},
-	colors: ["#4FD1C5", "#2D3748"],
+	colors: ["#4FD1C5", "#2C7A7B"],
 };
 
 export default function LineChart({chartData}): JSX.Element {
-	return <ReactApexChart options={chartOptions} series={chartData} type="line" height={350} />;
+	return <ReactApexChart options={chartOptions} series={chartData} type="line" height={250} />;
 }
