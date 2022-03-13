@@ -1,3 +1,4 @@
+import {AiOutlineShoppingCart} from "react-icons/ai";
 import {
 	Box,
 	Button,
@@ -104,7 +105,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 								_focus={{
 									bg: "gray.700",
 								}}>
-								Purchase
+								<AiOutlineShoppingCart />
 							</Button>
 						</Flex>
 					)}

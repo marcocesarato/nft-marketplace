@@ -1,6 +1,6 @@
+import {AiOutlineShoppingCart} from "react-icons/ai";
 import {
 	Button,
-	//Box,
 	Modal,
 	ModalBody,
 	ModalCloseButton,
@@ -8,6 +8,8 @@ import {
 	ModalFooter,
 	ModalHeader,
 	ModalOverlay,
+	//Box,
+	Text,
 	useDisclosure,
 } from "@chakra-ui/react";
 
@@ -66,7 +68,7 @@ export default function ProductModal({data, onClose, onPurchase, isOpen, ...prop
 								onClose();
 								onPurchase();
 							}}>
-							Purchase
+							<AiOutlineShoppingCart /> <Text ml="4">Purchase</Text>
 						</Button>
 					)}
 				</ModalFooter>
