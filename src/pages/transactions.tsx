@@ -6,9 +6,11 @@ import Table from "@components/Table";
 import useAccount from "@hooks/useAccount";
 import useTransfers from "@hooks/useTransfers";
 import {formatAddress} from "@utils/formatters";
+import {getStaticPropsLocale} from "@utils/i18n";
 import {getExplorer} from "@utils/networks";
 import {formatUnits} from "@utils/units";
 
+export const getStaticProps = getStaticPropsLocale;
 export default function Transactions(): JSX.Element {
 	const {chainId} = useAccount();
 	const {data, isLoading} = useTransfers();

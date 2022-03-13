@@ -11,8 +11,10 @@ import {MarketAddress, MarketContract, NFTAddress, NFTContract} from "@configs/c
 import useBalance from "@hooks/useBalance";
 import useIPFS from "@hooks/useIPFS";
 import useWeb3 from "@hooks/useWeb3";
+import {getStaticPropsLocale} from "@utils/i18n";
 import {parseUnits} from "@utils/units";
 
+export const getStaticProps = getStaticPropsLocale;
 export default function CreateItem(): JSX.Element {
 	const {nativeToken} = useBalance();
 	const {saveIPFS} = useIPFS();

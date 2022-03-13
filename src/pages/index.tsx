@@ -6,7 +6,9 @@ import Loading from "@components/Loading";
 import Particles from "@components/Particles";
 import Product from "@components/Product";
 import useMarketItems from "@hooks/useMarketItems";
+import {getStaticPropsLocale} from "@utils/i18n";
 
+export const getStaticProps = getStaticPropsLocale;
 export default function Home(): JSX.Element {
 	const {data, isLoading} = useMarketItems();
 	return (

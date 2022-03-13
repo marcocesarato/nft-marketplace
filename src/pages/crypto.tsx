@@ -2,6 +2,9 @@ import React, {useEffect, useState} from "react";
 import {useMoralis} from "react-moralis";
 import {Box, Center} from "@chakra-ui/react";
 
+import {getStaticPropsLocale} from "@utils/i18n";
+
+export const getStaticProps = getStaticPropsLocale;
 export default function Crypto(): JSX.Element {
 	const [ramper, setRamper] = useState();
 	const {Moralis} = useMoralis();

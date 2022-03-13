@@ -1,6 +1,7 @@
 import {Suspense, useEffect, useState} from "react";
 import {useMoralis} from "react-moralis";
 import ssrPrepass from "react-ssr-prepass";
+import {appWithTranslation} from "next-i18next";
 
 import Providers from "@app/Providers";
 import {TWeb3Provider} from "@app/types";
@@ -33,14 +34,15 @@ function Page({Component, pageProps}): JSX.Element {
 
 	return <Component {...pageProps} />;
 }
+const PageWithTranslations = appWithTranslation(Page);
 
-function App({Component, pageProps}): JSX.Element {
+function App(props): JSX.Element {
 	return (
 		<Providers>
 			<MainLayout>
 				<ErrorBoundary>
 					<Suspense fallback={<Loading />}>
-						<Page Component={Component} pageProps={pageProps} />
+						<PageWithTranslations {...props} />
 					</Suspense>
 				</ErrorBoundary>
 			</MainLayout>

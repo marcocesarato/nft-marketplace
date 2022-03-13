@@ -9,8 +9,10 @@ import {MarketAddress, MarketContract, NFTAddress} from "@configs/contracts";
 import useAccount from "@hooks/useAccount";
 import useMarketItems from "@hooks/useMarketItems";
 import useWeb3 from "@hooks/useWeb3";
+import {getStaticPropsLocale} from "@utils/i18n";
 import {parseUnits} from "@utils/units";
 
+export const getStaticProps = getStaticPropsLocale;
 export default function Explore(): JSX.Element {
 	const {web3} = useWeb3();
 	const {isAuthenticated} = useAccount();

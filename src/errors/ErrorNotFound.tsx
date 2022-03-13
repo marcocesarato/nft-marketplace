@@ -1,7 +1,9 @@
 import NextLink from "next/link";
 import {Box, Button, Center, Heading, Text} from "@chakra-ui/react";
+import {useTranslation} from "next-i18next";
 
 export default function ErrorNotFound(): JSX.Element {
+	const {t} = useTranslation();
 	return (
 		<Center flex="1" p="8">
 			<Box textAlign="center" py={10} px={6}>
@@ -9,14 +11,14 @@ export default function ErrorNotFound(): JSX.Element {
 					404
 				</Heading>
 				<Text fontSize="2rem" fontWeight="bold" mt={3} mb={2}>
-					Page Not Found
+					{t("errors:notFound.title")}
 				</Text>
 				<Text color={"gray.500"} mb={6}>
-					The page you're looking for does not seem to exist
+					{t("errors:notFound.message")}
 				</Text>
 
 				<NextLink href={"/"} passHref>
-					<Button>Go to Home</Button>
+					<Button>{t("common:goToHome")}</Button>
 				</NextLink>
 			</Box>
 		</Center>

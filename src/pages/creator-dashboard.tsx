@@ -6,10 +6,12 @@ import Header from "@components/Header";
 import Loading from "@components/Loading";
 import Product from "@components/Product";
 import useMarketItemsCreated from "@hooks/useMarketItemsCreated";
+import {getStaticPropsLocale} from "@utils/i18n";
 
+export const getStaticProps = getStaticPropsLocale;
 export default function CreatorDashboard(): JSX.Element {
 	const {data, error, isError, isLoading, isSuccess} = useMarketItemsCreated();
-	const sold = data?.filter((i) => i.sold) || [];
+	const sold = data?.filter((i) => i.owner) || [];
 
 	if (isLoading) return <Loading />;
 	if (isError) return <Header title="Error" subtitle={error.message} />;

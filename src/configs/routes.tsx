@@ -15,7 +15,7 @@ export const routes = [
 export const routesAuthenticated = [
 	...routes,
 	{label: "Dashboard", href: "/creator-dashboard", icon: <AiFillDashboard />},
-	{label: "My Gallery", href: "/my-gallery", icon: <AiFillBoxPlot />},
-	{label: "My Assets", href: "/my-assets", icon: <AiFillFolderOpen />},
+	{label: "Gallery", href: "/gallery", icon: <AiFillBoxPlot />},
+	{label: "Assets", href: "/assets", icon: <AiFillFolderOpen />},
 	{label: "Sell Asset", href: "/sell", icon: <AiFillShopping />},
 ];

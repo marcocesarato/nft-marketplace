@@ -15,6 +15,7 @@ import AccountModal from "@layouts/AccountModal";
 
 import {ColorModeSwitcher} from "./ColorModeSwitcher";
 import ConnectButton from "./ConnectButton";
+import LocaleMenu from "./LocaleMenu";
 
 export default function Navbar(): JSX.Element {
 	const {onToggleMenu} = useMenu();
@@ -35,6 +36,7 @@ export default function Navbar(): JSX.Element {
 
 				<Flex ml="auto" alignItems={"center"}>
 					<ConnectButton openAccountModal={onModalOpen} />
+					<LocaleMenu />
 					<AccountModal isOpen={isModalOpen} onClose={onModalClose} />
 					<ColorModeSwitcher />
 					<IconButton

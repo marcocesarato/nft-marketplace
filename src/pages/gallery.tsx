@@ -5,7 +5,9 @@ import Header from "@components/Header";
 import Loading from "@components/Loading";
 import useNFTs from "@hooks/useNFTs";
 import useSidebar from "@hooks/useSidebar";
+import {getStaticPropsLocale} from "@utils/i18n";
 
+export const getStaticProps = getStaticPropsLocale;
 export default function MyGallery(): JSX.Element {
 	const {data, error, isError, isSuccess, isLoading} = useNFTs();
 	const [isOpenSidebar] = useSidebar();

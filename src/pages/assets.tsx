@@ -9,10 +9,11 @@ import Product from "@components/Product";
 import {MarketAddress, MarketContract} from "@configs/contracts";
 import useNFTs from "@hooks/useNFTs";
 import useWeb3 from "@hooks/useWeb3";
+//import useMarketItemsOwned from "@hooks/useMarketItemsOwned";
+import {getStaticPropsLocale} from "@utils/i18n";
 import {parseUnits} from "@utils/units";
 
-//import useMarketItemsOwned from "@hooks/useMarketItemsOwned";
-
+export const getStaticProps = getStaticPropsLocale;
 export default function MyAssets(): JSX.Element {
 	const {web3} = useWeb3();
 	const {data, error, isError, isSuccess, isLoading} = useNFTs();
