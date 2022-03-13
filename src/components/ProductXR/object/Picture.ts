@@ -3,10 +3,10 @@ import {BoxBufferGeometry, Group, Mesh, MeshPhysicalMaterial, TextureLoader} fro
 const texture = new TextureLoader();
 
 export default class Picture extends Group {
-	constructor(src, width, height) {
+	constructor(src: string, width: number | string, height: number | string) {
 		super();
-		height = parseFloat(height) / 100;
-		width = parseFloat(width) / 100;
+		height = parseFloat(`${height}`) / 100;
+		width = parseFloat(`${width}`) / 100;
 
 		const attrs = {
 			color: "#333333",

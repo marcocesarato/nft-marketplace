@@ -21,7 +21,7 @@ export default class LoaderUtils {
 		{scene = null, world = null, reticle = null, depthDataTexture = null},
 		object,
 		scale = 1,
-		onLoaded = () => {},
+		onLoaded = (payload) => {},
 	) {
 		const position = new Vector3();
 		if (reticle?.matrix) {
@@ -66,7 +66,7 @@ export default class LoaderUtils {
 	 */
 	static loadGLTF(context, url, scale = 1, onLoaded) {
 		const loader = new GLTFLoader();
-		loader.loadAsync(url).then((gltf) => {
+		loader.loadAsync(url).then((gltf: any) => {
 			this.loadObject(gltf.scene, context, scale, onLoaded);
 		});
 	}

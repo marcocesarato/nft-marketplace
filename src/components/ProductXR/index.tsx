@@ -6,7 +6,7 @@ import {createBrowserHistory} from "history";
 
 import stabilizationIcon from "@assets/images/stabilization.gif";
 
-import XRController from "./XRController";
+import ARController from "./ARController";
 
 export const MotionBox = motion(Box); // Animated box
 
@@ -35,7 +35,7 @@ export default function ProductXR({image, onClose}): JSX.Element {
 
 	useEffect(() => {
 		if (!init && refOverlay?.current) {
-			const app = new XRController(refOverlay?.current);
+			const app = new ARController(refOverlay?.current);
 			setController(app);
 			setInit(true);
 		}

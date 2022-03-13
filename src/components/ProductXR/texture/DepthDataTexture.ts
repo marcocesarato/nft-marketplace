@@ -24,7 +24,7 @@ export default class DepthDataTexture extends DataTexture {
 	 */
 	updateDepth(depthData) {
 		const dataBuffer = depthData.data;
-		this.image.data = new Uint8Array(
+		(this.image.data as any) = new Uint8Array(
 			dataBuffer.buffer,
 			dataBuffer.byteOffset,
 			dataBuffer.byteLength,

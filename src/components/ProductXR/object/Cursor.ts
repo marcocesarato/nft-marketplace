@@ -8,6 +8,7 @@ import * as BufferGeometryUtils from "three/examples/jsm/utils/BufferGeometryUti
  * @extends {Mesh}
  */
 export default class Cursor extends Mesh {
+	public onAction = null;
 	constructor(geometry?, material?) {
 		if (!geometry) {
 			const ring = new RingBufferGeometry(0.045, 0.05, 32).rotateX(-Math.PI / 2);
@@ -29,6 +30,6 @@ export default class Cursor extends Mesh {
 		 * Callback method to execute when the cursor is pressed.
 		 * Receives the pose of the cursor in world coordinates.
 		 */
-		this.onaction = null;
+		this.onAction = null;
 	}
 }

@@ -1,3 +1,4 @@
+import type {XRSystem} from "webxr";
 /**
  * XR session running.
  */
@@ -24,19 +25,19 @@ export default class SessionUtils {
 		},
 	) {
 		if (currentSession === null) {
-			function onSessionStarted(session) {
+			const onSessionStarted = (session) => {
 				session.addEventListener("end", onSessionEnded);
 				renderer.xr.setReferenceSpaceType("local");
 				renderer.xr.setSession(session);
 				currentSession = session;
-			}
+			};
 
-			function onSessionEnded(event) {
+			const onSessionEnded = (event) => {
 				currentSession.removeEventListener("end", onSessionEnded);
 				currentSession = null;
-			}
+			};
 
-			navigator.xr
+			((navigator as any)?.xr as XRSystem)
 				?.requestSession("immersive-ar", sessionInit)
 				.then(onSessionStarted)
 				.catch(onError);

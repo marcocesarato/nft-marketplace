@@ -1,6 +1,7 @@
 import {Body, GSSolver, NaiveBroadphase, Plane, SplitSolver, Vec3, World} from "cannon-es";
 import {
 	AmbientLight,
+	Group,
 	//AxesHelper,
 	//CameraHelper,
 	HemisphereLight,
@@ -15,67 +16,70 @@ import {
 	Vector3,
 	WebGLRenderer,
 } from "three";
+import {XREstimatedLight} from "three/examples/jsm/webxr/XREstimatedLight";
+import type {XRSystem} from "webxr";
 
 import AugmentedMaterial from "./material/AugmentedMaterial";
 import Cursor from "./object/Cursor";
-import EstimatedLight from "./object/EstimatedLight";
+import Picture from "./object/Picture";
 import DepthDataTexture from "./texture/DepthDataTexture";
 import LoaderUtils from "./utils/LoaderUtils";
 import SessionUtils from "./utils/SessionUtils";
 
-export default class XRController {
-	isRunning = false;
+export default class ARController {
+	private isRunning: boolean = false;
 
-	container = null;
+	private container = null;
 
-	picture = null;
-	pictureUrl = null;
-	picturePlacedEventName = "ar-picture-placed";
-	pictureRemovedEventName = "ar-picture-removed";
-	picturePlacedCallback = null;
-	pictureRemovedCallback = null;
+	private picture: Picture = null;
+	private pictureUrl: string = null;
+	private picturePlacedEventName: string = "ar-picture-placed";
+	private pictureRemovedEventName: string = "ar-picture-removed";
+	private picturePlacedCallback = null;
+	private pictureRemovedCallback = null;
 
-	scene = new Scene();
-	pose = null;
-	shadowMaterial = null;
-	floor = null;
-	floorMesh = null;
+	private scene: Scene = new Scene();
+	private pose = null;
+	private shadowMaterial = null;
+	private floor = null;
+	private floorMesh = null;
 
-	world = null;
+	private world = null;
 
-	canvas = null;
-	gl = null;
-	glBinding = null;
-	renderer = null;
+	private xr = (navigator as any)?.xr as XRSystem;
+	private canvas = null;
+	private gl = null;
+	private renderer = null;
+	private controller: Group = null;
 
-	firstReticleFound = false;
-	firstReticleCallback = null;
+	private firstReticleFound: boolean = false;
+	private firstReticleCallback = null;
 
-	onToggleCallback = null;
+	private onToggleCallback = null;
 
-	hitTestSource = null;
-	hitTestSourceRequested = false;
+	private hitTestSource = null;
+	private hitTestSourceRequested = false;
 
-	ambientLight = null;
-	xrLight = null;
+	private ambientLight: AmbientLight = null;
+	private xrLight: XREstimatedLight = null;
 
-	depthDataTexture = null;
+	private depthDataTexture: DepthDataTexture = null;
 
-	aX = new Vector3();
-	aY = new Vector3();
-	aZ = new Vector3();
-	yUp = new Vector3(0, 1, 0);
-	xUp = new Vector3(1, 0, 0);
+	private aX: Vector3 = new Vector3();
+	private aY: Vector3 = new Vector3();
+	private aZ: Vector3 = new Vector3();
+	private yUp: Vector3 = new Vector3(0, 1, 0);
+	private xUp: Vector3 = new Vector3(1, 0, 0);
 
-	resolution = new Vector2();
-	camera = new PerspectiveCamera(60, 1, 0.1, 10);
-	reticle = null;
+	private resolution: Vector2 = new Vector2();
+	private camera: PerspectiveCamera = new PerspectiveCamera(60, 1, 0.1, 10);
+	private reticle: Cursor = null;
 
 	constructor(container) {
 		this.container = container;
 	}
 
-	init() {
+	public init() {
 		// Renderer
 		this.createRenderer();
 
@@ -126,7 +130,7 @@ export default class XRController {
 	 *
 	 * @return {Scene}
 	 */
-	createScene() {
+	private createScene() {
 		this.depthDataTexture = new DepthDataTexture();
 
 		// Ligths
@@ -137,7 +141,7 @@ export default class XRController {
 		defaultLight.position.set(0.5, 1, 0.25);
 		this.scene.add(defaultLight);
 
-		this.xrLight = new EstimatedLight(this.renderer);
+		this.xrLight = new XREstimatedLight(this.renderer);
 		this.xrLight.addEventListener("estimationstart", () => {
 			// Swap the default light out for the estimated one one we start getting some estimated values.
 			this.scene.add(this.xrLight);
@@ -174,7 +178,7 @@ export default class XRController {
 	/**
 	 * Create physics this.world for collistion simulation.
 	 */
-	createWorld() {
+	private createWorld() {
 		this.world = new World();
 		this.world.gravity.set(0, -9.8, 0);
 		this.world.defaultContactMaterial.contactEquationStiffness = 1e9;
@@ -203,7 +207,7 @@ export default class XRController {
 	 * Create and setup webgl this.renderer object.
 	 * @param {*} canvas
 	 */
-	createRenderer() {
+	private createRenderer() {
 		this.canvas = document.createElement("canvas");
 		this.container.appendChild(this.canvas);
 
@@ -236,7 +240,7 @@ export default class XRController {
 	/**
 	 * Resize the canvas and this.renderer size.
 	 */
-	resize() {
+	public resize() {
 		this.resolution.set(window.innerWidth, window.innerHeight);
 
 		this.camera.aspect = this.resolution.x / this.resolution.y;
@@ -246,7 +250,7 @@ export default class XRController {
 		this.renderer.setPixelRatio(window.devicePixelRatio);
 	}
 
-	open() {
+	public open() {
 		if (!this.isRunning) {
 			SessionUtils.start(
 				this.renderer,
@@ -271,8 +275,8 @@ export default class XRController {
 		}
 	}
 
-	close() {
-		if (this.isRunning && this.button) {
+	public close() {
+		if (this.isRunning) {
 			SessionUtils.end();
 			this.forceContextLoss();
 			if (this.onToggleCallback) this.onToggleCallback(false);
@@ -281,12 +285,29 @@ export default class XRController {
 		document.addEventListener(this.pictureRemovedEventName, this.pictureRemovedCallback);
 	}
 
-	async setPicture(src) {
+	private forceContextLoss() {
+		try {
+			if (this.renderer !== null) {
+				this.renderer.dispose();
+				this.renderer.forceContextLoss();
+				this.renderer = null;
+			}
+		} catch (e) {
+			this.renderer = null;
+			throw new Error("Failed to destroy WebGL context.");
+		}
+
+		if (this.canvas !== null) {
+			this.container.removeChild(this.canvas);
+		}
+	}
+
+	public async setPicture(src) {
 		if (this.picture) this.removePicture();
 		this.pictureUrl = src;
 	}
 
-	onPicturePlaced(callback) {
+	public onPicturePlaced(callback) {
 		if (this.picturePlacedCallback) {
 			document.removeEventListener(this.picturePlacedEventName, this.picturePlacedCallback);
 		}
@@ -294,7 +315,7 @@ export default class XRController {
 		document.addEventListener(this.picturePlacedEventName, this.picturePlacedCallback);
 	}
 
-	onPictureRemoved(callback) {
+	public onPictureRemoved(callback) {
 		if (this.pictureRemovedCallback) {
 			document.removeEventListener(this.pictureRemovedEventName, this.pictureRemovedCallback);
 		}
@@ -302,7 +323,7 @@ export default class XRController {
 		document.addEventListener(this.pictureRemovedEventName, this.pictureRemovedCallback);
 	}
 
-	placePicture() {
+	private placePicture() {
 		if (!this.isRunning) return;
 
 		let visible = this.isReticleVisible();
@@ -317,38 +338,29 @@ export default class XRController {
 		return visible;
 	}
 
-	removePicture() {
+	public removePicture() {
 		this.scene.remove(this.picture);
 		const pictureRemove = new Event(this.pictureRemovedEventName);
 		document.dispatchEvent(pictureRemove);
 	}
 
-	isPicturePlaced() {
+	public isPicturePlaced() {
 		if (this.picture) {
 			return this.picture.parent === this.scene;
 		} else return false;
 	}
 
-	isReticleVisible() {
+	public isReticleVisible() {
 		return this.reticle.visible;
 	}
 
-	render(timestamp, frame) {
+	private render(timestamp, frame) {
 		this.isRunning = !!frame;
 		if (this.isRunning) {
 			const session = this.renderer.xr.getSession();
 
 			if (!this.isPicturePlaced()) {
 				const referenceSpace = this.renderer.xr.getReferenceSpace();
-
-				try {
-					if (this.gl && !this.glBinding) {
-						// eslint-disable-next-line no-undef
-						this.glBinding = new XRWebGLBinding(session, this.gl);
-					}
-				} catch (e) {
-					console.error(e);
-				}
 
 				// init hittest on vr enter
 				if (this.hitTestSourceRequested === false) {
@@ -360,9 +372,6 @@ export default class XRController {
 					session.addEventListener("end", () => {
 						this.hitTestSourceRequested = false;
 						this.hitTestSource = null;
-					});
-					session.requestLightProbe().then((probe) => {
-						this.xrLightProbe = probe;
 					});
 					this.hitTestSourceRequested = true;
 				}
@@ -432,35 +441,18 @@ export default class XRController {
 		this.renderer.render(this.scene, this.camera);
 	}
 
-	onFirstReticle(c) {
+	public onFirstReticle(c) {
 		this.firstReticleCallback = c;
 	}
 
-	onToggle(c) {
+	public onToggle(c) {
 		this.onToggleCallback = c;
 	}
 
-	checkIsSupported(callback) {
-		if (!navigator.xr || !navigator.xr.isSessionSupported) callback(false);
-		navigator.xr?.isSessionSupported("immersive-ar").then((supported) => {
+	public checkIsSupported(callback) {
+		if (!this.xr || !this.xr.isSessionSupported) callback(false);
+		this.xr?.isSessionSupported("immersive-ar").then((supported) => {
 			callback(!!supported);
 		});
-	}
-
-	forceContextLoss() {
-		try {
-			if (this.renderer !== null) {
-				this.renderer.dispose();
-				this.renderer.forceContextLoss();
-				this.renderer = null;
-			}
-		} catch (e) {
-			this.renderer = null;
-			throw new Error("Failed to destroy WebGL context.");
-		}
-
-		if (this.canvas !== null) {
-			this.container.removeChild(this.canvas);
-		}
 	}
 }
