@@ -28,7 +28,7 @@ export default function MyAssets(): JSX.Element {
 		let listingPrice = await contract.getListingPrice();
 
 		listingPrice = listingPrice.toString();
-		let transaction = await contract.resaleMarketItem(id, priceFormatted, {
+		let transaction = await contract.resellMarketItem(id, priceFormatted, {
 			value: listingPrice,
 		});
 		await transaction.wait();

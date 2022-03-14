@@ -1,5 +1,7 @@
+import {useRouter} from "next/router";
 import {ethers} from "ethers";
 
+import {TMarketItem} from "@app/types";
 import Catalog from "@components/Catalog";
 import Content from "@components/Content";
 import Header from "@components/Header";
@@ -12,10 +14,11 @@ import useWeb3 from "@hooks/useWeb3";
 import {parseUnits} from "@utils/units";
 
 export default function Explore(): JSX.Element {
+	const router = useRouter();
 	const {web3} = useWeb3();
 	const {isAuthenticated} = useAccount();
 	const {refetch, data, error, isError, isLoading, isSuccess} = useMarketItems();
-	async function purchaseItem(nft) {
+	async function purchaseItem(nft: TMarketItem) {
 		const signer = web3.getSigner();
 		const contract = new ethers.Contract(MarketAddress, MarketContract.abi, signer);
 
@@ -26,6 +29,7 @@ export default function Explore(): JSX.Element {
 		});
 		await transaction.wait();
 		refetch();
+		router.push("/assets");
 	}
 	if (isError) return <Header title="Error" subtitle={error.message} />;
 	if (isLoading) return <Loading />;
