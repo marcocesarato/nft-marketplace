@@ -1,7 +1,7 @@
 import {useMoralisWeb3Api} from "react-moralis";
 import {useQuery} from "react-query";
 
-import {TNFT} from "@app/types";
+import {NFT} from "@app/types";
 import {MarketAddress} from "@configs/contracts";
 import {isString} from "@utils/objects";
 
@@ -14,7 +14,7 @@ const useNFTs = () => {
 	const {account, chainId} = useAccount();
 	const {withMetadata} = useNFTMetadata();
 	const {resolveLink} = useIPFS();
-	return useQuery<TNFT[], Error>(
+	return useQuery<NFT[], Error>(
 		["NFTs", account, chainId],
 		async () => {
 			const options = {
@@ -26,9 +26,9 @@ const useNFTs = () => {
 				token_address: MarketAddress,
 			};
 			// fix: Trigger specific contract sync
-			await Web3Api.account.getNFTsForContract(optionsContract as any);
+			await Web3Api.account.geNFTsForContract(optionsContract as any);
 			// Load all NFTs
-			const data = await Web3Api.account.getNFTs(options as any);
+			const data = await Web3Api.account.geNFTs(options as any);
 			if (data?.result) {
 				return await Promise.all(
 					data.result.map(async (nft) => {

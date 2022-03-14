@@ -1,7 +1,7 @@
 import {useRouter} from "next/router";
 import {ethers} from "ethers";
 
-import {TMarketItem} from "@app/types";
+import {NFTMarketItem} from "@app/types";
 import Catalog from "@components/Catalog";
 import Content from "@components/Content";
 import Header from "@components/Header";
@@ -18,7 +18,7 @@ export default function Explore(): JSX.Element {
 	const {web3} = useWeb3();
 	const {isAuthenticated} = useAccount();
 	const {refetch, data, error, isError, isLoading, isSuccess} = useMarketItems();
-	async function purchaseItem(nft: TMarketItem) {
+	async function purchaseItem(nft: NFTMarketItem) {
 		const signer = web3.getSigner();
 		const contract = new ethers.Contract(MarketAddress, MarketContract.abi, signer);
 
@@ -36,7 +36,7 @@ export default function Explore(): JSX.Element {
 	if (isSuccess && !data.length)
 		return <Header title="Explore" subtitle="No items on marketplace." />;
 
-	const handleOnPurchase = (nft) => {
+	const handleOnPurchase = (nft: NFTMarketItem) => {
 		return isAuthenticated ? () => purchaseItem(nft) : null;
 	};
 

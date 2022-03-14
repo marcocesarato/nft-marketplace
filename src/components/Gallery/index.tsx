@@ -1,7 +1,7 @@
 import {Environment, MeshReflectorMaterial} from "@react-three/drei";
 import {Canvas} from "@react-three/fiber";
 
-import {TNFT} from "@app/types";
+import {NFT, NFTMetadata} from "@app/types";
 
 import Frames from "./Frames";
 
@@ -23,11 +23,12 @@ const imagesDisposition = [
 
 export default function Gallery({data}): JSX.Element {
 	const images =
-		data?.slice(0, imagesDisposition.length).map((nft: TNFT, i: number) => {
+		data?.slice(0, imagesDisposition.length).map((nft: NFT, i: number) => {
+			const metadata = nft.metadata as NFTMetadata;
 			return {
 				id: `${nft?.token_address}${nft?.token_id}`,
-				text: nft.metadata?.name,
-				url: nft.metadata?.image,
+				text: metadata.name,
+				url: metadata.image,
 				position: imagesDisposition[i].position,
 				rotation: imagesDisposition[i].rotation,
 			};

@@ -1,7 +1,7 @@
 import {createContext, useContext, useReducer} from "react";
 import {useDisclosure} from "@chakra-ui/react";
 
-import {TGenericObject, TGlobalContext} from "@app/types";
+import {GenericObject, TGlobalContext} from "@app/types";
 
 import initialState from "./initialState";
 import reducer from "./reducer";
@@ -44,7 +44,7 @@ export const useGlobalContext = () => {
 	return context;
 };
 
-export const useConfig = (): TGenericObject => {
+export const useConfig = (): GenericObject => {
 	const {config, setConfig, removeConfig} = useGlobalContext();
 	return {...config, setConfig, removeConfig};
 };

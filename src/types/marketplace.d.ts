@@ -1,4 +1,4 @@
-export type TNFT = {
+export type NFT = {
 	token_address: string;
 	token_id: string;
 	contract_type: string;
@@ -13,14 +13,14 @@ export type TNFT = {
 	symbol: string;
 };
 
-export type TNFTMetadata = {
+export type NFTMetadata = {
 	name: string;
 	description: string;
 	image: string;
 	data: NFTMetadata;
 };
 
-export type TMarketItem = {
+export type NFTMarketItem = {
 	price: float;
 	tokenId: int;
 	seller: string;
@@ -32,7 +32,7 @@ export type TMarketItem = {
 	description: string;
 };
 
-export type TTransfers = {
+export type MarketTransfers = {
 	transaction_hash: string;
 	address: string;
 	block_timestamp: string;

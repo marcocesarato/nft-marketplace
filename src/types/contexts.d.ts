@@ -1,9 +1,9 @@
-import {TGenericObject} from "./globals";
+import {GenericObject} from "./globals";
 
 export type TGlobalContext = {
-	config: TGenericObject;
-	setConfig: (payload: TGenericObject) => void;
-	removeConfig: (payload: TGenericObject) => void;
+	config: GenericObject;
+	setConfig: (payload: GenericObject) => void;
+	removeConfig: (payload: GenericObject) => void;
 	isMenuOpen: boolean;
 	onToggleMenu: () => void;
 };
