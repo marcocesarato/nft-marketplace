@@ -26,9 +26,9 @@ const useNFTs = () => {
 				token_address: MarketAddress,
 			};
 			// fix: Trigger specific contract sync
-			await Web3Api.account.geNFTsForContract(optionsContract as any);
+			await Web3Api.account.getNFTsForContract(optionsContract as any);
 			// Load all NFTs
-			const data = await Web3Api.account.geNFTs(options as any);
+			const data = await Web3Api.account.getNFTs(options as any);
 			if (data?.result) {
 				return await Promise.all(
 					data.result.map(async (nft) => {
