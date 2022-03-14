@@ -2,10 +2,12 @@ import {useCallback} from "react";
 import {useDropzone} from "react-dropzone";
 import {AiOutlineCloudUpload} from "react-icons/ai";
 import {Center, Heading, Icon, Text, useColorModeValue} from "@chakra-ui/react";
+import {useTranslation} from "next-i18next";
 
 import {acceptExts} from "@configs/uploads";
 
 export default function Dropzone({onFileAccepted}): JSX.Element {
+	const {t} = useTranslation();
 	const onDrop = useCallback(
 		(acceptedFiles) => {
 			onFileAccepted(acceptedFiles[0]);
@@ -20,7 +22,9 @@ export default function Dropzone({onFileAccepted}): JSX.Element {
 		multiple: false,
 	});
 
-	const dropText = isDragActive ? "Drop the files here ..." : "Click to upload or drag and drop";
+	const dropText = isDragActive
+		? t("common:input.dropzone.dropMessage")
+		: t("common:input.dropzone.dragMessage");
 
 	const activeBg = useColorModeValue("gray.100", "gray.700");
 	const borderColor = useColorModeValue("gray.200", "gray.700");

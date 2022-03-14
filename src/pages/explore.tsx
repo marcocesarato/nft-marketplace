@@ -1,5 +1,6 @@
 import {useRouter} from "next/router";
 import {ethers} from "ethers";
+import {useTranslation} from "next-i18next";
 
 import {NFTMarketItem} from "@app/types";
 import Catalog from "@components/Catalog";
@@ -11,9 +12,12 @@ import {MarketAddress, MarketContract} from "@configs/contracts";
 import useAccount from "@hooks/useAccount";
 import useMarketItems from "@hooks/useMarketItems";
 import useWeb3 from "@hooks/useWeb3";
+import {getStaticPropsLocale} from "@utils/i18n";
 import {parseUnits} from "@utils/units";
 
+export const getStaticProps = getStaticPropsLocale;
 export default function Explore(): JSX.Element {
+	const {t} = useTranslation();
 	const router = useRouter();
 	const {web3} = useWeb3();
 	const {isAuthenticated} = useAccount();
@@ -31,10 +35,15 @@ export default function Explore(): JSX.Element {
 		refetch();
 		router.push("/assets");
 	}
-	if (isError) return <Header title="Error" subtitle={error.message} />;
+	if (isError) return <Header title={t("error:title")} subtitle={error.message} />;
 	if (isLoading) return <Loading />;
 	if (isSuccess && !data.length)
-		return <Header title="Explore" subtitle="No items on marketplace." />;
+		return (
+			<Header
+				title={t("common:page.explore.title")}
+				subtitle={t("common:page.explore.empty")}
+			/>
+		);
 
 	const handleOnPurchase = (nft: NFTMarketItem) => {
 		return isAuthenticated ? () => purchaseItem(nft) : null;
@@ -42,7 +51,10 @@ export default function Explore(): JSX.Element {
 
 	return (
 		<Content>
-			<Header title="Explore" subtitle="Explore latest arts on sale." />
+			<Header
+				title={t("common:page.explore.title")}
+				subtitle={t("common:page.explore.description")}
+			/>
 			<Catalog>
 				{data.map((nft, i) => (
 					<Product key={i} data={nft} onPurchase={handleOnPurchase(nft)} />

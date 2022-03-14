@@ -15,6 +15,7 @@ import {
 	ModalOverlay,
 	Text,
 } from "@chakra-ui/react";
+import {useTranslation} from "next-i18next";
 
 import Avatar from "@components/Avatar";
 import ErrorAlert from "@errors/ErrorAlert";
@@ -29,6 +30,7 @@ import DisconnectButton from "./DisconnectButton";
 import LinkButton from "./LinkButton";
 
 export default function AccountModal({isOpen, onClose}): JSX.Element {
+	const {t} = useTranslation();
 	const {account, username, logout, chainId, setUserData, userError} = useAccount();
 	const {data: balance} = useBalance();
 	const router = useRouter();
@@ -60,7 +62,7 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 			<ModalOverlay />
 			<ModalContent background="gray.900">
 				<ModalHeader color="white" p={4} fontSize="lg" fontWeight="medium">
-					Account
+					{t("common:account.title")}
 				</ModalHeader>
 				<ModalCloseButton
 					color="white"
@@ -71,7 +73,10 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 				/>
 				<ModalBody>
 					{userError && (
-						<ErrorAlert error={"Update user data error!"} message={userError.message} />
+						<ErrorAlert
+							error={t("error:account.errorSavingData")}
+							message={userError.message}
+						/>
 					)}
 					<Box
 						borderRadius="md"
@@ -103,20 +108,20 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 						<Flex alignContent="center" my={3}>
 							<LinkButton onClick={() => navigator.clipboard.writeText(account)}>
 								<CopyIcon mr={1} />
-								Copy Address
+								{t("common:action.copyAddress")}
 							</LinkButton>
 							<LinkButton
 								ml={6}
 								href={`${getExplorer(chainId)}address/${account}`}
 								isExternal>
 								<ExternalLinkIcon mr={1} />
-								View on Explorer
+								{t("common:action.viewOnExplorer")}
 							</LinkButton>
 						</Flex>
 						<Flex justifyContent={"flex-end"} mt={6}>
 							<ActionButton onClick={handleBuyCrypto}>Buy crypto</ActionButton>
 							<ActionButton onClick={handleViewTransactions}>
-								View transactions
+								{t("common:action.viewTransactions")}
 							</ActionButton>
 						</Flex>
 					</Box>

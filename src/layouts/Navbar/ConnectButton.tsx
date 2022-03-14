@@ -1,5 +1,6 @@
 import {useEffect} from "react";
 import {Button, Flex, useDisclosure} from "@chakra-ui/react";
+import {useTranslation} from "next-i18next";
 
 import useAccount from "@hooks/useAccount";
 import useWeb3 from "@hooks/useWeb3";
@@ -8,6 +9,7 @@ import AuthModal from "../AuthModal";
 import UserMenu from "./UserMenu";
 
 export default function ConnectButton({openAccountModal}): JSX.Element {
+	const {t} = useTranslation();
 	const {isAuthenticated} = useAccount();
 	const {enableWeb3} = useWeb3();
 	const {isOpen, onOpen, onClose} = useDisclosure();
@@ -33,7 +35,7 @@ export default function ConnectButton({openAccountModal}): JSX.Element {
 						fontWeight="medium"
 						borderRadius="xl"
 						border="1px solid transparent">
-						Connect to a wallet
+						{t("common:action.connectToWallet")}
 					</Button>
 					<AuthModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
 				</>

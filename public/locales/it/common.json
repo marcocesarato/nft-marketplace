@@ -1,3 +1,112 @@
 {
-  "goToHome": "Torna alla home"
+	"action": {
+		"goToHome": "Torna alla home",
+		"back": "Indietro",
+		"connectToWallet": "Connetti a un wallet",
+		"connectWallet": "Connetti wallet",
+		"copyAddress": "Copia indirizzo",
+		"disconnect": "Disconnetti",
+		"openMenu": "Apri menu",
+		"openWith": "Aperi con",
+		"purchase": "Acquista",
+		"showDetails": "Mostra dettagli",
+		"viewOnExplorer": "Visualizza su Explorer",
+		"viewTransactions": "Visualizza le transazioni"
+	},
+	"input": {
+		"dropzone": {
+			"dropMessage": "Trascina i file qui...",
+			"dragMessage": "Fare clic per caricare o trascinare e rilasciare"
+		}
+	},
+	"account": {
+		"activities": "Attività",
+		"title": "Account",
+		"balance": "Saldo",
+		"compress": "Comprimi"
+	},
+	"page": {
+		"assets": {
+			"description": "Sfoglia i tuoi asset",
+			"empty": "Nessun asset trovato",
+			"shortTitle": "Asset",
+			"title": "Beni posseduti"
+		},
+		"dashboard": {
+			"created": {
+				"description": "Risorse create da te",
+				"empty": "Nessun asset creato da te trovata",
+				"title": "Asset creati"
+			},
+			"description": "Dashboard",
+			"shortTitle": "Dashboard",
+			"sold": {
+				"description": "Asset venduti da te",
+				"empty": "Nessun asset venduto da te trovato",
+				"title": "Asset venduti"
+			},
+			"title": "Dashboard"
+		},
+		"explore": {
+			"description": "Esplora le ultime opere d'arte in vendita",
+			"empty": "Nessun articolo sul mercato",
+			"shortTitle": "Esplorare",
+			"title": "Esplorare"
+		},
+		"gallery": {
+			"empty": "Nessuna opera trovata!",
+			"shortTitle": "Galleria",
+			"title": "Galleria"
+		},
+		"home": {
+			"header": {
+				"exploreButton": "Esplora il mercato",
+				"sellButton": "Metti la tua arte sul mercato",
+				"subtitle": "Usa il visualizzatore VR per vedere tutte le tue opere d'arte digitali NFT sul muro di casa in tempo reale e interagire con esse.",
+				"title": "Guarda la tua arte digitale sul muro di casa tua"
+			},
+			"shortTitle": "Home",
+			"title": "Home"
+		},
+		"sell": {
+			"action": {
+				"create": "Crea risorsa digitale"
+			},
+			"approved": "Articolo approvato! \nReindirizzamento a esplora...",
+			"asset": {
+				"description": "Descrizione della risorsa",
+				"name": "Nome della risorsa",
+				"price": "Prezzo della risorsa in"
+			},
+			"description": "Compila il form e vendi la tua risorsa digitale",
+			"minting": "Minting del token, segui le istruzioni sul tuo wallet...",
+			"shortTitle": "Vendi asset",
+			"title": "Vendi risorsa digitale",
+			"uploading": "Caricamento dati in corso..."
+		},
+		"transactions": {
+			"column": {
+				"from": "Da",
+				"timestamp": "Data",
+				"to": "a",
+				"value": "Valore"
+			},
+			"description": "Cronologia delle attività di transazione dell'account",
+			"empty": "Nessuna transazione trovata sul conto",
+			"shortTitle": "Transazioni",
+			"title": "Transazioni"
+		}
+	},
+	"product": {
+		"description": "Descrizione",
+		"item": "Articolo",
+		"price": "Prezzo"
+	},
+	"search": {
+		"assets": "Cerca asset qui..."
+	},
+	"xr": {
+		"notSupported": "Il tuo browser attuale non supporta la tecnologia richiesta.",
+		"stabilizationTip": "Muovere lo smartphone \nper scansionare l'ambiente intorno a te"
+	}
 }

@@ -1,3 +1,112 @@
 {
-  "goToHome": "Go to Home"
+	"action": {
+		"goToHome": "Go to Home",
+		"showDetails": "Show details",
+		"purchase": "Purchase",
+		"back": "Back",
+		"openWith": "Open with",
+		"disconnect": "Disconnect",
+		"copyAddress": "Copy Address",
+		"viewOnExplorer": "View on Explorer",
+		"viewTransactions": "View transactions",
+		"connectWallet": "Connect wallet",
+		"connectToWallet": "Connect to a wallet",
+		"openMenu": "Open Menu"
+	},
+	"input": {
+		"dropzone": {
+			"dropMessage": "Drop the files here ...",
+			"dragMessage": "Click to upload or drag and drop"
+		}
+	},
+	"product": {
+		"item": "Item",
+		"price": "Price",
+		"description": "Description"
+	},
+	"xr": {
+		"notSupported": "Your current browser does not support required technology.",
+		"stabilizationTip": "Move your smartphone slightly around \nto scan the ambient arount you"
+	},
+	"account": {
+		"title": "Account",
+		"activities": "Activities",
+		"balance": "Balance",
+		"compress": "Compress"
+	},
+	"search": {
+		"assets": "Search assets here..."
+	},
+	"page": {
+		"home": {
+			"title": "Home",
+			"shortTitle": "Home",
+			"header": {
+				"title": "Watch your Digital Art on the wall of your home",
+				"subtitle": "Use the VR viewer to see all your NFTs digital art on the wall of your home in real time and interact with them.",
+				"exploreButton": "Explore the marketplace",
+				"sellButton": "Put your art on the market"
+			}
+		},
+		"explore": {
+			"title": "Explore",
+			"shortTitle": "Explore",
+			"description": "Explore latest arts on sale",
+			"empty": "No items on marketplace"
+		},
+		"dashboard": {
+			"title": "Creator Dashboard",
+			"shortTitle": "Dashboard",
+			"description": "Dashboard",
+			"created": {
+				"title": "Assets created",
+				"description": "Assets created by you",
+				"empty": "No assets created by you found"
+			},
+			"sold": {
+				"title": "Assets sold",
+				"description": "Assets sold by you",
+				"empty": "No assets sold by you found"
+			}
+		},
+		"gallery": {
+			"title": "Gallery",
+			"shortTitle": "Gallery",
+			"empty": "No pictures found!"
+		},
+		"assets": {
+			"title": "Assets owned",
+			"shortTitle": "Assets",
+			"description": "Browse your assets",
+			"empty": "No assets found"
+		},
+		"sell": {
+			"title": "Sell Assets",
+			"shortTitle": "Sell Assets",
+			"description": "Fill the form and sell your digital asset",
+			"uploading": "Uploading data...",
+			"minting": "Minting token, follow the instructions on your wallet...",
+			"approved": "Item approved! Redirecting to explore...",
+			"asset": {
+				"name": "Asset name",
+				"description": "Asset description",
+				"price": "Asset price in"
+			},
+			"action": {
+				"create": "Create digital asset"
+			}
+		},
+		"transactions": {
+			"title": "Transactions",
+			"shortTitle": "Transactions",
+			"description": "Account transaction activities history",
+			"empty": "No transactions found on the account",
+			"column": {
+				"from": "From",
+				"to": "To",
+				"value": "Value",
+				"timestamp": "Timestamp"
+			}
+		}
+	}
 }

@@ -3,6 +3,7 @@ import Image from "next/image";
 import {Box, Button, CloseButton, Flex, Text} from "@chakra-ui/react";
 import {motion} from "framer-motion";
 import {createBrowserHistory} from "history";
+import {useTranslation} from "next-i18next";
 
 import stabilizationIcon from "@assets/images/stabilization.gif";
 
@@ -11,6 +12,7 @@ import ARController from "./ARController";
 export const MotionBox = motion(Box); // Animated box
 
 export default function ProductAR({image, onClose}): JSX.Element {
+	const {t} = useTranslation();
 	const [init, setInit] = useState(false);
 	const [showTip, setShowTip] = useState(true);
 	const [isSupported, setSupported] = useState(null);
@@ -96,7 +98,7 @@ export default function ProductAR({image, onClose}): JSX.Element {
 				)}
 				{isSupported === false && (
 					<Text color="gray.100" textAlign="center" p={4}>
-						Your current browser does not support required technology.
+						{t("common:xr.notSupported")}
 					</Text>
 				)}
 				{isSupported && showTip && (
@@ -120,9 +122,7 @@ export default function ProductAR({image, onClose}): JSX.Element {
 							/>
 						</MotionBox>
 						<Text color="gray.100" mt="-125px" p={4} textAlign="center">
-							Move your smartphone slightly around
-							<br />
-							to scan the ambient arount you
+							{t("common:xr.stabilizationTip")}
 						</Text>
 					</>
 				)}

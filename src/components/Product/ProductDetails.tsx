@@ -8,11 +8,13 @@ import {
 	Text,
 	useColorModeValue,
 } from "@chakra-ui/react";
+import {useTranslation} from "next-i18next";
 
 import {useConfig} from "@contexts/Global";
 
 export default function ProductDetails({data, onPurchase}): JSX.Element {
 	const {nativeToken} = useConfig();
+	const {t} = useTranslation();
 	return (
 		<SimpleGrid columns={{base: 1, lg: 2}} spacing={{base: 8, md: 10}}>
 			<Image
@@ -36,7 +38,7 @@ export default function ProductDetails({data, onPurchase}): JSX.Element {
 					{onPurchase && (
 						<Text fontWeight={300} fontSize={"2xl"} mt={5}>
 							<Text as={"span"} fontWeight={"bold"}>
-								Price:
+								{t("common:product.price")}:
 							</Text>{" "}
 							{data?.price} {nativeToken?.symbol}
 						</Text>
@@ -56,7 +58,7 @@ export default function ProductDetails({data, onPurchase}): JSX.Element {
 							fontWeight={"500"}
 							textTransform={"uppercase"}
 							mb={"4"}>
-							Description
+							{t("common:product.description")}
 						</Text>
 						<Text fontSize={"lg"}>{data?.description || "No description."}</Text>
 					</Box>

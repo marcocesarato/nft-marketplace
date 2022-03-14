@@ -2,7 +2,9 @@ import {useState} from "react";
 import {useRouter} from "next/router";
 import {Button, FormControl, FormLabel, Image, Input, Stack} from "@chakra-ui/react";
 import {ethers} from "ethers";
+import {useTranslation} from "next-i18next";
 
+import useAccount from "@app/hooks/useAccount";
 import Content from "@components/Content";
 import Dropzone from "@components/Dropzone";
 import Header from "@components/Header";
@@ -16,6 +18,8 @@ import {parseUnits} from "@utils/units";
 
 export const getStaticProps = getStaticPropsLocale;
 export default function CreateItem(): JSX.Element {
+	const {t} = useTranslation();
+	const {isAuthenticated} = useAccount();
 	const {nativeToken} = useBalance();
 	const {saveIPFS} = useIPFS();
 	const {web3} = useWeb3();
@@ -37,7 +41,7 @@ export default function CreateItem(): JSX.Element {
 	async function createSale(url) {
 		const signer = web3.getSigner();
 
-		setMessage("Minting token... Follow the instructions on your wallet.");
+		setMessage(t("common:page.sell.minting"));
 		const contract = new ethers.Contract(MarketAddress, MarketContract.abi, signer);
 		const listingPrice = await contract.getListingPrice();
 
@@ -47,7 +51,7 @@ export default function CreateItem(): JSX.Element {
 		});
 
 		await transaction.wait();
-		setMessage("Item approved! Redirecting to explore...");
+		setMessage(t("common:page.sell.approved"));
 		router.push("/explore");
 	}
 
@@ -62,7 +66,7 @@ export default function CreateItem(): JSX.Element {
 		});
 		try {
 			setProcessing(true);
-			setMessage("Uploading metadata...");
+			setMessage(t("common:page.sell.uploading"));
 			const url = await saveIPFS("metadata.json", {base64: btoa(data)});
 			createSale(url);
 		} catch (error) {
@@ -71,19 +75,25 @@ export default function CreateItem(): JSX.Element {
 		}
 	}
 
+	if (!isAuthenticated)
+		return <Header title={t("error:title")} subtitle={t("error:auth.required")} />;
+
 	if (isProcessing) return <Loader message={message} />;
 	return (
 		<Content alignItems="center">
 			<Stack align="stretch" width="100%" maxWidth={768}>
-				<Header title="Sell assets" subtitle="Fill the form and sell your digital asset." />
+				<Header
+					title={t("common:page.sell.title")}
+					subtitle={t("common:page.sell.description")}
+				/>
 				<FormControl>
-					<FormLabel>Asset Name</FormLabel>
+					<FormLabel>{t("common:page.sell.asset.name")}</FormLabel>
 					<Input
 						onChange={(e) => updateFormInput({...formInput, name: e.target.value})}
 					/>
 				</FormControl>
 				<FormControl>
-					<FormLabel>Asset Description</FormLabel>
+					<FormLabel>{t("common:page.sell.asset.description")}</FormLabel>
 					<Input
 						onChange={(e) =>
 							updateFormInput({...formInput, description: e.target.value})
@@ -91,7 +101,9 @@ export default function CreateItem(): JSX.Element {
 					/>
 				</FormControl>
 				<FormControl>
-					<FormLabel>Asset Price in {nativeToken?.symbol}</FormLabel>
+					<FormLabel>
+						{t("common:page.sell.asset.price")} {nativeToken?.symbol}
+					</FormLabel>
 					<Input
 						onChange={(e) => updateFormInput({...formInput, price: e.target.value})}
 					/>
@@ -101,7 +113,7 @@ export default function CreateItem(): JSX.Element {
 				</FormControl>
 				<FormControl>
 					<Button isFullWidth onClick={createMarket}>
-						Create digital asset
+						{t("common:page.sell.action.create")}
 					</Button>
 				</FormControl>
 				{fileUrl && (

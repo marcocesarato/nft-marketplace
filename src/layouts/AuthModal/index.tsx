@@ -13,12 +13,14 @@ import {
 	ModalHeader,
 	ModalOverlay,
 } from "@chakra-ui/react";
+import {useTranslation} from "next-i18next";
 
 import useAccount from "@hooks/useAccount";
 
 import WalletConnect from "./WalletConnect";
 
 export default function AuthModal({onClose, isOpen, ...props}): JSX.Element {
+	const {t} = useTranslation();
 	const {authError, user, account} = useAccount();
 
 	useEffect(() => {
@@ -32,14 +34,14 @@ export default function AuthModal({onClose, isOpen, ...props}): JSX.Element {
 		<Modal {...props} isOpen={isOpen} onClose={onClose}>
 			<ModalOverlay />
 			<ModalContent>
-				<ModalHeader>Connect wallet</ModalHeader>
+				<ModalHeader>{t("common:action.connectWallet")}</ModalHeader>
 				<ModalCloseButton />
 				<ModalBody>
 					{authError && (
 						<Alert status="error" mb={5}>
 							<AlertIcon />
 							<Box flex="1">
-								<AlertTitle>Authentication has failed!</AlertTitle>
+								<AlertTitle>{t("error:auth.failed")}</AlertTitle>
 								<AlertDescription display="block">
 									{authError.message}
 								</AlertDescription>

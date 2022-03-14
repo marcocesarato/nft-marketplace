@@ -1,4 +1,5 @@
 import {Box, Button} from "@chakra-ui/react";
+import {useTranslation} from "next-i18next";
 
 import Header from "@components/Header";
 import Loading from "@components/Loading";
@@ -12,29 +13,30 @@ import {formatUnits} from "@utils/units";
 
 export const getStaticProps = getStaticPropsLocale;
 export default function Transactions(): JSX.Element {
+	const {t} = useTranslation();
 	const {chainId} = useAccount();
 	const {data, isLoading} = useTransfers();
 	const columns = [
 		{
-			title: "From",
+			title: t("common:page.transactions.column.from"),
 			dataIndex: "from_address",
 			key: "from_address",
 			render: (from) => formatAddress(from, 5),
 		},
 		{
-			title: "To",
+			title: t("common:page.transactions.column.to"),
 			dataIndex: "to_address",
 			key: "to_address",
 			render: (to) => formatAddress(to, 5),
 		},
 		{
-			title: "Value",
+			title: t("common:page.transactions.column.value"),
 			dataIndex: "value",
 			key: "value",
 			render: (value) => formatUnits(value),
 		},
 		{
-			title: "Timestamp",
+			title: t("common:page.transactions.column.timestamp"),
 			dataIndex: "block_timestamp",
 			key: "block_timestamp",
 			render: (value) => new Date(value).toLocaleString(),
@@ -47,7 +49,7 @@ export default function Transactions(): JSX.Element {
 				<Box textAlign="right">
 					<a href={`${getExplorer(chainId)}/tx/${hash}`} target="_blank" rel="noreferrer">
 						<Button variant="link" colorScheme="purple">
-							View on explorer
+							t("common:action.viewOnExplorer")"),
 						</Button>
 					</a>
 				</Box>
@@ -57,13 +59,18 @@ export default function Transactions(): JSX.Element {
 
 	if (isLoading) return <Loading />;
 	if (!data || data.length === 0)
-		return <Header title="Transactions" subtitle="No transactions found on the account." />;
+		return (
+			<Header
+				title={t("common:page.transactions.title")}
+				subtitle={t("common:page.transactions.empty")}
+			/>
+		);
 
 	let key = 0;
 	return (
 		<Table
-			title="Transactions"
-			subtitle="Account activities history."
+			title={t("common:page.transactions.title")}
+			subtitle={t("common:page.transactions.description")}
 			data={data}
 			columns={columns}
 			rowKey={(record) => {

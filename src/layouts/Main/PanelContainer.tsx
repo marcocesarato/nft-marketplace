@@ -16,7 +16,7 @@ function PanelContainer(props): JSX.Element {
 				position: "absolute",
 				left: 0,
 				top: 0,
-				backgroundImage: "url(assets/images/noise.gif)",
+				backgroundImage: "url(./assets/images/noise.gif)",
 				zIndex: -1,
 				opacity: 0.05,
 			})}>

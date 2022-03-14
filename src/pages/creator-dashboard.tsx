@@ -1,4 +1,5 @@
 import {Box} from "@chakra-ui/react";
+import {useTranslation} from "next-i18next";
 
 import Catalog from "@components/Catalog";
 import Content from "@components/Content";
@@ -10,16 +11,25 @@ import {getStaticPropsLocale} from "@utils/i18n";
 
 export const getStaticProps = getStaticPropsLocale;
 export default function CreatorDashboard(): JSX.Element {
+	const {t} = useTranslation();
 	const {data, error, isError, isLoading, isSuccess} = useMarketItemsCreated();
 	const sold = data?.filter((i) => i.owner) || [];
 
 	if (isLoading) return <Loading />;
-	if (isError) return <Header title="Error" subtitle={error.message} />;
+	if (isError) return <Header title={t("error:title")} subtitle={error.message} />;
 	if (isSuccess && !data?.length)
-		return <Header title="Assets created" subtitle="No assets created." />;
+		return (
+			<Header
+				title={t("common:page.dashboard.created.title")}
+				subtitle={t("common:page.dashboard.created.empty")}
+			/>
+		);
 	return (
 		<Content>
-			<Header title="Assets created" subtitle="Browse your assets created." />
+			<Header
+				title={t("common:page.dashboard.created.title")}
+				subtitle={t("common:page.dashboard.created.description")}
+			/>
 			<Catalog>
 				{data.map((nft, i) => (
 					<Product key={i} data={nft} />
@@ -27,7 +37,10 @@ export default function CreatorDashboard(): JSX.Element {
 			</Catalog>
 			{Boolean(sold.length) && (
 				<Box mt={8}>
-					<Header title="Assets sold" subtitle="Browse your assets sold." />
+					<Header
+						title={t("common:page.dashboard.sold.title")}
+						subtitle={t("common:page.dashboard.sold.description")}
+					/>
 					<Catalog>
 						{sold.map((nft, i) => (
 							<Product key={i} data={nft} />

@@ -9,15 +9,17 @@ import {
 	Collapse,
 	useDisclosure,
 } from "@chakra-ui/react";
+import {useTranslation} from "next-i18next";
 
 export default function ErrorFallback({error}): JSX.Element {
 	const {isOpen, onToggle} = useDisclosure();
+	const {t} = useTranslation();
 	return (
 		<Box p="4" m="auto">
 			<Alert status="error" borderRadius="md">
 				<AlertIcon />
 				<Box flex="1">
-					<AlertTitle>An unexpected error has occurred.</AlertTitle>
+					<AlertTitle>{t("error:unexpectedError")}</AlertTitle>
 					<AlertDescription display="block" lineHeight="1.4">
 						<Button
 							variant="link"
@@ -25,7 +27,7 @@ export default function ErrorFallback({error}): JSX.Element {
 							size="sm"
 							rightIcon={isOpen ? <FiChevronUp /> : <FiChevronDown />}
 							onClick={onToggle}>
-							Show details
+							{t("common:action.showDetails")}
 						</Button>
 						<Collapse in={isOpen} animateOpacity>
 							<Box my={4} fontFamily="monospace">

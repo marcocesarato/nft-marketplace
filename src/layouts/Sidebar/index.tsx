@@ -2,6 +2,7 @@ import {useMemo, useRef} from "react";
 import {AiOutlineLogout} from "react-icons/ai";
 import {BsLayoutSidebar, BsLayoutSidebarInset} from "react-icons/bs";
 import {Box, useBreakpointValue} from "@chakra-ui/react";
+import {useTranslation} from "next-i18next";
 
 import useAccount from "@hooks/useAccount";
 import useRoutes from "@hooks/useRoutes";
@@ -13,6 +14,7 @@ import SidebarResponsive from "./SidebarResponsive";
 import SidebarSection from "./SidebarSection";
 
 function Sidebar({title}): JSX.Element {
+	const {t} = useTranslation();
 	const routes = useRoutes();
 	const {isAuthenticated, logout} = useAccount();
 	const [sidebarIsOpen, onToggleSidebar] = useSidebar();
@@ -22,8 +24,8 @@ function Sidebar({title}): JSX.Element {
 	const Content = useMemo(() => {
 		return (): JSX.Element => {
 			const createRoutes = () => {
-				return routes.map((prop, key) => (
-					<SidebarSection key={key} {...prop} compress={compress} />
+				return routes.map(({label, ...prop}, key) => (
+					<SidebarSection key={key} label={t(label)} {...prop} compress={compress} />
 				));
 			};
 			return (
@@ -65,14 +67,14 @@ function Sidebar({title}): JSX.Element {
 								my={marginsY}>
 								{isAuthenticated && (
 									<SidebarSection
-										label="Logout"
+										label={t("common:action.disconnect")}
 										icon={<AiOutlineLogout />}
 										compress={compress}
 										onClick={logout}
 									/>
 								)}
 								<SidebarSection
-									label="Compress"
+									label={t("common:account.compress")}
 									icon={compress ? <BsLayoutSidebarInset /> : <BsLayoutSidebar />}
 									compress={compress}
 									onClick={onToggleSidebar}

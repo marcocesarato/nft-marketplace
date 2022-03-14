@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {ethers} from "ethers";
+import {useTranslation} from "next-i18next";
 
 import Catalog from "@components/Catalog";
 import Content from "@components/Content";
@@ -15,6 +16,7 @@ import {parseUnits} from "@utils/units";
 
 export const getStaticProps = getStaticPropsLocale;
 export default function MyAssets(): JSX.Element {
+	const {t} = useTranslation();
 	const {web3} = useWeb3();
 	const {data, error, isError, isSuccess, isLoading} = useNFTs();
 	//const {data, error, isError, isLoading, isSuccess} = useMarketItemsOwned();
@@ -34,12 +36,16 @@ export default function MyAssets(): JSX.Element {
 		await transaction.wait();
 	}
 
-	if (isError) return <Header title="Error" subtitle={error.message} />;
+	if (isError) return <Header title={t("error:title")} subtitle={error.message} />;
 	if (isLoading) return <Loading />;
-	if (isSuccess && !data.length) <Header title="Assets owned" subtitle="No assets owned." />;
+	if (isSuccess && !data.length)
+		<Header title={t("common:page.assets.title")} subtitle={t("common:page.assets.empty")} />;
 	return (
 		<Content>
-			<Header title="Assets owned" subtitle="Browse your assets." />
+			<Header
+				title={t("common:page.assets.title")}
+				subtitle={t("common:page.assets.description")}
+			/>
 			<Catalog>
 				{data?.map((nft) => {
 					return (

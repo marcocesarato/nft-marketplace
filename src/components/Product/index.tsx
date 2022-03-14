@@ -11,12 +11,14 @@ import {
 	useColorModeValue,
 	useDisclosure,
 } from "@chakra-ui/react";
+import {useTranslation} from "next-i18next";
 
 import {useConfig} from "@contexts/Global";
 
 import ProductModal from "./ProductModal";
 
 export default function Product({data, onPurchase = null, ...rootProps}): JSX.Element {
+	const {t} = useTranslation();
 	const {nativeToken} = useConfig();
 	const {isOpen, onOpen, onClose} = useDisclosure();
 	return (
@@ -70,7 +72,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 					</Box>
 					<Stack p={6} pt={10} align={"center"}>
 						<Text color={"gray.500"} fontSize={"sm"} textTransform={"uppercase"}>
-							Item
+							{t("common:product.item")}
 						</Text>
 						<Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
 							{data?.name}

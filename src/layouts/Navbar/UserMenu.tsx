@@ -9,11 +9,13 @@ import {
 	MenuList,
 	Text,
 } from "@chakra-ui/react";
+import {useTranslation} from "next-i18next";
 
 import Avatar from "@components/Avatar";
 import useAccount from "@hooks/useAccount";
 
 export default function UserMenu({openAccountModal}): JSX.Element {
+	const {t} = useTranslation();
 	const {username, logout} = useAccount();
 	const router = useRouter();
 
@@ -33,10 +35,12 @@ export default function UserMenu({openAccountModal}): JSX.Element {
 				</Flex>
 			</MenuButton>
 			<MenuList alignItems={"center"}>
-				<MenuItem onClick={openAccountModal}>Account</MenuItem>
-				<MenuItem onClick={() => router.push("/transactions")}>Activities</MenuItem>
+				<MenuItem onClick={openAccountModal}>{t("common:account.title")}</MenuItem>
+				<MenuItem onClick={() => router.push("/transactions")}>
+					{t("common:account.activities")}
+				</MenuItem>
 				<MenuDivider />
-				<MenuItem onClick={handleLogout}>Disconnect</MenuItem>
+				<MenuItem onClick={handleLogout}>{t("common:action.disconnect")}</MenuItem>
 			</MenuList>
 		</Menu>
 	);

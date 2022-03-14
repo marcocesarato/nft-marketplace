@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {Box, Button, Heading, Stack, Text} from "@chakra-ui/react";
+import {useTranslation} from "next-i18next";
 
 import Catalog from "@components/Catalog";
 import Loading from "@components/Loading";
@@ -10,6 +11,7 @@ import {getStaticPropsLocale} from "@utils/i18n";
 
 export const getStaticProps = getStaticPropsLocale;
 export default function Home(): JSX.Element {
+	const {t} = useTranslation();
 	const {data, isLoading} = useMarketItems();
 	return (
 		<Box as="section" pb="7.5rem" flex={1}>
@@ -40,11 +42,10 @@ export default function Home(): JSX.Element {
 						mx="auto"
 						lineHeight="1.2"
 						letterSpacing="tight">
-						Watch your Digital Art on the wall of your home
+						{t("common:page.home.header.title")}
 					</Heading>
 					<Text fontSize="xl" mt="4" maxW="xl" mx="auto">
-						Use the VR viewer to see all your NFTs digital art on the wall of your home
-						in real time and interact with them.
+						{t("common:page.home.header.subtitle")}
 					</Text>
 				</Box>
 				<Stack
@@ -60,12 +61,12 @@ export default function Home(): JSX.Element {
 							px="8"
 							fontWeight="bold"
 							fontSize="md">
-							Explore the marketplace
+							{t("common:page.home.header.exploreButton")}
 						</Button>
 					</Link>
 					<Link href="/sell" passHref>
 						<Button size="lg" px="8" fontWeight="bold" fontSize="md">
-							Put your art on the market
+							{t("common:page.home.header.sellButton")}
 						</Button>
 					</Link>
 				</Stack>

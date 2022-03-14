@@ -10,6 +10,7 @@ import {
 	ModalOverlay,
 	Text,
 } from "@chakra-ui/react";
+import {useTranslation} from "next-i18next";
 
 import ProductAR from "@components/ProductAR";
 import useWebXR from "@hooks/useWebXR";
@@ -19,6 +20,7 @@ import ProductDetails from "./ProductDetails";
 import ProductModalButton from "./ProductModalButton";
 
 export default function ProductModal({data, onClose, onPurchase, isOpen, ...props}): JSX.Element {
+	const {t} = useTranslation();
 	const {supportsVRSession, supportsARSession} = useWebXR();
 
 	const [mode, setMode] = useState(null);
@@ -63,16 +65,24 @@ export default function ProductModal({data, onClose, onPurchase, isOpen, ...prop
 				<ModalBody position="relative">{body}</ModalBody>
 				<ModalFooter mx={-2}>
 					{supportsARSession && isDetailMode && (
-						<ProductModalButton onClick={setARMode}>Open with AR</ProductModalButton>
+						<ProductModalButton onClick={setARMode}>
+							{t("common:action.openWith")} AR
+						</ProductModalButton>
 					)}
 					{supportsVRSession && isDetailMode && (
-						<ProductModalButton onClick={setVRMode}>Open with VR</ProductModalButton>
+						<ProductModalButton onClick={setVRMode}>
+							{t("common:action.openWith")} VR
+						</ProductModalButton>
 					)}
 					{!supportsARSession && !supportsVRSession && isDetailMode && (
-						<ProductModalButton onClick={set3DMode}>Open 3D View</ProductModalButton>
+						<ProductModalButton onClick={set3DMode}>
+							{t("common:action.openWith")} 3D View
+						</ProductModalButton>
 					)}
 					{!isDetailMode && (
-						<ProductModalButton onClick={resetMode}>Back</ProductModalButton>
+						<ProductModalButton onClick={resetMode}>
+							{t("common:action.back")}
+						</ProductModalButton>
 					)}
 					{onPurchase && (
 						<ProductModalButton
@@ -80,7 +90,8 @@ export default function ProductModal({data, onClose, onPurchase, isOpen, ...prop
 								onClose();
 								onPurchase();
 							}}>
-							<AiOutlineShoppingCart /> <Text ml="4">Purchase</Text>
+							<AiOutlineShoppingCart />{" "}
+							<Text ml="4">{t("common:action.purchase")}</Text>
 						</ProductModalButton>
 					)}
 				</ModalFooter>

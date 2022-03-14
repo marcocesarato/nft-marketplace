@@ -9,6 +9,7 @@ import {
 	useColorModeValue as mode,
 	useDisclosure,
 } from "@chakra-ui/react";
+import {useTranslation} from "next-i18next";
 
 import {useMenu} from "@contexts/Global";
 import AccountModal from "@layouts/AccountModal";
@@ -18,6 +19,7 @@ import ConnectButton from "./ConnectButton";
 import LocaleMenu from "./LocaleMenu";
 
 export default function Navbar(): JSX.Element {
+	const {t} = useTranslation();
 	const {onToggleMenu} = useMenu();
 	const {isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose} = useDisclosure();
 	return (
@@ -30,7 +32,7 @@ export default function Navbar(): JSX.Element {
 						focusBorderColor="none"
 						type="search"
 						bg={mode("gray.100", "gray.900")}
-						placeholder="Search assets here..."
+						placeholder={t("common:search.assets")}
 					/>
 				</InputGroup>
 
@@ -46,7 +48,7 @@ export default function Navbar(): JSX.Element {
 						variant="ghost"
 						marginLeft="2"
 						color="current"
-						aria-label={"Open Menu"}
+						aria-label={t("common:action.openMenu")}
 						display={{lg: "none"}}
 						onClick={onToggleMenu}
 					/>

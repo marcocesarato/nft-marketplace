@@ -34,15 +34,13 @@ function Page({Component, pageProps}): JSX.Element {
 
 	return <Component {...pageProps} />;
 }
-const PageWithTranslations = appWithTranslation(Page);
-
 function App(props): JSX.Element {
 	return (
 		<Providers>
 			<MainLayout>
 				<ErrorBoundary>
 					<Suspense fallback={<Loading />}>
-						<PageWithTranslations {...props} />
+						<Page {...props} />
 					</Suspense>
 				</ErrorBoundary>
 			</MainLayout>
@@ -50,11 +48,13 @@ function App(props): JSX.Element {
 	);
 }
 
+const AppWithTranslations = appWithTranslation(App);
+
 function SSRLoader(props): JSX.Element {
 	const [init, setInit] = useState(false);
 	useEffect(() => {
 		const load = async () => {
-			await ssrPrepass(<App {...props} />);
+			await ssrPrepass(<AppWithTranslations {...props} />);
 			setInit(true);
 		};
 		load();
@@ -62,7 +62,7 @@ function SSRLoader(props): JSX.Element {
 
 	if (!init) return null;
 
-	return <App {...props} />;
+	return <AppWithTranslations {...props} />;
 }
 
 export default SSRLoader;
