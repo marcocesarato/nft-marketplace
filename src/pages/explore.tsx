@@ -5,14 +5,12 @@ import Content from "@components/Content";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
 import Product from "@components/Product";
-import {MarketAddress, MarketContract, NFTAddress} from "@configs/contracts";
+import {MarketAddress, MarketContract} from "@configs/contracts";
 import useAccount from "@hooks/useAccount";
 import useMarketItems from "@hooks/useMarketItems";
 import useWeb3 from "@hooks/useWeb3";
-import {getStaticPropsLocale} from "@utils/i18n";
 import {parseUnits} from "@utils/units";
 
-export const getStaticProps = getStaticPropsLocale;
 export default function Explore(): JSX.Element {
 	const {web3} = useWeb3();
 	const {isAuthenticated} = useAccount();
@@ -23,7 +21,7 @@ export default function Explore(): JSX.Element {
 
 		/* user will be prompted to pay the asking proces to complete the transaction */
 		const price = parseUnits(nft.price, "ether");
-		const transaction = await contract.createMarketSale(NFTAddress, nft.tokenId, {
+		const transaction = await contract.createMarketSale(nft.tokenId, {
 			value: price,
 		});
 		await transaction.wait();

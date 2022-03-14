@@ -17,20 +17,7 @@ async function main() {
 
 	console.log("Market contract deployed to:", nftMarketAddress);
 
-	const NFT = await hre.ethers.getContractFactory("NFT");
-	const nft = await NFT.deploy(nftMarketAddress);
-	await nft.deployed();
-
-	txHash = nft.deployTransaction.hash;
-	// Waiting for transaction to be mined...
-	txReceipt = await ethers.provider.waitForTransaction(txHash);
-	let nftAddress = txReceipt.contractAddress;
-
-	console.log("NFT contract deployed to:", nftAddress);
-
-	let config =
-		`export const MarketAddress = "${nftMarketAddress}";\n` +
-		`export const NFTAddress = "${nftAddress}";`;
+	let config = `export const MarketAddress = "${nftMarketAddress}";\n`;
 
 	let data = JSON.stringify(config);
 	fs.writeFileSync("src/configs/deploys.ts", JSON.parse(data));

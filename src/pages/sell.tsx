@@ -7,7 +7,7 @@ import Content from "@components/Content";
 import Dropzone from "@components/Dropzone";
 import Header from "@components/Header";
 import Loader from "@components/Loader";
-import {MarketAddress, MarketContract, NFTAddress, NFTContract} from "@configs/contracts";
+import {MarketAddress, MarketContract} from "@configs/contracts";
 import useBalance from "@hooks/useBalance";
 import useIPFS from "@hooks/useIPFS";
 import useWeb3 from "@hooks/useWeb3";
@@ -38,19 +38,11 @@ export default function CreateItem(): JSX.Element {
 		const signer = web3.getSigner();
 
 		setMessage("Minting token... Follow the instructions on your wallet.");
-		let contract = new ethers.Contract(NFTAddress, NFTContract.abi, signer);
-		let transaction = await contract.createToken(url);
-		let tx = await transaction.wait();
-		let event = tx.events[0];
-		let value = event.args[2];
-		let tokenId = value.toNumber();
-
-		setMessage("Approve this item for sale... Follow the instructions on your wallet.");
-		contract = new ethers.Contract(MarketAddress, MarketContract.abi, signer);
-		let listingPrice = await contract.getListingPrice();
+		const contract = new ethers.Contract(MarketAddress, MarketContract.abi, signer);
+		const listingPrice = await contract.getListingPrice();
 
 		const price = parseUnits(formInput.price, "ether");
-		transaction = await contract.createMarketItem(NFTAddress, tokenId, price, {
+		const transaction = await contract.createToken(url, price, {
 			value: listingPrice,
 		});
 

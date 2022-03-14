@@ -24,6 +24,7 @@ export type TMarketItem = {
 	price: float;
 	tokenId: int;
 	seller: string;
+	sold: boolean;
 	owner: string;
 	creator?: string;
 	image: string;
