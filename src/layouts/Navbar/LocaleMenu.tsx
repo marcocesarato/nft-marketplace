@@ -30,7 +30,11 @@ export default function LocaleMenu(): JSX.Element {
 			</MenuButton>
 			<MenuList alignItems={"center"} p={0} minW="0" w={"48px"}>
 				{Object.entries(locales).map(([lang, flag]) => (
-					<MenuItem onClick={() => onSelectLocale(lang)} width="48px" height={"48px"}>
+					<MenuItem
+						key={lang}
+						onClick={() => onSelectLocale(lang)}
+						width="48px"
+						height={"48px"}>
 						<Image height="100%" width="100%" objectFit={"cover"} src={flag} />
 					</MenuItem>
 				))}
