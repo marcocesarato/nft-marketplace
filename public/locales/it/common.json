@@ -27,10 +27,10 @@
 	},
 	"page": {
 		"assets": {
-			"description": "Sfoglia i tuoi asset",
+			"description": "Sfoglia la rua collezione di risorse digitali",
 			"empty": "Nessun asset trovato",
-			"shortTitle": "Asset",
-			"title": "Beni posseduti"
+			"shortTitle": "Collezione",
+			"title": "Risorse digitali possedute"
 		},
 		"dashboard": {
 			"created": {
@@ -103,7 +103,7 @@
 		"price": "Prezzo"
 	},
 	"search": {
-		"assets": "Cerca asset qui..."
+		"assets": "Cerca risorse digitali qui..."
 	},
 	"xr": {
 		"notSupported": "Il tuo browser attuale non supporta la tecnologia richiesta.",

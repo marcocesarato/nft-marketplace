@@ -75,9 +75,9 @@
 			"empty": "No pictures found!"
 		},
 		"assets": {
-			"title": "Assets owned",
-			"shortTitle": "Assets",
-			"description": "Browse your assets",
+			"title": "Collection assets owned",
+			"shortTitle": "Collection",
+			"description": "Browse your collection assets",
 			"empty": "No assets found"
 		},
 		"sell": {
