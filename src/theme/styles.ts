@@ -8,7 +8,6 @@ export const globalStyles = {
 		transparent: "transparent",
 		black: "#000",
 		white: "#fff",
-		main: "#805AD5",
 	},
 	styles: {
 		global: (props) => ({

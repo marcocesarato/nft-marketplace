@@ -25,13 +25,15 @@ function SidebarSection({
 }: SidebarSectionProps): JSX.Element {
 	const router = useRouter();
 	const activeRoute = (routeName: string) => {
-		return router?.asPath === routeName ? "active" : "";
+		const path = router?.asPath.split("?")[0].split("#")[0];
+		return path === routeName ? "active" : "";
 	};
 
+	const hoverBg = mode("gray.200", "gray.900");
 	const activeBg = mode("white", "gray.700");
 	const inactiveBg = mode("white", "gray.700");
-	const activeColor = mode("gray.700", "white");
-	const inactiveColor = mode("gray.400", "gray.400");
+	const activeColor = mode("primary", "primary");
+	const inactiveColor = mode("gray.500", "gray.400");
 
 	if (category) {
 		return (
@@ -74,11 +76,13 @@ function SidebarSection({
 					borderRadius="15px"
 					onClick={onClick}
 					boxShadow={isActive ? "sm" : null}
-					w="100%">
+					w="100%"
+					_hover={{bg: hoverBg}}
+					_focus={{bg: hoverBg}}>
 					<Flex>
 						<IconBox
-							bg={isActive ? "main" : inactiveBg}
-							color={isActive ? "white" : "main"}
+							bg={isActive ? "primary" : inactiveBg}
+							color={isActive ? inactiveBg : "primary"}
 							h="30px"
 							w="30px"
 							me="12px">

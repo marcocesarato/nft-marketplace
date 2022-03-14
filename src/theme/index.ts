@@ -10,12 +10,14 @@ import {buttonStyles} from "./components/button";
 import {drawerStyles} from "./components/drawer";
 import {linkStyles} from "./components/link";
 import {breakpoints} from "./foundations/breakpoints";
+import {semanticTokens} from "./foundations/semanticTokens";
 import {globalStyles} from "./styles";
 // import { mode } from "@chakra-ui/theme-tools";
 
 export default extendTheme(
 	{breakpoints}, // Breakpoints
 	globalStyles,
+	{semanticTokens}, // Semantic tokens
 	buttonStyles, // Button styles
 	badgeStyles, // Badge styles
 	linkStyles, // Link styles

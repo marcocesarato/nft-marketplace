@@ -10,8 +10,8 @@ export default function RouterGuard({children}: {children: ReactNode}): JSX.Elem
 	const [authorized, setAuthorized] = useState(false);
 
 	useEffect(() => {
-		const path = router.asPath.split("?")[0];
-		if (!isAuthenticated && !publicPaths.includes(path) && !router.isFallback) {
+		const path = router?.asPath?.split("?")[0].split("#")[0];
+		if (!isAuthenticated && !publicPaths.includes(path) && !router?.isFallback) {
 			setAuthorized(false);
 			router.push({
 				pathname: "/",

@@ -49,7 +49,7 @@ export default function Transactions(): JSX.Element {
 				<Box textAlign="right">
 					<a href={`${getExplorer(chainId)}/tx/${hash}`} target="_blank" rel="noreferrer">
 						<Button variant="link" colorScheme="purple">
-							t("common:action.viewOnExplorer")"),
+							{t("common:action.viewOnExplorer")}
 						</Button>
 					</a>
 				</Box>
