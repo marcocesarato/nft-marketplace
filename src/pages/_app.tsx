@@ -7,6 +7,7 @@ import Providers from "@app/Providers";
 import {TWeb3Provider} from "@app/types";
 import Loader from "@components/Loader";
 import Loading from "@components/Loading";
+import RouteGuard from "@components/RouterGuard";
 import ErrorBoundary from "@errors/ErrorBoundary";
 import useAccount from "@hooks/useAccount";
 import useLocalStorage from "@hooks/useLocalStorage";
@@ -40,7 +41,9 @@ function App(props): JSX.Element {
 			<MainLayout>
 				<ErrorBoundary>
 					<Suspense fallback={<Loading />}>
-						<Page {...props} />
+						<RouteGuard>
+							<Page {...props} />
+						</RouteGuard>
 					</Suspense>
 				</ErrorBoundary>
 			</MainLayout>

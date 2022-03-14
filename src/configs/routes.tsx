@@ -7,6 +7,8 @@ import {
 	AiFillShopping,
 } from "react-icons/ai";
 
+export const publicPaths = ["/", "/explore"];
+
 export const routes = [
 	{label: "common:page.home.shortTitle", href: "/", icon: <AiFillHome />},
 	{label: "common:page.explore.shortTitle", href: "/explore", icon: <AiFillCompass />},
