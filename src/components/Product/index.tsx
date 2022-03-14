@@ -98,7 +98,10 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 								fontWeight="medium"
 								rounded="xl"
 								textTransform="uppercase"
-								onClick={onPurchase}
+								onClick={(e) => {
+									e.preventDefault();
+									onPurchase();
+								}}
 								_hover={{
 									bg: "gray.700",
 								}}
