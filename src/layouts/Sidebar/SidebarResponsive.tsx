@@ -40,7 +40,7 @@ function SidebarResponsive({title, children}): JSX.Element {
 	);
 
 	return (
-		<Flex display={{md: "flex", lg: "none"}} ref={mainPanel} alignItems="center">
+		<Flex display={{base: "flex", lg: "none"}} ref={mainPanel} alignItems="center">
 			<Drawer isOpen={isMenuOpen} onClose={onToggleMenu}>
 				<DrawerOverlay />
 				<DrawerContent

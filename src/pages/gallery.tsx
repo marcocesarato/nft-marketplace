@@ -28,7 +28,7 @@ export default function MyGallery(): JSX.Element {
 			height="calc(100vh - 94px)"
 			width={{
 				md: "100vw",
-				lg: isOpenSidebar ? "calc(100vw - 100px)" : "calc(100vw - 270px)",
+				lg: !isOpenSidebar ? "calc(100vw - 100px)" : "calc(100vw - 270px)",
 			}}>
 			<Gallery data={data} />
 		</Center>

@@ -17,9 +17,12 @@ function Sidebar({title}): JSX.Element {
 	const {t} = useTranslation();
 	const routes = useRoutes();
 	const {isAuthenticated, logout} = useAccount();
-	const [sidebarIsOpen, onToggleSidebar] = useSidebar();
+	const [isOpenSidebar, onToggleSidebar] = useSidebar();
 	const mainPanel = useRef();
-	const compress = useBreakpointValue({base: false, lg: sidebarIsOpen});
+	const canCompress = useBreakpointValue({base: false, lg: true});
+	const compress = useMemo(() => {
+		return !isOpenSidebar && canCompress;
+	}, [canCompress, isOpenSidebar]);
 
 	const Content = useMemo(() => {
 		return (): JSX.Element => {
