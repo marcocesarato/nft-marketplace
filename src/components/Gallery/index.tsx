@@ -1,6 +1,8 @@
 import {Environment, MeshReflectorMaterial} from "@react-three/drei";
 import {Canvas} from "@react-three/fiber";
 
+import {TNFT} from "@app/types";
+
 import Frames from "./Frames";
 
 const imagesDisposition = [
@@ -20,15 +22,16 @@ const imagesDisposition = [
 ];
 
 export default function Gallery({data}): JSX.Element {
-	const images = data.slice(0, imagesDisposition.length).map((nft, i) => {
-		return {
-			id: `${nft?.token_address}${nft?.token_id}`,
-			text: nft.metadata?.name,
-			url: nft.metadata?.image,
-			position: imagesDisposition[i].position,
-			rotation: imagesDisposition[i].rotation,
-		};
-	});
+	const images =
+		data?.slice(0, imagesDisposition.length).map((nft: TNFT, i: number) => {
+			return {
+				id: `${nft?.token_address}${nft?.token_id}`,
+				text: nft.metadata?.name,
+				url: nft.metadata?.image,
+				position: imagesDisposition[i].position,
+				rotation: imagesDisposition[i].rotation,
+			};
+		}) || [];
 	return (
 		<Canvas gl={{alpha: false}} dpr={[1, 1.5]} camera={{fov: 70, position: [0, 2, 15]}}>
 			<color attach="background" args={["#191920"]} />
