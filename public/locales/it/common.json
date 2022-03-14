@@ -49,9 +49,9 @@
 		},
 		"explore": {
 			"description": "Esplora le ultime opere d'arte in vendita",
-			"empty": "Nessun articolo sul mercato",
-			"shortTitle": "Esplorare",
-			"title": "Esplorare"
+			"empty": "Nessun articolo trovato sul mercato",
+			"shortTitle": "Esplora",
+			"title": "Esplora"
 		},
 		"gallery": {
 			"empty": "Nessuna opera trovata!",
