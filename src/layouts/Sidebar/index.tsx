@@ -3,7 +3,7 @@ import {AiOutlineLogout} from "react-icons/ai";
 import {BsLayoutSidebar, BsLayoutSidebarInset} from "react-icons/bs";
 import {Box, useBreakpointValue} from "@chakra-ui/react";
 
-import useAccount from "@app/hooks/useAccount";
+import useAccount from "@hooks/useAccount";
 import useRoutes from "@hooks/useRoutes";
 import useSidebar from "@hooks/useSidebar";
 

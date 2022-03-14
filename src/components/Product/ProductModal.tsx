@@ -11,8 +11,8 @@ import {
 	Text,
 } from "@chakra-ui/react";
 
-import useWebXR from "@app/hooks/useWebXR";
 import ProductAR from "@components/ProductAR";
+import useWebXR from "@hooks/useWebXR";
 
 import Product3DViewer from "./Product3DViewer";
 import ProductDetails from "./ProductDetails";
