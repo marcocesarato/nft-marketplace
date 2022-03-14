@@ -26,6 +26,7 @@ export default function Home(): JSX.Element {
 					<Particles
 						style={{
 							height: "50vh",
+							minHeight: "500px",
 							filter: "blur(2px)",
 						}}
 					/>
