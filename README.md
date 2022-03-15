@@ -12,6 +12,7 @@ Watch your Digital Art on the wall of your home. Use the VR viewer to see all yo
         - [Configure Moralis and Hardhat](#configure-moralis-and-hardhat)
 - [Requirements](#requirements)
     - [Background informations](#background-informations)
+    - [Connect Metamask to Polygon](#connect-metamask-to-polygon)
 - [Technology Stack](#technology-stack)
     - [Main](#main)
     - [Other](#other)
@@ -19,10 +20,10 @@ Watch your Digital Art on the wall of your home. Use the VR viewer to see all yo
 - [Structure](#structure)
     - [Folders](#folders)
     - [Source hierarchy](#source-hierarchy)
-- [Coding Style](#coding-style)
-- [How to Contribute](#how-to-contribute)
-- [How to Release](#how-to-release)
-- [How to Deploy](#how-to-deploy)
+- [Coding Style](#coding-style-coding-style-md)
+- [How to Contribute](#how-to-contribute-contributing-md)
+- [How to Release](#how-to-release-docs-release-md)
+- [How to Deploy](#how-to-deploy-docs-deploy-md)
 
 ## Setup
 
@@ -118,6 +119,10 @@ MORALIS_APPLICATION_ID=
 If you are new in the blockchain world and you need more background information about read this page.
 
 **[Go to the page >](./docs/infos.md)**
+
+### Connect Metamask to Polygon
+
+How to connect Polygon Testnet to MetaMask wallet? The easiest way to get it done is by searching "MATIC" on [Chainlist](https://chainlist.org/) and clicking "Add To Metamask" on "Matic (Polygon) Testnet Mumbai", and you are good to go.
 
 ## Technology Stack
 
@@ -216,19 +221,11 @@ The source's folders hiearachy should mantain the following example structure:
 │   │   ├──  initialState.ts
 ```
 
-## Coding Style
+## [Coding Style](./CODING_STYLE.md)
 
-**[Go to the guidelines >](./CODING_STYLE.md)**
+## [How to Contribute](./CONTRIBUTING.md)
 
-## How to Contribute
+## [How to Release](./docs/release.md)
 
-**[Go to the guidelines >](./CONTRIBUTING.md)**
-
-## How to Release
-
-**[Go to the page >](./docs/release.md)**
-
-## How to Deploy
-
-**[Go to the page >](./docs/deploy.md)**
+## [How to Deploy](./docs/deploy.md)
 
