@@ -13,7 +13,7 @@ export const getStaticProps = getStaticPropsLocale;
 export default function CreatorDashboard(): JSX.Element {
 	const {t} = useTranslation();
 	const {data, error, isError, isLoading, isSuccess} = useMarketItemsCreated();
-	const sold = data?.filter((i) => i.owner) || [];
+	const sold = data?.filter((i) => i.sold) || [];
 
 	if (isLoading) return <Loading />;
 	if (isError) return <Header title={t("error:title")} subtitle={error.message} />;
