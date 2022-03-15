@@ -26,7 +26,7 @@ export default function MyAssets(): JSX.Element {
 		setIsPending(true);
 		const signer = web3.getSigner();
 		const priceFormatted = parseUnits(amount, "ether");
-		let contract = new ethers.Contract(MarketAddress, MarketContract.abi, signer);
+		let contract = new ethers.Contract(MarketAddress, MarketContract, signer);
 		let listingPrice = await contract.getListingPrice();
 
 		listingPrice = listingPrice.toString();

@@ -13,7 +13,7 @@ const useMarketItemsOwned = () => {
 	return useQuery<NFTMarketItem[], Error>("marketItemsOwned", async () => {
 		if (!web3) return [];
 		const signer = web3.getSigner();
-		const contract = new ethers.Contract(MarketAddress, MarketContract.abi, signer);
+		const contract = new ethers.Contract(MarketAddress, MarketContract, signer);
 		const data = await contract.fetchItemsOwned();
 
 		return await Promise.all(

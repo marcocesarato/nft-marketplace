@@ -17,10 +17,10 @@
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["/*"],
+			"@abis/*": ["abis/*"],
 			"@app/*": ["src/*"],
 			"@models/*": ["src/models/*"],
 			"@assets/*": ["public/assets/*"],
-			"@artifacts/*": ["artifacts/*"],
 			"@configs/*": ["src/configs/*"],
 			"@layouts/*": ["src/layouts/*"],
 			"@components/*": ["src/components/*"],

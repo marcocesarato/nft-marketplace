@@ -11,7 +11,7 @@ const useMarketItems = () => {
 	return useQuery<NFTMarketItem[], Error>("marketItems", async () => {
 		/* create a generic provider and query for unsold market items */
 		const provider = new ethers.providers.JsonRpcProvider(ChainUrl);
-		const contract = new ethers.Contract(MarketAddress, MarketContract.abi, provider);
+		const contract = new ethers.Contract(MarketAddress, MarketContract, provider);
 		const data = await contract.fetchMarketItems();
 		/**
 		 * map over items returned from smart contract and format

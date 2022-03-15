@@ -13,14 +13,17 @@ async function main() {
 
 	txHash = nftMarket.deployTransaction.hash;
 	txReceipt = await ethers.provider.waitForTransaction(txHash);
-	let nftMarketAddress = txReceipt.contractAddress;
-
+	const nftMarketAddress = txReceipt.contractAddress;
 	console.log("Market contract deployed to:", nftMarketAddress);
 
-	let config = `module.exports = {MarketAddress: "${nftMarketAddress}"};\n`;
+	const artifact = require("../artifacts/contracts/Market.sol/Market.json");
+	fs.writeFileSync("abis/Market.json", JSON.stringify(artifact.abi));
+	console.log("Market contract ABI exported to ./abis/Market.json");
 
-	let data = JSON.stringify(config);
-	fs.writeFileSync("address.js", JSON.parse(data));
+	const config = `module.exports = {MarketAddress: "${nftMarketAddress}"};\n`;
+	const data = JSON.stringify(config);
+	fs.writeFileSync("addresses.js", JSON.parse(data));
+	console.log("Addresses exported to ./addresses.js");
 }
 
 main()

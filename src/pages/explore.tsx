@@ -24,7 +24,7 @@ export default function Explore(): JSX.Element {
 	const {refetch, data, error, isError, isLoading, isSuccess} = useMarketItems();
 	async function purchaseItem(nft: NFTMarketItem) {
 		const signer = web3.getSigner();
-		const contract = new ethers.Contract(MarketAddress, MarketContract.abi, signer);
+		const contract = new ethers.Contract(MarketAddress, MarketContract, signer);
 
 		/* user will be prompted to pay the asking proces to complete the transaction */
 		const price = parseUnits(nft.price, "ether");

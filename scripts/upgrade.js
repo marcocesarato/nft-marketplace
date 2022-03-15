@@ -1,5 +1,6 @@
 const {ethers, upgrades} = require("hardhat");
 const {MarketAddress} = require("../addresses");
+const fs = require("fs");
 
 async function main() {
 	const [deployer] = await ethers.getSigners();
@@ -11,6 +12,13 @@ async function main() {
 	await nftMarket.deployed();
 
 	console.log("Market contract upgraded!");
+
+	const artifact = require("../artifacts/contracts/Market.sol/Market.json");
+	fs.writeFileSync("abis/Market.json", JSON.stringify(artifact.abi), {
+		encoding: "utf8",
+		flag: "w",
+	});
+	console.log("Market contract ABI exported to ./abis/Market.json");
 }
 
 main()

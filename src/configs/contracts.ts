@@ -1,4 +1,4 @@
-import Market from "@artifacts/contracts/Market.sol/Market.json";
+import Market from "@abis/Market.json";
 
 export * from "@/addresses";
 export const MarketContract = Market;

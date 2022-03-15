@@ -42,7 +42,7 @@ export default function CreateItem(): JSX.Element {
 		const signer = web3.getSigner();
 
 		setMessage(t("common:page.sell.minting"));
-		const contract = new ethers.Contract(MarketAddress, MarketContract.abi, signer);
+		const contract = new ethers.Contract(MarketAddress, MarketContract, signer);
 		const listingPrice = await contract.getListingPrice();
 
 		const price = parseUnits(formInput.price, "ether");
