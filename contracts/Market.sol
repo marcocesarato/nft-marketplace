@@ -14,7 +14,6 @@ contract Market is ERC721URIStorage, PriceConsumerV3 {
 	Counters.Counter private _itemsSold;
 
 	uint256 listingPrice = 0.025 ether;
-	uint256 resultsPerPage = 12;
 	address payable owner;
 
 	mapping(uint256 => MarketItem) private idToMarketItem;
@@ -98,7 +97,7 @@ contract Market is ERC721URIStorage, PriceConsumerV3 {
 		payable(seller).transfer(msg.value);
 	}
 
-	/* Allows someone to resell a token they have purchased */
+    /* allows someone to resell a token they have purchased */
 	function resellMarketItem(uint256 tokenId, uint256 price) public payable {
 		require(
 			idToMarketItem[tokenId].owner == msg.sender,
@@ -114,42 +113,27 @@ contract Market is ERC721URIStorage, PriceConsumerV3 {
 		_transfer(msg.sender, address(this), tokenId);
 	}
 
-	/* Returns market item by id */
-	function fetchMarketItemById(uint256 tokenId) public view returns (MarketItem memory) {
-		MarketItem storage item = idToMarketItem[tokenId];
-		return item;
-	}
-
 	/* Returns all unsold market items */
 	function fetchMarketItems() public view returns (MarketItem[] memory) {
 		uint256 itemCount = _tokenIds.current();
 		uint256 unsoldItemCount = _tokenIds.current() - _itemsSold.current();
 		uint256 currentIndex = 0;
 
-		MarketItem[] memory _items = new MarketItem[](unsoldItemCount);
+		MarketItem[] memory items = new MarketItem[](unsoldItemCount);
 		for (uint256 i = 0; i < itemCount; i++) {
 			if (idToMarketItem[i + 1].owner == address(this)) {
 				uint256 currentId = i + 1;
 				MarketItem storage currentItem = idToMarketItem[currentId];
-				_items[currentIndex] = currentItem;
+				items[currentIndex] = currentItem;
 				currentIndex += 1;
 			}
 		}
-		return _items;
+		return items;
 	}
 
-	/* Returns all unsold market items paginated */
-	function fetchMarketItems(uint256 _page, uint256 _resultsPerPage)
-		public
-		view
-		returns (MarketItem[] memory)
-	{
-		MarketItem[] memory _data = fetchMarketItems();
-		return paginateItems(_data, _page, _resultsPerPage);
-	}
-
-	function fetchMarketItems(uint256 _page) public view returns (MarketItem[] memory) {
-		return fetchMarketItems(_page, resultsPerPage);
+	function fetchMarketItemById(uint256 tokenId) public view returns (MarketItem memory) {
+		MarketItem storage item = idToMarketItem[tokenId];
+		return item;
 	}
 
 	/* Returns only items that a user has purchased */
@@ -164,30 +148,16 @@ contract Market is ERC721URIStorage, PriceConsumerV3 {
 			}
 		}
 
-		MarketItem[] memory _items = new MarketItem[](itemCount);
+		MarketItem[] memory items = new MarketItem[](itemCount);
 		for (uint256 i = 0; i < totalItemCount; i++) {
 			if (idToMarketItem[i + 1].owner == msg.sender) {
 				uint256 currentId = i + 1;
 				MarketItem storage currentItem = idToMarketItem[currentId];
-				_items[currentIndex] = currentItem;
+				items[currentIndex] = currentItem;
 				currentIndex += 1;
 			}
 		}
-		return _items;
-	}
-
-	/* Returns only items that a user has purchased paginated */
-	function fetchItemsOwned(uint256 _page, uint256 _resultsPerPage)
-		public
-		view
-		returns (MarketItem[] memory)
-	{
-		MarketItem[] memory _data = fetchItemsOwned();
-		return paginateItems(_data, _page, _resultsPerPage);
-	}
-
-	function fetchItemsOwned(uint256 _page) public view returns (MarketItem[] memory) {
-		return fetchItemsOwned(_page, resultsPerPage);
+		return items;
 	}
 
 	/* Returns only items a user has created */
@@ -202,47 +172,15 @@ contract Market is ERC721URIStorage, PriceConsumerV3 {
 			}
 		}
 
-		MarketItem[] memory _items = new MarketItem[](itemCount);
+		MarketItem[] memory items = new MarketItem[](itemCount);
 		for (uint256 i = 0; i < totalItemCount; i++) {
 			if (idToMarketItem[i + 1].creator == msg.sender) {
 				uint256 currentId = i + 1;
 				MarketItem storage currentItem = idToMarketItem[currentId];
-				_items[currentIndex] = currentItem;
+				items[currentIndex] = currentItem;
 				currentIndex += 1;
 			}
 		}
-		return _items;
-	}
-
-	/* Returns only items a user has created paginated */
-	function fetchItemsCreated(uint256 _page, uint256 _resultsPerPage)
-		public
-		view
-		returns (MarketItem[] memory)
-	{
-		MarketItem[] memory _data = fetchItemsCreated();
-		return paginateItems(_data, _page, _resultsPerPage);
-	}
-
-	function fetchItemsCreated(uint256 _page) public view returns (MarketItem[] memory) {
-		return fetchItemsCreated(_page, resultsPerPage);
-	}
-
-	/* Returns items paginated */
-	function paginateItems(
-		MarketItem[] memory data,
-		uint256 _page,
-		uint256 _resultsPerPage
-	) private pure returns (MarketItem[] memory) {
-		MarketItem[] memory result = new MarketItem[](_resultsPerPage);
-		for (
-			uint256 i = _resultsPerPage * _page - _resultsPerPage;
-			i < _resultsPerPage * _page;
-			i++
-		) {
-			MarketItem memory currentItem = data[i];
-			result[i] = currentItem;
-		}
-		return result;
+		return items;
 	}
 }
