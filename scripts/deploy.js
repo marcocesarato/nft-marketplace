@@ -1,14 +1,14 @@
-const hre = require("hardhat");
+const {ethers, upgrades} = require("hardhat");
 const fs = require("fs");
 
 async function main() {
-	const [deployer] = await hre.ethers.getSigners();
+	const [deployer] = await ethers.getSigners();
 
 	console.log("Deploying contracts with the account:", deployer.address);
 
 	let txHash, txReceipt;
-	const NFTMarket = await hre.ethers.getContractFactory("Market");
-	const nftMarket = await NFTMarket.deploy();
+	const NFTMarket = await ethers.getContractFactory("Market");
+	const nftMarket = await upgrades.deployProxy(NFTMarket);
 	await nftMarket.deployed();
 
 	txHash = nftMarket.deployTransaction.hash;
@@ -17,10 +17,10 @@ async function main() {
 
 	console.log("Market contract deployed to:", nftMarketAddress);
 
-	let config = `export const MarketAddress = "${nftMarketAddress}";\n`;
+	let config = `module.exports = {MarketAddress: "${nftMarketAddress}"};\n`;
 
 	let data = JSON.stringify(config);
-	fs.writeFileSync("src/configs/deploys.ts", JSON.parse(data));
+	fs.writeFileSync("address.js", JSON.parse(data));
 }
 
 main()

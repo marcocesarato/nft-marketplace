@@ -1,19 +1,25 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.12;
 
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "./PriceConsumerV3.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721URIStorageUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
 
 import "hardhat/console.sol";
 
-contract Market is ERC721URIStorage, PriceConsumerV3 {
-	using Counters for Counters.Counter;
-	Counters.Counter private _tokenIds;
-	Counters.Counter private _itemsSold;
+contract Market is Initializable, ERC721URIStorageUpgradeable {
+	using StringsUpgradeable for uint256;
+	using CountersUpgradeable for CountersUpgradeable.Counter;
+	CountersUpgradeable.Counter private _tokenIds;
+	CountersUpgradeable.Counter private _itemsSold;
 
-	uint256 listingPrice = 0.025 ether;
+	AggregatorV3Interface internal priceFeed;
+
+	uint256 listingPrice;
 	address payable owner;
 
 	mapping(uint256 => MarketItem) private idToMarketItem;
@@ -36,8 +42,27 @@ contract Market is ERC721URIStorage, PriceConsumerV3 {
 		bool sold
 	);
 
-	constructor() ERC721("ACN Metaverse Tokens", "ACNT") PriceConsumerV3() {
+	event MarketItemTransaction(uint256 indexed tokenId, address seller, address owner, bool sold);
+
+	/**
+	 * Network: Polygon Testnet (Mumbai)
+	 * Aggregator: MATIC/USD
+	 * Address: 0x686c626E48bfC5DC98a30a9992897766fed4Abd3
+	 */
+	function initialize() public initializer {
+		__ERC721_init("ACN Metaverse Tokens", "ACNT");
+		__ERC721URIStorage_init();
+		listingPrice = 0.025 ether;
 		owner = payable(msg.sender);
+		priceFeed = AggregatorV3Interface(0x686c626E48bfC5DC98a30a9992897766fed4Abd3);
+	}
+
+	/**
+	 * Returns the latest price
+	 */
+	function getLatestPrice() public view returns (uint256) {
+		(, int256 price, , , ) = priceFeed.latestRoundData();
+		return uint256(price);
 	}
 
 	/* Updates the listing price of the contract */
@@ -76,6 +101,7 @@ contract Market is ERC721URIStorage, PriceConsumerV3 {
 		);
 
 		_transfer(msg.sender, address(this), tokenId);
+
 		emit MarketItemCreated(tokenId, msg.sender, msg.sender, address(this), price, false);
 	}
 
@@ -95,9 +121,11 @@ contract Market is ERC721URIStorage, PriceConsumerV3 {
 		_transfer(address(this), msg.sender, tokenId);
 		payable(owner).transfer(listingPrice);
 		payable(seller).transfer(msg.value);
+
+		emit MarketItemTransaction(tokenId, seller, msg.sender, true);
 	}
 
-    /* allows someone to resell a token they have purchased */
+	/* allows someone to resell a token they have purchased */
 	function resellMarketItem(uint256 tokenId, uint256 price) public payable {
 		require(
 			idToMarketItem[tokenId].owner == msg.sender,
@@ -111,6 +139,8 @@ contract Market is ERC721URIStorage, PriceConsumerV3 {
 		_itemsSold.decrement();
 
 		_transfer(msg.sender, address(this), tokenId);
+
+		emit MarketItemTransaction(tokenId, msg.sender, address(this), false);
 	}
 
 	/* Returns all unsold market items */

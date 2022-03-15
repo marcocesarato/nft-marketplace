@@ -1,4 +1,6 @@
+require("@nomiclabs/hardhat-ethers");
 require("@nomiclabs/hardhat-waffle");
+require("@openzeppelin/hardhat-upgrades");
 require("dotenv").config();
 
 module.exports = {
@@ -17,7 +19,7 @@ module.exports = {
 		},
 	},
 	solidity: {
-		version: "0.8.4",
+		version: "0.8.12",
 		settings: {
 			optimizer: {
 				enabled: true,
