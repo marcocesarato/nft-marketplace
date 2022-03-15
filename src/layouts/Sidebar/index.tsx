@@ -1,7 +1,7 @@
 import {useMemo, useRef} from "react";
 import {AiOutlineLogout} from "react-icons/ai";
 import {BsLayoutSidebar, BsLayoutSidebarInset} from "react-icons/bs";
-import {Box, useBreakpointValue} from "@chakra-ui/react";
+import {Box} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
 import useAccount from "@hooks/useAccount";
@@ -17,35 +17,35 @@ function Sidebar({title}): JSX.Element {
 	const {t} = useTranslation();
 	const routes = useRoutes();
 	const {isAuthenticated, logout} = useAccount();
-	const [isOpenSidebar, onToggleSidebar] = useSidebar();
+	const {sidebarWidth, isSidebarCompress, onToggleSidebar} = useSidebar();
 	const mainPanel = useRef();
-	const canCompress = useBreakpointValue({base: false, lg: true});
-	const compress = useMemo(() => {
-		return !isOpenSidebar && canCompress;
-	}, [canCompress, isOpenSidebar]);
 
 	const Content = useMemo(() => {
 		return (): JSX.Element => {
 			const createRoutes = () => {
 				return routes.map(({label, ...prop}, key) => (
-					<SidebarSection key={key} label={t(label)} {...prop} compress={compress} />
+					<SidebarSection
+						key={key}
+						label={t(label)}
+						{...prop}
+						compress={isSidebarCompress}
+					/>
 				));
 			};
 			return (
 				<>
 					{createRoutes()}
-					{!compress && <SidebarBalanceSection />}
+					{!isSidebarCompress && <SidebarBalanceSection />}
 				</>
 			);
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [compress, routes]);
+	}, [isSidebarCompress, routes]);
 
 	const marginsY = {
 		sm: "25px",
 	};
-	const paddingX = !compress ? "20px" : "10px";
-	const width = !compress ? "260px" : "70px";
+	const paddingX = !isSidebarCompress ? "20px" : "10px";
 
 	return (
 		<>
@@ -54,32 +54,38 @@ function Sidebar({title}): JSX.Element {
 					<Box
 						display="block"
 						transition="0.2s linear"
-						w={width}
+						w={sidebarWidth}
 						h="calc(100vh - 175px)"
 						overflow="auto"
 						m="0"
 						my={marginsY}
 						px={paddingX}>
-						<SidebarContent title={title} compress={compress}>
+						<SidebarContent title={title} compress={isSidebarCompress}>
 							<Content />
 							<Box
 								position="fixed"
 								bottom="10px"
 								px={paddingX}
-								w={width}
+								w={sidebarWidth}
 								my={marginsY}>
 								{isAuthenticated && (
 									<SidebarSection
 										label={t("common:action.disconnect")}
 										icon={<AiOutlineLogout />}
-										compress={compress}
+										compress={isSidebarCompress}
 										onClick={logout}
 									/>
 								)}
 								<SidebarSection
 									label={t("common:account.compress")}
-									icon={compress ? <BsLayoutSidebarInset /> : <BsLayoutSidebar />}
-									compress={compress}
+									icon={
+										isSidebarCompress ? (
+											<BsLayoutSidebarInset />
+										) : (
+											<BsLayoutSidebar />
+										)
+									}
+									compress={isSidebarCompress}
 									onClick={onToggleSidebar}
 								/>
 							</Box>

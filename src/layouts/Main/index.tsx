@@ -7,14 +7,16 @@ import MainPanel from "./MainPanel";
 import PanelContainer from "./PanelContainer";
 
 export default function Main({children}: {children: React.ReactNode}): JSX.Element {
-	const [isOpenSidebar] = useSidebar();
+	const {isOpenSidebar, sidebarWidth} = useSidebar();
 	return (
 		<Viewport>
 			<Sidebar title={"Marketplace"} />
 			<MainPanel
 				w={{
 					base: "100%",
-					lg: !isOpenSidebar ? "calc(100% - 60px)" : "calc(100% - 260px)",
+					lg: !isOpenSidebar
+						? `calc(100% - ${sidebarWidth} + 10px)` // Remove margins
+						: `calc(100% - ${sidebarWidth})`,
 				}}>
 				<Navbar />
 				<PanelContainer>{children}</PanelContainer>
