@@ -17,7 +17,7 @@ import MainLayout from "@layouts/Main";
 import "focus-visible/dist/focus-visible";
 
 function Page({Component, pageProps}): JSX.Element {
-	const {Moralis, isInitialized} = useMoralis();
+	const {Moralis, isInitialized, isInitializing} = useMoralis();
 	const {isLogged, isAuthenticating} = useAccount();
 	const {enableWeb3, isWeb3Enabled, isWeb3EnableLoading} = useWeb3();
 	const [connectorId] = useLocalStorage<TWeb3Provider>("connectorId");
@@ -31,9 +31,13 @@ function Page({Component, pageProps}): JSX.Element {
 		if (isInitialized) Moralis.initPlugins();
 	}, [isInitialized, Moralis]);
 
-	if (isAuthenticating || isWeb3EnableLoading) return <Loader />;
+	if (isAuthenticating || isWeb3EnableLoading || isInitializing) return <Loader />;
 
-	return <Component {...pageProps} />;
+	return (
+		<RouteGuard>
+			<Component {...pageProps} />
+		</RouteGuard>
+	);
 }
 function App(props): JSX.Element {
 	return (
@@ -41,9 +45,7 @@ function App(props): JSX.Element {
 			<MainLayout>
 				<ErrorBoundary>
 					<Suspense fallback={<Loading />}>
-						<RouteGuard>
-							<Page {...props} />
-						</RouteGuard>
+						<Page {...props} />
 					</Suspense>
 				</ErrorBoundary>
 			</MainLayout>
