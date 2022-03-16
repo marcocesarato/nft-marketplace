@@ -1,0 +1,26 @@
+overwrite: true
+hooks:
+    afterAllFileWrite: "eslint --fix"
+schema: "./src/database/graphql/schema.graphql"
+generates:
+    ./src/types/schema.d.ts:
+        plugins:
+            - typescript
+            - typescript-resolvers
+        config:
+            withHooks: true
+            withHOC: false
+            withComponent: false
+            skipTypename: true
+    ./src/services/graphql/index.ts:
+        documents:
+            - "./src/**/*.graphql"
+            - "./src/**/*.ts"
+            - "./src/**/*.tsx"
+        plugins:
+            - typescript
+            - typescript-operations
+            - typescript-react-query
+        config:
+            fetcher: graphql-request
+            withHooks: true

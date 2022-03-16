@@ -10,11 +10,13 @@ module.exports = {
 	},
 	poweredByHeader: false,
 	i18n,
-	webpack: (config) => {
-		config.resolve.alias = {
-			...config.resolve.alias,
-			// your aliases
-		};
+	webpack: (config, {webpack, dev, isServer}) => {
+		// graphql
+		config.module.rules.push({
+			test: /\.(graphql|gql)$/,
+			exclude: /node_modules/,
+			loader: "graphql-tag/loader",
+		});
 		config.plugins = config.plugins || [];
 		config.plugins = [
 			...config.plugins,

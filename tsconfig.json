@@ -19,7 +19,9 @@
 			"@/*": ["/*"],
 			"@abis/*": ["abis/*"],
 			"@app/*": ["src/*"],
-			"@models/*": ["src/models/*"],
+			"@database/*": ["src/database/*"],
+			"@models/*": ["src/database/models/*"],
+			"@services/*": ["src/services/*"],
 			"@assets/*": ["public/assets/*"],
 			"@configs/*": ["src/configs/*"],
 			"@layouts/*": ["src/layouts/*"],
@@ -32,5 +34,5 @@
 		"typeRoots": ["node", "node_modules/@types", "src/types"]
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/types/*.d.ts"],
-	"exclude": ["node_modules"]
+	"exclude": ["node_modules", "graphql"]
 }
