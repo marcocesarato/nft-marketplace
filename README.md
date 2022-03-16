@@ -128,25 +128,27 @@ How to connect Polygon Testnet to MetaMask wallet? The easiest way to get it don
 
 ### Main
 
-- Web framework - [React](https://reactjs.org/) / [NextJS](https://nextjs.org/) (with [TypeScript](https://www.typescriptlang.org/))
-- Solidity development environment - [Hardhat](https://hardhat.org/)
-- File Storage - [IPFS](https://ipfs.io/)
-- Ethereum Client Library - [Ethers](https://github.com/ethers-io/ethers.js) / [React Moralis](https://github.com/MoralisWeb3/react-moralis)
-- Database (only metadata) - [MongoDB](https://www.mongodb.com/)
-- Virtual Reality - [WebXR](https://immersive-web.github.io/) / [ThreeJS](https://threejs.org/)
+- **Web framework:** [React](https://reactjs.org/) / [NextJS](https://nextjs.org/) (with [TypeScript](https://www.typescriptlang.org/))
+- **Solidity dev environment:** [Hardhat](https://hardhat.org/)
+- **File Storage:** [IPFS](https://ipfs.io/)
+- **Ethereum client library:** [Ethers](https://github.com/ethers-io/ethers.js) / [React Moralis](https://github.com/MoralisWeb3/react-moralis)
+- **Cross reality:** [WebXR](https://immersive-web.github.io/) / [ThreeJS](https://threejs.org/)
+- **API:** [GraphQL](https://graphql.org/) / [Apollo Server](https://www.apollographql.com/)
+- **Database:** [MongoDB](https://www.mongodb.com/)
 
 ### Other
 
-- [Solidity](https://docs.soliditylang.org/)
-- [Mongoose](https://mongoosejs.com/)
-- [React Error Boundary](https://github.com/bvaughn/react-error-boundary)
-- [React Query](https://react-query.tanstack.com/)
-- [React Three Fiber](https://docs.pmnd.rs/react-three-fiber)
-- [React Three XR](https://github.com/pmndrs/react-xr)
-- [React Icons](https://react-icons.github.io/react-icons/)
-- [React i18next for NextJS](https://github.com/isaachinman/next-i18next)
-- [Chakra UI](https://chakra-ui.com/)
-- [Axios](https://github.com/axios/axios)
+- [Solidity](https://docs.soliditylang.org/) - Smart Contracts
+- [Mongoose](https://mongoosejs.com/) - MongoDB object modeling
+- [Chakra UI](https://chakra-ui.com/) - UI Library
+- [Axios](https://github.com/axios/axios) - HTTP Client
+- [ThreeJS](https://threejs.org/) / [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) - 3D Rendering
+- [React Three XR](https://github.com/pmndrs/react-xr) - XR integration with ThreeJS
+- [React Query](https://react-query.tanstack.com/) - Data synchronization and caching
+- [React Icons](https://react-icons.github.io/react-icons/) - Icons
+- [React i18next for NextJS](https://github.com/isaachinman/next-i18next) - i18n Library
+- [React Error Boundary](https://github.com/bvaughn/react-error-boundary) - Error boundary
+- [GraphQL Code Generator](https://www.graphql-code-generator.com/) - Code generator for GraphQL
 
 ## Workflow
 
