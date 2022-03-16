@@ -17,7 +17,7 @@ const useMarketItemsCreated = () => {
 		const data = await contract.fetchItemsCreated();
 
 		return await Promise.all(
-			data.map(async (i) => {
+			data.map(async (i: NFTMarketItem) => {
 				const tokenUri = await contract.tokenURI(i.tokenId);
 				const meta = await axios.get(tokenUri);
 				let price = formatUnits(i.price.toString(), "ether");
