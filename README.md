@@ -85,10 +85,13 @@ To deploy to Polygon test or main networks we need to configure hardhat so we ne
 **Example `.env` file:**
 
 ```env
-NEXT_PUBLIC_WORKSPACE_URL=$CLIENT_URL
+PUBLIC_URL=http://localhost:3000
 
 # MongoDB
 MONGODB_URI=mongodb://mongo:27017/mdata
+
+# TheGraph
+SUBGRAPH_URL=https://api.thegraph.com/subgraphs/name/marcocesarato/nft-marketplace
 
 # WebSocket and JSON RPC
 CHAIN_TESTNET_URL=
@@ -142,12 +145,14 @@ How to connect Polygon Testnet to MetaMask wallet? The easiest way to get it don
 - [Mongoose](https://mongoosejs.com/) - MongoDB object modeling
 - [Chakra UI](https://chakra-ui.com/) - UI Library
 - [Axios](https://github.com/axios/axios) - HTTP Client
+- [Apollo](https://www.apollographql.com/docs/react/) - GraphQL Client
 - [ThreeJS](https://threejs.org/) / [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) - 3D Rendering
 - [React Three XR](https://github.com/pmndrs/react-xr) - XR integration with ThreeJS
 - [React Query](https://react-query.tanstack.com/) - Data synchronization and caching
 - [React Icons](https://react-icons.github.io/react-icons/) - Icons
 - [React i18next for NextJS](https://github.com/isaachinman/next-i18next) - i18n Library
 - [React Error Boundary](https://github.com/bvaughn/react-error-boundary) - Error boundary
+- [GraphQL Compose](https://graphql-compose.github.io/) - Schema composer for GraphQL
 - [GraphQL Code Generator](https://www.graphql-code-generator.com/) - Code generator for GraphQL
 
 ## Workflow

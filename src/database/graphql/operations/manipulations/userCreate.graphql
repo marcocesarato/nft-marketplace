@@ -1,0 +1,26 @@
+mutation UserCreate($record: CreateOneUserInput!) {
+	userCreate(record: $record) {
+		record {
+			username
+			accounts
+		}
+		error {
+			message
+			... on ValidationError {
+				message
+				errors {
+					message
+					path
+					value
+				}
+			}
+			... on MongoError {
+				message
+				code
+			}
+			... on RuntimeError {
+				message
+			}
+		}
+	}
+}

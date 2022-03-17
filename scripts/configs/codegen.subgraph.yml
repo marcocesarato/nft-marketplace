@@ -1,0 +1,23 @@
+overwrite: true
+hooks:
+    #afterStart:
+    #    - "get-graphql-schema https://api.thegraph.com/subgraphs/name/marcocesarato/nft-marketplace > ./subgraph/output/schema.graphql"
+    #    - "gqlg --schemaFilePath ./subgraph/output/schema.graphql --destDirPath ./subgraph/output/operations --depthLimit 1"
+    afterAllFileWrite:
+        - "node ./scripts/fix-hooks.js ./src/services/subgraph/commons.ts"
+        - "eslint --fix"
+schema: "https://api.thegraph.com/subgraphs/name/marcocesarato/nft-marketplace" #"./subgraph/output/schema.graphql"
+generates:
+    ./src/services/subgraph/commons.ts:
+        documents:
+            - "./subgraph/operations/*.graphql"
+            #- "./subgraph/output/operations/queries/*.gql"
+            #- "./subgraph/output/operations/mutations/*.gql"
+        plugins:
+            - typescript
+            - typescript-operations
+            - typescript-react-apollo
+        config:
+            withHooks: true
+            defaultBaseOptions:
+                - context: subgraph

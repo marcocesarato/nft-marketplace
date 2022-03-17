@@ -1,0 +1,21 @@
+overwrite: true
+hooks:
+    afterStart:
+        - "get-graphql-schema http://localhost:3000/api/graphql > ./.next/cache/schema.graphql"
+        #- "gqlg --schemaFilePath ./src/database/graphql/schema.graphql --destDirPath ./src/database/graphql/operations --depthLimit 5"
+        #- "node ./scripts/renamer.js ./src/database/graphql/operations gql graphql"
+        #- "node ./scripts/remove-indexes.js ./src/database/graphql/operations"
+    afterAllFileWrite:
+        - "node ./scripts/fix-hooks.js ./src/services/subgraph/commons.ts"
+        - "eslint --fix"
+schema: "./.next/cache/schema.graphql"
+generates:
+    ./src/services/graphql/index.ts:
+        documents:
+            - "./src/database/graphql/operations/**/*.graphql"
+        plugins:
+            - typescript
+            - typescript-operations
+            - typescript-react-apollo
+        config:
+            withHooks: true

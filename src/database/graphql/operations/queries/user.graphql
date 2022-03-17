@@ -1,0 +1,7 @@
+query User($filter: FilterFindOneUserInput) {
+	user(filter: $filter) {
+		username
+		accounts
+		_id
+	}
+}

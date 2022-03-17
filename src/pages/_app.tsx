@@ -31,7 +31,10 @@ function Page({Component, pageProps}): JSX.Element {
 		if (isInitialized) Moralis.initPlugins();
 	}, [isInitialized, Moralis]);
 
-	if (isAuthenticating || isWeb3EnableLoading || isInitializing) return <Loader />;
+	if (isAuthenticating || isWeb3EnableLoading || isInitializing)
+		return (
+			<Loader message="Loading, if you stucked please check the wallet to authenticate..." />
+		);
 
 	return (
 		<RouteGuard>

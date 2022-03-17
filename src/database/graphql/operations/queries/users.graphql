@@ -1,0 +1,12 @@
+query Users(
+	$filter: FilterFindManyUserInput
+	$skip: Int
+	$limit: Int
+	$sort: SortFindManyUserInput
+) {
+	users(filter: $filter, skip: $skip, limit: $limit, sort: $sort) {
+		username
+		accounts
+		_id
+	}
+}
