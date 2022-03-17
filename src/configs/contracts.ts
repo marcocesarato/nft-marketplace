@@ -1,4 +1,5 @@
+import addresses from "@/addresses";
 import Market from "@abis/Market.json";
 
-export * from "@/addresses";
+export const MarketAddress = addresses.MarketAddress;
 export const MarketContract = Market;

@@ -16,7 +16,7 @@
 		"jsx": "preserve",
 		"baseUrl": ".",
 		"paths": {
-			"@/*": ["/*"],
+			"@/*": ["./*"],
 			"@abis/*": ["abis/*"],
 			"@app/*": ["src/*"],
 			"@database/*": ["src/database/*"],
@@ -34,5 +34,5 @@
 		"typeRoots": ["node", "node_modules/@types", "src/types"]
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/types/*.d.ts"],
-	"exclude": ["node_modules", "graphql"]
+	"exclude": ["node_modules", "subgraph"]
 }

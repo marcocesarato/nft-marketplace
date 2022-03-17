@@ -7,7 +7,7 @@ import User from "@models/User";
 const schemaComposer = new SchemaComposer();
 
 // Check authentication from context
-function wrapAccessResolve(resolver, callback = () => {}) {
+function wrapAccessResolve(resolver, callback = (rp) => {}) {
 	return resolver.wrapResolve((next) => async (rp) => {
 		rp.beforeRecordMutate = async function (doc, rp) {
 			const {isAuthenticated} = rp.context;
@@ -33,7 +33,7 @@ schemaComposer.Query.addFields({
 schemaComposer.Mutation.addFields({
 	userCreate: wrapAccessResolve(userResolvers.createOne()),
 	userUpdate: wrapAccessResolve(userResolvers.updateById(), (rp) => {
-		rp.beforeQuery = (query: Query<unknown, unknown>, rp) => {
+		rp.beforeQuery = (query, rp) => {
 			const {account} = rp.context;
 			query.where("accounts", account);
 		};
