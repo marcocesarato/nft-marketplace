@@ -1,0 +1,3 @@
+[submodule "subgraph"]
+	path = subgraph
+	url = http://10.40.3.152:13000/gogsadmin/nft-marketplace-subgraph
