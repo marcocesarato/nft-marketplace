@@ -1,3 +1,6 @@
+/**
+ * Upgrade smart contracts yet deployed on blockchain
+ */
 const {ethers, upgrades} = require("hardhat");
 const {MarketAddress} = require("../addresses");
 const fs = require("fs");
@@ -5,7 +8,8 @@ const fs = require("fs");
 async function main() {
 	const [deployer] = await ethers.getSigners();
 
-	console.log("Deploying contracts with the account:", deployer.address);
+	console.log("Upgrading contracts with the account:", deployer.address);
+	console.log("Upgrading NFTMarket to address:", MarketAddress);
 
 	const NFTMarket = await ethers.getContractFactory("Market");
 	const nftMarket = await upgrades.upgradeProxy(MarketAddress, NFTMarket);

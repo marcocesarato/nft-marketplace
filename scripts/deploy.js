@@ -1,3 +1,6 @@
+/**
+ * Deploy smart contracts to blockchain
+ */
 const {ethers, upgrades} = require("hardhat");
 const fs = require("fs");
 

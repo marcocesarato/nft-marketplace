@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.12;
+pragma solidity ^0.8.9;
 
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
@@ -8,10 +8,11 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721URIStorageUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC721/IERC721ReceiverUpgradeable.sol";
 
 import "hardhat/console.sol";
 
-contract Market is Initializable, ERC721URIStorageUpgradeable {
+contract Market is Initializable, ERC721URIStorageUpgradeable, IERC721ReceiverUpgradeable {
 	using StringsUpgradeable for uint256;
 	using CountersUpgradeable for CountersUpgradeable.Counter;
 	CountersUpgradeable.Counter private _tokenIds;
@@ -45,16 +46,31 @@ contract Market is Initializable, ERC721URIStorageUpgradeable {
 	event MarketItemTransaction(uint256 indexed tokenId, address seller, address owner, bool sold);
 
 	/**
-	 * Network: Polygon Testnet (Mumbai)
-	 * Aggregator: MATIC/USD
-	 * Address: 0x686c626E48bfC5DC98a30a9992897766fed4Abd3
+	 * Initializes the market.
 	 */
 	function initialize() public initializer {
 		__ERC721_init("ACN Metaverse Tokens", "ACNT");
 		__ERC721URIStorage_init();
 		listingPrice = 0.025 ether;
 		owner = payable(msg.sender);
+		/**
+		 * Network: Polygon Testnet (Mumbai)
+		 * Aggregator: MATIC/USD
+		 * Address: 0x686c626E48bfC5DC98a30a9992897766fed4Abd3
+		 */
 		priceFeed = AggregatorV3Interface(0x686c626E48bfC5DC98a30a9992897766fed4Abd3);
+	}
+
+	/**
+	 * Always returns `IERC721Receiver.onERC721Received.selector`.
+	 */
+	function onERC721Received(
+		address,
+		address,
+		uint256,
+		bytes calldata
+	) external virtual override returns (bytes4) {
+		return this.onERC721Received.selector;
 	}
 
 	/**
@@ -81,7 +97,7 @@ contract Market is Initializable, ERC721URIStorageUpgradeable {
 		_tokenIds.increment();
 		uint256 newTokenId = _tokenIds.current();
 
-		_safeMint(msg.sender, newTokenId);
+		_safeMint(msg.sender, newTokenId, "");
 		_setTokenURI(newTokenId, tokenURI);
 		createMarketItem(newTokenId, price);
 		return newTokenId;
@@ -100,7 +116,7 @@ contract Market is Initializable, ERC721URIStorageUpgradeable {
 			false
 		);
 
-		_transfer(msg.sender, address(this), tokenId);
+		_safeTransfer(msg.sender, address(this), tokenId, "");
 
 		emit MarketItemCreated(tokenId, msg.sender, msg.sender, address(this), price, false);
 	}
@@ -110,15 +126,19 @@ contract Market is Initializable, ERC721URIStorageUpgradeable {
 	function createMarketSale(uint256 tokenId) public payable {
 		uint256 price = idToMarketItem[tokenId].price;
 		address seller = idToMarketItem[tokenId].seller;
+
 		require(
 			msg.value == price,
 			"Please submit the asking price in order to complete the purchase"
 		);
+
 		idToMarketItem[tokenId].owner = payable(msg.sender);
 		idToMarketItem[tokenId].sold = true;
 		idToMarketItem[tokenId].seller = payable(address(0));
 		_itemsSold.increment();
-		_transfer(address(this), msg.sender, tokenId);
+
+		_safeTransfer(address(this), msg.sender, tokenId, "");
+
 		payable(owner).transfer(listingPrice);
 		payable(seller).transfer(msg.value);
 
@@ -138,7 +158,7 @@ contract Market is Initializable, ERC721URIStorageUpgradeable {
 		idToMarketItem[tokenId].owner = payable(address(this));
 		_itemsSold.decrement();
 
-		_transfer(msg.sender, address(this), tokenId);
+		_safeTransfer(msg.sender, address(this), tokenId, "");
 
 		emit MarketItemTransaction(tokenId, msg.sender, address(this), false);
 	}

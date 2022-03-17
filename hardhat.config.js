@@ -10,6 +10,7 @@ module.exports = {
 			chainId: 1337,
 		},
 		mumbai: {
+			chainId: 80001,
 			url: process.env.CHAIN_TESTNET_URL,
 			accounts: [process.env.ACCOUNT_PRIVATE],
 		},
@@ -19,7 +20,7 @@ module.exports = {
 		},
 	},
 	solidity: {
-		version: "0.8.12",
+		version: "0.8.9",
 		settings: {
 			optimizer: {
 				enabled: true,
