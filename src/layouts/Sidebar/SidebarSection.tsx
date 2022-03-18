@@ -30,7 +30,7 @@ function SidebarSection({
 	};
 
 	const hoverBg = mode("gray.200", "gray.900");
-	const activeBg = mode("white", "gray.700");
+	const activeBg = mode("white", "gray.900");
 	const inactiveBg = mode("white", "gray.700");
 	const activeColor = mode("primary", "primary");
 	const inactiveColor = mode("gray.500", "gray.400");
@@ -78,7 +78,8 @@ function SidebarSection({
 					boxShadow={isActive ? "sm" : null}
 					w="100%"
 					_hover={{bg: hoverBg}}
-					_focus={{bg: hoverBg}}>
+					_focus={{bg: activeBg}}
+					_active={{bg: activeBg}}>
 					<Flex>
 						<IconBox
 							bg={isActive ? "primary" : inactiveBg}

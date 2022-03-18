@@ -6,6 +6,7 @@ export const linkStyles = {
 			baseStyle: {
 				_hover: {
 					textDecoration: "none",
+					color: "purple.300",
 				},
 				_focus: {
 					boxShadow: "none",

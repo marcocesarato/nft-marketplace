@@ -6,9 +6,8 @@ export default function Catalog(props): JSX.Element {
 			<SimpleGrid
 				mx="auto"
 				columns={{
-					base: 1,
-					md: 2,
-					lg: 3,
+					base: 2,
+					md: 3,
 					xl: 4,
 				}}
 				columnGap={{base: "4", md: "6"}}

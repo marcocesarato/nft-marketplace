@@ -9,18 +9,19 @@ import {badgeStyles} from "./components/badge";
 import {buttonStyles} from "./components/button";
 import {drawerStyles} from "./components/drawer";
 import {linkStyles} from "./components/link";
+import {menuStyles} from "./components/menu";
 import {breakpoints} from "./foundations/breakpoints";
 import {semanticTokens} from "./foundations/semanticTokens";
 import {globalStyles} from "./styles";
-// import { mode } from "@chakra-ui/theme-tools";
 
 export default extendTheme(
-	{breakpoints}, // Breakpoints
 	globalStyles,
+	{breakpoints}, // Breakpoints
 	{semanticTokens}, // Semantic tokens
 	buttonStyles, // Button styles
 	badgeStyles, // Badge styles
 	linkStyles, // Link styles
+	menuStyles, // Menu styles
 	drawerStyles, // Sidebar variant for Chakra's drawer
 	CardComponent, // Card component
 	CardBodyComponent, // Card Body component

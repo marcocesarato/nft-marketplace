@@ -28,7 +28,13 @@ export default function LocaleMenu(): JSX.Element {
 					/>
 				</Flex>
 			</MenuButton>
-			<MenuList alignItems={"center"} p={0} minW="0" w={"48px"}>
+			<MenuList
+				alignItems={"center"}
+				p={0}
+				minW="0"
+				w={"48px"}
+				borderWidth="0"
+				boxShadow="md">
 				{Object.entries(locales).map(([lang, flag]) => (
 					<MenuItem
 						key={lang}

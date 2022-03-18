@@ -3,18 +3,16 @@ import {useTranslation} from "next-i18next";
 
 export default function DisconnectButton({onDisconnect}): JSX.Element {
 	const {t} = useTranslation();
+	const inverseColors = {
+		background: "purple.300",
+		color: "purple.900",
+	};
 	return (
 		<Button
 			bg="gray.700"
 			color="gray.100"
-			_hover={{
-				background: "purple.900",
-				color: "purple.300",
-			}}
-			_active={{
-				background: "purple.900",
-				color: "purple.300",
-			}}
+			_hover={inverseColors}
+			_active={inverseColors}
 			isFullWidth
 			onClick={onDisconnect}>
 			{t("common:action.disconnect")}

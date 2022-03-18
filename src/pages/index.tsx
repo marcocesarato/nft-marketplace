@@ -1,5 +1,5 @@
 import Link from "next/link";
-import {Box, Button, Heading, Stack, Text} from "@chakra-ui/react";
+import {Box, Button, Heading, Stack, Text, useBreakpointValue} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
 import Catalog from "@components/Catalog";
@@ -19,12 +19,10 @@ export default function Home(): JSX.Element {
 				<Box
 					position="absolute"
 					top="94px"
-					width="calc(100% - 30px)"
-					left="15px"
-					bg="rgba(0,0,0,0.1)"
-					borderRadius="15px"
-					borderBottomLeftRadius={0}
-					borderBottomRightRadius={0}>
+					width="100%"
+					left={useBreakpointValue({base: "0", lg: "15px"})}
+					bg="#805bd515"
+					borderTopLeftRadius="15px">
 					<Particles
 						style={{
 							height: "50vh",

@@ -1,6 +1,10 @@
 import {Button} from "@chakra-ui/react";
 
 export default function ActionButton(props): JSX.Element {
+	const inverseColors = {
+		background: "purple.300",
+		color: "purple.900",
+	};
 	return (
 		<Button
 			as="a"
@@ -13,14 +17,8 @@ export default function ActionButton(props): JSX.Element {
 			bg="gray.700"
 			color="gray.400"
 			cursor="pointer"
-			_hover={{
-				background: "purple.900",
-				color: "purple.300",
-			}}
-			_active={{
-				background: "purple.900",
-				color: "purple.300",
-			}}
+			_hover={inverseColors}
+			_active={inverseColors}
 			{...props}
 		/>
 	);

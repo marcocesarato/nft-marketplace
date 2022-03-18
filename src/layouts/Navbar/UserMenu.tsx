@@ -8,6 +8,7 @@ import {
 	MenuItem,
 	MenuList,
 	Text,
+	useColorModeValue,
 } from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
@@ -34,12 +35,12 @@ export default function UserMenu({openAccountModal}): JSX.Element {
 					</Text>
 				</Flex>
 			</MenuButton>
-			<MenuList alignItems={"center"}>
+			<MenuList alignItems={"center"} borderWidth="0" boxShadow="md">
 				<MenuItem onClick={openAccountModal}>{t("common:account.title")}</MenuItem>
 				<MenuItem onClick={() => router.push("/transactions")}>
 					{t("common:account.activities")}
 				</MenuItem>
-				<MenuDivider />
+				<MenuDivider borderColor={useColorModeValue("gray.300", "gray.500")} />
 				<MenuItem onClick={handleLogout}>{t("common:action.disconnect")}</MenuItem>
 			</MenuList>
 		</Menu>

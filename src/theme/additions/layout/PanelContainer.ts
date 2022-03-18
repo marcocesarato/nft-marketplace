@@ -1,10 +1,13 @@
+import {mode} from "@chakra-ui/theme-tools";
+
 const PanelContainer = {
-	baseStyle: {
+	baseStyle: (props) => ({
 		minHeight: "calc(100vh - 94px)",
 		borderTopLeftRadius: "15px",
 		marginLeft: {lg: "15px"},
 		display: "flex",
-	},
+		background: mode("gray.50", "gray.800")(props),
+	}),
 };
 
 export const PanelContainerComponent = {

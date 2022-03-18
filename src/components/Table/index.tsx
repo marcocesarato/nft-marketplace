@@ -4,7 +4,7 @@ import Header from "../Header";
 
 export default function SourceTable({title, subtitle, data, columns, rowKey}): JSX.Element {
 	return (
-		<Box py="12" width="full">
+		<Box width="full">
 			<Box
 				mx="auto"
 				px={{

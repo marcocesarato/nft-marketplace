@@ -1,6 +1,7 @@
 import {Suspense, useEffect, useState} from "react";
 import {useMoralis} from "react-moralis";
 import ssrPrepass from "react-ssr-prepass";
+import Head from "next/head";
 import {appWithTranslation} from "next-i18next";
 
 import Providers from "@app/Providers";
@@ -38,6 +39,10 @@ function Page({Component, pageProps}): JSX.Element {
 
 	return (
 		<RouteGuard>
+			<Head>
+				<title>NFT Marketplace</title>
+				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			</Head>
 			<Component {...pageProps} />
 		</RouteGuard>
 	);

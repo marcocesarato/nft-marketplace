@@ -8,7 +8,7 @@ export default function LinkButton(props): JSX.Element {
 			alignItems="center"
 			color="gray.400"
 			_hover={{
-				color: "whiteAlpha.800",
+				color: "purple.300",
 				textDecoration: "none",
 			}}
 			{...props}
