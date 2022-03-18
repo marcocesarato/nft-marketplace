@@ -5,7 +5,6 @@ import {useTranslation} from "next-i18next";
 import Catalog from "@/src/components/Catalog/Catalog";
 import Loading from "@components/Loading";
 import Particles from "@components/Particles";
-import Product from "@components/Product";
 import useMarketItems from "@hooks/useMarketItems";
 import {getStaticPropsLocale} from "@utils/i18n";
 
@@ -31,7 +30,7 @@ export default function Home(): JSX.Element {
 						}}
 					/>
 				</Box>
-				<Box textAlign="center" marginTop={{base: "50px", md: "100px"}}>
+				<Box textAlign="center" marginTop={{base: "50px", md: "100px"}} p={4}>
 					<Heading
 						as="h1"
 						size="3xl"
@@ -50,7 +49,7 @@ export default function Home(): JSX.Element {
 					justify="center"
 					direction={{base: "column", md: "row"}}
 					mt="10"
-					mb="10"
+					mb="12"
 					spacing="4">
 					<Link href="/explore" passHref>
 						<Button
