@@ -1,7 +1,7 @@
 import {createContext, useContext, useReducer} from "react";
 import {useDisclosure} from "@chakra-ui/react";
 
-import {GenericObject, TGlobalContext} from "@app/types";
+import type {GenericObject, TGlobalContext} from "@app/types";
 
 import initialState from "./initialState";
 import reducer from "./reducer";

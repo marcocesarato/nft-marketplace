@@ -5,7 +5,7 @@ import Head from "next/head";
 import {appWithTranslation} from "next-i18next";
 
 import Providers from "@app/Providers";
-import {TWeb3Provider} from "@app/types";
+import type {TWeb3Provider} from "@app/types";
 import Loader from "@components/Loader";
 import Loading from "@components/Loading";
 import RouteGuard from "@components/RouterGuard";

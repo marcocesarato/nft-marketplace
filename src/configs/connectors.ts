@@ -1,4 +1,4 @@
-import {TWeb3Provider} from "@app/types";
+import type {TWeb3Provider} from "@app/types";
 import Metamask from "@assets/svg/wallets/MetaMask.svg";
 import WalletConnect from "@assets/svg/wallets/WalletConnect.svg";
 

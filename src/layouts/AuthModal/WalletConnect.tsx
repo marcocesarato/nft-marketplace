@@ -1,7 +1,7 @@
 import Image from "next/image";
 import {Grid, GridItem, Text} from "@chakra-ui/react";
 
-import {TWeb3Provider} from "@app/types";
+import type {TWeb3Provider} from "@app/types";
 import {connectors} from "@configs/connectors";
 import useAccount from "@hooks/useAccount";
 import useLocalStorage from "@hooks/useLocalStorage";

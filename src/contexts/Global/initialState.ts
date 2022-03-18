@@ -1,4 +1,4 @@
-import {TGlobalContext} from "@app/types";
+import type {TGlobalContext} from "@app/types";
 
 const initialState: TGlobalContext = {
 	config: {

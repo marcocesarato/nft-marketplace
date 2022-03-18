@@ -1,7 +1,7 @@
 import {useMoralisWeb3Api} from "react-moralis";
 import {useQuery} from "react-query";
 
-import {NFT} from "@app/types";
+import type {NFT} from "@app/types";
 import {MarketAddress} from "@configs/contracts";
 import {isString} from "@utils/objects";
 

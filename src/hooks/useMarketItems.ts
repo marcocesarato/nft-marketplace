@@ -2,7 +2,7 @@ import {useQuery} from "react-query";
 import axios from "axios";
 import {ethers} from "ethers";
 
-import {NFTMarketItem} from "@app/types";
+import type {NFTMarketItem} from "@app/types";
 import {ChainUrl} from "@configs/chain";
 import {MarketAddress, MarketContract} from "@configs/contracts";
 import {formatUnits} from "@utils/units";

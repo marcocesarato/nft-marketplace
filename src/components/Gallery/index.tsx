@@ -1,4 +1,4 @@
-import {NFT, NFTMetadata} from "@app/types";
+import type {NFT, NFTMetadata} from "@app/types";
 import useWebXR from "@hooks/useWebXR";
 
 import Gallery3D from "./Gallery3D";
