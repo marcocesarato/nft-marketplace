@@ -2,7 +2,7 @@ import Link from "next/link";
 import {Box, Button, Heading, Stack, Text, useBreakpointValue} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
-import Catalog from "@components/Catalog";
+import Catalog from "@/src/components/Catalog/Catalog";
 import Loading from "@components/Loading";
 import Particles from "@components/Particles";
 import Product from "@components/Product";
@@ -68,15 +68,7 @@ export default function Home(): JSX.Element {
 						</Button>
 					</Link>
 				</Stack>
-				{isLoading ? (
-					<Loading />
-				) : (
-					<Catalog>
-						{data.map((nft, i) => (
-							<Product key={i} data={nft} />
-						))}
-					</Catalog>
-				)}
+				{isLoading ? <Loading /> : <Catalog data={data} sorting={false} />}
 			</Box>
 		</Box>
 	);

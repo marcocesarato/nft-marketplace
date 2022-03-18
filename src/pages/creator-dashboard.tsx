@@ -1,11 +1,10 @@
 import {Box} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
-import Catalog from "@components/Catalog";
+import Catalog from "@/src/components/Catalog/Catalog";
 import Content from "@components/Content";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
-import Product from "@components/Product";
 import useMarketItemsCreated from "@hooks/useMarketItemsCreated";
 import {getStaticPropsLocale} from "@utils/i18n";
 
@@ -30,22 +29,14 @@ export default function CreatorDashboard(): JSX.Element {
 				title={t("common:page.dashboard.created.title")}
 				subtitle={t("common:page.dashboard.created.description")}
 			/>
-			<Catalog>
-				{data.map((nft, i) => (
-					<Product key={i} data={nft} />
-				))}
-			</Catalog>
+			<Catalog data={data} />
 			{Boolean(sold.length) && (
 				<Box mt={8}>
 					<Header
 						title={t("common:page.dashboard.sold.title")}
 						subtitle={t("common:page.dashboard.sold.description")}
 					/>
-					<Catalog>
-						{sold.map((nft, i) => (
-							<Product key={i} data={nft} />
-						))}
-					</Catalog>
+					<Catalog data={sold} />
 				</Box>
 			)}
 		</Content>

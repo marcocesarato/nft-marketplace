@@ -2,12 +2,11 @@ import {useRouter} from "next/router";
 import {ethers} from "ethers";
 import {useTranslation} from "next-i18next";
 
-import {NFTMarketItem} from "@app/types";
-import Catalog from "@components/Catalog";
+import Catalog from "@/src/components/Catalog/Catalog";
+import type {NFTMarketItem} from "@app/types";
 import Content from "@components/Content";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
-import Product from "@components/Product";
 import {MarketAddress, MarketContract} from "@configs/contracts";
 import useAccount from "@hooks/useAccount";
 import useMarketItems from "@hooks/useMarketItems";
@@ -45,8 +44,8 @@ export default function Explore(): JSX.Element {
 			/>
 		);
 
-	const handleOnPurchase = (nft: NFTMarketItem) => {
-		return isAuthenticated ? () => purchaseItem(nft) : null;
+	const onPurchase = (nft: NFTMarketItem) => {
+		return isAuthenticated ? purchaseItem(nft) : null;
 	};
 
 	return (
@@ -55,11 +54,7 @@ export default function Explore(): JSX.Element {
 				title={t("common:page.explore.title")}
 				subtitle={t("common:page.explore.description")}
 			/>
-			<Catalog>
-				{data.map((nft, i) => (
-					<Product key={i} data={nft} onPurchase={handleOnPurchase(nft)} />
-				))}
-			</Catalog>
+			<Catalog data={data} onPurchase={onPurchase} />
 		</Content>
 	);
 }
