@@ -1,15 +1,15 @@
 {
-	"title": "Error",
-	"notFound": {
-		"title": "Page Not Found",
-		"message": "The page you're looking for does not seem to exist"
-	},
-	"unexpectedError": "An unexpected error has occurred.",
 	"account": {
 		"errorSavingData": "Update user data error!"
 	},
 	"auth": {
-		"required": "Authentication required",
-		"failed": "Authentication has failed!"
-	}
+		"failed": "Authentication has failed!",
+		"required": "Authentication required"
+	},
+	"notFound": {
+		"message": "The page you're looking for does not seem to exist",
+		"title": "Page Not Found"
+	},
+	"title": "Error",
+	"unexpectedError": "An unexpected error has occurred."
 }

@@ -1,112 +1,126 @@
 {
+	"account": {
+		"activities": "Activities",
+		"balance": "Balance",
+		"compress": "Compress",
+		"title": "Account"
+	},
 	"action": {
-		"goToHome": "Go to Home",
-		"showDetails": "Show details",
-		"purchase": "Purchase",
 		"back": "Back",
-		"openWith": "Open with",
-		"disconnect": "Disconnect",
-		"copyAddress": "Copy Address",
-		"viewOnExplorer": "View on Explorer",
-		"viewTransactions": "View transactions",
-		"connectWallet": "Connect wallet",
 		"connectToWallet": "Connect to a wallet",
-		"openMenu": "Open Menu"
+		"connectWallet": "Connect wallet",
+		"copyAddress": "Copy Address",
+		"disconnect": "Disconnect",
+		"goToHome": "Go to Home",
+		"openMenu": "Open Menu",
+		"openWith": "Open with",
+		"purchase": "Purchase",
+		"showDetails": "Show details",
+		"viewOnExplorer": "View on Explorer",
+		"viewTransactions": "View transactions"
+	},
+	"catalog": {
+		"count": "{{count}} products found",
+		"filter": {
+			"categories": "Categories"
+		},
+		"sortBy": "Sort by",
+		"sortType": {
+			"nameASC": "Name (A-Z)",
+			"nameDESC": "Name (Z-A)",
+			"priceASC": "Price (Lowest)",
+			"priceDESC": "Price (Highest)"
+		}
 	},
 	"input": {
 		"dropzone": {
-			"dropMessage": "Drop the files here ...",
-			"dragMessage": "Click to upload or drag and drop"
+			"dragMessage": "Click to upload or drag and drop",
+			"dropMessage": "Drop the files here ..."
+		}
+	},
+	"page": {
+		"assets": {
+			"description": "Browse your collection assets",
+			"empty": "No assets found",
+			"shortTitle": "Collection",
+			"title": "Collection assets owned"
+		},
+		"dashboard": {
+			"created": {
+				"description": "Assets created by you",
+				"empty": "No assets created by you found",
+				"title": "Assets created"
+			},
+			"description": "Dashboard",
+			"shortTitle": "Dashboard",
+			"sold": {
+				"description": "Assets sold by you",
+				"empty": "No assets sold by you found",
+				"title": "Assets sold"
+			},
+			"title": "Creator Dashboard"
+		},
+		"explore": {
+			"description": "Explore latest arts on sale",
+			"empty": "No items on marketplace",
+			"shortTitle": "Explore",
+			"title": "Explore"
+		},
+		"gallery": {
+			"empty": "No pictures found!",
+			"shortTitle": "Gallery",
+			"title": "Gallery"
+		},
+		"home": {
+			"header": {
+				"exploreButton": "Explore the marketplace",
+				"sellButton": "Put your art on the market",
+				"subtitle": "Use the VR viewer to see all your NFTs digital art on the wall of your home in real time and interact with them.",
+				"title": "Watch your Digital Art on the wall of your home"
+			},
+			"shortTitle": "Home",
+			"title": "Home"
+		},
+		"sell": {
+			"action": {
+				"create": "Create digital asset"
+			},
+			"approved": "Item approved! Redirecting to explore...",
+			"asset": {
+				"description": "Asset description",
+				"name": "Asset name",
+				"price": "Asset price in"
+			},
+			"description": "Fill the form and sell your digital asset",
+			"minting": "Minting token, follow the instructions on your wallet...",
+			"shortTitle": "Sell Assets",
+			"title": "Sell Assets",
+			"uploading": "Uploading data..."
+		},
+		"transactions": {
+			"column": {
+				"from": "From",
+				"timestamp": "Timestamp",
+				"to": "To",
+				"value": "Value"
+			},
+			"description": "Account transaction activities history",
+			"empty": "No transactions found on the account",
+			"shortTitle": "Transactions",
+			"title": "Transactions"
 		}
 	},
 	"product": {
+		"createdBy": "Created by",
+		"description": "Description",
 		"item": "Item",
-		"price": "Price",
-		"description": "Description"
-	},
-	"xr": {
-		"notSupported": "Your current browser does not support required technology.",
-		"stabilizationTip": "Move your smartphone slightly around \nto scan the ambient arount you"
-	},
-	"account": {
-		"title": "Account",
-		"activities": "Activities",
-		"balance": "Balance",
-		"compress": "Compress"
+		"price": "Price"
 	},
 	"search": {
 		"assets": "Search assets here..."
 	},
-	"page": {
-		"home": {
-			"title": "Home",
-			"shortTitle": "Home",
-			"header": {
-				"title": "Watch your Digital Art on the wall of your home",
-				"subtitle": "Use the VR viewer to see all your NFTs digital art on the wall of your home in real time and interact with them.",
-				"exploreButton": "Explore the marketplace",
-				"sellButton": "Put your art on the market"
-			}
-		},
-		"explore": {
-			"title": "Explore",
-			"shortTitle": "Explore",
-			"description": "Explore latest arts on sale",
-			"empty": "No items on marketplace"
-		},
-		"dashboard": {
-			"title": "Creator Dashboard",
-			"shortTitle": "Dashboard",
-			"description": "Dashboard",
-			"created": {
-				"title": "Assets created",
-				"description": "Assets created by you",
-				"empty": "No assets created by you found"
-			},
-			"sold": {
-				"title": "Assets sold",
-				"description": "Assets sold by you",
-				"empty": "No assets sold by you found"
-			}
-		},
-		"gallery": {
-			"title": "Gallery",
-			"shortTitle": "Gallery",
-			"empty": "No pictures found!"
-		},
-		"assets": {
-			"title": "Collection assets owned",
-			"shortTitle": "Collection",
-			"description": "Browse your collection assets",
-			"empty": "No assets found"
-		},
-		"sell": {
-			"title": "Sell Assets",
-			"shortTitle": "Sell Assets",
-			"description": "Fill the form and sell your digital asset",
-			"uploading": "Uploading data...",
-			"minting": "Minting token, follow the instructions on your wallet...",
-			"approved": "Item approved! Redirecting to explore...",
-			"asset": {
-				"name": "Asset name",
-				"description": "Asset description",
-				"price": "Asset price in"
-			},
-			"action": {
-				"create": "Create digital asset"
-			}
-		},
-		"transactions": {
-			"title": "Transactions",
-			"shortTitle": "Transactions",
-			"description": "Account transaction activities history",
-			"empty": "No transactions found on the account",
-			"column": {
-				"from": "From",
-				"to": "To",
-				"value": "Value",
-				"timestamp": "Timestamp"
-			}
-		}
+	"xr": {
+		"notSupported": "Your current browser does not support required technology.",
+		"stabilizationTip": "Move your smartphone slightly around \nto scan the ambient arount you"
 	}
 }

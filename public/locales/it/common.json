@@ -1,11 +1,17 @@
 {
+	"account": {
+		"activities": "Attività",
+		"balance": "Saldo",
+		"compress": "Comprimi",
+		"title": "Account"
+	},
 	"action": {
-		"goToHome": "Torna alla home",
 		"back": "Indietro",
 		"connectToWallet": "Connetti a un wallet",
 		"connectWallet": "Connetti wallet",
 		"copyAddress": "Copia indirizzo",
 		"disconnect": "Disconnetti",
+		"goToHome": "Torna alla home",
 		"openMenu": "Apri menu",
 		"openWith": "Aperi con",
 		"purchase": "Acquista",
@@ -13,17 +19,24 @@
 		"viewOnExplorer": "Visualizza su Explorer",
 		"viewTransactions": "Visualizza le transazioni"
 	},
-	"input": {
-		"dropzone": {
-			"dropMessage": "Trascina i file qui...",
-			"dragMessage": "Fare clic per caricare o trascinare e rilasciare"
+	"catalog": {
+		"count": "{{count}} prodotti trovati",
+		"filter": {
+			"categories": "Categorie"
+		},
+		"sortBy": "Ordina per",
+		"sortType": {
+			"nameASC": "Nome (A-Z)",
+			"nameDESC": "Nome (Z-A)",
+			"priceASC": "Prezzo (più basso)",
+			"priceDESC": "Prezzo (più alto)"
 		}
 	},
-	"account": {
-		"activities": "Attività",
-		"title": "Account",
-		"balance": "Saldo",
-		"compress": "Comprimi"
+	"input": {
+		"dropzone": {
+			"dragMessage": "Fare clic per caricare o trascinare e rilasciare",
+			"dropMessage": "Trascina i file qui..."
+		}
 	},
 	"page": {
 		"assets": {
@@ -98,6 +111,7 @@
 		}
 	},
 	"product": {
+		"createdBy": "Creato da",
 		"description": "Descrizione",
 		"item": "Articolo",
 		"price": "Prezzo"

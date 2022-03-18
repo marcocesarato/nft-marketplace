@@ -1,14 +1,14 @@
 {
-	"notFound": {
-		"title": "Pagina non trovata",
-		"message": "La pagina che stai cercando non sembra esistere"
-	},
 	"account": {
 		"errorSavingData": "Errore durante l'aggiornanto dei dati utente!"
 	},
 	"auth": {
 		"failed": "Autenticazione fallita!",
 		"required": "Autenticazione richiesta"
+	},
+	"notFound": {
+		"message": "La pagina che stai cercando non sembra esistere",
+		"title": "Pagina non trovata"
 	},
 	"title": "Errore",
 	"unexpectedError": "Si è verificato un errore imprevisto."

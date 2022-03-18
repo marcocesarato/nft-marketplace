@@ -25,9 +25,6 @@ export default function useAccount() {
 	const signature = user?.get("authData")?.moralisEth.signature;
 	let username = user?.get("username") || account;
 
-	console.debug(`Account: ${account}`);
-	console.debug(`Signature: ${signature}`);
-
 	username = username?.length > 15 ? formatAddress(account) : username;
 
 	return {

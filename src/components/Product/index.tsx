@@ -14,6 +14,7 @@ import {
 import {useTranslation} from "next-i18next";
 
 import {useConfig} from "@contexts/Global";
+import {formatAddress} from "@utils/formatters";
 
 import ProductModal from "./ProductModal";
 
@@ -77,6 +78,11 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 						<Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
 							{data?.name}
 						</Heading>
+						{data?.creator && (
+							<Text fontSize={"sm"}>
+								{t("common:product:createdBy")} {formatAddress(data.creator)}
+							</Text>
+						)}
 					</Stack>
 					{onPurchase && (
 						<HStack
