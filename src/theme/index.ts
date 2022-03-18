@@ -10,6 +10,7 @@ import {buttonStyles} from "./components/button";
 import {drawerStyles} from "./components/drawer";
 import {linkStyles} from "./components/link";
 import {menuStyles} from "./components/menu";
+import {modalStyles} from "./components/modal";
 import {breakpoints} from "./foundations/breakpoints";
 import {semanticTokens} from "./foundations/semanticTokens";
 import {globalStyles} from "./styles";
@@ -22,6 +23,7 @@ export default extendTheme(
 	badgeStyles, // Badge styles
 	linkStyles, // Link styles
 	menuStyles, // Menu styles
+	modalStyles, // Modal styles
 	drawerStyles, // Sidebar variant for Chakra's drawer
 	CardComponent, // Card component
 	CardBodyComponent, // Card Body component
