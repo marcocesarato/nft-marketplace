@@ -22,7 +22,12 @@ export default function useAccount() {
 	const {web3} = useWeb3();
 	const account = web3?.provider?.["selectedAddress"];
 
+	const signature = user?.get("authData")?.moralisEth.signature;
 	let username = user?.get("username") || account;
+
+	console.debug(`Account: ${account}`);
+	console.debug(`Signature: ${signature}`);
+
 	username = username?.length > 15 ? formatAddress(account) : username;
 
 	return {
@@ -30,6 +35,7 @@ export default function useAccount() {
 		isLogged: isAuthenticated,
 		isAuthenticated: isAuthenticated && account && web3, // When web3 is authenticated
 		account,
+		signature,
 		username: username,
 		user,
 		auth,

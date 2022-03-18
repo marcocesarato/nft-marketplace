@@ -47,4 +47,5 @@ artifacts
 # MongoDB
 data
 
+# IntelliJ
 .idea/
