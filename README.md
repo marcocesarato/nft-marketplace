@@ -220,7 +220,7 @@ The source's folders hiearachy should mantain the following example structure:
 │   │   ├──  index.tsx
 ├── hooks
 │   ├── useData
-│   │   ├──  index.ts
+│   │   ├──  index.tsx
 ├── contexts
 │   ├── Global
 │   │   ├──  index.tsx

@@ -2,7 +2,7 @@ import {useEffect, useRef, useState} from "react";
 import {useFrame} from "@react-three/fiber";
 import {Group, Quaternion, Vector3} from "three";
 
-import Frame from "./Frame";
+import Frame from "@components/Frame";
 
 export default function Frames({images, q = new Quaternion(), p = new Vector3()}): JSX.Element {
 	const ref = useRef();

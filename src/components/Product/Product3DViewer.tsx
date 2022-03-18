@@ -3,7 +3,7 @@ import {Flex} from "@chakra-ui/react";
 import {BakeShadows, OrbitControls, Stage} from "@react-three/drei";
 import {Canvas} from "@react-three/fiber";
 
-import Frame from "@components/Gallery/Frame";
+import Frame from "@components/Frame";
 
 export default function Product3DViewer({data}): JSX.Element {
 	return (

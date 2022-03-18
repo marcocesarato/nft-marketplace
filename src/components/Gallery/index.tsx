@@ -1,9 +1,8 @@
-import {Environment, MeshReflectorMaterial} from "@react-three/drei";
-import {Canvas} from "@react-three/fiber";
-
 import {NFT, NFTMetadata} from "@app/types";
+import useWebXR from "@hooks/useWebXR";
 
-import Frames from "./Frames";
+import Gallery3D from "./Gallery3D";
+import GalleryVR from "./GalleryVR";
 
 const imagesDisposition = [
 	// Front
@@ -22,6 +21,7 @@ const imagesDisposition = [
 ];
 
 export default function Gallery({data}): JSX.Element {
+	const {supportsVRSession} = useWebXR();
 	const images =
 		data?.slice(0, imagesDisposition.length).map((nft: NFT, i: number) => {
 			const metadata = nft.metadata as NFTMetadata;
@@ -33,30 +33,5 @@ export default function Gallery({data}): JSX.Element {
 				rotation: imagesDisposition[i].rotation,
 			};
 		}) || [];
-	return (
-		<Canvas gl={{alpha: false}} dpr={[1, 1.5]} camera={{fov: 70, position: [0, 2, 15]}}>
-			<color attach="background" args={["#191920"]} />
-			<fog attach="fog" args={["#191920", 0, 15]} />
-			<Environment preset="city" />
-			<group position={[0, -0.5, 0]}>
-				<Frames images={images} />
-				<mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
-					<planeGeometry args={[50, 50]} />
-					<MeshReflectorMaterial
-						blur={[300, 100]}
-						resolution={2048}
-						mixBlur={1}
-						mixStrength={40}
-						roughness={1}
-						depthScale={1.2}
-						minDepthThreshold={0.4}
-						maxDepthThreshold={1.4}
-						color="#101010"
-						metalness={0.5}
-						mirror={0}
-					/>
-				</mesh>
-			</group>
-		</Canvas>
-	);
+	return supportsVRSession ? <GalleryVR data={images} /> : <Gallery3D data={images} />;
 }

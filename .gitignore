@@ -46,3 +46,5 @@ artifacts
 
 # MongoDB
 data
+
+.idea/
