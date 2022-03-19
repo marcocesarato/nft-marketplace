@@ -88,10 +88,15 @@ To deploy to Polygon test or main networks we need to configure hardhat so we ne
 PUBLIC_URL=http://localhost:3000
 
 # MongoDB
-MONGODB_URI=mongodb://mongo:27017/mdata
+MONGODB_URI=mongodb://marketplace:CHANGEME!@mongo:27017/metadata
+MONGODB_ROOT_USERNAME=marketplace
+MONGODB_ROOT_PASSWORD=CHANGEME!
 
 # TheGraph
 SUBGRAPH_URL=https://api.thegraph.com/subgraphs/name/marcocesarato/nft-marketplace
+
+# IPFS
+IPFS_API_KEY=
 
 # WebSocket and JSON RPC
 CHAIN_TESTNET_URL=
@@ -133,7 +138,7 @@ How to connect Polygon Testnet to MetaMask wallet? The easiest way to get it don
 
 - **Web framework:** [React](https://reactjs.org/) / [NextJS](https://nextjs.org/) (with [TypeScript](https://www.typescriptlang.org/))
 - **Solidity dev environment:** [Hardhat](https://hardhat.org/)
-- **File Storage:** [IPFS](https://ipfs.io/)
+- **File Storage:** [IPFS](https://ipfs.io/) / [ntf.storage](https://nft.storage/)
 - **Ethereum client library:** [Ethers](https://github.com/ethers-io/ethers.js) / [React Moralis](https://github.com/MoralisWeb3/react-moralis)
 - **Cross reality:** [WebXR](https://immersive-web.github.io/) / [ThreeJS](https://threejs.org/)
 - **API:** [GraphQL](https://graphql.org/) / [Apollo Server](https://www.apollographql.com/)
