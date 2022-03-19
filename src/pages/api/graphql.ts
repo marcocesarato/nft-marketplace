@@ -25,7 +25,7 @@ const cors = Cors({
 const server = new ApolloServer({
 	schema: GraphQLSchema,
 	// Check authentication
-	context: ({req}) => {
+	context: async ({req}) => {
 		const signature = req.headers["x-eth-signature"];
 		const publicAddress = req.headers["x-eth-account"];
 
@@ -48,9 +48,9 @@ const server = new ApolloServer({
 		const address = ethUtil.bufferToHex(addressBuffer);
 
 		// User creation if not exists
-		User.findOne({"account": publicAddress}, (err, user) => {
+		await User.findOne({"account": publicAddress}, async (err, user) => {
 			if (err || !user) {
-				User.create({
+				await User.create({
 					username: formatAddress(publicAddress),
 					account: publicAddress,
 				});
