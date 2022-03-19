@@ -15,7 +15,16 @@ async function main() {
 	const nftMarket = await upgrades.upgradeProxy(MarketAddress, NFTMarket);
 	await nftMarket.deployed();
 
-	console.log("Market contract upgraded!");
+	txHash = nftMarket.deployTransaction.hash;
+	txReceipt = await ethers.provider.waitForTransaction(txHash);
+
+	console.log("Market upgraded!");
+	console.log(" - Market(proxy) Address:", nftMarket.address);
+	console.log(
+		" - Implementation Address:",
+		await upgrades.erc1967.getImplementationAddress(nftMarket.address),
+	);
+	console.log(" - Admin Address:", await upgrades.erc1967.getAdminAddress(nftMarket.address));
 
 	const artifact = require("../artifacts/contracts/Market.sol/Market.json");
 	fs.writeFileSync("abis/Market.json", JSON.stringify(artifact.abi), {
