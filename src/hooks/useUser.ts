@@ -1,19 +1,20 @@
 import {useEffect, useMemo} from "react";
 import {useMoralis} from "react-moralis";
 
-import useWeb3 from "@hooks/useWeb3";
+import useAccount from "@hooks/useAccount";
 import {useUserLazyQuery} from "@services/graphql";
 import {formatAddress} from "@utils/formatters";
 
 export default function useUser() {
 	const {user} = useMoralis();
-	const {web3} = useWeb3();
-	const account = web3?.provider?.["selectedAddress"];
-	const [getUser, {data: userQuery, loading: isLoadingUser}] = useUserLazyQuery();
+	const {account} = useAccount();
+	const [getUser, {data: userQuery, loading: isLoadingUser, error}] = useUserLazyQuery();
+
 	let username = useMemo(() => {
 		if (isLoadingUser) return formatAddress(account);
 		if (userQuery?.user?.username) return userQuery.user.username;
-	}, [isLoadingUser, account, userQuery]);
+		if (error) console.log(error);
+	}, [isLoadingUser, account, userQuery, error]);
 
 	useEffect(() => {
 		if (account) {
@@ -26,5 +27,7 @@ export default function useUser() {
 	return {
 		username,
 		user,
+		isLoadingUser,
+		getUser,
 	};
 }

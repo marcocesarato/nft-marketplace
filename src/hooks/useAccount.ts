@@ -23,6 +23,7 @@ export default function useAccount() {
 
 	// Auth signature
 	const signature = user?.get("authData")?.moralisEth.signature;
+	const signatureData = user?.get("authData")?.moralisEth.data;
 
 	return {
 		isAuthenticating,
@@ -30,6 +31,7 @@ export default function useAccount() {
 		isAuthenticated: isAuthenticated && account && web3, // When web3 is authenticated
 		account,
 		signature,
+		signatureData,
 		user,
 		auth,
 		authenticate,

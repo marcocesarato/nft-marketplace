@@ -1,5 +1,7 @@
+import {recoverPersonalSignature} from "@metamask/eth-sig-util";
 import {ApolloServer} from "apollo-server-micro";
 import * as ethUtil from "ethereumjs-util";
+import {Base64} from "js-base64";
 import {send} from "micro";
 import Cors from "micro-cors";
 
@@ -7,8 +9,6 @@ import {connectDatabase} from "@database/connect";
 import GraphQLSchema from "@database/graphql/schema";
 import User from "@models/User";
 import {formatAddress} from "@utils/formatters";
-
-connectDatabase();
 
 const cors = Cors({
 	allowHeaders: [
@@ -18,6 +18,7 @@ const cors = Cors({
 		"Content-Type",
 		"Authorization",
 		"Accept",
+		"X-ETH-Data",
 		"X-ETH-Signature",
 		"X-ETH-Account",
 	],
@@ -26,39 +27,18 @@ const server = new ApolloServer({
 	schema: GraphQLSchema,
 	// Check authentication
 	context: async ({req}) => {
-		const signature = req.headers["x-eth-signature"];
-		const publicAddress = req.headers["x-eth-account"];
+		const msg = Base64.decode(req.headers["x-eth-data"] || "");
+		const signature = Base64.decode(req.headers["x-eth-signature"] || "");
+		const publicAddress = Base64.decode(req.headers["x-eth-account"] || "");
 
-		if (!signature || !publicAddress) {
+		if (!signature || !publicAddress || !ethUtil.isValidAddress(publicAddress) || !msg) {
 			return {isAuthenticated: false};
 		}
 
-		const msg = "0x";
-		const msgBuffer = ethUtil.toBuffer(msg);
-		const msgHash = ethUtil.hashPersonalMessage(msgBuffer);
-		const signatureParams = ethUtil.fromRpcSig(signature);
-		// Elliptic curve signature verification
-		const publicKey = ethUtil.ecrecover(
-			msgHash,
-			signatureParams.v,
-			signatureParams.r,
-			signatureParams.s,
-		);
-		const addressBuffer = ethUtil.publicToAddress(publicKey);
-		const address = ethUtil.bufferToHex(addressBuffer);
-
-		// User creation if not exists
-		await User.findOne({"account": publicAddress}, async (err, user) => {
-			if (err || !user) {
-				await User.create({
-					username: formatAddress(publicAddress),
-					account: publicAddress,
-				});
-			}
-		});
+		const msgBufferHex = ethUtil.bufferToHex(Buffer.from(msg, "utf8"));
+		const address = recoverPersonalSignature({data: msgBufferHex, signature});
 
 		const isAuthenticated = publicAddress.toLowerCase() === address.toLowerCase();
-		console.log("isAuthenticated", isAuthenticated);
 
 		if (address.toLowerCase() === publicAddress.toLowerCase()) {
 			return {isAuthenticated, account: publicAddress};
@@ -67,11 +47,30 @@ const server = new ApolloServer({
 		return {isAuthenticated};
 	},
 });
+
 const startServer = server.start();
+const connection = connectDatabase();
 
 export default cors(async (req, res) => {
 	if (req.method === "OPTIONS") {
 		return send(res, 200, "ok!");
+	}
+	await connection;
+
+	// User creation if not exists
+	const publicAddress = req.headers["x-eth-account"];
+	if (publicAddress) {
+		try {
+			const user = await User.findOne({"account": publicAddress});
+			if (!user) {
+				await User.create({
+					username: formatAddress(publicAddress),
+					account: publicAddress,
+				});
+			}
+		} catch (err) {
+			console.error(err);
+		}
 	}
 
 	await startServer;
