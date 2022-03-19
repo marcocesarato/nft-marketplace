@@ -11,8 +11,10 @@ import {
 import {useTranslation} from "next-i18next";
 
 import {useConfig} from "@contexts/Global";
+import useIPFS from "@hooks/useIPFS";
 
 export default function ProductDetails({data, onPurchase}): JSX.Element {
+	const {resolveLink} = useIPFS();
 	const {nativeToken} = useConfig();
 	const {t} = useTranslation();
 	return (
@@ -20,7 +22,7 @@ export default function ProductDetails({data, onPurchase}): JSX.Element {
 			<Image
 				rounded={"md"}
 				alt={"product image"}
-				src={data?.image}
+				src={resolveLink(data?.image)}
 				fit={"cover"}
 				align={"center"}
 				boxShadow="lg"

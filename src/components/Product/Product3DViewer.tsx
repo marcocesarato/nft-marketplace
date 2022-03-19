@@ -4,8 +4,10 @@ import {BakeShadows, OrbitControls, Stage} from "@react-three/drei";
 import {Canvas} from "@react-three/fiber";
 
 import Frame from "@components/Frame";
+import useIPFS from "@hooks/useIPFS";
 
 export default function Product3DViewer({data}): JSX.Element {
+	const {resolveLink} = useIPFS();
 	return (
 		<Flex position="relative" height="70vh">
 			<Canvas shadows dpr={[1, 2]} camera={{position: [0, 0, 0], fov: 60}}>
@@ -15,7 +17,7 @@ export default function Product3DViewer({data}): JSX.Element {
 						intensity={0.5}
 						contactShadow={{opacity: 0.7, blur: 2}}>
 						<Frame
-							url={data.image}
+							url={resolveLink(data.image)}
 							rotation={[0, 0, 0]}
 							position={[0, 0, 0]}
 							disableHover={true}

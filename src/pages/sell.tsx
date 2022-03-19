@@ -25,17 +25,18 @@ export default function CreateItem(): JSX.Element {
 	const {web3} = useWeb3();
 	const [fileUrl, setFileUrl] = useState(null);
 	const [message, setMessage] = useState("");
-	const [formInput, updateFormInput] = useState({price: "", name: "", description: ""});
+	const [formInput, updateFormInput] = useState({
+		price: "",
+		name: "",
+		description: "",
+		file: null,
+	});
 	const [isProcessing, setProcessing] = useState(false);
 	const router = useRouter();
 
-	async function onChange(file) {
-		try {
-			const url = await saveIPFS("asset", file);
-			setFileUrl(url);
-		} catch (error) {
-			console.log("Error uploading file: ", error);
-		}
+	async function onChange(fileStream) {
+		updateFormInput({...formInput, file: fileStream});
+		setFileUrl(URL.createObjectURL(fileStream));
 	}
 
 	async function createSale(url) {
@@ -55,19 +56,22 @@ export default function CreateItem(): JSX.Element {
 		router.push("/explore");
 	}
 
+	function createFormDataFile(name: string, description: string, file) {
+		const formData = new FormData();
+		formData.append("name", name);
+		formData.append("description", description);
+		formData.append("file", file);
+		return formData;
+	}
+
 	async function createMarket() {
-		const {name, description, price} = formInput;
-		if (!name || !description || !price || !fileUrl) return;
-		// first, upload to IPFS
-		const data = JSON.stringify({
-			name,
-			description,
-			image: fileUrl,
-		});
+		const {name, description, price, file} = formInput;
+		if (!name || !description || !price || !file) return;
 		try {
 			setProcessing(true);
 			setMessage(t("common:page.sell.uploading"));
-			const url = await saveIPFS("metadata.json", {base64: btoa(data)});
+			const formData = createFormDataFile(name, description, file);
+			const url = await saveIPFS(formData);
 			createSale(url);
 		} catch (error) {
 			console.log("Error uploading file: ", error);
@@ -105,6 +109,9 @@ export default function CreateItem(): JSX.Element {
 						{t("common:page.sell.asset.price")} {nativeToken?.symbol}
 					</FormLabel>
 					<Input
+						type="number"
+						min="0"
+						step=".01"
 						onChange={(e) => updateFormInput({...formInput, price: e.target.value})}
 					/>
 				</FormControl>

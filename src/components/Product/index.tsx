@@ -14,6 +14,7 @@ import {
 import {useTranslation} from "next-i18next";
 
 import {useConfig} from "@contexts/Global";
+import useIPFS from "@hooks/useIPFS";
 import {formatAddress} from "@utils/formatters";
 
 import ProductModal from "./ProductModal";
@@ -21,6 +22,7 @@ import ProductModal from "./ProductModal";
 export default function Product({data, onPurchase = null, ...rootProps}): JSX.Element {
 	const {t} = useTranslation();
 	const {nativeToken} = useConfig();
+	const {resolveLink} = useIPFS();
 	const {isOpen, onOpen, onClose} = useDisclosure();
 	return (
 		<>
@@ -51,7 +53,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 							pos: "absolute",
 							top: 2,
 							left: 0,
-							background: `url(${data?.image}) #333`,
+							background: `url(${resolveLink(data?.image)}) #333`,
 							filter: `blur(15px) brightness(${useColorModeValue("80%", "50%")})`,
 							zIndex: -1,
 						}}
@@ -67,7 +69,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 							objectFit={"cover"}
 							boxShadow={"md"}
 							alt={data?.name}
-							src={data?.image}
+							src={resolveLink(data?.image)}
 							fallbackSrc="https://via.placeholder.com/150/000000/000000/?text="
 						/>
 					</Box>

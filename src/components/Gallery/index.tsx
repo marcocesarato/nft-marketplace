@@ -1,4 +1,5 @@
 import type {NFT, NFTMetadata} from "@app/types";
+import useIPFS from "@hooks/useIPFS";
 import useWebXR from "@hooks/useWebXR";
 
 import Gallery3D from "./Gallery3D";
@@ -22,13 +23,14 @@ const imagesDisposition = [
 
 export default function Gallery({data}): JSX.Element {
 	const {supportsVRSession} = useWebXR();
+	const {resolveLink} = useIPFS();
 	const images =
 		data?.slice(0, imagesDisposition.length).map((nft: NFT, i: number) => {
 			const metadata = nft.metadata as NFTMetadata;
 			return {
 				id: `${nft?.token_address}${nft?.token_id}`,
 				text: metadata.name,
-				url: metadata.image,
+				url: resolveLink(metadata.image),
 				position: imagesDisposition[i].position,
 				rotation: imagesDisposition[i].rotation,
 			};

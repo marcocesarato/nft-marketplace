@@ -5,13 +5,14 @@ import {useTranslation} from "next-i18next";
 import Catalog from "@/src/components/Catalog/Catalog";
 import Loading from "@components/Loading";
 import Particles from "@components/Particles";
-import useMarketItems from "@hooks/useMarketItems";
+import {useMarketItemsQuery} from "@services/subgraph";
 import {getStaticPropsLocale} from "@utils/i18n";
 
 export const getStaticProps = getStaticPropsLocale;
 export default function Home(): JSX.Element {
 	const {t} = useTranslation();
-	const {data, isLoading} = useMarketItems();
+	const {data, loading, error} = useMarketItemsQuery();
+	const items = data?.marketItems || [];
 	return (
 		<Box as="section" pb="7.5rem" flex={1}>
 			<Box mx="auto" px={6}>
@@ -67,7 +68,7 @@ export default function Home(): JSX.Element {
 						</Button>
 					</Link>
 				</Stack>
-				{isLoading ? <Loading /> : <Catalog data={data} sorting={false} />}
+				{!error && loading ? <Loading /> : <Catalog data={items} sorting={false} />}
 			</Box>
 		</Box>
 	);
