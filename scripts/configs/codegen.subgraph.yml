@@ -4,13 +4,13 @@ hooks:
     #    - "get-graphql-schema https://api.thegraph.com/subgraphs/name/marcocesarato/nft-marketplace > ./subgraph/output/schema.graphql"
     #    - "gqlg --schemaFilePath ./subgraph/output/schema.graphql --destDirPath ./subgraph/output/operations --depthLimit 1"
     afterAllFileWrite:
-        - "node ./scripts/fix-hooks.js ./src/services/subgraph/commons.ts"
+        - "node ./scripts/fix-hooks.js ./src/services/subgraph/index.ts"
         - "eslint --fix"
 schema: "https://api.thegraph.com/subgraphs/name/marcocesarato/nft-marketplace" #"./subgraph/output/schema.graphql"
 generates:
-    ./src/services/subgraph/commons.ts:
+    ./src/services/subgraph/index.ts:
         documents:
-            - "./subgraph/operations/*.graphql"
+            - "./src/services/subgraph/operations/**/*.graphql"
             #- "./subgraph/output/operations/queries/*.gql"
             #- "./subgraph/output/operations/mutations/*.gql"
         plugins:
@@ -20,4 +20,5 @@ generates:
         config:
             withHooks: true
             defaultBaseOptions:
-                - context: subgraph
+                context:
+                    target: subgraph

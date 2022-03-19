@@ -1,0 +1,30 @@
+query MarketItems(
+	$skip: Int
+	$first: Int
+	$orderBy: MarketItem_orderBy
+	$orderDirection: OrderDirection
+	$where: MarketItem_filter
+) {
+	marketItems(
+		orderBy: $orderBy
+		orderDirection: $orderDirection
+		where: $where
+		skip: $skip
+		first: $first
+	) {
+		description
+		id
+		image
+		name
+		owner {
+			id
+		}
+		price
+		sold
+		seller {
+			id
+		}
+		tokenId
+		#tokenURI
+	}
+}

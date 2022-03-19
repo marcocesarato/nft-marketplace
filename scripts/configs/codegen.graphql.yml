@@ -6,13 +6,13 @@ hooks:
         #- "node ./scripts/renamer.js ./src/database/graphql/operations gql graphql"
         #- "node ./scripts/remove-indexes.js ./src/database/graphql/operations"
     afterAllFileWrite:
-        - "node ./scripts/fix-hooks.js ./src/services/subgraph/commons.ts"
+        - "node ./scripts/fix-hooks.js ./src/services/graphql/index.ts"
         - "eslint --fix"
 schema: "./.next/cache/schema.graphql"
 generates:
     ./src/services/graphql/index.ts:
         documents:
-            - "./src/database/graphql/operations/**/*.graphql"
+            - "./src/services/graphql/operations/**/*.graphql"
         plugins:
             - typescript
             - typescript-operations
