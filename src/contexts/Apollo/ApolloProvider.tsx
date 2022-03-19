@@ -11,8 +11,8 @@ function Provider({children}): JSX.Element {
 		new HttpLink({
 			uri: `${process.env.PUBLIC_URL}/api/graphql`,
 			headers: {
-				"X-ETH-Signature": signature,
-				"X-ETH-Account": account,
+				"X-ETH-Signature": signature || "",
+				"X-ETH-Account": account || "",
 			},
 		}),
 	);

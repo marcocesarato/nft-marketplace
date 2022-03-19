@@ -22,6 +22,7 @@ import ErrorAlert from "@errors/ErrorAlert";
 import useAccount from "@hooks/useAccount";
 import useBalance from "@hooks/useBalance";
 import useDebounceCallback from "@hooks/useDebounceCallback";
+import useUser from "@hooks/useUser";
 import {formatAddress} from "@utils/formatters";
 import {getExplorer} from "@utils/networks";
 
@@ -31,7 +32,8 @@ import LinkButton from "./LinkButton";
 
 export default function AccountModal({isOpen, onClose}): JSX.Element {
 	const {t} = useTranslation();
-	const {account, username, logout, chainId, setUserData, userError} = useAccount();
+	const {account, logout, chainId, setUserData, userError} = useAccount();
+	const {username} = useUser();
 	const {data: balance} = useBalance();
 	const router = useRouter();
 

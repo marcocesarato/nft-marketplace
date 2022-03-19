@@ -2,7 +2,7 @@ mutation UserUpdate($id: MongoID!, $record: UpdateByIdUserInput!) {
 	userUpdate(_id: $id, record: $record) {
 		record {
 			username
-			accounts
+			account
 		}
 		error {
 			message

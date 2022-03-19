@@ -6,7 +6,7 @@ query Users(
 ) {
 	users(filter: $filter, skip: $skip, limit: $limit, sort: $sort) {
 		username
-		accounts
+		account
 		_id
 	}
 }

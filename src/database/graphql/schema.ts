@@ -31,11 +31,10 @@ schemaComposer.Query.addFields({
 	usersPagination: userResolvers.pagination(),
 });
 schemaComposer.Mutation.addFields({
-	userCreate: wrapAccessResolve(userResolvers.createOne()),
 	userUpdate: wrapAccessResolve(userResolvers.updateById(), (rp) => {
 		rp.beforeQuery = (query, rp) => {
 			const {account} = rp.context;
-			query.where("accounts", account);
+			query.where("account", account);
 		};
 	}),
 });

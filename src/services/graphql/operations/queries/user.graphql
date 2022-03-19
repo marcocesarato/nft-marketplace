@@ -1,7 +1,7 @@
 query User($filter: FilterFindOneUserInput) {
 	user(filter: $filter) {
 		username
-		accounts
+		account
 		_id
 	}
 }

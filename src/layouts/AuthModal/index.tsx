@@ -21,14 +21,14 @@ import WalletConnect from "./WalletConnect";
 
 export default function AuthModal({onClose, isOpen, ...props}): JSX.Element {
 	const {t} = useTranslation();
-	const {authError, user, account} = useAccount();
+	const {authError, account} = useAccount();
 
 	useEffect(() => {
-		if (user && account && onClose) {
+		if (account && onClose) {
 			onClose();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [user]);
+	}, []);
 
 	return (
 		<Modal {...props} isOpen={isOpen} onClose={onClose}>

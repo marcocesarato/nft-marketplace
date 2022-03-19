@@ -1,7 +1,6 @@
 import {useMoralis} from "react-moralis";
 
 import useWeb3 from "@hooks/useWeb3";
-import {formatAddress} from "@utils/formatters";
 
 export default function useAccount() {
 	const {
@@ -22,10 +21,8 @@ export default function useAccount() {
 	const {web3} = useWeb3();
 	const account = web3?.provider?.["selectedAddress"];
 
+	// Auth signature
 	const signature = user?.get("authData")?.moralisEth.signature;
-	let username = user?.get("username") || account;
-
-	username = username?.length > 15 ? formatAddress(account) : username;
 
 	return {
 		isAuthenticating,
@@ -33,7 +30,6 @@ export default function useAccount() {
 		isAuthenticated: isAuthenticated && account && web3, // When web3 is authenticated
 		account,
 		signature,
-		username: username,
 		user,
 		auth,
 		authenticate,

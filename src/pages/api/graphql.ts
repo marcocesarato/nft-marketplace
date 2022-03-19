@@ -5,6 +5,8 @@ import Cors from "micro-cors";
 
 import {connectDatabase} from "@database/connect";
 import GraphQLSchema from "@database/graphql/schema";
+import User from "@models/User";
+import {formatAddress} from "@utils/formatters";
 
 connectDatabase();
 
@@ -24,14 +26,14 @@ const server = new ApolloServer({
 	schema: GraphQLSchema,
 	// Check authentication
 	context: ({req}) => {
-		const signature = req.headers["X-ETH-Signature"] || "";
-		const publicAddress = req.headers["X-ETH-Account"] || "";
+		const signature = req.headers["x-eth-signature"];
+		const publicAddress = req.headers["x-eth-account"];
 
 		if (!signature || !publicAddress) {
 			return {isAuthenticated: false};
 		}
 
-		const msg = "Authentication";
+		const msg = "0x";
 		const msgBuffer = ethUtil.toBuffer(msg);
 		const msgHash = ethUtil.hashPersonalMessage(msgBuffer);
 		const signatureParams = ethUtil.fromRpcSig(signature);
@@ -45,11 +47,24 @@ const server = new ApolloServer({
 		const addressBuffer = ethUtil.publicToAddress(publicKey);
 		const address = ethUtil.bufferToHex(addressBuffer);
 
+		// User creation if not exists
+		User.findOne({"account": publicAddress}, (err, user) => {
+			if (err || !user) {
+				User.create({
+					username: formatAddress(publicAddress),
+					account: publicAddress,
+				});
+			}
+		});
+
+		const isAuthenticated = publicAddress.toLowerCase() === address.toLowerCase();
+		console.log("isAuthenticated", isAuthenticated);
+
 		if (address.toLowerCase() === publicAddress.toLowerCase()) {
-			return {isAuthenticated: true, account: publicAddress};
+			return {isAuthenticated, account: publicAddress};
 		}
 
-		return {isAuthenticated: false};
+		return {isAuthenticated};
 	},
 });
 const startServer = server.start();

@@ -14,10 +14,12 @@ import {useTranslation} from "next-i18next";
 
 import Avatar from "@components/Avatar";
 import useAccount from "@hooks/useAccount";
+import useUser from "@hooks/useUser";
 
 export default function UserMenu({openAccountModal}): JSX.Element {
 	const {t} = useTranslation();
-	const {username, logout} = useAccount();
+	const {logout} = useAccount();
+	const {username} = useUser();
 	const router = useRouter();
 
 	function handleLogout() {

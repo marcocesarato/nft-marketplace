@@ -25,25 +25,6 @@ export type Scalars = {
 	MongoID: any;
 };
 
-export type CreateOneUserInput = {
-	accounts: Array<InputMaybe<Scalars["String"]>>;
-	username: Scalars["String"];
-};
-
-export type CreateOneUserPayload = {
-	__typename?: "CreateOneUserPayload";
-	/**
-	 * Error that may occur during operation. If you request this field in GraphQL
-	 * query, you will receive typed error in payload; otherwise error will be
-	 * provided in root `errors` field of GraphQL response.
-	 */
-	error?: Maybe<ErrorInterface>;
-	/** Created document */
-	record?: Maybe<User>;
-	/** Document ID */
-	recordId?: Maybe<Scalars["MongoID"]>;
-};
-
 export type ErrorInterface = {
 	/** Generic error message */
 	message?: Maybe<Scalars["String"]>;
@@ -55,7 +36,7 @@ export type FilterCountUserInput = {
 	_id?: InputMaybe<Scalars["MongoID"]>;
 	/** List of *indexed* fields that can be filtered via operators. */
 	_operators?: InputMaybe<FilterCountUserOperatorsInput>;
-	accounts?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	account?: InputMaybe<Scalars["String"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
 
@@ -81,7 +62,7 @@ export type FilterFindManyUserInput = {
 	_id?: InputMaybe<Scalars["MongoID"]>;
 	/** List of *indexed* fields that can be filtered via operators. */
 	_operators?: InputMaybe<FilterFindManyUserOperatorsInput>;
-	accounts?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	account?: InputMaybe<Scalars["String"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
 
@@ -107,7 +88,7 @@ export type FilterFindOneUserInput = {
 	_id?: InputMaybe<Scalars["MongoID"]>;
 	/** List of *indexed* fields that can be filtered via operators. */
 	_operators?: InputMaybe<FilterFindOneUserOperatorsInput>;
-	accounts?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	account?: InputMaybe<Scalars["String"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
 
@@ -137,18 +118,12 @@ export type MongoError = ErrorInterface & {
 
 export type Mutation = {
 	__typename?: "Mutation";
-	/** Create one document with mongoose defaults, setters, hooks and validation */
-	userCreate?: Maybe<CreateOneUserPayload>;
 	/**
 	 * Update one document: 1) Retrieve one document by findById. 2) Apply updates to
 	 * mongoose document. 3) Mongoose applies defaults, setters, hooks and
 	 * validation. 4) And save it.
 	 */
 	userUpdate?: Maybe<UpdateByIdUserPayload>;
-};
-
-export type MutationUserCreateArgs = {
-	record: CreateOneUserInput;
 };
 
 export type MutationUserUpdateArgs = {
@@ -215,7 +190,7 @@ export enum SortFindOneUserInput {
 }
 
 export type UpdateByIdUserInput = {
-	accounts?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	account?: InputMaybe<Scalars["String"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
 
@@ -236,7 +211,7 @@ export type UpdateByIdUserPayload = {
 export type User = {
 	__typename?: "User";
 	_id: Scalars["MongoID"];
-	accounts: Array<Maybe<Scalars["String"]>>;
+	account: Scalars["String"];
 	username: Scalars["String"];
 };
 
@@ -275,32 +250,6 @@ export type ValidatorError = {
 	value?: Maybe<Scalars["JSON"]>;
 };
 
-export type UserCreateMutationVariables = Exact<{
-	record: CreateOneUserInput;
-}>;
-
-export type UserCreateMutation = {
-	__typename?: "Mutation";
-	userCreate?: {
-		__typename?: "CreateOneUserPayload";
-		record?: {__typename?: "User"; username: string; accounts: Array<string | null>} | null;
-		error?:
-			| {__typename?: "MongoError"; message?: string | null; code?: number | null}
-			| {__typename?: "RuntimeError"; message?: string | null}
-			| {
-					__typename?: "ValidationError";
-					message?: string | null;
-					errors?: Array<{
-						__typename?: "ValidatorError";
-						message?: string | null;
-						path?: string | null;
-						value?: any | null;
-					}> | null;
-			  }
-			| null;
-	} | null;
-};
-
 export type UserUpdateMutationVariables = Exact<{
 	id: Scalars["MongoID"];
 	record: UpdateByIdUserInput;
@@ -310,7 +259,7 @@ export type UserUpdateMutation = {
 	__typename?: "Mutation";
 	userUpdate?: {
 		__typename?: "UpdateByIdUserPayload";
-		record?: {__typename?: "User"; username: string; accounts: Array<string | null>} | null;
+		record?: {__typename?: "User"; username: string; account: string} | null;
 		error?:
 			| {__typename?: "MongoError"; message?: string | null; code?: number | null}
 			| {__typename?: "RuntimeError"; message?: string | null}
@@ -334,7 +283,7 @@ export type UserQueryVariables = Exact<{
 
 export type UserQuery = {
 	__typename?: "Query";
-	user?: {__typename?: "User"; username: string; accounts: Array<string | null>; _id: any} | null;
+	user?: {__typename?: "User"; username: string; account: string; _id: any} | null;
 };
 
 export type UsersQueryVariables = Exact<{
@@ -346,80 +295,15 @@ export type UsersQueryVariables = Exact<{
 
 export type UsersQuery = {
 	__typename?: "Query";
-	users: Array<{__typename?: "User"; username: string; accounts: Array<string | null>; _id: any}>;
+	users: Array<{__typename?: "User"; username: string; account: string; _id: any}>;
 };
 
-export const UserCreateDocument = gql`
-	mutation UserCreate($record: CreateOneUserInput!) {
-		userCreate(record: $record) {
-			record {
-				username
-				accounts
-			}
-			error {
-				message
-				... on ValidationError {
-					message
-					errors {
-						message
-						path
-						value
-					}
-				}
-				... on MongoError {
-					message
-					code
-				}
-				... on RuntimeError {
-					message
-				}
-			}
-		}
-	}
-`;
-export type UserCreateMutationFn = Apollo.MutationFunction<
-	UserCreateMutation,
-	UserCreateMutationVariables
->;
-
-/**
- * __useUserCreateMutation__
- *
- * To run a mutation, you first call `useUserCreateMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUserCreateMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [userCreateMutation, { data, loading, error }] = useUserCreateMutation({
- *   variables: {
- *      record: // value for 'record'
- *   },
- * });
- */
-export function useUserCreateMutation(
-	baseOptions?: Apollo.MutationHookOptions<UserCreateMutation, UserCreateMutationVariables>,
-) {
-	const options = {...defaultOptions, ...baseOptions};
-	return Apollo.useMutation<UserCreateMutation, UserCreateMutationVariables>(
-		UserCreateDocument,
-		options,
-	);
-}
-export type UserCreateMutationHookResult = ReturnType<typeof useUserCreateMutation>;
-export type UserCreateMutationResult = Apollo.MutationResult<UserCreateMutation>;
-export type UserCreateMutationOptions = Apollo.BaseMutationOptions<
-	UserCreateMutation,
-	UserCreateMutationVariables
->;
 export const UserUpdateDocument = gql`
 	mutation UserUpdate($id: MongoID!, $record: UpdateByIdUserInput!) {
 		userUpdate(_id: $id, record: $record) {
 			record {
 				username
-				accounts
+				account
 			}
 			error {
 				message
@@ -484,7 +368,7 @@ export const UserDocument = gql`
 	query User($filter: FilterFindOneUserInput) {
 		user(filter: $filter) {
 			username
-			accounts
+			account
 			_id
 		}
 	}
@@ -528,7 +412,7 @@ export const UsersDocument = gql`
 	) {
 		users(filter: $filter, skip: $skip, limit: $limit, sort: $sort) {
 			username
-			accounts
+			account
 			_id
 		}
 	}
