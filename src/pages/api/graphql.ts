@@ -58,7 +58,7 @@ export default cors(async (req, res) => {
 	await connection;
 
 	// User creation if not exists
-	const publicAddress = req.headers["x-eth-account"];
+	const publicAddress = Base64.decode(req.headers["x-eth-account"] || "");
 	if (publicAddress) {
 		try {
 			const user = await User.findOne({"account": publicAddress});
