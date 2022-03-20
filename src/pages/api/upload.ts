@@ -1,5 +1,5 @@
 import fs from "fs";
-import {CID, create as createIpfsClient} from "ipfs-http-client";
+//import {CID, create as createIpfsClient} from "ipfs-http-client";
 import mime from "mime-types";
 import type {File} from "multiparty";
 import type {NextApiResponse} from "next";
@@ -24,7 +24,7 @@ const handler = nextConnect<NextApiRequestFiles, NextApiResponse>()
 		}
 	});
 
-const syncWait = (ms) => {
+/*const syncWait = (ms) => {
 	return new Promise((resolve, _reject) => {
 		setTimeout(() => {
 			resolve(ms);
@@ -52,7 +52,7 @@ const fetchData = async ({fromClient, cid, retries = 3, retryWait = 500}) => {
 			throw new Error("Max retries reached.");
 		}
 	}
-};
+};*/
 
 async function storeToIPFS(data: File, name: string, description: string) {
 	// Upload to IPFS
@@ -68,44 +68,47 @@ async function storeToIPFS(data: File, name: string, description: string) {
 	});
 
 	// Sync CID with The Graph IPFS node for the indexing
+	/*const sourcePath = result.url.replace("/ipfs/", "");
 	const cid = CID.parse(result.ipnft);
 
-	let fromClient = createIpfsClient({
-		host: "nftstorage.link",
-		apiPath: "/ipfs/",
-		timeout: 10000,
-	});
+	const fromUrl = "https://gateway.ipfs.io/ipfs/api/v0";
+	const fromClient = createIpfsClient(fromUrl as any);
 
-	let toClient = createIpfsClient({
-		host: "api.thegraph.com",
-		apiPath: "/ipfs/",
-		timeout: 10000,
-	});
+	const toURL = "https://api.thegraph.com/ipfs/api/v0";
+	const toClient = createIpfsClient(toURL as any);
+
+	//console.log(`From client isOnline: ${await fromClient.isOnline()}`);
+	//console.log(`To client isOnline: ${await toClient.isOnline()}`);
 
 	let syncData: any;
 	try {
 		syncData = await fetchData({
 			fromClient,
-			cid,
+			cid: sourcePath,
 		});
 	} catch (e) {
 		console.warn(`Failed to retrieve files: ${e.message}`);
 		return result.url;
 	}
 
-	// Upload file
-	let targetFile: any;
-	try {
-		targetFile = await toClient.addAll(syncData);
-	} catch (e) {
-		console.error(`Failed to upload and sync file: ${e.message}`);
+	if (!syncData) {
+		console.warn(`Failed to retrieve files: No data`);
 		return result.url;
 	}
 
-	// Verify integrity before and after
-	if (!cid.equals(cid)) {
-		console.error(`Failed to sync file: Uploaded file cid differs: ${targetFile.cid}`);
+	// Upload file
+	let targetFile: any;
+	try {
+		targetFile = await toClient.add(syncData);
+	} catch (e) {
+		console.error(`Failed to upload and sync file: ${e.message}`);
 	}
+	// Verify integrity before and after
+	if (!cid.equals(targetFile?.cid)) {
+		console.error(
+			`Failed to sync file: Uploaded file cid differs: ${cid} != ${targetFile?.cid}`,
+		);
+	}*/
 	return result.url;
 }
 
