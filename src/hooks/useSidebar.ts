@@ -16,12 +16,8 @@ export default function useSidebar(): {
 } {
 	const {isOpenSidebar, setConfig} = useConfig();
 	const [isOpen, setIsOpen] = useLocalStorage<boolean>("sidebarOpen", false);
-	const canCompress = useBreakpointValue({base: false, lg: true});
 
-	const isSidebarCompress = useMemo(() => {
-		return !isOpenSidebar && canCompress;
-	}, [canCompress, isOpenSidebar]);
-
+	const isSidebarCompress = !isOpenSidebar;
 	const sidebarWidth = useMemo(
 		() => (isSidebarCompress ? compressWidth : baseWidth),
 		[isSidebarCompress],

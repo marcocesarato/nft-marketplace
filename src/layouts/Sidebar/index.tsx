@@ -21,14 +21,14 @@ function Sidebar({title}): JSX.Element {
 	const mainPanel = useRef();
 
 	const Content = useMemo(() => {
-		return (): JSX.Element => {
+		return ({mobile = false}): JSX.Element => {
 			const createRoutes = () => {
 				return routes.map(({label, ...prop}, key) => (
 					<SidebarSection
 						key={key}
 						label={t(label)}
 						{...prop}
-						compress={isSidebarCompress}
+						compress={!mobile && isSidebarCompress}
 					/>
 				));
 			};
@@ -94,7 +94,7 @@ function Sidebar({title}): JSX.Element {
 				</Box>
 			</Box>
 			<SidebarResponsive title={title}>
-				<Content />
+				<Content mobile={true} />
 			</SidebarResponsive>
 		</>
 	);
