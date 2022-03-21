@@ -9,6 +9,7 @@ const MainPanel = {
 		transitionDuration: ".2s, .2s, .35s",
 		transitionProperty: "top, bottom, width",
 		transitionTimingFunction: "linear, linear, ease",
+		overflowX: "hidden",
 	},
 	variants: {
 		main: (props) => ({

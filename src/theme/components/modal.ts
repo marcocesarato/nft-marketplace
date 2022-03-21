@@ -11,7 +11,7 @@ const Modal: ComponentStyleConfig = {
 		overlay: {
 			bg: "none",
 			backdropFilter: "auto",
-			backdropBlur: "2px",
+			backdropBlur: "5px",
 		},
 	}),
 };
