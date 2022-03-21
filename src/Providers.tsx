@@ -6,12 +6,14 @@ import {moralisAppId, moralisServerUrl} from "@configs/moralis";
 import queryClient from "@configs/query";
 import {ApolloProvider} from "@contexts/Apollo";
 import {GlobalProvider} from "@contexts/Global";
+import GlobalStyles from "@layouts/GlobalStyles";
 
 import theme from "./theme";
 
 function Providers({children}): JSX.Element {
 	return (
 		<ChakraProvider resetCSS theme={theme}>
+			<GlobalStyles />
 			<MoralisProvider appId={moralisAppId} serverUrl={moralisServerUrl}>
 				<ApolloProvider>
 					<QueryClientProvider client={queryClient}>

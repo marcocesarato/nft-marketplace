@@ -17,20 +17,21 @@ export type NFTMetadata = {
 	name: string;
 	description: string;
 	image: string;
-	data: NFTMetadata;
+	externalUrl?: string;
+	attributes?: {
+		[key: string]: string;
+	};
+	data?: NFTMetadata;
 };
 
-export type NFTMarketItem = {
+export interface NFTMarketItem extends NFTMetadata {
 	price: float;
 	tokenId: int;
-	seller: string;
 	sold: boolean;
 	owner: string;
 	creator?: string;
-	image: string;
-	name: string;
-	description: string;
-};
+	seller: string;
+}
 
 export type MarketTransfers = {
 	transaction_hash: string;

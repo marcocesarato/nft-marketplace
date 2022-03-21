@@ -6,13 +6,14 @@ import Catalog from "@/src/components/Catalog/Catalog";
 import Loading from "@components/Loading";
 import Particles from "@components/Particles";
 import {useMarketItemsQuery} from "@services/subgraph";
+import {withMetadata} from "@utils/converters";
 import {getStaticPropsLocale} from "@utils/i18n";
 
 export const getStaticProps = getStaticPropsLocale;
 export default function Home(): JSX.Element {
 	const {t} = useTranslation();
 	const {data, loading, error} = useMarketItemsQuery();
-	const items = data?.marketItems || [];
+	const items = withMetadata(data?.marketItems);
 	return (
 		<Box as="section" pb="7.5rem" flex={1}>
 			<Box mx="auto" px={6}>

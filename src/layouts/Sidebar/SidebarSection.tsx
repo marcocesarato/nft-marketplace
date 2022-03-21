@@ -93,6 +93,7 @@ function SidebarSection({
 							<Text
 								color={isActive ? activeColor : inactiveColor}
 								my="auto"
+								fontWeight="normal"
 								fontSize="sm">
 								{label}
 							</Text>

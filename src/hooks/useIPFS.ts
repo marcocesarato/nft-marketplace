@@ -6,7 +6,7 @@ export default function useIPFS() {
 
 	const resolveLink = (url) => {
 		if (!url || !url.includes("ipfs://")) return url;
-		return url.replace("ipfs://", "https://gateway.ipfs.io/ipfs/");
+		return url.replace("ipfs://", "https://ipfs.io/ipfs/");
 	};
 
 	const saveIPFS = async (formData: any) => {

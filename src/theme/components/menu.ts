@@ -3,7 +3,7 @@ import type {GlobalStyleProps} from "@chakra-ui/theme-tools";
 import {mode} from "@chakra-ui/theme-tools";
 
 const Menu: ComponentStyleConfig = {
-	parts: ["list", "divider"],
+	parts: ["list", "divider", "item"],
 	baseStyle: (props: GlobalStyleProps) => ({
 		list: {
 			"&:focus:not([data-focus-visible-added])": {
@@ -15,6 +15,10 @@ const Menu: ComponentStyleConfig = {
 		},
 		divider: {
 			borderColor: mode("gray.300", "gray.500")(props),
+		},
+		item: {
+			fontSize: "sm",
+			fontWeight: "light",
 		},
 	}),
 };

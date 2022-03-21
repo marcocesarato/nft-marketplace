@@ -1,12 +1,12 @@
 overwrite: true
 hooks:
     #afterStart:
-    #    - "get-graphql-schema https://api.thegraph.com/subgraphs/name/marcocesarato/nft-marketplace > ./subgraph/output/schema.graphql"
+    #    - "get-graphql-schema https://api.thegraph.com/subgraphs/name/marcocesarato/nft-market > ./subgraph/output/schema.graphql"
     #    - "gqlg --schemaFilePath ./subgraph/output/schema.graphql --destDirPath ./subgraph/output/operations --depthLimit 1"
     afterAllFileWrite:
         - "node ./scripts/fix-hooks.js ./src/services/subgraph/index.ts"
         - "eslint --fix"
-schema: "https://api.thegraph.com/subgraphs/name/marcocesarato/nft-marketplace" #"./subgraph/output/schema.graphql"
+schema: "https://api.thegraph.com/subgraphs/name/marcocesarato/nft-market" #"./subgraph/output/schema.graphql"
 generates:
     ./src/services/subgraph/index.ts:
         documents:

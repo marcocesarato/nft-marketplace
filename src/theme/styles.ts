@@ -4,6 +4,10 @@ import colors from "./foundations/colors";
 
 export const globalStyles = {
 	colors,
+	fonts: {
+		heading: "'Euclid Circular', sans-serif",
+		body: "'Euclid Circular', sans-serif",
+	},
 	styles: {
 		global: (props) => ({
 			body: {

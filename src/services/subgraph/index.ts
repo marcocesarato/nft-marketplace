@@ -69,6 +69,74 @@ export enum Account_OrderBy {
 	Selling = "selling",
 }
 
+export type Attribute = {
+	__typename?: "Attribute";
+	displayType?: Maybe<Scalars["String"]>;
+	id: Scalars["ID"];
+	traitType: Scalars["String"];
+	value: Scalars["String"];
+};
+
+export type Attribute_Filter = {
+	displayType?: InputMaybe<Scalars["String"]>;
+	displayType_contains?: InputMaybe<Scalars["String"]>;
+	displayType_ends_with?: InputMaybe<Scalars["String"]>;
+	displayType_gt?: InputMaybe<Scalars["String"]>;
+	displayType_gte?: InputMaybe<Scalars["String"]>;
+	displayType_in?: InputMaybe<Array<Scalars["String"]>>;
+	displayType_lt?: InputMaybe<Scalars["String"]>;
+	displayType_lte?: InputMaybe<Scalars["String"]>;
+	displayType_not?: InputMaybe<Scalars["String"]>;
+	displayType_not_contains?: InputMaybe<Scalars["String"]>;
+	displayType_not_ends_with?: InputMaybe<Scalars["String"]>;
+	displayType_not_in?: InputMaybe<Array<Scalars["String"]>>;
+	displayType_not_starts_with?: InputMaybe<Scalars["String"]>;
+	displayType_starts_with?: InputMaybe<Scalars["String"]>;
+	id?: InputMaybe<Scalars["ID"]>;
+	id_gt?: InputMaybe<Scalars["ID"]>;
+	id_gte?: InputMaybe<Scalars["ID"]>;
+	id_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_lt?: InputMaybe<Scalars["ID"]>;
+	id_lte?: InputMaybe<Scalars["ID"]>;
+	id_not?: InputMaybe<Scalars["ID"]>;
+	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
+	traitType?: InputMaybe<Scalars["String"]>;
+	traitType_contains?: InputMaybe<Scalars["String"]>;
+	traitType_ends_with?: InputMaybe<Scalars["String"]>;
+	traitType_gt?: InputMaybe<Scalars["String"]>;
+	traitType_gte?: InputMaybe<Scalars["String"]>;
+	traitType_in?: InputMaybe<Array<Scalars["String"]>>;
+	traitType_lt?: InputMaybe<Scalars["String"]>;
+	traitType_lte?: InputMaybe<Scalars["String"]>;
+	traitType_not?: InputMaybe<Scalars["String"]>;
+	traitType_not_contains?: InputMaybe<Scalars["String"]>;
+	traitType_not_ends_with?: InputMaybe<Scalars["String"]>;
+	traitType_not_in?: InputMaybe<Array<Scalars["String"]>>;
+	traitType_not_starts_with?: InputMaybe<Scalars["String"]>;
+	traitType_starts_with?: InputMaybe<Scalars["String"]>;
+	value?: InputMaybe<Scalars["String"]>;
+	value_contains?: InputMaybe<Scalars["String"]>;
+	value_ends_with?: InputMaybe<Scalars["String"]>;
+	value_gt?: InputMaybe<Scalars["String"]>;
+	value_gte?: InputMaybe<Scalars["String"]>;
+	value_in?: InputMaybe<Array<Scalars["String"]>>;
+	value_lt?: InputMaybe<Scalars["String"]>;
+	value_lte?: InputMaybe<Scalars["String"]>;
+	value_not?: InputMaybe<Scalars["String"]>;
+	value_not_contains?: InputMaybe<Scalars["String"]>;
+	value_not_ends_with?: InputMaybe<Scalars["String"]>;
+	value_not_in?: InputMaybe<Array<Scalars["String"]>>;
+	value_not_starts_with?: InputMaybe<Scalars["String"]>;
+	value_starts_with?: InputMaybe<Scalars["String"]>;
+};
+
+export enum Attribute_OrderBy {
+	DisplayType = "displayType",
+	Id = "id",
+	TraitType = "traitType",
+	Value = "value",
+}
+
 /** The block at which the query should be executed. */
 export type Block_Height = {
 	/** Value containing a block hash */
@@ -87,11 +155,10 @@ export type Block_Height = {
 
 export type MarketItem = {
 	__typename?: "MarketItem";
+	createdAt: Scalars["BigInt"];
 	creator: Account;
-	description?: Maybe<Scalars["String"]>;
 	id: Scalars["ID"];
-	image?: Maybe<Scalars["String"]>;
-	name?: Maybe<Scalars["String"]>;
+	metadata: Metadata;
 	owner: Account;
 	price: Scalars["BigInt"];
 	seller: Account;
@@ -101,6 +168,14 @@ export type MarketItem = {
 };
 
 export type MarketItem_Filter = {
+	createdAt?: InputMaybe<Scalars["BigInt"]>;
+	createdAt_gt?: InputMaybe<Scalars["BigInt"]>;
+	createdAt_gte?: InputMaybe<Scalars["BigInt"]>;
+	createdAt_in?: InputMaybe<Array<Scalars["BigInt"]>>;
+	createdAt_lt?: InputMaybe<Scalars["BigInt"]>;
+	createdAt_lte?: InputMaybe<Scalars["BigInt"]>;
+	createdAt_not?: InputMaybe<Scalars["BigInt"]>;
+	createdAt_not_in?: InputMaybe<Array<Scalars["BigInt"]>>;
 	creator?: InputMaybe<Scalars["String"]>;
 	creator_contains?: InputMaybe<Scalars["String"]>;
 	creator_ends_with?: InputMaybe<Scalars["String"]>;
@@ -115,20 +190,6 @@ export type MarketItem_Filter = {
 	creator_not_in?: InputMaybe<Array<Scalars["String"]>>;
 	creator_not_starts_with?: InputMaybe<Scalars["String"]>;
 	creator_starts_with?: InputMaybe<Scalars["String"]>;
-	description?: InputMaybe<Scalars["String"]>;
-	description_contains?: InputMaybe<Scalars["String"]>;
-	description_ends_with?: InputMaybe<Scalars["String"]>;
-	description_gt?: InputMaybe<Scalars["String"]>;
-	description_gte?: InputMaybe<Scalars["String"]>;
-	description_in?: InputMaybe<Array<Scalars["String"]>>;
-	description_lt?: InputMaybe<Scalars["String"]>;
-	description_lte?: InputMaybe<Scalars["String"]>;
-	description_not?: InputMaybe<Scalars["String"]>;
-	description_not_contains?: InputMaybe<Scalars["String"]>;
-	description_not_ends_with?: InputMaybe<Scalars["String"]>;
-	description_not_in?: InputMaybe<Array<Scalars["String"]>>;
-	description_not_starts_with?: InputMaybe<Scalars["String"]>;
-	description_starts_with?: InputMaybe<Scalars["String"]>;
 	id?: InputMaybe<Scalars["ID"]>;
 	id_gt?: InputMaybe<Scalars["ID"]>;
 	id_gte?: InputMaybe<Scalars["ID"]>;
@@ -137,34 +198,6 @@ export type MarketItem_Filter = {
 	id_lte?: InputMaybe<Scalars["ID"]>;
 	id_not?: InputMaybe<Scalars["ID"]>;
 	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
-	image?: InputMaybe<Scalars["String"]>;
-	image_contains?: InputMaybe<Scalars["String"]>;
-	image_ends_with?: InputMaybe<Scalars["String"]>;
-	image_gt?: InputMaybe<Scalars["String"]>;
-	image_gte?: InputMaybe<Scalars["String"]>;
-	image_in?: InputMaybe<Array<Scalars["String"]>>;
-	image_lt?: InputMaybe<Scalars["String"]>;
-	image_lte?: InputMaybe<Scalars["String"]>;
-	image_not?: InputMaybe<Scalars["String"]>;
-	image_not_contains?: InputMaybe<Scalars["String"]>;
-	image_not_ends_with?: InputMaybe<Scalars["String"]>;
-	image_not_in?: InputMaybe<Array<Scalars["String"]>>;
-	image_not_starts_with?: InputMaybe<Scalars["String"]>;
-	image_starts_with?: InputMaybe<Scalars["String"]>;
-	name?: InputMaybe<Scalars["String"]>;
-	name_contains?: InputMaybe<Scalars["String"]>;
-	name_ends_with?: InputMaybe<Scalars["String"]>;
-	name_gt?: InputMaybe<Scalars["String"]>;
-	name_gte?: InputMaybe<Scalars["String"]>;
-	name_in?: InputMaybe<Array<Scalars["String"]>>;
-	name_lt?: InputMaybe<Scalars["String"]>;
-	name_lte?: InputMaybe<Scalars["String"]>;
-	name_not?: InputMaybe<Scalars["String"]>;
-	name_not_contains?: InputMaybe<Scalars["String"]>;
-	name_not_ends_with?: InputMaybe<Scalars["String"]>;
-	name_not_in?: InputMaybe<Array<Scalars["String"]>>;
-	name_not_starts_with?: InputMaybe<Scalars["String"]>;
-	name_starts_with?: InputMaybe<Scalars["String"]>;
 	owner?: InputMaybe<Scalars["String"]>;
 	owner_contains?: InputMaybe<Scalars["String"]>;
 	owner_ends_with?: InputMaybe<Scalars["String"]>;
@@ -230,17 +263,130 @@ export type MarketItem_Filter = {
 };
 
 export enum MarketItem_OrderBy {
+	CreatedAt = "createdAt",
 	Creator = "creator",
-	Description = "description",
 	Id = "id",
-	Image = "image",
-	Name = "name",
+	Metadata = "metadata",
 	Owner = "owner",
 	Price = "price",
 	Seller = "seller",
 	Sold = "sold",
 	TokenId = "tokenId",
 	TokenUri = "tokenURI",
+}
+
+export type Metadata = {
+	__typename?: "Metadata";
+	attributes: Array<Attribute>;
+	description: Scalars["String"];
+	externalUrl?: Maybe<Scalars["String"]>;
+	id: Scalars["ID"];
+	image?: Maybe<Scalars["String"]>;
+	name: Scalars["String"];
+	parent: MarketItem;
+};
+
+export type MetadataAttributesArgs = {
+	first?: InputMaybe<Scalars["Int"]>;
+	orderBy?: InputMaybe<Attribute_OrderBy>;
+	orderDirection?: InputMaybe<OrderDirection>;
+	skip?: InputMaybe<Scalars["Int"]>;
+	where?: InputMaybe<Attribute_Filter>;
+};
+
+export type Metadata_Filter = {
+	attributes?: InputMaybe<Array<Scalars["String"]>>;
+	attributes_contains?: InputMaybe<Array<Scalars["String"]>>;
+	attributes_not?: InputMaybe<Array<Scalars["String"]>>;
+	attributes_not_contains?: InputMaybe<Array<Scalars["String"]>>;
+	description?: InputMaybe<Scalars["String"]>;
+	description_contains?: InputMaybe<Scalars["String"]>;
+	description_ends_with?: InputMaybe<Scalars["String"]>;
+	description_gt?: InputMaybe<Scalars["String"]>;
+	description_gte?: InputMaybe<Scalars["String"]>;
+	description_in?: InputMaybe<Array<Scalars["String"]>>;
+	description_lt?: InputMaybe<Scalars["String"]>;
+	description_lte?: InputMaybe<Scalars["String"]>;
+	description_not?: InputMaybe<Scalars["String"]>;
+	description_not_contains?: InputMaybe<Scalars["String"]>;
+	description_not_ends_with?: InputMaybe<Scalars["String"]>;
+	description_not_in?: InputMaybe<Array<Scalars["String"]>>;
+	description_not_starts_with?: InputMaybe<Scalars["String"]>;
+	description_starts_with?: InputMaybe<Scalars["String"]>;
+	externalUrl?: InputMaybe<Scalars["String"]>;
+	externalUrl_contains?: InputMaybe<Scalars["String"]>;
+	externalUrl_ends_with?: InputMaybe<Scalars["String"]>;
+	externalUrl_gt?: InputMaybe<Scalars["String"]>;
+	externalUrl_gte?: InputMaybe<Scalars["String"]>;
+	externalUrl_in?: InputMaybe<Array<Scalars["String"]>>;
+	externalUrl_lt?: InputMaybe<Scalars["String"]>;
+	externalUrl_lte?: InputMaybe<Scalars["String"]>;
+	externalUrl_not?: InputMaybe<Scalars["String"]>;
+	externalUrl_not_contains?: InputMaybe<Scalars["String"]>;
+	externalUrl_not_ends_with?: InputMaybe<Scalars["String"]>;
+	externalUrl_not_in?: InputMaybe<Array<Scalars["String"]>>;
+	externalUrl_not_starts_with?: InputMaybe<Scalars["String"]>;
+	externalUrl_starts_with?: InputMaybe<Scalars["String"]>;
+	id?: InputMaybe<Scalars["ID"]>;
+	id_gt?: InputMaybe<Scalars["ID"]>;
+	id_gte?: InputMaybe<Scalars["ID"]>;
+	id_in?: InputMaybe<Array<Scalars["ID"]>>;
+	id_lt?: InputMaybe<Scalars["ID"]>;
+	id_lte?: InputMaybe<Scalars["ID"]>;
+	id_not?: InputMaybe<Scalars["ID"]>;
+	id_not_in?: InputMaybe<Array<Scalars["ID"]>>;
+	image?: InputMaybe<Scalars["String"]>;
+	image_contains?: InputMaybe<Scalars["String"]>;
+	image_ends_with?: InputMaybe<Scalars["String"]>;
+	image_gt?: InputMaybe<Scalars["String"]>;
+	image_gte?: InputMaybe<Scalars["String"]>;
+	image_in?: InputMaybe<Array<Scalars["String"]>>;
+	image_lt?: InputMaybe<Scalars["String"]>;
+	image_lte?: InputMaybe<Scalars["String"]>;
+	image_not?: InputMaybe<Scalars["String"]>;
+	image_not_contains?: InputMaybe<Scalars["String"]>;
+	image_not_ends_with?: InputMaybe<Scalars["String"]>;
+	image_not_in?: InputMaybe<Array<Scalars["String"]>>;
+	image_not_starts_with?: InputMaybe<Scalars["String"]>;
+	image_starts_with?: InputMaybe<Scalars["String"]>;
+	name?: InputMaybe<Scalars["String"]>;
+	name_contains?: InputMaybe<Scalars["String"]>;
+	name_ends_with?: InputMaybe<Scalars["String"]>;
+	name_gt?: InputMaybe<Scalars["String"]>;
+	name_gte?: InputMaybe<Scalars["String"]>;
+	name_in?: InputMaybe<Array<Scalars["String"]>>;
+	name_lt?: InputMaybe<Scalars["String"]>;
+	name_lte?: InputMaybe<Scalars["String"]>;
+	name_not?: InputMaybe<Scalars["String"]>;
+	name_not_contains?: InputMaybe<Scalars["String"]>;
+	name_not_ends_with?: InputMaybe<Scalars["String"]>;
+	name_not_in?: InputMaybe<Array<Scalars["String"]>>;
+	name_not_starts_with?: InputMaybe<Scalars["String"]>;
+	name_starts_with?: InputMaybe<Scalars["String"]>;
+	parent?: InputMaybe<Scalars["String"]>;
+	parent_contains?: InputMaybe<Scalars["String"]>;
+	parent_ends_with?: InputMaybe<Scalars["String"]>;
+	parent_gt?: InputMaybe<Scalars["String"]>;
+	parent_gte?: InputMaybe<Scalars["String"]>;
+	parent_in?: InputMaybe<Array<Scalars["String"]>>;
+	parent_lt?: InputMaybe<Scalars["String"]>;
+	parent_lte?: InputMaybe<Scalars["String"]>;
+	parent_not?: InputMaybe<Scalars["String"]>;
+	parent_not_contains?: InputMaybe<Scalars["String"]>;
+	parent_not_ends_with?: InputMaybe<Scalars["String"]>;
+	parent_not_in?: InputMaybe<Array<Scalars["String"]>>;
+	parent_not_starts_with?: InputMaybe<Scalars["String"]>;
+	parent_starts_with?: InputMaybe<Scalars["String"]>;
+};
+
+export enum Metadata_OrderBy {
+	Attributes = "attributes",
+	Description = "description",
+	ExternalUrl = "externalUrl",
+	Id = "id",
+	Image = "image",
+	Name = "name",
+	Parent = "parent",
 }
 
 /** Defines the order direction, either ascending or descending */
@@ -255,9 +401,12 @@ export type Query = {
 	_meta?: Maybe<_Meta_>;
 	account?: Maybe<Account>;
 	accounts: Array<Account>;
-	bandSearch: Array<MarketItem>;
+	attribute?: Maybe<Attribute>;
+	attributes: Array<Attribute>;
 	marketItem?: Maybe<MarketItem>;
 	marketItems: Array<MarketItem>;
+	metadata: Array<Metadata>;
+	search: Array<Metadata>;
 	transfer?: Maybe<Transfer>;
 	transfers: Array<Transfer>;
 };
@@ -282,12 +431,20 @@ export type QueryAccountsArgs = {
 	where?: InputMaybe<Account_Filter>;
 };
 
-export type QueryBandSearchArgs = {
+export type QueryAttributeArgs = {
+	block?: InputMaybe<Block_Height>;
+	id: Scalars["ID"];
+	subgraphError?: _SubgraphErrorPolicy_;
+};
+
+export type QueryAttributesArgs = {
 	block?: InputMaybe<Block_Height>;
 	first?: InputMaybe<Scalars["Int"]>;
+	orderBy?: InputMaybe<Attribute_OrderBy>;
+	orderDirection?: InputMaybe<OrderDirection>;
 	skip?: InputMaybe<Scalars["Int"]>;
 	subgraphError?: _SubgraphErrorPolicy_;
-	text: Scalars["String"];
+	where?: InputMaybe<Attribute_Filter>;
 };
 
 export type QueryMarketItemArgs = {
@@ -304,6 +461,24 @@ export type QueryMarketItemsArgs = {
 	skip?: InputMaybe<Scalars["Int"]>;
 	subgraphError?: _SubgraphErrorPolicy_;
 	where?: InputMaybe<MarketItem_Filter>;
+};
+
+export type QueryMetadataArgs = {
+	block?: InputMaybe<Block_Height>;
+	first?: InputMaybe<Scalars["Int"]>;
+	orderBy?: InputMaybe<Metadata_OrderBy>;
+	orderDirection?: InputMaybe<OrderDirection>;
+	skip?: InputMaybe<Scalars["Int"]>;
+	subgraphError?: _SubgraphErrorPolicy_;
+	where?: InputMaybe<Metadata_Filter>;
+};
+
+export type QuerySearchArgs = {
+	block?: InputMaybe<Block_Height>;
+	first?: InputMaybe<Scalars["Int"]>;
+	skip?: InputMaybe<Scalars["Int"]>;
+	subgraphError?: _SubgraphErrorPolicy_;
+	text: Scalars["String"];
 };
 
 export type QueryTransferArgs = {
@@ -328,8 +503,11 @@ export type Subscription = {
 	_meta?: Maybe<_Meta_>;
 	account?: Maybe<Account>;
 	accounts: Array<Account>;
+	attribute?: Maybe<Attribute>;
+	attributes: Array<Attribute>;
 	marketItem?: Maybe<MarketItem>;
 	marketItems: Array<MarketItem>;
+	metadata: Array<Metadata>;
 	transfer?: Maybe<Transfer>;
 	transfers: Array<Transfer>;
 };
@@ -354,6 +532,22 @@ export type SubscriptionAccountsArgs = {
 	where?: InputMaybe<Account_Filter>;
 };
 
+export type SubscriptionAttributeArgs = {
+	block?: InputMaybe<Block_Height>;
+	id: Scalars["ID"];
+	subgraphError?: _SubgraphErrorPolicy_;
+};
+
+export type SubscriptionAttributesArgs = {
+	block?: InputMaybe<Block_Height>;
+	first?: InputMaybe<Scalars["Int"]>;
+	orderBy?: InputMaybe<Attribute_OrderBy>;
+	orderDirection?: InputMaybe<OrderDirection>;
+	skip?: InputMaybe<Scalars["Int"]>;
+	subgraphError?: _SubgraphErrorPolicy_;
+	where?: InputMaybe<Attribute_Filter>;
+};
+
 export type SubscriptionMarketItemArgs = {
 	block?: InputMaybe<Block_Height>;
 	id: Scalars["ID"];
@@ -368,6 +562,16 @@ export type SubscriptionMarketItemsArgs = {
 	skip?: InputMaybe<Scalars["Int"]>;
 	subgraphError?: _SubgraphErrorPolicy_;
 	where?: InputMaybe<MarketItem_Filter>;
+};
+
+export type SubscriptionMetadataArgs = {
+	block?: InputMaybe<Block_Height>;
+	first?: InputMaybe<Scalars["Int"]>;
+	orderBy?: InputMaybe<Metadata_OrderBy>;
+	orderDirection?: InputMaybe<OrderDirection>;
+	skip?: InputMaybe<Scalars["Int"]>;
+	subgraphError?: _SubgraphErrorPolicy_;
+	where?: InputMaybe<Metadata_Filter>;
 };
 
 export type SubscriptionTransferArgs = {
@@ -492,15 +696,27 @@ export type MarketItemsQuery = {
 	__typename?: "Query";
 	marketItems: Array<{
 		__typename?: "MarketItem";
-		description?: string | null;
-		id: string;
-		image?: string | null;
-		name?: string | null;
+		tokenId: any;
+		tokenURI?: string | null;
+		createdAt: any;
 		price: any;
 		sold: boolean;
-		tokenId: any;
+		creator: {__typename?: "Account"; id: string};
 		owner: {__typename?: "Account"; id: string};
 		seller: {__typename?: "Account"; id: string};
+		metadata: {
+			__typename?: "Metadata";
+			image?: string | null;
+			name: string;
+			description: string;
+			externalUrl?: string | null;
+			attributes: Array<{
+				__typename?: "Attribute";
+				traitType: string;
+				value: string;
+				displayType?: string | null;
+			}>;
+		};
 	}>;
 };
 
@@ -519,19 +735,31 @@ export const MarketItemsDocument = gql`
 			skip: $skip
 			first: $first
 		) {
-			description
-			id
-			image
-			name
+			tokenId
+			tokenURI
+			createdAt
+			price
+			sold
+			creator {
+				id
+			}
 			owner {
 				id
 			}
-			price
-			sold
 			seller {
 				id
 			}
-			tokenId
+			metadata {
+				image
+				name
+				description
+				externalUrl
+				attributes {
+					traitType
+					value
+					displayType
+				}
+			}
 		}
 	}
 `;

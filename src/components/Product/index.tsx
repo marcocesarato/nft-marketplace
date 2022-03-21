@@ -26,12 +26,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 	const {isOpen, onOpen, onClose} = useDisclosure();
 	return (
 		<>
-			<Stack
-				pt={12}
-				spacing={useBreakpointValue({base: "4", md: "5"})}
-				cursor="pointer"
-				onClick={onOpen}
-				{...rootProps}>
+			<Stack pt={12} spacing={useBreakpointValue({base: "4", md: "5"})} {...rootProps}>
 				<Box
 					role={"group"}
 					w={"full"}
@@ -70,14 +65,25 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 							boxShadow={"md"}
 							alt={data?.name}
 							src={resolveLink(data?.image)}
+							cursor="pointer"
 							fallbackSrc="https://via.placeholder.com/150/000000/000000/?text="
+							transition={`all .3s ease`}
+							onClick={onOpen}
+							_hover={{
+								transform: "scale(1.1)",
+							}}
 						/>
 					</Box>
 					<Stack p={6} pt={10} align={"center"}>
 						<Text color={"gray.500"} fontSize={"sm"} textTransform={"uppercase"}>
 							{t("common:product.item")}
 						</Text>
-						<Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
+						<Heading
+							fontSize={"2xl"}
+							fontFamily={"body"}
+							fontWeight={500}
+							cursor="pointer"
+							onClick={onOpen}>
 							{data?.name}
 						</Heading>
 						{data?.creator && (

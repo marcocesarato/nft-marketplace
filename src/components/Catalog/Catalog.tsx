@@ -1,6 +1,5 @@
 import {Box, SimpleGrid} from "@chakra-ui/react";
 
-import type {NFT} from "@app/types";
 import Product from "@components/Product";
 
 import CatalogFilterBar from "./CatalogFilterBar";
@@ -11,7 +10,7 @@ export default function Catalog({
 	onPurchase = null,
 	...props
 }): JSX.Element {
-	const handlePurchase = (product: NFT): (() => {}) => {
+	const handlePurchase = (product): (() => {}) => {
 		if (onPurchase) {
 			return () => onPurchase(product);
 		}

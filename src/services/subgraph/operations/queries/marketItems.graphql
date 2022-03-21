@@ -12,19 +12,30 @@ query MarketItems(
 		skip: $skip
 		first: $first
 	) {
-		description
-		id
-		image
-		name
+		tokenId
+		tokenURI
+		createdAt
+		price
+		sold
+		creator {
+			id
+		}
 		owner {
 			id
 		}
-		price
-		sold
 		seller {
 			id
 		}
-		tokenId
-		#tokenURI
+		metadata {
+			image
+			name
+			description
+			externalUrl
+			attributes {
+				traitType
+				value
+				displayType
+			}
+		}
 	}
 }
