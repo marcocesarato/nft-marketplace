@@ -15,6 +15,7 @@ import {useTranslation} from "next-i18next";
 import Catalog from "@/src/components/Catalog/Catalog";
 import Loading from "@components/Loading";
 import Particles from "@components/Particles";
+import useSidebar from "@hooks/useSidebar";
 import {useMarketItemsQuery} from "@services/subgraph";
 import {withMetadata} from "@utils/converters";
 import {getStaticPropsLocale} from "@utils/i18n";
@@ -22,6 +23,7 @@ import {getStaticPropsLocale} from "@utils/i18n";
 export const getStaticProps = getStaticPropsLocale;
 export default function Home(): JSX.Element {
 	const {t} = useTranslation();
+	const {isSidebarCompress} = useSidebar();
 	const {data, loading, error} = useMarketItemsQuery();
 	const items = withMetadata(data?.marketItems);
 	return (
@@ -42,8 +44,15 @@ export default function Home(): JSX.Element {
 						}}
 					/>
 				</Box>
-				<HStack w="full" mb="6">
-					<Box textAlign={{base: "center", xl: "left"}} p={4} w="full">
+				<HStack w="full" mb="6" mt={{base: 6, xl: 0}}>
+					<Box
+						textAlign={{
+							base: "center",
+							md: isSidebarCompress ? "left" : "center",
+							xl: "left",
+						}}
+						p={4}
+						w="full">
 						<Heading
 							as="h1"
 							size="3xl"
@@ -59,7 +68,11 @@ export default function Home(): JSX.Element {
 						</Text>
 						<Stack
 							w="full"
-							justify={{base: "center", xl: "flex-start"}}
+							justify={{
+								base: "center",
+								md: isSidebarCompress ? "flex-start" : "center",
+								xl: "flex-start",
+							}}
 							direction={{base: "column", md: "row"}}
 							mt="10"
 							spacing="4">
@@ -82,7 +95,7 @@ export default function Home(): JSX.Element {
 					</Box>
 					<Image
 						pt={6}
-						d={{base: "none", xl: "block"}}
+						d={{base: "none", md: isSidebarCompress ? "block" : "none", xl: "block"}}
 						src="/assets/images/metaverse.png"
 						alt="metaverse"
 					/>
