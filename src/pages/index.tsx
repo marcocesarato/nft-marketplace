@@ -34,7 +34,10 @@ export default function Home(): JSX.Element {
 					top="94px"
 					width="100%"
 					left={useBreakpointValue({base: "0", lg: "15px"})}
-					bg={useColorModeValue("#805bd530", "#805bd515")}
+					bg={useColorModeValue(
+						"linear-gradient(180deg, rgba(128,91,213,0.3) 60%, rgba(9,9,121,0) 100%)",
+						"linear-gradient(180deg, rgba(128,91,213,0.15) 60%, rgba(9,9,121,0) 100%)",
+					)}
 					borderTopLeftRadius="15px">
 					<Particles
 						style={{
