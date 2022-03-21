@@ -1,7 +1,7 @@
 /**
  * Deploy smart contracts to blockchain
  */
-const {ethers} = require("hardhat");
+const {ethers, upgrades} = require("hardhat");
 const fs = require("fs");
 
 async function main() {
@@ -10,8 +10,8 @@ async function main() {
 	console.log("Deploying contracts with the account:", deployer.address);
 
 	let txHash, txReceipt;
-	const NFTMarket = await ethers.getContractFactory("Market");
-	const nftMarket = await NFTMarket.deploy();
+	const NFTMarket = await ethers.getContractFactory("MarketUpgradeable");
+	const nftMarket = await upgrades.deployProxy(NFTMarket);
 	await nftMarket.deployed();
 
 	txHash = nftMarket.deployTransaction.hash;
@@ -19,8 +19,14 @@ async function main() {
 	const nftMarketAddress = txReceipt.contractAddress;
 
 	console.log("Market contract deployed to", nftMarketAddress);
+	console.log(" - Market(proxy) Address:", nftMarket.address);
+	console.log(
+		" - Implementation Address:",
+		await upgrades.erc1967.getImplementationAddress(nftMarket.address),
+	);
+	console.log(" - Admin Address", await upgrades.erc1967.getAdminAddress(nftMarket.address));
 
-	const artifact = require("../artifacts/contracts/Market.sol/Market.json");
+	const artifact = require("../artifacts/contracts/MarketUpgradeable.sol/MarketUpgradeable.json");
 	fs.writeFileSync("abis/Market.json", JSON.stringify(artifact.abi));
 	console.log("Market contract ABI exported to ./abis/Market.json");
 

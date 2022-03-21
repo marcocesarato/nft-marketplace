@@ -5,20 +5,26 @@ import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
-import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721URIStorageUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC721/IERC721ReceiverUpgradeable.sol";
 
 import "hardhat/console.sol";
 
-contract Market is ERC721URIStorage, IERC721Receiver {
-	using Counters for Counters.Counter;
-	Counters.Counter private _tokenIds;
-	Counters.Counter private _itemsSold;
+contract MarketUpgradeable is
+	Initializable,
+	ERC721URIStorageUpgradeable,
+	IERC721ReceiverUpgradeable
+{
+	using StringsUpgradeable for uint256;
+	using CountersUpgradeable for CountersUpgradeable.Counter;
+	CountersUpgradeable.Counter private _tokenIds;
+	CountersUpgradeable.Counter private _itemsSold;
 
 	AggregatorV3Interface internal priceFeed;
 
-	uint256 listingPrice = 0.025 ether;
+	uint256 listingPrice;
 	address payable owner;
 
 	mapping(uint256 => MarketItem) private idToMarketItem;
@@ -43,8 +49,19 @@ contract Market is ERC721URIStorage, IERC721Receiver {
 
 	event MarketItemTransaction(uint256 indexed tokenId, address seller, address owner, bool sold);
 
-	constructor() ERC721("ACN Metaverse Tokens", "ACNT") {
+	/**
+	 * Initializes the market.
+	 */
+	function initialize() public initializer {
+		__ERC721_init("ACN Metaverse Tokens", "ACNT");
+		__ERC721URIStorage_init();
+		listingPrice = 0.025 ether;
 		owner = payable(msg.sender);
+		/**
+		 * Network: Polygon Testnet (Mumbai)
+		 * Aggregator: MATIC/USD
+		 * Address: 0x686c626E48bfC5DC98a30a9992897766fed4Abd3
+		 */
 		priceFeed = AggregatorV3Interface(0x686c626E48bfC5DC98a30a9992897766fed4Abd3);
 	}
 
