@@ -33,8 +33,8 @@ function Page({Component, pageProps}): JSX.Element {
 		if (isInitialized) Moralis.initPlugins();
 	}, [isInitialized, Moralis]);
 
-	if (isWeb3EnableLoading || isInitializing) return <Loader message="Loading..." />;
 	if (isAuthenticating) return <Loader message="Check for athentication on your wallet..." />;
+	if (isWeb3EnableLoading || isInitializing) return <Loader message="Loading..." />;
 
 	return (
 		<>
