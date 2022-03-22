@@ -8,7 +8,6 @@ import Providers from "@app/Providers";
 import type {TWeb3Provider} from "@app/types";
 import Loader from "@components/Loader";
 import Loading from "@components/Loading";
-import RouteGuard from "@components/RouterGuard";
 import ErrorBoundary from "@errors/ErrorBoundary";
 import useAccount from "@hooks/useAccount";
 import useLocalStorage from "@hooks/useLocalStorage";
@@ -38,13 +37,13 @@ function Page({Component, pageProps}): JSX.Element {
 		);
 
 	return (
-		<RouteGuard>
+		<>
 			<Head>
 				<title>NFT Marketplace</title>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			</Head>
 			<Component {...pageProps} />
-		</RouteGuard>
+		</>
 	);
 }
 function App(props): JSX.Element {
