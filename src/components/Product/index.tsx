@@ -4,13 +4,13 @@ import {
 	Button,
 	Heading,
 	HStack,
-	Image,
 	Stack,
 	Text,
 	useBreakpointValue,
 	useColorModeValue,
 	useDisclosure,
 } from "@chakra-ui/react";
+import {motion} from "framer-motion";
 import {useTranslation} from "next-i18next";
 
 import {useConfig} from "@contexts/Global";
@@ -19,6 +19,7 @@ import {formatAddress} from "@utils/formatters";
 
 import ProductModal from "./ProductModal";
 
+const MotionStack = motion(Stack);
 export default function Product({data, onPurchase = null, ...rootProps}): JSX.Element {
 	const {t} = useTranslation();
 	const {nativeToken} = useConfig();
@@ -26,7 +27,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 	const {isOpen, onOpen, onClose} = useDisclosure();
 	return (
 		<>
-			<Stack pt={12} spacing={useBreakpointValue({base: "4", md: "5"})} {...rootProps}>
+			<MotionStack pt={12} spacing={useBreakpointValue({base: "4", md: "5"})} {...rootProps}>
 				<Box
 					role={"group"}
 					w={"full"}
@@ -39,7 +40,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 						rounded={"lg"}
 						mt={-12}
 						pos={"relative"}
-						_after={{
+						_before={{
 							transition: "all .3s ease",
 							content: '""',
 							w: "full",
@@ -49,6 +50,8 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 							top: 2,
 							left: 0,
 							background: `url(${resolveLink(data?.image)}) #333`,
+							backgroundSize: "cover",
+							backgroundPosition: "center",
 							filter: `blur(15px) brightness(${useColorModeValue("80%", "50%")})`,
 							zIndex: -1,
 						}}
@@ -57,18 +60,17 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 								filter: "blur(25px)",
 							},
 						}}>
-						<Image
-							rounded={"lg"}
-							width="full"
-							height="full"
-							objectFit={"cover"}
-							boxShadow={"md"}
-							alt={data?.name}
-							src={resolveLink(data?.image)}
+						<Box
+							transition="all .3s ease"
+							w="full"
+							h={0}
+							paddingTop="100%"
+							borderRadius="md"
 							cursor="pointer"
-							fallbackSrc="https://via.placeholder.com/150/000000/000000/?text="
-							transition={`all .3s ease`}
 							onClick={onOpen}
+							background={`url(${resolveLink(data?.image)}) #333`}
+							backgroundSize="cover"
+							backgroundPosition="center"
 							_hover={{
 								transform: "scale(1.1)",
 							}}
@@ -129,7 +131,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 						</HStack>
 					)}
 				</Box>
-			</Stack>
+			</MotionStack>
 			<ProductModal data={data} isOpen={isOpen} onClose={onClose} onPurchase={onPurchase} />
 		</>
 	);
