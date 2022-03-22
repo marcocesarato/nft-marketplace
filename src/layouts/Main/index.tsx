@@ -1,5 +1,6 @@
 import Viewport from "@components/Viewport";
 import useSidebar from "@hooks/useSidebar";
+import BottomBar from "@layouts/BottomBar";
 import Sidebar from "@layouts/Sidebar";
 
 import Navbar from "../Navbar";
@@ -10,7 +11,8 @@ export default function Main({children}: {children: React.ReactNode}): JSX.Eleme
 	const {isOpenSidebar, sidebarWidth} = useSidebar();
 	return (
 		<Viewport>
-			<Sidebar title={"Marketplace"} />
+			<Sidebar title={"Marketplace"} d={{sm: "none", lg: "block"}} />
+			<BottomBar d={{base: "flex", lg: "none"}} />
 			<MainPanel
 				w={{
 					base: "100%",

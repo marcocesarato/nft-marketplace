@@ -3,6 +3,7 @@ import {useRouter} from "next/router";
 
 import {publicPaths} from "@configs/routes";
 import useAccount from "@hooks/useAccount";
+import {getPath} from "@utils/url";
 
 export default function RouterGuard({children}: {children: ReactNode}): JSX.Element {
 	const router = useRouter();
@@ -10,7 +11,7 @@ export default function RouterGuard({children}: {children: ReactNode}): JSX.Elem
 	const [authorized, setAuthorized] = useState(false);
 
 	useEffect(() => {
-		const path = router?.asPath?.split("?")[0].split("#")[0];
+		const path = getPath(router?.asPath);
 		if (!isAuthenticated && !publicPaths.includes(path) && !router?.isFallback) {
 			setAuthorized(false);
 			if (!isAuthenticating)

@@ -1,7 +1,9 @@
 import {ComponentProps, ReactNode} from "react";
 import NavLink from "next/link";
 import {useRouter} from "next/router";
-import {Box, Button, Flex, Text, useColorModeValue as mode} from "@chakra-ui/react";
+import {As, Box, Button, Flex, Icon, Text, useColorModeValue as mode} from "@chakra-ui/react";
+
+import {getPath} from "@utils/url";
 
 import IconBox from "./IconBox";
 
@@ -25,7 +27,7 @@ function SidebarSection({
 }: SidebarSectionProps): JSX.Element {
 	const router = useRouter();
 	const activeRoute = (routeName: string) => {
-		const path = router?.asPath.split("?")[0].split("#")[0];
+		const path = getPath(router?.asPath);
 		return path === routeName ? "active" : "";
 	};
 
@@ -87,7 +89,7 @@ function SidebarSection({
 							h="30px"
 							w="30px"
 							me="12px">
-							{icon}
+							<Icon aria-hidden as={icon as As<any>} />
 						</IconBox>
 						{!compress && (
 							<Text

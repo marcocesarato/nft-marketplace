@@ -1,0 +1,44 @@
+import {useMemo} from "react";
+import {
+	Box,
+	forwardRef,
+	HTMLChakraProps,
+	StylesProvider,
+	SystemStyleObject,
+	useStyles,
+} from "@chakra-ui/react";
+import {cx, dataAttr} from "@chakra-ui/utils";
+
+import {useBottomNavigationContext, useBottomNavigationItemContext} from "./useBottomNavigation";
+
+interface IBottomNavigationLabelProps extends HTMLChakraProps<"div"> {}
+
+export const BottomNavigationLabel = forwardRef<IBottomNavigationLabelProps, "div">(
+	(props, ref) => {
+		const {showLabel} = useBottomNavigationContext();
+		const {isSelected} = useBottomNavigationItemContext();
+		const styles = useStyles();
+
+		const dataIsLabelHidden = useMemo(
+			() => dataAttr(showLabel === "never" || (showLabel === "if-active" && !isSelected)),
+			[showLabel, isSelected],
+		);
+
+		const labelStyles: SystemStyleObject = {
+			flex: 1,
+			...styles.label,
+		};
+
+		return (
+			<StylesProvider value={styles}>
+				<Box
+					ref={ref}
+					className={cx("chakra-bottom-navigation__label", props.className)}
+					__css={labelStyles}
+					data-hidden={dataIsLabelHidden}
+					{...props}
+				/>
+			</StylesProvider>
+		);
+	},
+);

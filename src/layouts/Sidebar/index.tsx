@@ -13,7 +13,7 @@ import SidebarContent from "./SidebarContent";
 import SidebarResponsive from "./SidebarResponsive";
 import SidebarSection from "./SidebarSection";
 
-function Sidebar({title}): JSX.Element {
+function Sidebar({title, ...props}): JSX.Element {
 	const {t} = useTranslation();
 	const routes = useRoutes();
 	const {isAuthenticated, logout} = useAccount();
@@ -49,10 +49,10 @@ function Sidebar({title}): JSX.Element {
 
 	return (
 		<>
-			<Box display={{sm: "none", lg: "block"}} ref={mainPanel}>
+			<Box {...props} ref={mainPanel}>
 				<Box position="fixed">
 					<Box
-						display="block"
+						d="block"
 						transition="0.2s linear"
 						w={sidebarWidth}
 						h="calc(100vh - 175px)"
@@ -71,7 +71,7 @@ function Sidebar({title}): JSX.Element {
 								{isAuthenticated && (
 									<SidebarSection
 										label={t("common:action.disconnect")}
-										icon={<AiOutlineLogout />}
+										icon={AiOutlineLogout}
 										compress={isSidebarCompress}
 										onClick={logout}
 									/>
@@ -79,11 +79,7 @@ function Sidebar({title}): JSX.Element {
 								<SidebarSection
 									label={t("common:account.compress")}
 									icon={
-										isSidebarCompress ? (
-											<BsLayoutSidebarInset />
-										) : (
-											<BsLayoutSidebar />
-										)
+										isSidebarCompress ? BsLayoutSidebarInset : BsLayoutSidebar
 									}
 									compress={isSidebarCompress}
 									onClick={onToggleSidebar}

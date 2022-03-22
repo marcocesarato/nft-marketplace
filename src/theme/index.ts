@@ -5,6 +5,7 @@ import {CardBodyComponent} from "./additions/card/CardBody";
 import {CardHeaderComponent} from "./additions/card/CardHeader";
 import {MainPanelComponent} from "./additions/layout/MainPanel";
 import {PanelContainerComponent} from "./additions/layout/PanelContainer";
+import {BottomNavigationComponent} from "./additions/navigation/BottomNavigation";
 import {badgeStyles} from "./components/badge";
 import {buttonStyles} from "./components/button";
 import {drawerStyles} from "./components/drawer";
@@ -30,4 +31,5 @@ export default extendTheme(
 	CardHeaderComponent, // Card Header component
 	MainPanelComponent, // Main Panel component
 	PanelContainerComponent, // Panel Container component
+	BottomNavigationComponent, // Bottom Navigation component
 );
