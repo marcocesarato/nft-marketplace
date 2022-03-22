@@ -136,7 +136,7 @@ How to connect Polygon Testnet to MetaMask wallet? The easiest way to get it don
 
 ## Technology Stack
 
-![](/docs/images/tech-stack.svg)
+![](/docs/images/tech-stack.png)
 ### Main
 
 - **Web Framework:** [React](https://reactjs.org/) / [NextJS](https://nextjs.org/) (with [TypeScript](https://www.typescriptlang.org/))
