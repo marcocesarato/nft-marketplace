@@ -5,11 +5,9 @@ import type {TWeb3Provider} from "@app/types";
 import {connectors} from "@configs/connectors";
 import useAccount from "@hooks/useAccount";
 import useLocalStorage from "@hooks/useLocalStorage";
-import useWeb3 from "@hooks/useWeb3";
 
 export default function WalletConnect(): JSX.Element {
 	const {authenticate} = useAccount();
-	const {enableWeb3} = useWeb3();
 	const [, setConnectorId] = useLocalStorage<TWeb3Provider>("connectorId");
 	return (
 		<Grid templateColumns={"1fr 1fr"} rowGap={5}>
@@ -31,7 +29,6 @@ export default function WalletConnect(): JSX.Element {
 									provider: connectorId,
 									signingMessage: "Authenticate",
 								});
-								await enableWeb3({provider: connectorId});
 								//onClose && onClose();
 							} catch (e) {
 								console.error(e);

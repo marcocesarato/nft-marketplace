@@ -23,7 +23,9 @@ function Page({Component, pageProps}): JSX.Element {
 	const [connectorId] = useLocalStorage<TWeb3Provider>("connectorId");
 
 	useEffect(() => {
-		if (isLogged && !isWeb3Enabled && !isWeb3EnableLoading) enableWeb3({provider: connectorId});
+		if (isLogged && !isWeb3Enabled && !isWeb3EnableLoading) {
+			enableWeb3();
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isLogged, isWeb3Enabled, connectorId]);
 
@@ -31,10 +33,8 @@ function Page({Component, pageProps}): JSX.Element {
 		if (isInitialized) Moralis.initPlugins();
 	}, [isInitialized, Moralis]);
 
-	if (isAuthenticating || isWeb3EnableLoading || isInitializing)
-		return (
-			<Loader message="Loading, if you stucked please check the wallet to authenticate..." />
-		);
+	if (isWeb3EnableLoading || isInitializing) return <Loader message="Loading..." />;
+	if (isAuthenticating) return <Loader message="Check for athentication on your wallet..." />;
 
 	return (
 		<>

@@ -39,12 +39,12 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 						rounded={"lg"}
 						mt={-12}
 						pos={"relative"}
-						height={"230px"}
 						_after={{
 							transition: "all .3s ease",
 							content: '""',
 							w: "full",
-							h: "full",
+							h: 0,
+							paddingTop: "100%",
 							pos: "absolute",
 							top: 2,
 							left: 0,
@@ -59,8 +59,8 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 						}}>
 						<Image
 							rounded={"lg"}
-							height={230}
-							width="100%"
+							width="full"
+							height="full"
 							objectFit={"cover"}
 							boxShadow={"md"}
 							alt={data?.name}
