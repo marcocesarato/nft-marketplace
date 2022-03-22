@@ -2,11 +2,17 @@ require("dotenv").config();
 const path = require("path");
 const Dotenv = require("dotenv-webpack");
 const {i18n} = require("./next-i18next.config");
+const withPWA = require("next-pwa");
 
-module.exports = {
+module.exports = withPWA({
 	reactStrictMode: true,
 	experimental: {
 		outputStandalone: true,
+	},
+	pwa: {
+		dest: "public",
+		register: true,
+		skipWaiting: true,
 	},
 	poweredByHeader: false,
 	i18n,
@@ -27,4 +33,4 @@ module.exports = {
 		];
 		return config;
 	},
-};
+});

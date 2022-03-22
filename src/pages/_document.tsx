@@ -11,7 +11,11 @@ export default class Document extends NextDocument {
 	render() {
 		return (
 			<Html>
-				<Head />
+				<Head>
+					<link rel="manifest" href="/manifest.json" />
+					<link rel="apple-touch-icon" href="/icon.png"></link>
+					<meta name="theme-color" content="#171923" />
+				</Head>
 				<body>
 					<ColorModeScript initialColorMode={theme.config.initialColorMode} />
 					<Main />
