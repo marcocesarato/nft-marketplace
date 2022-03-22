@@ -62,6 +62,7 @@
         "next": "^12.1.0",
         "next-connect": "^0.12.2",
         "next-i18next": "^10.5.0",
+        "next-pwa": "^5.4.6",
         "nft.storage": "^6.0.2",
         "react": "17.0.2",
         "react-apexcharts": "^1.4.0",
@@ -73,7 +74,8 @@
         "react-query": "^3.34.16",
         "react-ssr-prepass": "^1.5.0",
         "three": "^0.138.3",
-        "three-to-cannon": "^4.0.2"
+        "three-to-cannon": "^4.0.2",
+        "web3-eth-contract": "^1.7.1"
     },
     "devDependencies": {
         "@chainlink/contracts": "^0.4.0",
