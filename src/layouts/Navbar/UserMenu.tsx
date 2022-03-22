@@ -32,7 +32,11 @@ export default function UserMenu({openAccountModal}): JSX.Element {
 			<MenuButton as={Button} borderRadius="xl" m="1px" px={3} height="38px">
 				<Flex alignItems="center" justifyContent="center">
 					<Avatar />
-					<Text fontSize="md" fontWeight="500" mx="2">
+					<Text
+						d={{base: "none", md: "inline-block"}}
+						fontSize="md"
+						fontWeight="500"
+						mx="2">
 						{username}
 					</Text>
 				</Flex>

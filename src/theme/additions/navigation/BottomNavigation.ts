@@ -16,12 +16,16 @@ const baseStyle = {
 	},
 	item: {
 		flex: 1,
-		mx: 4,
+		mx: 0,
 		opacity: 0.4,
+		minHeight: "50px",
+		borderRadius: "xl",
+		justifyContent: "center",
 
 		_selected: {
 			opacity: 1,
 			color: "primary",
+			background: "rgba(128,91,213,0.3)",
 		},
 	},
 	label: {
@@ -31,6 +35,9 @@ const baseStyle = {
 			width: 0,
 			overflow: "hidden",
 		},
+	},
+	icon: {
+		fontSize: "xl",
 	},
 };
 

@@ -40,7 +40,7 @@ export default function BottomNavigationBar(props): JSX.Element {
 		<BottomNavigation
 			{...props}
 			value={getPath(router?.asPath)}
-			showLabel="if-active"
+			showLabel="never"
 			onChange={handleChange}>
 			<Content />
 		</BottomNavigation>
