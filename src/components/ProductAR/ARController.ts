@@ -246,8 +246,10 @@ export default class ARController {
 		this.camera.aspect = this.resolution.x / this.resolution.y;
 		this.camera.updateProjectionMatrix();
 
-		this.renderer.setSize(this.resolution.x, this.resolution.y);
-		this.renderer.setPixelRatio(window.devicePixelRatio);
+		if (this.renderer !== null) {
+			this.renderer.setSize(this.resolution.x, this.resolution.y);
+			this.renderer.setPixelRatio(window.devicePixelRatio);
+		}
 	}
 
 	public open() {
