@@ -1,6 +1,7 @@
 import {Suspense, useEffect, useState} from "react";
 import {useMoralis} from "react-moralis";
 import ssrPrepass from "react-ssr-prepass";
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import {appWithTranslation} from "next-i18next";
 
@@ -16,11 +17,23 @@ import MainLayout from "@layouts/Main";
 
 import "focus-visible/dist/focus-visible";
 
+const WebXRPolyfill = dynamic(() => import("webxr-polyfill"), {ssr: false});
+
 function Page({Component, pageProps}): JSX.Element {
 	const {Moralis, isInitialized, isInitializing} = useMoralis();
 	const {isLogged, isAuthenticating} = useAccount();
 	const {enableWeb3, isWeb3Enabled, isWeb3EnableLoading} = useWeb3();
 	const [connectorId] = useLocalStorage<TWeb3Provider>("connectorId");
+
+	// Polyfills
+	useEffect(() => {
+		try {
+			// @ts-ignore
+			new WebXRPolyfill();
+		} catch (e) {
+			console.error(e);
+		}
+	}, []);
 
 	useEffect(() => {
 		if (isLogged && !isWeb3Enabled && !isWeb3EnableLoading) {
@@ -73,7 +86,6 @@ function SSRLoader(props): JSX.Element {
 	}, [props]);
 
 	if (!init) return null;
-
 	return <AppWithTranslations {...props} />;
 }
 
