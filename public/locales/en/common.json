@@ -7,7 +7,7 @@
 	},
 	"action": {
 		"back": "Back",
-		"connectToWallet": "Connect to a wallet",
+		"connectToWallet": "Connect",
 		"connectWallet": "Connect wallet",
 		"copyAddress": "Copy Address",
 		"disconnect": "Disconnect",

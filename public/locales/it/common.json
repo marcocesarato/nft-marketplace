@@ -7,7 +7,7 @@
 	},
 	"action": {
 		"back": "Indietro",
-		"connectToWallet": "Connetti a un wallet",
+		"connectToWallet": "Connetti",
 		"connectWallet": "Connetti wallet",
 		"copyAddress": "Copia indirizzo",
 		"disconnect": "Disconnetti",
