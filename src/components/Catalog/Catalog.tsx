@@ -1,7 +1,10 @@
+import {useRouter} from "next/router";
 import {Box, SimpleGrid, useBreakpointValue} from "@chakra-ui/react";
 import {motion} from "framer-motion";
 
 import Product from "@components/Product";
+import useAccount from "@hooks/useAccount";
+import useMarket from "@hooks/useMarket";
 
 import CatalogFilterBar from "./CatalogFilterBar";
 
@@ -32,20 +35,23 @@ const productVariant = {
 
 export default function Catalog({
 	data = [],
-	sorting = true,
-	onPurchase = null,
+	sortable = true,
+	purchasable = false,
 	...props
 }): JSX.Element {
+	const router = useRouter();
+	const {isAuthenticated} = useAccount();
+	const {purchase} = useMarket();
 	const handlePurchase = (product): (() => {}) => {
-		if (onPurchase) {
-			return () => onPurchase(product);
+		if (isAuthenticated && purchasable) {
+			return () => purchase(product.tokenId, product.price, () => router.push("/assets"));
 		}
 	};
 	const minColumns = useBreakpointValue({base: 2, sm: 3, lg: 4, xl: 5});
 	const emptyItems = data.length % minColumns;
 	return (
 		<Box mt={2} alignItems="flex-start" maxW="1680px">
-			{sorting && <CatalogFilterBar count={data?.length || 0} {...props} />}
+			{sortable && <CatalogFilterBar count={data?.length || 0} {...props} />}
 			<MotionSimpleGrid
 				variants={catalogVariant}
 				mx="auto"

@@ -37,12 +37,12 @@ export default function ProductDetails({data, onPurchase}): JSX.Element {
 						fontSize={{base: "2xl", sm: "4xl", lg: "5xl"}}>
 						{data?.name}
 					</Heading>
-					{onPurchase && (
+					{onPurchase && data?.price && (
 						<Text fontWeight={300} fontSize={"2xl"} mt={5}>
 							<Text as={"span"} fontWeight={"bold"}>
 								{t("common:product.price")}:
 							</Text>{" "}
-							{data?.price} {nativeToken?.symbol}
+							{data?.priceFormatted || data?.price} {nativeToken?.symbol}
 						</Text>
 					)}
 				</Box>

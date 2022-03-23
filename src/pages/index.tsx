@@ -103,7 +103,11 @@ export default function Home(): JSX.Element {
 						alt="metaverse"
 					/>
 				</HStack>
-				{!error && loading ? <Loading /> : <Catalog data={items} sorting={false} />}
+				{!error && loading ? (
+					<Loading />
+				) : (
+					<Catalog data={items} sortable={false} purchasable />
+				)}
 			</Box>
 		</Box>
 	);

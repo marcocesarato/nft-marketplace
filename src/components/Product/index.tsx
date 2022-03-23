@@ -104,7 +104,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 							{data?.price && (
 								<Stack direction={"row"} align={"center"}>
 									<Text fontWeight="medium" fontSize={"lg"}>
-										{data?.price} {nativeToken?.symbol}
+										{data?.priceFormatted || data?.price} {nativeToken?.symbol}
 									</Text>
 								</Stack>
 							)}
