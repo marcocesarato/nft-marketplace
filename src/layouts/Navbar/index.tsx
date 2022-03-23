@@ -1,8 +1,7 @@
-import {HamburgerIcon, SearchIcon} from "@chakra-ui/icons";
+import {SearchIcon} from "@chakra-ui/icons";
 import {
 	Box,
 	Flex,
-	IconButton,
 	Input,
 	InputGroup,
 	InputLeftElement,
@@ -11,7 +10,6 @@ import {
 } from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
-import {useMenu} from "@contexts/Global";
 import AccountModal from "@layouts/AccountModal";
 
 import {ColorModeSwitcher} from "./ColorModeSwitcher";
@@ -20,7 +18,6 @@ import LocaleMenu from "./LocaleMenu";
 
 export default function Navbar(): JSX.Element {
 	const {t} = useTranslation();
-	const {onToggleMenu} = useMenu();
 	const {isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose} = useDisclosure();
 	return (
 		<Box px={4} my="15px">
@@ -44,17 +41,6 @@ export default function Navbar(): JSX.Element {
 					<LocaleMenu />
 					<AccountModal isOpen={isModalOpen} onClose={onModalClose} />
 					<ColorModeSwitcher />
-					<IconButton
-						size={"md"}
-						fontSize="lg"
-						icon={<HamburgerIcon />}
-						variant="ghost"
-						marginLeft="2"
-						color="current"
-						aria-label={t("common:action.openMenu")}
-						display={{lg: "none"}}
-						onClick={onToggleMenu}
-					/>
 				</Flex>
 			</Flex>
 		</Box>

@@ -11,7 +11,7 @@ export default function Main({children}: {children: React.ReactNode}): JSX.Eleme
 	const {isOpenSidebar, sidebarWidth} = useSidebar();
 	return (
 		<Viewport>
-			<Sidebar title={"Marketplace"} d={{sm: "none", lg: "block"}} />
+			<Sidebar title={"Marketplace"} d={{base: "none", lg: "block"}} />
 			<MainPanel
 				w={{
 					base: "100%",

@@ -1,5 +1,4 @@
 import {useEffect, useMemo} from "react";
-import {useBreakpointValue} from "@chakra-ui/react";
 
 import {useConfig} from "@contexts/Global";
 

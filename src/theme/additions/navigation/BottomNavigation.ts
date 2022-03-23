@@ -15,7 +15,9 @@ const baseStyle = {
 		py: 2,
 	},
 	item: {
-		flex: 1,
+		flex: "1 1 0",
+		flexBasis: "100%",
+		fontSize: "small",
 		mx: 0,
 		opacity: 0.4,
 		minHeight: "50px",

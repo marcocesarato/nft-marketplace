@@ -1,8 +1,10 @@
 import {useCallback, useMemo} from "react";
+import {AiOutlineMenu} from "react-icons/ai";
 import {useRouter} from "next/router";
 import {As, Box} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
+import {useMenu} from "@contexts/Global";
 import {useMobileRoutes} from "@hooks/useRoutes";
 import {getPath} from "@utils/url";
 
@@ -13,6 +15,7 @@ import {BottomNavigationLabel} from "./BottomNavigationLabel";
 
 export default function BottomNavigationBar(props): JSX.Element {
 	const router = useRouter();
+	const {onToggleMenu} = useMenu();
 	const routes = useMobileRoutes();
 	const {t} = useTranslation();
 
@@ -31,10 +34,14 @@ export default function BottomNavigationBar(props): JSX.Element {
 	}, [routes]);
 
 	const handleChange = useCallback(
-		(path) => {
-			router.push(path);
+		(value) => {
+			if (value === "menu") {
+				onToggleMenu();
+			} else {
+				router.push(value);
+			}
 		},
-		[router],
+		[router, onToggleMenu],
 	);
 	return (
 		<>
@@ -44,6 +51,10 @@ export default function BottomNavigationBar(props): JSX.Element {
 				showLabel="never"
 				onChange={handleChange}>
 				<Content />
+				<BottomNavigationItem value="menu">
+					<BottomNavigationIcon as={AiOutlineMenu} />
+					<BottomNavigationLabel>{t("common:action.openMenu")}</BottomNavigationLabel>
+				</BottomNavigationItem>
 			</BottomNavigation>
 			<Box {...props} height="115px" />
 		</>
