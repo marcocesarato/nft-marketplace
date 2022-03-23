@@ -7,7 +7,7 @@ export default function useWebXR() {
 	const [supportsVRSession, setSupportsVRSession] = useState(false);
 	const [supportsARSession, setSupportsARSession] = useState(false);
 
-	const isWebXRAvailable = !xr || !xr.isSessionSupported;
+	const isWebXRAvailable = !xr || xr.isSessionSupported;
 
 	useEffect(() => {
 		if (isWebXRAvailable) {
