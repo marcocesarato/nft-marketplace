@@ -12,7 +12,6 @@ export default function Main({children}: {children: React.ReactNode}): JSX.Eleme
 	return (
 		<Viewport>
 			<Sidebar title={"Marketplace"} d={{sm: "none", lg: "block"}} />
-			<BottomBar d={{base: "flex", lg: "none"}} />
 			<MainPanel
 				w={{
 					base: "100%",
@@ -21,7 +20,10 @@ export default function Main({children}: {children: React.ReactNode}): JSX.Eleme
 						: `calc(100% - ${sidebarWidth})`,
 				}}>
 				<Navbar />
-				<PanelContainer>{children}</PanelContainer>
+				<PanelContainer>
+					{children}
+					<BottomBar d={{base: "flex", lg: "none"}} />
+				</PanelContainer>
 			</MainPanel>
 		</Viewport>
 	);

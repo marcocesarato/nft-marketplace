@@ -1,6 +1,6 @@
 import {useCallback, useMemo} from "react";
 import {useRouter} from "next/router";
-import {As} from "@chakra-ui/react";
+import {As, Box} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
 import {useMobileRoutes} from "@hooks/useRoutes";
@@ -37,12 +37,15 @@ export default function BottomNavigationBar(props): JSX.Element {
 		[router],
 	);
 	return (
-		<BottomNavigation
-			{...props}
-			value={getPath(router?.asPath)}
-			showLabel="never"
-			onChange={handleChange}>
-			<Content />
-		</BottomNavigation>
+		<>
+			<BottomNavigation
+				{...props}
+				value={getPath(router?.asPath)}
+				showLabel="never"
+				onChange={handleChange}>
+				<Content />
+			</BottomNavigation>
+			<Box {...props} height="115px" />
+		</>
 	);
 }
