@@ -15,9 +15,10 @@ const KEEP_ALIVE_CHECK_INTERVAL = 7500;
 
 export async function service() {
 	logger.info("Service started");
-	await connectDatabase();
 
+	await connectDatabase();
 	logger.info("Connected to database");
+
 	const provider = startConnection();
 
 	// Contract events
@@ -76,7 +77,10 @@ const startConnection = () => {
 	let pingTimeout: NodeJS.Timeout;
 	let keepAliveInterval: NodeJS.Timer;
 
+	logger.info("Start websocket connection");
+
 	provider._websocket.on("open", () => {
+		logger.info("The websocket opened the connection");
 		keepAliveInterval = setInterval(() => {
 			//logger.debug("Checking if the connection is alive, sending a ping");
 			provider._websocket.ping();
