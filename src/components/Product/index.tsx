@@ -27,7 +27,11 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 	const {isOpen, onOpen, onClose} = useDisclosure();
 	return (
 		<>
-			<MotionStack pt={12} spacing={useBreakpointValue({base: "4", md: "5"})} {...rootProps}>
+			<MotionStack
+				pt={12}
+				spacing={useBreakpointValue({base: "4", md: "5"})}
+				zIndex={0}
+				{...rootProps}>
 				<Box
 					role={"group"}
 					w={"full"}

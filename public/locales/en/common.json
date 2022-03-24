@@ -26,10 +26,11 @@
 		},
 		"sortBy": "Sort by",
 		"sortType": {
-			"nameASC": "Name (A-Z)",
-			"nameDESC": "Name (Z-A)",
-			"priceASC": "Price (Lowest)",
-			"priceDESC": "Price (Highest)"
+			"mostLikes": "Most Likes",
+			"mostViews": "Most Views",
+			"newest": "Newest",
+			"priceASC": "Lowest Price",
+			"priceDESC": "Highest Price"
 		}
 	},
 	"input": {
