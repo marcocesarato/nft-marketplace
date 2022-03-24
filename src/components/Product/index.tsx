@@ -45,7 +45,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 						mt={-12}
 						pos={"relative"}
 						_before={{
-							transition: "all .3s ease",
+							transition: "all .5s ease",
 							content: '""',
 							w: "full",
 							h: 0,
@@ -56,12 +56,14 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 							background: `url(${resolveLink(data?.image)}) #333`,
 							backgroundSize: "cover",
 							backgroundPosition: "center",
+							transform: "rotate(0)",
 							filter: `blur(15px) brightness(${useColorModeValue("80%", "50%")})`,
 							zIndex: -1,
 						}}
 						_groupHover={{
-							_after: {
+							_before: {
 								filter: "blur(25px)",
+								transform: "rotate(5deg)",
 							},
 						}}>
 						<Box
