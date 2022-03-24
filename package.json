@@ -19,6 +19,7 @@
         "prepare": "husky install",
         "release": "standard-version",
         "start": "next start",
+        "start:indexer": "ts-node-esm --project indexer/tsconfig.json indexer/main.ts",
         "static:build": "yarn build && next export",
         "static:serve": "yarn static:build && npx servor out index.html 5000"
     },
@@ -75,8 +76,9 @@
         "react-ssr-prepass": "^1.5.0",
         "three": "^0.138.3",
         "three-to-cannon": "^4.0.2",
-        "web3-eth-contract": "^1.7.1",
-        "webxr-polyfill": "^2.0.3"
+        "ts-node": "^10.7.0",
+        "webxr-polyfill": "^2.0.3",
+        "winston": "^3.6.0"
     },
     "devDependencies": {
         "@chainlink/contracts": "^0.4.0",
