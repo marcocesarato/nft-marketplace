@@ -1,7 +1,7 @@
 import {useMemo} from "react";
 import {useTranslation} from "next-i18next";
 
-import Catalog from "@/src/components/Catalog/Catalog";
+import Catalog from "@components/Catalog";
 import Content from "@components/Content";
 import Header from "@components/Header";
 import Loading from "@components/Loading";

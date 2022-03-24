@@ -14,6 +14,7 @@ export type Scalars = {
 	Boolean: boolean;
 	Int: number;
 	Float: number;
+	Date: any;
 	/** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
 	JSON: any;
 	/**
@@ -30,6 +31,51 @@ export type ErrorInterface = {
 	message?: Maybe<Scalars["String"]>;
 };
 
+export type FilterCountMarketItemAttributesInput = {
+	_id?: InputMaybe<Scalars["MongoID"]>;
+	displayType?: InputMaybe<Scalars["String"]>;
+	traitType?: InputMaybe<Scalars["String"]>;
+	value?: InputMaybe<Scalars["String"]>;
+};
+
+export type FilterCountMarketItemInput = {
+	AND?: InputMaybe<Array<FilterCountMarketItemInput>>;
+	OR?: InputMaybe<Array<FilterCountMarketItemInput>>;
+	_id?: InputMaybe<Scalars["MongoID"]>;
+	/** List of *indexed* fields that can be filtered via operators. */
+	_operators?: InputMaybe<FilterCountMarketItemOperatorsInput>;
+	attributes?: InputMaybe<Array<InputMaybe<FilterCountMarketItemAttributesInput>>>;
+	createdAt?: InputMaybe<Scalars["Date"]>;
+	creator?: InputMaybe<Scalars["String"]>;
+	description?: InputMaybe<Scalars["String"]>;
+	externalUrl?: InputMaybe<Scalars["String"]>;
+	image?: InputMaybe<Scalars["String"]>;
+	name?: InputMaybe<Scalars["String"]>;
+	owner?: InputMaybe<Scalars["String"]>;
+	price?: InputMaybe<Scalars["String"]>;
+	seller?: InputMaybe<Scalars["String"]>;
+	sold?: InputMaybe<Scalars["Boolean"]>;
+	tokenId?: InputMaybe<Scalars["String"]>;
+	tokenURI?: InputMaybe<Scalars["String"]>;
+	updatedAt?: InputMaybe<Scalars["Date"]>;
+};
+
+/** For performance reason this type contains only *indexed* fields. */
+export type FilterCountMarketItemOperatorsInput = {
+	_id?: InputMaybe<FilterCountMarketItem_IdOperatorsInput>;
+};
+
+export type FilterCountMarketItem_IdOperatorsInput = {
+	exists?: InputMaybe<Scalars["Boolean"]>;
+	gt?: InputMaybe<Scalars["MongoID"]>;
+	gte?: InputMaybe<Scalars["MongoID"]>;
+	in?: InputMaybe<Array<InputMaybe<Scalars["MongoID"]>>>;
+	lt?: InputMaybe<Scalars["MongoID"]>;
+	lte?: InputMaybe<Scalars["MongoID"]>;
+	ne?: InputMaybe<Scalars["MongoID"]>;
+	nin?: InputMaybe<Array<InputMaybe<Scalars["MongoID"]>>>;
+};
+
 export type FilterCountUserInput = {
 	AND?: InputMaybe<Array<FilterCountUserInput>>;
 	OR?: InputMaybe<Array<FilterCountUserInput>>;
@@ -37,6 +83,8 @@ export type FilterCountUserInput = {
 	/** List of *indexed* fields that can be filtered via operators. */
 	_operators?: InputMaybe<FilterCountUserOperatorsInput>;
 	account?: InputMaybe<Scalars["String"]>;
+	createdAt?: InputMaybe<Scalars["Date"]>;
+	updatedAt?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
 
@@ -56,6 +104,51 @@ export type FilterCountUser_IdOperatorsInput = {
 	nin?: InputMaybe<Array<InputMaybe<Scalars["MongoID"]>>>;
 };
 
+export type FilterFindManyMarketItemAttributesInput = {
+	_id?: InputMaybe<Scalars["MongoID"]>;
+	displayType?: InputMaybe<Scalars["String"]>;
+	traitType?: InputMaybe<Scalars["String"]>;
+	value?: InputMaybe<Scalars["String"]>;
+};
+
+export type FilterFindManyMarketItemInput = {
+	AND?: InputMaybe<Array<FilterFindManyMarketItemInput>>;
+	OR?: InputMaybe<Array<FilterFindManyMarketItemInput>>;
+	_id?: InputMaybe<Scalars["MongoID"]>;
+	/** List of *indexed* fields that can be filtered via operators. */
+	_operators?: InputMaybe<FilterFindManyMarketItemOperatorsInput>;
+	attributes?: InputMaybe<Array<InputMaybe<FilterFindManyMarketItemAttributesInput>>>;
+	createdAt?: InputMaybe<Scalars["Date"]>;
+	creator?: InputMaybe<Scalars["String"]>;
+	description?: InputMaybe<Scalars["String"]>;
+	externalUrl?: InputMaybe<Scalars["String"]>;
+	image?: InputMaybe<Scalars["String"]>;
+	name?: InputMaybe<Scalars["String"]>;
+	owner?: InputMaybe<Scalars["String"]>;
+	price?: InputMaybe<Scalars["String"]>;
+	seller?: InputMaybe<Scalars["String"]>;
+	sold?: InputMaybe<Scalars["Boolean"]>;
+	tokenId?: InputMaybe<Scalars["String"]>;
+	tokenURI?: InputMaybe<Scalars["String"]>;
+	updatedAt?: InputMaybe<Scalars["Date"]>;
+};
+
+/** For performance reason this type contains only *indexed* fields. */
+export type FilterFindManyMarketItemOperatorsInput = {
+	_id?: InputMaybe<FilterFindManyMarketItem_IdOperatorsInput>;
+};
+
+export type FilterFindManyMarketItem_IdOperatorsInput = {
+	exists?: InputMaybe<Scalars["Boolean"]>;
+	gt?: InputMaybe<Scalars["MongoID"]>;
+	gte?: InputMaybe<Scalars["MongoID"]>;
+	in?: InputMaybe<Array<InputMaybe<Scalars["MongoID"]>>>;
+	lt?: InputMaybe<Scalars["MongoID"]>;
+	lte?: InputMaybe<Scalars["MongoID"]>;
+	ne?: InputMaybe<Scalars["MongoID"]>;
+	nin?: InputMaybe<Array<InputMaybe<Scalars["MongoID"]>>>;
+};
+
 export type FilterFindManyUserInput = {
 	AND?: InputMaybe<Array<FilterFindManyUserInput>>;
 	OR?: InputMaybe<Array<FilterFindManyUserInput>>;
@@ -63,6 +156,8 @@ export type FilterFindManyUserInput = {
 	/** List of *indexed* fields that can be filtered via operators. */
 	_operators?: InputMaybe<FilterFindManyUserOperatorsInput>;
 	account?: InputMaybe<Scalars["String"]>;
+	createdAt?: InputMaybe<Scalars["Date"]>;
+	updatedAt?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
 
@@ -82,6 +177,51 @@ export type FilterFindManyUser_IdOperatorsInput = {
 	nin?: InputMaybe<Array<InputMaybe<Scalars["MongoID"]>>>;
 };
 
+export type FilterFindOneMarketItemAttributesInput = {
+	_id?: InputMaybe<Scalars["MongoID"]>;
+	displayType?: InputMaybe<Scalars["String"]>;
+	traitType?: InputMaybe<Scalars["String"]>;
+	value?: InputMaybe<Scalars["String"]>;
+};
+
+export type FilterFindOneMarketItemInput = {
+	AND?: InputMaybe<Array<FilterFindOneMarketItemInput>>;
+	OR?: InputMaybe<Array<FilterFindOneMarketItemInput>>;
+	_id?: InputMaybe<Scalars["MongoID"]>;
+	/** List of *indexed* fields that can be filtered via operators. */
+	_operators?: InputMaybe<FilterFindOneMarketItemOperatorsInput>;
+	attributes?: InputMaybe<Array<InputMaybe<FilterFindOneMarketItemAttributesInput>>>;
+	createdAt?: InputMaybe<Scalars["Date"]>;
+	creator?: InputMaybe<Scalars["String"]>;
+	description?: InputMaybe<Scalars["String"]>;
+	externalUrl?: InputMaybe<Scalars["String"]>;
+	image?: InputMaybe<Scalars["String"]>;
+	name?: InputMaybe<Scalars["String"]>;
+	owner?: InputMaybe<Scalars["String"]>;
+	price?: InputMaybe<Scalars["String"]>;
+	seller?: InputMaybe<Scalars["String"]>;
+	sold?: InputMaybe<Scalars["Boolean"]>;
+	tokenId?: InputMaybe<Scalars["String"]>;
+	tokenURI?: InputMaybe<Scalars["String"]>;
+	updatedAt?: InputMaybe<Scalars["Date"]>;
+};
+
+/** For performance reason this type contains only *indexed* fields. */
+export type FilterFindOneMarketItemOperatorsInput = {
+	_id?: InputMaybe<FilterFindOneMarketItem_IdOperatorsInput>;
+};
+
+export type FilterFindOneMarketItem_IdOperatorsInput = {
+	exists?: InputMaybe<Scalars["Boolean"]>;
+	gt?: InputMaybe<Scalars["MongoID"]>;
+	gte?: InputMaybe<Scalars["MongoID"]>;
+	in?: InputMaybe<Array<InputMaybe<Scalars["MongoID"]>>>;
+	lt?: InputMaybe<Scalars["MongoID"]>;
+	lte?: InputMaybe<Scalars["MongoID"]>;
+	ne?: InputMaybe<Scalars["MongoID"]>;
+	nin?: InputMaybe<Array<InputMaybe<Scalars["MongoID"]>>>;
+};
+
 export type FilterFindOneUserInput = {
 	AND?: InputMaybe<Array<FilterFindOneUserInput>>;
 	OR?: InputMaybe<Array<FilterFindOneUserInput>>;
@@ -89,6 +229,8 @@ export type FilterFindOneUserInput = {
 	/** List of *indexed* fields that can be filtered via operators. */
 	_operators?: InputMaybe<FilterFindOneUserOperatorsInput>;
 	account?: InputMaybe<Scalars["String"]>;
+	createdAt?: InputMaybe<Scalars["Date"]>;
+	updatedAt?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
 
@@ -106,6 +248,46 @@ export type FilterFindOneUser_IdOperatorsInput = {
 	lte?: InputMaybe<Scalars["MongoID"]>;
 	ne?: InputMaybe<Scalars["MongoID"]>;
 	nin?: InputMaybe<Array<InputMaybe<Scalars["MongoID"]>>>;
+};
+
+export type MarketItem = {
+	__typename?: "MarketItem";
+	_id: Scalars["MongoID"];
+	attributes?: Maybe<Array<Maybe<MarketItemAttributes>>>;
+	createdAt?: Maybe<Scalars["Date"]>;
+	creator: Scalars["String"];
+	description: Scalars["String"];
+	externalUrl?: Maybe<Scalars["String"]>;
+	image: Scalars["String"];
+	name: Scalars["String"];
+	owner: Scalars["String"];
+	price: Scalars["String"];
+	/** Price formatted */
+	priceFormatted?: Maybe<Scalars["Float"]>;
+	seller: Scalars["String"];
+	sold: Scalars["Boolean"];
+	tokenId: Scalars["String"];
+	tokenURI: Scalars["String"];
+	updatedAt?: Maybe<Scalars["Date"]>;
+};
+
+export type MarketItemAttributes = {
+	__typename?: "MarketItemAttributes";
+	_id?: Maybe<Scalars["MongoID"]>;
+	displayType?: Maybe<Scalars["String"]>;
+	traitType: Scalars["String"];
+	value: Scalars["String"];
+};
+
+/** List of items with pagination. */
+export type MarketItemPagination = {
+	__typename?: "MarketItemPagination";
+	/** Total object count. */
+	count?: Maybe<Scalars["Int"]>;
+	/** Array of objects. */
+	items?: Maybe<Array<MarketItem>>;
+	/** Information to aid in pagination. */
+	pageInfo: PaginationInfo;
 };
 
 export type MongoError = ErrorInterface & {
@@ -143,10 +325,38 @@ export type PaginationInfo = {
 
 export type Query = {
 	__typename?: "Query";
+	marketItem?: Maybe<MarketItem>;
+	marketItems: Array<MarketItem>;
+	marketItemsCount?: Maybe<Scalars["Int"]>;
+	marketItemsPagination?: Maybe<MarketItemPagination>;
 	user?: Maybe<User>;
 	users: Array<User>;
 	usersCount?: Maybe<Scalars["Int"]>;
 	usersPagination?: Maybe<UserPagination>;
+};
+
+export type QueryMarketItemArgs = {
+	filter?: InputMaybe<FilterFindOneMarketItemInput>;
+	skip?: InputMaybe<Scalars["Int"]>;
+	sort?: InputMaybe<SortFindOneMarketItemInput>;
+};
+
+export type QueryMarketItemsArgs = {
+	filter?: InputMaybe<FilterFindManyMarketItemInput>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	skip?: InputMaybe<Scalars["Int"]>;
+	sort?: InputMaybe<SortFindManyMarketItemInput>;
+};
+
+export type QueryMarketItemsCountArgs = {
+	filter?: InputMaybe<FilterCountMarketItemInput>;
+};
+
+export type QueryMarketItemsPaginationArgs = {
+	filter?: InputMaybe<FilterFindManyMarketItemInput>;
+	page?: InputMaybe<Scalars["Int"]>;
+	perPage?: InputMaybe<Scalars["Int"]>;
+	sort?: InputMaybe<SortFindManyMarketItemInput>;
 };
 
 export type QueryUserArgs = {
@@ -179,7 +389,17 @@ export type RuntimeError = ErrorInterface & {
 	message?: Maybe<Scalars["String"]>;
 };
 
+export enum SortFindManyMarketItemInput {
+	IdAsc = "_ID_ASC",
+	IdDesc = "_ID_DESC",
+}
+
 export enum SortFindManyUserInput {
+	IdAsc = "_ID_ASC",
+	IdDesc = "_ID_DESC",
+}
+
+export enum SortFindOneMarketItemInput {
 	IdAsc = "_ID_ASC",
 	IdDesc = "_ID_DESC",
 }
@@ -191,6 +411,8 @@ export enum SortFindOneUserInput {
 
 export type UpdateByIdUserInput = {
 	account?: InputMaybe<Scalars["String"]>;
+	createdAt?: InputMaybe<Scalars["Date"]>;
+	updatedAt?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
 
@@ -212,6 +434,8 @@ export type User = {
 	__typename?: "User";
 	_id: Scalars["MongoID"];
 	account: Scalars["String"];
+	createdAt?: Maybe<Scalars["Date"]>;
+	updatedAt?: Maybe<Scalars["Date"]>;
 	username: Scalars["String"];
 };
 
@@ -275,6 +499,71 @@ export type UserUpdateMutation = {
 			  }
 			| null;
 	} | null;
+};
+
+export type MarketItemQueryVariables = Exact<{
+	filter?: InputMaybe<FilterFindOneMarketItemInput>;
+}>;
+
+export type MarketItemQuery = {
+	__typename?: "Query";
+	marketItem?: {
+		__typename?: "MarketItem";
+		name: string;
+		tokenId: string;
+		tokenURI: string;
+		creator: string;
+		seller: string;
+		owner: string;
+		price: string;
+		priceFormatted?: number | null;
+		sold: boolean;
+		description: string;
+		externalUrl?: string | null;
+		image: string;
+		updatedAt?: any | null;
+		createdAt?: any | null;
+		attributes?: Array<{
+			__typename?: "MarketItemAttributes";
+			traitType: string;
+			value: string;
+			displayType?: string | null;
+		} | null> | null;
+	} | null;
+};
+
+export type MarketItemsQueryVariables = Exact<{
+	filter?: InputMaybe<FilterFindManyMarketItemInput>;
+	skip?: InputMaybe<Scalars["Int"]>;
+	limit?: InputMaybe<Scalars["Int"]>;
+	sort?: InputMaybe<SortFindManyMarketItemInput>;
+}>;
+
+export type MarketItemsQuery = {
+	__typename?: "Query";
+	marketItems: Array<{
+		__typename?: "MarketItem";
+		name: string;
+		tokenId: string;
+		tokenURI: string;
+		creator: string;
+		seller: string;
+		owner: string;
+		price: string;
+		priceFormatted?: number | null;
+		sold: boolean;
+		description: string;
+		externalUrl?: string | null;
+		image: string;
+		updatedAt?: any | null;
+		createdAt?: any | null;
+		attributes?: Array<{
+			__typename?: "MarketItemAttributes";
+			traitType: string;
+			value: string;
+			displayType?: string | null;
+		} | null> | null;
+	}>;
 };
 
 export type UserQueryVariables = Exact<{
@@ -363,6 +652,140 @@ export type UserUpdateMutationResult = Apollo.MutationResult<UserUpdateMutation>
 export type UserUpdateMutationOptions = Apollo.BaseMutationOptions<
 	UserUpdateMutation,
 	UserUpdateMutationVariables
+>;
+export const MarketItemDocument = gql`
+	query MarketItem($filter: FilterFindOneMarketItemInput) {
+		marketItem(filter: $filter) {
+			name
+			tokenId
+			tokenURI
+			creator
+			seller
+			owner
+			price
+			priceFormatted
+			sold
+			description
+			externalUrl
+			attributes {
+				traitType
+				value
+				displayType
+			}
+			image
+			updatedAt
+			createdAt
+		}
+	}
+`;
+
+/**
+ * __useMarketItemQuery__
+ *
+ * To run a query within a React component, call `useMarketItemQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMarketItemQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMarketItemQuery({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *   },
+ * });
+ */
+export function useMarketItemQuery(
+	baseOptions?: Apollo.QueryHookOptions<MarketItemQuery, MarketItemQueryVariables>,
+) {
+	const options = {...defaultOptions, ...baseOptions};
+	return Apollo.useQuery<MarketItemQuery, MarketItemQueryVariables>(MarketItemDocument, options);
+}
+export function useMarketItemLazyQuery(
+	baseOptions?: Apollo.LazyQueryHookOptions<MarketItemQuery, MarketItemQueryVariables>,
+) {
+	const options = {...defaultOptions, ...baseOptions};
+	return Apollo.useLazyQuery<MarketItemQuery, MarketItemQueryVariables>(
+		MarketItemDocument,
+		options,
+	);
+}
+export type MarketItemQueryHookResult = ReturnType<typeof useMarketItemQuery>;
+export type MarketItemLazyQueryHookResult = ReturnType<typeof useMarketItemLazyQuery>;
+export type MarketItemQueryResult = Apollo.QueryResult<MarketItemQuery, MarketItemQueryVariables>;
+export const MarketItemsDocument = gql`
+	query MarketItems(
+		$filter: FilterFindManyMarketItemInput
+		$skip: Int
+		$limit: Int
+		$sort: SortFindManyMarketItemInput
+	) {
+		marketItems(filter: $filter, skip: $skip, limit: $limit, sort: $sort) {
+			name
+			tokenId
+			tokenURI
+			creator
+			seller
+			owner
+			price
+			priceFormatted
+			sold
+			description
+			externalUrl
+			attributes {
+				traitType
+				value
+				displayType
+			}
+			image
+			updatedAt
+			createdAt
+		}
+	}
+`;
+
+/**
+ * __useMarketItemsQuery__
+ *
+ * To run a query within a React component, call `useMarketItemsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMarketItemsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMarketItemsQuery({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *      skip: // value for 'skip'
+ *      limit: // value for 'limit'
+ *      sort: // value for 'sort'
+ *   },
+ * });
+ */
+export function useMarketItemsQuery(
+	baseOptions?: Apollo.QueryHookOptions<MarketItemsQuery, MarketItemsQueryVariables>,
+) {
+	const options = {...defaultOptions, ...baseOptions};
+	return Apollo.useQuery<MarketItemsQuery, MarketItemsQueryVariables>(
+		MarketItemsDocument,
+		options,
+	);
+}
+export function useMarketItemsLazyQuery(
+	baseOptions?: Apollo.LazyQueryHookOptions<MarketItemsQuery, MarketItemsQueryVariables>,
+) {
+	const options = {...defaultOptions, ...baseOptions};
+	return Apollo.useLazyQuery<MarketItemsQuery, MarketItemsQueryVariables>(
+		MarketItemsDocument,
+		options,
+	);
+}
+export type MarketItemsQueryHookResult = ReturnType<typeof useMarketItemsQuery>;
+export type MarketItemsLazyQueryHookResult = ReturnType<typeof useMarketItemsLazyQuery>;
+export type MarketItemsQueryResult = Apollo.QueryResult<
+	MarketItemsQuery,
+	MarketItemsQueryVariables
 >;
 export const UserDocument = gql`
 	query User($filter: FilterFindOneUserInput) {

@@ -1,7 +1,9 @@
 import {SchemaComposer} from "graphql-compose";
 import {composeMongoose} from "graphql-compose-mongoose";
 
+import MarketItem from "@models/MarketItem";
 import User from "@models/User";
+import {formatUnits} from "@utils/units";
 
 // Create a new schema composer
 const schemaComposer = new SchemaComposer();
@@ -37,6 +39,23 @@ schemaComposer.Mutation.addFields({
 			query.where("account", account);
 		};
 	}),
+});
+
+// Market Item
+const MarketItemTC = composeMongoose(MarketItem, {schemaComposer});
+MarketItemTC.addFields({
+	priceFormatted: {
+		type: "Float",
+		description: "Price formatted",
+		resolve: (source) => formatUnits(source.price, "ether"),
+	},
+});
+const marketItemResolvers = MarketItemTC.mongooseResolvers;
+schemaComposer.Query.addFields({
+	marketItem: marketItemResolvers.findOne({lean: true}),
+	marketItems: marketItemResolvers.findMany({lean: true}),
+	marketItemsCount: marketItemResolvers.count(),
+	marketItemsPagination: marketItemResolvers.pagination(),
 });
 
 const schema = schemaComposer.buildSchema();

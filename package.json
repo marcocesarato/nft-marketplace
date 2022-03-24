@@ -5,7 +5,6 @@
     "scripts": {
         "build": "next build",
         "codegen:graphql": "graphql-codegen --config ./scripts/configs/codegen.graphql.yml",
-        "codegen:subgraph": "graphql-codegen --config ./scripts/configs/codegen.subgraph.yml",
         "deploy": "npx hardhat run scripts/deploy.js --network matic",
         "deploy:local": "npx hardhat run scripts/deploy.js --network localhost",
         "deploy:test": "npx hardhat run scripts/deploy.js --network mumbai",

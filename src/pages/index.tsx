@@ -12,12 +12,11 @@ import {
 } from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
-import Catalog from "@/src/components/Catalog/Catalog";
+import Catalog from "@components/Catalog";
 import Loading from "@components/Loading";
 import Particles from "@components/Particles";
 import useSidebar from "@hooks/useSidebar";
-import {useMarketItemsQuery} from "@services/subgraph";
-import {withMetadata} from "@utils/converters";
+import {useMarketItemsQuery} from "@services/graphql";
 import {getStaticPropsLocale} from "@utils/i18n";
 
 export const getStaticProps = getStaticPropsLocale;
@@ -25,7 +24,7 @@ export default function Home(): JSX.Element {
 	const {t} = useTranslation();
 	const {isSidebarCompress} = useSidebar();
 	const {data, loading, error} = useMarketItemsQuery();
-	const items = withMetadata(data?.marketItems);
+	const items = data?.marketItems;
 	return (
 		<Box as="section" pb="7.5rem" flex={1}>
 			<Box mx="auto" px={6}>

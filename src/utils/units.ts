@@ -13,8 +13,8 @@ export function formatUnits(value, unitName: BigNumberish = 18) {
 	const result = ethers.utils.formatUnits(value, unitName);
 	const splitResult = result.split(".");
 	if (splitResult[1] === "0") {
-		return splitResult[0];
+		return parseFloat(splitResult[0]);
 	}
 
-	return result;
+	return parseFloat(result);
 }

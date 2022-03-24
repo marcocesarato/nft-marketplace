@@ -1,0 +1,23 @@
+query MarketItem($filter: FilterFindOneMarketItemInput) {
+	marketItem(filter: $filter) {
+		name
+		tokenId
+		tokenURI
+		creator
+		seller
+		owner
+		price
+		priceFormatted
+		sold
+		description
+		externalUrl
+		attributes {
+			traitType
+			value
+			displayType
+		}
+		image
+		updatedAt
+		createdAt
+	}
+}

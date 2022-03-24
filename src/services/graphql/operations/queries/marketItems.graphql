@@ -1,0 +1,28 @@
+query MarketItems(
+	$filter: FilterFindManyMarketItemInput
+	$skip: Int
+	$limit: Int
+	$sort: SortFindManyMarketItemInput
+) {
+	marketItems(filter: $filter, skip: $skip, limit: $limit, sort: $sort) {
+		name
+		tokenId
+		tokenURI
+		creator
+		seller
+		owner
+		price
+		priceFormatted
+		sold
+		description
+		externalUrl
+		attributes {
+			traitType
+			value
+			displayType
+		}
+		image
+		updatedAt
+		createdAt
+	}
+}
