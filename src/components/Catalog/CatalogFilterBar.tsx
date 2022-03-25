@@ -1,10 +1,9 @@
 import {useState} from "react";
-import {Box, HStack, Text} from "@chakra-ui/react";
+import {Box, HStack} from "@chakra-ui/react";
 import {Select} from "chakra-react-select";
 import {useTranslation} from "next-i18next";
 
-export default function CatalogBar({
-	count,
+export default function CatalogFilterBar({
 	onFilter = (type: string, value: string | string[]) => {},
 	onSort = (sort: string) => {},
 	sort = null,
@@ -27,18 +26,15 @@ export default function CatalogBar({
 		{value: "category4", label: "Category 4"},
 	];
 	return (
-		<Box pb={10}>
+		<Box pb={10} mx={4}>
 			<HStack justifyContent="flex-end" gap={"1rem"}>
-				<Text fontWeight="bold" flex={2} ml={4}>
-					{t("common:catalog.count", {count})}
-				</Text>
-				<Box flex={2} marginTop={2}>
+				<Box flex={2}>
 					<Select
 						isMulti
+						isSearchable={false}
 						placeholder={t("common:catalog.filter.categories")}
 						value={categories}
 						options={categoriesOptions}
-						isSearchable={false}
 						chakraStyles={{
 							multiValue: (provided, state) => ({
 								...provided,
@@ -66,7 +62,7 @@ export default function CatalogBar({
 						}}
 					/>
 				</Box>
-				<Box flex={1} marginTop={2}>
+				<Box flex={1}>
 					<Select
 						placeholder={t("common:catalog.sortBy")}
 						value={sortBy}

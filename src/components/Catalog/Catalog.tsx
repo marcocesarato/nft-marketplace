@@ -51,7 +51,7 @@ export default function Catalog({
 	const emptyItems = Math.max(minColumns - data.length, 0);
 	return (
 		<Box mt={2} alignItems="flex-start" maxW="1680px">
-			{sortable && <CatalogFilterBar count={data?.length || 0} {...props} />}
+			{sortable && <CatalogFilterBar {...props} />}
 			<MotionSimpleGrid
 				variants={catalogVariant}
 				mx="auto"

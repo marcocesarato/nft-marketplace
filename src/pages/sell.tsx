@@ -17,7 +17,7 @@ import {getStaticPropsLocale} from "@utils/i18n";
 import {parseUnits} from "@utils/units";
 
 export const getStaticProps = getStaticPropsLocale;
-export default function CreateItem(): JSX.Element {
+export default function Sell(): JSX.Element {
 	const {t} = useTranslation();
 	const {isAuthenticated} = useAccount();
 	const {nativeToken} = useBalance();
