@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {useRouter} from "next/router";
-import {Button, FormControl, FormLabel, Image, Input, Stack} from "@chakra-ui/react";
+import {Button, FormControl, FormLabel, Image, Input, Stack, Textarea} from "@chakra-ui/react";
 import {ethers} from "ethers";
 import {useTranslation} from "next-i18next";
 
@@ -98,7 +98,7 @@ export default function CreateItem(): JSX.Element {
 				</FormControl>
 				<FormControl>
 					<FormLabel>{t("common:page.sell.asset.description")}</FormLabel>
-					<Input
+					<Textarea
 						onChange={(e) =>
 							updateFormInput({...formInput, description: e.target.value})
 						}
