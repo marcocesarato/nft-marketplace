@@ -6,6 +6,6 @@ dotenv.config();
 const {service} = require("./service");
 
 service().catch((error: Error) => {
-	logger.error(error);
+	logger.error(error.message);
 	process.exit(1);
 });

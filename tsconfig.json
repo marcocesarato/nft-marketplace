@@ -19,20 +19,21 @@
 			"@/*": ["./*"],
 			"@abis/*": ["abis/*"],
 			"@app/*": ["src/*"],
-			"@database/*": ["src/database/*"],
-			"@models/*": ["src/database/models/*"],
-			"@services/*": ["src/services/*"],
 			"@assets/*": ["public/assets/*"],
-			"@configs/*": ["src/configs/*"],
-			"@layouts/*": ["src/layouts/*"],
 			"@components/*": ["src/components/*"],
+			"@configs/*": ["src/configs/*"],
 			"@contexts/*": ["src/contexts/*"],
+			"@database/*": ["src/database/*"],
 			"@errors/*": ["src/errors/*"],
 			"@hooks/*": ["src/hooks/*"],
+			"@layouts/*": ["src/layouts/*"],
+			"@models/*": ["src/database/models/*"],
+			"@services/*": ["src/services/*"],
 			"@utils/*": ["src/utils/*"]
 		},
 		"typeRoots": ["node", "node_modules/@types", "src/types"]
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/types/*.d.ts"],
-	"exclude": ["node_modules", "subgraph"]
+	"files": true,
+	"exclude": ["node_modules", "subgraph"],
+	"include": ["**/*.ts", "**/*.tsx", "next-env.d.ts", "src/types/*.d.ts"]
 }

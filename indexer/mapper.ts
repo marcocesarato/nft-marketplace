@@ -6,12 +6,7 @@ import {resolveIPFSLink} from "./utils";
 
 export async function createMarketItem(
 	contract: any,
-	tokenId: string,
-	creator: string,
-	seller: string,
-	owner: string,
-	price: string,
-	sold: boolean,
+	{tokenId, creator, seller, owner, price, sold}: Item,
 ) {
 	try {
 		logger.debug(`Creating Item #${tokenId}`);
@@ -25,7 +20,7 @@ export async function createMarketItem(
 					.get(tokenURIResolve)
 					.then((response) => response.data)
 					.catch((err) => {
-						logger.error(err);
+						logger.error(err.message);
 						return {};
 					})
 			: {};
@@ -48,7 +43,7 @@ export async function createMarketItem(
 				attributes: metadata.attributes || [],
 			},
 			function (err, item) {
-				if (err) return logger.error(err);
+				if (err) return logger.error(err.message);
 				logger.info(`Created item #${item.tokenId}`);
 			},
 		);
@@ -57,13 +52,7 @@ export async function createMarketItem(
 	}
 }
 
-export async function updateMarketItem(
-	tokenId: string,
-	seller: string,
-	owner: string,
-	price: string,
-	sold: boolean,
-) {
+export async function updateMarketItem(tokenId: string, {seller, owner, price, sold}: ItemChanges) {
 	try {
 		logger.debug(`Updating Item #${tokenId}`);
 		MarketItem.findOne({tokenId: tokenId}, function (err: Error, item: any) {
@@ -76,7 +65,7 @@ export async function updateMarketItem(
 			item.price = price;
 			item.sold = sold;
 			item.save(function (e: Error) {
-				if (e) return logger.error(e);
+				if (e) return logger.error(e.message);
 				logger.info(`Updated item #${item.tokenId}`);
 			});
 		});

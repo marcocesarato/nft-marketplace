@@ -25,46 +25,40 @@ export async function service() {
 	const contract = new ethers.Contract(MarketAddress, MarketContract, provider);
 	contract.on("MarketItemCreated", (tokenId, creator, seller, owner, price, sold) => {
 		logger.info("Event MarketItemCreated");
-		logger.debug("MarketItemCreated", {
+		const item = {
 			tokenId,
 			creator,
 			seller,
 			owner,
 			price,
 			sold,
-		});
-		createMarketItem(contract, tokenId, creator, seller, owner, price, sold);
+		};
+		logger.debug("MarketItemCreated", item);
+		createMarketItem(contract, item);
 	});
 	contract.on("MarketItemUpdated", (tokenId, seller, owner, price, sold) => {
 		logger.info("Event MarketItemUpdated");
-		logger.debug("MarketItemUpdated", {tokenId, seller, owner, price, sold});
-		updateMarketItem(tokenId, seller, owner, price, sold);
+		const changes = {seller, owner, price, sold};
+		logger.debug("MarketItemUpdated", changes);
+		updateMarketItem(tokenId, changes);
 	});
 
 	// History synchronization
 	logger.debug("History synchronization started");
 	const history = await contract.fetchMarketItems();
 	await Promise.all(
-		history.map(async (item: any) => {
+		history.map(async (item: Item) => {
 			MarketItem.findOne({tokenId: item.tokenId}, function (err: Error, existingToken: any) {
 				if (err) return logger.error(err);
 				if (!existingToken) {
-					createMarketItem(
-						contract,
-						item.tokenId,
-						item.creator,
-						item.seller,
-						item.owner,
-						item.price,
-						item.sold,
-					);
+					createMarketItem(contract, item);
 				} else if (
-					existingToken.price !== item.price ||
+					existingToken.price.toString() !== item.price.toString() ||
 					existingToken.sold !== item.sold ||
 					existingToken.owner !== item.owner ||
 					existingToken.seller !== item.seller
 				) {
-					updateMarketItem(item.tokenId, item.seller, item.owner, item.price, item.sold);
+					updateMarketItem(item.tokenId, item);
 				}
 			});
 		}),
