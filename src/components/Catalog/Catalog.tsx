@@ -48,7 +48,7 @@ export default function Catalog({
 		}
 	};
 	const minColumns = useBreakpointValue({base: 2, sm: 3, lg: 4, xl: 5});
-	const emptyItems = data.length % minColumns;
+	const emptyItems = Math.max(minColumns - data.length, 0);
 	return (
 		<Box mt={2} alignItems="flex-start" maxW="1680px">
 			{sortable && <CatalogFilterBar count={data?.length || 0} {...props} />}
@@ -73,7 +73,7 @@ export default function Catalog({
 				{emptyItems > 0 &&
 					Array(emptyItems)
 						.fill(null)
-						.map((_, i) => <Box key={i} />)}
+						.map((_, i) => <Box minW={{base: "40vw", md: "250px"}} key={i} />)}
 			</MotionSimpleGrid>
 		</Box>
 	);
