@@ -1,6 +1,7 @@
 import path from "path";
 import winston from "winston";
 
+const DATE_FORMAT = "YYYY-MM-DD HH:mm:ss";
 const directoryName = path.basename(__dirname);
 const logger = winston.createLogger({
 	level: "debug",
@@ -8,17 +9,22 @@ const logger = winston.createLogger({
 		new winston.transports.File({
 			filename: directoryName + "/logs/error.log",
 			level: "error",
-			format: winston.format.json(),
+			format: winston.format.combine(
+				winston.format.timestamp({format: DATE_FORMAT}),
+				winston.format.json(),
+			),
 		}),
 		new winston.transports.File({
 			filename: directoryName + "/logs/all.log",
-			format: winston.format.json(),
+			format: winston.format.combine(
+				winston.format.timestamp({format: DATE_FORMAT}),
+				winston.format.json(),
+			),
 		}),
 		new winston.transports.Console({
 			format: winston.format.combine(
 				winston.format.colorize({all: true}),
-				winston.format.timestamp({format: "DD/MM/YYYY HH:mm:ss"}),
-				winston.format.align(),
+				winston.format.timestamp({format: DATE_FORMAT}),
 				winston.format.printf(({level, message, timestamp}) => {
 					return `[${timestamp}] [${level}] ${message}`;
 				}),
