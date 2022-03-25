@@ -61,6 +61,7 @@ export async function updateMarketItem(
 	tokenId: string,
 	seller: string,
 	owner: string,
+	price: string,
 	sold: boolean,
 ) {
 	try {
@@ -72,6 +73,7 @@ export async function updateMarketItem(
 			}
 			item.seller = seller;
 			item.owner = owner;
+			item.price = price;
 			item.sold = sold;
 			item.save(function (e: Error) {
 				if (e) return logger.error(e);

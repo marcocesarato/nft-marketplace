@@ -35,10 +35,10 @@ export async function service() {
 		});
 		createMarketItem(contract, tokenId, creator, seller, owner, price, sold);
 	});
-	contract.on("MarketItemTransaction", (tokenId, seller, owner, sold) => {
-		logger.info("Event MarketItemTransaction");
-		logger.debug("MarketItemTransaction", {tokenId, seller, owner, sold});
-		updateMarketItem(tokenId, seller, owner, sold);
+	contract.on("MarketItemUpdated", (tokenId, seller, owner, price, sold) => {
+		logger.info("Event MarketItemUpdated");
+		logger.debug("MarketItemUpdated", {tokenId, seller, owner, price, sold});
+		updateMarketItem(tokenId, seller, owner, price, sold);
 	});
 
 	// History synchronization
@@ -59,11 +59,12 @@ export async function service() {
 						item.sold,
 					);
 				} else if (
+					existingToken.price !== item.price ||
 					existingToken.sold !== item.sold ||
 					existingToken.owner !== item.owner ||
 					existingToken.seller !== item.seller
 				) {
-					updateMarketItem(item.tokenId, item.seller, item.owner, item.sold);
+					updateMarketItem(item.tokenId, item.seller, item.owner, item.price, item.sold);
 				}
 			});
 		}),

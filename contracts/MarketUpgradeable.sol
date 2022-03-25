@@ -47,7 +47,13 @@ contract MarketUpgradeable is
 		bool sold
 	);
 
-	event MarketItemTransaction(uint256 indexed tokenId, address seller, address owner, bool sold);
+	event MarketItemUpdated(
+		uint256 indexed tokenId,
+		address seller,
+		address owner,
+		uint256 price,
+		bool sold
+	);
 
 	/**
 	 * Initializes the market.
@@ -146,7 +152,7 @@ contract MarketUpgradeable is
 		payable(owner).transfer(listingPrice);
 		payable(seller).transfer(msg.value);
 
-		emit MarketItemTransaction(tokenId, seller, msg.sender, true);
+		emit MarketItemUpdated(tokenId, seller, msg.sender, price, true);
 	}
 
 	/* allows someone to resell a token they have purchased */
@@ -164,7 +170,7 @@ contract MarketUpgradeable is
 
 		_safeTransfer(msg.sender, address(this), tokenId, "");
 
-		emit MarketItemTransaction(tokenId, msg.sender, address(this), false);
+		emit MarketItemUpdated(tokenId, msg.sender, address(this), price, false);
 	}
 
 	/* Returns all unsold market items */

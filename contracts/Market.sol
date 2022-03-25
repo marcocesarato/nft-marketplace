@@ -41,7 +41,13 @@ contract Market is ERC721URIStorage, IERC721Receiver {
 		bool sold
 	);
 
-	event MarketItemTransaction(uint256 indexed tokenId, address seller, address owner, bool sold);
+	event MarketItemUpdated(
+		uint256 indexed tokenId,
+		address seller,
+		address owner,
+		uint256 price,
+		bool sold
+	);
 
 	constructor() ERC721("ACN Metaverse Tokens", "ACNT") {
 		owner = payable(msg.sender);
@@ -129,7 +135,7 @@ contract Market is ERC721URIStorage, IERC721Receiver {
 		payable(owner).transfer(listingPrice);
 		payable(seller).transfer(msg.value);
 
-		emit MarketItemTransaction(tokenId, seller, msg.sender, true);
+		emit MarketItemUpdated(tokenId, seller, msg.sender, price, true);
 	}
 
 	/* allows someone to resell a token they have purchased */
@@ -147,7 +153,7 @@ contract Market is ERC721URIStorage, IERC721Receiver {
 
 		_safeTransfer(msg.sender, address(this), tokenId, "");
 
-		emit MarketItemTransaction(tokenId, msg.sender, address(this), false);
+		emit MarketItemUpdated(tokenId, msg.sender, address(this), price, false);
 	}
 
 	/* Returns all unsold market items */
