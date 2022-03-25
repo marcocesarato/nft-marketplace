@@ -17,23 +17,13 @@ import MainLayout from "@layouts/Main";
 
 import "focus-visible/dist/focus-visible";
 
-const WebXRPolyfill = dynamic(() => import("webxr-polyfill"), {ssr: false});
+dynamic(() => import("webxr-polyfill"), {ssr: false});
 
 function Page({Component, pageProps}): JSX.Element {
 	const {Moralis, isInitialized, isInitializing} = useMoralis();
 	const {isLogged, isAuthenticating} = useAccount();
 	const {enableWeb3, isWeb3Enabled, isWeb3EnableLoading} = useWeb3();
 	const [connectorId] = useLocalStorage<TWeb3Provider>("connectorId");
-
-	// Polyfills
-	useEffect(() => {
-		try {
-			// @ts-ignore
-			new WebXRPolyfill();
-		} catch (e) {
-			console.error(e);
-		}
-	}, []);
 
 	useEffect(() => {
 		if (isLogged && !isWeb3Enabled && !isWeb3EnableLoading) {
