@@ -10,37 +10,58 @@ export async function createMarketItem(
 ) {
 	try {
 		logger.debug(`Creating Item #${tokenId}`);
+
+		// Retrieve metadata
 		const tokenURI = await contract.tokenURI(tokenId);
 		const tokenURIResolve = resolveIPFSLink(tokenURI);
 		if (!tokenURIResolve) {
 			logger.warn(`Item #${tokenId} tokenURI not found`);
 		}
-		const metadata = tokenURIResolve
+		const fallbackMetadata: ItemMetadata = {
+			name: `#${tokenId.toString()}`,
+			description: "No description.",
+			image: "",
+		};
+		const metadata: ItemMetadata = tokenURIResolve
 			? await axios
 					.get(tokenURIResolve)
 					.then((response) => response.data)
 					.catch((err) => {
 						logger.error(err.message);
-						return {};
+						return fallbackMetadata;
 					})
-			: {};
+			: fallbackMetadata;
 		if (tokenURIResolve && !metadata) {
 			logger.warn(`Item #${tokenId} metadata not found or empty`);
 		}
+
+		// Map attributes
+		let attributes: ItemAttributeMapped[] | null = null;
+		if (metadata.attributes) {
+			attributes = metadata.attributes.map((attribute: any) => {
+				return {
+					traitType: attribute.trait_type,
+					value: attribute.value,
+					displayType: attribute.display_type,
+				} as ItemAttributeMapped;
+			});
+		}
+
+		// Create item
 		MarketItem.create(
 			{
-				tokenId: tokenId.toString(),
+				tokenId: tokenId,
 				tokenURI: tokenURI,
 				creator: creator,
 				seller: seller,
 				owner: owner,
-				price: price.toString(),
+				price: price,
 				sold: sold,
-				name: metadata.name || `#${tokenId.toString()}`,
-				description: metadata.description || "No description.",
-				image: resolveIPFSLink(metadata.image) || "",
-				externalUrl: metadata.externalUrl || "",
-				attributes: metadata.attributes || [],
+				name: metadata.name,
+				description: metadata.description,
+				image: resolveIPFSLink(metadata.image),
+				externalUrl: metadata.externalUrl,
+				attributes: attributes,
 			},
 			function (err, item) {
 				if (err) return logger.error(err.message);

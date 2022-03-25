@@ -26,11 +26,11 @@ export async function service() {
 	contract.on("MarketItemCreated", (tokenId, creator, seller, owner, price, sold) => {
 		logger.info("Event MarketItemCreated");
 		const item = {
-			tokenId,
+			tokenId: tokenId.toString(),
 			creator,
 			seller,
 			owner,
-			price,
+			price: price.toString(),
 			sold,
 		};
 		logger.debug("MarketItemCreated", item);
