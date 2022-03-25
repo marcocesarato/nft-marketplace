@@ -20,7 +20,7 @@ import "focus-visible/dist/focus-visible";
 dynamic(() => import("webxr-polyfill"), {ssr: false});
 
 function Page({Component, pageProps}): JSX.Element {
-	const {Moralis, isInitialized, isInitializing} = useMoralis();
+	const {Moralis, isInitialized} = useMoralis();
 	const {isLogged, isAuthenticating} = useAccount();
 	const {enableWeb3, isWeb3Enabled, isWeb3EnableLoading} = useWeb3();
 	const [connectorId] = useLocalStorage<TWeb3Provider>("connectorId");
@@ -36,8 +36,7 @@ function Page({Component, pageProps}): JSX.Element {
 		if (isInitialized) Moralis.initPlugins();
 	}, [isInitialized, Moralis]);
 
-	if (isAuthenticating) return <Loader message="Check for athentication on your wallet..." />;
-	if (isWeb3EnableLoading || isInitializing) return <Loader message="Loading..." />;
+	if (isWeb3EnableLoading || isAuthenticating) return <Loader />;
 
 	return (
 		<>
