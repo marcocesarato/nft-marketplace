@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {Box, HStack} from "@chakra-ui/react";
+import {Box, Stack, useBreakpointValue} from "@chakra-ui/react";
 import {Select} from "chakra-react-select";
 import {useTranslation} from "next-i18next";
 
@@ -12,6 +12,7 @@ export default function CatalogFilterBar({
 	const {t} = useTranslation();
 	const [sortBy, setSortBy] = useState(sort);
 	const [categories, setCategories] = useState(filters?.categories || []);
+	const hasRowDirection = useBreakpointValue({base: false, md: true});
 	const filterOptions = [
 		{value: "newest", label: t("common:catalog.sortType.newest")},
 		{value: "lowest", label: t("common:catalog.sortType.priceASC")},
@@ -27,7 +28,10 @@ export default function CatalogFilterBar({
 	];
 	return (
 		<Box pb={10} mx={4}>
-			<HStack justifyContent="flex-end" gap={"1rem"}>
+			<Stack
+				justifyContent="flex-end"
+				direction={hasRowDirection ? "row" : "column"}
+				gap={"1rem"}>
 				<Box flex={2}>
 					<Select
 						isMulti
@@ -73,7 +77,7 @@ export default function CatalogFilterBar({
 						}}
 					/>
 				</Box>
-			</HStack>
+			</Stack>
 		</Box>
 	);
 }
