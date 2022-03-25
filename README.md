@@ -146,7 +146,7 @@ How to connect Polygon Testnet to MetaMask wallet? The easiest way to get it don
 - **Solidity Environment:** [Hardhat](https://hardhat.org/)
 - **File Storage:** [IPFS](https://ipfs.io/) / [NFT Storage](https://nft.storage/)
 - **Ethereum Client:** [Ethers](https://github.com/ethers-io/ethers.js) / [React Moralis](https://github.com/MoralisWeb3/react-moralis)
-- **Blockchain Indexing:** [NodeJS](https://nodejs.org/)
+- **Indexing Service:** [NodeJS](https://nodejs.org/)
 - **Cross Reality:** [WebXR](https://immersive-web.github.io/) / [ThreeJS](https://threejs.org/)
 
 ### Other
