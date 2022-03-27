@@ -26,10 +26,11 @@
 		},
 		"sortBy": "Ordina per",
 		"sortType": {
-			"nameASC": "Nome (A-Z)",
-			"nameDESC": "Nome (Z-A)",
-			"priceASC": "Prezzo (più basso)",
-			"priceDESC": "Prezzo (più alto)"
+			"mostLikes": "Più like",
+			"mostViews": "Più visti",
+			"newest": "Eecenti",
+			"priceASC": "Economici",
+			"priceDESC": "Più costosi"
 		}
 	},
 	"input": {
@@ -114,7 +115,9 @@
 		"createdBy": "Creato da",
 		"description": "Descrizione",
 		"item": "Articolo",
-		"price": "Prezzo"
+		"price": "Prezzo",
+		"attributes": "Attributi",
+		"soldBy": "Venduto da"
 	},
 	"search": {
 		"assets": "Cerca risorse digitali qui..."
