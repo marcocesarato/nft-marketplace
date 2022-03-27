@@ -36,14 +36,14 @@ export async function createMarketItem(
 		}
 
 		// Map attributes
-		let attributes: ItemAttributeMapped[] | null = null;
+		let attributes = null;
 		if (metadata.attributes) {
 			attributes = metadata.attributes.map((attribute: any) => {
 				return {
 					traitType: attribute.trait_type,
 					value: attribute.value,
 					displayType: attribute.display_type,
-				} as ItemAttributeMapped;
+				};
 			});
 		}
 
@@ -60,7 +60,10 @@ export async function createMarketItem(
 				name: metadata.name,
 				description: metadata.description,
 				image: resolveIPFSLink(metadata.image),
-				externalUrl: metadata.externalUrl,
+				thumbnail: resolveIPFSLink(metadata.thumbnail),
+				externalUrl: metadata.external_url,
+				animationUrl: metadata.animation_url,
+				youtubeUrl: metadata.youtube_url,
 				attributes: attributes,
 			},
 			function (err, item) {

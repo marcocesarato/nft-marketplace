@@ -5,18 +5,20 @@ import Catalog from "@components/Catalog";
 import Content from "@components/Content";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
-import useMarketItemsCreated from "@hooks/useMarketItemsCreated";
 import {getStaticPropsLocale} from "@utils/i18n";
+
+import {useMarketItemsCreatedQuery} from "../services/graphql";
 
 export const getStaticProps = getStaticPropsLocale;
 export default function CreatorDashboard(): JSX.Element {
 	const {t} = useTranslation();
-	const {data, error, isError, isLoading, isSuccess} = useMarketItemsCreated();
-	const sold = data?.filter((i) => i.sold) || [];
+	const {data, error, loading} = useMarketItemsCreatedQuery();
+	const items = data?.marketItems;
+	const sold = items?.filter((i) => i.sold) || [];
 
-	if (isLoading) return <Loading />;
-	if (isError) return <Header title={t("error:title")} subtitle={error.message} />;
-	if (isSuccess && !data?.length)
+	if (loading) return <Loading />;
+	if (error) return <Header title={t("error:title")} subtitle={error.message} />;
+	if (items && !items?.length)
 		return (
 			<Header
 				title={t("common:page.dashboard.created.title")}
@@ -29,7 +31,7 @@ export default function CreatorDashboard(): JSX.Element {
 				title={t("common:page.dashboard.created.title")}
 				subtitle={t("common:page.dashboard.created.description")}
 			/>
-			<Catalog data={data} />
+			<Catalog data={items} />
 			{Boolean(sold.length) && (
 				<Box mt={8}>
 					<Header

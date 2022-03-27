@@ -12,7 +12,10 @@ const MarketItemSchema = new mongoose.Schema(
 		name: {type: String, required: true, trim: true},
 		description: {type: String, required: true, trim: true},
 		image: {type: String, required: true, trim: true},
+		thumbnail: {type: String, trim: true},
 		externalUrl: {type: String, trim: true},
+		animationUrl: {type: String, trim: true},
+		youtubeUrl: {type: String, trim: true},
 		attributes: {
 			type: [
 				{

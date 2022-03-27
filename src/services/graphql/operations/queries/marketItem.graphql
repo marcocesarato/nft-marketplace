@@ -11,12 +11,15 @@ query MarketItem($filter: FilterFindOneMarketItemInput) {
 		sold
 		description
 		externalUrl
+		animationUrl
+		youtubeUrl
 		attributes {
 			traitType
 			value
 			displayType
 		}
 		image
+		thumbnail
 		updatedAt
 		createdAt
 	}

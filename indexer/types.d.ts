@@ -18,7 +18,10 @@ type ItemMetadata = {
 	name: string;
 	description: string;
 	image: string;
-	externalUrl?: string | null | undefined;
+	thumbnail?: string | null | undefined;
+	external_url?: string | null | undefined;
+	animation_url?: string | null | undefined;
+	youtube_url?: string | null | undefined;
 	attributes?: ItemAttribute[] | null | undefined;
 };
 
@@ -26,10 +29,4 @@ type ItemAttribute = {
 	trait_type: string;
 	value: string;
 	display_type?: string | null | undefined;
-};
-
-type ItemAttributeMapped = {
-	traitType: string;
-	value: string;
-	displayType?: string | null | undefined;
 };
