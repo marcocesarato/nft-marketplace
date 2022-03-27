@@ -53,7 +53,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 							pos: "absolute",
 							top: 2,
 							left: 0,
-							background: `url(${resolveLink(data?.image)}) #333`,
+							background: `url(${resolveLink(data?.thumbnail || data?.image)}) #333`,
 							backgroundSize: "cover",
 							backgroundPosition: "center",
 							transform: "rotate(0)",
@@ -74,7 +74,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 							borderRadius="md"
 							cursor="pointer"
 							onClick={onOpen}
-							background={`url(${resolveLink(data?.image)}) #333`}
+							background={`url(${resolveLink(data?.thumbnail || data?.image)}) #333`}
 							backgroundSize="cover"
 							backgroundPosition="center"
 							_hover={{
