@@ -2,7 +2,6 @@ import {
 	Box,
 	Heading,
 	Image,
-	Link,
 	SimpleGrid,
 	Stack,
 	Text,
@@ -10,15 +9,12 @@ import {
 } from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
+import Address from "@components/Address";
 import {useConfig} from "@contexts/Global";
-import useAccount from "@hooks/useAccount";
 import useIPFS from "@hooks/useIPFS";
-import {formatAddress} from "@utils/formatters";
-import {getExplorer} from "@utils/networks";
 
 export default function ProductDetails({data, onPurchase}): JSX.Element {
 	const {resolveLink} = useIPFS();
-	const {chainId} = useAccount();
 	const {nativeToken} = useConfig();
 	const {t} = useTranslation();
 	return (
@@ -55,24 +51,18 @@ export default function ProductDetails({data, onPurchase}): JSX.Element {
 						{data?.name}
 					</Heading>
 					{data?.creator && (
-						<Text fontSize={"sm"}>
-							{t("common:product:createdBy")}{" "}
-							<Link
-								href={`${getExplorer(chainId)}address/${data?.creator}`}
-								target="_blank">
-								{formatAddress(data.creator)}
-							</Link>
-						</Text>
+						<Address
+							fontSize={"sm"}
+							label={t("common:product:createdBy")}
+							address={data?.creator}
+						/>
 					)}
 					{data?.seller && data?.seller !== data?.creator && (
-						<Text fontSize={"sm"}>
-							{t("common:product:soldBy")}{" "}
-							<Link
-								href={`${getExplorer(chainId)}address/${data?.seller}`}
-								target="_blank">
-								{formatAddress(data.seller)}
-							</Link>
-						</Text>
+						<Address
+							fontSize={"sm"}
+							label={t("common:product:soldBy")}
+							address={data?.seller}
+						/>
 					)}
 				</Box>
 

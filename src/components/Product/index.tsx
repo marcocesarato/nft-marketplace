@@ -4,7 +4,6 @@ import {
 	Button,
 	Heading,
 	HStack,
-	Link,
 	Stack,
 	Text,
 	useBreakpointValue,
@@ -14,11 +13,9 @@ import {
 import {motion} from "framer-motion";
 import {useTranslation} from "next-i18next";
 
+import Address from "@components/Address";
 import {useConfig} from "@contexts/Global";
-import useAccount from "@hooks/useAccount";
 import useIPFS from "@hooks/useIPFS";
-import {formatAddress} from "@utils/formatters";
-import {getExplorer} from "@utils/networks";
 
 import ProductModal from "./ProductModal";
 
@@ -27,7 +24,6 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 	const {t} = useTranslation();
 	const {nativeToken} = useConfig();
 	const {resolveLink} = useIPFS();
-	const {chainId} = useAccount();
 	const {isOpen, onOpen, onClose} = useDisclosure();
 	return (
 		<>
@@ -99,14 +95,11 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 							{data?.name}
 						</Heading>
 						{data?.creator && (
-							<Text fontSize={"sm"}>
-								{t("common:product:createdBy")}{" "}
-								<Link
-									href={`${getExplorer(chainId)}address/${data?.creator}`}
-									target="_blank">
-									{formatAddress(data.creator)}
-								</Link>
-							</Text>
+							<Address
+								fontSize={"sm"}
+								label={t("common:product:createdBy")}
+								address={data.creator}
+							/>
 						)}
 					</Stack>
 					{onPurchase && (
