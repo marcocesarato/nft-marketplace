@@ -1,4 +1,4 @@
-import {AiOutlineShoppingCart} from "react-icons/ai";
+import {AiFillHeart, AiOutlineHeart, AiOutlineShoppingCart} from "react-icons/ai";
 import {
 	Box,
 	Button,
@@ -7,7 +7,7 @@ import {
 	Stack,
 	Text,
 	useBreakpointValue,
-	useColorModeValue,
+	useColorModeValue as mode,
 	useDisclosure,
 } from "@chakra-ui/react";
 import {motion} from "framer-motion";
@@ -35,10 +35,15 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 				<Box
 					role={"group"}
 					w={"full"}
-					bg={useColorModeValue("gray.200", "gray.900")}
+					transition="all .5s ease"
+					bg={mode("gray.200", "gray.900")}
 					rounded={"lg"}
 					pos={"relative"}
-					zIndex={1}>
+					zIndex={1}
+					shadow="sm"
+					_hover={{
+						shadow: "md",
+					}}>
 					<Box
 						mx={6}
 						rounded={"lg"}
@@ -57,7 +62,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 							backgroundSize: "cover",
 							backgroundPosition: "center",
 							transform: "rotate(0)",
-							filter: `blur(15px) brightness(${useColorModeValue("80%", "50%")})`,
+							filter: `blur(15px) brightness(${mode("80%", "50%")})`,
 							zIndex: -1,
 						}}
 						_groupHover={{
@@ -82,10 +87,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 							}}
 						/>
 					</Box>
-					<Stack p={6} pt={10} align={"center"}>
-						<Text color={"gray.500"} fontSize={"sm"} textTransform={"uppercase"}>
-							{t("common:product.item")}
-						</Text>
+					<Stack p={6} pt={8} align={"center"}>
 						<Heading
 							fontSize={"2xl"}
 							fontFamily={"body"}
@@ -102,16 +104,34 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 							/>
 						)}
 					</Stack>
-					{onPurchase && (
+					<HStack px={4} justifyContent="center" w="full">
+						<Box
+							transition="all .3s ease"
+							color={data.isLiked ? "red.500" : mode("gray.700", "white")}
+							_hover={{
+								transform: "scale(1.4)",
+							}}>
+							{data.isLiked ? (
+								<AiFillHeart size={24} />
+							) : (
+								<AiOutlineHeart size={24} />
+							)}
+						</Box>
+						<Text fontWeight="medium" fontSize={"lg"}>
+							{data?.likes || 0}
+						</Text>
+					</HStack>
+					{onPurchase && data?.price && (
 						<HStack
 							opacity={0.8}
 							alignItems="center"
 							justifyContent="space-between"
 							p={4}
+							pb={0}
 							roundedBottom="lg">
 							{data?.price && (
 								<Stack direction={"row"} align={"center"}>
-									<Text fontWeight="medium" fontSize={"lg"}>
+									<Text fontWeight="medium" fontSize={"md"}>
 										{data?.priceFormatted || data?.price} {nativeToken?.symbol}
 									</Text>
 								</Stack>
@@ -138,6 +158,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 							</Button>
 						</HStack>
 					)}
+					<Box height={6} />
 				</Box>
 			</MotionStack>
 			<ProductModal data={data} isOpen={isOpen} onClose={onClose} onPurchase={onPurchase} />
