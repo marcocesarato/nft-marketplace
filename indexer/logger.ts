@@ -16,6 +16,7 @@ const logger = winston.createLogger({
 		}),
 		new winston.transports.File({
 			filename: directoryName + "/logs/all.log",
+			level: "silly",
 			format: winston.format.combine(
 				winston.format.timestamp({format: DATE_FORMAT}),
 				winston.format.json(),
