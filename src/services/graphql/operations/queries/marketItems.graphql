@@ -25,6 +25,8 @@ query MarketItems(
 		}
 		image
 		thumbnail
+		likes
+		isLiked
 		updatedAt
 		createdAt
 	}

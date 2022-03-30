@@ -512,7 +512,7 @@ export type DislikeMutationVariables = Exact<{
 
 export type DislikeMutation = {
 	__typename?: "Mutation";
-	dislike?: {__typename?: "MarketItem"; likes?: number | null} | null;
+	dislike?: {__typename?: "MarketItem"; likes?: number | null; isLiked?: boolean | null} | null;
 };
 
 export type LikeMutationVariables = Exact<{
@@ -521,7 +521,7 @@ export type LikeMutationVariables = Exact<{
 
 export type LikeMutation = {
 	__typename?: "Mutation";
-	like?: {__typename?: "MarketItem"; likes?: number | null} | null;
+	like?: {__typename?: "MarketItem"; likes?: number | null; isLiked?: boolean | null} | null;
 };
 
 export type UserUpdateMutationVariables = Exact<{
@@ -574,6 +574,8 @@ export type MarketItemQuery = {
 		youtubeUrl?: string | null;
 		image: string;
 		thumbnail?: string | null;
+		likes?: number | null;
+		isLiked?: boolean | null;
 		updatedAt?: any | null;
 		createdAt?: any | null;
 		attributes?: Array<{
@@ -611,6 +613,8 @@ export type MarketItemsQuery = {
 		youtubeUrl?: string | null;
 		image: string;
 		thumbnail?: string | null;
+		likes?: number | null;
+		isLiked?: boolean | null;
 		updatedAt?: any | null;
 		createdAt?: any | null;
 		attributes?: Array<{
@@ -647,6 +651,7 @@ export const DislikeDocument = gql`
 	mutation Dislike($tokenId: Int) {
 		dislike(tokenId: $tokenId) {
 			likes
+			isLiked
 		}
 	}
 `;
@@ -685,6 +690,7 @@ export const LikeDocument = gql`
 	mutation Like($tokenId: Int) {
 		like(tokenId: $tokenId) {
 			likes
+			isLiked
 		}
 	}
 `;
@@ -805,6 +811,8 @@ export const MarketItemDocument = gql`
 			}
 			image
 			thumbnail
+			likes
+			isLiked
 			updatedAt
 			createdAt
 		}
@@ -873,6 +881,8 @@ export const MarketItemsDocument = gql`
 			}
 			image
 			thumbnail
+			likes
+			isLiked
 			updatedAt
 			createdAt
 		}

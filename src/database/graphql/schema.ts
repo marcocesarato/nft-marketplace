@@ -52,10 +52,12 @@ MarketItemTC.addFields({
 	isLiked: {
 		type: "Boolean",
 		resolve: async (source, args, context, info) => {
-			const {account, isAuthenticated} = context;
-			const {likes} = source;
+			const {isAuthenticated, account} = context;
+			const {_id} = source;
 			if (!isAuthenticated) return false;
-			return likes.includes(account);
+			const user = await User.findOne({"account": account}).lean();
+			if (!user) return false;
+			return user?.likes?.includes(_id) || false;
 		},
 	},
 });

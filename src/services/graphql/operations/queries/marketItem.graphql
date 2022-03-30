@@ -20,6 +20,8 @@ query MarketItem($filter: FilterFindOneMarketItemInput) {
 		}
 		image
 		thumbnail
+		likes
+		isLiked
 		updatedAt
 		createdAt
 	}

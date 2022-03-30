@@ -1,5 +1,6 @@
 mutation Dislike($tokenId: Int) {
 	dislike(tokenId: $tokenId) {
 		likes
+		isLiked
 	}
 }

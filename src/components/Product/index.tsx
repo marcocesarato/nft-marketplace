@@ -1,3 +1,4 @@
+import {useState} from "react";
 import {AiFillHeart, AiOutlineHeart, AiOutlineShoppingCart} from "react-icons/ai";
 import {
 	Box,
@@ -16,6 +17,7 @@ import {useTranslation} from "next-i18next";
 import Address from "@components/Address";
 import {useConfig} from "@contexts/Global";
 import useIPFS from "@hooks/useIPFS";
+import {useDislikeMutation, useLikeMutation} from "@services/graphql";
 
 import ProductModal from "./ProductModal";
 
@@ -24,7 +26,34 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 	const {t} = useTranslation();
 	const {nativeToken} = useConfig();
 	const {resolveLink} = useIPFS();
+	const [likes, setLikes] = useState(data.likes || 0);
+	const [isLiked, setIsLiked] = useState(data.isLiked || false);
 	const {isOpen, onOpen, onClose} = useDisclosure();
+
+	const [likeMutation] = useLikeMutation({
+		variables: {
+			tokenId: data.tokenId,
+		},
+	});
+
+	const [dislikeMutation] = useDislikeMutation({
+		variables: {
+			tokenId: data.tokenId,
+		},
+	});
+
+	const handleLike = async () => {
+		if (isLiked) {
+			await dislikeMutation();
+			setLikes(likes - 1);
+			setIsLiked(false);
+		} else {
+			await likeMutation();
+			setLikes(likes + 1);
+			setIsLiked(true);
+		}
+	};
+
 	return (
 		<>
 			<MotionStack
@@ -107,18 +136,16 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 					<HStack px={4} justifyContent="center" w="full">
 						<Box
 							transition="all .3s ease"
-							color={data.isLiked ? "red.500" : mode("gray.700", "white")}
+							color={isLiked ? "red.500" : mode("gray.700", "white")}
+							cursor="pointer"
+							onClick={handleLike}
 							_hover={{
 								transform: "scale(1.4)",
 							}}>
-							{data.isLiked ? (
-								<AiFillHeart size={24} />
-							) : (
-								<AiOutlineHeart size={24} />
-							)}
+							{isLiked ? <AiFillHeart size={24} /> : <AiOutlineHeart size={24} />}
 						</Box>
 						<Text fontWeight="medium" fontSize={"lg"}>
-							{data?.likes || 0}
+							{likes}
 						</Text>
 					</HStack>
 					{onPurchase && data?.price && (

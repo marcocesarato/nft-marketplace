@@ -22,8 +22,11 @@ export const useMarketItemsCreatedQuery = (
 };
 
 export {
+	useDislikeMutation,
+	useLikeMutation,
 	useMarketItemsLazyQuery,
 	useMarketItemsQuery,
 	useUserLazyQuery,
 	useUserQuery,
+	useUserUpdateMutation,
 } from "./generated";
