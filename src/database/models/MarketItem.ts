@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 
 const MarketItemSchema = new mongoose.Schema(
 	{
-		tokenId: {type: String, required: true, trim: true},
+		_id: {type: Number, required: true},
+		tokenId: {type: Number, required: true, trim: true},
 		tokenURI: {type: String, required: true, trim: true},
 		creator: {type: String, required: true, trim: true},
 		seller: {type: String, required: true, trim: true},
@@ -25,6 +26,7 @@ const MarketItemSchema = new mongoose.Schema(
 				},
 			],
 		},
+		likes: {type: Number, default: 0},
 	},
 	{timestamps: true},
 );

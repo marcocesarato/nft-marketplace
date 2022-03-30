@@ -41,7 +41,7 @@ export type FilterCountMarketItemAttributesInput = {
 export type FilterCountMarketItemInput = {
 	AND?: InputMaybe<Array<FilterCountMarketItemInput>>;
 	OR?: InputMaybe<Array<FilterCountMarketItemInput>>;
-	_id?: InputMaybe<Scalars["MongoID"]>;
+	_id?: InputMaybe<Scalars["Int"]>;
 	/** List of *indexed* fields that can be filtered via operators. */
 	_operators?: InputMaybe<FilterCountMarketItemOperatorsInput>;
 	animationUrl?: InputMaybe<Scalars["String"]>;
@@ -51,13 +51,14 @@ export type FilterCountMarketItemInput = {
 	description?: InputMaybe<Scalars["String"]>;
 	externalUrl?: InputMaybe<Scalars["String"]>;
 	image?: InputMaybe<Scalars["String"]>;
+	likes?: InputMaybe<Scalars["Float"]>;
 	name?: InputMaybe<Scalars["String"]>;
 	owner?: InputMaybe<Scalars["String"]>;
 	price?: InputMaybe<Scalars["String"]>;
 	seller?: InputMaybe<Scalars["String"]>;
 	sold?: InputMaybe<Scalars["Boolean"]>;
 	thumbnail?: InputMaybe<Scalars["String"]>;
-	tokenId?: InputMaybe<Scalars["String"]>;
+	tokenId?: InputMaybe<Scalars["Float"]>;
 	tokenURI?: InputMaybe<Scalars["String"]>;
 	updatedAt?: InputMaybe<Scalars["Date"]>;
 	youtubeUrl?: InputMaybe<Scalars["String"]>;
@@ -70,13 +71,13 @@ export type FilterCountMarketItemOperatorsInput = {
 
 export type FilterCountMarketItem_IdOperatorsInput = {
 	exists?: InputMaybe<Scalars["Boolean"]>;
-	gt?: InputMaybe<Scalars["MongoID"]>;
-	gte?: InputMaybe<Scalars["MongoID"]>;
-	in?: InputMaybe<Array<InputMaybe<Scalars["MongoID"]>>>;
-	lt?: InputMaybe<Scalars["MongoID"]>;
-	lte?: InputMaybe<Scalars["MongoID"]>;
-	ne?: InputMaybe<Scalars["MongoID"]>;
-	nin?: InputMaybe<Array<InputMaybe<Scalars["MongoID"]>>>;
+	gt?: InputMaybe<Scalars["Int"]>;
+	gte?: InputMaybe<Scalars["Int"]>;
+	in?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
+	lt?: InputMaybe<Scalars["Int"]>;
+	lte?: InputMaybe<Scalars["Int"]>;
+	ne?: InputMaybe<Scalars["Int"]>;
+	nin?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
 };
 
 export type FilterCountUserInput = {
@@ -87,6 +88,7 @@ export type FilterCountUserInput = {
 	_operators?: InputMaybe<FilterCountUserOperatorsInput>;
 	account?: InputMaybe<Scalars["String"]>;
 	createdAt?: InputMaybe<Scalars["Date"]>;
+	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	updatedAt?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
@@ -117,7 +119,7 @@ export type FilterFindManyMarketItemAttributesInput = {
 export type FilterFindManyMarketItemInput = {
 	AND?: InputMaybe<Array<FilterFindManyMarketItemInput>>;
 	OR?: InputMaybe<Array<FilterFindManyMarketItemInput>>;
-	_id?: InputMaybe<Scalars["MongoID"]>;
+	_id?: InputMaybe<Scalars["Int"]>;
 	/** List of *indexed* fields that can be filtered via operators. */
 	_operators?: InputMaybe<FilterFindManyMarketItemOperatorsInput>;
 	animationUrl?: InputMaybe<Scalars["String"]>;
@@ -127,13 +129,14 @@ export type FilterFindManyMarketItemInput = {
 	description?: InputMaybe<Scalars["String"]>;
 	externalUrl?: InputMaybe<Scalars["String"]>;
 	image?: InputMaybe<Scalars["String"]>;
+	likes?: InputMaybe<Scalars["Float"]>;
 	name?: InputMaybe<Scalars["String"]>;
 	owner?: InputMaybe<Scalars["String"]>;
 	price?: InputMaybe<Scalars["String"]>;
 	seller?: InputMaybe<Scalars["String"]>;
 	sold?: InputMaybe<Scalars["Boolean"]>;
 	thumbnail?: InputMaybe<Scalars["String"]>;
-	tokenId?: InputMaybe<Scalars["String"]>;
+	tokenId?: InputMaybe<Scalars["Float"]>;
 	tokenURI?: InputMaybe<Scalars["String"]>;
 	updatedAt?: InputMaybe<Scalars["Date"]>;
 	youtubeUrl?: InputMaybe<Scalars["String"]>;
@@ -146,13 +149,13 @@ export type FilterFindManyMarketItemOperatorsInput = {
 
 export type FilterFindManyMarketItem_IdOperatorsInput = {
 	exists?: InputMaybe<Scalars["Boolean"]>;
-	gt?: InputMaybe<Scalars["MongoID"]>;
-	gte?: InputMaybe<Scalars["MongoID"]>;
-	in?: InputMaybe<Array<InputMaybe<Scalars["MongoID"]>>>;
-	lt?: InputMaybe<Scalars["MongoID"]>;
-	lte?: InputMaybe<Scalars["MongoID"]>;
-	ne?: InputMaybe<Scalars["MongoID"]>;
-	nin?: InputMaybe<Array<InputMaybe<Scalars["MongoID"]>>>;
+	gt?: InputMaybe<Scalars["Int"]>;
+	gte?: InputMaybe<Scalars["Int"]>;
+	in?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
+	lt?: InputMaybe<Scalars["Int"]>;
+	lte?: InputMaybe<Scalars["Int"]>;
+	ne?: InputMaybe<Scalars["Int"]>;
+	nin?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
 };
 
 export type FilterFindManyUserInput = {
@@ -163,6 +166,7 @@ export type FilterFindManyUserInput = {
 	_operators?: InputMaybe<FilterFindManyUserOperatorsInput>;
 	account?: InputMaybe<Scalars["String"]>;
 	createdAt?: InputMaybe<Scalars["Date"]>;
+	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	updatedAt?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
@@ -193,7 +197,7 @@ export type FilterFindOneMarketItemAttributesInput = {
 export type FilterFindOneMarketItemInput = {
 	AND?: InputMaybe<Array<FilterFindOneMarketItemInput>>;
 	OR?: InputMaybe<Array<FilterFindOneMarketItemInput>>;
-	_id?: InputMaybe<Scalars["MongoID"]>;
+	_id?: InputMaybe<Scalars["Int"]>;
 	/** List of *indexed* fields that can be filtered via operators. */
 	_operators?: InputMaybe<FilterFindOneMarketItemOperatorsInput>;
 	animationUrl?: InputMaybe<Scalars["String"]>;
@@ -203,13 +207,14 @@ export type FilterFindOneMarketItemInput = {
 	description?: InputMaybe<Scalars["String"]>;
 	externalUrl?: InputMaybe<Scalars["String"]>;
 	image?: InputMaybe<Scalars["String"]>;
+	likes?: InputMaybe<Scalars["Float"]>;
 	name?: InputMaybe<Scalars["String"]>;
 	owner?: InputMaybe<Scalars["String"]>;
 	price?: InputMaybe<Scalars["String"]>;
 	seller?: InputMaybe<Scalars["String"]>;
 	sold?: InputMaybe<Scalars["Boolean"]>;
 	thumbnail?: InputMaybe<Scalars["String"]>;
-	tokenId?: InputMaybe<Scalars["String"]>;
+	tokenId?: InputMaybe<Scalars["Float"]>;
 	tokenURI?: InputMaybe<Scalars["String"]>;
 	updatedAt?: InputMaybe<Scalars["Date"]>;
 	youtubeUrl?: InputMaybe<Scalars["String"]>;
@@ -222,13 +227,13 @@ export type FilterFindOneMarketItemOperatorsInput = {
 
 export type FilterFindOneMarketItem_IdOperatorsInput = {
 	exists?: InputMaybe<Scalars["Boolean"]>;
-	gt?: InputMaybe<Scalars["MongoID"]>;
-	gte?: InputMaybe<Scalars["MongoID"]>;
-	in?: InputMaybe<Array<InputMaybe<Scalars["MongoID"]>>>;
-	lt?: InputMaybe<Scalars["MongoID"]>;
-	lte?: InputMaybe<Scalars["MongoID"]>;
-	ne?: InputMaybe<Scalars["MongoID"]>;
-	nin?: InputMaybe<Array<InputMaybe<Scalars["MongoID"]>>>;
+	gt?: InputMaybe<Scalars["Int"]>;
+	gte?: InputMaybe<Scalars["Int"]>;
+	in?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
+	lt?: InputMaybe<Scalars["Int"]>;
+	lte?: InputMaybe<Scalars["Int"]>;
+	ne?: InputMaybe<Scalars["Int"]>;
+	nin?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
 };
 
 export type FilterFindOneUserInput = {
@@ -239,6 +244,7 @@ export type FilterFindOneUserInput = {
 	_operators?: InputMaybe<FilterFindOneUserOperatorsInput>;
 	account?: InputMaybe<Scalars["String"]>;
 	createdAt?: InputMaybe<Scalars["Date"]>;
+	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	updatedAt?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
@@ -261,7 +267,7 @@ export type FilterFindOneUser_IdOperatorsInput = {
 
 export type MarketItem = {
 	__typename?: "MarketItem";
-	_id: Scalars["MongoID"];
+	_id: Scalars["Int"];
 	animationUrl?: Maybe<Scalars["String"]>;
 	attributes?: Maybe<Array<Maybe<MarketItemAttributes>>>;
 	createdAt?: Maybe<Scalars["Date"]>;
@@ -269,6 +275,8 @@ export type MarketItem = {
 	description: Scalars["String"];
 	externalUrl?: Maybe<Scalars["String"]>;
 	image: Scalars["String"];
+	isLiked?: Maybe<Scalars["Boolean"]>;
+	likes?: Maybe<Scalars["Float"]>;
 	name: Scalars["String"];
 	owner: Scalars["String"];
 	price: Scalars["String"];
@@ -277,7 +285,7 @@ export type MarketItem = {
 	seller: Scalars["String"];
 	sold: Scalars["Boolean"];
 	thumbnail?: Maybe<Scalars["String"]>;
-	tokenId: Scalars["String"];
+	tokenId: Scalars["Float"];
 	tokenURI: Scalars["String"];
 	updatedAt?: Maybe<Scalars["Date"]>;
 	youtubeUrl?: Maybe<Scalars["String"]>;
@@ -312,12 +320,22 @@ export type MongoError = ErrorInterface & {
 
 export type Mutation = {
 	__typename?: "Mutation";
+	dislike?: Maybe<MarketItem>;
+	like?: Maybe<MarketItem>;
 	/**
 	 * Update one document: 1) Retrieve one document by findById. 2) Apply updates to
 	 * mongoose document. 3) Mongoose applies defaults, setters, hooks and
 	 * validation. 4) And save it.
 	 */
 	userUpdate?: Maybe<UpdateByIdUserPayload>;
+};
+
+export type MutationDislikeArgs = {
+	tokenId?: InputMaybe<Scalars["Int"]>;
+};
+
+export type MutationLikeArgs = {
+	tokenId?: InputMaybe<Scalars["Int"]>;
 };
 
 export type MutationUserUpdateArgs = {
@@ -424,6 +442,7 @@ export enum SortFindOneUserInput {
 export type UpdateByIdUserInput = {
 	account?: InputMaybe<Scalars["String"]>;
 	createdAt?: InputMaybe<Scalars["Date"]>;
+	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	updatedAt?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
@@ -447,6 +466,7 @@ export type User = {
 	_id: Scalars["MongoID"];
 	account: Scalars["String"];
 	createdAt?: Maybe<Scalars["Date"]>;
+	likes?: Maybe<Array<Maybe<Scalars["Float"]>>>;
 	updatedAt?: Maybe<Scalars["Date"]>;
 	username: Scalars["String"];
 };
@@ -486,6 +506,24 @@ export type ValidatorError = {
 	value?: Maybe<Scalars["JSON"]>;
 };
 
+export type DislikeMutationVariables = Exact<{
+	tokenId?: InputMaybe<Scalars["Int"]>;
+}>;
+
+export type DislikeMutation = {
+	__typename?: "Mutation";
+	dislike?: {__typename?: "MarketItem"; likes?: number | null} | null;
+};
+
+export type LikeMutationVariables = Exact<{
+	tokenId?: InputMaybe<Scalars["Int"]>;
+}>;
+
+export type LikeMutation = {
+	__typename?: "Mutation";
+	like?: {__typename?: "MarketItem"; likes?: number | null} | null;
+};
+
 export type UserUpdateMutationVariables = Exact<{
 	id: Scalars["MongoID"];
 	record: UpdateByIdUserInput;
@@ -522,7 +560,7 @@ export type MarketItemQuery = {
 	marketItem?: {
 		__typename?: "MarketItem";
 		name: string;
-		tokenId: string;
+		tokenId: number;
 		tokenURI: string;
 		creator: string;
 		seller: string;
@@ -559,7 +597,7 @@ export type MarketItemsQuery = {
 	marketItems: Array<{
 		__typename?: "MarketItem";
 		name: string;
-		tokenId: string;
+		tokenId: number;
 		tokenURI: string;
 		creator: string;
 		seller: string;
@@ -605,6 +643,79 @@ export type UsersQuery = {
 	users: Array<{__typename?: "User"; username: string; account: string; _id: any}>;
 };
 
+export const DislikeDocument = gql`
+	mutation Dislike($tokenId: Int) {
+		dislike(tokenId: $tokenId) {
+			likes
+		}
+	}
+`;
+export type DislikeMutationFn = Apollo.MutationFunction<DislikeMutation, DislikeMutationVariables>;
+
+/**
+ * __useDislikeMutation__
+ *
+ * To run a mutation, you first call `useDislikeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDislikeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [dislikeMutation, { data, loading, error }] = useDislikeMutation({
+ *   variables: {
+ *      tokenId: // value for 'tokenId'
+ *   },
+ * });
+ */
+export function useDislikeMutation(
+	baseOptions?: Apollo.MutationHookOptions<DislikeMutation, DislikeMutationVariables>,
+) {
+	const options = {...defaultOptions, ...baseOptions};
+	return Apollo.useMutation<DislikeMutation, DislikeMutationVariables>(DislikeDocument, options);
+}
+export type DislikeMutationHookResult = ReturnType<typeof useDislikeMutation>;
+export type DislikeMutationResult = Apollo.MutationResult<DislikeMutation>;
+export type DislikeMutationOptions = Apollo.BaseMutationOptions<
+	DislikeMutation,
+	DislikeMutationVariables
+>;
+export const LikeDocument = gql`
+	mutation Like($tokenId: Int) {
+		like(tokenId: $tokenId) {
+			likes
+		}
+	}
+`;
+export type LikeMutationFn = Apollo.MutationFunction<LikeMutation, LikeMutationVariables>;
+
+/**
+ * __useLikeMutation__
+ *
+ * To run a mutation, you first call `useLikeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLikeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [likeMutation, { data, loading, error }] = useLikeMutation({
+ *   variables: {
+ *      tokenId: // value for 'tokenId'
+ *   },
+ * });
+ */
+export function useLikeMutation(
+	baseOptions?: Apollo.MutationHookOptions<LikeMutation, LikeMutationVariables>,
+) {
+	const options = {...defaultOptions, ...baseOptions};
+	return Apollo.useMutation<LikeMutation, LikeMutationVariables>(LikeDocument, options);
+}
+export type LikeMutationHookResult = ReturnType<typeof useLikeMutation>;
+export type LikeMutationResult = Apollo.MutationResult<LikeMutation>;
+export type LikeMutationOptions = Apollo.BaseMutationOptions<LikeMutation, LikeMutationVariables>;
 export const UserUpdateDocument = gql`
 	mutation UserUpdate($id: MongoID!, $record: UpdateByIdUserInput!) {
 		userUpdate(_id: $id, record: $record) {

@@ -49,6 +49,15 @@ MarketItemTC.addFields({
 		description: "Price formatted",
 		resolve: (source) => formatUnits(source.price, "ether"),
 	},
+	isLiked: {
+		type: "Boolean",
+		resolve: async (source, args, context, info) => {
+			const {account, isAuthenticated} = context;
+			const {likes} = source;
+			if (!isAuthenticated) return false;
+			return likes.includes(account);
+		},
+	},
 });
 const marketItemResolvers = MarketItemTC.mongooseResolvers;
 schemaComposer.Query.addFields({
@@ -56,6 +65,32 @@ schemaComposer.Query.addFields({
 	marketItems: marketItemResolvers.findMany({lean: true}),
 	marketItemsCount: marketItemResolvers.count(),
 	marketItemsPagination: marketItemResolvers.pagination(),
+});
+schemaComposer.Mutation.addFields({
+	like: {
+		type: MarketItemTC,
+		args: {tokenId: "Int"},
+		resolve: async (source, args, context, info) => {
+			const {account, isAuthenticated} = context;
+			if (!isAuthenticated) throw new Error("Not authenticated"); // Check auth
+			const user = await User.updateOne({account: account}, {$push: {likes: args.tokenId}});
+			if (!user) throw new Error("User not found"); // Check user
+			await MarketItem.updateOne({_id: args.tokenId}, {$inc: {"likes": 1}});
+			return MarketItem.findOne({_id: args.tokenId});
+		},
+	},
+	dislike: {
+		type: MarketItemTC,
+		args: {tokenId: "Int"},
+		resolve: async (source, args, context, info) => {
+			const {account, isAuthenticated} = context;
+			if (!isAuthenticated) throw new Error("Not authenticated"); // Check auth
+			const user = await User.updateOne({account: account}, {$pull: {likes: args.tokenId}});
+			if (!user) throw new Error("User not found"); // Check user
+			await MarketItem.updateOne({_id: args.tokenId}, {$inc: {"likes": -1}});
+			return MarketItem.findOne({_id: args.tokenId});
+		},
+	},
 });
 
 const schema = schemaComposer.buildSchema();

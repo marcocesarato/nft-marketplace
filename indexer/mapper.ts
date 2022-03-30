@@ -50,6 +50,7 @@ export async function createMarketItem(
 		// Create item
 		MarketItem.create(
 			{
+				_id: tokenId,
 				tokenId: tokenId,
 				tokenURI: tokenURI,
 				creator: creator,
