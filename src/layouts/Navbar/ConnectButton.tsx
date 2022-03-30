@@ -1,5 +1,6 @@
 import {useEffect} from "react";
-import {Button, Flex, useDisclosure} from "@chakra-ui/react";
+import {IoWalletOutline} from "react-icons/io5";
+import {Button, Flex, Text, useDisclosure} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
 import useAccount from "@hooks/useAccount";
@@ -35,7 +36,10 @@ export default function ConnectButton({openAccountModal}): JSX.Element {
 						fontWeight="medium"
 						borderRadius="xl"
 						border="1px solid transparent">
-						{t("common:action.connectToWallet")}
+						<IoWalletOutline />
+						<Text ml={2} d={{base: "none", md: "inline-block"}}>
+							{t("common:action.connectToWallet")}
+						</Text>
 					</Button>
 					<AuthModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
 				</>
