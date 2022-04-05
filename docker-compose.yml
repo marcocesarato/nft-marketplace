@@ -1,4 +1,4 @@
-version: "3"
+version: "3.4"
 
 services:
     app:
@@ -7,6 +7,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+            target: runner
         env_file:
             - .env
         volumes:
@@ -15,7 +16,18 @@ services:
             - 3000:3000
         links:
             - mongo
-
+    indexer:
+        container_name: indexer
+        build:
+            context: .
+            dockerfile: indexer/Dockerfile
+            target: runner
+        env_file:
+            - .env
+        volumes:
+            - ./:/app
+        links:
+            - mongo
     mongo:
         container_name: mongo
         image: mongo

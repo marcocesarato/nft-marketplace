@@ -19,7 +19,6 @@
         "process:indexer": "ts-node-esm --project indexer/tsconfig.json indexer/main.ts",
         "release": "standard-version",
         "start": "next start",
-        "start:prod": "concurrently -n \"main,--\" \"node server.js\" \"npm:process:*\"",
         "static:build": "yarn build && next export",
         "static:serve": "yarn static:build && npx servor out index.html 5000"
     },

@@ -40,9 +40,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+data
 Dockerfile
 .dockerignore
 README.md
 CODE_STYLE.md
-.next
 .git
