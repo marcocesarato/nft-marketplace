@@ -1,7 +1,9 @@
 import dynamic from "next/dynamic";
 import {ApexOptions} from "apexcharts";
 
-const ReactApexChart = dynamic(() => import("react-apexcharts"), {ssr: false});
+const ReactApexChart = dynamic(() => import("react-apexcharts"), {
+	ssr: false,
+});
 
 const chartOptions: ApexOptions = {
 	chart: {
@@ -73,12 +75,15 @@ const chartOptions: ApexOptions = {
 
 export default function LineChart({chartData}): JSX.Element {
 	return (
-		<ReactApexChart
-			options={chartOptions}
-			series={chartData}
-			type="line"
-			height={250}
-			w="100%"
-		/>
+		<>
+			{/* @ts-ignore */}
+			<ReactApexChart
+				options={chartOptions}
+				series={chartData}
+				type="line"
+				height={250}
+				w="100%"
+			/>
+		</>
 	);
 }
