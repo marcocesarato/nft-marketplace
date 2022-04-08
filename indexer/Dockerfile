@@ -4,10 +4,10 @@ RUN apk add --no-cache libc6-compat git
 
 WORKDIR /app
 
-COPY .env ./
-COPY indexer/* ./
+COPY . .
+COPY indexer/package.json ./package.json
+COPY indexer/tsconfig.json ./tsconfig.json
 
-RUN yarn cache clean
-RUN yarn install --frozen-lockfile
+RUN yarn install --production --ignore-scripts --prefer-offline
 
-CMD ["yarn", "process:indexer"]
+CMD ["yarn", "start"]
