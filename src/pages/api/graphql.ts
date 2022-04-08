@@ -6,8 +6,8 @@ import {send} from "micro";
 import Cors from "micro-cors";
 
 import {connectDatabase} from "@database/connect";
-import GraphQLSchema from "@database/graphql/schema";
 import User from "@models/User";
+import GraphQLSchema from "@services/graphql/schema";
 import {formatAddress} from "@utils/formatters";
 
 const cors = Cors({
