@@ -4,8 +4,18 @@ RUN apk add --no-cache libc6-compat git
 
 WORKDIR /app
 
-COPY . .
+# Source code
+COPY src/database ./src/database
+COPY indexer ./indexer
+
+# Dependencies
 COPY indexer/package.json ./package.json
+COPY indexer/yarn.lock ./yarn.lock
+
+# Configs
+COPY .env ./
+COPY abis ./abis
+COPY addresses.js ./
 COPY indexer/tsconfig.json ./tsconfig.json
 
 RUN yarn install --production --ignore-scripts --prefer-offline
