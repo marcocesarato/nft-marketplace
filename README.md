@@ -7,7 +7,7 @@ Watch your Digital Art on the wall of your home. Use the VR viewer to see all yo
 - [Summary](#summary)
 - [Setup](#setup)
     - [Local Setup](#local-setup)
-    - [Using Docker](#using-docker)
+    - [Using Docker for production](#using-docker-for-production)
     - [Configuration](#configuration)
         - [Configure Moralis and Hardhat](#configure-moralis-and-hardhat)
 - [Requirements](#requirements)
@@ -63,16 +63,16 @@ To run this project locally, follow these steps.
     npm run dev
     ```
 
-    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+    Open [http://localhost:3000](http://localhost:3000) with yomposeur browser to see the result.
 
 
-### Using Docker
+### Using Docker for production
 
 1. [Install Docker](https://docs.docker.com/get-docker/) on your machine.
-1. Build your container: `docker build -t nft-marketplace .`.
-1. Run your container: `docker run -p 3000:3000 nft-marketplace`.
+2. Build your containers with `docker-compose build` *(you need to rebuild if you make changes to the source code)*
+3. Run your containers with `docker-compose up -d`
 
-You can view your images created with `docker images`.
+You can check the status of your containers created with `docker-compose ps`
 
 ### Configuration
 
