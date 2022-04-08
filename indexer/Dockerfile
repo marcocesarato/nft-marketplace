@@ -4,8 +4,8 @@ RUN apk add --no-cache libc6-compat git
 
 WORKDIR /app
 
-COPY package.json yarn.lock ./
-COPY indexer ./
+COPY .env ./
+COPY indexer/* ./
 
 RUN yarn cache clean
 RUN yarn install --frozen-lockfile
