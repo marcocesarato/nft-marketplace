@@ -63,10 +63,10 @@ export default function Home(): JSX.Element {
 							lineHeight="1.2"
 							letterSpacing="tight"
 							mx={{base: "auto", xl: 0}}>
-							{t("common:page.home.header.title")}
+							{t<string>("common:page.home.header.title")}
 						</Heading>
 						<Text fontSize="xl" mt="4" maxW="xl" mx={{base: "auto", xl: 0}}>
-							{t("common:page.home.header.subtitle")}
+							{t<string>("common:page.home.header.subtitle")}
 						</Text>
 						<Stack
 							w="full"
@@ -85,12 +85,12 @@ export default function Home(): JSX.Element {
 									px="8"
 									fontWeight="bold"
 									fontSize="md">
-									{t("common:page.home.header.exploreButton")}
+									{t<string>("common:page.home.header.exploreButton")}
 								</Button>
 							</Link>
 							<Link href="/sell" passHref>
 								<Button size="lg" px="8" fontWeight="bold" fontSize="md">
-									{t("common:page.home.header.sellButton")}
+									{t<string>("common:page.home.header.sellButton")}
 								</Button>
 							</Link>
 						</Stack>

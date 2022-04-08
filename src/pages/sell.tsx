@@ -42,7 +42,7 @@ export default function Sell(): JSX.Element {
 	async function createSale(url) {
 		const signer = web3.getSigner();
 
-		setMessage(t("common:page.sell.minting"));
+		setMessage(t<string>("common:page.sell.minting"));
 		const contract = new ethers.Contract(MarketAddress, MarketContract, signer);
 		const listingPrice = await contract.getListingPrice();
 
@@ -52,7 +52,7 @@ export default function Sell(): JSX.Element {
 		});
 
 		await transaction.wait();
-		setMessage(t("common:page.sell.approved"));
+		setMessage(t<string>("common:page.sell.approved"));
 		router.push("/explore");
 	}
 
@@ -69,7 +69,7 @@ export default function Sell(): JSX.Element {
 		if (!name || !description || !price || !file) return;
 		try {
 			setProcessing(true);
-			setMessage(t("common:page.sell.uploading"));
+			setMessage(t<string>("common:page.sell.uploading"));
 			const formData = createFormDataFile(name, description, file);
 			const url = await saveIPFS(formData);
 			createSale(url);
@@ -80,24 +80,26 @@ export default function Sell(): JSX.Element {
 	}
 
 	if (!isAuthenticated)
-		return <Header title={t("error:title")} subtitle={t("error:auth.required")} />;
+		return (
+			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />
+		);
 
 	if (isProcessing) return <Loader message={message} />;
 	return (
 		<Content alignItems="center">
 			<Stack align="stretch" width="100%" maxWidth={768}>
 				<Header
-					title={t("common:page.sell.title")}
-					subtitle={t("common:page.sell.description")}
+					title={t<string>("common:page.sell.title")}
+					subtitle={t<string>("common:page.sell.description")}
 				/>
 				<FormControl>
-					<FormLabel>{t("common:page.sell.asset.name")}</FormLabel>
+					<FormLabel>{t<string>("common:page.sell.asset.name")}</FormLabel>
 					<Input
 						onChange={(e) => updateFormInput({...formInput, name: e.target.value})}
 					/>
 				</FormControl>
 				<FormControl>
-					<FormLabel>{t("common:page.sell.asset.description")}</FormLabel>
+					<FormLabel>{t<string>("common:page.sell.asset.description")}</FormLabel>
 					<Textarea
 						onChange={(e) =>
 							updateFormInput({...formInput, description: e.target.value})
@@ -106,7 +108,7 @@ export default function Sell(): JSX.Element {
 				</FormControl>
 				<FormControl>
 					<FormLabel>
-						{t("common:page.sell.asset.price")} {nativeToken?.symbol}
+						{t<string>("common:page.sell.asset.price")} {nativeToken?.symbol}
 					</FormLabel>
 					<Input
 						type="number"
@@ -120,7 +122,7 @@ export default function Sell(): JSX.Element {
 				</FormControl>
 				<FormControl>
 					<Button isFullWidth onClick={createMarket}>
-						{t("common:page.sell.action.create")}
+						{t<string>("common:page.sell.action.create")}
 					</Button>
 				</FormControl>
 				{fileUrl && (

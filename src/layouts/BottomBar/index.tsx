@@ -25,7 +25,7 @@ export default function BottomNavigationBar(props): JSX.Element {
 				{routes.map(({label, href, icon}, key) => (
 					<BottomNavigationItem value={href} key={key}>
 						<BottomNavigationIcon as={icon as As<any>} />
-						<BottomNavigationLabel>{t(label)}</BottomNavigationLabel>
+						<BottomNavigationLabel>{t<string>(label)}</BottomNavigationLabel>
 					</BottomNavigationItem>
 				))}
 			</>
@@ -53,7 +53,9 @@ export default function BottomNavigationBar(props): JSX.Element {
 				<Content />
 				<BottomNavigationItem value="menu">
 					<BottomNavigationIcon as={AiOutlineMenu} />
-					<BottomNavigationLabel>{t("common:action.openMenu")}</BottomNavigationLabel>
+					<BottomNavigationLabel>
+						{t<string>("common:action.openMenu")}
+					</BottomNavigationLabel>
 				</BottomNavigationItem>
 			</BottomNavigation>
 			<Box {...props} height="115px" />

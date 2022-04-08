@@ -23,8 +23,8 @@ export default function Dropzone({onFileAccepted}): JSX.Element {
 	});
 
 	const dropText = isDragActive
-		? t("common:input.dropzone.dropMessage")
-		: t("common:input.dropzone.dragMessage");
+		? t<string>("common:input.dropzone.dropMessage")
+		: t<string>("common:input.dropzone.dragMessage");
 
 	const activeBg = useColorModeValue("gray.100", "gray.700");
 	const borderColor = useColorModeValue("gray.200", "gray.700");

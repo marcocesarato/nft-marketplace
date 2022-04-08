@@ -19,7 +19,7 @@ export default function ErrorFallback({error}): JSX.Element {
 			<Alert status="error" borderRadius="md">
 				<AlertIcon />
 				<Box flex="1">
-					<AlertTitle>{t("error:unexpectedError")}</AlertTitle>
+					<AlertTitle>{t<string>("error:unexpectedError")}</AlertTitle>
 					<AlertDescription display="block" lineHeight="1.4">
 						<Button
 							variant="link"
@@ -27,7 +27,7 @@ export default function ErrorFallback({error}): JSX.Element {
 							size="sm"
 							rightIcon={isOpen ? <FiChevronUp /> : <FiChevronDown />}
 							onClick={onToggle}>
-							{t("common:action.showDetails")}
+							{t<string>("common:action.showDetails")}
 						</Button>
 						<Collapse in={isOpen} animateOpacity>
 							<Box my={4} fontFamily="monospace">

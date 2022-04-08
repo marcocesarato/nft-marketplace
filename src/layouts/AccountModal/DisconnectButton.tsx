@@ -15,7 +15,7 @@ export default function DisconnectButton({onDisconnect}): JSX.Element {
 			_active={inverseColors}
 			isFullWidth
 			onClick={onDisconnect}>
-			{t("common:action.disconnect")}
+			{t<string>("common:action.disconnect")}
 		</Button>
 	);
 }

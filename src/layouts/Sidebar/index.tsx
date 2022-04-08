@@ -26,7 +26,7 @@ function Sidebar({title, ...props}): JSX.Element {
 				return routes.map(({label, ...prop}, key) => (
 					<SidebarSection
 						key={key}
-						label={t(label)}
+						label={t<string>(label)}
 						{...prop}
 						compress={!mobile && isSidebarCompress}
 					/>
@@ -70,14 +70,14 @@ function Sidebar({title, ...props}): JSX.Element {
 								my={marginsY}>
 								{isAuthenticated && (
 									<SidebarSection
-										label={t("common:action.disconnect")}
+										label={t<string>("common:action.disconnect")}
 										icon={AiOutlineLogout}
 										compress={isSidebarCompress}
 										onClick={logout}
 									/>
 								)}
 								<SidebarSection
-									label={t("common:account.compress")}
+									label={t<string>("common:account.compress")}
 									icon={
 										isSidebarCompress ? BsLayoutSidebarInset : BsLayoutSidebar
 									}

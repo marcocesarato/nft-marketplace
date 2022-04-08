@@ -17,26 +17,26 @@ export default function CreatorDashboard(): JSX.Element {
 	const sold = items?.filter((i) => i.sold) || [];
 
 	if (loading) return <Loading />;
-	if (error) return <Header title={t("error:title")} subtitle={error.message} />;
+	if (error) return <Header title={t<string>("error:title")} subtitle={error.message} />;
 	if (items && !items?.length)
 		return (
 			<Header
-				title={t("common:page.dashboard.created.title")}
-				subtitle={t("common:page.dashboard.created.empty")}
+				title={t<string>("common:page.dashboard.created.title")}
+				subtitle={t<string>("common:page.dashboard.created.empty")}
 			/>
 		);
 	return (
 		<Content>
 			<Header
-				title={t("common:page.dashboard.created.title")}
-				subtitle={t("common:page.dashboard.created.description")}
+				title={t<string>("common:page.dashboard.created.title")}
+				subtitle={t<string>("common:page.dashboard.created.description")}
 			/>
 			<Catalog data={items} />
 			{Boolean(sold.length) && (
 				<Box mt={8}>
 					<Header
-						title={t("common:page.dashboard.sold.title")}
-						subtitle={t("common:page.dashboard.sold.description")}
+						title={t<string>("common:page.dashboard.sold.title")}
+						subtitle={t<string>("common:page.dashboard.sold.description")}
 					/>
 					<Catalog data={sold} />
 				</Box>

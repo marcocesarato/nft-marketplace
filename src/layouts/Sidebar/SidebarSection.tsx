@@ -1,4 +1,5 @@
 import {ComponentProps, ReactNode} from "react";
+import type {IconType} from "react-icons";
 import NavLink from "next/link";
 import {useRouter} from "next/router";
 import {As, Box, Button, Flex, Icon, Text, useColorModeValue as mode} from "@chakra-ui/react";
@@ -9,7 +10,7 @@ import IconBox from "./IconBox";
 
 interface SidebarSectionProps extends ComponentProps<typeof Box> {
 	category?: boolean;
-	icon?: ReactNode | string;
+	icon?: ReactNode | IconType | string;
 	href?: string;
 	onClick?: () => void;
 	compress?: boolean;

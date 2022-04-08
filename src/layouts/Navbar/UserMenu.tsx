@@ -42,12 +42,12 @@ export default function UserMenu({openAccountModal}): JSX.Element {
 				</Flex>
 			</MenuButton>
 			<MenuList alignItems={"center"}>
-				<MenuItem onClick={openAccountModal}>{t("common:account.title")}</MenuItem>
+				<MenuItem onClick={openAccountModal}>{t<string>("common:account.title")}</MenuItem>
 				<MenuItem onClick={() => router.push("/transactions")}>
-					{t("common:account.activities")}
+					{t<string>("common:account.activities")}
 				</MenuItem>
 				<MenuDivider />
-				<MenuItem onClick={handleLogout}>{t("common:action.disconnect")}</MenuItem>
+				<MenuItem onClick={handleLogout}>{t<string>("common:action.disconnect")}</MenuItem>
 			</MenuList>
 		</Menu>
 	);

@@ -38,7 +38,7 @@ export default function ConnectButton({openAccountModal}): JSX.Element {
 						border="1px solid transparent">
 						<IoWalletOutline />
 						<Text ml={2} d={{base: "none", md: "inline-block"}}>
-							{t("common:action.connectToWallet")}
+							{t<string>("common:action.connectToWallet")}
 						</Text>
 					</Button>
 					<AuthModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />

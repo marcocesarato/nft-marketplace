@@ -32,7 +32,7 @@ export default function Navbar(): JSX.Element {
 						focusBorderColor="none"
 						type="search"
 						bg={mode("gray.100", "gray.900")}
-						placeholder={t("common:search.assets")}
+						placeholder={t<string>("common:search.assets")}
 					/>
 				</InputGroup>
 

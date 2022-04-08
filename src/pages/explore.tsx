@@ -13,21 +13,21 @@ export default function Explore(): JSX.Element {
 	const {data, loading, error} = useMarketItemsQuery();
 	const items = data?.marketItems;
 
-	if (error) return <Header title={t("error:title")} subtitle={error.message} />;
+	if (error) return <Header title={t<string>("error:title")} subtitle={error.message} />;
 	if (loading) return <Loading />;
 	if (items && !items.length)
 		return (
 			<Header
-				title={t("common:page.explore.title")}
-				subtitle={t("common:page.explore.empty")}
+				title={t<string>("common:page.explore.title")}
+				subtitle={t<string>("common:page.explore.empty")}
 			/>
 		);
 
 	return (
 		<Content>
 			<Header
-				title={t("common:page.explore.title")}
-				subtitle={t("common:page.explore.description")}
+				title={t<string>("common:page.explore.title")}
+				subtitle={t<string>("common:page.explore.description")}
 			/>
 			<Catalog data={items} purchasable />
 		</Content>

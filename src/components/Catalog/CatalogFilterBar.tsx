@@ -14,11 +14,11 @@ export default function CatalogFilterBar({
 	const [categories, setCategories] = useState(filters?.categories || []);
 	const hasRowDirection = useBreakpointValue({base: false, md: true});
 	const filterOptions = [
-		{value: "newest", label: t("common:catalog.sortType.newest")},
-		{value: "lowest", label: t("common:catalog.sortType.priceASC")},
-		{value: "highest", label: t("common:catalog.sortType.priceDESC")},
-		{value: "views", label: t("common:catalog.sortType.mostViews")},
-		{value: "likes", label: t("common:catalog.sortType.mostLikes")},
+		{value: "newest", label: t<string>("common:catalog.sortType.newest")},
+		{value: "lowest", label: t<string>("common:catalog.sortType.priceASC")},
+		{value: "highest", label: t<string>("common:catalog.sortType.priceDESC")},
+		{value: "views", label: t<string>("common:catalog.sortType.mostViews")},
+		{value: "likes", label: t<string>("common:catalog.sortType.mostLikes")},
 	];
 	const categoriesOptions = [
 		{value: "category1", label: "Category 1"},
@@ -36,7 +36,7 @@ export default function CatalogFilterBar({
 					<Select
 						isMulti
 						isSearchable={false}
-						placeholder={t("common:catalog.filter.categories")}
+						placeholder={t<string>("common:catalog.filter.categories")}
 						value={categories}
 						options={categoriesOptions}
 						chakraStyles={{
@@ -68,7 +68,7 @@ export default function CatalogFilterBar({
 				</Box>
 				<Box flex={1}>
 					<Select
-						placeholder={t("common:catalog.sortBy")}
+						placeholder={t<string>("common:catalog.sortBy")}
 						value={sortBy}
 						options={filterOptions}
 						onChange={(option) => {

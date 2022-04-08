@@ -34,14 +34,14 @@ export default function AuthModal({onClose, isOpen, ...props}): JSX.Element {
 		<Modal {...props} isOpen={isOpen} onClose={onClose}>
 			<ModalOverlay />
 			<ModalContent>
-				<ModalHeader>{t("common:action.connectWallet")}</ModalHeader>
+				<ModalHeader>{t<string>("common:action.connectWallet")}</ModalHeader>
 				<ModalCloseButton />
 				<ModalBody>
 					{authError && (
 						<Alert status="error" mb={5}>
 							<AlertIcon />
 							<Box flex="1">
-								<AlertTitle>{t("error:auth.failed")}</AlertTitle>
+								<AlertTitle>{t<string>("error:auth.failed")}</AlertTitle>
 								<AlertDescription display="block">
 									{authError.message}
 								</AlertDescription>

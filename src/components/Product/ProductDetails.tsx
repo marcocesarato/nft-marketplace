@@ -37,7 +37,7 @@ export default function ProductDetails({data, onPurchase}): JSX.Element {
 						fontWeight={"500"}
 						textTransform={"uppercase"}
 						mb={"4"}>
-						{t("common:product.attributes")}
+						{t<string>("common:product.attributes")}
 					</Text>
 				)}
 			</Stack>
@@ -53,14 +53,14 @@ export default function ProductDetails({data, onPurchase}): JSX.Element {
 					{data?.creator && (
 						<Address
 							fontSize={"sm"}
-							label={t("common:product:createdBy")}
+							label={t<string>("common:product:createdBy")}
 							address={data?.creator}
 						/>
 					)}
 					{data?.seller && data?.seller !== data?.creator && (
 						<Address
 							fontSize={"sm"}
-							label={t("common:product:soldBy")}
+							label={t<string>("common:product:soldBy")}
 							address={data?.seller}
 						/>
 					)}
@@ -73,13 +73,13 @@ export default function ProductDetails({data, onPurchase}): JSX.Element {
 						fontWeight={"500"}
 						textTransform={"uppercase"}
 						mb={"4"}>
-						{t("common:product.description")}
+						{t<string>("common:product.description")}
 					</Text>
 					<Text fontSize={"lg"}>{data?.description || "No description."}</Text>
 					{onPurchase && data?.price && (
 						<Text fontWeight={300} fontSize={"2xl"} mt={5}>
 							<Text as={"span"} fontWeight={"bold"}>
-								{t("common:product.price")}:
+								{t<string>("common:product.price")}:
 							</Text>{" "}
 							{data?.priceFormatted || data?.price} {nativeToken?.symbol}
 						</Text>

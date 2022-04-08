@@ -66,22 +66,22 @@ export default function ProductModal({data, onClose, onPurchase, isOpen, ...prop
 				<ModalFooter mx={-2}>
 					{supportsARSession && isDetailMode && (
 						<ProductModalButton onClick={setARMode}>
-							{t("common:action.openWith")} AR
+							{t<string>("common:action.openWith")} AR
 						</ProductModalButton>
 					)}
 					{supportsVRSession && isDetailMode && (
 						<ProductModalButton onClick={setVRMode}>
-							{t("common:action.openWith")} VR
+							{t<string>("common:action.openWith")} VR
 						</ProductModalButton>
 					)}
 					{!supportsARSession && !supportsVRSession && isDetailMode && (
 						<ProductModalButton onClick={set3DMode}>
-							{t("common:action.openWith")} 3D View
+							{t<string>("common:action.openWith")} 3D View
 						</ProductModalButton>
 					)}
 					{!isDetailMode && (
 						<ProductModalButton onClick={resetMode}>
-							{t("common:action.back")}
+							{t<string>("common:action.back")}
 						</ProductModalButton>
 					)}
 					{onPurchase && (
@@ -91,7 +91,7 @@ export default function ProductModal({data, onClose, onPurchase, isOpen, ...prop
 								onPurchase();
 							}}>
 							<AiOutlineShoppingCart />{" "}
-							<Text ml="4">{t("common:action.purchase")}</Text>
+							<Text ml="4">{t<string>("common:action.purchase")}</Text>
 						</ProductModalButton>
 					)}
 				</ModalFooter>

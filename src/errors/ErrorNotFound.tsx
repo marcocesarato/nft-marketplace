@@ -11,14 +11,14 @@ export default function ErrorNotFound(): JSX.Element {
 					404
 				</Heading>
 				<Text fontSize="2rem" fontWeight="bold" mt={3} mb={2}>
-					{t("error:notFound.title")}
+					{t<string>("error:notFound.title")}
 				</Text>
 				<Text color={"gray.500"} mb={6}>
-					{t("error:notFound.message")}
+					{t<string>("error:notFound.message")}
 				</Text>
 
 				<NextLink href={"/"} passHref>
-					<Button>{t("common:action.goToHome")}</Button>
+					<Button>{t<string>("common:action.goToHome")}</Button>
 				</NextLink>
 			</Box>
 		</Center>

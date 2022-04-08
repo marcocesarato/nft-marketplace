@@ -18,25 +18,25 @@ export default function Transactions(): JSX.Element {
 	const {data, isLoading} = useTransfers();
 	const columns = [
 		{
-			title: t("common:page.transactions.column.from"),
+			title: t<string>("common:page.transactions.column.from"),
 			dataIndex: "from_address",
 			key: "from_address",
 			render: (from) => formatAddress(from, 5),
 		},
 		{
-			title: t("common:page.transactions.column.to"),
+			title: t<string>("common:page.transactions.column.to"),
 			dataIndex: "to_address",
 			key: "to_address",
 			render: (to) => formatAddress(to, 5),
 		},
 		{
-			title: t("common:page.transactions.column.value"),
+			title: t<string>("common:page.transactions.column.value"),
 			dataIndex: "value",
 			key: "value",
 			render: (value) => formatUnits(value),
 		},
 		{
-			title: t("common:page.transactions.column.timestamp"),
+			title: t<string>("common:page.transactions.column.timestamp"),
 			dataIndex: "block_timestamp",
 			key: "block_timestamp",
 			render: (value) => new Date(value).toLocaleString(),
@@ -49,7 +49,7 @@ export default function Transactions(): JSX.Element {
 				<Box textAlign="right">
 					<a href={`${getExplorer(chainId)}/tx/${hash}`} target="_blank" rel="noreferrer">
 						<Button variant="link" colorScheme="purple">
-							{t("common:action.viewOnExplorer")}
+							{t<string>("common:action.viewOnExplorer")}
 						</Button>
 					</a>
 				</Box>
@@ -61,16 +61,16 @@ export default function Transactions(): JSX.Element {
 	if (!data || data.length === 0)
 		return (
 			<Header
-				title={t("common:page.transactions.title")}
-				subtitle={t("common:page.transactions.empty")}
+				title={t<string>("common:page.transactions.title")}
+				subtitle={t<string>("common:page.transactions.empty")}
 			/>
 		);
 
 	let key = 0;
 	return (
 		<Table
-			title={t("common:page.transactions.title")}
-			subtitle={t("common:page.transactions.description")}
+			title={t<string>("common:page.transactions.title")}
+			subtitle={t<string>("common:page.transactions.description")}
 			data={data}
 			columns={columns}
 			rowKey={(record) => {

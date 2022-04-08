@@ -128,7 +128,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 						{data?.creator && (
 							<Address
 								fontSize={"sm"}
-								label={t("common:product:createdBy")}
+								label={t<string>("common:product:createdBy")}
 								address={data.creator}
 							/>
 						)}

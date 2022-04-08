@@ -14,14 +14,14 @@ function SidebarBalanceSection(): JSX.Element {
 	if (!isAuthenticated) return null;
 	return (
 		<Box w="full">
-			<SidebarSection category label={t("common:account.balance")} />
+			<SidebarSection category label={t<string>("common:account.balance")} />
 			<Heading ps="15px" fontSize={"2xl"} fontWeight={500}>
 				{balance?.formatted}
 			</Heading>
 			<LineChart
 				chartData={[
 					{
-						name: t("common:account.balance"),
+						name: t<string>("common:account.balance"),
 						data: [200, 400, 300, 500, 400],
 					},
 				]}

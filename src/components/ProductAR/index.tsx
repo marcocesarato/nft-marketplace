@@ -98,7 +98,7 @@ export default function ProductAR({image, onClose}): JSX.Element {
 				)}
 				{isSupported === false && (
 					<Text color="gray.100" textAlign="center" p={4}>
-						{t("common:xr.notSupported")}
+						{t<string>("common:xr.notSupported")}
 					</Text>
 				)}
 				{isSupported && showTip && (
@@ -122,7 +122,7 @@ export default function ProductAR({image, onClose}): JSX.Element {
 							/>
 						</MotionBox>
 						<Text color="gray.100" mt="-125px" p={4} textAlign="center">
-							{t("common:xr.stabilizationTip")}
+							{t<string>("common:xr.stabilizationTip")}
 						</Text>
 					</>
 				)}

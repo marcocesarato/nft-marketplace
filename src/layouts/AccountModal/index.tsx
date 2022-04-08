@@ -64,7 +64,7 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 			<ModalOverlay />
 			<ModalContent background="gray.900">
 				<ModalHeader color="white" p={4} fontSize="lg" fontWeight="medium">
-					{t("common:account.title")}
+					{t<string>("common:account.title")}
 				</ModalHeader>
 				<ModalCloseButton
 					color="white"
@@ -76,7 +76,7 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 				<ModalBody>
 					{userError && (
 						<ErrorAlert
-							error={t("error:account.errorSavingData")}
+							error={t<string>("error:account.errorSavingData")}
 							message={userError.message}
 						/>
 					)}
@@ -110,20 +110,20 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 						<Flex alignContent="center" my={3}>
 							<LinkButton onClick={() => navigator.clipboard.writeText(account)}>
 								<CopyIcon mr={1} />
-								{t("common:action.copyAddress")}
+								{t<string>("common:action.copyAddress")}
 							</LinkButton>
 							<LinkButton
 								ml={6}
 								href={`${getExplorer(chainId)}address/${account}`}
 								isExternal>
 								<ExternalLinkIcon mr={1} />
-								{t("common:action.viewOnExplorer")}
+								{t<string>("common:action.viewOnExplorer")}
 							</LinkButton>
 						</Flex>
 						<Flex justifyContent={"flex-end"} mt={6}>
 							<ActionButton onClick={handleBuyCrypto}>Buy crypto</ActionButton>
 							<ActionButton onClick={handleViewTransactions}>
-								{t("common:action.viewTransactions")}
+								{t<string>("common:action.viewTransactions")}
 							</ActionButton>
 						</Flex>
 					</Box>
