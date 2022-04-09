@@ -2,12 +2,15 @@ import Image from "next/image";
 import {Grid, GridItem, Text} from "@chakra-ui/react";
 
 import type {TWeb3Provider} from "@app/types";
+import {ChainId} from "@configs/chain";
 import {connectors} from "@configs/connectors";
 import useAccount from "@hooks/useAccount";
 import useLocalStorage from "@hooks/useLocalStorage";
+import {useSwitchNetwork} from "@hooks/useSwitchNetwork";
 
 export default function WalletConnect(): JSX.Element {
 	const {authenticate} = useAccount();
+	const switchNetwork = useSwitchNetwork();
 	const [, setConnectorId] = useLocalStorage<TWeb3Provider>("connectorId");
 	return (
 		<Grid templateColumns={"1fr 1fr"} rowGap={5}>
@@ -25,6 +28,7 @@ export default function WalletConnect(): JSX.Element {
 						onClick={async () => {
 							try {
 								setConnectorId(connectorId);
+								await switchNetwork(ChainId);
 								await authenticate({
 									provider: connectorId,
 									signingMessage: "Authenticate",
