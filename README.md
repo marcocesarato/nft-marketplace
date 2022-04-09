@@ -87,6 +87,7 @@ To deploy to Polygon test or main networks we need to configure hardhat so we ne
 **Example `.env` file:**
 
 ```env
+ENV=dev # dev or prod
 NEXT_PUBLIC_URL=http://localhost:3000
 
 # MongoDB

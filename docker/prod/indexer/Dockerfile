@@ -11,14 +11,13 @@ COPY src/database ./src/database
 COPY indexer ./indexer
 
 # Dependencies
-COPY docker/indexer/package.json ./package.json
-COPY docker/indexer/yarn.lock ./yarn.lock
+COPY docker/prod/indexer/package.json ./package.json
 
 # Configs
 COPY abis ./abis
 COPY addresses.js ./
 COPY indexer/tsconfig.json ./tsconfig.json
 
-RUN yarn install --production --ignore-scripts --prefer-offline
+RUN yarn install --production --ignore-scripts --prefer-offline --frozen-lockfile
 
 CMD ["yarn", "start"]
