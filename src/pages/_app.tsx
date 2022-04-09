@@ -9,9 +9,11 @@ import Providers from "@app/Providers";
 import type {TWeb3Provider} from "@app/types";
 import Loader from "@components/Loader";
 import Loading from "@components/Loading";
+import {ChainId} from "@configs/chain";
 import ErrorBoundary from "@errors/ErrorBoundary";
 import useAccount from "@hooks/useAccount";
 import useLocalStorage from "@hooks/useLocalStorage";
+import {useSwitchNetwork} from "@hooks/useSwitchNetwork";
 import useWeb3 from "@hooks/useWeb3";
 import MainLayout from "@layouts/Main";
 
@@ -23,11 +25,17 @@ function Page({Component, pageProps}): JSX.Element {
 	const {Moralis, isInitialized} = useMoralis();
 	const {isLogged, isAuthenticating} = useAccount();
 	const {enableWeb3, isWeb3Enabled, isWeb3EnableLoading} = useWeb3();
+	const switchNetwork = useSwitchNetwork();
 	const [connectorId] = useLocalStorage<TWeb3Provider>("connectorId");
+
+	const loadWeb3 = async () => {
+		await enableWeb3();
+		await switchNetwork(ChainId);
+	};
 
 	useEffect(() => {
 		if (isLogged && !isWeb3Enabled && !isWeb3EnableLoading) {
-			enableWeb3();
+			loadWeb3();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isLogged, isWeb3Enabled, connectorId]);
