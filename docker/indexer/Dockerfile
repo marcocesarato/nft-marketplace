@@ -9,11 +9,10 @@ COPY src/database ./src/database
 COPY indexer ./indexer
 
 # Dependencies
-COPY indexer/package.json ./package.json
-COPY indexer/yarn.lock ./yarn.lock
+COPY docker/indexer/package.json ./package.json
+COPY docker/indexer/yarn.lock ./yarn.lock
 
 # Configs
-COPY .env ./
 COPY abis ./abis
 COPY addresses.js ./
 COPY indexer/tsconfig.json ./tsconfig.json
