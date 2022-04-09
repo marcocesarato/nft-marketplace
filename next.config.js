@@ -1,8 +1,7 @@
-require("dotenv").config();
-const path = require("path");
-const Dotenv = require("dotenv-webpack");
 const {i18n} = require("./next-i18next.config");
 const withPWA = require("next-pwa");
+
+const isDev = process.env.NODE_ENV === "development";
 
 module.exports = withPWA({
 	reactStrictMode: true,
@@ -13,7 +12,7 @@ module.exports = withPWA({
 		dest: "public",
 		register: true,
 		skipWaiting: true,
-		disable: process.env.NODE_ENV === "development",
+		disable: isDev,
 	},
 	poweredByHeader: false,
 	i18n,
@@ -25,13 +24,6 @@ module.exports = withPWA({
 			loader: "graphql-tag/loader",
 		});
 		config.plugins = config.plugins || [];
-		config.plugins = [
-			...config.plugins,
-			new Dotenv({
-				path: path.join(__dirname, ".env"),
-				systemvars: true,
-			}),
-		];
 		return config;
 	},
 });

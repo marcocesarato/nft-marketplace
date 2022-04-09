@@ -66,8 +66,12 @@ export async function service() {
 	logger.debug("History synchronization finished");
 }
 
+const isDev = !process.env.NODE_ENV || process.env.NODE_ENV === "development";
+
 const startConnection = () => {
-	const provider = new ethers.providers.WebSocketProvider(process.env.CHAIN_TESTNET_WSS || "");
+	const provider = new ethers.providers.WebSocketProvider(
+		(isDev ? process.env.CHAIN_TESTNET_URL : process.env.CHAIN_MAINNET_URL) || "",
+	);
 
 	let pingTimeout: NodeJS.Timeout;
 	let keepAliveInterval: NodeJS.Timer;

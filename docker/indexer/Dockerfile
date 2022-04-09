@@ -4,6 +4,8 @@ RUN apk add --no-cache libc6-compat git
 
 WORKDIR /app
 
+ENV NODE_ENV production
+
 # Source code
 COPY src/database ./src/database
 COPY indexer ./indexer

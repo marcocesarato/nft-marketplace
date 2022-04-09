@@ -78,7 +78,7 @@ You can check the status of your containers created with `docker-compose ps`
 
 #### Configure Moralis and Hardhat
 
-The project is based over Moralis API (but it's functionality is code wrapped to permit to be replaced based on furure needs). Rename `.env.example` to `.env` in the main folder and provide your `appId` and `serverUrl` from Moralis ([How to start Moralis Server](https://docs.moralis.io/moralis-server/getting-started/create-a-moralis-server)).
+The project is based over Moralis API (but it's functionality is code wrapped to permit to be replaced based on furure needs). Rename `.env.sample` to `.env` in the main folder and provide your `appId` and `serverUrl` from Moralis ([How to start Moralis Server](https://docs.moralis.io/moralis-server/getting-started/create-a-moralis-server)).
 
 To deploy to Polygon test or main networks we need to configure hardhat so we need to get the WebSocket and JSON RPC url from Moralis. Once you log into your account, go to the "Speedy Nodes" section. Click on the "Endpoints" button for the Network you need to configure. You will see separate URLs for each network and each archive version.
 
@@ -87,7 +87,7 @@ To deploy to Polygon test or main networks we need to configure hardhat so we ne
 **Example `.env` file:**
 
 ```env
-PUBLIC_URL=http://localhost:3000
+NEXT_PUBLIC_URL=http://localhost:3000
 
 # MongoDB
 MONGODB_URI=mongodb://marketplace:CHANGEME!@mongo:27017/metadata
@@ -108,13 +108,9 @@ CHAIN_MAINNET_WSS=
 # Private account key for signing transactions
 ACCOUNT_PRIVATE=
 
-# Moralis on local/dev environment
-MORALIS_DEV_SERVER_URL=
-MORALIS_DEV_APPLICATION_ID=
-
-# Moralis on production environment
-MORALIS_SERVER_URL=
-MORALIS_APPLICATION_ID=
+# Moralis
+NEXT_PUBLIC_MORALIS_SERVER_URL=
+NEXT_PUBLIC_MORALIS_APPLICATION_ID=
 ```
 
 ## Requirements

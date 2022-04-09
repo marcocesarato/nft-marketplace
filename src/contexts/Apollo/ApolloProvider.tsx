@@ -8,7 +8,7 @@ function Provider({children}): JSX.Element {
 	const {signature, signatureData, account} = useAccount();
 	const apolloClient = useMemo(() => {
 		const httpLink = new HttpLink({
-			uri: `${process.env.PUBLIC_URL}/api/graphql`,
+			uri: `${process.env.NEXT_PUBLIC_URL}/api/graphql`,
 			headers: {
 				"X-ETH-Data": Base64.encode(signatureData || ""),
 				"X-ETH-Signature": Base64.encode(signature || ""),
