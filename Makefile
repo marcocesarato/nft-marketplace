@@ -26,7 +26,7 @@ Color_Cyan=\033[36m
 
 # Windows need a flag to evaluate colors
 ifeq ($(OS),Windows_NT)
-	ECHO_FLAGS=-e
+ECHO_FLAGS=-e
 endif
 
 .DEFAULT_GOAL := help
@@ -35,14 +35,13 @@ endif
 # Helper
 help: ## Show available commands
 	@echo ""
-	@echo $(ECHO_FLAGS) "Usage: $(Color_Yellow)make [target]$(Color_Off)"
+	@echo $(ECHO_FLAGS) "Usage: $(Color_Yellow)make [target] [options]$(Color_Off)"
 	@echo ""
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(THIS_FILE) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  $(Color_Cyan)%-15s$(Color_Off) %s\n", $$1, $$2}'
 	@echo ""
 	@echo $(ECHO_FLAGS) "Current environment: $(Color_Cyan)$(ENV)$(Color_Off)"
-	@echo ""
 	@echo $(ECHO_FLAGS) "You can force the $(Color_Yellow)ENV$(Color_Off) variable inline or change it on $(Color_Green).env$(Color_Off) file"
-	@echo $(ECHO_FLAGS) "Inline example: $(Color_Yellow)make ENV=prod [target]$(Color_Off)"
+	@echo $(ECHO_FLAGS) "  Example: $(Color_Yellow)make ENV=prod [target] [options]$(Color_Off)"
 	@echo ""
 
 # Targets

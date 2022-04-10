@@ -7,7 +7,8 @@ Watch your Digital Art on the wall of your home. Use the VR viewer to see all yo
 - [Summary](#summary)
 - [Setup](#setup)
     - [Local Setup](#local-setup)
-    - [Using Docker for production](#using-docker-for-production)
+    - [Using Docker](#using-docker)
+        - [Makefile](#makefile)
     - [Configuration](#configuration)
         - [Configure Moralis and Hardhat](#configure-moralis-and-hardhat)
 - [Requirements](#requirements)
@@ -66,13 +67,34 @@ To run this project locally, follow these steps.
     Open [http://localhost:3000](http://localhost:3000) with yomposeur browser to see the result.
 
 
-### Using Docker for production
+### Using Docker
 
 1. [Install Docker](https://docs.docker.com/get-docker/) on your machine.
 2. Build your containers with `docker-compose build` *(you need to rebuild if you make changes to the source code)*
 3. Run your containers with `docker-compose up -d`
+4. You can check the status of your containers created with `docker-compose ps`
 
-You can check the status of your containers created with `docker-compose ps`
+#### Makefile
+
+The GNU make utility, commonly abbreviated make, is a tool for controlling the generation of executables from source files. A makefile is a special file, containing shell commands, that you create and name Makefile. While in the directory containing this makefile, you will type `make [target]` and the commands in the makefile will be executed. Type `make help` to see the list of available targets.
+
+> **Install on Windows**
+> 
+> An easy way to get GNU make on Windows is using chocolatey package manager.
+> 1.  Install chocolatey from [here](https://chocolatey.org/install)
+> 2.  Then run `choco install make`
+
+**Targets**
+
+You need to configure your environment variables on `.env` file to target the right docker compose configuration.
+
+Below some of the most important targets:
+
+* `make build`: Builds the docker images
+* `make start`: Starts the docker containers
+* `make stop`: Stops the docker containers
+* `make ps`: Shows the status of the docker containers
+* `make help`: Prints the complete list of the available targets...
 
 ### Configuration
 
