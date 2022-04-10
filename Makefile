@@ -63,7 +63,7 @@ ps: ## Prints out the status of the docker containers
 	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) ps
 mongo: ## Opens a mongo shell in the database container
 	$(info Opens a mongo shell in the database "$(ENV)" container)
-	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) exec -T mongo mongosh
+	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) exec -T mongo mongosh "$(MONGODB_URI)"
 shell: ## Opens a shell in the app container
 	$(info Opens a shell in the "$(ENV)" app container)
 	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) exec -T app sh
