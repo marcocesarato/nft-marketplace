@@ -7,14 +7,14 @@ export default function useWebXR() {
 	const [supportsVRSession, setSupportsVRSession] = useState(false);
 	const [supportsARSession, setSupportsARSession] = useState(false);
 
-	const isWebXRAvailable = !xr || xr.isSessionSupported;
+	const isWebXRAvailable = xr && xr?.isSessionSupported;
 
 	useEffect(() => {
 		if (isWebXRAvailable) {
 			var errorHandler = function (err) {
 				console.error("WebXR session support error: " + err.message);
 			};
-			if (xr.isSessionSupported) {
+			if (xr?.isSessionSupported) {
 				// Current WebXR spec uses a boolean-returning isSessionSupported promise
 				xr.isSessionSupported("immersive-vr")
 					.then(function (supported) {

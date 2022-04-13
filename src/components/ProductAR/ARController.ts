@@ -452,7 +452,7 @@ export default class ARController {
 	}
 
 	public checkIsSupported(callback) {
-		if (!this.xr || !this.xr.isSessionSupported) callback(false);
+		if (!this.xr || !this.xr?.isSessionSupported) callback(false);
 		this.xr?.isSessionSupported("immersive-ar").then((supported) => {
 			callback(!!supported);
 		});
