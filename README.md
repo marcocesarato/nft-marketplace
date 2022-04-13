@@ -17,9 +17,9 @@ Watch your Digital Art on the wall of your home. Use the VR viewer to see all yo
 - [Technology Stack](#technology-stack)
     - [Main](#main)
     - [Other](#other)
-- [Workflow](#workflow)
-    - [Main flow](#main-flow)
-    - [Authentication flow](#authentication-flow)
+- [Workflows](#workflows)
+    - [Main flow](#main-flow-docs-workflow-main-md)
+    - [Authentication flow](#authentication-flow-docs-workflow-auth-md)
 - [Structure](#structure)
     - [Folders](#folders)
     - [Source hierarchy](#source-hierarchy)
@@ -184,15 +184,11 @@ How to connect Polygon Testnet to MetaMask wallet? The easiest way to get it don
 - [GraphQL Compose](https://graphql-compose.github.io/) - Schema composer for GraphQL
 - [GraphQL Code Generator](https://www.graphql-code-generator.com/) - Code generator for GraphQL
 
-## Workflow
+## Workflows
 
-### Main flow
+### [Main flow](./docs/workflow-main.md)
 
-[![](https://kroki.io/mermaid/svg/eNqdVF2L2zAQfO-v2LcmkCtNriltKIFLQ2mgB-VC6fNGXtsisuRK8qX37ytZtmzHSQ7qB3_IOzuj2V0Z-lORZLTlmGks3oC7StSWM16itPAddZKjHa1vhGJHliOXo187mdBf0uP1n9_2o8VHJTO13YzWvwpOMtCq0n0qaTUyayChUqgXOCl9TIU61RH-aoTerdedtBVsQzRr4TG8C7pzkAa8gieylZaASaLJGFDpl4NeszNySi6wBsEr2OMztXhyGaQnT3kGKBN42Ox80k6PeytKLpqMJMNTE7Ogs8NksVzOFh8-zubL5TRyej9qj7nMxj6MN9fUYwU_uLEkIVUarDqSNP3NvTVAz24HZpDJ12yQwxmkuQuEgiwmaHEYHsI8oimsM8QqTcDrP0ntgtIsJ-NYrVsISmKW1oL22aTpGRwV9JA3ogrUR7IQpUZv55_vZ-ANhsX8zN3f3OaAlc1dKs7QclfF141uqR86IMHJpzrR4X6AC6EOE13qg3xZAg6FcNoNzyS6vqRBjht7Vic5dvYVTGVIw6igUeh5PW-GD2dwU72AbzmN0qSkL-lqi4KTUJB4e__u03QQ2ZZoT0Jc7f-RHN_GrfKaHlI3dBcxbcf3DPIngqsOVFo4dP16FX6d0g0YL4rK4kF00xNLjcJ0mT3Tf4rTg-lwnH2mSdj7r6fd9Lb4fvkeuTuOAxCtRZZ72z1jTFYPdVlZqMr6cDHottBFqCAwDOKItx30S9_nh0HUd9aMvRn_B5zZDHM)](https://mermaid.live/view#pako:eNqdVu9v0zAQ_VdO-cImZYhtFEGEJq2MiUkgoVXAl365xpfWamIH21mppv3vnPM7TbbB8qFy43vv3r3zub0PYi0oiAJLvwtSMV1JXBvMlgr4ydE4GcsclYMvaMQG3Xhjnup4G29QqvHejRL0h8zExvfrxfjtN63W-mo-3viUSlJ1bp3zd62cwdhZEJSneg87bbZJqndViH9qvScXF53ACK6q8LjBd_Fd1AljanQEt-QKowCFMGQt6OTjylzEB-lJTOWtREewwDtqCIgplE-fyDWgEnA5v_GsnSJeZblMG0pS9cJQ7MCsV0dns1l49vZdeDqbHXdpvSul21KtJ9wYV1i3JoKv0jpSkGgDTm9J2X6FryzQHVdhh1S-fQMStslIjoSMHAp0eBBfxXlI3WO2xWlDIMsdUXqhTbwhy3kdv6i0dDStEe2iZuo53arog58Iy9BsyUGntzX59MN5CN5pODs9tPmXdBvAwm2YTMboJHf0Hxxvsl92SIKd59rR6nwIrGIZ1LrVR_kGVUBMU9Zv5VohH1MakjxRuN6pCYufARWWDIx722o9bO3T8cO5nBd78AfQoLIJmUlpTXPwqGpM-_Hm9fvjYWjTqgWl6eMDMVLkj3WjvlQACU_iNKgZgZ5N_qLgLkFhUoaXy8fxjyflmZNZVjhcpd08tT3H1HbUPtVL5ZnBsHDSfqqjqvwftzfHz8jvd_Gb5Lu6QqJzGG-89z5ly1bOeV44KPLyxrHIRXQRulJYzeU4cTv6ky_GN0Qr8uBk9uY-CIOMTIZS8I_gvYctA5aQ0TKIeCkowSJ1yyDsbf1EI31zrI-5r1ItmcZaXNM135zXmMl0XzHc6pV2OoQ7MgIVhlyysic8GjKpWT2Yr1ptXgZV2v1fUg98WKoHLr3I2QP6LCRnD6KEzxaFAV9terFXcRA5U1ATVP8xqKMe_gJPkZa3)
-
-### Authentication flow
-
-[![](https://kroki.io/mermaid/svg/eNp1kU1qwzAQhfc9xZB12wOEYijJJrtC6QHG8rMj4kjOSHba23ck_9Qm1GCMNO99M_MccOvhDI6WG-HrE-nTsURrbMcu0qG1cPHh-v3j9HB35MglB-TC6HspClXu6StAyLTWXGh38M7BRIqe7ty2iLtsUJ2qZ8aePiGDmnQ6sQgUz6BqKr6-lVKcauoTFd82xEA6fJlFzus25Ot8SIokRhtANlIDB-EIYnK4k3dY9R5HXjoLYi_uj7ldaxaP39QoKzuxQ-Jf8JP66o7BNv9CcjYToeMwbpkMqOiKELhBorCrRnhfaoTEVSVaXE2eOdPY-tp6TmzLWhyboDXIyVM9p27mzK6Z_KswOS8pa8YSGA8pUeP9xSL9V5MLvyCXyMs)](https://mermaid.live/view#pako:eNqdU8lu4zAM_RVCZ7cfYAwCFF2A3gYtpidfaIl2hdiUR6LTCYL8-1CW0yYtepgxYHjhW_ho-mBscGRqk-j3TGzpzmMfcWwY9Jgwird-Qha4HTyxfH1_8_Px68s7FGwxUakU6tVmo9gafiWKYAdvt9CY28BMVkACvOEwkDSmcBSqhJNODc8Ud8rTJqOnBPJK4Nbi9Y82bh47mLMw_fFJEmiGdgFx0FAQuuUhIzKYhkTgBXpiiigECExvEJjOzUvb79aRZI78Ifop2wldrtlqgU7R77LDlvbZWXMm33-vskxolZgwlaCZQQ5GSgl7yjLIrqjPrQ4S0LmoxfPmF6G1cz19d5rapdgH5WLaOs2V5KrsZ1-R-1XgbKK45IwXIu9Tw12eqw1h6yl_X7sUTGVGiiN6p0t3yMzGqOpIjan11lGH86BbUJ2VXjB6bAdKGXMobo1ZEzwElgcc_bAvCk-hDRKq3L9DxgoScrpKOc2qmsloJcT_o3KQfzPNxGPDR40-T7q0dO-8upu6Q93DyuAs4XnP1tQSZzqB1h9xRR3_ArK1PhY)
+### [Authentication flow](./docs/workflow-auth.md)
 
 ## Structure
 
