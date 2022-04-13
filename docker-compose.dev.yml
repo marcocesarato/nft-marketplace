@@ -15,18 +15,25 @@ services:
             - /app/node_modules
             - /app/.next
         ports:
-            - 3000:3000
+            - ${DOCKER_APP_PORT:-3000}:3000
         depends_on:
             - mongo
+        links:
+            - mongo
+        stdin_open: true
+        tty: true
     mongo:
         container_name: mongo
         image: mongo
         restart: unless-stopped
         environment:
-            - MONGO_INITDB_DATABASE=metadata
-            - MONGO_INITDB_ROOT_USERNAME=${MONGODB_ROOT_USERNAME}
-            - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
+            - MONGO_INITDB_DATABASE=${MONGODB_DATABASE:-metadata}
+            - MONGO_INITDB_ROOT_USERNAME=${MONGODB_ROOT_USERNAME:-marketplace}
+            - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD:-CHANGEME!}
         volumes:
-            - ./data:/data/db:rw
+            - mongodata:/data/db
+            - ./docker/dev/mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
         ports:
             - 27017-27019:27017-27019
+volumes:
+    mongodata:

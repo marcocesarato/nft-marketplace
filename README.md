@@ -113,7 +113,8 @@ ENV=dev # dev or prod
 NEXT_PUBLIC_URL=http://localhost:3000
 
 # MongoDB
-MONGODB_URI=mongodb://marketplace:CHANGEME!@mongo:27017/metadata
+MONGODB_URI=mongodb://marketplace:CHANGEME!@mongo:27017
+MONGODB_DATABASE=metadata
 MONGODB_ROOT_USERNAME=marketplace
 MONGODB_ROOT_PASSWORD=CHANGEME!
 
@@ -134,6 +135,15 @@ ACCOUNT_PRIVATE=
 # Moralis
 NEXT_PUBLIC_MORALIS_SERVER_URL=
 NEXT_PUBLIC_MORALIS_APPLICATION_ID=
+
+# Docker registry
+DOCKER_USER=
+DOCKER_PASS=
+
+# Docker images
+DOCKER_APP_IMAGE=
+DOCKER_APP_PORT=3000
+DOCKER_INDEXER_IMAGE=
 ```
 
 ## Requirements

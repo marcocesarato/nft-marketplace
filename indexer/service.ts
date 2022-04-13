@@ -16,6 +16,7 @@ const KEEP_ALIVE_CHECK_INTERVAL = 7500;
 export async function service() {
 	logger.info("Service started");
 
+	logger.info(`Connecting to: ${process.env.MONGODB_URI}/${process.env.MONGODB_DATABASE}`);
 	await connectDatabase();
 	logger.info("Connected to database");
 

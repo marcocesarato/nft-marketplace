@@ -17,6 +17,7 @@ COMPOSE_FILE = docker-compose.yml
 else
 COMPOSE_FILE = docker-compose.$(ENV).yml
 endif
+ENV_FILE = $(CURDIR)/.env
 
 # Colors
 Color_Off=\033[0m
@@ -31,6 +32,8 @@ endif
 
 .DEFAULT_GOAL := help
 .PHONY: help build up start down stop restart logs ps mongo shell pull push login
+
+RUN_ARGS = $(filter-out $@, $(MAKECMDGOALS))
 
 # Helper
 help: ## Show available commands
@@ -47,23 +50,23 @@ help: ## Show available commands
 # Targets
 build: ## Builds docker image/s
 	$(info Building "$(ENV)" docker image/s)
-	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) build $(c)
+	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) --env-file $(ENV_FILE) build $(RUN_ARGS)
 start: ## Starts and build if needed docker container/s on background
 	$(info Starting "$(ENV)" docker container/s)
-	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) up -d $(c)
+	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) --env-file $(ENV_FILE) up -d
 stop: ## Stops and removes docker container/s
 	$(info Stopping "$(ENV)" docker container/s)
-	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) down $(c)
+	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) down
 restart: stop start ## Restarts docker container/s
 logs: ## Prints out the last logs of the docker container/s
 	$(info Printing out the last logs of the "$(ENV)" docker container/s)
-	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) logs --tail=100 -f $(c)
+	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) logs --tail=100 -f $(RUN_ARGS)
 ps: ## Prints out the status of the docker containers
 	$(info Printing out the status of the "$(ENV)" docker containers)
 	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) ps
 mongo: ## Opens a mongo shell in the database container
 	$(info Opens a mongo shell in the database "$(ENV)" container)
-	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) exec -T mongo mongosh "$(MONGODB_URI)"
+	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) exec -T mongo mongosh -u "$(MONGODB_ROOT_USERNAME)" -p "$(MONGODB_ROOT_PASSWORD)"
 shell: ## Opens a shell in the app container
 	$(info Opens a shell in the "$(ENV)" app container)
 	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) exec -T app sh
@@ -81,3 +84,5 @@ pull: ## Pull docker container/s from registry
 	$(info Pulling "$(TAG)" tagged image.)
 	@docker pull $(DOCKER_APP_IMAGE):$(DOCKER_TAG)
 	@docker pull $(DOCKER_INDEXER_IMAGE):$(DOCKER_TAG)
+%:
+	@true

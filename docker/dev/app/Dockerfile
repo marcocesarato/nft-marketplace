@@ -20,7 +20,6 @@ ENV NEXT_TELEMETRY_DISABLED 1
 
 ENV NODE_ENV development
 
-COPY . .
 COPY docker/dev/app/.babelrc ./.babelrc
 COPY --from=deps /app/node_modules ./node_modules
 
