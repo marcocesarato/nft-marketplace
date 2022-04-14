@@ -4,7 +4,7 @@ const MONGODB_URI = process.env.MONGODB_URI;
 const MONGODB_DATABASE = process.env.MONGODB_DATABASE;
 if (!MONGODB_URI || !MONGODB_DATABASE) {
 	throw new Error(
-		"Please define the MONGODB_URI or MONGODB_DATABASE environment variable inside .env",
+		"Please define the MONGODB_URI and MONGODB_DATABASE environment variable inside .env",
 	);
 }
 
@@ -27,6 +27,7 @@ export async function connectDatabase() {
 			authSource: "admin",
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
+			bufferCommands: false,
 		};
 
 		cached.promise = mongoose
