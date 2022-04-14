@@ -1,4 +1,5 @@
 import {recoverPersonalSignature} from "@metamask/eth-sig-util";
+import {ApolloServerPluginLandingPageGraphQLPlayground} from "apollo-server-core";
 import {ApolloServer} from "apollo-server-micro";
 import * as ethUtil from "ethereumjs-util";
 import {Base64} from "js-base64";
@@ -46,6 +47,7 @@ const server = new ApolloServer({
 
 		return {isAuthenticated};
 	},
+	plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
 });
 
 const startServer = server.start();
