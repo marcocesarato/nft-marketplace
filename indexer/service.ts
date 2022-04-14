@@ -71,7 +71,7 @@ const isDev = !process.env.NODE_ENV || process.env.NODE_ENV === "development";
 
 const startConnection = () => {
 	const provider = new ethers.providers.WebSocketProvider(
-		(isDev ? process.env.CHAIN_TESTNET_URL : process.env.CHAIN_MAINNET_URL) || "",
+		(isDev ? process.env.CHAIN_TESTNET_WSS : process.env.CHAIN_MAINNET_WSS) || "",
 	);
 
 	let pingTimeout: NodeJS.Timeout;
