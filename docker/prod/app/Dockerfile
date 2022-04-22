@@ -49,9 +49,12 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/next-i18next.config.js ./
 
+# Custom server with HTTPS
+COPY ./docker/prod/app/server.js ./server.js
+
 USER nextjs
 
 EXPOSE 3000
 ENV PORT 3000
 
-CMD ["yarn", "start"]
+CMD ["node", "server.js"]
