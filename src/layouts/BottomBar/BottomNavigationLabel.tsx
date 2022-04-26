@@ -29,13 +29,13 @@ export const BottomNavigationLabel = forwardRef<IBottomNavigationLabelProps, "di
 			...styles.label,
 		};
 
+		if (dataIsLabelHidden) return null;
 		return (
 			<StylesProvider value={styles}>
 				<Box
 					ref={ref}
 					className={cx("chakra-bottom-navigation__label", props.className)}
 					__css={labelStyles}
-					data-hidden={dataIsLabelHidden}
 					{...props}
 				/>
 			</StylesProvider>
