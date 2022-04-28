@@ -7,6 +7,7 @@ import useAccount from "@hooks/useAccount";
 import useMarket from "@hooks/useMarket";
 
 import CatalogFilterBar from "./CatalogFilterBar";
+import {useState} from "react";
 
 const easing = [0.6, -0.05, 0.01, 0.99];
 const MotionSimpleGrid = motion(SimpleGrid);
@@ -33,6 +34,15 @@ const productVariant = {
 	},
 };
 
+const sort = {
+	"newest": (a, b) => b.price - a.price || a.tokenId - b.tokenId,
+	"lowest": (a, b) => a.price - b.price || a.tokenId - b.tokenId,
+	"highest": (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt),
+	//TODO
+	"views": (a, b) => Math.random(),
+	"likes": (a, b) => a.likes - b.likes || a.tokenId - b.tokenId,
+};
+
 export default function Catalog({
 	data = [],
 	sortable = true,
@@ -49,9 +59,12 @@ export default function Catalog({
 	};
 	const minColumns = useBreakpointValue({base: 2, sm: 3, lg: 4, xl: 5});
 	const emptyItems = Math.max(minColumns - data.length, 0);
+
+	const [sortBy, setSortBy] = useState<string>();
+
 	return (
 		<Box mt={2} alignItems="flex-start" maxW="1680px">
-			{sortable && <CatalogFilterBar {...props} />}
+			{sortable && <CatalogFilterBar onSort={setSortBy} {...props} />}
 			<MotionSimpleGrid
 				variants={catalogVariant}
 				mx="auto"
@@ -62,14 +75,16 @@ export default function Catalog({
 				columnGap={{base: "4", md: "6"}}
 				rowGap={{base: "8", md: "10"}}
 				{...props}>
-				{data.map((product, i: number) => (
-					<Product
-						variants={productVariant}
-						key={product?.token_id || i}
-						data={product}
-						onPurchase={handlePurchase(product)}
-					/>
-				))}
+				{[...data]
+					.sort((a, b) => (sortBy && sort[sortBy](a, b)) || sort["newest"](a, b))
+					.map((product, i: number) => (
+						<Product
+							variants={productVariant}
+							key={product?.token_id || i}
+							data={product}
+							onPurchase={handlePurchase(product)}
+						/>
+					))}
 				{emptyItems > 0 &&
 					Array(emptyItems)
 						.fill(null)
