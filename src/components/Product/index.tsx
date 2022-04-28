@@ -26,19 +26,19 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 	const {t} = useTranslation();
 	const {nativeToken} = useConfig();
 	const {resolveLink} = useIPFS();
-	const [likes, setLikes] = useState(data.likes || 0);
-	const [isLiked, setIsLiked] = useState(data.isLiked || false);
+	const [likes, setLikes] = useState(data?.likes || 0);
+	const [isLiked, setIsLiked] = useState(data?.isLiked || false);
 	const {isOpen, onOpen, onClose} = useDisclosure();
 
 	const [likeMutation] = useLikeMutation({
 		variables: {
-			tokenId: data.tokenId,
+			tokenId: data?.tokenId,
 		},
 	});
 
 	const [dislikeMutation] = useDislikeMutation({
 		variables: {
-			tokenId: data.tokenId,
+			tokenId: data?.tokenId,
 		},
 	});
 

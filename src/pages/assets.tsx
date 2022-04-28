@@ -14,16 +14,19 @@ export default function MyAssets(): JSX.Element {
 	const {data: rawData, error, isError, isSuccess, isLoading} = useNFTs();
 	const data = useMemo(() => {
 		if (!isSuccess) return [];
-		return rawData.map((item) => item.metadata);
+		return rawData?.map((item) => item?.metadata) || [];
 	}, [isSuccess, rawData]);
 
 	if (isError) return <Header title={t<string>("error:title")} subtitle={error.message} />;
 	if (isLoading) return <Loading />;
 	if (isSuccess && !data.length)
-		<Header
-			title={t<string>("common:page.assets.title")}
-			subtitle={t<string>("common:page.assets.empty")}
-		/>;
+		return (
+			<Header
+				title={t<string>("common:page.assets.title")}
+				subtitle={t<string>("common:page.assets.empty")}
+			/>
+		);
+
 	return (
 		<Content>
 			<Header

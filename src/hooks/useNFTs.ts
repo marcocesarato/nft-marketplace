@@ -14,6 +14,20 @@ const useNFTs = () => {
 	const {account, chainId} = useAccount();
 	const {withMetadata} = useNFTMetadata();
 	const {resolveLink} = useIPFS();
+	const resultMap = async (nft) => {
+		if (!nft?.metadata) {
+			nft = await withMetadata(nft);
+		}
+		if (nft?.metadata) {
+			if (isString(nft.metadata)) nft.metadata = JSON.parse(nft.metadata);
+			if (typeof nft.metadata === "object") {
+				if (nft.metadata["data"]) nft.metadata = nft.metadata["data"];
+				if (nft.metadata["image"])
+					nft.metadata["image"] = resolveLink(nft.metadata["image"]);
+			}
+		}
+		return nft;
+	};
 	return useQuery<NFT[], Error>(
 		["NFTs", account, chainId],
 		async () => {
@@ -30,22 +44,7 @@ const useNFTs = () => {
 			// Load all NFTs
 			const data = await Web3Api.account.getNFTs(options as any);
 			if (data?.result) {
-				return await Promise.all(
-					data.result.map(async (nft) => {
-						if (!nft?.metadata) {
-							nft = await withMetadata(nft);
-						}
-						if (nft?.metadata) {
-							if (isString(nft.metadata)) nft.metadata = JSON.parse(nft.metadata);
-							if (typeof nft.metadata === "object") {
-								if (nft.metadata["data"]) nft.metadata = nft.metadata["data"];
-								if (nft.metadata["image"])
-									nft.metadata["image"] = resolveLink(nft.metadata["image"]);
-							}
-						}
-						return nft;
-					}),
-				);
+				return Promise.all(data.result.map(resultMap));
 			}
 			return [];
 		},
