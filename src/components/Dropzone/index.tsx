@@ -17,7 +17,7 @@ export default function Dropzone({onFileAccepted}): JSX.Element {
 
 	const {getRootProps, getInputProps, isDragActive} = useDropzone({
 		onDrop,
-		accept: acceptImage,
+		accept: {"image/*": acceptImage},
 		maxFiles: 1,
 		multiple: false,
 	});
