@@ -1,7 +1,7 @@
-import {ReactNode, useState} from "react";
-import {AiOutlineShoppingCart} from "react-icons/ai";
-import {IoArrowBackOutline, IoCloseOutline, IoCubeOutline} from "react-icons/io5";
-import {SiOculus} from "react-icons/si";
+import { ReactNode, useState } from "react";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { IoArrowBackOutline, IoCloseOutline, IoCubeOutline } from "react-icons/io5";
+import { SiOculus } from "react-icons/si";
 import {
 	Modal,
 	ModalBody,
@@ -12,7 +12,7 @@ import {
 	SimpleGrid,
 	Text,
 } from "@chakra-ui/react";
-import {useTranslation} from "next-i18next";
+import { useTranslation } from "next-i18next";
 
 import ProductAR from "@components/ProductAR";
 import useWebXR from "@hooks/useWebXR";
@@ -21,9 +21,9 @@ import Product3DViewer from "./Product3DViewer";
 import ProductDetails from "./ProductDetails";
 import ProductModalButton from "./ProductModalButton";
 
-export default function ProductModal({data, onClose, onPurchase, isOpen, ...props}): JSX.Element {
-	const {t} = useTranslation();
-	const {supportsVRSession, supportsARSession} = useWebXR();
+export default function ProductModal({ data, onClose, onPurchase, isOpen, ...props }): JSX.Element {
+	const { t } = useTranslation();
+	const { supportsVRSession, supportsARSession } = useWebXR();
 
 	const [mode, setMode] = useState(null);
 	const resetMode = () => setMode(null);
@@ -67,17 +67,17 @@ export default function ProductModal({data, onClose, onPurchase, isOpen, ...prop
 				<ModalBody position="relative">
 					{body}
 					<SimpleGrid minChildWidth="120px" spacing="4" mt="6">
-						{supportsARSession && isDetailMode && (
+						{supportsARSession && isDetailMode && data?.image && (
 							<ProductModalButton onClick={setARMode}>
 								<SiOculus /> <Text ml="4">AR</Text>
 							</ProductModalButton>
 						)}
-						{supportsVRSession && isDetailMode && (
+						{supportsVRSession && isDetailMode && data?.image && (
 							<ProductModalButton onClick={setVRMode}>
 								<SiOculus /> <Text ml="4">VR</Text>
 							</ProductModalButton>
 						)}
-						{!supportsARSession && !supportsVRSession && isDetailMode && (
+						{!supportsARSession && !supportsVRSession && isDetailMode && data?.image && (
 							<ProductModalButton onClick={set3DMode}>
 								<IoCubeOutline /> <Text ml="4">3D View</Text>
 							</ProductModalButton>
