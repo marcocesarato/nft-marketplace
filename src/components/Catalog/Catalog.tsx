@@ -1,3 +1,4 @@
+import {useState} from "react";
 import {useRouter} from "next/router";
 import {Box, SimpleGrid, useBreakpointValue} from "@chakra-ui/react";
 import {motion} from "framer-motion";
@@ -7,7 +8,6 @@ import useAccount from "@hooks/useAccount";
 import useMarket from "@hooks/useMarket";
 
 import CatalogFilterBar from "./CatalogFilterBar";
-import {useState} from "react";
 
 const easing = [0.6, -0.05, 0.01, 0.99];
 const MotionSimpleGrid = motion(SimpleGrid);
@@ -38,8 +38,6 @@ const sort = {
 	"newest": (a, b) => b.price - a.price || a.tokenId - b.tokenId,
 	"lowest": (a, b) => a.price - b.price || a.tokenId - b.tokenId,
 	"highest": (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt),
-	//TODO
-	"views": (a, b) => Math.random(),
 	"likes": (a, b) => a.likes - b.likes || a.tokenId - b.tokenId,
 };
 

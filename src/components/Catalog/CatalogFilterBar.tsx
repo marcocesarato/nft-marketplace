@@ -17,7 +17,6 @@ export default function CatalogFilterBar({
 		{value: "newest", label: t<string>("common:catalog.sortType.newest")},
 		{value: "lowest", label: t<string>("common:catalog.sortType.priceASC")},
 		{value: "highest", label: t<string>("common:catalog.sortType.priceDESC")},
-		{value: "views", label: t<string>("common:catalog.sortType.mostViews")},
 		{value: "likes", label: t<string>("common:catalog.sortType.mostLikes")},
 	];
 	const categoriesOptions = [
