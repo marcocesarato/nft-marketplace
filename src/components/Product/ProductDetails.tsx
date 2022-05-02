@@ -2,9 +2,15 @@ import {
 	Box,
 	Heading,
 	Image,
+	Progress,
 	SimpleGrid,
 	Stack,
+	Table,
+	TableContainer,
+	Tbody,
+	Td,
 	Text,
+	Tr,
 	useColorModeValue as mode,
 } from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
@@ -83,6 +89,59 @@ export default function ProductDetails({data, onPurchase}): JSX.Element {
 							</Text>{" "}
 							{data?.priceFormatted || data?.price} {nativeToken?.symbol}
 						</Text>
+					)}
+					{data?.attributes && data?.attributes.length > 0 && (
+						<Box>
+							<Text
+								fontSize={{base: "16px", lg: "18px"}}
+								color={mode("gray.900", "gray.400")}
+								fontWeight={"500"}
+								textTransform={"uppercase"}
+								mt={"4"}>
+								{t<string>("common:product.attributes")}
+							</Text>
+							<TableContainer>
+								<Table>
+									<Tbody>
+										{data?.attributes.map(
+											(attribute: ItemAttribute, index: number) => (
+												<Tr key={attribute.trait_type}>
+													<Td>
+														<Text fontWeight={"bold"}>
+															{attribute.trait_type}
+														</Text>
+													</Td>
+													<Td>
+														{attribute.display_type === "date" ? (
+															<Text>
+																{new Date(
+																	attribute.value,
+																).toLocaleDateString()}
+															</Text>
+														) : attribute.display_type === "url" ? (
+															<Text>
+																<a href={attribute.value}>
+																	{attribute.value}
+																</a>
+															</Text>
+														) : attribute.display_type ===
+																"boost_percentage" ||
+														  attribute.display_type ===
+																"percentage" ? (
+															<Progress
+																value={parseInt(attribute.value)}
+															/>
+														) : (
+															<Text>{attribute.value}</Text>
+														)}
+													</Td>
+												</Tr>
+											),
+										)}
+									</Tbody>
+								</Table>
+							</TableContainer>
+						</Box>
 					)}
 				</Box>
 			</Stack>

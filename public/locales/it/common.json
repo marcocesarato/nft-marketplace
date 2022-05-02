@@ -6,6 +6,7 @@
 		"title": "Account"
 	},
 	"action": {
+		"close": "Chiudi",
 		"back": "Indietro",
 		"connectToWallet": "Connetti",
 		"connectWallet": "Connetti wallet",

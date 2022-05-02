@@ -18,9 +18,7 @@ export type NFTMetadata = {
 	description: string;
 	image: string;
 	externalUrl?: string;
-	attributes?: {
-		[key: string]: string;
-	};
+	attributes?: [ItemAttribute];
 	data?: NFTMetadata;
 };
 
@@ -42,4 +40,10 @@ export type MarketTransfers = {
 	to_address: string;
 	from_address: string;
 	value: string;
+};
+
+type ItemAttribute = {
+	trait_type: string;
+	value: string;
+	display_type?: string | null | undefined;
 };

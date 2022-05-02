@@ -1,13 +1,15 @@
 import {ReactNode, useState} from "react";
 import {AiOutlineShoppingCart} from "react-icons/ai";
+import {IoArrowBackOutline, IoCloseOutline, IoCubeOutline} from "react-icons/io5";
+import {SiOculus} from "react-icons/si";
 import {
 	Modal,
 	ModalBody,
 	ModalCloseButton,
 	ModalContent,
-	ModalFooter,
 	ModalHeader,
 	ModalOverlay,
+	SimpleGrid,
 	Text,
 } from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
@@ -62,33 +64,49 @@ export default function ProductModal({data, onClose, onPurchase, isOpen, ...prop
 			<ModalContent>
 				<ModalHeader />
 				<ModalCloseButton />
-				<ModalBody position="relative">{body}</ModalBody>
-				<ModalFooter mx={-2}>
-					{supportsARSession && isDetailMode && (
-						<ProductModalButton onClick={setARMode}>AR</ProductModalButton>
-					)}
-					{supportsVRSession && isDetailMode && (
-						<ProductModalButton onClick={setVRMode}>VR</ProductModalButton>
-					)}
-					{!supportsARSession && !supportsVRSession && isDetailMode && (
-						<ProductModalButton onClick={set3DMode}>3D</ProductModalButton>
-					)}
-					{!isDetailMode && (
-						<ProductModalButton onClick={resetMode}>
-							{t<string>("common:action.back")}
-						</ProductModalButton>
-					)}
-					{onPurchase && (
-						<ProductModalButton
-							onClick={() => {
-								onClose();
-								onPurchase();
-							}}>
-							<AiOutlineShoppingCart />{" "}
-							<Text ml="4">{t<string>("common:action.purchase")}</Text>
-						</ProductModalButton>
-					)}
-				</ModalFooter>
+				<ModalBody position="relative">
+					{body}
+					<SimpleGrid minChildWidth="120px" spacing="4" mt="6">
+						{supportsARSession && isDetailMode && (
+							<ProductModalButton onClick={setARMode}>
+								<SiOculus /> <Text ml="4">AR</Text>
+							</ProductModalButton>
+						)}
+						{supportsVRSession && isDetailMode && (
+							<ProductModalButton onClick={setVRMode}>
+								<SiOculus /> <Text ml="4">VR</Text>
+							</ProductModalButton>
+						)}
+						{!supportsARSession && !supportsVRSession && isDetailMode && (
+							<ProductModalButton onClick={set3DMode}>
+								<IoCubeOutline /> <Text ml="4">3D View</Text>
+							</ProductModalButton>
+						)}
+					</SimpleGrid>
+					<SimpleGrid minChildWidth="120px" spacing="4" my="4">
+						{!isDetailMode ? (
+							<ProductModalButton onClick={resetMode}>
+								<IoArrowBackOutline />
+								<Text ml="4">{t<string>("common:action.back")}</Text>
+							</ProductModalButton>
+						) : (
+							<ProductModalButton onClick={handleClose}>
+								<IoCloseOutline />
+								<Text ml="4">{t<string>("common:action.close")}</Text>
+							</ProductModalButton>
+						)}
+						{onPurchase && (
+							<ProductModalButton
+								onClick={() => {
+									onClose();
+									onPurchase();
+								}}>
+								<AiOutlineShoppingCart />
+								<Text ml="4">{t<string>("common:action.purchase")}</Text>
+							</ProductModalButton>
+						)}
+					</SimpleGrid>
+				</ModalBody>
 			</ModalContent>
 		</Modal>
 	);
