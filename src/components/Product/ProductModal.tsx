@@ -65,19 +65,13 @@ export default function ProductModal({data, onClose, onPurchase, isOpen, ...prop
 				<ModalBody position="relative">{body}</ModalBody>
 				<ModalFooter mx={-2}>
 					{supportsARSession && isDetailMode && (
-						<ProductModalButton onClick={setARMode}>
-							{t<string>("common:action.openWith")} AR
-						</ProductModalButton>
+						<ProductModalButton onClick={setARMode}>AR</ProductModalButton>
 					)}
 					{supportsVRSession && isDetailMode && (
-						<ProductModalButton onClick={setVRMode}>
-							{t<string>("common:action.openWith")} VR
-						</ProductModalButton>
+						<ProductModalButton onClick={setVRMode}>VR</ProductModalButton>
 					)}
 					{!supportsARSession && !supportsVRSession && isDetailMode && (
-						<ProductModalButton onClick={set3DMode}>
-							{t<string>("common:action.openWith")} 3D View
-						</ProductModalButton>
+						<ProductModalButton onClick={set3DMode}>3D</ProductModalButton>
 					)}
 					{!isDetailMode && (
 						<ProductModalButton onClick={resetMode}>
