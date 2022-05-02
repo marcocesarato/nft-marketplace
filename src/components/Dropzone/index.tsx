@@ -4,7 +4,7 @@ import {AiOutlineCloudUpload} from "react-icons/ai";
 import {Center, Heading, Icon, Text, useColorModeValue} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
-import {acceptExts} from "@configs/uploads";
+import {acceptImage} from "@configs/uploads";
 
 export default function Dropzone({onFileAccepted}): JSX.Element {
 	const {t} = useTranslation();
@@ -17,7 +17,7 @@ export default function Dropzone({onFileAccepted}): JSX.Element {
 
 	const {getRootProps, getInputProps, isDragActive} = useDropzone({
 		onDrop,
-		accept: acceptExts,
+		accept: acceptImage,
 		maxFiles: 1,
 		multiple: false,
 	});
