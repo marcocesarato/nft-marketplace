@@ -127,6 +127,7 @@ export default function Sell(): JSX.Element {
 				</FormControl>
 				{fileUrl && (
 					<Image
+						fallbackSrc="/assets/images/empty.jpg"
 						htmlWidth="350"
 						src={fileUrl}
 						alt={formInput.name}

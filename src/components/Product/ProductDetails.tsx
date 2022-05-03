@@ -31,7 +31,7 @@ export default function ProductDetails({data, onPurchase}): JSX.Element {
 					alt={data?.name}
 					src={resolveLink(data?.image)}
 					fit={"cover"}
-					fallbackSrc="/assets/images/metaverse.png"
+					fallbackSrc="/assets/images/empty.jpg"
 					align={"center"}
 					boxShadow="lg"
 					w={"100%"}
