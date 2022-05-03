@@ -88,6 +88,7 @@ export type FilterCountUserInput = {
 	_operators?: InputMaybe<FilterCountUserOperatorsInput>;
 	account?: InputMaybe<Scalars["String"]>;
 	createdAt?: InputMaybe<Scalars["Date"]>;
+	favourites?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	updatedAt?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
@@ -166,6 +167,7 @@ export type FilterFindManyUserInput = {
 	_operators?: InputMaybe<FilterFindManyUserOperatorsInput>;
 	account?: InputMaybe<Scalars["String"]>;
 	createdAt?: InputMaybe<Scalars["Date"]>;
+	favourites?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	updatedAt?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
@@ -244,6 +246,7 @@ export type FilterFindOneUserInput = {
 	_operators?: InputMaybe<FilterFindOneUserOperatorsInput>;
 	account?: InputMaybe<Scalars["String"]>;
 	createdAt?: InputMaybe<Scalars["Date"]>;
+	favourites?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	updatedAt?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
@@ -275,6 +278,7 @@ export type MarketItem = {
 	description: Scalars["String"];
 	externalUrl?: Maybe<Scalars["String"]>;
 	image: Scalars["String"];
+	isFavourited?: Maybe<Scalars["Boolean"]>;
 	isLiked?: Maybe<Scalars["Boolean"]>;
 	likes?: Maybe<Scalars["Float"]>;
 	name: Scalars["String"];
@@ -320,8 +324,10 @@ export type MongoError = ErrorInterface & {
 
 export type Mutation = {
 	__typename?: "Mutation";
+	addToFavourites?: Maybe<MarketItem>;
 	dislike?: Maybe<MarketItem>;
 	like?: Maybe<MarketItem>;
+	removeFromFavourites?: Maybe<MarketItem>;
 	/**
 	 * Update one document: 1) Retrieve one document by findById. 2) Apply updates to
 	 * mongoose document. 3) Mongoose applies defaults, setters, hooks and
@@ -330,11 +336,19 @@ export type Mutation = {
 	userUpdate?: Maybe<UpdateByIdUserPayload>;
 };
 
+export type MutationAddToFavouritesArgs = {
+	tokenId?: InputMaybe<Scalars["Int"]>;
+};
+
 export type MutationDislikeArgs = {
 	tokenId?: InputMaybe<Scalars["Int"]>;
 };
 
 export type MutationLikeArgs = {
+	tokenId?: InputMaybe<Scalars["Int"]>;
+};
+
+export type MutationRemoveFromFavouritesArgs = {
 	tokenId?: InputMaybe<Scalars["Int"]>;
 };
 
@@ -442,6 +456,7 @@ export enum SortFindOneUserInput {
 export type UpdateByIdUserInput = {
 	account?: InputMaybe<Scalars["String"]>;
 	createdAt?: InputMaybe<Scalars["Date"]>;
+	favourites?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	updatedAt?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
@@ -466,6 +481,7 @@ export type User = {
 	_id: Scalars["MongoID"];
 	account: Scalars["String"];
 	createdAt?: Maybe<Scalars["Date"]>;
+	favourites?: Maybe<Array<Maybe<Scalars["Float"]>>>;
 	likes?: Maybe<Array<Maybe<Scalars["Float"]>>>;
 	updatedAt?: Maybe<Scalars["Date"]>;
 	username: Scalars["String"];
@@ -506,6 +522,15 @@ export type ValidatorError = {
 	value?: Maybe<Scalars["JSON"]>;
 };
 
+export type AddToFavouritesMutationVariables = Exact<{
+	tokenId?: InputMaybe<Scalars["Int"]>;
+}>;
+
+export type AddToFavouritesMutation = {
+	__typename?: "Mutation";
+	addToFavourites?: {__typename?: "MarketItem"; isFavourited?: boolean | null} | null;
+};
+
 export type DislikeMutationVariables = Exact<{
 	tokenId?: InputMaybe<Scalars["Int"]>;
 }>;
@@ -522,6 +547,15 @@ export type LikeMutationVariables = Exact<{
 export type LikeMutation = {
 	__typename?: "Mutation";
 	like?: {__typename?: "MarketItem"; likes?: number | null; isLiked?: boolean | null} | null;
+};
+
+export type RemoveFromFavouritesMutationVariables = Exact<{
+	tokenId?: InputMaybe<Scalars["Int"]>;
+}>;
+
+export type RemoveFromFavouritesMutation = {
+	__typename?: "Mutation";
+	removeFromFavourites?: {__typename?: "MarketItem"; isFavourited?: boolean | null} | null;
 };
 
 export type UserUpdateMutationVariables = Exact<{
@@ -576,6 +610,7 @@ export type MarketItemQuery = {
 		thumbnail?: string | null;
 		likes?: number | null;
 		isLiked?: boolean | null;
+		isFavourited?: boolean | null;
 		updatedAt?: any | null;
 		createdAt?: any | null;
 		attributes?: Array<{
@@ -615,6 +650,7 @@ export type MarketItemsQuery = {
 		thumbnail?: string | null;
 		likes?: number | null;
 		isLiked?: boolean | null;
+		isFavourited?: boolean | null;
 		updatedAt?: any | null;
 		createdAt?: any | null;
 		attributes?: Array<{
@@ -632,7 +668,14 @@ export type UserQueryVariables = Exact<{
 
 export type UserQuery = {
 	__typename?: "Query";
-	user?: {__typename?: "User"; username: string; account: string; _id: any} | null;
+	user?: {
+		__typename?: "User";
+		_id: any;
+		username: string;
+		account: string;
+		favourites?: Array<number | null> | null;
+		likes?: Array<number | null> | null;
+	} | null;
 };
 
 export type UsersQueryVariables = Exact<{
@@ -644,9 +687,63 @@ export type UsersQueryVariables = Exact<{
 
 export type UsersQuery = {
 	__typename?: "Query";
-	users: Array<{__typename?: "User"; username: string; account: string; _id: any}>;
+	users: Array<{
+		__typename?: "User";
+		_id: any;
+		username: string;
+		account: string;
+		favourites?: Array<number | null> | null;
+		likes?: Array<number | null> | null;
+	}>;
 };
 
+export const AddToFavouritesDocument = gql`
+	mutation AddToFavourites($tokenId: Int) {
+		addToFavourites(tokenId: $tokenId) {
+			isFavourited
+		}
+	}
+`;
+export type AddToFavouritesMutationFn = Apollo.MutationFunction<
+	AddToFavouritesMutation,
+	AddToFavouritesMutationVariables
+>;
+
+/**
+ * __useAddToFavouritesMutation__
+ *
+ * To run a mutation, you first call `useAddToFavouritesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddToFavouritesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addToFavouritesMutation, { data, loading, error }] = useAddToFavouritesMutation({
+ *   variables: {
+ *      tokenId: // value for 'tokenId'
+ *   },
+ * });
+ */
+export function useAddToFavouritesMutation(
+	baseOptions?: Apollo.MutationHookOptions<
+		AddToFavouritesMutation,
+		AddToFavouritesMutationVariables
+	>,
+) {
+	const options = {...defaultOptions, ...baseOptions};
+	return Apollo.useMutation<AddToFavouritesMutation, AddToFavouritesMutationVariables>(
+		AddToFavouritesDocument,
+		options,
+	);
+}
+export type AddToFavouritesMutationHookResult = ReturnType<typeof useAddToFavouritesMutation>;
+export type AddToFavouritesMutationResult = Apollo.MutationResult<AddToFavouritesMutation>;
+export type AddToFavouritesMutationOptions = Apollo.BaseMutationOptions<
+	AddToFavouritesMutation,
+	AddToFavouritesMutationVariables
+>;
 export const DislikeDocument = gql`
 	mutation Dislike($tokenId: Int) {
 		dislike(tokenId: $tokenId) {
@@ -722,6 +819,56 @@ export function useLikeMutation(
 export type LikeMutationHookResult = ReturnType<typeof useLikeMutation>;
 export type LikeMutationResult = Apollo.MutationResult<LikeMutation>;
 export type LikeMutationOptions = Apollo.BaseMutationOptions<LikeMutation, LikeMutationVariables>;
+export const RemoveFromFavouritesDocument = gql`
+	mutation RemoveFromFavourites($tokenId: Int) {
+		removeFromFavourites(tokenId: $tokenId) {
+			isFavourited
+		}
+	}
+`;
+export type RemoveFromFavouritesMutationFn = Apollo.MutationFunction<
+	RemoveFromFavouritesMutation,
+	RemoveFromFavouritesMutationVariables
+>;
+
+/**
+ * __useRemoveFromFavouritesMutation__
+ *
+ * To run a mutation, you first call `useRemoveFromFavouritesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveFromFavouritesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeFromFavouritesMutation, { data, loading, error }] = useRemoveFromFavouritesMutation({
+ *   variables: {
+ *      tokenId: // value for 'tokenId'
+ *   },
+ * });
+ */
+export function useRemoveFromFavouritesMutation(
+	baseOptions?: Apollo.MutationHookOptions<
+		RemoveFromFavouritesMutation,
+		RemoveFromFavouritesMutationVariables
+	>,
+) {
+	const options = {...defaultOptions, ...baseOptions};
+	return Apollo.useMutation<RemoveFromFavouritesMutation, RemoveFromFavouritesMutationVariables>(
+		RemoveFromFavouritesDocument,
+		options,
+	);
+}
+export type RemoveFromFavouritesMutationHookResult = ReturnType<
+	typeof useRemoveFromFavouritesMutation
+>;
+export type RemoveFromFavouritesMutationResult =
+	Apollo.MutationResult<RemoveFromFavouritesMutation>;
+export type RemoveFromFavouritesMutationOptions = Apollo.BaseMutationOptions<
+	RemoveFromFavouritesMutation,
+	RemoveFromFavouritesMutationVariables
+>;
 export const UserUpdateDocument = gql`
 	mutation UserUpdate($id: MongoID!, $record: UpdateByIdUserInput!) {
 		userUpdate(_id: $id, record: $record) {
@@ -813,6 +960,7 @@ export const MarketItemDocument = gql`
 			thumbnail
 			likes
 			isLiked
+			isFavourited
 			updatedAt
 			createdAt
 		}
@@ -883,6 +1031,7 @@ export const MarketItemsDocument = gql`
 			thumbnail
 			likes
 			isLiked
+			isFavourited
 			updatedAt
 			createdAt
 		}
@@ -935,9 +1084,11 @@ export type MarketItemsQueryResult = Apollo.QueryResult<
 export const UserDocument = gql`
 	query User($filter: FilterFindOneUserInput) {
 		user(filter: $filter) {
+			_id
 			username
 			account
-			_id
+			favourites
+			likes
 		}
 	}
 `;
@@ -979,9 +1130,11 @@ export const UsersDocument = gql`
 		$sort: SortFindManyUserInput
 	) {
 		users(filter: $filter, skip: $skip, limit: $limit, sort: $sort) {
+			_id
 			username
 			account
-			_id
+			favourites
+			likes
 		}
 	}
 `;

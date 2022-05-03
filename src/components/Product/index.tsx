@@ -1,5 +1,11 @@
 import {useState} from "react";
-import {AiFillHeart, AiOutlineHeart, AiOutlineShoppingCart} from "react-icons/ai";
+import {
+	AiFillHeart,
+	AiFillStar,
+	AiOutlineHeart,
+	AiOutlineShoppingCart,
+	AiOutlineStar,
+} from "react-icons/ai";
 import {
 	Box,
 	Button,
@@ -17,7 +23,12 @@ import {useTranslation} from "next-i18next";
 import Address from "@components/Address";
 import {useConfig} from "@contexts/Global";
 import useIPFS from "@hooks/useIPFS";
-import {useDislikeMutation, useLikeMutation} from "@services/graphql";
+import {
+	useAddToFavouritesMutation,
+	useDislikeMutation,
+	useLikeMutation,
+	useRemoveFromFavouritesMutation,
+} from "@services/graphql";
 
 import ProductModal from "./ProductModal";
 
@@ -28,15 +39,28 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 	const {resolveLink} = useIPFS();
 	const [likes, setLikes] = useState(data?.likes || 0);
 	const [isLiked, setIsLiked] = useState(data?.isLiked || false);
+	const [isFavourited, setIsFavourited] = useState(data?.isFavourited || false);
 	const {isOpen, onOpen, onClose} = useDisclosure();
 
-	const [likeMutation] = useLikeMutation({
+	const [addToFavourite] = useAddToFavouritesMutation({
 		variables: {
 			tokenId: data?.tokenId,
 		},
 	});
 
-	const [dislikeMutation] = useDislikeMutation({
+	const [removeFromFavourite] = useRemoveFromFavouritesMutation({
+		variables: {
+			tokenId: data?.tokenId,
+		},
+	});
+
+	const [like] = useLikeMutation({
+		variables: {
+			tokenId: data?.tokenId,
+		},
+	});
+
+	const [dislike] = useDislikeMutation({
 		variables: {
 			tokenId: data?.tokenId,
 		},
@@ -44,13 +68,23 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 
 	const handleLike = async () => {
 		if (isLiked) {
-			await dislikeMutation();
+			await dislike();
 			setLikes(likes - 1);
 			setIsLiked(false);
 		} else {
-			await likeMutation();
+			await like();
 			setLikes(likes + 1);
 			setIsLiked(true);
+		}
+	};
+
+	const handleFavourite = async () => {
+		if (isFavourited) {
+			await removeFromFavourite();
+			setIsFavourited(false);
+		} else {
+			await addToFavourite();
+			setIsFavourited(true);
 		}
 	};
 
@@ -147,6 +181,16 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 						<Text fontWeight="medium" fontSize={"lg"}>
 							{likes}
 						</Text>
+						<Box
+							transition="all .3s ease"
+							color={isFavourited ? "yellow.500" : mode("gray.700", "white")}
+							cursor="pointer"
+							onClick={handleFavourite}
+							_hover={{
+								transform: "scale(1.4)",
+							}}>
+							{isFavourited ? <AiFillStar size={24} /> : <AiOutlineStar size={24} />}
+						</Box>
 					</HStack>
 					{onPurchase && data?.price && (
 						<HStack

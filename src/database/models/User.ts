@@ -14,6 +14,16 @@ const UserSchema = new mongoose.Schema(
 			],
 			default: [],
 		},
+		favourites: {
+			type: [
+				{
+					type: Number,
+					required: true,
+					ref: "MarketItem",
+				},
+			],
+			default: [],
+		},
 	},
 	{timestamps: true},
 );

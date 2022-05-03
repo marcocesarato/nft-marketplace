@@ -22,10 +22,12 @@ export const useMarketItemsCreatedQuery = (
 };
 
 export {
+	useAddToFavouritesMutation,
 	useDislikeMutation,
 	useLikeMutation,
 	useMarketItemsLazyQuery,
 	useMarketItemsQuery,
+	useRemoveFromFavouritesMutation,
 	useUserLazyQuery,
 	useUserQuery,
 	useUserUpdateMutation,

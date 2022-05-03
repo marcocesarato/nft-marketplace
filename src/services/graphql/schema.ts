@@ -60,6 +60,17 @@ MarketItemTC.addFields({
 			return user?.likes?.includes(_id) || false;
 		},
 	},
+	isFavourited: {
+		type: "Boolean",
+		resolve: async (source, args, context, info) => {
+			const {isAuthenticated, account} = context;
+			const {_id} = source;
+			if (!isAuthenticated) return false;
+			const user = await User.findOne({"account": account}).lean();
+			if (!user) return false;
+			return user?.favourites?.includes(_id) || false;
+		},
+	},
 });
 const marketItemResolvers = MarketItemTC.mongooseResolvers;
 schemaComposer.Query.addFields({
@@ -90,6 +101,34 @@ schemaComposer.Mutation.addFields({
 			const user = await User.updateOne({account: account}, {$pull: {likes: args.tokenId}});
 			if (!user) throw new Error("User not found"); // Check user
 			await MarketItem.updateOne({_id: args.tokenId}, {$inc: {"likes": -1}});
+			return MarketItem.findOne({_id: args.tokenId});
+		},
+	},
+	addToFavourites: {
+		type: MarketItemTC,
+		args: {tokenId: "Int"},
+		resolve: async (source, args, context, info) => {
+			const {account, isAuthenticated} = context;
+			if (!isAuthenticated) throw new Error("Not authenticated"); // Check auth
+			const user = await User.updateOne(
+				{account: account},
+				{$push: {favourites: args.tokenId}},
+			);
+			if (!user) throw new Error("User not found"); // Check user
+			return MarketItem.findOne({_id: args.tokenId});
+		},
+	},
+	removeFromFavourites: {
+		type: MarketItemTC,
+		args: {tokenId: "Int"},
+		resolve: async (source, args, context, info) => {
+			const {account, isAuthenticated} = context;
+			if (!isAuthenticated) throw new Error("Not authenticated"); // Check auth
+			const user = await User.updateOne(
+				{account: account},
+				{$pull: {favourites: args.tokenId}},
+			);
+			if (!user) throw new Error("User not found"); // Check user
 			return MarketItem.findOne({_id: args.tokenId});
 		},
 	},

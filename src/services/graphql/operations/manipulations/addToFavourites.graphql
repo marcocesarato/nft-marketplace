@@ -1,0 +1,5 @@
+mutation AddToFavourites($tokenId: Int) {
+	addToFavourites(tokenId: $tokenId) {
+		isFavourited
+	}
+}
