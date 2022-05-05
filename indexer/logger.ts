@@ -1,25 +1,32 @@
 import winston from "winston";
 
+import "winston-daily-rotate-file";
+
 const DATE_FORMAT = "YYYY-MM-DD HH:mm:ss";
+
+const errorDailyTransport = new winston.transports.DailyRotateFile({
+	filename: __dirname + "/errors/error-%DATE%.log",
+	level: "error",
+	format: winston.format.combine(
+		winston.format.timestamp({format: DATE_FORMAT}),
+		winston.format.json(),
+	),
+	frequency: "1d",
+});
+const allDaylyTransport = new winston.transports.DailyRotateFile({
+	filename: __dirname + "/all/all-%DATE%.log",
+	level: "silly",
+	format: winston.format.combine(
+		winston.format.timestamp({format: DATE_FORMAT}),
+		winston.format.json(),
+	),
+	frequency: "1d",
+});
 const logger = winston.createLogger({
 	level: "debug",
 	transports: [
-		new winston.transports.File({
-			filename: __dirname + "/logs/error.log",
-			level: "error",
-			format: winston.format.combine(
-				winston.format.timestamp({format: DATE_FORMAT}),
-				winston.format.json(),
-			),
-		}),
-		new winston.transports.File({
-			filename: __dirname + "/logs/all.log",
-			level: "silly",
-			format: winston.format.combine(
-				winston.format.timestamp({format: DATE_FORMAT}),
-				winston.format.json(),
-			),
-		}),
+		errorDailyTransport,
+		allDaylyTransport,
 		new winston.transports.Console({
 			format: winston.format.combine(
 				winston.format.colorize({all: true}),
