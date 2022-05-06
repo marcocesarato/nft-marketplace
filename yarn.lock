@@ -28,9 +28,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@apollo/client@npm:^3.6.1":
-  version: 3.6.2
-  resolution: "@apollo/client@npm:3.6.2"
+"@apollo/client@npm:^3.6.2":
+  version: 3.6.3
+  resolution: "@apollo/client@npm:3.6.3"
   dependencies:
     "@graphql-typed-document-node/core": ^3.1.1
     "@wry/context": ^0.6.0
@@ -41,7 +41,7 @@ __metadata:
     optimism: ^0.16.1
     prop-types: ^15.7.2
     symbol-observable: ^4.0.0
-    ts-invariant: ^0.10.0
+    ts-invariant: ^0.10.2
     tslib: ^2.3.0
     use-sync-external-store: ^1.0.0
     zen-observable-ts: ^1.2.0
@@ -57,7 +57,7 @@ __metadata:
       optional: true
     subscriptions-transport-ws:
       optional: true
-  checksum: 6363506861a0adeeff1b70bf51892f2493f940beeccaca1bf5894f1a9bc88929b9fcef39cde81b48c20304f7025f14b06d3063b8406f8407a0a080d540d11063
+  checksum: d1ccf3377ef5c629f605bea6216864266f2151f62ef95ea153f7887940609bab909f1265f7aca8b0f7fd8681a9aa3e8b9283db669513c499540d0387e4188bc2
   languageName: node
   linkType: hard
 
@@ -2784,16 +2784,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ethereumjs/common@npm:2.6.3":
-  version: 2.6.3
-  resolution: "@ethereumjs/common@npm:2.6.3"
-  dependencies:
-    crc-32: ^1.2.0
-    ethereumjs-util: ^7.1.4
-  checksum: 660deabc93c3a6fc7c03af864406dcb8d9a4a502e321ce455cc62c0ff4117e11ce5d42ad49c5ca16ddc5364c189a302f6a64bc055049606757f4324ce857ca60
-  languageName: node
-  linkType: hard
-
 "@ethereumjs/common@npm:^2.4.0, @ethereumjs/common@npm:^2.6.0, @ethereumjs/common@npm:^2.6.3, @ethereumjs/common@npm:^2.6.4":
   version: 2.6.4
   resolution: "@ethereumjs/common@npm:2.6.4"
@@ -3461,7 +3451,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-codegen/typescript-operations@npm:^2.3.5":
+"@graphql-codegen/typescript-operations@npm:^2.3.7":
   version: 2.3.7
   resolution: "@graphql-codegen/typescript-operations@npm:2.3.7"
   dependencies:
@@ -3476,7 +3466,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-codegen/typescript-react-apollo@npm:^3.2.11":
+"@graphql-codegen/typescript-react-apollo@npm:^3.2.13":
   version: 3.2.13
   resolution: "@graphql-codegen/typescript-react-apollo@npm:3.2.13"
   dependencies:
@@ -3492,7 +3482,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-codegen/typescript-react-query@npm:^3.5.9":
+"@graphql-codegen/typescript-react-query@npm:^3.5.11":
   version: 3.5.11
   resolution: "@graphql-codegen/typescript-react-query@npm:3.5.11"
   dependencies:
@@ -3507,7 +3497,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-codegen/typescript-resolvers@npm:^2.6.1":
+"@graphql-codegen/typescript-resolvers@npm:^2.6.3":
   version: 2.6.3
   resolution: "@graphql-codegen/typescript-resolvers@npm:2.6.3"
   dependencies:
@@ -3523,7 +3513,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-codegen/typescript@npm:^2.4.10, @graphql-codegen/typescript@npm:^2.4.8":
+"@graphql-codegen/typescript@npm:^2.4.10":
   version: 2.4.10
   resolution: "@graphql-codegen/typescript@npm:2.4.10"
   dependencies:
@@ -4123,16 +4113,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/eslint-plugin-next@npm:12.1.5":
-  version: 12.1.5
-  resolution: "@next/eslint-plugin-next@npm:12.1.5"
-  dependencies:
-    glob: 7.1.7
-  checksum: fe070fbd42f699b0e158d2ea276569ad686343c78fb698c1835cd587862903bc2d146e04dd747495e186019cff685f36120b3953afce8b0c9f0fb43cd58798a7
-  languageName: node
-  linkType: hard
-
-"@next/eslint-plugin-next@npm:^12.1.5":
+"@next/eslint-plugin-next@npm:12.1.6, @next/eslint-plugin-next@npm:^12.1.6":
   version: 12.1.6
   resolution: "@next/eslint-plugin-next@npm:12.1.6"
   dependencies:
@@ -4297,14 +4278,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openzeppelin/contracts-upgradeable@npm:^4.5.2":
+"@openzeppelin/contracts-upgradeable@npm:^4.6.0":
   version: 4.6.0
   resolution: "@openzeppelin/contracts-upgradeable@npm:4.6.0"
   checksum: f9802c9cccf31bd475412ba5d862ed15eed5352302c30b29c38f84aed2dcfe0d957687935a72068f3d44292a4a55b0ff26cd018b2e14a47f16f74f087009aa29
   languageName: node
   linkType: hard
 
-"@openzeppelin/contracts@npm:^4.5.0":
+"@openzeppelin/contracts@npm:^4.6.0":
   version: 4.6.0
   resolution: "@openzeppelin/contracts@npm:4.6.0"
   checksum: 1de06211b279d7aef2bb9abbdd58eb80c71256f7e888a10855ea23bb06ef8723b22fb550d06af60247dfbd7f0f23de9821732012d7541a823339070a8442d1db
@@ -4710,14 +4691,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rushstack/eslint-patch@npm:1.0.8":
-  version: 1.0.8
-  resolution: "@rushstack/eslint-patch@npm:1.0.8"
-  checksum: e1c4e2d8317db712a4f24510eacb98c13fd18632eaffae0096a359ab02021ce44c35f614d489741e57f4b0f2d8b11b4b95cdc00aa57753d840d0ba512a5c609e
-  languageName: node
-  linkType: hard
-
-"@rushstack/eslint-patch@npm:^1.1.0":
+"@rushstack/eslint-patch@npm:^1.1.0, @rushstack/eslint-patch@npm:^1.1.3":
   version: 1.1.3
   resolution: "@rushstack/eslint-patch@npm:1.1.3"
   checksum: 53752d1e34e45a91b30a016b837c33054fcbd0a295c0312b0812dab78289ea680d7c0c3f19c1f885f49764d416727747133765ff5bfce31a9c4cc93c7a56ebe1
@@ -5602,10 +5576,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/three@npm:^0.139.0":
-  version: 0.139.0
-  resolution: "@types/three@npm:0.139.0"
-  checksum: 811ce2dd6cfeaa8b051699b6e57f5696b30cb4d33697675c9eee500e377cdbdc872dc6932dfc094c3ae61acfb895d089043a6e5c389d563c516d99ebfef8c130
+"@types/three@npm:^0.140.0":
+  version: 0.140.0
+  resolution: "@types/three@npm:0.140.0"
+  checksum: 05693787002f0e879e76a09cfd474d4fd100779f00c048e380d146783adaff539846988625b0f9117451bf2790637a236c68111f7f3e160f5227373a037381ba
   languageName: node
   linkType: hard
 
@@ -5682,7 +5656,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^5.21.0, @typescript-eslint/eslint-plugin@npm:^5.5.0":
+"@typescript-eslint/eslint-plugin@npm:^5.22.0, @typescript-eslint/eslint-plugin@npm:^5.5.0":
   version: 5.22.0
   resolution: "@typescript-eslint/eslint-plugin@npm:5.22.0"
   dependencies:
@@ -5716,24 +5690,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:5.10.1":
-  version: 5.10.1
-  resolution: "@typescript-eslint/parser@npm:5.10.1"
-  dependencies:
-    "@typescript-eslint/scope-manager": 5.10.1
-    "@typescript-eslint/types": 5.10.1
-    "@typescript-eslint/typescript-estree": 5.10.1
-    debug: ^4.3.2
-  peerDependencies:
-    eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: 36e94b3fb5010f09311f1667f8beed1ece46677e738424df78e266eef0957e33671d505a7979d775e863b553d509ce8dbee6201a6994da5282ff38f8e1ae0303
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/parser@npm:^5.21.0, @typescript-eslint/parser@npm:^5.5.0":
+"@typescript-eslint/parser@npm:^5.21.0, @typescript-eslint/parser@npm:^5.22.0, @typescript-eslint/parser@npm:^5.5.0":
   version: 5.22.0
   resolution: "@typescript-eslint/parser@npm:5.22.0"
   dependencies:
@@ -5747,16 +5704,6 @@ __metadata:
     typescript:
       optional: true
   checksum: 28a7d4b73154fc97336be9a4efd5ffdc659f748232c82479909e86ed87ed8a78d23280b3aaf532ca4e735caaffac43d9576e6af2dfd11865e30a9d70c8a3f275
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/scope-manager@npm:5.10.1":
-  version: 5.10.1
-  resolution: "@typescript-eslint/scope-manager@npm:5.10.1"
-  dependencies:
-    "@typescript-eslint/types": 5.10.1
-    "@typescript-eslint/visitor-keys": 5.10.1
-  checksum: a4f802ca683bcb3db0e14739d02e680f0f51b6562c23380ea9e0878a70f638572650bd2dbc62f8d74bc39657c053c3e6469a0d4179d3d99bb94fd47bd14d6ecf
   languageName: node
   linkType: hard
 
@@ -5786,35 +5733,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:5.10.1":
-  version: 5.10.1
-  resolution: "@typescript-eslint/types@npm:5.10.1"
-  checksum: e8bbedae74637c35677aab92eceb154e8f1b100b6015d4aa20b5d52bb2e486e50733feca07610406763e1cc36c448a97ca77f058f4e07e7c61bd8d830c092030
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/types@npm:5.22.0":
   version: 5.22.0
   resolution: "@typescript-eslint/types@npm:5.22.0"
   checksum: 74f822c5a3b96bba05229eea4ed370c4bd48b17f475c37f08d6ba708adf65c3aa026bb544f1d0308c96e043b30015e396fd53b1e8e4e9fbb6dc9c92d2ccc0a15
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/typescript-estree@npm:5.10.1":
-  version: 5.10.1
-  resolution: "@typescript-eslint/typescript-estree@npm:5.10.1"
-  dependencies:
-    "@typescript-eslint/types": 5.10.1
-    "@typescript-eslint/visitor-keys": 5.10.1
-    debug: ^4.3.2
-    globby: ^11.0.4
-    is-glob: ^4.0.3
-    semver: ^7.3.5
-    tsutils: ^3.21.0
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: 5721e99baa9b286a474a22c4b08e6ac5a0d79435e7f2a91e876e6a2135a44244f0a83ff42cc1cd2ac23cc6ee014965baaa84481e9017f703c45f22e474620c7f
   languageName: node
   linkType: hard
 
@@ -5849,16 +5771,6 @@ __metadata:
   peerDependencies:
     eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
   checksum: 5019485e76d754a7a60c042545fd884dc666fddf9d4223ff706bbf0c275f19ea25a6b210fb5cf7ed368b019fe538fd854a925e9c6f12007d51b1731a29d95cc1
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/visitor-keys@npm:5.10.1":
-  version: 5.10.1
-  resolution: "@typescript-eslint/visitor-keys@npm:5.10.1"
-  dependencies:
-    "@typescript-eslint/types": 5.10.1
-    eslint-visitor-keys: ^3.0.0
-  checksum: 7e1e1a41b2df797534ee56c0d9ae2a056e0ca0ca019b31125fd52d7deb0e802d899920031f2dbf88a951e6752d8fcbd9fa904eaeccb50cf30d2b92b54fd7879d
   languageName: node
   linkType: hard
 
@@ -6163,174 +6075,174 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@web3auth/base-plugin@npm:^0.9.4":
-  version: 0.9.4
-  resolution: "@web3auth/base-plugin@npm:0.9.4"
+"@web3auth/base-plugin@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@web3auth/base-plugin@npm:0.10.0"
   dependencies:
-    "@web3auth/base": ^0.9.4
-  checksum: 6b0441ef2a23678c965acc4f2bd999047b5db3bd17d54235339c8aee6eef027091d4339c1d946234b8fd4b9344b737efd40a9438e7fd8d5eb22a3d7509d4d070
+    "@web3auth/base": ^0.10.0
+  checksum: 9fee578b6a11936d7a235b366a5eda575c3f1301443b2bc9d180124fbe96a89472baba9daad5d69a820d573d18192332fb8ed724d7f0efb80465117fadc229f5
   languageName: node
   linkType: hard
 
-"@web3auth/base-provider@npm:^0.9.4":
-  version: 0.9.4
-  resolution: "@web3auth/base-provider@npm:0.9.4"
+"@web3auth/base-provider@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@web3auth/base-provider@npm:0.10.0"
   dependencies:
     "@toruslabs/base-controllers": ^1.6.17
     "@toruslabs/openlogin-jrpc": ^1.7.3
-    "@web3auth/base": ^0.9.4
+    "@web3auth/base": ^0.10.0
     eth-rpc-errors: ^4.0.3
     json-rpc-random-id: ^1.0.1
   peerDependencies:
     "@babel/runtime": 7.x
-  checksum: fb11031a76688e5bc290afd1a389415bf788e51f6aba349f2395a4be4f0f00d1ad85de1b9143cbfca7600b8d4e1855eff92c45ea152d8d13473c11ca51aff540
+  checksum: 348ab8e1e52a5cc9693ed6d1af3ece0c38b6eb65a0cf8e94a5ce27e744b9d32f54ed16ec7d0840a0798b79e067e85c9eaefc06f5469fdfd7904684826139a185
   languageName: node
   linkType: hard
 
-"@web3auth/base@npm:^0.9.4":
-  version: 0.9.4
-  resolution: "@web3auth/base@npm:0.9.4"
+"@web3auth/base@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@web3auth/base@npm:0.10.0"
   dependencies:
     "@toruslabs/openlogin-jrpc": ^1.7.3
     loglevel: ^1.8.0
     ts-custom-error: ^3.2.0
   peerDependencies:
     "@babel/runtime": ^7.x
-  checksum: bdc8f3914febeaaf82360d4d9da95a43c0482a2b21d237b754916c8eed761ca15ad396c65d484844891cf1f5583e526379fb3b0e4550ee667a1137b5020be721
+  checksum: 040f0345b46ea4d128d16c37b629f9eae91e8cfc58bd411a5567c338a9d7ca7c0e5d381caad934905ea00b63f49ab0dd673332b787161146ae7d707365515402
   languageName: node
   linkType: hard
 
-"@web3auth/core@npm:^0.9.4":
-  version: 0.9.4
-  resolution: "@web3auth/core@npm:0.9.4"
+"@web3auth/core@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@web3auth/core@npm:0.10.0"
   dependencies:
     "@toruslabs/openlogin-jrpc": ^1.7.3
-    "@web3auth/base": ^0.9.4
-    "@web3auth/base-plugin": ^0.9.4
+    "@web3auth/base": ^0.10.0
+    "@web3auth/base-plugin": ^0.10.0
   peerDependencies:
     "@babel/runtime": ^7.x
-  checksum: 0213adfa6bed64886604b839863088a6f84c9775f17e0c1b8ca8b8c9e146a7171b0db1725d19eb3fe0c396d1cb9d56bcaa6f39dc396dae26d61b4dadb0003a66
+  checksum: 2c7fbbf41b0fbf686ccb4bc71be0d2f9d11c47ce51a052c25cf664c9f2ae72dab6add61027a692910085caf2a119163769c31639f42279112ffc84c28d0dfb7d
   languageName: node
   linkType: hard
 
-"@web3auth/ethereum-provider@npm:^0.9.4":
-  version: 0.9.4
-  resolution: "@web3auth/ethereum-provider@npm:0.9.4"
+"@web3auth/ethereum-provider@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@web3auth/ethereum-provider@npm:0.10.0"
   dependencies:
-    "@ethereumjs/common": 2.6.3
+    "@ethereumjs/common": ^2.6.3
     "@ethereumjs/tx": ^3.5.1
     "@metamask/eth-sig-util": ^4.0.0
     "@toruslabs/base-controllers": ^1.6.17
     "@toruslabs/http-helpers": ^2.2.0
     "@toruslabs/openlogin-jrpc": ^1.7.3
     "@walletconnect/types": ~1.7.7
-    "@web3auth/base": ^0.9.4
-    "@web3auth/base-provider": ^0.9.4
+    "@web3auth/base": ^0.10.0
+    "@web3auth/base-provider": ^0.10.0
     bignumber.js: ^9.0.2
     eth-rpc-errors: ^4.0.3
     ethereumjs-util: ^7.1.4
   peerDependencies:
     "@babel/runtime": 7.x
-  checksum: de79095a9a9ff0a626e227f74a32f5e4f920afbb722b74d44151299567edeba81b9ed27d7b0d63bb8b04a82d309bdaa87dbe5bb865bf33e6ea29d7e53af75df3
+  checksum: 032c0431601f8ea75d10bc87b1845da046041103dd698156d718897228c72625d3ed16b1d50ae28e61eb13b0cc82647cef0b8f72426dacb8aaad16ecf3a1f5da
   languageName: node
   linkType: hard
 
-"@web3auth/metamask-adapter@npm:^0.9.4":
-  version: 0.9.4
-  resolution: "@web3auth/metamask-adapter@npm:0.9.4"
+"@web3auth/metamask-adapter@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@web3auth/metamask-adapter@npm:0.10.0"
   dependencies:
     "@metamask/detect-provider": ^1.2.0
-    "@web3auth/base": ^0.9.4
+    "@web3auth/base": ^0.10.0
   peerDependencies:
     "@babel/runtime": ^7.x
-  checksum: d7ef251404237ba65f80c2a6daa55c81328823c6d438f79efc845a4e566fe4b7149a559bd81e0a9156780fcfd69d490be89bf690ab5b659040765f04e3d54ab4
+  checksum: e21b74eb9f7d8b3c35cb3ed1b91f2bf317df746111d2ef7c1e0e220c922f8e66e3b1223f601714df1884841860491ab2de07afd96263c87b6d0cb56127da77e9
   languageName: node
   linkType: hard
 
-"@web3auth/openlogin-adapter@npm:^0.9.4":
-  version: 0.9.4
-  resolution: "@web3auth/openlogin-adapter@npm:0.9.4"
+"@web3auth/openlogin-adapter@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@web3auth/openlogin-adapter@npm:0.10.0"
   dependencies:
     "@toruslabs/openlogin": ^1.7.4
     "@toruslabs/openlogin-ed25519": ^1.7.0
-    "@web3auth/base": ^0.9.4
-    "@web3auth/base-provider": ^0.9.4
-    "@web3auth/ethereum-provider": ^0.9.4
-    "@web3auth/solana-provider": ^0.9.4
+    "@web3auth/base": ^0.10.0
+    "@web3auth/base-provider": ^0.10.0
+    "@web3auth/ethereum-provider": ^0.10.0
+    "@web3auth/solana-provider": ^0.10.0
     lodash.merge: ^4.6.2
   peerDependencies:
     "@babel/runtime": ^7.x
-  checksum: 8080dbaef2376d26d68d40f0cf189cb4be97fa17d13b9a4fd81d22ef336c313d79d78ad92a4a26e08f75d7d17ec362a3a87e353d50823f59ebd0f73380677d63
+  checksum: 09e352d92397610417d2d2463458c42d96aa74e8403d238857663d2871760fbf19f77057b059ff8cf2897f05e6f105e33533eec3a95f0ae47cdfe7048f5845d1
   languageName: node
   linkType: hard
 
-"@web3auth/phantom-adapter@npm:^0.9.4":
-  version: 0.9.4
-  resolution: "@web3auth/phantom-adapter@npm:0.9.4"
+"@web3auth/phantom-adapter@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@web3auth/phantom-adapter@npm:0.10.0"
   dependencies:
-    "@web3auth/base": ^0.9.4
-    "@web3auth/base-provider": ^0.9.4
-    "@web3auth/solana-provider": ^0.9.4
+    "@web3auth/base": ^0.10.0
+    "@web3auth/base-provider": ^0.10.0
+    "@web3auth/solana-provider": ^0.10.0
     bn.js: ^5.2.0
   peerDependencies:
     "@babel/runtime": ^7.x
-  checksum: ffe851b93b8498a810966bd4c600cba87a7ad96c4f07932057098e570a19d249579b0e7bfe095d6cc00df943f1ad753fb1ecf39c940978db6eef86e6032ad195
+  checksum: 56a12eb1730c961fa1d0a42a9f3a944b7ac7851eb7a657cbf410df809f463a8df24d0b5b900fa712b852c4dbd551348c353fcf3604142f44cfd2834df812320f
   languageName: node
   linkType: hard
 
-"@web3auth/solana-provider@npm:^0.9.4":
-  version: 0.9.4
-  resolution: "@web3auth/solana-provider@npm:0.9.4"
+"@web3auth/solana-provider@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@web3auth/solana-provider@npm:0.10.0"
   dependencies:
     "@solana/web3.js": ^1.37.1
     "@toruslabs/base-controllers": ^1.6.17
     "@toruslabs/openlogin-jrpc": ^1.7.3
     "@toruslabs/tweetnacl-js": ^1.0.3
-    "@web3auth/base": ^0.9.4
-    "@web3auth/base-provider": ^0.9.4
+    "@web3auth/base": ^0.10.0
+    "@web3auth/base-provider": ^0.10.0
     bn.js: ^5.2.0
     bs58: ^4.0.1
     eth-rpc-errors: ^4.0.3
     json-rpc-random-id: ^1.0.1
   peerDependencies:
     "@babel/runtime": ^7.x
-  checksum: 96f2d6e78309dd72359ea66df00a70a0adc7482af7925829f0a89c2420842a1a93cb885e197a8aba9eccf7fd71cd399e7aa50a0229089fcb2003e6a18f7350fe
+  checksum: a737e52d379e39b10f0c567588ee5ce79b21b49f2e875554f65ed91067fcca876eaa6e06debbfe8b0c3da95da6473687e3c4245e255b644d91b1e21cd338a44e
   languageName: node
   linkType: hard
 
-"@web3auth/torus-evm-adapter@npm:^0.9.4":
-  version: 0.9.4
-  resolution: "@web3auth/torus-evm-adapter@npm:0.9.4"
+"@web3auth/torus-evm-adapter@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@web3auth/torus-evm-adapter@npm:0.10.0"
   dependencies:
     "@toruslabs/torus-embed": ^1.22.2
-    "@web3auth/base": ^0.9.4
+    "@web3auth/base": ^0.10.0
   peerDependencies:
     "@babel/runtime": ^7.x
-  checksum: b08501b0539af3c79851cf9929cac043d9514dc6f90a2c20a61ffcf49cbf388d5eda861b387e4eb17e16009ba85ff19d9e58585a32eb727f9b9f9b57cb586b74
+  checksum: 680000a6bfac55bac551d43cc8606353017dfeee0bc8db59677830767af69b2a9d04d869b4a5a4ffdafcedf06b730848d09ac1a969e8f9dc66cbb83a809d00f6
   languageName: node
   linkType: hard
 
-"@web3auth/torus-solana-adapter@npm:^0.9.4":
-  version: 0.9.4
-  resolution: "@web3auth/torus-solana-adapter@npm:0.9.4"
+"@web3auth/torus-solana-adapter@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@web3auth/torus-solana-adapter@npm:0.10.0"
   dependencies:
     "@toruslabs/solana-embed": ^0.1.6
-    "@web3auth/base": ^0.9.4
-    "@web3auth/base-provider": ^0.9.4
-    "@web3auth/solana-provider": ^0.9.4
+    "@web3auth/base": ^0.10.0
+    "@web3auth/base-provider": ^0.10.0
+    "@web3auth/solana-provider": ^0.10.0
   peerDependencies:
     "@babel/runtime": ^7.x
-  checksum: 6b2c2ed345ec06fe12edc307ff4dfd3172d481078104cb46b81695f60120708d0532c53453799f821e1e6b7b215aaa63eee45e806e4840a1332156c586c64997
+  checksum: 93043e4ad74417f9c68a701454593ca9cc7e9b96174b763aa25b837c440cf74a17f5266fa0e8169724e27be9950c83b7f96f76b24cbddbbd9a85b38e2e4b691d
   languageName: node
   linkType: hard
 
-"@web3auth/ui@npm:^0.9.4":
-  version: 0.9.4
-  resolution: "@web3auth/ui@npm:0.9.4"
+"@web3auth/ui@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@web3auth/ui@npm:0.10.0"
   dependencies:
     "@toruslabs/openlogin": ^1.7.4
     "@toruslabs/openlogin-jrpc": ^1.7.3
-    "@web3auth/base": ^0.9.4
+    "@web3auth/base": ^0.10.0
     bowser: ^2.11.0
     classnames: ^2.3.1
     lodash.clonedeep: ^4.5.0
@@ -6340,40 +6252,40 @@ __metadata:
     react-qr-code: ^2.0.5
   peerDependencies:
     "@babel/runtime": ^7.x
-  checksum: fc1d5d8ec7a224d4b1b141ea214d9fe1d0bd48cfc1a1c1d1a2d58f3795fc88778ad9e0bdd4c09bdf92ba73836b4c9e39b0631493cbcb9316dd721c4d617dd40f
+  checksum: 28bbc1347c89e93cc5ff6aa2f863a09a370338eb7eb73b410a131bac55746f349b69d54650a83aa845ee47e7dac2a9cba6b54981b1feb0bb6d9a74b61ffe9d0f
   languageName: node
   linkType: hard
 
-"@web3auth/wallet-connect-v1-adapter@npm:^0.9.4":
-  version: 0.9.4
-  resolution: "@web3auth/wallet-connect-v1-adapter@npm:0.9.4"
+"@web3auth/wallet-connect-v1-adapter@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@web3auth/wallet-connect-v1-adapter@npm:0.10.0"
   dependencies:
     "@walletconnect/client": ~1.7.7
     "@walletconnect/types": ~1.7.7
-    "@web3auth/base": ^0.9.4
-    "@web3auth/ethereum-provider": ^0.9.4
+    "@web3auth/base": ^0.10.0
+    "@web3auth/ethereum-provider": ^0.10.0
   peerDependencies:
     "@babel/runtime": ^7.x
-  checksum: 9d046892087b5af25069d079062413021ac020758e0a53fb430e827fb190d3deca0ccb5891d86ecb6fe30348a92f3cdd26980978c5e2c7d7d879e1e820969880
+  checksum: e87f4f93d88b453572f6722dcd036da682f19118a69b51f040d7fee933c36dc5625379d074c98c14704a89e129985031f764fe7f5a5dde99918dbe8c0f62d1a3
   languageName: node
   linkType: hard
 
-"@web3auth/web3auth@npm:^0.9.3":
-  version: 0.9.4
-  resolution: "@web3auth/web3auth@npm:0.9.4"
+"@web3auth/web3auth@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@web3auth/web3auth@npm:0.10.0"
   dependencies:
-    "@web3auth/base": ^0.9.4
-    "@web3auth/core": ^0.9.4
-    "@web3auth/metamask-adapter": ^0.9.4
-    "@web3auth/openlogin-adapter": ^0.9.4
-    "@web3auth/phantom-adapter": ^0.9.4
-    "@web3auth/torus-evm-adapter": ^0.9.4
-    "@web3auth/torus-solana-adapter": ^0.9.4
-    "@web3auth/ui": ^0.9.4
-    "@web3auth/wallet-connect-v1-adapter": ^0.9.4
+    "@web3auth/base": ^0.10.0
+    "@web3auth/core": ^0.10.0
+    "@web3auth/metamask-adapter": ^0.10.0
+    "@web3auth/openlogin-adapter": ^0.10.0
+    "@web3auth/phantom-adapter": ^0.10.0
+    "@web3auth/torus-evm-adapter": ^0.10.0
+    "@web3auth/torus-solana-adapter": ^0.10.0
+    "@web3auth/ui": ^0.10.0
+    "@web3auth/wallet-connect-v1-adapter": ^0.10.0
   peerDependencies:
     "@babel/runtime": 7.x
-  checksum: 7d0e58e417c05ca83f4f9ff3345011f3cad7217721fd7962814978bbddc07dc259f7805e4f546907e31a385a1468e51ab003f4e28a74c8b9abd2db70b615a540
+  checksum: e1be24e73721b9cf20a7b402e9622773b93c339053ce4263dfd9f9e901ef2f0cd19aef871d51c2ca05ac0a5547a54adfa215d20e5852977c5689d7511e2720ae
   languageName: node
   linkType: hard
 
@@ -6814,7 +6726,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"apollo-server-core@npm:^3.6.7, apollo-server-core@npm:^3.7.0":
+"apollo-server-core@npm:^3.7.0":
   version: 3.7.0
   resolution: "apollo-server-core@npm:3.7.0"
   dependencies:
@@ -6864,7 +6776,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"apollo-server-micro@npm:^3.6.7":
+"apollo-server-micro@npm:^3.7.0":
   version: 3.7.0
   resolution: "apollo-server-micro@npm:3.7.0"
   dependencies:
@@ -10264,7 +10176,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:4.x, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.3, debug@npm:~4.3.1, debug@npm:~4.3.2":
+"debug@npm:4, debug@npm:4.x, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.3, debug@npm:^4.3.4, debug@npm:~4.3.1, debug@npm:~4.3.2":
   version: 4.3.4
   resolution: "debug@npm:4.3.4"
   dependencies:
@@ -11148,19 +11060,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-next@npm:12.1.5":
-  version: 12.1.5
-  resolution: "eslint-config-next@npm:12.1.5"
+"eslint-config-next@npm:12.1.6":
+  version: 12.1.6
+  resolution: "eslint-config-next@npm:12.1.6"
   dependencies:
-    "@next/eslint-plugin-next": 12.1.5
-    "@rushstack/eslint-patch": 1.0.8
-    "@typescript-eslint/parser": 5.10.1
-    eslint-import-resolver-node: 0.3.4
-    eslint-import-resolver-typescript: 2.4.0
-    eslint-plugin-import: 2.25.2
-    eslint-plugin-jsx-a11y: 6.5.1
-    eslint-plugin-react: 7.29.1
-    eslint-plugin-react-hooks: 4.3.0
+    "@next/eslint-plugin-next": 12.1.6
+    "@rushstack/eslint-patch": ^1.1.3
+    "@typescript-eslint/parser": ^5.21.0
+    eslint-import-resolver-node: ^0.3.6
+    eslint-import-resolver-typescript: ^2.7.1
+    eslint-plugin-import: ^2.26.0
+    eslint-plugin-jsx-a11y: ^6.5.1
+    eslint-plugin-react: ^7.29.4
+    eslint-plugin-react-hooks: ^4.5.0
   peerDependencies:
     eslint: ^7.23.0 || ^8.0.0
     next: ">=10.2.0"
@@ -11168,7 +11080,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 823b50d0c3706b206ab8c9fa62c6580603d7b523b678f1a7dbbb226697c22626e48ee05fab11a8136f82bf6d559d2357e39c90bef3c32d9a167437b0660a9175
+  checksum: b3ba9e8f598b4018002aaaa64dc0e8a8b5994be992839a8b1b0a7f7ab0e4cbe006a30fd787524baab7c1e979dc6b41d4cdcbe239be181635413d987be7f25b6f
   languageName: node
   linkType: hard
 
@@ -11207,16 +11119,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-import-resolver-node@npm:0.3.4":
-  version: 0.3.4
-  resolution: "eslint-import-resolver-node@npm:0.3.4"
-  dependencies:
-    debug: ^2.6.9
-    resolve: ^1.13.1
-  checksum: a0db55ec26c5bb385c8681af6b8d6dee16768d5f27dff72c3113407d0f028f28e56dcb1cc3a4689c79396a5f6a9c24bd0cac9a2c9c588c7d7357d24a42bec876
-  languageName: node
-  linkType: hard
-
 "eslint-import-resolver-node@npm:^0.3.6":
   version: 0.3.6
   resolution: "eslint-import-resolver-node@npm:0.3.6"
@@ -11227,23 +11129,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-import-resolver-typescript@npm:2.4.0":
-  version: 2.4.0
-  resolution: "eslint-import-resolver-typescript@npm:2.4.0"
+"eslint-import-resolver-typescript@npm:^2.7.1":
+  version: 2.7.1
+  resolution: "eslint-import-resolver-typescript@npm:2.7.1"
   dependencies:
-    debug: ^4.1.1
-    glob: ^7.1.6
-    is-glob: ^4.0.1
-    resolve: ^1.17.0
-    tsconfig-paths: ^3.9.0
+    debug: ^4.3.4
+    glob: ^7.2.0
+    is-glob: ^4.0.3
+    resolve: ^1.22.0
+    tsconfig-paths: ^3.14.1
   peerDependencies:
     eslint: "*"
     eslint-plugin-import: "*"
-  checksum: 2db0de33531f563bbbeecbdb080e3ff7ac0dbdd01f82ed690ccc9b29f746e431bf639322b1f1384f5c67055104c722cf70d9bf837d3ef70d6f3cf4ec2ba6562d
+  checksum: 1d81b657b1f73bf95b8f0b745c0305574b91630c1db340318f3ca8918e206fce20a933b95e7c419338cc4452cb80bb2b2d92acaf01b6aa315c78a332d832545c
   languageName: node
   linkType: hard
 
-"eslint-module-utils@npm:^2.7.0, eslint-module-utils@npm:^2.7.3":
+"eslint-module-utils@npm:^2.7.3":
   version: 2.7.3
   resolution: "eslint-module-utils@npm:2.7.3"
   dependencies:
@@ -11264,29 +11166,6 @@ __metadata:
     "@babel/plugin-transform-react-jsx": ^7.14.9
     eslint: ^8.1.0
   checksum: 30e63c5357b0b5571f39afed51e59c140084f4aa53c106b1fd04f26da42b268908466daa6020b92943e71409bdaee1c67202515ed9012404d027cc92cb03cefa
-  languageName: node
-  linkType: hard
-
-"eslint-plugin-import@npm:2.25.2":
-  version: 2.25.2
-  resolution: "eslint-plugin-import@npm:2.25.2"
-  dependencies:
-    array-includes: ^3.1.4
-    array.prototype.flat: ^1.2.5
-    debug: ^2.6.9
-    doctrine: ^2.1.0
-    eslint-import-resolver-node: ^0.3.6
-    eslint-module-utils: ^2.7.0
-    has: ^1.0.3
-    is-core-module: ^2.7.0
-    is-glob: ^4.0.3
-    minimatch: ^3.0.4
-    object.values: ^1.1.5
-    resolve: ^1.20.0
-    tsconfig-paths: ^3.11.0
-  peerDependencies:
-    eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8
-  checksum: 4ca36e37faf72fb1ed25361ea8a6abbcc9daa65f3a9ac1dc0a660029000456e8c8b98a87b8cc2316541b13c6e5915df41d2dc4a1d7fe0729d9b72b9a3bd5b909
   languageName: node
   linkType: hard
 
@@ -11367,16 +11246,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-hooks@npm:4.3.0":
-  version: 4.3.0
-  resolution: "eslint-plugin-react-hooks@npm:4.3.0"
-  peerDependencies:
-    eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
-  checksum: 0ba1566ba0780bbc75a5921f49188edf232db2085ab32c8d3889592f0db9d6fadc97fcf639775e0101dec6b5409ca3c803ec44213b90c8bacaf0bdf921871c2e
-  languageName: node
-  linkType: hard
-
-"eslint-plugin-react-hooks@npm:4.5.0, eslint-plugin-react-hooks@npm:^4.3.0":
+"eslint-plugin-react-hooks@npm:4.5.0, eslint-plugin-react-hooks@npm:^4.3.0, eslint-plugin-react-hooks@npm:^4.5.0":
   version: 4.5.0
   resolution: "eslint-plugin-react-hooks@npm:4.5.0"
   peerDependencies:
@@ -11385,31 +11255,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react@npm:7.29.1":
-  version: 7.29.1
-  resolution: "eslint-plugin-react@npm:7.29.1"
-  dependencies:
-    array-includes: ^3.1.4
-    array.prototype.flatmap: ^1.2.5
-    doctrine: ^2.1.0
-    estraverse: ^5.3.0
-    jsx-ast-utils: ^2.4.1 || ^3.0.0
-    minimatch: ^3.1.2
-    object.entries: ^1.1.5
-    object.fromentries: ^2.0.5
-    object.hasown: ^1.1.0
-    object.values: ^1.1.5
-    prop-types: ^15.8.1
-    resolve: ^2.0.0-next.3
-    semver: ^6.3.0
-    string.prototype.matchall: ^4.0.6
-  peerDependencies:
-    eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
-  checksum: d1d0d267d26a5eeb2ba9c3ed23982110e43858d7849b14a83f054d8581a31566cba806a16635a519c875c73c0d4c5c21d778f471c77fd39fc264ec0d1beefaec
-  languageName: node
-  linkType: hard
-
-"eslint-plugin-react@npm:7.29.4, eslint-plugin-react@npm:^7.27.1":
+"eslint-plugin-react@npm:7.29.4, eslint-plugin-react@npm:^7.27.1, eslint-plugin-react@npm:^7.29.4":
   version: 7.29.4
   resolution: "eslint-plugin-react@npm:7.29.4"
   dependencies:
@@ -12175,7 +12021,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ethers@npm:^5.0.1, ethers@npm:^5.0.2, ethers@npm:^5.5.2, ethers@npm:^5.6.4":
+"ethers@npm:^5.0.1, ethers@npm:^5.0.2, ethers@npm:^5.5.2, ethers@npm:^5.6.5":
   version: 5.6.5
   resolution: "ethers@npm:5.6.5"
   dependencies:
@@ -13445,7 +13291,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:7.2.0, glob@npm:^7.0.3, glob@npm:^7.1.1, glob@npm:^7.1.2, glob@npm:^7.1.3, glob@npm:^7.1.4, glob@npm:^7.1.6, glob@npm:~7.2.0":
+"glob@npm:7.2.0, glob@npm:^7.0.3, glob@npm:^7.1.1, glob@npm:^7.1.2, glob@npm:^7.1.3, glob@npm:^7.1.4, glob@npm:^7.1.6, glob@npm:^7.2.0, glob@npm:~7.2.0":
   version: 7.2.0
   resolution: "glob@npm:7.2.0"
   dependencies:
@@ -14796,7 +14642,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-core-module@npm:^2.2.0, is-core-module@npm:^2.5.0, is-core-module@npm:^2.7.0, is-core-module@npm:^2.8.1":
+"is-core-module@npm:^2.2.0, is-core-module@npm:^2.5.0, is-core-module@npm:^2.8.1":
   version: 2.9.0
   resolution: "is-core-module@npm:2.9.0"
   dependencies:
@@ -17617,7 +17463,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mongoose@npm:^6.3.1":
+"mongoose@npm:^6.3.2":
   version: 6.3.2
   resolution: "mongoose@npm:6.3.2"
   dependencies:
@@ -17632,7 +17478,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moralis@npm:^1.5.11":
+"moralis@npm:^1.6.0":
   version: 1.6.0
   resolution: "moralis@npm:1.6.0"
   dependencies:
@@ -17962,7 +17808,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:^12.1.5":
+"next@npm:^12.1.6":
   version: 12.1.6
   resolution: "next@npm:12.1.6"
   dependencies:
@@ -18030,26 +17876,26 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "nft-marketplace@workspace:."
   dependencies:
-    "@apollo/client": ^3.6.1
+    "@apollo/client": ^3.6.2
     "@chainlink/contracts": ^0.4.0
     "@chakra-ui/icons": ^1.1.7
     "@chakra-ui/react": ^1.8.8
     "@emotion/react": 11.9.0
     "@emotion/styled": 11.8.1
     "@graphql-codegen/cli": ^2.6.2
-    "@graphql-codegen/typescript": ^2.4.8
-    "@graphql-codegen/typescript-operations": ^2.3.5
-    "@graphql-codegen/typescript-react-apollo": ^3.2.11
-    "@graphql-codegen/typescript-react-query": ^3.5.9
-    "@graphql-codegen/typescript-resolvers": ^2.6.1
+    "@graphql-codegen/typescript": ^2.4.10
+    "@graphql-codegen/typescript-operations": ^2.3.7
+    "@graphql-codegen/typescript-react-apollo": ^3.2.13
+    "@graphql-codegen/typescript-react-query": ^3.5.11
+    "@graphql-codegen/typescript-resolvers": ^2.6.3
     "@graphql-tools/schema": ^8.3.10
     "@metamask/eth-sig-util": ^4.0.1
     "@metamask/jazzicon": ^2.0.0
-    "@next/eslint-plugin-next": ^12.1.5
+    "@next/eslint-plugin-next": ^12.1.6
     "@nomiclabs/hardhat-ethers": ^2.0.5
     "@nomiclabs/hardhat-waffle": ^2.0.3
-    "@openzeppelin/contracts": ^4.5.0
-    "@openzeppelin/contracts-upgradeable": ^4.5.2
+    "@openzeppelin/contracts": ^4.6.0
+    "@openzeppelin/contracts-upgradeable": ^4.6.0
     "@openzeppelin/hardhat-upgrades": ^1.17.0
     "@react-three/drei": ^8.16.7
     "@react-three/fiber": ^7.0.26
@@ -18058,22 +17904,22 @@ __metadata:
     "@types/node": ^17.0.31
     "@types/react": ^17.0.40
     "@types/react-dom": ^17.0.13
-    "@types/three": ^0.139.0
+    "@types/three": ^0.140.0
     "@types/webxr": ^0.2.3
-    "@typescript-eslint/eslint-plugin": ^5.21.0
-    "@typescript-eslint/parser": ^5.21.0
+    "@typescript-eslint/eslint-plugin": ^5.22.0
+    "@typescript-eslint/parser": ^5.22.0
     "@walletconnect/web3-provider": ^1.7.8
-    "@web3auth/web3auth": ^0.9.3
+    "@web3auth/web3auth": ^0.10.0
     apexcharts: ^3.35.0
-    apollo-server-core: ^3.6.7
-    apollo-server-micro: ^3.6.7
+    apollo-server-core: ^3.7.0
+    apollo-server-micro: ^3.7.0
     axios: ^0.27.2
     cannon-es: ^0.19.0
     chakra-react-select: ^3.3.1
     concurrently: ^7.1.0
     dotenv: ^16.0.0
     eslint: 8.14.0
-    eslint-config-next: 12.1.5
+    eslint-config-next: 12.1.6
     eslint-config-prettier: ^8.5.0
     eslint-config-react-app: 7.0.1
     eslint-plugin-flowtype: 8.0.3
@@ -18085,7 +17931,7 @@ __metadata:
     eslint-plugin-simple-import-sort: ^7.0.0
     ethereum-waffle: ^3.4.4
     ethereumjs-util: ^7.1.4
-    ethers: ^5.6.4
+    ethers: ^5.6.5
     focus-visible: ^5.2.0
     framer-motion: 6.3.3
     get-graphql-schema: ^2.1.2
@@ -18103,10 +17949,10 @@ __metadata:
     micro: ^9.3.4
     micro-cors: ^0.1.1
     mime-types: ^2.1.35
-    mongoose: ^6.3.1
-    moralis: ^1.5.11
+    mongoose: ^6.3.2
+    moralis: ^1.6.0
     multiparty: ^4.2.3
-    next: ^12.1.5
+    next: ^12.1.6
     next-connect: ^0.12.2
     next-i18next: ^11.0.0
     next-pwa: ^5.5.2
@@ -18115,14 +17961,14 @@ __metadata:
     react: 17.0.2
     react-apexcharts: ^1.4.0
     react-dom: 17.0.2
-    react-dropzone: ^14.1.1
+    react-dropzone: ^14.2.0
     react-error-boundary: ^3.1.4
     react-icons: ^4.3.1
     react-moralis: ^1.3.5
     react-query: ^3.38.1
     react-ssr-prepass: ^1.5.0
     standard-version: ^9.3.2
-    three: ^0.139.2
+    three: ^0.140.0
     three-to-cannon: ^4.0.2
     ts-node: ^10.7.0
     typescript: ^4.6.4
@@ -19912,7 +19758,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dropzone@npm:^14.1.1":
+"react-dropzone@npm:^14.2.0":
   version: 14.2.0
   resolution: "react-dropzone@npm:14.2.0"
   dependencies:
@@ -20714,7 +20560,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@npm:^1.10.0, resolve@npm:^1.12.0, resolve@npm:^1.13.1, resolve@npm:^1.14.2, resolve@npm:^1.17.0, resolve@npm:^1.19.0, resolve@npm:^1.20.0, resolve@npm:^1.22.0, resolve@npm:^1.8.1, resolve@npm:~1.22.0":
+"resolve@npm:^1.10.0, resolve@npm:^1.12.0, resolve@npm:^1.14.2, resolve@npm:^1.19.0, resolve@npm:^1.20.0, resolve@npm:^1.22.0, resolve@npm:^1.8.1, resolve@npm:~1.22.0":
   version: 1.22.0
   resolution: "resolve@npm:1.22.0"
   dependencies:
@@ -20746,7 +20592,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.12.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.13.1#~builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.17.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.19.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.8.1#~builtin<compat/resolve>, resolve@patch:resolve@~1.22.0#~builtin<compat/resolve>":
+"resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.12.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.19.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.8.1#~builtin<compat/resolve>, resolve@patch:resolve@~1.22.0#~builtin<compat/resolve>":
   version: 1.22.0
   resolution: "resolve@patch:resolve@npm%3A1.22.0#~builtin<compat/resolve>::version=1.22.0&hash=07638b"
   dependencies:
@@ -22733,10 +22579,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three@npm:^0.139.2":
-  version: 0.139.2
-  resolution: "three@npm:0.139.2"
-  checksum: 9e016065b31a2a69bba730a32bd5b61354365bf0f5072121b8695aac38c9585e4e46361275967fbb58d21e001e5189128107c3ecbf24338ca951d11b524df992
+"three@npm:^0.140.0":
+  version: 0.140.0
+  resolution: "three@npm:0.140.0"
+  checksum: f7d16e643046c831741972d3caddf1f0b64ed42d454e13708e8d6cc329d700fa0544324942fc361d1bffb924a144750fce3662288208c2b7ed640e3a732a6d2a
   languageName: node
   linkType: hard
 
@@ -23059,7 +22905,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-invariant@npm:^0.10.0":
+"ts-invariant@npm:^0.10.2":
   version: 0.10.2
   resolution: "ts-invariant@npm:0.10.2"
   dependencies:
@@ -23134,7 +22980,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsconfig-paths@npm:^3.11.0, tsconfig-paths@npm:^3.14.1, tsconfig-paths@npm:^3.9.0":
+"tsconfig-paths@npm:^3.14.1":
   version: 3.14.1
   resolution: "tsconfig-paths@npm:3.14.1"
   dependencies:
