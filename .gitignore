@@ -59,6 +59,11 @@ data
 **/public/workbox-*.js.map
 **/public/worker-*.js.map
 
+# Logs
+logs/
+errors/
+.vscode/*.log
+
 # Yarn
 .pnp.*
 .yarn/*
@@ -67,8 +72,3 @@ data
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-
-# Logs
-logs/
-errors/
-.vscode/*.log
