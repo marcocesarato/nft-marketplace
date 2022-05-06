@@ -14,7 +14,7 @@ const errorDailyTransport = new winston.transports.DailyRotateFile({
 	frequency: "1d",
 });
 const allDaylyTransport = new winston.transports.DailyRotateFile({
-	filename: __dirname + "/all/all-%DATE%.log",
+	filename: __dirname + "/logs/logs-%DATE%.log",
 	level: "silly",
 	format: winston.format.combine(
 		winston.format.timestamp({format: DATE_FORMAT}),

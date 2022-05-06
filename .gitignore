@@ -70,4 +70,5 @@ data
 
 # Logs
 logs/
+errors/
 .vscode/*.log
