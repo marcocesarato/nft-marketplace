@@ -5,7 +5,7 @@ import "winston-daily-rotate-file";
 const DATE_FORMAT = "YYYY-MM-DD HH:mm:ss";
 
 const errorDailyTransport = new winston.transports.DailyRotateFile({
-	filename: __dirname + "/errors/error-%DATE%.log",
+	filename: __dirname + "/logs/errors/errors-%DATE%.log",
 	level: "error",
 	format: winston.format.combine(
 		winston.format.timestamp({format: DATE_FORMAT}),

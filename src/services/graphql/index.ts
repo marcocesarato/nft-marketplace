@@ -1,31 +1,31 @@
-import * as Apollo from "@apollo/client";
-
 import useAccount from "@hooks/useAccount";
 import {deepMerge} from "@utils/objects";
 
-import {MarketItemsQuery, MarketItemsQueryVariables, useMarketItemsQuery} from "./generated";
+import {MarketItemsQueryVariables, useMarketItemsQuery} from "./generated";
 
-export const useMarketItemsOnSaleQuery = (
-	baseOptions?: Apollo.QueryHookOptions<MarketItemsQuery, MarketItemsQueryVariables>,
-) => {
-	const options = deepMerge(baseOptions, {variables: {filter: {sold: false}}});
+const generateVariables = (
+	baseOptions?: MarketItemsQueryVariables,
+	otherOptions?: MarketItemsQueryVariables,
+): {variables: MarketItemsQueryVariables} => ({
+	variables: deepMerge(baseOptions ?? {}, otherOptions),
+});
+
+export const useMarketItemsOnSaleQuery = (baseOptions?: MarketItemsQueryVariables) => {
+	const options = generateVariables(baseOptions, {filter: {sold: false}});
 	return useMarketItemsQuery(options);
 };
 
-export const useMarketItemsOwnedQuery = (
-	baseOptions?: Apollo.QueryHookOptions<MarketItemsQuery, MarketItemsQueryVariables>,
-) => {
+export const useMarketItemsOwnedQuery = (baseOptions?: MarketItemsQueryVariables) => {
 	const {account} = useAccount();
-	const options = deepMerge(baseOptions, {filter: {owner: account, sold: true}});
+	const options = generateVariables(baseOptions, {filter: {owner: account, sold: true}});
 	return useMarketItemsQuery(options);
 };
 
-export const useMarketItemsCreatedQuery = (
-	baseOptions?: Apollo.QueryHookOptions<MarketItemsQuery, MarketItemsQueryVariables>,
-) => {
+export const useMarketItemsCreatedQuery = (baseOptions?: MarketItemsQueryVariables) => {
 	const {account} = useAccount();
-	const options = deepMerge(baseOptions, {filter: {creator: account}});
-	return useMarketItemsQuery(options);
+
+	const generatedVariables = generateVariables(baseOptions, {filter: {creator: account}});
+	return useMarketItemsQuery(generatedVariables);
 };
 
 export {

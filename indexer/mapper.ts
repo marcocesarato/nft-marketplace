@@ -53,9 +53,9 @@ export async function createMarketItem(
 				_id: tokenId,
 				tokenId: tokenId,
 				tokenURI: tokenURI,
-				creator: creator,
-				seller: seller,
-				owner: owner,
+				creator: creator?.toLowerCase(),
+				seller: seller?.toLowerCase(),
+				owner: owner?.toLowerCase(),
 				price: price,
 				sold: sold,
 				name: metadata.name,
@@ -85,8 +85,8 @@ export async function updateMarketItem(tokenId: string, {seller, owner, price, s
 			if (!item) {
 				return logger.warn(`No item #${tokenId} found`);
 			}
-			item.seller = seller;
-			item.owner = owner;
+			item.seller = seller?.toLowerCase();
+			item.owner = owner?.toLowerCase();
 			item.price = price;
 			item.sold = sold;
 			item.save(function (e: Error) {

@@ -19,7 +19,7 @@ export default function useAccount() {
 		user,
 	} = useMoralis();
 	const {web3} = useWeb3();
-	const account = web3?.provider?.["selectedAddress"];
+	const account = web3?.provider?.["selectedAddress"]?.toLowerCase();
 
 	// Auth signature
 	const signature = user?.get("authData")?.moralisEth.signature;

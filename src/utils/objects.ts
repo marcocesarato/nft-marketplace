@@ -20,6 +20,8 @@ export function isString(x) {
  * @param ...sources
  */
 export function deepMerge(target, ...sources) {
+	target ??= {};
+
 	if (!sources.length) return target;
 	const source = sources.shift();
 
