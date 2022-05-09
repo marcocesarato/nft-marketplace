@@ -16,14 +16,14 @@ import Catalog from "@components/Catalog";
 import Loading from "@components/Loading";
 import Particles from "@components/Particles";
 import useSidebar from "@hooks/useSidebar";
-import {useMarketItemsQuery} from "@services/graphql";
+import {useMarketItemsOnSaleQuery} from "@services/graphql";
 import {getStaticPropsLocale} from "@utils/i18n";
 
 export const getStaticProps = getStaticPropsLocale;
 export default function Home(): JSX.Element {
 	const {t} = useTranslation();
 	const {isSidebarCompress} = useSidebar();
-	const {data, loading, error} = useMarketItemsQuery();
+	const {data, loading, error} = useMarketItemsOnSaleQuery();
 	const items = data?.marketItems;
 	return (
 		<Box as="section" pb="7.5rem" flex={1}>
