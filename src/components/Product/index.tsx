@@ -91,7 +91,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 	return (
 		<>
 			<MotionStack
-				pt={12}
+				mt={12}
 				spacing={useBreakpointValue({base: "4", md: "5"})}
 				zIndex={0}
 				{...rootProps}>

@@ -67,7 +67,6 @@ export default function Catalog({
 				variants={catalogVariant}
 				mx="auto"
 				minChildWidth={{base: "40vw", md: "250px"}}
-				minH="full"
 				initial="initial"
 				animate="animate"
 				columnGap={{base: "4", md: "6"}}

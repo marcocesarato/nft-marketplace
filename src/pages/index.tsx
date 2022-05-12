@@ -26,7 +26,7 @@ export default function Home(): JSX.Element {
 	const {data, loading, error} = useMarketItemsOnSaleQuery();
 	const items = data?.marketItems;
 	return (
-		<Box as="section" pb="7.5rem" flex={1}>
+		<Box as="section" flex={1}>
 			<Box mx="auto" px={6}>
 				<Box
 					position="absolute"
