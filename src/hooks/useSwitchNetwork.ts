@@ -18,8 +18,8 @@ export const useSwitchNetwork = () => {
 						method: "wallet_addEthereumChain",
 						params: [networkConfigs[chainId] || {}],
 					});
-				} catch (error) {
-					console.error(error.message);
+				} catch (e) {
+					console.error(e.message);
 				}
 			} else {
 				console.error(error.message);
