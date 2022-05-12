@@ -6,11 +6,11 @@
         "start": "ts-node-esm --transpile-only indexer/main.ts"
     },
     "dependencies": {
-        "@types/node": "^17.0.31",
+        "@types/node": "^17.0.32",
         "axios": "^0.27.2",
-        "dotenv": "^16.0.0",
+        "dotenv": "^16.0.1",
         "ethers": "^5.6.5",
-        "mongoose": "^6.3.2",
+        "mongoose": "^6.3.3",
         "ts-node": "^10.7.0",
         "typescript": "^4.6.4",
         "winston": "^3.7.2",
