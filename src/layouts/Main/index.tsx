@@ -11,7 +11,7 @@ export default function Main({children}: {children: React.ReactNode}): JSX.Eleme
 	const {isOpenSidebar, sidebarWidth} = useSidebar();
 	return (
 		<Viewport>
-			<Sidebar title={"Marketplace"} d={{base: "none", lg: "block"}} />
+			<Sidebar title={"Marketplace"} display={{base: "none", lg: "block"}} />
 			<MainPanel
 				w={{
 					base: "100%",
@@ -22,7 +22,7 @@ export default function Main({children}: {children: React.ReactNode}): JSX.Eleme
 				<Navbar />
 				<PanelContainer>
 					{children}
-					<BottomBar d={{base: "flex", lg: "none"}} />
+					<BottomBar display={{base: "flex", lg: "none"}} />
 				</PanelContainer>
 			</MainPanel>
 		</Viewport>

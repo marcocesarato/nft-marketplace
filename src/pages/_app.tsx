@@ -1,7 +1,5 @@
-import {Suspense, useEffect, useState} from "react";
+import {lazy, Suspense, useEffect} from "react";
 import {useMoralis} from "react-moralis";
-import ssrPrepass from "react-ssr-prepass";
-import dynamic from "next/dynamic";
 import Head from "next/head";
 import {appWithTranslation} from "next-i18next";
 
@@ -19,7 +17,7 @@ import MainLayout from "@layouts/Main";
 
 import "focus-visible/dist/focus-visible";
 
-dynamic(() => import("webxr-polyfill"), {ssr: false});
+lazy(() => import("webxr-polyfill"));
 
 function Page({Component, pageProps}): JSX.Element {
 	const {Moralis, isInitialized} = useMoralis();
@@ -52,38 +50,24 @@ function Page({Component, pageProps}): JSX.Element {
 				<title>NFT Marketplace</title>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			</Head>
-			<Component {...pageProps} />
-		</>
-	);
-}
-function App(props): JSX.Element {
-	return (
-		<Providers>
 			<MainLayout>
 				<ErrorBoundary>
 					<Suspense fallback={<Loading />}>
-						<Page {...props} />
+						<Component {...pageProps} />
 					</Suspense>
 				</ErrorBoundary>
 			</MainLayout>
+		</>
+	);
+}
+
+function App(props): JSX.Element {
+	return (
+		<Providers>
+			<Page {...props} />
 		</Providers>
 	);
 }
 
 const AppWithTranslations = appWithTranslation(App);
-
-function SSRLoader(props): JSX.Element {
-	const [init, setInit] = useState(false);
-	useEffect(() => {
-		const load = async () => {
-			await ssrPrepass(<AppWithTranslations {...props} />);
-			setInit(true);
-		};
-		load();
-	}, [props]);
-
-	if (!init) return null;
-	return <AppWithTranslations {...props} />;
-}
-
-export default SSRLoader;
+export default AppWithTranslations;

@@ -52,7 +52,7 @@ function Sidebar({title, ...props}): JSX.Element {
 			<Box {...props} ref={mainPanel}>
 				<Box position="fixed">
 					<Box
-						d="block"
+						display="block"
 						transition="0.2s linear"
 						w={sidebarWidth}
 						h="calc(100vh - 175px)"

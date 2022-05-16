@@ -18,7 +18,7 @@ export default function WalletConnect(): JSX.Element {
 						alignItems="center"
 						justifyContent="center"
 						flexDirection={"column"}
-						d="flex"
+						display="flex"
 						p={4}
 						mx="auto"
 						cursor="pointer"

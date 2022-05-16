@@ -121,7 +121,7 @@ export default function Sell(): JSX.Element {
 					<Dropzone onFileAccepted={onChange} />
 				</FormControl>
 				<FormControl>
-					<Button isFullWidth onClick={createMarket}>
+					<Button width="full" onClick={createMarket}>
 						{t<string>("common:page.sell.action.create")}
 					</Button>
 				</FormControl>

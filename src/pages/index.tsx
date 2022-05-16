@@ -97,7 +97,11 @@ export default function Home(): JSX.Element {
 					</Box>
 					<Image
 						pt={6}
-						d={{base: "none", md: isSidebarCompress ? "block" : "none", xl: "block"}}
+						display={{
+							base: "none",
+							md: isSidebarCompress ? "block" : "none",
+							xl: "block",
+						}}
 						src="/assets/images/metaverse.png"
 						alt="metaverse"
 					/>

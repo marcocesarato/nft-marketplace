@@ -33,7 +33,7 @@ export default function UserMenu({openAccountModal}): JSX.Element {
 				<Flex alignItems="center" justifyContent="center">
 					<Avatar />
 					<Text
-						d={{base: "none", md: "inline-block"}}
+						display={{base: "none", md: "inline-block"}}
 						fontSize="md"
 						fontWeight="500"
 						mx="2">
