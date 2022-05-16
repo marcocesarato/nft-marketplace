@@ -42,8 +42,6 @@ function Page({Component, pageProps}): JSX.Element {
 		if (isInitialized) Moralis.initPlugins();
 	}, [isInitialized, Moralis]);
 
-	if (isWeb3EnableLoading || isAuthenticating) return <Loader />;
-
 	return (
 		<>
 			<Head>
@@ -53,7 +51,11 @@ function Page({Component, pageProps}): JSX.Element {
 			<MainLayout>
 				<ErrorBoundary>
 					<Suspense fallback={<Loading />}>
-						<Component {...pageProps} />
+						{isWeb3EnableLoading || isAuthenticating ? (
+							<Loader />
+						) : (
+							<Component {...pageProps} />
+						)}
 					</Suspense>
 				</ErrorBoundary>
 			</MainLayout>
