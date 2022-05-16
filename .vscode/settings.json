@@ -30,7 +30,7 @@
 	"editor.insertSpaces": true,
 	"editor.codeActionsOnSave": {
 		"source.fixAll": true,
-		"source.organizeImports": true
+		"source.organizeImports": false
 	},
 	"eslint.format.enable": true,
 	"eslint.validate": ["javascript", "typescript"],

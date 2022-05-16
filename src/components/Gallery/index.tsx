@@ -1,39 +1,34 @@
-import type {NFT, NFTMetadata} from "@app/types";
-import useIPFS from "@hooks/useIPFS";
-import useWebXR from "@hooks/useWebXR";
+import React, {useEffect, useState} from "react";
+import {Box, Cylinder, Plane, Scene, Sky, Sphere} from "@belivvr/aframe-react";
 
-import Gallery3D from "./Gallery3D";
-import GalleryVR from "./GalleryVR";
+export default function Gallery(): JSX.Element {
+	const [rendered, setRendered] = useState<boolean>(false);
 
-const imagesDisposition = [
-	// Front
-	{position: [0, 0, 1.5], rotation: [0, 0, 0]},
-	// Back
-	{position: [-0.8, 0, -0.6], rotation: [0, 0, 0]},
-	{position: [0.8, 0, -0.6], rotation: [0, 0, 0]},
-	// Left
-	{position: [-1.75, 0, 0.25], rotation: [0, Math.PI / 2.5, 0]},
-	{position: [-2.15, 0, 1.5], rotation: [0, Math.PI / 2.5, 0]},
-	{position: [-2, 0, 2.75], rotation: [0, Math.PI / 2.5, 0]},
-	// Right
-	{position: [1.75, 0, 0.25], rotation: [0, -Math.PI / 2.5, 0]},
-	{position: [2.15, 0, 1.5], rotation: [0, -Math.PI / 2.5, 0]},
-	{position: [2, 0, 2.75], rotation: [0, -Math.PI / 2.5, 0]},
-];
+	useEffect(() => {
+		setRendered(true);
 
-export default function Gallery({data}): JSX.Element {
-	const {supportsVRSession} = useWebXR();
-	const {resolveLink} = useIPFS();
-	const images =
-		data?.slice(0, imagesDisposition.length).map((nft: NFT, i: number) => {
-			const metadata = nft.metadata as NFTMetadata;
-			return {
-				id: `${nft?.token_address}${nft?.token_id}`,
-				text: metadata.name,
-				url: resolveLink(metadata.image),
-				position: imagesDisposition[i].position,
-				rotation: imagesDisposition[i].rotation,
-			};
-		}) || [];
-	return supportsVRSession ? <GalleryVR data={images} /> : <Gallery3D data={images} />;
+		if (typeof window !== "undefined") {
+			require("aframe"); // eslint-disable-line global-require
+		}
+	}, [setRendered]);
+
+	if (!rendered) {
+		return <>loading</>;
+	}
+
+	return (
+		<Scene>
+			<Box position={{x: -1, y: 0.5, z: -3}} rotation={{x: 0, y: 45, z: 0}} color="#4CC3D9" />
+			<Sphere position={{x: 0, y: 1.25, z: -5}} radius={1.25} color="#EF2D5E" />
+			<Cylinder position={{x: 1, y: 0.75, z: -3}} radius={0.5} height={1.5} color="#FFC65D" />
+			<Plane
+				position={{x: 0, y: 0, z: -4}}
+				rotation={{x: -90, y: 0, z: 0}}
+				width={4}
+				height={4}
+				color="#7BC8A4"
+			/>
+			<Sky color="#ECECEC" />
+		</Scene>
+	);
 }

@@ -3,6 +3,9 @@ import {Global} from "@emotion/react";
 const GlobalStyles = () => (
 	<Global
 		styles={`
+            html.a-fullscreen .a-canvas.a-grab-cursor {
+                position: static !important;
+            }
             @font-face {
                 font-family: "Euclid Circular";
                 src: url("/assets/fonts/Euclid Circular A Regular.ttf") format("truetype");

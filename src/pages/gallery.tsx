@@ -1,7 +1,10 @@
-import {Center} from "@chakra-ui/react";
+import {useEffect, useState} from "react";
+import {Tab, TabList, TabPanel, TabPanels, Tabs} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
+import Content from "@components/Content";
 import Gallery from "@components/Gallery";
+import GallerySettings from "@components/Gallery/Settings";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
 import useNFTs from "@hooks/useNFTs";
@@ -10,7 +13,17 @@ import {getStaticPropsLocale} from "@utils/i18n";
 export const getStaticProps = getStaticPropsLocale;
 export default function MyGallery(): JSX.Element {
 	const {t} = useTranslation();
+	const [rendered, setRendered] = useState<boolean>(false);
 	const {data, error, isError, isSuccess, isLoading} = useNFTs();
+
+	useEffect(() => {
+		setRendered(true);
+
+		if (typeof window !== "undefined") {
+			require("aframe"); // eslint-disable-line global-require
+		}
+	}, [setRendered]);
+
 	if (isError) return <Header title={t<string>("error:title")} subtitle={error.message} />;
 	if (isLoading) return <Loading />;
 	if (isSuccess && !data.length)
@@ -21,9 +34,27 @@ export default function MyGallery(): JSX.Element {
 			/>
 		);
 
+	if (!rendered) {
+		return <>loading</>;
+	}
+
 	return (
-		<Center height="calc(100vh - 94px)" w="full">
-			<Gallery data={data} />
-		</Center>
+		<Content>
+			<Tabs isLazy>
+				<TabList>
+					<Tab>Gallery</Tab>
+					<Tab>Settings</Tab>
+				</TabList>
+
+				<TabPanels>
+					<TabPanel>
+						<Gallery />
+					</TabPanel>
+					<TabPanel>
+						<GallerySettings />
+					</TabPanel>
+				</TabPanels>
+			</Tabs>
+		</Content>
 	);
 }
