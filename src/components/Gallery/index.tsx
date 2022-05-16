@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {Box, Cylinder, Plane, Scene, Sky, Sphere} from "@belivvr/aframe-react";
 
+import Content from "@components/Content";
+import Loading from "@components/Loading";
+
 export default function Gallery(): JSX.Element {
 	const [rendered, setRendered] = useState<boolean>(false);
 
@@ -13,7 +16,11 @@ export default function Gallery(): JSX.Element {
 	}, [setRendered]);
 
 	if (!rendered) {
-		return <>loading</>;
+		return (
+			<Content>
+				<Loading />
+			</Content>
+		);
 	}
 
 	return (

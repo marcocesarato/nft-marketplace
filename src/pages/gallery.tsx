@@ -1,4 +1,3 @@
-import {useEffect, useState} from "react";
 import {Tab, TabList, TabPanel, TabPanels, Tabs} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
@@ -13,16 +12,7 @@ import {getStaticPropsLocale} from "@utils/i18n";
 export const getStaticProps = getStaticPropsLocale;
 export default function MyGallery(): JSX.Element {
 	const {t} = useTranslation();
-	const [rendered, setRendered] = useState<boolean>(false);
 	const {data, error, isError, isSuccess, isLoading} = useNFTs();
-
-	useEffect(() => {
-		setRendered(true);
-
-		if (typeof window !== "undefined") {
-			require("aframe"); // eslint-disable-line global-require
-		}
-	}, [setRendered]);
 
 	if (isError) return <Header title={t<string>("error:title")} subtitle={error.message} />;
 	if (isLoading) return <Loading />;
@@ -33,11 +23,6 @@ export default function MyGallery(): JSX.Element {
 				subtitle={t<string>("common:page.gallery.empty")}
 			/>
 		);
-
-	if (!rendered) {
-		return <>loading</>;
-	}
-
 	return (
 		<Content>
 			<Tabs isLazy>
