@@ -81,7 +81,7 @@ export default function GalleryToolbar({onSave}): JSX.Element {
 									justifyContent="flex-start"
 									px={4}
 									isActive={mode === "planimetry"}>
-									Build walls
+									Draw walls
 								</Button>
 								<ColorPicker value={color} onChange={onChangeColor} />
 								<TexturePicker value={texture} onChange={onChangeTexture} />

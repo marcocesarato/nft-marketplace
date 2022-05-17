@@ -43,11 +43,11 @@ export const GalleryPlanimetryProvider = ({children}): JSX.Element => {
 
 	const clearMap = useCallback(() => {
 		const map: PlanimetryMap = {
-			height: 20,
-			width: 20,
+			height: mapSize,
+			width: mapSize,
 			blocks: new Set(),
 		};
-		for (let i = 0; i < 20 * mapSize; i++) {
+		for (let i = 0; i < mapSize * mapSize; i++) {
 			map.blocks.add({
 				id: i,
 				texture: null,
@@ -60,26 +60,8 @@ export const GalleryPlanimetryProvider = ({children}): JSX.Element => {
 
 	// Map resizing
 	useEffect(() => {
-		let blocks: PlanimetryBlock[] = [];
-		if (planimetry) {
-			blocks = Array.from(planimetry.blocks);
-		}
-		const map: PlanimetryMap = {
-			height: mapSize,
-			width: mapSize,
-			blocks: new Set(),
-		};
-		for (let i = 0; i < mapSize * mapSize; i++) {
-			map.blocks.add(
-				blocks[i] || {
-					id: i,
-					type: PlanimetryBlockType.Floor,
-				},
-			);
-		}
-		setPlanimetry(map);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [mapSize]);
+		clearMap();
+	}, [mapSize, clearMap]);
 
 	// Auto spawn positioning
 	useEffect(() => {
