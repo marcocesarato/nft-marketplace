@@ -1,5 +1,7 @@
+import {useState} from "react";
 import {GrSelect} from "react-icons/gr";
 import {IoHammerOutline, IoMan, IoRemoveCircleOutline, IoTrashBinOutline} from "react-icons/io5";
+import {CheckIcon} from "@chakra-ui/icons";
 import {
 	Accordion,
 	AccordionButton,
@@ -7,19 +9,23 @@ import {
 	AccordionItem,
 	AccordionPanel,
 	Box,
-	Button,
 	HStack,
+	IconButton,
 	NumberDecrementStepper,
 	NumberIncrementStepper,
 	NumberInput,
 	NumberInputField,
 	NumberInputStepper,
+	useDisclosure,
 	VStack,
 } from "@chakra-ui/react";
 
+import Alert from "@components/Alert";
 import ColorPicker from "@components/ColorPicker";
 import TexturePicker from "@components/TexturePicker";
 import useGalleryPlanimetry from "@contexts/GalleryPlanimetry";
+
+import ToolButton from "./ToolButton";
 
 export default function GalleryToolbar({onSave}): JSX.Element {
 	const {
@@ -33,6 +39,12 @@ export default function GalleryToolbar({onSave}): JSX.Element {
 		onChangeColor,
 		onChangeTexture,
 	} = useGalleryPlanimetry();
+	const [mapSize, setMapSize] = useState(size);
+	const {
+		isOpen: isOpenResizeMap,
+		onOpen: onOpenResizeMap,
+		onClose: onCloseResizeMap,
+	} = useDisclosure();
 	return (
 		<Box flex={1} maxWidth={300}>
 			<Accordion defaultIndex={[0, 1]} allowMultiple>
@@ -46,19 +58,27 @@ export default function GalleryToolbar({onSave}): JSX.Element {
 						</AccordionButton>
 					</h2>
 					<AccordionPanel pb={4}>
-						<NumberInput
-							value={size}
-							onChange={(_, value) => onChangeMapSize(value)}
-							size="sm"
-							min={10}
-							max={50}
-							step={1}>
-							<NumberInputField />
-							<NumberInputStepper>
-								<NumberIncrementStepper />
-								<NumberDecrementStepper />
-							</NumberInputStepper>
-						</NumberInput>
+						<HStack width={"full"}>
+							<NumberInput
+								value={mapSize}
+								onChange={(_, value) => setMapSize(value)}
+								size="sm"
+								min={10}
+								max={50}
+								step={1}>
+								<NumberInputField />
+								<NumberInputStepper>
+									<NumberIncrementStepper />
+									<NumberDecrementStepper />
+								</NumberInputStepper>
+							</NumberInput>
+							<IconButton
+								size="sm"
+								aria-label="Confirm map resize"
+								onClick={onOpenResizeMap}
+								icon={<CheckIcon />}
+							/>
+						</HStack>
 					</AccordionPanel>
 				</AccordionItem>
 				<AccordionItem>
@@ -73,65 +93,66 @@ export default function GalleryToolbar({onSave}): JSX.Element {
 					<AccordionPanel pb={4}>
 						<VStack spacing={4}>
 							<HStack width={"full"}>
-								<Button
-									size="sm"
-									w={"full"}
-									leftIcon={<IoHammerOutline />}
+								<ToolButton
+									icon={<IoHammerOutline />}
 									onClick={() => onChangeMode("planimetry")}
-									justifyContent="flex-start"
-									px={4}
 									isActive={mode === "planimetry"}>
 									Draw walls
-								</Button>
+								</ToolButton>
 								<ColorPicker value={color} onChange={onChangeColor} />
 								<TexturePicker value={texture} onChange={onChangeTexture} />
 							</HStack>
-							<Button
-								size="sm"
-								w={"full"}
-								leftIcon={<IoRemoveCircleOutline />}
+							<ToolButton
+								icon={<IoRemoveCircleOutline />}
 								onClick={() => onChangeMode("erase")}
-								justifyContent="flex-start"
-								px={4}
 								isActive={mode === "erase"}>
 								Destroy walls
-							</Button>
-							<Button
-								size="sm"
-								w={"full"}
-								leftIcon={<IoMan />}
+							</ToolButton>
+							<ToolButton
+								icon={<IoMan />}
 								onClick={() => onChangeMode("spawn")}
-								justifyContent="flex-start"
-								px={4}
 								isActive={mode === "spawn"}>
-								Set spawn
-							</Button>
-							<Button
-								size="sm"
-								w={"full"}
-								leftIcon={<GrSelect />}
+								Place spawn
+							</ToolButton>
+							<ToolButton
+								icon={<GrSelect />}
 								onClick={() => onChangeMode("select")}
-								justifyContent="flex-start"
-								px={4}
 								isActive={mode === "select"}>
 								Select block
-							</Button>
-							<Button
-								leftIcon={<IoTrashBinOutline />}
-								size="sm"
-								w={"full"}
-								justifyContent="flex-start"
-								px={4}
-								onClick={clearMap}>
+							</ToolButton>
+							<ToolButton
+								icon={<IoTrashBinOutline />}
+								onClick={clearMap}
+								withConfirm={true}
+								confirmTitle="Clear map"
+								confirmContent="Are you sure you want clear your gallery map?">
 								Clear map
-							</Button>
+							</ToolButton>
 						</VStack>
 					</AccordionPanel>
 				</AccordionItem>
 			</Accordion>
-			<Button size="lg" mt={4} w={"full"} onClick={onSave}>
+			<ToolButton
+				size="lg"
+				mt={4}
+				w={"full"}
+				justifyContent="center"
+				onClick={onSave}
+				withConfirm={true}
+				confirmTitle="Save map"
+				confirmContent="Are you sure you want save your gallery map? All old data will be lost.">
 				Save
-			</Button>
+			</ToolButton>
+			<Alert
+				title="Confirm resize map"
+				content="Are you sure you want resize your gallery map? All old data will be lost."
+				onConfirm={() => {
+					onChangeMapSize(mapSize);
+				}}
+				onClose={onCloseResizeMap}
+				onCancel={onCloseResizeMap}
+				isOpen={isOpenResizeMap}
+			/>
 		</Box>
 	);
 }

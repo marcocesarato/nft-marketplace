@@ -56,6 +56,19 @@ export default function GalleryMap(): JSX.Element {
 					] = "none";
 				}
 			});
+			// If a side is a map margin add the border
+			if (block.id % size === 0) {
+				styles.borderLeft = "5px solid black";
+			}
+			if (block.id % size === size - 1) {
+				styles.borderRight = "5px solid black";
+			}
+			if (block.id < size) {
+				styles.borderTop = "5px solid black";
+			}
+			if (block.id >= size * (size - 1)) {
+				styles.borderBottom = "5px solid black";
+			}
 		}
 		return styles;
 	};
