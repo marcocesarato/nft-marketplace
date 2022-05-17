@@ -21,7 +21,7 @@ export function getNeighbors(i: number, map: PlanimetryMap) {
 	return neighbors;
 }
 
-export function getNeighborsWithDetails(i: number, map: PlanimetryMap) {
+export function getNeighborsDetails(i: number, map: PlanimetryMap) {
 	const neighbors = [];
 	const x = i % map.width;
 	const blocks: PlanimetryBlock[] = Array.from(map.blocks);

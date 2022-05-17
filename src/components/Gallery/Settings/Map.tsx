@@ -6,17 +6,25 @@ import type {PlanimetryBlock} from "@app/types";
 import {PlanimetryBlockType} from "@app/types/enums";
 import useGalleryPlanimetry from "@contexts/GalleryPlanimetry";
 import useContainerDimensions from "@hooks/useDimensions";
-import {getNeighborsWithDetails, isBlockInsideWalls} from "@utils/planimetry";
+import {getNeighborsDetails, isBlockInsideWalls} from "@utils/planimetry";
 
 export default function GalleryMap(): JSX.Element {
-	const {planimetry, size, mode, onSelect, onChangeSpawn, onChangeBlock, color, texture} =
-		useGalleryPlanimetry();
+	const {
+		planimetry,
+		size,
+		mode,
+		selected,
+		onSelect,
+		onChangeSpawn,
+		onChangeBlock,
+		color,
+		texture,
+	} = useGalleryPlanimetry();
 
 	const [mouseDown, setMouseDown] = useState(false);
 	const [mouseRightDown, setMouseRightDown] = useState(false);
 	const mapRef = useRef();
 	const {width: mapWidth} = useContainerDimensions(mapRef);
-	const defaultWallColor = "#cbd5e0";
 
 	const map: PlanimetryBlock[][] = [];
 	const blocks: PlanimetryBlock[] = Array.from(planimetry?.blocks || []);
@@ -30,6 +38,8 @@ export default function GalleryMap(): JSX.Element {
 	}
 
 	const getBlockStyle = (block: PlanimetryBlock) => {
+		const defaultWallColor = "#cbd5e0";
+		const selectedBorder = "3px dashed #00bfff";
 		const defaultBorder = "1px dashed #cbd5e0";
 		const wallBorder = "3px solid black";
 		const styles = {
@@ -42,8 +52,8 @@ export default function GalleryMap(): JSX.Element {
 			backgroundSize: "cover",
 		};
 		if (block.type === PlanimetryBlockType.Wall) {
-			styles.backgroundColor ??= defaultWallColor;
-			const neightbours = getNeighborsWithDetails(block.id, planimetry);
+			styles.backgroundColor ||= defaultWallColor;
+			const neightbours = getNeighborsDetails(block.id, planimetry);
 			neightbours.forEach((neightbour) => {
 				if (neightbour.type !== PlanimetryBlockType.Wall) {
 					styles[
@@ -72,6 +82,12 @@ export default function GalleryMap(): JSX.Element {
 			if (block.id >= size * (size - 1)) {
 				styles.borderBottom = wallBorder;
 			}
+		}
+		if (selected?.id === block.id) {
+			styles.borderBottom = selectedBorder;
+			styles.borderTop = selectedBorder;
+			styles.borderLeft = selectedBorder;
+			styles.borderRight = selectedBorder;
 		}
 		return styles;
 	};
@@ -112,31 +128,43 @@ export default function GalleryMap(): JSX.Element {
 								onContextMenu={(e) => e.preventDefault()}
 								onMouseDown={(e: MouseEvent) => {
 									setMouseDown(true);
-									if (mode === "select") {
-										onSelect(cell);
-									} else if (mode === "spawn") {
-										if (
-											isBlockInsideWalls(cell.id, planimetry) &&
-											cell.type !== PlanimetryBlockType.Wall
-										) {
-											onChangeSpawn(cell.id);
-										}
-									} else if (mode === "erase" || e.button === 2) {
-										onChangeBlock(cell.id, {
-											id: cell.id,
-											type: PlanimetryBlockType.Floor,
-										});
-										setMouseRightDown(true);
-									} else if (mode === "planimetry") {
-										cell.type = PlanimetryBlockType.Wall;
-										onChangeBlock(cell.id, cell);
-									} else if (mode === "color") {
-										cell.color = color;
-										cell.texture = texture;
-										onChangeBlock(cell.id, cell);
+									let eventMode = mode;
+									if (e.button === 2) {
+										eventMode = "erase";
+									}
+									switch (eventMode) {
+										case "planimetry":
+											cell.type = PlanimetryBlockType.Wall;
+											onChangeBlock(cell.id, cell);
+											break;
+										case "erase":
+											onChangeBlock(cell.id, {
+												id: cell.id,
+												type: PlanimetryBlockType.Floor,
+											});
+											setMouseRightDown(true);
+											break;
+										case "select":
+											if (cell.id !== planimetry.spawn) {
+												onSelect(cell);
+											}
+											break;
+										case "spawn":
+											if (
+												isBlockInsideWalls(cell.id, planimetry) &&
+												cell.type !== PlanimetryBlockType.Wall
+											) {
+												onChangeSpawn(cell.id);
+											}
+											break;
+										case "color":
+											cell.color = color;
+											cell.texture = texture;
+											onChangeBlock(cell.id, cell);
+											break;
 									}
 								}}
-								onMouseEnter={(e: MouseEvent) => {
+								onMouseEnter={() => {
 									if (mouseDown) {
 										if (mode === "erase" || mouseRightDown) {
 											onChangeBlock(cell.id, {
@@ -147,7 +175,7 @@ export default function GalleryMap(): JSX.Element {
 											cell.type = PlanimetryBlockType.Wall;
 											onChangeBlock(cell.id, cell);
 										} else if (mode === "color") {
-											cell.color = color || defaultWallColor;
+											cell.color = color;
 											cell.texture = texture;
 											onChangeBlock(cell.id, cell);
 										}

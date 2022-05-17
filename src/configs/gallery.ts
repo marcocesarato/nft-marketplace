@@ -1,4 +1,5 @@
-import {ObjectModel, TextureAsset} from "@app/types";
+import type {ObjectModel, TextureAsset} from "@app/types";
+import {ObjectModelType} from "@app/types/enums";
 
 export const textures: TextureAsset[] = [
 	{
@@ -34,6 +35,7 @@ export const textures: TextureAsset[] = [
 export const objectsModels: ObjectModel[] = [
 	{
 		name: "Sofa",
+		type: ObjectModelType.Object,
 		image: "https://www.imgonline.com.ua/examples/texture-ground-tile-original.jpg",
 		attributes: {
 			src: "src: #sofa-obj;",

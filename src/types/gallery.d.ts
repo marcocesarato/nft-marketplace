@@ -6,8 +6,8 @@ export type PlanimetryBlock = {
 	color?: string;
 	type?: PlanimetryBlockType;
 	objects?: {
-		up?: ObjectModel;
-		down?: ObjectModel;
+		top?: ObjectModel;
+		bottom?: ObjectModel;
 		left?: ObjectModel;
 		right?: ObjectModel;
 		groud?: ObjectModel;
@@ -33,6 +33,7 @@ export type TextureAsset = {
 export type ObjectModel = {
 	name: string;
 	image: string;
+	type: ObjectModelType;
 	attributes: {
 		[key: string]: string;
 	};

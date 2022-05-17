@@ -9,7 +9,7 @@ import Map from "./Map";
 import Toolbar from "./Toolbar";
 
 export default function GallerySettings(): JSX.Element {
-	const {planimetry, selected, clearMap} = useGalleryPlanimetry();
+	const {planimetry, clearMap} = useGalleryPlanimetry();
 
 	const onSave = () => {
 		const isValid = isValidPlanimetry(planimetry);
@@ -29,7 +29,7 @@ export default function GallerySettings(): JSX.Element {
 			<HStack isInline alignItems={"flex-start"}>
 				<Toolbar onSave={onSave} />
 				<Map />
-				{selected && <Details />}
+				<Details />
 			</HStack>
 		</Box>
 	);

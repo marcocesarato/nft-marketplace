@@ -4,3 +4,8 @@ export enum PlanimetryBlockType {
 	Door = "Door",
 	Window = "Window",
 }
+
+export enum ObjectModelType {
+	Picture = "Picture",
+	Object = "Object",
+}
