@@ -192,8 +192,8 @@ How to connect Polygon Testnet to MetaMask wallet? The easiest way to get it don
 - [Chakra UI](https://chakra-ui.com/) - UI Library
 - [Axios](https://github.com/axios/axios) - HTTP Client
 - [Apollo](https://www.apollographql.com/docs/react/) - GraphQL Client
+- [AFrame](https://aframe.io/) - XR Framework
 - [ThreeJS](https://threejs.org/) / [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) - 3D Rendering
-- [React Three XR](https://github.com/pmndrs/react-xr) - XR integration with ThreeJS
 - [React Query](https://react-query.tanstack.com/) - Data synchronization and caching
 - [React Icons](https://react-icons.github.io/react-icons/) - Icons
 - [React i18next for NextJS](https://github.com/isaachinman/next-i18next) - i18n Library
