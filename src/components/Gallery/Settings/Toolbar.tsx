@@ -1,6 +1,12 @@
 import {useState} from "react";
-import {GrSelect} from "react-icons/gr";
-import {IoHammerOutline, IoMan, IoRemoveCircleOutline, IoTrashBinOutline} from "react-icons/io5";
+import {
+	IoAccessibilitySharp,
+	IoColorPaletteOutline,
+	IoHammerOutline,
+	IoRemoveCircleOutline,
+	IoScanOutline,
+	IoTrashBinOutline,
+} from "react-icons/io5";
 import {CheckIcon} from "@chakra-ui/icons";
 import {
 	Accordion,
@@ -97,28 +103,36 @@ export default function GalleryToolbar({onSave}): JSX.Element {
 									icon={<IoHammerOutline />}
 									onClick={() => onChangeMode("planimetry")}
 									isActive={mode === "planimetry"}>
-									Draw walls
+									Build walls
+								</ToolButton>
+							</HStack>
+							<ToolButton
+								icon={<IoScanOutline />}
+								onClick={() => onChangeMode("select")}
+								isActive={mode === "select"}>
+								Select block
+							</ToolButton>
+							<HStack width={"full"}>
+								<ToolButton
+									icon={<IoColorPaletteOutline />}
+									onClick={() => onChangeMode("color")}
+									isActive={mode === "color"}>
+									Apply color/texture
 								</ToolButton>
 								<ColorPicker value={color} onChange={onChangeColor} />
 								<TexturePicker value={texture} onChange={onChangeTexture} />
 							</HStack>
 							<ToolButton
-								icon={<IoRemoveCircleOutline />}
-								onClick={() => onChangeMode("erase")}
-								isActive={mode === "erase"}>
-								Destroy walls
-							</ToolButton>
-							<ToolButton
-								icon={<IoMan />}
+								icon={<IoAccessibilitySharp />}
 								onClick={() => onChangeMode("spawn")}
 								isActive={mode === "spawn"}>
 								Place spawn
 							</ToolButton>
 							<ToolButton
-								icon={<GrSelect />}
-								onClick={() => onChangeMode("select")}
-								isActive={mode === "select"}>
-								Select block
+								icon={<IoRemoveCircleOutline />}
+								onClick={() => onChangeMode("erase")}
+								isActive={mode === "erase"}>
+								Erase block
 							</ToolButton>
 							<ToolButton
 								icon={<IoTrashBinOutline />}

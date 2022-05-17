@@ -1,5 +1,5 @@
 import {MouseEvent, useRef, useState} from "react";
-import {IoMan} from "react-icons/io5";
+import {IoAccessibilitySharp} from "react-icons/io5";
 import {Td, Tr} from "@chakra-ui/react";
 
 import type {PlanimetryBlock} from "@app/types";
@@ -30,16 +30,19 @@ export default function GalleryMap(): JSX.Element {
 	}
 
 	const getBlockStyle = (block: PlanimetryBlock) => {
+		const defaultBorder = "1px dashed #cbd5e0";
+		const wallBorder = "3px solid black";
 		const styles = {
-			borderTop: "1px dashed #ccc",
-			borderBottom: "1px dashed #ccc",
-			borderLeft: "1px dashed #ccc",
-			borderRight: "1px dashed #ccc",
+			borderTop: defaultBorder,
+			borderBottom: defaultBorder,
+			borderLeft: defaultBorder,
+			borderRight: defaultBorder,
 			backgroundColor: block.color,
 			backgroundImage: block.texture?.image,
 			backgroundSize: "cover",
 		};
 		if (block.type === PlanimetryBlockType.Wall) {
+			styles.backgroundColor ??= defaultWallColor;
 			const neightbours = getNeighborsWithDetails(block.id, planimetry);
 			neightbours.forEach((neightbour) => {
 				if (neightbour.type !== PlanimetryBlockType.Wall) {
@@ -47,7 +50,7 @@ export default function GalleryMap(): JSX.Element {
 						"border" +
 							neightbour.direction.charAt(0).toUpperCase() +
 							neightbour.direction.slice(1)
-					] = "5px solid black";
+					] = wallBorder;
 				} else {
 					styles[
 						"border" +
@@ -58,19 +61,32 @@ export default function GalleryMap(): JSX.Element {
 			});
 			// If a side is a map margin add the border
 			if (block.id % size === 0) {
-				styles.borderLeft = "5px solid black";
+				styles.borderLeft = wallBorder;
 			}
 			if (block.id % size === size - 1) {
-				styles.borderRight = "5px solid black";
+				styles.borderRight = wallBorder;
 			}
 			if (block.id < size) {
-				styles.borderTop = "5px solid black";
+				styles.borderTop = wallBorder;
 			}
 			if (block.id >= size * (size - 1)) {
-				styles.borderBottom = "5px solid black";
+				styles.borderBottom = wallBorder;
 			}
 		}
 		return styles;
+	};
+
+	const getCursor = () => {
+		if (mode === "planimetry" || mode === "erase") {
+			return "crosshair";
+		}
+		if (mode === "color") {
+			return "crosshair";
+		}
+		if (mode === "select" || mode === "spawn") {
+			return "pointer";
+		}
+		return "default";
 	};
 
 	return (
@@ -91,10 +107,7 @@ export default function GalleryMap(): JSX.Element {
 								userSelect="none"
 								width={mapWidth / size}
 								height={mapWidth / size}
-								textAlign="center"
-								verticalAlign="middle"
-								lineHeight="100%"
-								fontSize="100%"
+								cursor={getCursor()}
 								{...getBlockStyle(cell)}
 								onContextMenu={(e) => e.preventDefault()}
 								onMouseDown={(e: MouseEvent) => {
@@ -116,7 +129,9 @@ export default function GalleryMap(): JSX.Element {
 										setMouseRightDown(true);
 									} else if (mode === "planimetry") {
 										cell.type = PlanimetryBlockType.Wall;
-										cell.color = color || defaultWallColor;
+										onChangeBlock(cell.id, cell);
+									} else if (mode === "color") {
+										cell.color = color;
 										cell.texture = texture;
 										onChangeBlock(cell.id, cell);
 									}
@@ -130,6 +145,8 @@ export default function GalleryMap(): JSX.Element {
 											});
 										} else if (mode === "planimetry") {
 											cell.type = PlanimetryBlockType.Wall;
+											onChangeBlock(cell.id, cell);
+										} else if (mode === "color") {
 											cell.color = color || defaultWallColor;
 											cell.texture = texture;
 											onChangeBlock(cell.id, cell);
@@ -140,13 +157,25 @@ export default function GalleryMap(): JSX.Element {
 									setMouseDown(false);
 									setMouseRightDown(false);
 								}}>
-								<IoMan
+								<span
 									style={{
-										display: "inline",
+										backgroundColor: "#FFF",
+										color: "#000",
+										borderRadius: "50%",
+										height: "100%",
+										width: "100%",
+										display: "flex",
+										justifyContent: "center",
+										alignItems: "center",
 										visibility:
 											cell.id === planimetry.spawn ? "visible" : "hidden",
-									}}
-								/>
+									}}>
+									<IoAccessibilitySharp
+										style={{
+											display: "inline-block",
+										}}
+									/>
+								</span>
 							</Td>
 						))}
 					</Tr>

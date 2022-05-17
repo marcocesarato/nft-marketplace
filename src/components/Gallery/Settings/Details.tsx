@@ -5,9 +5,9 @@ import {
 	AccordionItem,
 	AccordionPanel,
 	Box,
+	Select,
 	VStack,
 } from "@chakra-ui/react";
-import {Select} from "chakra-react-select";
 
 import {PlanimetryBlockType} from "@app/types/enums";
 import useGalleryPlanimetry from "@contexts/GalleryPlanimetry";
@@ -15,7 +15,6 @@ import useGalleryPlanimetry from "@contexts/GalleryPlanimetry";
 const blockTypesOptions = [
 	{value: PlanimetryBlockType.Wall.toString(), label: "Wall"},
 	{value: PlanimetryBlockType.Floor.toString(), label: "Floor"},
-	{value: PlanimetryBlockType.Door.toString(), label: "Ceiling"},
 ];
 
 export default function GalleryBlockDetails(): JSX.Element {
@@ -23,7 +22,7 @@ export default function GalleryBlockDetails(): JSX.Element {
 	if (!selected) return null;
 	return (
 		<VStack spacing={4} flex={1} maxWidth={300}>
-			<Accordion defaultIndex={[0]} allowMultiple>
+			<Accordion defaultIndex={[0, 1, 2]} allowMultiple width={"full"}>
 				<AccordionItem>
 					<h2>
 						<AccordionButton>
@@ -35,17 +34,21 @@ export default function GalleryBlockDetails(): JSX.Element {
 					</h2>
 					<AccordionPanel pb={4}>
 						<VStack spacing={4}>
-							<Box>
-								<Select
-									placeholder="Block type"
-									value={selected.type.toString()}
-									options={blockTypesOptions}
-									onChange={(option) => {
-										selected.type = option.value as PlanimetryBlockType;
-										onChangeBlock(selected.id, selected);
-									}}
-								/>
-							</Box>
+							<Select
+								width={"full"}
+								onChange={(e) => {
+									selected.type = e.target.value as PlanimetryBlockType;
+									onChangeBlock(selected.id, selected);
+								}}>
+								{blockTypesOptions.map((option) => (
+									<option
+										key={option.value}
+										value={option.value}
+										selected={option.value === selected.type}>
+										{option.label}
+									</option>
+								))}
+							</Select>
 						</VStack>
 					</AccordionPanel>
 				</AccordionItem>

@@ -15,6 +15,13 @@ import {
 import {textures} from "@configs/gallery";
 
 export default function TexturePicker({value, onChange}) {
+	const options = [
+		{
+			name: "",
+			image: null,
+		},
+		...textures,
+	];
 	return (
 		<Box>
 			<Popover variant="picker">
@@ -42,7 +49,7 @@ export default function TexturePicker({value, onChange}) {
 					</PopoverHeader>
 					<PopoverBody height="120px">
 						<SimpleGrid columns={5} spacing={2}>
-							{textures.map((c) => (
+							{options.map((c) => (
 								<Button
 									key={c.name}
 									backgroundImage={c.image}
@@ -54,6 +61,9 @@ export default function TexturePicker({value, onChange}) {
 									borderRadius={3}
 									_hover={{backgroundImage: c.image, backgroundSize: "cover"}}
 									onClick={() => {
+										if (!c.name) {
+											return onChange(null);
+										}
 										onChange(c);
 									}}></Button>
 							))}
