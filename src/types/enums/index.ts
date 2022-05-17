@@ -1,1 +1,1 @@
-export * from "./planimetry";
+export * from "./gallery";

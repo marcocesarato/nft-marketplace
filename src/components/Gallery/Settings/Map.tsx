@@ -1,5 +1,6 @@
 import {MouseEvent, useRef, useState} from "react";
 import {IoMan} from "react-icons/io5";
+import {Td, Tr} from "@chakra-ui/react";
 
 import type {PlanimetryBlock} from "@app/types";
 import {PlanimetryBlockType} from "@app/types/enums";
@@ -29,13 +30,14 @@ export default function GalleryMap(): JSX.Element {
 	}
 
 	const getBlockStyle = (block: PlanimetryBlock) => {
-		const color = block.type === PlanimetryBlockType.Wall ? block.color : "";
 		const styles = {
 			borderTop: "1px dashed #ccc",
 			borderBottom: "1px dashed #ccc",
 			borderLeft: "1px dashed #ccc",
 			borderRight: "1px dashed #ccc",
-			backgroundColor: color,
+			backgroundColor: block.color,
+			backgroundImage: block.texture?.image,
+			backgroundSize: "cover",
 		};
 		if (block.type === PlanimetryBlockType.Wall) {
 			const neightbours = getNeighborsWithDetails(block.id, planimetry);
@@ -46,6 +48,12 @@ export default function GalleryMap(): JSX.Element {
 							neightbour.direction.charAt(0).toUpperCase() +
 							neightbour.direction.slice(1)
 					] = "5px solid black";
+				} else {
+					styles[
+						"border" +
+							neightbour.direction.charAt(0).toUpperCase() +
+							neightbour.direction.slice(1)
+					] = "none";
 				}
 			});
 		}
@@ -63,20 +71,18 @@ export default function GalleryMap(): JSX.Element {
 			}}>
 			<tbody>
 				{map.map((row, rowIndex) => (
-					<tr key={rowIndex}>
+					<Tr key={rowIndex}>
 						{row.map((cell, cellIndex) => (
-							<td
+							<Td
 								key={cellIndex}
-								style={{
-									userSelect: "none",
-									width: mapWidth / size,
-									height: mapWidth / size,
-									textAlign: "center",
-									verticalAlign: "middle",
-									lineHeight: "100%",
-									fontSize: "100%",
-									...getBlockStyle(cell),
-								}}
+								userSelect="none"
+								width={mapWidth / size}
+								height={mapWidth / size}
+								textAlign="center"
+								verticalAlign="middle"
+								lineHeight="100%"
+								fontSize="100%"
+								{...getBlockStyle(cell)}
 								onContextMenu={(e) => e.preventDefault()}
 								onMouseDown={(e: MouseEvent) => {
 									setMouseDown(true);
@@ -90,8 +96,10 @@ export default function GalleryMap(): JSX.Element {
 											onChangeSpawn(cell.id);
 										}
 									} else if (mode === "erase" || e.button === 2) {
-										cell.type = PlanimetryBlockType.Floor;
-										onChangeBlock(cell.id, cell);
+										onChangeBlock(cell.id, {
+											id: cell.id,
+											type: PlanimetryBlockType.Floor,
+										});
 										setMouseRightDown(true);
 									} else if (mode === "planimetry") {
 										cell.type = PlanimetryBlockType.Wall;
@@ -103,8 +111,10 @@ export default function GalleryMap(): JSX.Element {
 								onMouseEnter={(e: MouseEvent) => {
 									if (mouseDown) {
 										if (mode === "erase" || mouseRightDown) {
-											cell.type = PlanimetryBlockType.Floor;
-											onChangeBlock(cell.id, cell);
+											onChangeBlock(cell.id, {
+												id: cell.id,
+												type: PlanimetryBlockType.Floor,
+											});
 										} else if (mode === "planimetry") {
 											cell.type = PlanimetryBlockType.Wall;
 											cell.color = color || defaultWallColor;
@@ -124,9 +134,9 @@ export default function GalleryMap(): JSX.Element {
 											cell.id === planimetry.spawn ? "visible" : "hidden",
 									}}
 								/>
-							</td>
+							</Td>
 						))}
-					</tr>
+					</Tr>
 				))}
 			</tbody>
 		</table>

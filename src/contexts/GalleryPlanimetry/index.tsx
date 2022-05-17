@@ -1,6 +1,11 @@
 import {createContext, useCallback, useContext, useState} from "react";
 
-import type {PlanimetryBlock, PlanimetryMap, TGalleryPlanimetryContext} from "@app/types";
+import type {
+	PlanimetryBlock,
+	PlanimetryMap,
+	TextureAsset,
+	TGalleryPlanimetryContext,
+} from "@app/types";
 import {PlanimetryBlockType} from "@app/types/enums";
 
 import initialState from "./initialState";
@@ -13,7 +18,7 @@ export const GalleryPlanimetryProvider = ({children}): JSX.Element => {
 	const [planimetry, setPlanimetry] = useState<PlanimetryMap>(); // TODO: get from user data
 	const [mapSize, setMapSize] = useState(initialState.size);
 	const [color, setColor] = useState(initialState.color);
-	const [texture, setTexture] = useState(initialState.texture);
+	const [texture, setTexture] = useState<TextureAsset>(initialState.texture);
 
 	const setBlock = useCallback(
 		(id: number, value: PlanimetryBlock) => {

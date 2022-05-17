@@ -1,3 +1,5 @@
+import {GrSelect} from "react-icons/gr";
+import {IoHammerOutline, IoMan, IoRemoveCircleOutline, IoTrashBinOutline} from "react-icons/io5";
 import {
 	Accordion,
 	AccordionButton,
@@ -6,6 +8,7 @@ import {
 	AccordionPanel,
 	Box,
 	Button,
+	HStack,
 	NumberDecrementStepper,
 	NumberIncrementStepper,
 	NumberInput,
@@ -14,10 +17,22 @@ import {
 	VStack,
 } from "@chakra-ui/react";
 
+import ColorPicker from "@components/ColorPicker";
+import TexturePicker from "@components/TexturePicker";
 import useGalleryPlanimetry from "@contexts/GalleryPlanimetry";
 
 export default function GalleryToolbar({onSave}): JSX.Element {
-	const {mode, size, onChangeMode, onChangeMapSize} = useGalleryPlanimetry();
+	const {
+		mode,
+		size,
+		color,
+		texture,
+		clearMap,
+		onChangeMode,
+		onChangeMapSize,
+		onChangeColor,
+		onChangeTexture,
+	} = useGalleryPlanimetry();
 	return (
 		<Box flex={1} maxWidth={300}>
 			<Accordion defaultIndex={[0, 1]} allowMultiple>
@@ -57,33 +72,58 @@ export default function GalleryToolbar({onSave}): JSX.Element {
 					</h2>
 					<AccordionPanel pb={4}>
 						<VStack spacing={4}>
+							<HStack width={"full"}>
+								<Button
+									size="sm"
+									w={"full"}
+									leftIcon={<IoHammerOutline />}
+									onClick={() => onChangeMode("planimetry")}
+									justifyContent="flex-start"
+									px={4}
+									isActive={mode === "planimetry"}>
+									Build walls
+								</Button>
+								<ColorPicker value={color} onChange={onChangeColor} />
+								<TexturePicker value={texture} onChange={onChangeTexture} />
+							</HStack>
 							<Button
 								size="sm"
 								w={"full"}
-								onClick={() => onChangeMode("planimetry")}
-								isActive={mode === "planimetry"}>
-								Build walls
-							</Button>
-							<Button
-								size="sm"
-								w={"full"}
+								leftIcon={<IoRemoveCircleOutline />}
 								onClick={() => onChangeMode("erase")}
+								justifyContent="flex-start"
+								px={4}
 								isActive={mode === "erase"}>
 								Destroy walls
 							</Button>
 							<Button
 								size="sm"
 								w={"full"}
+								leftIcon={<IoMan />}
 								onClick={() => onChangeMode("spawn")}
+								justifyContent="flex-start"
+								px={4}
 								isActive={mode === "spawn"}>
-								Set spawn position
+								Set spawn
 							</Button>
 							<Button
 								size="sm"
 								w={"full"}
+								leftIcon={<GrSelect />}
 								onClick={() => onChangeMode("select")}
+								justifyContent="flex-start"
+								px={4}
 								isActive={mode === "select"}>
 								Select block
+							</Button>
+							<Button
+								leftIcon={<IoTrashBinOutline />}
+								size="sm"
+								w={"full"}
+								justifyContent="flex-start"
+								px={4}
+								onClick={clearMap}>
+								Clear map
 							</Button>
 						</VStack>
 					</AccordionPanel>

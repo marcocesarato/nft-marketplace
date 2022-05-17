@@ -1,5 +1,5 @@
+import {PlanimetryBlock, PlanimetryMap, TextureAsset} from "./gallery";
 import {GenericObject} from "./globals";
-import {PlanimetryBlock, PlanimetryMap} from "./planimetry";
 
 export type TGlobalContext = {
 	config: GenericObject;
@@ -15,11 +15,11 @@ export type TGalleryPlanimetryContext = {
 	mode: string;
 	selected?: PlanimetryBlock;
 	color?: string;
-	texture?: string;
+	texture?: TextureAsset;
 	clearMap: () => void;
 	setPlanimetry: (payload: PlanimetryMap) => void;
 	onChangeColor: (payload: string) => void;
-	onChangeTexture: (payload: string) => void;
+	onChangeTexture: (payload: TextureAsset) => void;
 	onChangeMapSize: (payload: number) => void;
 	onChangeMode: (payload: string) => void;
 	onSelect: (payload: PlanimetryBlock) => void;
