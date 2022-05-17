@@ -6,6 +6,7 @@ import Gallery from "@components/Gallery";
 import GallerySettings from "@components/Gallery/Settings";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
+import {GalleryPlanimetryProvider} from "@contexts/GalleryPlanimetry";
 import useNFTs from "@hooks/useNFTs";
 import {getStaticPropsLocale} from "@utils/i18n";
 
@@ -36,7 +37,9 @@ export default function MyGallery(): JSX.Element {
 						<Gallery />
 					</TabPanel>
 					<TabPanel>
-						<GallerySettings />
+						<GalleryPlanimetryProvider>
+							<GallerySettings />
+						</GalleryPlanimetryProvider>
 					</TabPanel>
 				</TabPanels>
 			</Tabs>

@@ -3,21 +3,19 @@ import {IoMan} from "react-icons/io5";
 
 import type {PlanimetryBlock} from "@app/types";
 import {PlanimetryBlockType} from "@app/types/enums";
+import useGalleryPlanimetry from "@contexts/GalleryPlanimetry";
 import useContainerDimensions from "@hooks/useDimensions";
-import {isBlockInsideWalls} from "@utils/planimetry";
+import {getNeighborsWithDetails, isBlockInsideWalls} from "@utils/planimetry";
 
-export default function GalleryMap({
-	planimetry,
-	size,
-	mode,
-	onSelect,
-	onSpawnSelected,
-	onChangeBlockType,
-}): JSX.Element {
+export default function GalleryMap(): JSX.Element {
+	const {planimetry, size, mode, onSelect, onChangeSpawn, onChangeBlock, color, texture} =
+		useGalleryPlanimetry();
+
 	const [mouseDown, setMouseDown] = useState(false);
 	const [mouseRightDown, setMouseRightDown] = useState(false);
 	const mapRef = useRef();
 	const {width: mapWidth} = useContainerDimensions(mapRef);
+	const defaultWallColor = "#cbd5e0";
 
 	const map: PlanimetryBlock[][] = [];
 	const blocks: PlanimetryBlock[] = Array.from(planimetry?.blocks || []);
@@ -30,8 +28,28 @@ export default function GalleryMap({
 		}
 	}
 
-	const getBlockColor = (block: PlanimetryBlock) => {
-		return block.type === PlanimetryBlockType.Wall ? block.color : "";
+	const getBlockStyle = (block: PlanimetryBlock) => {
+		const color = block.type === PlanimetryBlockType.Wall ? block.color : "";
+		const styles = {
+			borderTop: "1px dashed #ccc",
+			borderBottom: "1px dashed #ccc",
+			borderLeft: "1px dashed #ccc",
+			borderRight: "1px dashed #ccc",
+			backgroundColor: color,
+		};
+		if (block.type === PlanimetryBlockType.Wall) {
+			const neightbours = getNeighborsWithDetails(block.id, planimetry);
+			neightbours.forEach((neightbour) => {
+				if (neightbour.type !== PlanimetryBlockType.Wall) {
+					styles[
+						"border" +
+							neightbour.direction.charAt(0).toUpperCase() +
+							neightbour.direction.slice(1)
+					] = "5px solid black";
+				}
+			});
+		}
+		return styles;
 	};
 
 	return (
@@ -50,16 +68,14 @@ export default function GalleryMap({
 							<td
 								key={cellIndex}
 								style={{
-									backgroundColor: getBlockColor(cell),
-									border: "1px dashed #ccc",
 									userSelect: "none",
-									width: size / 100 + "%",
-									paddingBottom: size / 100 + "%",
-									height: 0,
+									width: mapWidth / size,
+									height: mapWidth / size,
 									textAlign: "center",
 									verticalAlign: "middle",
 									lineHeight: "100%",
 									fontSize: "100%",
+									...getBlockStyle(cell),
 								}}
 								onContextMenu={(e) => e.preventDefault()}
 								onMouseDown={(e: MouseEvent) => {
@@ -71,21 +87,29 @@ export default function GalleryMap({
 											isBlockInsideWalls(cell.id, planimetry) &&
 											cell.type !== PlanimetryBlockType.Wall
 										) {
-											onSpawnSelected(cell.id);
+											onChangeSpawn(cell.id);
 										}
 									} else if (mode === "erase" || e.button === 2) {
-										onChangeBlockType(cell.id, PlanimetryBlockType.Floor);
+										cell.type = PlanimetryBlockType.Floor;
+										onChangeBlock(cell.id, cell);
 										setMouseRightDown(true);
 									} else if (mode === "planimetry") {
-										onChangeBlockType(cell.id, PlanimetryBlockType.Wall);
+										cell.type = PlanimetryBlockType.Wall;
+										cell.color = color || defaultWallColor;
+										cell.texture = texture;
+										onChangeBlock(cell.id, cell);
 									}
 								}}
 								onMouseEnter={(e: MouseEvent) => {
 									if (mouseDown) {
 										if (mode === "erase" || mouseRightDown) {
-											onChangeBlockType(cell.id, PlanimetryBlockType.Floor);
+											cell.type = PlanimetryBlockType.Floor;
+											onChangeBlock(cell.id, cell);
 										} else if (mode === "planimetry") {
-											onChangeBlockType(cell.id, PlanimetryBlockType.Wall);
+											cell.type = PlanimetryBlockType.Wall;
+											cell.color = color || defaultWallColor;
+											cell.texture = texture;
+											onChangeBlock(cell.id, cell);
 										}
 									}
 								}}

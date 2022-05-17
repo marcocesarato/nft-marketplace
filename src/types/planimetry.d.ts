@@ -2,7 +2,7 @@ import {PlanimetryBlockType} from "./enums";
 
 export type PlanimetryBlock = {
 	id: number;
-	material?: string;
+	texture?: string;
 	color?: string;
 	type?: PlanimetryBlockType;
 };

@@ -14,13 +14,10 @@ import {
 	VStack,
 } from "@chakra-ui/react";
 
-export default function GalleryToolbar({
-	mode,
-	mapSize,
-	onSave,
-	onChangeMode,
-	onChangeMapSize,
-}): JSX.Element {
+import useGalleryPlanimetry from "@contexts/GalleryPlanimetry";
+
+export default function GalleryToolbar({onSave}): JSX.Element {
+	const {mode, size, onChangeMode, onChangeMapSize} = useGalleryPlanimetry();
 	return (
 		<Box flex={1} maxWidth={300}>
 			<Accordion defaultIndex={[0, 1]} allowMultiple>
@@ -35,7 +32,7 @@ export default function GalleryToolbar({
 					</h2>
 					<AccordionPanel pb={4}>
 						<NumberInput
-							value={mapSize}
+							value={size}
 							onChange={(_, value) => onChangeMapSize(value)}
 							size="sm"
 							min={10}

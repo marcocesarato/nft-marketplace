@@ -10,6 +10,7 @@ import {
 import {Select} from "chakra-react-select";
 
 import {PlanimetryBlockType} from "@app/types/enums";
+import useGalleryPlanimetry from "@contexts/GalleryPlanimetry";
 
 const blockTypesOptions = [
 	{value: PlanimetryBlockType.Wall.toString(), label: "Wall"},
@@ -17,11 +18,8 @@ const blockTypesOptions = [
 	{value: PlanimetryBlockType.Door.toString(), label: "Ceiling"},
 ];
 
-export default function GalleryBlockDetails({
-	selected,
-	onChangeBlock,
-	onChangeBlockType,
-}): JSX.Element {
+export default function GalleryBlockDetails(): JSX.Element {
+	const {selected, onChangeBlock} = useGalleryPlanimetry();
 	if (!selected) return null;
 	return (
 		<VStack spacing={4} flex={1} maxWidth={300}>
@@ -43,10 +41,8 @@ export default function GalleryBlockDetails({
 									value={selected.type.toString()}
 									options={blockTypesOptions}
 									onChange={(option) => {
-										onChangeBlockType(
-											selected.id,
-											option.value as PlanimetryBlockType,
-										);
+										selected.type = option.value as PlanimetryBlockType;
+										onChangeBlock(selected.id, selected);
 									}}
 								/>
 							</Box>

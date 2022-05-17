@@ -1,6 +1,5 @@
-import type {PlanimetryMap} from "@app/types";
-
-import {PlanimetryBlockType} from "../types/enums";
+import type {PlanimetryBlock, PlanimetryMap} from "@app/types";
+import {PlanimetryBlockType} from "@app/types/enums";
 
 export function isMapBorder(i: number, map: PlanimetryMap) {
 	return (
@@ -19,6 +18,22 @@ export function getNeighbors(i: number, map: PlanimetryMap) {
 	if (x < map.width - 1) neighbors.push(i + 1);
 	if (y > 0) neighbors.push(i - map.width);
 	if (y < map.height - 1) neighbors.push(i + map.width);
+	return neighbors;
+}
+
+export function getNeighborsWithDetails(i: number, map: PlanimetryMap) {
+	const neighbors = [];
+	const x = i % map.width;
+	const blocks: PlanimetryBlock[] = Array.from(map.blocks);
+	const y = Math.floor(i / map.width);
+	if (x > 0) neighbors.push({direction: "left", ...blocks[i - 1]});
+	if (x < map.width - 1) neighbors.push({direction: "right", ...blocks[i + 1]});
+	if (y > 0) neighbors.push({direction: "top", ...blocks[i - map.width]});
+	if (y < map.height - 1)
+		neighbors.push({
+			direction: "bottom",
+			...blocks[i + map.width],
+		});
 	return neighbors;
 }
 
