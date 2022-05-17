@@ -100,3 +100,8 @@ export function isBlockInsideWalls(i: number, map: PlanimetryMap) {
 	const outsidePlanes = getInsideWallFloor(map);
 	return outsidePlanes.has(i);
 }
+
+export function isValidPlanimetry(map: PlanimetryMap) {
+	const insideFloor = getInsideWallFloor(map);
+	return insideFloor.size > 0;
+}

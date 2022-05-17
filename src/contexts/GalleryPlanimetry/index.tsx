@@ -1,4 +1,4 @@
-import {createContext, useCallback, useContext, useState} from "react";
+import {createContext, useCallback, useContext, useEffect, useState} from "react";
 
 import type {
 	PlanimetryBlock,
@@ -7,6 +7,7 @@ import type {
 	TGalleryPlanimetryContext,
 } from "@app/types";
 import {PlanimetryBlockType} from "@app/types/enums";
+import {getInsideWallFloor, isBlockInsideWalls} from "@utils/planimetry";
 
 import initialState from "./initialState";
 
@@ -56,6 +57,47 @@ export const GalleryPlanimetryProvider = ({children}): JSX.Element => {
 		}
 		setPlanimetry(map);
 	}, [mapSize]);
+
+	// Map resizing
+	useEffect(() => {
+		let blocks: PlanimetryBlock[] = [];
+		if (planimetry) {
+			blocks = Array.from(planimetry.blocks);
+		}
+		const map: PlanimetryMap = {
+			height: mapSize,
+			width: mapSize,
+			blocks: new Set(),
+		};
+		for (let i = 0; i < mapSize * mapSize; i++) {
+			map.blocks.add(
+				blocks[i] || {
+					id: i,
+					type: PlanimetryBlockType.Floor,
+				},
+			);
+		}
+		setPlanimetry(map);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [mapSize]);
+
+	// Auto spawn positioning
+	useEffect(() => {
+		if (planimetry && planimetry.blocks.size > 0) {
+			let position = planimetry.spawn;
+			if (planimetry && planimetry.spawn !== -1) {
+				if (!isBlockInsideWalls(position, planimetry)) {
+					position = -1;
+					setSpawn(-1);
+				}
+			}
+			const insideFloor = getInsideWallFloor(planimetry);
+			const arrayFloor: number[] = Array.from(insideFloor);
+			if (arrayFloor.length > 0 && position === -1) {
+				setSpawn(arrayFloor[0]);
+			}
+		}
+	}, [planimetry, setSpawn]);
 
 	const globalState = {
 		mode: mode,
