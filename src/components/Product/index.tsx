@@ -164,6 +164,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 								fontSize={"sm"}
 								label={t<string>("common:product:createdBy")}
 								address={data.creator}
+								alignItems="center"
 							/>
 						)}
 					</Stack>
