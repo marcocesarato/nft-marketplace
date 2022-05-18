@@ -8,7 +8,6 @@ import {
 	MenuItem,
 	MenuList,
 	Text,
-	useColorModeValue,
 } from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 

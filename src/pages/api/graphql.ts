@@ -42,7 +42,7 @@ const server = new ApolloServer({
 		const isAuthenticated = publicAddress.toLowerCase() === address.toLowerCase();
 
 		if (address.toLowerCase() === publicAddress.toLowerCase()) {
-			return {isAuthenticated, account: publicAddress};
+			return {isAuthenticated, account: publicAddress.toLowerCase()};
 		}
 
 		return {isAuthenticated};
@@ -67,7 +67,7 @@ export default cors(async (req, res) => {
 			if (!user) {
 				await User.create({
 					username: formatAddress(publicAddress),
-					account: publicAddress,
+					account: publicAddress.toLowerCase(),
 				});
 			}
 		} catch (err) {

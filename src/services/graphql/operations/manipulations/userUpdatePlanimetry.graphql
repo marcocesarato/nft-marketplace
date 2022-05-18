@@ -1,0 +1,5 @@
+mutation UserUpdatePlanimetry($planimetry: JSON!) {
+	userUpdatePlanimetry(planimetry: $planimetry) {
+		planimetry
+	}
+}

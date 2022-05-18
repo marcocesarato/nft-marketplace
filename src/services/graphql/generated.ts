@@ -90,6 +90,7 @@ export type FilterCountUserInput = {
 	createdAt?: InputMaybe<Scalars["Date"]>;
 	favourites?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
+	planimetry?: InputMaybe<FilterCountUserPlanimetryInput>;
 	updatedAt?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
@@ -97,6 +98,10 @@ export type FilterCountUserInput = {
 /** For performance reason this type contains only *indexed* fields. */
 export type FilterCountUserOperatorsInput = {
 	_id?: InputMaybe<FilterCountUser_IdOperatorsInput>;
+};
+
+export type FilterCountUserPlanimetryInput = {
+	type?: InputMaybe<Scalars["JSON"]>;
 };
 
 export type FilterCountUser_IdOperatorsInput = {
@@ -169,6 +174,7 @@ export type FilterFindManyUserInput = {
 	createdAt?: InputMaybe<Scalars["Date"]>;
 	favourites?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
+	planimetry?: InputMaybe<FilterFindManyUserPlanimetryInput>;
 	updatedAt?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
@@ -176,6 +182,10 @@ export type FilterFindManyUserInput = {
 /** For performance reason this type contains only *indexed* fields. */
 export type FilterFindManyUserOperatorsInput = {
 	_id?: InputMaybe<FilterFindManyUser_IdOperatorsInput>;
+};
+
+export type FilterFindManyUserPlanimetryInput = {
+	type?: InputMaybe<Scalars["JSON"]>;
 };
 
 export type FilterFindManyUser_IdOperatorsInput = {
@@ -248,6 +258,7 @@ export type FilterFindOneUserInput = {
 	createdAt?: InputMaybe<Scalars["Date"]>;
 	favourites?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
+	planimetry?: InputMaybe<FilterFindOneUserPlanimetryInput>;
 	updatedAt?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
@@ -255,6 +266,10 @@ export type FilterFindOneUserInput = {
 /** For performance reason this type contains only *indexed* fields. */
 export type FilterFindOneUserOperatorsInput = {
 	_id?: InputMaybe<FilterFindOneUser_IdOperatorsInput>;
+};
+
+export type FilterFindOneUserPlanimetryInput = {
+	type?: InputMaybe<Scalars["JSON"]>;
 };
 
 export type FilterFindOneUser_IdOperatorsInput = {
@@ -334,6 +349,7 @@ export type Mutation = {
 	 * validation. 4) And save it.
 	 */
 	userUpdate?: Maybe<UpdateByIdUserPayload>;
+	userUpdatePlanimetry?: Maybe<User>;
 };
 
 export type MutationAddToFavouritesArgs = {
@@ -355,6 +371,10 @@ export type MutationRemoveFromFavouritesArgs = {
 export type MutationUserUpdateArgs = {
 	_id: Scalars["MongoID"];
 	record: UpdateByIdUserInput;
+};
+
+export type MutationUserUpdatePlanimetryArgs = {
+	planimetry?: InputMaybe<Scalars["JSON"]>;
 };
 
 export type PaginationInfo = {
@@ -458,6 +478,7 @@ export type UpdateByIdUserInput = {
 	createdAt?: InputMaybe<Scalars["Date"]>;
 	favourites?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
+	planimetry?: InputMaybe<UpdateByIdUserPlanimetryInput>;
 	updatedAt?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
@@ -476,6 +497,10 @@ export type UpdateByIdUserPayload = {
 	recordId?: Maybe<Scalars["MongoID"]>;
 };
 
+export type UpdateByIdUserPlanimetryInput = {
+	type?: InputMaybe<Scalars["JSON"]>;
+};
+
 export type User = {
 	__typename?: "User";
 	_id: Scalars["MongoID"];
@@ -483,6 +508,7 @@ export type User = {
 	createdAt?: Maybe<Scalars["Date"]>;
 	favourites?: Maybe<Array<Maybe<Scalars["Float"]>>>;
 	likes?: Maybe<Array<Maybe<Scalars["Float"]>>>;
+	planimetry?: Maybe<Scalars["JSON"]>;
 	updatedAt?: Maybe<Scalars["Date"]>;
 	username: Scalars["String"];
 };
@@ -585,6 +611,15 @@ export type UserUpdateMutation = {
 	} | null;
 };
 
+export type UserUpdatePlanimetryMutationVariables = Exact<{
+	planimetry: Scalars["JSON"];
+}>;
+
+export type UserUpdatePlanimetryMutation = {
+	__typename?: "Mutation";
+	userUpdatePlanimetry?: {__typename?: "User"; planimetry?: any | null} | null;
+};
+
 export type MarketItemQueryVariables = Exact<{
 	filter?: InputMaybe<FilterFindOneMarketItemInput>;
 }>;
@@ -675,6 +710,7 @@ export type UserQuery = {
 		account: string;
 		favourites?: Array<number | null> | null;
 		likes?: Array<number | null> | null;
+		planimetry?: any | null;
 	} | null;
 };
 
@@ -694,6 +730,7 @@ export type UsersQuery = {
 		account: string;
 		favourites?: Array<number | null> | null;
 		likes?: Array<number | null> | null;
+		planimetry?: any | null;
 	}>;
 };
 
@@ -935,6 +972,56 @@ export type UserUpdateMutationOptions = Apollo.BaseMutationOptions<
 	UserUpdateMutation,
 	UserUpdateMutationVariables
 >;
+export const UserUpdatePlanimetryDocument = gql`
+	mutation UserUpdatePlanimetry($planimetry: JSON!) {
+		userUpdatePlanimetry(planimetry: $planimetry) {
+			planimetry
+		}
+	}
+`;
+export type UserUpdatePlanimetryMutationFn = Apollo.MutationFunction<
+	UserUpdatePlanimetryMutation,
+	UserUpdatePlanimetryMutationVariables
+>;
+
+/**
+ * __useUserUpdatePlanimetryMutation__
+ *
+ * To run a mutation, you first call `useUserUpdatePlanimetryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUserUpdatePlanimetryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [userUpdatePlanimetryMutation, { data, loading, error }] = useUserUpdatePlanimetryMutation({
+ *   variables: {
+ *      planimetry: // value for 'planimetry'
+ *   },
+ * });
+ */
+export function useUserUpdatePlanimetryMutation(
+	baseOptions?: Apollo.MutationHookOptions<
+		UserUpdatePlanimetryMutation,
+		UserUpdatePlanimetryMutationVariables
+	>,
+) {
+	const options = {...defaultOptions, ...baseOptions};
+	return Apollo.useMutation<UserUpdatePlanimetryMutation, UserUpdatePlanimetryMutationVariables>(
+		UserUpdatePlanimetryDocument,
+		options,
+	);
+}
+export type UserUpdatePlanimetryMutationHookResult = ReturnType<
+	typeof useUserUpdatePlanimetryMutation
+>;
+export type UserUpdatePlanimetryMutationResult =
+	Apollo.MutationResult<UserUpdatePlanimetryMutation>;
+export type UserUpdatePlanimetryMutationOptions = Apollo.BaseMutationOptions<
+	UserUpdatePlanimetryMutation,
+	UserUpdatePlanimetryMutationVariables
+>;
 export const MarketItemDocument = gql`
 	query MarketItem($filter: FilterFindOneMarketItemInput) {
 		marketItem(filter: $filter) {
@@ -1089,6 +1176,7 @@ export const UserDocument = gql`
 			account
 			favourites
 			likes
+			planimetry
 		}
 	}
 `;
@@ -1135,6 +1223,7 @@ export const UsersDocument = gql`
 			account
 			favourites
 			likes
+			planimetry
 		}
 	}
 `;

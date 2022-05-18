@@ -24,6 +24,11 @@ const UserSchema = new mongoose.Schema(
 			],
 			default: [],
 		},
+		planimetry: {
+			type: {
+				type: mongoose.Schema.Types.Mixed,
+			},
+		},
 	},
 	{timestamps: true},
 );
