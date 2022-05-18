@@ -18,7 +18,7 @@ import useUser from "@hooks/useUser";
 
 export default function UserMenu({openAccountModal}): JSX.Element {
 	const {t} = useTranslation();
-	const {logout} = useAccount();
+	const {account, logout} = useAccount();
 	const {username} = useUser();
 	const router = useRouter();
 
@@ -31,7 +31,7 @@ export default function UserMenu({openAccountModal}): JSX.Element {
 		<Menu>
 			<MenuButton as={Button} borderRadius="xl" m="1px" px={3} height="38px">
 				<Flex alignItems="center" justifyContent="center">
-					<Avatar />
+					<Avatar address={account} />
 					<Text
 						display={{base: "none", md: "inline-block"}}
 						fontSize="md"

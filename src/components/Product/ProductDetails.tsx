@@ -19,7 +19,7 @@ import Address from "@components/Address";
 import {useConfig} from "@contexts/Global";
 import useIPFS from "@hooks/useIPFS";
 
-export default function ProductDetails({data, onPurchase}): JSX.Element {
+export default function ProductDetails({data, onPurchase = (tokenId, price) => {}}): JSX.Element {
 	const {resolveLink} = useIPFS();
 	const {nativeToken} = useConfig();
 	const {t} = useTranslation();

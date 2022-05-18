@@ -1,20 +1,22 @@
-import {ExternalLinkIcon} from "@chakra-ui/icons";
-import {Link, Text} from "@chakra-ui/react";
+import NextLink from "next/link";
+import {Flex, HStack, Link, Text} from "@chakra-ui/react";
 
-import useAccount from "@hooks/useAccount";
+import Avatar from "@components/Avatar";
 import {formatAddress} from "@utils/formatters";
-import {getExplorer} from "@utils/networks";
 
-const Address = ({label, address, name = null, ...props}): JSX.Element => {
-	const {chainId} = useAccount();
+const Address = ({address, name = null, label = null, ...props}): JSX.Element => {
 	return (
-		<Text {...props} verticalAlign="middle">
-			{label}
-			<Link href={`${getExplorer(chainId)}address/${address}`} target="_blank" ml={1}>
-				{name || formatAddress(address)}
-				<ExternalLinkIcon mx={1} mt={-1} />
-			</Link>
-		</Text>
+		<HStack alignItems="flex-start" justifyContent="center" {...props}>
+			{label && <Text whiteSpace="nowrap">{label}</Text>}
+			<NextLink href={`/account/${address}`} passHref>
+				<Link width="full">
+					<Flex>
+						<Avatar address={address} />
+						<Text ml={2}>{name || formatAddress(address)}</Text>
+					</Flex>
+				</Link>
+			</NextLink>
+		</HStack>
 	);
 };
 

@@ -32,6 +32,8 @@ export {
 	useAddToFavouritesMutation,
 	useDislikeMutation,
 	useLikeMutation,
+	useMarketItemLazyQuery,
+	useMarketItemQuery,
 	useMarketItemsLazyQuery,
 	useMarketItemsQuery,
 	useRemoveFromFavouritesMutation,
