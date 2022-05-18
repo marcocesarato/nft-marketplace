@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {memo, useState} from "react";
 import {
 	IoAccessibilitySharp,
 	IoColorPaletteOutline,
@@ -33,7 +33,7 @@ import useGalleryPlanimetry from "@contexts/GalleryPlanimetry";
 
 import ToolButton from "./ToolButton";
 
-export default function GalleryToolbar({onSave}): JSX.Element {
+function Toolbar({onSave}): JSX.Element {
 	const {
 		mode,
 		size,
@@ -170,3 +170,5 @@ export default function GalleryToolbar({onSave}): JSX.Element {
 		</Box>
 	);
 }
+
+export default memo(Toolbar);

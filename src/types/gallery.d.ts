@@ -16,7 +16,7 @@ export type PlanimetryBlock = {
 };
 
 export type PlanimetryMap = {
-	blocks: Set<PlanimetryBlock>;
+	blocks: PlanimetryBlock[];
 	width: number;
 	height: number;
 	spawn?: number;

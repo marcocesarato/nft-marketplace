@@ -17,17 +17,15 @@ export const GalleryPlanimetryContext = createContext<TGalleryPlanimetryContext>
 export const GalleryPlanimetryProvider = ({children}): JSX.Element => {
 	const [mode, setMode] = useState(initialState.mode);
 	const [selected, setSelected] = useState<PlanimetryBlock | null>();
-	const [planimetry, setPlanimetry] = useState<PlanimetryMap>(); // TODO: get from user data
+	const [planimetry, setPlanimetry] = useState<PlanimetryMap>();
 	const [mapSize, setMapSize] = useState(initialState.size);
 	const [color, setColor] = useState(initialState.color);
 	const [texture, setTexture] = useState<TextureAsset>(initialState.texture);
 
 	const setBlock = useCallback(
 		(id: number, value: PlanimetryBlock) => {
-			const map = clone(planimetry);
-			const blocks: PlanimetryBlock[] = Array.from(planimetry.blocks);
-			blocks[id] = clone(value);
-			map.blocks = new Set(blocks);
+			const map = {...planimetry};
+			map.blocks[id] = clone(value);
 			setPlanimetry(map);
 		},
 		[planimetry],
@@ -35,7 +33,7 @@ export const GalleryPlanimetryProvider = ({children}): JSX.Element => {
 
 	const setSpawn = useCallback(
 		(id: number) => {
-			const map = clone(planimetry);
+			const map = {...planimetry};
 			map.spawn = id;
 			setPlanimetry(map);
 		},
@@ -43,30 +41,30 @@ export const GalleryPlanimetryProvider = ({children}): JSX.Element => {
 	);
 
 	const clearMap = useCallback(() => {
+		const size = mapSize || initialState.size;
 		const map: PlanimetryMap = {
-			height: mapSize,
-			width: mapSize,
-			blocks: new Set(),
+			height: size,
+			width: size,
+			blocks: [],
 		};
-		for (let i = 0; i < mapSize * mapSize; i++) {
-			map.blocks.add({
+		for (let i = 0; i < size * size; i++) {
+			map.blocks[i] = {
 				id: i,
 				texture: null,
 				color: null,
 				type: PlanimetryBlockType.Floor,
-			});
+			};
 		}
 		setPlanimetry(map);
 	}, [mapSize]);
 
-	// Map resizing
 	useEffect(() => {
 		clearMap();
 	}, [mapSize, clearMap]);
 
 	// Auto spawn positioning
 	useEffect(() => {
-		if (planimetry && planimetry.blocks.size > 0) {
+		if (planimetry && planimetry.blocks.length > 0) {
 			let position = planimetry.spawn;
 			if (planimetry && planimetry.spawn !== -1) {
 				if (!isBlockInsideWalls(position, planimetry)) {

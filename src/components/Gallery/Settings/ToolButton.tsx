@@ -1,8 +1,9 @@
+import {memo} from "react";
 import {Button, useDisclosure} from "@chakra-ui/react";
 
 import Alert from "@components/Alert";
 
-export default function ToolButton({
+function ToolButton({
 	onClick,
 	children,
 	icon = null,
@@ -44,3 +45,5 @@ export default function ToolButton({
 		</>
 	);
 }
+
+export default memo(ToolButton);
