@@ -1,7 +1,11 @@
 import type {PlanimetryMap, TGalleryPlanimetryContext} from "@app/types";
 
 const initialState: TGalleryPlanimetryContext = {
-	planimetry: {} as PlanimetryMap,
+	planimetry: {
+		height: 20,
+		width: 20,
+		blocks: [],
+	} as PlanimetryMap,
 	size: 20,
 	mode: "planimetry",
 	selected: null,

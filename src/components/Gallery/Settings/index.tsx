@@ -1,6 +1,7 @@
 import {useEffect} from "react";
 import {Box, HStack} from "@chakra-ui/react";
 
+import {PlanimetryMap} from "@app/types";
 import useGalleryPlanimetry from "@contexts/GalleryPlanimetry";
 import useUser from "@hooks/useUser";
 import {useUserUpdatePlanimetryMutation} from "@services/graphql";
@@ -28,8 +29,9 @@ export default function GallerySettings(): JSX.Element {
 		}
 	};
 	useEffect(() => {
-		if (!isLoading && user?.planimetry) {
-			setPlanimetry(user.planimetry);
+		if (!isLoading && user?.planimetry && Object.keys(user?.planimetry).length > 0) {
+			console.log("user.planimetry", user.planimetry);
+			setPlanimetry(user.planimetry as PlanimetryMap);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user, isLoading]);

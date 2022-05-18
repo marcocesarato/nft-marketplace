@@ -7,7 +7,6 @@ import type {
 	TGalleryPlanimetryContext,
 } from "@app/types";
 import {PlanimetryBlockType} from "@app/types/enums";
-import {clone} from "@utils/converters";
 import {getInsideWallFloor, isBlockInsideWalls} from "@utils/planimetry";
 
 import initialState from "./initialState";
@@ -17,15 +16,14 @@ export const GalleryPlanimetryContext = createContext<TGalleryPlanimetryContext>
 export const GalleryPlanimetryProvider = ({children}): JSX.Element => {
 	const [mode, setMode] = useState(initialState.mode);
 	const [selected, setSelected] = useState<PlanimetryBlock | null>();
-	const [planimetry, setPlanimetry] = useState<PlanimetryMap>();
+	const [planimetry, setPlanimetry] = useState<PlanimetryMap>(initialState.planimetry);
 	const [mapSize, setMapSize] = useState(initialState.size);
 	const [color, setColor] = useState(initialState.color);
 	const [texture, setTexture] = useState<TextureAsset>(initialState.texture);
 
 	const setBlock = useCallback(
 		(id: number, value: PlanimetryBlock) => {
-			const map = {...planimetry};
-			map.blocks[id] = clone(value);
+			const map = {...planimetry, blocks: {...planimetry.blocks, [id]: value}};
 			setPlanimetry(map);
 		},
 		[planimetry],
@@ -64,7 +62,7 @@ export const GalleryPlanimetryProvider = ({children}): JSX.Element => {
 
 	// Auto spawn positioning
 	useEffect(() => {
-		if (planimetry && planimetry.blocks.length > 0) {
+		if (planimetry && planimetry.blocks && planimetry.blocks.length > 0) {
 			let position = planimetry.spawn;
 			if (planimetry && planimetry.spawn !== -1) {
 				if (!isBlockInsideWalls(position, planimetry)) {
