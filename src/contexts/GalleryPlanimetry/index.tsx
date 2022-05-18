@@ -7,6 +7,7 @@ import type {
 	TGalleryPlanimetryContext,
 } from "@app/types";
 import {PlanimetryBlockType} from "@app/types/enums";
+import {clone} from "@utils/converters";
 import {getInsideWallFloor, isBlockInsideWalls} from "@utils/planimetry";
 
 import initialState from "./initialState";
@@ -23,9 +24,9 @@ export const GalleryPlanimetryProvider = ({children}): JSX.Element => {
 
 	const setBlock = useCallback(
 		(id: number, value: PlanimetryBlock) => {
-			const map = {...planimetry};
+			const map = clone(planimetry);
 			const blocks: PlanimetryBlock[] = Array.from(planimetry.blocks);
-			blocks[id] = {...value};
+			blocks[id] = clone(value);
 			map.blocks = new Set(blocks);
 			setPlanimetry(map);
 		},
@@ -34,7 +35,7 @@ export const GalleryPlanimetryProvider = ({children}): JSX.Element => {
 
 	const setSpawn = useCallback(
 		(id: number) => {
-			const map = {...planimetry};
+			const map = clone(planimetry);
 			map.spawn = id;
 			setPlanimetry(map);
 		},

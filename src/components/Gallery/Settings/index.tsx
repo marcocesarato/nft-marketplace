@@ -4,6 +4,7 @@ import {Box, HStack} from "@chakra-ui/react";
 import useGalleryPlanimetry from "@contexts/GalleryPlanimetry";
 import useUser from "@hooks/useUser";
 import {useUserUpdatePlanimetryMutation} from "@services/graphql";
+import {clone} from "@utils/converters";
 import {isValidPlanimetry} from "@utils/planimetry";
 
 import Details from "./Details";
@@ -18,11 +19,7 @@ export default function GallerySettings(): JSX.Element {
 	const onSave = () => {
 		const isValid = isValidPlanimetry(planimetry);
 		if (isValid) {
-			const plan = JSON.parse(
-				JSON.stringify(planimetry, (_key, value) =>
-					value instanceof Set ? [...value] : value,
-				),
-			);
+			const plan = clone(planimetry);
 			userUpdate({
 				variables: {
 					planimetry: plan,

@@ -6,6 +6,7 @@ import type {PlanimetryBlock} from "@app/types";
 import {PlanimetryBlockType} from "@app/types/enums";
 import useGalleryPlanimetry from "@contexts/GalleryPlanimetry";
 import useContainerDimensions from "@hooks/useDimensions";
+import {clone} from "@utils/converters";
 import {getNeighborsDetails, isBlockInsideWalls} from "@utils/planimetry";
 
 export default function GalleryMap(): JSX.Element {
@@ -32,7 +33,7 @@ export default function GalleryMap(): JSX.Element {
 		for (var x = 0; x < size; x++) {
 			map[x] = [];
 			for (var y = 0; y < size; y++) {
-				map[x][y] = blocks[x * size + y] || ({} as PlanimetryBlock);
+				map[x][y] = clone(blocks[x * size + y]) || ({} as PlanimetryBlock);
 			}
 		}
 	}
