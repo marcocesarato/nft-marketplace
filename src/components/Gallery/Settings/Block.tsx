@@ -6,7 +6,14 @@ import type {PlanimetryBlock} from "@app/types";
 import {PlanimetryBlockType} from "@app/types/enums";
 import useGalleryPlanimetry from "@contexts/GalleryPlanimetry";
 import {clone} from "@utils/converters";
-import {getNeighborsDetails, isBlockInsideWalls} from "@utils/planimetry";
+import {
+	getNeighborsDetails,
+	isBlockInsideWalls,
+	isMapBorderBottom,
+	isMapBorderLeft,
+	isMapBorderRight,
+	isMapBorderTop,
+} from "@utils/planimetry";
 
 function Block({
 	data,
@@ -67,18 +74,17 @@ function Block({
 					] = "none";
 				}
 			});
-			// If a side is a map margin add the border
-			if (block.id % size === 0) {
-				styles.borderLeft = wallBorder;
-			}
-			if (block.id % size === size - 1) {
-				styles.borderRight = wallBorder;
-			}
-			if (block.id < size) {
+			if (isMapBorderTop(block.id, planimetry)) {
 				styles.borderTop = wallBorder;
 			}
-			if (block.id >= size * size - size) {
+			if (isMapBorderBottom(block.id, planimetry)) {
 				styles.borderBottom = wallBorder;
+			}
+			if (isMapBorderLeft(block.id, planimetry)) {
+				styles.borderLeft = wallBorder;
+			}
+			if (isMapBorderRight(block.id, planimetry)) {
+				styles.borderRight = wallBorder;
 			}
 		}
 		if (selected?.id === block.id) {

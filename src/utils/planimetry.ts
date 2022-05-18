@@ -1,12 +1,28 @@
 import type {PlanimetryMap} from "@app/types";
 import {PlanimetryBlockType} from "@app/types/enums";
 
+export function isMapBorderTop(i: number, map: PlanimetryMap) {
+	return i < map.width;
+}
+
+export function isMapBorderBottom(i: number, map: PlanimetryMap) {
+	return i >= map.width * map.height - map.width;
+}
+
+export function isMapBorderLeft(i: number, map: PlanimetryMap) {
+	return i % map.width === 0;
+}
+
+export function isMapBorderRight(i: number, map: PlanimetryMap) {
+	return i % map.width === map.width - 1;
+}
+
 export function isMapBorder(i: number, map: PlanimetryMap) {
 	return (
-		i % map.width === 0 ||
-		i % map.width === map.width - 1 ||
-		i < map.width ||
-		i >= map.width * map.height - map.width
+		isMapBorderTop(i, map) ||
+		isMapBorderBottom(i, map) ||
+		isMapBorderLeft(i, map) ||
+		isMapBorderRight(i, map)
 	);
 }
 
