@@ -40,22 +40,20 @@ export function getNeighbors(i: number, map: PlanimetryMap) {
 export function getNeighborsDetails(i: number, map: PlanimetryMap) {
 	const neighbors = [];
 	const x = i % map.width;
-	const blocks = map.blocks || [];
 	const y = Math.floor(i / map.width);
-	if (x > 0) neighbors.push({direction: "left", ...blocks[i - 1]});
-	if (x < map.width - 1) neighbors.push({direction: "right", ...blocks[i + 1]});
-	if (y > 0) neighbors.push({direction: "top", ...blocks[i - map.width]});
+	if (x > 0) neighbors.push({direction: "left", ...map.blocks[i - 1]});
+	if (x < map.width - 1) neighbors.push({direction: "right", ...map.blocks[i + 1]});
+	if (y > 0) neighbors.push({direction: "top", ...map.blocks[i - map.width]});
 	if (y < map.height - 1)
 		neighbors.push({
 			direction: "bottom",
-			...blocks[i + map.width],
+			...map.blocks[i + map.width],
 		});
 	return neighbors;
 }
 
 export function findConnectedBlocks(i: number, map: PlanimetryMap): Set<number> {
-	const blocks = map.blocks || [];
-	const value = blocks[i]?.type;
+	const type = map.blocks[i]?.type;
 	const visited = new Set<number>();
 	const connected = new Set<number>();
 	const toCheck = new Set<number>([i]);
@@ -67,7 +65,7 @@ export function findConnectedBlocks(i: number, map: PlanimetryMap): Set<number> 
 		const neighbors = getNeighbors(current, map);
 		for (const neighbor of neighbors) {
 			if (
-				blocks[neighbor]?.type === value &&
+				map.blocks[neighbor]?.type === type &&
 				!visited.has(neighbor) &&
 				!toCheck.has(neighbor)
 			) {
@@ -80,15 +78,15 @@ export function findConnectedBlocks(i: number, map: PlanimetryMap): Set<number> 
 
 export function getOutsideWallFloor(map: PlanimetryMap) {
 	let planes = new Set<number>();
-	const blocks = map.blocks || [];
 	for (var x = 0; x < map.height; x++) {
 		for (var y = 0; y < map.width; y++) {
 			const i = y * map.width + x;
 			if (
+				!planes.has(i) &&
 				isMapBorder(i, map) &&
-				(!blocks[i] ||
-					blocks[i].type === PlanimetryBlockType.Floor ||
-					blocks[i].type == null)
+				(!map.blocks[i] ||
+					map.blocks[i].type === PlanimetryBlockType.Floor ||
+					map.blocks[i].type == null)
 			) {
 				// Add all connected planes to outsideWallsPlanes
 				const connected = findConnectedBlocks(i, map);
@@ -102,11 +100,11 @@ export function getOutsideWallFloor(map: PlanimetryMap) {
 export function getInsideWallFloor(map: PlanimetryMap) {
 	const outsidePlanes = getOutsideWallFloor(map);
 	let planes = new Set<number>();
-	const blocks = map.blocks || [];
-	for (var i = 0; i < blocks.length; i++) {
+	for (var i = 0; i < map.blocks.length; i++) {
 		if (
-			(blocks[i].type === PlanimetryBlockType.Floor || blocks[i].type == null) &&
-			!outsidePlanes.has(i)
+			!planes.has(i) &&
+			!outsidePlanes.has(i) &&
+			(map.blocks[i].type === PlanimetryBlockType.Floor || map.blocks[i].type == null)
 		) {
 			planes.add(i);
 		}
