@@ -1,20 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Box, Cylinder, Plane, Scene, Sky, Sphere} from "@belivvr/aframe-react";
 
 import Content from "@components/Content";
 import Loading from "@components/Loading";
+import useAFrame from "@hooks/useAFrame";
 
 export default function Gallery(): JSX.Element {
-	const [rendered, setRendered] = useState<boolean>(false);
+	const {isLoading} = useAFrame();
 
-	useEffect(() => {
-		setRendered(true);
-		if (typeof window !== "undefined") {
-			require("aframe"); // eslint-disable-line global-require
-		}
-	}, [setRendered]);
-
-	if (!rendered) {
+	if (!isLoading) {
 		return (
 			<Content>
 				<Loading />
