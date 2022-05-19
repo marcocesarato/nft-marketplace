@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 
 import {PlanimetryBlockType} from "@app/types/enums";
-import useGalleryPlanimetry from "@contexts/GalleryPlanimetry";
+import useGallery from "@contexts/Gallery";
 import {getInsideWallFloor, getNeighborsDetails} from "@utils/planimetry";
 
 const blockTypesOptions = [
@@ -21,7 +21,7 @@ const blockTypesOptions = [
 ];
 
 export default function GalleryBlockDetails(): JSX.Element {
-	const {selected, onChangeBlock, planimetry} = useGalleryPlanimetry();
+	const {selected, onChangeBlock, planimetry} = useGallery();
 	let sections = {
 		"ceiling": false,
 		"ground": false,

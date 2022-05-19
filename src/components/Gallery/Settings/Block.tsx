@@ -4,11 +4,10 @@ import {Td} from "@chakra-ui/react";
 
 import type {PlanimetryBlock} from "@app/types";
 import {PlanimetryBlockType} from "@app/types/enums";
-import useGalleryPlanimetry from "@contexts/GalleryPlanimetry";
+import useGallery from "@contexts/Gallery";
 import {clone} from "@utils/converters";
 import {
 	getNeighborsDetails,
-	isBlockInsideWalls,
 	isMapBorderBottom,
 	isMapBorderLeft,
 	isMapBorderRight,
@@ -24,7 +23,7 @@ function Block({
 	setMouseRightDown,
 }): JSX.Element {
 	const {planimetry, mode, selected, onSelect, onChangeSpawn, onChangeBlock, color, texture} =
-		useGalleryPlanimetry();
+		useGallery();
 	const blockData = clone(data);
 	const getCursor = () => {
 		if (mode === "planimetry" || mode === "erase") {
@@ -124,12 +123,7 @@ function Block({
 						}
 						break;
 					case "spawn":
-						if (
-							isBlockInsideWalls(data.id, planimetry) &&
-							blockData.type !== PlanimetryBlockType.Wall
-						) {
-							onChangeSpawn(data.id);
-						}
+						onChangeSpawn(data.id);
 						break;
 					case "color":
 						blockData.color = color;

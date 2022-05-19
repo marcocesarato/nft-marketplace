@@ -29,7 +29,7 @@ import {
 import Alert from "@components/Alert";
 import ColorPicker from "@components/ColorPicker";
 import TexturePicker from "@components/TexturePicker";
-import useGalleryPlanimetry from "@contexts/GalleryPlanimetry";
+import useGallery from "@contexts/Gallery";
 
 import ToolButton from "./ToolButton";
 
@@ -44,7 +44,7 @@ function Toolbar({onSave}): JSX.Element {
 		onChangeMapSize,
 		onChangeColor,
 		onChangeTexture,
-	} = useGalleryPlanimetry();
+	} = useGallery();
 	const [mapSize, setMapSize] = useState(size);
 	const {
 		isOpen: isOpenResizeMap,

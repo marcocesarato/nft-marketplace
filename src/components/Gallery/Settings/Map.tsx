@@ -1,13 +1,13 @@
 import {memo, useMemo, useRef, useState} from "react";
 
 import {PlanimetryBlockType} from "@app/types/enums";
-import useGalleryPlanimetry from "@contexts/GalleryPlanimetry";
+import useGallery from "@contexts/Gallery";
 import useContainerDimensions from "@hooks/useDimensions";
 
 import Block from "./Block";
 
 function Map(): JSX.Element {
-	const {planimetry} = useGalleryPlanimetry();
+	const {planimetry} = useGallery();
 
 	const [mouseDown, setMouseDown] = useState(false);
 	const [mouseRightDown, setMouseRightDown] = useState(false);

@@ -1,6 +1,7 @@
+import {TGlobalContext} from "@app/types";
 import {deepMerge} from "@utils/objects";
 
-const reducer = (state, action) => {
+const reducer = (state: TGlobalContext, action: {type: string; payload?: any}) => {
 	switch (action.type) {
 		case "ADD_CONFIG":
 			return {
