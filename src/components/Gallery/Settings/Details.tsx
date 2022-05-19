@@ -59,8 +59,8 @@ export default function GalleryBlockDetails(): JSX.Element {
 		return null;
 	}
 	const defaultIndex = Object.values(sections)
-		.map((section, index) => (section ? index : null))
-		.filter(Boolean);
+		.filter(Boolean)
+		.map((key, i) => i);
 	return (
 		<VStack spacing={4} flex={1} maxWidth={300}>
 			<Accordion defaultIndex={defaultIndex} allowMultiple width={"full"}>

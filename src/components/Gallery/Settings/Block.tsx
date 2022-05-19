@@ -42,6 +42,7 @@ function Block({
 		const defaultWallColor = "#cbd5e0";
 		const selectedBorder = "3px dashed #00bfff";
 		const defaultBorder = "1px dashed #cbd5e0";
+		const defaultMarginBorder = "3px solid #cbd5e0";
 		const wallBorder = "3px solid black";
 		const styles = {
 			width: size,
@@ -55,7 +56,8 @@ function Block({
 			backgroundSize: "cover",
 			cursor: getCursor(),
 		};
-		if (block.type === PlanimetryBlockType.Wall) {
+		const isWall = block.type === PlanimetryBlockType.Wall;
+		if (isWall) {
 			styles.backgroundColor ||= defaultWallColor;
 			const neightbours = getNeighborsDetails(block.id, planimetry);
 			neightbours.forEach((neightbour) => {
@@ -73,18 +75,19 @@ function Block({
 					] = "none";
 				}
 			});
-			if (isMapBorderTop(block.id, planimetry)) {
-				styles.borderTop = wallBorder;
-			}
-			if (isMapBorderBottom(block.id, planimetry)) {
-				styles.borderBottom = wallBorder;
-			}
-			if (isMapBorderLeft(block.id, planimetry)) {
-				styles.borderLeft = wallBorder;
-			}
-			if (isMapBorderRight(block.id, planimetry)) {
-				styles.borderRight = wallBorder;
-			}
+		}
+		const marginBorder = isWall ? wallBorder : defaultMarginBorder;
+		if (isMapBorderTop(block.id, planimetry)) {
+			styles.borderTop = marginBorder;
+		}
+		if (isMapBorderBottom(block.id, planimetry)) {
+			styles.borderBottom = marginBorder;
+		}
+		if (isMapBorderLeft(block.id, planimetry)) {
+			styles.borderLeft = marginBorder;
+		}
+		if (isMapBorderRight(block.id, planimetry)) {
+			styles.borderRight = marginBorder;
 		}
 		if (selected?.id === block.id) {
 			styles.borderBottom = selectedBorder;
