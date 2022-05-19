@@ -9,7 +9,6 @@ export default function Gallery(): JSX.Element {
 
 	useEffect(() => {
 		setRendered(true);
-
 		if (typeof window !== "undefined") {
 			require("aframe"); // eslint-disable-line global-require
 		}

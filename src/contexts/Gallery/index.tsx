@@ -1,20 +1,16 @@
 import {createContext, useCallback, useContext, useReducer, useState} from "react";
 
-import type {
-	PlanimetryBlock,
-	PlanimetryMap,
-	TextureAsset,
-	TGalleryPlanimetryContext,
-} from "@app/types";
+import type {PlanimetryBlock, PlanimetryMap, TextureAsset, TGalleryContext} from "@app/types";
 import {GalleryActionTypes} from "@app/types/enums";
 
-import initialState from "./initialState";
+import createInitialState from "./initialState";
 import reducer from "./reducer";
 
-export const GalleryPlanimetryContext = createContext<TGalleryPlanimetryContext>(initialState);
+const initialState = createInitialState();
+export const GalleryPlanimetryContext = createContext<TGalleryContext>(initialState);
 
 export const GalleryProvider = ({children}): JSX.Element => {
-	const [planimetry, dispatch] = useReducer(reducer, initialState.planimetry);
+	const [planimetry, dispatch] = useReducer(reducer, initialState.schema);
 	const [mode, setMode] = useState(initialState.mode);
 	const [selected, setSelected] = useState<PlanimetryBlock | null>();
 	const [color, setColor] = useState(initialState.color);
@@ -54,11 +50,12 @@ export const GalleryProvider = ({children}): JSX.Element => {
 		});
 	}, []);
 
+	const planimetryMap = planimetry.getMap();
 	const globalState = {
-		planimetry: planimetry,
+		schema: planimetry,
 		mode: mode,
 		selected: selected,
-		size: planimetry.width || initialState.size,
+		size: planimetryMap.width || initialState.size,
 		color: color,
 		texture: texture,
 		clearMap: clearMap,

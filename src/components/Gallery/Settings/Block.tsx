@@ -1,4 +1,4 @@
-import {memo, MouseEvent} from "react";
+import {memo, MouseEvent, useCallback, useMemo} from "react";
 import {IoAccessibilitySharp} from "react-icons/io5";
 import {Td} from "@chakra-ui/react";
 
@@ -6,13 +6,6 @@ import type {PlanimetryBlock} from "@app/types";
 import {PlanimetryBlockType} from "@app/types/enums";
 import useGallery from "@contexts/Gallery";
 import {clone} from "@utils/converters";
-import {
-	getNeighborsDetails,
-	isMapBorderBottom,
-	isMapBorderLeft,
-	isMapBorderRight,
-	isMapBorderTop,
-} from "@utils/planimetry";
 
 function Block({
 	data,
@@ -22,81 +15,74 @@ function Block({
 	mouseRightDown,
 	setMouseRightDown,
 }): JSX.Element {
-	const {planimetry, mode, selected, onSelect, onChangeSpawn, onChangeBlock, color, texture} =
+	const {schema, mode, selected, onSelect, onChangeSpawn, onChangeBlock, color, texture} =
 		useGallery();
-	const blockData = clone(data);
-	const getCursor = () => {
-		if (mode === "planimetry" || mode === "erase") {
-			return "crosshair";
-		}
-		if (mode === "color") {
-			return "crosshair";
-		}
-		if (mode === "select" || mode === "spawn") {
-			return "pointer";
-		}
-		return "default";
-	};
-
-	const getBlockStyle = (block: PlanimetryBlock) => {
-		const defaultWallColor = "#cbd5e0";
-		const selectedBorder = "3px dashed #00bfff";
-		const defaultBorder = "1px dashed #cbd5e0";
-		const defaultMarginBorder = "3px solid #cbd5e0";
-		const wallBorder = "3px solid black";
-		const styles = {
-			width: size,
-			height: size,
-			borderTop: defaultBorder,
-			borderBottom: defaultBorder,
-			borderLeft: defaultBorder,
-			borderRight: defaultBorder,
-			backgroundColor: block.color,
-			backgroundImage: block.texture?.image,
-			backgroundSize: "cover",
-			cursor: getCursor(),
-		};
-		const isWall = block.type === PlanimetryBlockType.Wall;
-		if (isWall) {
-			styles.backgroundColor ||= defaultWallColor;
-			const neightbours = getNeighborsDetails(block.id, planimetry);
-			neightbours.forEach((neightbour) => {
-				if (neightbour.type !== PlanimetryBlockType.Wall) {
-					styles[
-						"border" +
-							neightbour.direction.charAt(0).toUpperCase() +
-							neightbour.direction.slice(1)
-					] = wallBorder;
-				} else {
-					styles[
-						"border" +
-							neightbour.direction.charAt(0).toUpperCase() +
-							neightbour.direction.slice(1)
-					] = "none";
-				}
-			});
-		}
-		const marginBorder = isWall ? wallBorder : defaultMarginBorder;
-		if (isMapBorderTop(block.id, planimetry)) {
-			styles.borderTop = marginBorder;
-		}
-		if (isMapBorderBottom(block.id, planimetry)) {
-			styles.borderBottom = marginBorder;
-		}
-		if (isMapBorderLeft(block.id, planimetry)) {
-			styles.borderLeft = marginBorder;
-		}
-		if (isMapBorderRight(block.id, planimetry)) {
-			styles.borderRight = marginBorder;
-		}
-		if (selected?.id === block.id) {
-			styles.borderBottom = selectedBorder;
-			styles.borderTop = selectedBorder;
-			styles.borderLeft = selectedBorder;
-			styles.borderRight = selectedBorder;
-		}
-		return styles;
-	};
+	const blockData = useMemo(() => clone(data), [data]);
+	const getBlockStyle = useCallback(
+		(block: PlanimetryBlock) => {
+			const defaultWallColor = "#cbd5e0";
+			const selectedBorder = "3px dashed #00bfff";
+			const defaultBorder = "1px dashed #cbd5e0";
+			const defaultMarginBorder = "3px solid #cbd5e0";
+			const wallBorder = "3px solid black";
+			const styles = {
+				width: size,
+				height: size,
+				borderTop: defaultBorder,
+				borderBottom: defaultBorder,
+				borderLeft: defaultBorder,
+				borderRight: defaultBorder,
+				backgroundColor: block.color,
+				backgroundImage: block.texture?.image,
+				backgroundSize: "cover",
+				cursor: "pointer",
+			};
+			const isWall = block.type === PlanimetryBlockType.Wall;
+			if (isWall) {
+				styles.backgroundColor ||= defaultWallColor;
+				const neightbours = schema.getNeighborsDetails(block.id);
+				neightbours.forEach((neightbour) => {
+					if (neightbour.type !== PlanimetryBlockType.Wall) {
+						styles[
+							"border" +
+								neightbour.direction.charAt(0).toUpperCase() +
+								neightbour.direction.slice(1)
+						] = wallBorder;
+					} else {
+						styles[
+							"border" +
+								neightbour.direction.charAt(0).toUpperCase() +
+								neightbour.direction.slice(1)
+						] = "none";
+					}
+				});
+			}
+			const marginBorder = isWall ? wallBorder : defaultMarginBorder;
+			if (schema.isMapBorderTop(block.id)) {
+				styles.borderTop = marginBorder;
+			}
+			if (schema.isMapBorderBottom(block.id)) {
+				styles.borderBottom = marginBorder;
+			}
+			if (schema.isMapBorderLeft(block.id)) {
+				styles.borderLeft = marginBorder;
+			}
+			if (schema.isMapBorderRight(block.id)) {
+				styles.borderRight = marginBorder;
+			}
+			if (selected?.id === block.id) {
+				styles.borderBottom = selectedBorder;
+				styles.borderTop = selectedBorder;
+				styles.borderLeft = selectedBorder;
+				styles.borderRight = selectedBorder;
+			}
+			if (mode === "planimetry" || mode === "erase" || mode === "color") {
+				styles.cursor = "crosshair";
+			}
+			return styles;
+		},
+		[mode, schema, size, selected],
+	);
 
 	return (
 		<Td
@@ -121,7 +107,7 @@ function Block({
 						setMouseRightDown(true);
 						break;
 					case "select":
-						if (data.id !== planimetry.spawn) {
+						if (data.id !== schema.getSpawn()) {
 							onSelect(data);
 						}
 						break;
@@ -167,7 +153,7 @@ function Block({
 					display: "flex",
 					justifyContent: "center",
 					alignItems: "center",
-					visibility: data.id === planimetry.spawn ? "visible" : "hidden",
+					visibility: data.id === schema.getSpawn() ? "visible" : "hidden",
 				}}>
 				<IoAccessibilitySharp
 					style={{

@@ -13,7 +13,6 @@ import {
 
 import {PlanimetryBlockType} from "@app/types/enums";
 import useGallery from "@contexts/Gallery";
-import {getInsideWallFloor, getNeighborsDetails} from "@utils/planimetry";
 
 const blockTypesOptions = [
 	{value: PlanimetryBlockType.Wall.toString(), label: "Wall"},
@@ -21,7 +20,7 @@ const blockTypesOptions = [
 ];
 
 export default function GalleryBlockDetails(): JSX.Element {
-	const {selected, onChangeBlock, planimetry} = useGallery();
+	const {schema, selected, onChangeBlock} = useGallery();
 	let sections = {
 		"ceiling": false,
 		"ground": false,
@@ -31,12 +30,12 @@ export default function GalleryBlockDetails(): JSX.Element {
 		"bottom": false,
 	};
 	const neightbours = useMemo(
-		() => (selected && planimetry ? getNeighborsDetails(selected.id, planimetry) : []),
-		[selected, planimetry],
+		() => (selected && schema ? schema.getNeighborsDetails(selected.id) : []),
+		[selected, schema],
 	);
 	const insideWallFloor = useMemo(
-		() => (planimetry ? getInsideWallFloor(planimetry) : new Set()),
-		[planimetry],
+		() => (schema ? schema.getInsideWallBlocks() : new Set()),
+		[schema],
 	);
 	if (selected) {
 		if (selected.type === PlanimetryBlockType.Floor && insideWallFloor.has(selected.id)) {

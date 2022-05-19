@@ -1,4 +1,4 @@
-import {memo, useMemo, useRef, useState} from "react";
+import {useMemo, useRef, useState} from "react";
 
 import {PlanimetryBlockType} from "@app/types/enums";
 import useGallery from "@contexts/Gallery";
@@ -6,13 +6,13 @@ import useContainerDimensions from "@hooks/useDimensions";
 
 import Block from "./Block";
 
-function Map(): JSX.Element {
-	const {planimetry} = useGallery();
-
+export default function Map(): JSX.Element {
+	const {schema} = useGallery();
 	const [mouseDown, setMouseDown] = useState(false);
 	const [mouseRightDown, setMouseRightDown] = useState(false);
 	const mapRef = useRef();
 	const {width: mapWidth} = useContainerDimensions(mapRef);
+	const planimetry = schema.getMap();
 	const size = useMemo(
 		() => mapWidth / Math.max(planimetry.width, planimetry.height),
 		[mapWidth, planimetry.width, planimetry.height],
@@ -54,5 +54,3 @@ function Map(): JSX.Element {
 		</table>
 	);
 }
-
-export default memo(Map);

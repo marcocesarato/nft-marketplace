@@ -1,3 +1,5 @@
+import {PlanimetrySchema} from "@utils/planimetry";
+
 import {PlanimetryBlock, PlanimetryMap, TextureAsset} from "./gallery";
 import {GenericObject} from "./globals";
 
@@ -9,8 +11,8 @@ export type TGlobalContext = {
 	onToggleMenu: () => void;
 };
 
-export type TGalleryPlanimetryContext = {
-	planimetry: PlanimetryMap;
+export type TGalleryContext = {
+	schema: PlanimetrySchema;
 	size: number;
 	mode: string;
 	selected?: PlanimetryBlock;

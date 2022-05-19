@@ -1,55 +1,36 @@
 import {PlanimetryMap} from "@app/types";
 import {GalleryActionTypes, PlanimetryBlockType} from "@app/types/enums";
 import {clone} from "@utils/converters";
-import {getInsideWallFloor, isBlockInsideWalls} from "@utils/planimetry";
-
-import initialState from "./initialState";
+import {PlanimetrySchema} from "@utils/planimetry";
 
 export const reducer = (
-	state: PlanimetryMap,
+	state: PlanimetrySchema,
 	action: {type: GalleryActionTypes; payload?: any},
 ) => {
-	let result: PlanimetryMap = {} as PlanimetryMap;
-	const getSpawnPosition = (planimetry: PlanimetryMap) => {
-		let spawn = planimetry.spawn;
-		if (planimetry.blocks && planimetry.blocks.length > 0) {
-			if (planimetry && spawn !== -1) {
-				if (!isBlockInsideWalls(spawn, planimetry)) {
-					spawn = -1;
-				}
-			}
-			if (spawn === -1) {
-				const insideFloor = getInsideWallFloor(planimetry);
-				const arrayFloor: number[] = Array.from(insideFloor);
-				if (arrayFloor.length > 0) {
-					spawn = arrayFloor[0];
-				}
-			}
-		}
-		return spawn;
-	};
+	let newState = new PlanimetrySchema();
+	let resultMap: PlanimetryMap = {} as PlanimetryMap;
+	const planimetryMap: PlanimetryMap = state.getMap();
 	switch (action.type) {
 		case GalleryActionTypes.SetData:
-			return {...action.payload, spawn: getSpawnPosition(action.payload)};
+			newState.setMap(clone(action.payload));
+			return newState;
 		case GalleryActionTypes.SetBlock:
-			result = clone(state);
-			result.blocks[action.payload.value.id] = action.payload.value;
-			result.spawn = getSpawnPosition(result);
-			return result;
+			resultMap = clone(planimetryMap);
+			resultMap.blocks[action.payload.value.id] = clone(action.payload.value);
+			newState.setMap(resultMap);
+			return newState;
 		case GalleryActionTypes.SetSpawn:
 			if (
-				isBlockInsideWalls(action.payload, state) &&
-				state.blocks[action.payload]?.type !== PlanimetryBlockType.Wall
+				newState.isBlockInsideWalls(action.payload) &&
+				planimetryMap.blocks[action.payload]?.type !== PlanimetryBlockType.Wall
 			) {
-				return {
-					...state,
-					spawn: action.payload,
-				};
+				newState.setMap({...planimetryMap, spawn: action.payload});
+				return newState;
 			}
-			return state;
+			return newState;
 		case GalleryActionTypes.SetSize:
 		case GalleryActionTypes.ResetMap:
-			const size = action.payload || state.width || initialState.size;
+			const size = Math.max(action.payload || planimetryMap.width || 10, 20);
 			const map: PlanimetryMap = {
 				height: size,
 				width: size,
@@ -63,7 +44,8 @@ export const reducer = (
 					type: PlanimetryBlockType.Floor,
 				};
 			}
-			return map;
+			newState.setMap(map);
+			return newState;
 		default:
 			return state;
 	}
