@@ -50,13 +50,11 @@ function Page({Component, pageProps}): JSX.Element {
 			</Head>
 			<MainLayout>
 				<ErrorBoundary>
-					<Suspense fallback={<Loading />}>
-						{isWeb3EnableLoading || isAuthenticating ? (
-							<Loader />
-						) : (
-							<Component {...pageProps} />
-						)}
-					</Suspense>
+					{isWeb3EnableLoading || isAuthenticating ? (
+						<Loader />
+					) : (
+						<Component {...pageProps} />
+					)}
 				</ErrorBoundary>
 			</MainLayout>
 		</>
