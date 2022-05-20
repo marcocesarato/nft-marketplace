@@ -2,9 +2,10 @@ const {createServer} = require("https");
 const {parse} = require("url");
 const next = require("next");
 
+const hostname = "localhost";
 const port = 3000;
 const dev = process.env.NODE_ENV !== "production";
-const app = next({dev});
+const app = next({dev, port, hostname});
 const handle = app.getRequestHandler();
 
 const httpsOptions = {
