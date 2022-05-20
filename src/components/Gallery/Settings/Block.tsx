@@ -2,8 +2,8 @@ import {memo, MouseEvent, useCallback, useMemo} from "react";
 import {IoAccessibilitySharp} from "react-icons/io5";
 import {Td} from "@chakra-ui/react";
 
+import {PlanimetryBlockTypeEnum} from "@app/enums";
 import type {PlanimetryBlock} from "@app/types";
-import {PlanimetryBlockType} from "@app/types/enums";
 import useGallery from "@contexts/Gallery";
 import {clone} from "@utils/converters";
 
@@ -37,12 +37,12 @@ function Block({
 				backgroundSize: "cover",
 				cursor: "pointer",
 			};
-			const isWall = block.type === PlanimetryBlockType.Wall;
+			const isWall = block.type === PlanimetryBlockTypeEnum.Wall;
 			if (isWall) {
 				styles.backgroundColor ||= defaultWallColor;
 				const neightbours = schema.getNeighborsDetails(block.id);
 				neightbours.forEach((neightbour) => {
-					if (neightbour.type !== PlanimetryBlockType.Wall) {
+					if (neightbour.type !== PlanimetryBlockTypeEnum.Wall) {
 						styles[
 							"border" +
 								neightbour.direction.charAt(0).toUpperCase() +
@@ -98,7 +98,7 @@ function Block({
 				switch (mode) {
 					case "planimetry":
 						if (!isRightMouse) {
-							blockData.type = PlanimetryBlockType.Wall;
+							blockData.type = PlanimetryBlockTypeEnum.Wall;
 							onChangeBlock(data.id, blockData);
 							break;
 						}
@@ -106,7 +106,7 @@ function Block({
 					case "erase":
 						onChangeBlock(data.id, {
 							id: data.id,
-							type: PlanimetryBlockType.Floor,
+							type: PlanimetryBlockTypeEnum.Floor,
 						});
 						break;
 					case "select":
@@ -129,7 +129,7 @@ function Block({
 					switch (mode) {
 						case "planimetry":
 							if (!mouseRightDown) {
-								blockData.type = PlanimetryBlockType.Wall;
+								blockData.type = PlanimetryBlockTypeEnum.Wall;
 								onChangeBlock(data.id, blockData);
 								break;
 							}
@@ -137,7 +137,7 @@ function Block({
 						case "erase":
 							onChangeBlock(data.id, {
 								id: data.id,
-								type: PlanimetryBlockType.Floor,
+								type: PlanimetryBlockTypeEnum.Floor,
 							});
 							break;
 						case "color":

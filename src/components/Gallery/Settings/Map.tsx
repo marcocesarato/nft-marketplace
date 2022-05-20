@@ -1,6 +1,6 @@
 import {useMemo, useRef, useState} from "react";
 
-import {PlanimetryBlockType} from "@app/types/enums";
+import {PlanimetryBlockTypeEnum} from "@app/enums";
 import useGallery from "@contexts/Gallery";
 import useContainerDimensions from "@hooks/useDimensions";
 
@@ -34,7 +34,7 @@ export default function Map(): JSX.Element {
 							const id = row * planimetry.width + column;
 							const cell = planimetry?.blocks?.[row * planimetry.width + column] || {
 								id: id,
-								type: PlanimetryBlockType.Floor,
+								type: PlanimetryBlockTypeEnum.Floor,
 							};
 							return (
 								<Block

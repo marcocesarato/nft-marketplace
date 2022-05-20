@@ -11,12 +11,12 @@ import {
 	VStack,
 } from "@chakra-ui/react";
 
-import {PlanimetryBlockType} from "@app/types/enums";
+import {PlanimetryBlockType, PlanimetryBlockTypeEnum} from "@app/enums";
 import useGallery from "@contexts/Gallery";
 
 const blockTypesOptions = [
-	{value: PlanimetryBlockType.Wall.toString(), label: "Wall"},
-	{value: PlanimetryBlockType.Floor.toString(), label: "Floor"},
+	{value: PlanimetryBlockTypeEnum.Wall.toString(), label: "Wall"},
+	{value: PlanimetryBlockTypeEnum.Floor.toString(), label: "Floor"},
 ];
 
 export default function GalleryBlockDetails(): JSX.Element {
@@ -38,16 +38,16 @@ export default function GalleryBlockDetails(): JSX.Element {
 		[schema],
 	);
 	if (selected) {
-		if (selected.type === PlanimetryBlockType.Floor && insideWallFloor.has(selected.id)) {
+		if (selected.type === PlanimetryBlockTypeEnum.Floor && insideWallFloor.has(selected.id)) {
 			// If selected is a floor enable ground and ceiling section
 			sections.ground = true;
 			sections.ceiling = true;
 		}
 		// If selected is a wall check if neightbours are floors then enable direction sections to place objects
-		if (selected.type === PlanimetryBlockType.Wall) {
+		if (selected.type === PlanimetryBlockTypeEnum.Wall) {
 			neightbours.forEach((neightbour) => {
 				if (
-					neightbour.type === PlanimetryBlockType.Floor &&
+					neightbour.type === PlanimetryBlockTypeEnum.Floor &&
 					insideWallFloor.has(neightbour.id)
 				) {
 					sections[neightbour.direction] = true;

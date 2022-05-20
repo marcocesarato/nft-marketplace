@@ -1,7 +1,7 @@
 import {createContext, useCallback, useContext, useReducer, useState} from "react";
 
+import {GalleryActionTypesEnum} from "@app/enums";
 import type {PlanimetryBlock, PlanimetryMap, TextureAsset, TGalleryContext} from "@app/types";
-import {GalleryActionTypes} from "@app/types/enums";
 
 import createInitialState from "./initialState";
 import reducer from "./reducer";
@@ -18,35 +18,35 @@ export const GalleryProvider = ({children}): JSX.Element => {
 
 	const setPlanimetry = useCallback((map: PlanimetryMap) => {
 		dispatch({
-			type: GalleryActionTypes.SetData,
+			type: GalleryActionTypesEnum.SetData,
 			payload: map,
 		});
 	}, []);
 
 	const setBlock = useCallback((id: number, value: PlanimetryBlock) => {
 		dispatch({
-			type: GalleryActionTypes.SetBlock,
+			type: GalleryActionTypesEnum.SetBlock,
 			payload: {id, value},
 		});
 	}, []);
 
 	const setSpawn = useCallback((id: number) => {
 		dispatch({
-			type: GalleryActionTypes.SetSpawn,
+			type: GalleryActionTypesEnum.SetSpawn,
 			payload: id,
 		});
 	}, []);
 
 	const setMapSize = useCallback((size: number) => {
 		dispatch({
-			type: GalleryActionTypes.SetSize,
+			type: GalleryActionTypesEnum.SetSize,
 			payload: size,
 		});
 	}, []);
 
 	const clearMap = useCallback(() => {
 		dispatch({
-			type: GalleryActionTypes.ResetMap,
+			type: GalleryActionTypesEnum.ResetMap,
 		});
 	}, []);
 

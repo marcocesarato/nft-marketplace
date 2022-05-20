@@ -1,5 +1,5 @@
+import {PlanimetryBlockTypeEnum} from "@app/enums";
 import type {PlanimetryMap} from "@app/types";
-import {PlanimetryBlockType} from "@app/types/enums";
 
 export class PlanimetrySchema {
 	private map: PlanimetryMap;
@@ -139,7 +139,7 @@ export class PlanimetrySchema {
 					!this.blocksOutsideWall.has(i) &&
 					this.isMapBorder(i) &&
 					(!this.map.blocks[i] ||
-						this.map.blocks[i].type === PlanimetryBlockType.Floor ||
+						this.map.blocks[i].type === PlanimetryBlockTypeEnum.Floor ||
 						this.map.blocks[i].type == null)
 				) {
 					// Add all connected planes to outsideWallsPlanes
@@ -158,7 +158,7 @@ export class PlanimetrySchema {
 			if (
 				!this.blocksInsideWall.has(i) &&
 				!outsidePlanes.has(i) &&
-				(this.map.blocks[i].type === PlanimetryBlockType.Floor ||
+				(this.map.blocks[i].type === PlanimetryBlockTypeEnum.Floor ||
 					this.map.blocks[i].type == null)
 			) {
 				this.blocksInsideWall.add(i);

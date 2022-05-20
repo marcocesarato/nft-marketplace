@@ -1,5 +1,5 @@
+import {GalleryActionTypes, GalleryActionTypesEnum, PlanimetryBlockTypeEnum} from "@app/enums";
 import {PlanimetryMap} from "@app/types";
-import {GalleryActionTypes, PlanimetryBlockType} from "@app/types/enums";
 import {clone} from "@utils/converters";
 import {PlanimetrySchema} from "@utils/planimetry";
 
@@ -11,26 +11,26 @@ export const reducer = (
 	let resultMap: PlanimetryMap = {} as PlanimetryMap;
 	const planimetryMap: PlanimetryMap = state.getMap();
 	switch (action.type) {
-		case GalleryActionTypes.SetData:
+		case GalleryActionTypesEnum.SetData:
 			newState.setMap(clone(action.payload));
 			return newState;
-		case GalleryActionTypes.SetBlock:
+		case GalleryActionTypesEnum.SetBlock:
 			resultMap = clone(planimetryMap);
 			resultMap.blocks[action.payload.value.id] = clone(action.payload.value);
 			newState.setMap(resultMap);
 			return newState;
-		case GalleryActionTypes.SetSpawn:
+		case GalleryActionTypesEnum.SetSpawn:
 			if (
 				state.isBlockInsideWalls(action.payload) &&
-				planimetryMap.blocks[action.payload]?.type !== PlanimetryBlockType.Wall
+				planimetryMap.blocks[action.payload]?.type !== PlanimetryBlockTypeEnum.Wall
 			) {
 				const map = state.getMap();
 				newState.setMap(map);
 				newState.setSpawn(action.payload);
 			}
 			return newState;
-		case GalleryActionTypes.SetSize:
-		case GalleryActionTypes.ResetMap:
+		case GalleryActionTypesEnum.SetSize:
+		case GalleryActionTypesEnum.ResetMap:
 			const size = Math.max(action.payload || planimetryMap.width || 10, 20);
 			const map: PlanimetryMap = {
 				height: size,
@@ -42,7 +42,7 @@ export const reducer = (
 					id: i,
 					texture: null,
 					color: null,
-					type: PlanimetryBlockType.Floor,
+					type: PlanimetryBlockTypeEnum.Floor,
 				};
 			}
 			newState.setMap(map);
