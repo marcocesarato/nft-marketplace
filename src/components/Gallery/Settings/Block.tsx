@@ -89,22 +89,25 @@ function Block({
 			userSelect="none"
 			onContextMenu={(e) => e.preventDefault()}
 			onMouseDown={(e: MouseEvent) => {
+				let isRightMouse = false;
 				setMouseDown(true);
-				let eventMode = mode;
 				if (e.button === 2) {
-					eventMode = "erase";
+					isRightMouse = true;
+					setMouseRightDown(true);
 				}
-				switch (eventMode) {
+				switch (mode) {
 					case "planimetry":
-						blockData.type = PlanimetryBlockType.Wall;
-						onChangeBlock(data.id, blockData);
-						break;
+						if (!isRightMouse) {
+							blockData.type = PlanimetryBlockType.Wall;
+							onChangeBlock(data.id, blockData);
+							break;
+						}
+					// eslint-disable-next-line no-fallthrough
 					case "erase":
 						onChangeBlock(data.id, {
 							id: data.id,
 							type: PlanimetryBlockType.Floor,
 						});
-						setMouseRightDown(true);
 						break;
 					case "select":
 						if (data.id !== schema.getSpawn()) {
@@ -115,26 +118,33 @@ function Block({
 						onChangeSpawn(data.id);
 						break;
 					case "color":
-						blockData.color = color;
-						blockData.texture = texture;
+						blockData.color = isRightMouse ? null : color;
+						blockData.texture = isRightMouse ? null : texture;
 						onChangeBlock(data.id, blockData);
 						break;
 				}
 			}}
 			onMouseEnter={() => {
 				if (mouseDown) {
-					if (mode === "erase" || mouseRightDown) {
-						onChangeBlock(data.id, {
-							id: data.id,
-							type: PlanimetryBlockType.Floor,
-						});
-					} else if (mode === "planimetry") {
-						blockData.type = PlanimetryBlockType.Wall;
-						onChangeBlock(data.id, blockData);
-					} else if (mode === "color") {
-						blockData.color = color;
-						blockData.texture = texture;
-						onChangeBlock(data.id, blockData);
+					switch (mode) {
+						case "planimetry":
+							if (!mouseRightDown) {
+								blockData.type = PlanimetryBlockType.Wall;
+								onChangeBlock(data.id, blockData);
+								break;
+							}
+						// eslint-disable-next-line no-fallthrough
+						case "erase":
+							onChangeBlock(data.id, {
+								id: data.id,
+								type: PlanimetryBlockType.Floor,
+							});
+							break;
+						case "color":
+							blockData.color = mouseRightDown ? null : color;
+							blockData.texture = mouseRightDown ? null : texture;
+							onChangeBlock(data.id, blockData);
+							break;
 					}
 				}
 			}}
