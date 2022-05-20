@@ -21,11 +21,12 @@ export const reducer = (
 			return newState;
 		case GalleryActionTypes.SetSpawn:
 			if (
-				newState.isBlockInsideWalls(action.payload) &&
+				state.isBlockInsideWalls(action.payload) &&
 				planimetryMap.blocks[action.payload]?.type !== PlanimetryBlockType.Wall
 			) {
-				newState.setMap({...planimetryMap, spawn: action.payload});
-				return newState;
+				const map = state.getMap();
+				newState.setMap(map);
+				newState.setSpawn(action.payload);
 			}
 			return newState;
 		case GalleryActionTypes.SetSize:

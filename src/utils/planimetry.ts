@@ -27,6 +27,10 @@ export class PlanimetrySchema {
 		return this.map.spawn;
 	}
 
+	public setSpawn(spawn: number) {
+		this.map.spawn = spawn;
+	}
+
 	public getBlocks() {
 		return this.map.blocks;
 	}
