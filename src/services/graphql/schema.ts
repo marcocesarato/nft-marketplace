@@ -1,5 +1,5 @@
-import {SchemaComposer} from "graphql-compose";
-import {composeMongoose} from "graphql-compose-mongoose";
+import {GraphQLJSON, SchemaComposer} from "graphql-compose";
+import {composeMongoose, composeWithMongoose} from "graphql-compose-mongoose";
 
 import MarketItem from "@models/MarketItem";
 import User from "@models/User";
@@ -24,21 +24,40 @@ function wrapAccessResolve(resolver, callback = (rp) => {}) {
 }
 
 // User
-const UserTC = composeMongoose(User, {schemaComposer});
-const userResolvers = UserTC.mongooseResolvers;
+const UserTC = composeWithMongoose(User, {schemaComposer});
+UserTC.addFields({
+	planimetry: {
+		type: GraphQLJSON,
+		resolve: (source: any) => JSON.parse(source.planimetry),
+	},
+});
 schemaComposer.Query.addFields({
-	user: userResolvers.findOne({lean: true}),
-	users: userResolvers.findMany({lean: true}),
-	usersCount: userResolvers.count(),
-	usersPagination: userResolvers.pagination(),
+	user: UserTC.getResolver("findOne"),
+	users: UserTC.getResolver("findMany"),
+	usersCount: UserTC.getResolver("count"),
+	usersPagination: UserTC.getResolver("pagination"),
 });
 schemaComposer.Mutation.addFields({
-	userUpdate: wrapAccessResolve(userResolvers.updateById(), (rp) => {
+	userUpdate: wrapAccessResolve(UserTC.getResolver("updateById"), (rp) => {
 		rp.beforeQuery = (query, rp) => {
+			console.log(rp.context);
 			const {account} = rp.context;
 			query.where("account", account);
 		};
 	}),
+	userUpdatePlanimetry: {
+		type: UserTC,
+		args: {planimetry: "JSON"},
+		resolve: async (source, args, context, info) => {
+			/*const {account, isAuthenticated} = context;
+			if (!isAuthenticated) return false;*/
+			const account = "0xad35c27c74677759afeb435c4e7e09e7946c5c4f".toLowerCase();
+			const user = await User.findOne({account});
+			if (!user) return false;
+			await User.updateOne({account}, {"planimetry": JSON.stringify(args.planimetry)});
+			return User.findOne({account});
+		},
+	},
 });
 
 // Market Item

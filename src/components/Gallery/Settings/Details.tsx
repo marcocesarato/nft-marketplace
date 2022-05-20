@@ -1,3 +1,4 @@
+import {useMemo} from "react";
 import {
 	Accordion,
 	AccordionButton,
@@ -5,27 +6,63 @@ import {
 	AccordionItem,
 	AccordionPanel,
 	Box,
+	Button,
+	Select,
 	VStack,
 } from "@chakra-ui/react";
-import {Select} from "chakra-react-select";
 
-import {PlanimetryBlockType} from "@app/types/enums";
+import {PlanimetryBlockType, PlanimetryBlockTypeEnum} from "@app/enums";
+import useGallery from "@contexts/Gallery";
 
 const blockTypesOptions = [
-	{value: PlanimetryBlockType.Wall.toString(), label: "Wall"},
-	{value: PlanimetryBlockType.Floor.toString(), label: "Floor"},
-	{value: PlanimetryBlockType.Door.toString(), label: "Ceiling"},
+	{value: PlanimetryBlockTypeEnum.Wall.toString(), label: "Wall"},
+	{value: PlanimetryBlockTypeEnum.Floor.toString(), label: "Floor"},
 ];
 
-export default function GalleryBlockDetails({
-	selected,
-	onChangeBlock,
-	onChangeBlockType,
-}): JSX.Element {
-	if (!selected) return null;
+export default function GalleryBlockDetails(): JSX.Element {
+	const {schema, selected, onChangeBlock} = useGallery();
+	let sections = {
+		"ceiling": false,
+		"ground": false,
+		"left": false,
+		"right": false,
+		"top": false,
+		"bottom": false,
+	};
+	const neightbours = useMemo(
+		() => (selected && schema ? schema.getNeighborsDetails(selected.id) : []),
+		[selected, schema],
+	);
+	const insideWallFloor = useMemo(
+		() => (schema ? schema.getInsideWallBlocks() : new Set()),
+		[schema],
+	);
+	if (selected) {
+		if (selected.type === PlanimetryBlockTypeEnum.Floor && insideWallFloor.has(selected.id)) {
+			// If selected is a floor enable ground and ceiling section
+			sections.ground = true;
+			sections.ceiling = true;
+		}
+		// If selected is a wall check if neightbours are floors then enable direction sections to place objects
+		if (selected.type === PlanimetryBlockTypeEnum.Wall) {
+			neightbours.forEach((neightbour) => {
+				if (
+					neightbour.type === PlanimetryBlockTypeEnum.Floor &&
+					insideWallFloor.has(neightbour.id)
+				) {
+					sections[neightbour.direction] = true;
+				}
+			});
+		}
+	} else {
+		return null;
+	}
+	const defaultIndex = Object.values(sections)
+		.filter(Boolean)
+		.map((key, i) => i);
 	return (
 		<VStack spacing={4} flex={1} maxWidth={300}>
-			<Accordion defaultIndex={[0]} allowMultiple>
+			<Accordion defaultIndex={defaultIndex} allowMultiple width={"full"}>
 				<AccordionItem>
 					<h2>
 						<AccordionButton>
@@ -37,55 +74,50 @@ export default function GalleryBlockDetails({
 					</h2>
 					<AccordionPanel pb={4}>
 						<VStack spacing={4}>
-							<Box>
-								<Select
-									placeholder="Block type"
-									value={selected.type.toString()}
-									options={blockTypesOptions}
-									onChange={(option) => {
-										onChangeBlockType(
-											selected.id,
-											option.value as PlanimetryBlockType,
-										);
-									}}
-								/>
-							</Box>
+							<Select
+								width={"full"}
+								onChange={(e) => {
+									selected.type = e.target.value as PlanimetryBlockType;
+									onChangeBlock(selected.id, selected);
+								}}>
+								{blockTypesOptions.map((option) => (
+									<option
+										key={option.value}
+										value={option.value}
+										selected={option.value === selected.type}>
+										{option.label}
+									</option>
+								))}
+							</Select>
 						</VStack>
 					</AccordionPanel>
 				</AccordionItem>
-				<AccordionItem>
-					<h2>
-						<AccordionButton>
-							<Box flex="1" textAlign="left">
-								Floor
-							</Box>
-							<AccordionIcon />
-						</AccordionButton>
-					</h2>
-					<AccordionPanel pb={4}>Lorem ipsum dolor sit amet</AccordionPanel>
-				</AccordionItem>
-				<AccordionItem>
-					<h2>
-						<AccordionButton>
-							<Box flex="1" textAlign="left">
-								Wall Top
-							</Box>
-							<AccordionIcon />
-						</AccordionButton>
-					</h2>
-					<AccordionPanel pb={4}>Lorem ipsum dolor sit amet</AccordionPanel>
-				</AccordionItem>
-				<AccordionItem>
-					<h2>
-						<AccordionButton>
-							<Box flex="1" textAlign="left">
-								Wall Bottom
-							</Box>
-							<AccordionIcon />
-						</AccordionButton>
-					</h2>
-					<AccordionPanel pb={4}>Lorem ipsum dolor sit amet</AccordionPanel>
-				</AccordionItem>
+				{Object.entries(sections).map(([key, value]) => {
+					if (!value) return null;
+					return (
+						<AccordionItem>
+							<h2>
+								<AccordionButton>
+									<Box flex="1" textAlign="left">
+										{key.charAt(0).toUpperCase() + key.slice(1)}
+									</Box>
+									<AccordionIcon />
+								</AccordionButton>
+							</h2>
+							<AccordionPanel pb={4}>
+								<Button width="full" size="sm" mb={2} onClick={() => {}}>
+									Add new object
+								</Button>
+								{key === "ground" ||
+									(key === "ceiling" && (
+										<Button width="full" size="sm" mb={2} onClick={() => {}}>
+											Add new painting
+										</Button>
+									))}
+							</AccordionPanel>
+						</AccordionItem>
+					);
+				})}
 			</Accordion>
 		</VStack>
 	);

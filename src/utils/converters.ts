@@ -23,3 +23,9 @@ export const withMetadata = (items) => {
 	}
 	return mergeMetadata(items);
 };
+
+export const clone = (obj: any): any => {
+	return JSON.parse(
+		JSON.stringify(obj, (_key, value) => (value instanceof Set ? [...value] : value)),
+	);
+};

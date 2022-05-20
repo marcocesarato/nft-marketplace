@@ -40,4 +40,5 @@ export {
 	useUserLazyQuery,
 	useUserQuery,
 	useUserUpdateMutation,
+	useUserUpdatePlanimetryMutation,
 } from "./generated";
