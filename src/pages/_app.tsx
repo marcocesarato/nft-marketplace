@@ -1,4 +1,4 @@
-import {lazy, Suspense, useEffect} from "react";
+import {lazy, useEffect} from "react";
 import {useMoralis} from "react-moralis";
 import Head from "next/head";
 import {appWithTranslation} from "next-i18next";
@@ -6,7 +6,6 @@ import {appWithTranslation} from "next-i18next";
 import Providers from "@app/Providers";
 import type {TWeb3Provider} from "@app/types";
 import Loader from "@components/Loader";
-import Loading from "@components/Loading";
 import {ChainId} from "@configs/chain";
 import ErrorBoundary from "@errors/ErrorBoundary";
 import useAccount from "@hooks/useAccount";

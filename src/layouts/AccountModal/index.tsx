@@ -87,7 +87,7 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 						borderColor="gray.600"
 						p={5}>
 						<Flex alignItems="center" mb={4} lineHeight={1}>
-							<Avatar />
+							<Avatar address={account} />
 							<Editable
 								color="white"
 								fontSize="2xl"
