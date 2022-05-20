@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react";
-import type {XRSystem} from "webxr";
 
 export default function useWebXR() {
 	const xr = (navigator as any)?.xr as XRSystem;

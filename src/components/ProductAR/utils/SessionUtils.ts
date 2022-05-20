@@ -1,4 +1,3 @@
-import type {XRSystem} from "webxr";
 /**
  * XR session running.
  */

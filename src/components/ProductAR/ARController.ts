@@ -17,7 +17,6 @@ import {
 	WebGLRenderer,
 } from "three";
 import {XREstimatedLight} from "three/examples/jsm/webxr/XREstimatedLight";
-import type {XRSystem} from "webxr";
 
 import AugmentedMaterial from "./material/AugmentedMaterial";
 import Cursor from "./object/Cursor";
