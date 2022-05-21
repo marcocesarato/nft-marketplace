@@ -6,8 +6,8 @@ const useDimensions = (ref) => {
 
 	const getDimensions = useCallback(
 		() => ({
-			width: ref.current.offsetWidth,
-			height: ref.current.offsetHeight,
+			width: ref?.current?.offsetWidth || 0,
+			height: ref?.current?.offsetHeight || 0,
 		}),
 		[ref],
 	);

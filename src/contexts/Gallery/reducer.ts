@@ -9,18 +9,20 @@ export const reducer = (
 	action: {type: GalleryActionTypes; payload?: any},
 ) => {
 	let newState = new PlanimetrySchema();
-	let resultMap: PlanimetryMap = {} as PlanimetryMap;
 	const planimetryMap: PlanimetryMap = state.getMap();
 	switch (action.type) {
-		case GalleryActionTypesEnum.SetData:
+		case GalleryActionTypesEnum.SetData: {
 			newState.setMap(clone(action.payload));
 			return newState;
-		case GalleryActionTypesEnum.SetBlock:
+		}
+		case GalleryActionTypesEnum.SetBlock: {
+			let resultMap: PlanimetryMap = {} as PlanimetryMap;
 			resultMap = clone(planimetryMap);
 			resultMap.blocks[action.payload.value.id] = clone(action.payload.value);
 			newState.setMap(resultMap);
 			return newState;
-		case GalleryActionTypesEnum.SetSpawn:
+		}
+		case GalleryActionTypesEnum.SetSpawn: {
 			if (
 				state.isBlockInsideWalls(action.payload) &&
 				planimetryMap.blocks[action.payload]?.type !== PlanimetryBlockTypeEnum.Wall
@@ -28,10 +30,12 @@ export const reducer = (
 				const map = state.getMap();
 				newState.setMap(map);
 				newState.setSpawn(action.payload);
+				return newState;
 			}
-			return newState;
+			return state;
+		}
 		case GalleryActionTypesEnum.SetSize:
-		case GalleryActionTypesEnum.ResetMap:
+		case GalleryActionTypesEnum.ResetMap: {
 			const size = Math.max(action.payload || planimetryMap.width || minMapSize, minMapSize);
 			const map: PlanimetryMap = {
 				height: size,
@@ -48,6 +52,7 @@ export const reducer = (
 			}
 			newState.setMap(map);
 			return newState;
+		}
 		default:
 			return state;
 	}
