@@ -3,6 +3,7 @@ import {PlanimetryMap} from "@app/types";
 import {clone} from "@utils/converters";
 import {PlanimetrySchema} from "@utils/planimetry";
 
+const minMapSize = 10;
 export const reducer = (
 	state: PlanimetrySchema,
 	action: {type: GalleryActionTypes; payload?: any},
@@ -31,7 +32,7 @@ export const reducer = (
 			return newState;
 		case GalleryActionTypesEnum.SetSize:
 		case GalleryActionTypesEnum.ResetMap:
-			const size = Math.max(action.payload || planimetryMap.width || 10, 20);
+			const size = Math.max(action.payload || planimetryMap.width || minMapSize, minMapSize);
 			const map: PlanimetryMap = {
 				height: size,
 				width: size,
