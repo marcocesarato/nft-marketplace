@@ -60,7 +60,7 @@ export class PlanimetrySchema {
 		);
 	}
 
-	adjustSpawnPosition = () => {
+	public adjustSpawnPosition() {
 		let spawn = this.getSpawn();
 		const blocks = this.getBlocks();
 		if (blocks && blocks.length > 0) {
@@ -78,7 +78,7 @@ export class PlanimetrySchema {
 			}
 		}
 		this.map.spawn = spawn;
-	};
+	}
 
 	public getNeighbors(i: number) {
 		const neighbors = [];
