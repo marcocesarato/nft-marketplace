@@ -3,7 +3,7 @@ import {createContext, useCallback, useContext, useReducer, useState} from "reac
 import {GalleryActionTypesEnum} from "@app/enums";
 import type {PlanimetryBlock, PlanimetryMap, TextureAsset, TGalleryContext} from "@app/types";
 
-import createInitialState from "./initialState";
+import {createInitialState} from "./initialState";
 import reducer from "./reducer";
 
 const initialState = createInitialState();

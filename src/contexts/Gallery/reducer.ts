@@ -3,7 +3,8 @@ import {PlanimetryMap} from "@app/types";
 import {clone} from "@utils/converters";
 import {PlanimetrySchema} from "@utils/planimetry";
 
-const minMapSize = 10;
+import {createInitialSchema} from "./initialState";
+
 export const reducer = (
 	state: PlanimetrySchema,
 	action: {type: GalleryActionTypes; payload?: any},
@@ -36,22 +37,7 @@ export const reducer = (
 		}
 		case GalleryActionTypesEnum.SetSize:
 		case GalleryActionTypesEnum.ResetMap: {
-			const size = Math.max(action.payload || planimetryMap.width || minMapSize, minMapSize);
-			const map: PlanimetryMap = {
-				height: size,
-				width: size,
-				blocks: [],
-			};
-			for (let i = 0; i < size * size; i++) {
-				map.blocks[i] = {
-					id: i,
-					texture: null,
-					color: null,
-					type: PlanimetryBlockTypeEnum.Floor,
-				};
-			}
-			newState.setMap(map);
-			return newState;
+			return createInitialSchema(action.payload || planimetryMap.width);
 		}
 		default:
 			return state;
