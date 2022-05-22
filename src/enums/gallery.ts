@@ -8,6 +8,8 @@ export enum PlanimetryBlockType {
 export enum ObjectModelType {
 	Picture = "Picture",
 	Object = "Object",
+	GLFT = "GLFT",
+	GLB = "GLB",
 }
 
 export enum GalleryActionTypes {
@@ -16,6 +18,11 @@ export enum GalleryActionTypes {
 	SetSpawn = "SET_SPAWN",
 	SetSize = "SET_SIZE",
 	ResetMap = "RESET_MAP",
+}
+
+export enum GalleryAssetTypes {
+	Image = "Image",
+	Item = "Item",
 }
 
 export const PlanimetryBlockTypeEnum = {
@@ -28,6 +35,8 @@ export const PlanimetryBlockTypeEnum = {
 export const ObjectModelTypeEnum = {
 	Picture: "Picture" as ObjectModelType,
 	Object: "Object" as ObjectModelType,
+	GLFT: "GLFT" as ObjectModelType,
+	GLB: "GLB" as ObjectModelType,
 };
 
 export const GalleryActionTypesEnum = {
@@ -36,4 +45,9 @@ export const GalleryActionTypesEnum = {
 	SetSpawn: "SET_SPAWN" as GalleryActionTypes,
 	SetSize: "SET_SIZE" as GalleryActionTypes,
 	ResetMap: "RESET_MAP" as GalleryActionTypes,
+};
+
+export const GalleryAssetTypesEnum = {
+	Image: "Image" as GalleryAssetTypes,
+	Item: "Item" as GalleryAssetTypes,
 };
