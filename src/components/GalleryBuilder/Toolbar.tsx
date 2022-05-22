@@ -150,6 +150,7 @@ export default function Toolbar({onSave}): JSX.Element {
 				size="lg"
 				mt={4}
 				w={"full"}
+				colorScheme="purple"
 				justifyContent="center"
 				onClick={onSave}
 				withConfirm={true}

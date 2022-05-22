@@ -3,7 +3,7 @@ import {useTranslation} from "next-i18next";
 
 import Content from "@components/Content";
 import Gallery from "@components/Gallery";
-import GallerySettings from "@components/Gallery/Settings";
+import GalleryBuilder from "@components/GalleryBuilder";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
 import {GalleryProvider} from "@contexts/Gallery";
@@ -38,7 +38,7 @@ export default function MyGallery(): JSX.Element {
 					</TabPanel>
 					<TabPanel>
 						<GalleryProvider>
-							<GallerySettings />
+							<GalleryBuilder />
 						</GalleryProvider>
 					</TabPanel>
 				</TabPanels>
