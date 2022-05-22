@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import {lazy, useEffect} from "react";
 import {useMoralis} from "react-moralis";
 import Head from "next/head";
@@ -61,6 +62,18 @@ function Page({Component, pageProps}): JSX.Element {
 }
 
 function App(props): JSX.Element {
+	useEffect(() => {
+		if (process.env.NODE_ENV === "production") {
+			if (
+				location.hostname !== "localhost" &&
+				location.hostname !== "127.0.0.1" &&
+				window.location.protocol === "http:"
+			) {
+				window.location.protocol = "https:";
+			}
+		}
+	}, []);
+
 	return (
 		<Providers>
 			<Page {...props} />
