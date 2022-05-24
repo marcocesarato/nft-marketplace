@@ -26,7 +26,7 @@ export default function Home(): JSX.Element {
 	const items = data?.marketItems;
 	return (
 		<Box as="section" flex={1}>
-			<Box mx="auto" px={6} position="relative">
+			<Box position="relative">
 				<Box
 					position="absolute"
 					top="0"
@@ -45,6 +45,8 @@ export default function Home(): JSX.Element {
 						}}
 					/>
 				</Box>
+			</Box>
+			<Box mx="auto" px={6} pb={4}>
 				<HStack w="full" mb="6" mt={{base: 6, xl: 0}}>
 					<Box
 						textAlign={{
