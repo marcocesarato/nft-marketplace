@@ -1,4 +1,5 @@
 import {useMemo} from "react";
+import {CloseIcon} from "@chakra-ui/icons";
 import {
 	Accordion,
 	AccordionButton,
@@ -7,6 +8,7 @@ import {
 	AccordionPanel,
 	Box,
 	Button,
+	IconButton,
 	Select,
 	VStack,
 } from "@chakra-ui/react";
@@ -20,7 +22,7 @@ const blockTypesOptions = [
 ];
 
 export default function GalleryBlockDetails(): JSX.Element {
-	const {schema, selected, onChangeBlock} = useGallery();
+	const {schema, selected, onChangeBlock, onSelect} = useGallery();
 	let sections = {
 		"ceiling": false,
 		"ground": false,
@@ -61,7 +63,14 @@ export default function GalleryBlockDetails(): JSX.Element {
 		.filter(Boolean)
 		.map((key, i) => i);
 	return (
-		<VStack spacing={4} flex={1} maxWidth={300}>
+		<VStack spacing={4} flex={1} maxWidth={300} alignItems="flex-end">
+			<IconButton
+				icon={<CloseIcon />}
+				variant="ghost"
+				size="sm"
+				onClick={() => onSelect(null)}
+				aria-label={""}
+			/>
 			<Accordion defaultIndex={defaultIndex} allowMultiple width={"full"}>
 				<AccordionItem>
 					<h2>

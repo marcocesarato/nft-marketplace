@@ -30,12 +30,18 @@ export const GalleryProvider = ({children}): JSX.Element => {
 		});
 	}, []);
 
-	const setSpawn = useCallback((id: number) => {
-		dispatch({
-			type: GalleryActionTypesEnum.SetSpawn,
-			payload: id,
-		});
-	}, []);
+	const setSpawn = useCallback(
+		(id: number) => {
+			dispatch({
+				type: GalleryActionTypesEnum.SetSpawn,
+				payload: id,
+			});
+			if (selected.id === id) {
+				setSelected(null);
+			}
+		},
+		[selected],
+	);
 
 	const setMapSize = useCallback((size: number) => {
 		dispatch({
@@ -50,6 +56,15 @@ export const GalleryProvider = ({children}): JSX.Element => {
 		});
 	}, []);
 
+	const onSelect = useCallback(
+		(block: PlanimetryBlock) => {
+			if (block?.id !== planimetry.getSpawn()) {
+				setSelected(block);
+			}
+		},
+		[planimetry],
+	);
+
 	const planimetryMap = planimetry.getMap();
 	const globalState = {
 		schema: planimetry,
@@ -60,7 +75,7 @@ export const GalleryProvider = ({children}): JSX.Element => {
 		texture: texture,
 		clearMap: clearMap,
 		setPlanimetry: setPlanimetry,
-		onSelect: setSelected,
+		onSelect: onSelect,
 		onChangeBlock: setBlock,
 		onChangePlanimetry: setPlanimetry,
 		onChangeMapSize: setMapSize,

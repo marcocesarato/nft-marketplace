@@ -11,7 +11,7 @@ export default function Map(): JSX.Element {
 	const [mouseDown, setMouseDown] = useState(false);
 	const [mouseRightDown, setMouseRightDown] = useState(false);
 	const mapRef = useRef();
-	const {width: mapWidth} = useContainerDimensions(mapRef);
+	const {width: mapWidth, height, global} = useContainerDimensions(mapRef);
 	const planimetry = schema.getMap();
 	const size = useMemo(
 		() => mapWidth / Math.max(planimetry.width, planimetry.height),
@@ -25,7 +25,7 @@ export default function Map(): JSX.Element {
 				flex: 2,
 				width: "100%",
 				height: mapWidth,
-				maxWidth: window.innerHeight - 200,
+				maxWidth: (global?.innerHeight ?? height) - 150,
 			}}>
 			<tbody>
 				{Array.from(Array(planimetry.width).keys()).map((row) => (

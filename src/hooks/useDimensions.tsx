@@ -2,12 +2,18 @@ import {useCallback, useEffect, useState} from "react";
 
 const useDimensions = (ref) => {
 	const [observer, setObserver] = useState(null);
-	const [dimensions, setDimensions] = useState({width: 0, height: 0});
+	const [dimensions, setDimensions] = useState({width: 0, height: 0, global: null});
 
 	const getDimensions = useCallback(
 		() => ({
 			width: ref?.current?.offsetWidth || 0,
 			height: ref?.current?.offsetHeight || 0,
+			global: {
+				innerHeight: window?.innerHeight,
+				innerWidth: window?.innerWidth,
+				outerHeight: window?.outerHeight,
+				outerWidth: window?.outerWidth,
+			},
 		}),
 		[ref],
 	);

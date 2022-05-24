@@ -15,6 +15,7 @@ import {
 	AccordionItem,
 	AccordionPanel,
 	Box,
+	Heading,
 	HStack,
 	IconButton,
 	NumberDecrementStepper,
@@ -53,6 +54,9 @@ export default function Toolbar({onSave}): JSX.Element {
 	} = useDisclosure();
 	return (
 		<Box flex={1} maxWidth={300}>
+			<Heading size="md" mb={3}>
+				Settings
+			</Heading>
 			<Accordion defaultIndex={[0, 1]} allowMultiple>
 				<AccordionItem>
 					<h2>

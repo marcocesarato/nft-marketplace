@@ -1,6 +1,6 @@
 import {memo, MouseEvent, useCallback, useMemo} from "react";
 import {IoAccessibilitySharp} from "react-icons/io5";
-import {Td} from "@chakra-ui/react";
+import {Box} from "@chakra-ui/react";
 
 import {PlanimetryBlockTypeEnum} from "@app/enums";
 import type {PlanimetryBlock} from "@app/types";
@@ -85,7 +85,8 @@ function Block({
 	);
 
 	return (
-		<Td
+		<Box
+			as={"td"}
 			userSelect="none"
 			onContextMenu={(e) => e.preventDefault()}
 			onMouseDown={(e: MouseEvent) => {
@@ -110,9 +111,7 @@ function Block({
 						});
 						break;
 					case "select":
-						if (data.id !== schema.getSpawn()) {
-							onSelect(data);
-						}
+						onSelect(data);
 						break;
 					case "spawn":
 						onChangeSpawn(data.id);
@@ -153,25 +152,24 @@ function Block({
 				setMouseRightDown(false);
 			}}
 			{...getBlockStyle(data)}>
-			<span
-				style={{
-					backgroundColor: "#FFF",
-					color: "#000",
-					borderRadius: "50%",
-					height: "100%",
-					width: "100%",
-					display: "flex",
-					justifyContent: "center",
-					alignItems: "center",
-					visibility: data.id === schema.getSpawn() ? "visible" : "hidden",
-				}}>
+			<Box
+				as="span"
+				backgroundColor="#FFF"
+				color="#000"
+				borderRadius="50%"
+				height="100%"
+				width="100%"
+				display="flex"
+				justifyContent="center"
+				alignItems="center"
+				visibility={data.id === schema.getSpawn() ? "visible" : "hidden"}>
 				<IoAccessibilitySharp
 					style={{
 						display: "inline-block",
 					}}
 				/>
-			</span>
-		</Td>
+			</Box>
+		</Box>
 	);
 }
 

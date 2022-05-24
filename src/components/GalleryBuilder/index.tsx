@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useCallback, useEffect} from "react";
 import {Box, HStack} from "@chakra-ui/react";
 
 import {PlanimetryMap} from "@app/types";
@@ -16,7 +16,7 @@ export default function GallerySettings(): JSX.Element {
 	const {user, isLoading} = useUser();
 	const [userUpdate] = useUserUpdatePlanimetryMutation();
 
-	const onSave = () => {
+	const onSave = useCallback(() => {
 		if (schema.isValidPlanimetry()) {
 			const schemaMap = schema.getMap();
 			const planimetry = clone(schemaMap);
@@ -26,7 +26,8 @@ export default function GallerySettings(): JSX.Element {
 				},
 			});
 		}
-	};
+	}, [schema, userUpdate]);
+
 	useEffect(() => {
 		if (!isLoading && user?.planimetry && Object.keys(user?.planimetry).length > 0) {
 			setPlanimetry(user.planimetry as PlanimetryMap);
