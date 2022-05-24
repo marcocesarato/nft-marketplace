@@ -7,10 +7,15 @@ export default function useAFrame(callback?: () => void) {
 	useEffect(() => {
 		setLoaded(true);
 		if (AFRAME == null && typeof window !== "undefined") {
+			// Libs
 			require("aframe");
 			require("aframe-extras");
 			require("aframe-environment-component");
 			require("handy-work/build/esm/handy-work.standalone");
+			// Utils
+			require("@components/AFrame/utils/models");
+			require("@components/AFrame/utils/navmesh");
+			require("@components/AFrame/utils/physx");
 			callback && callback();
 		}
 	}, [setLoaded, callback]);
