@@ -7,7 +7,6 @@ import {
 	Image,
 	Stack,
 	Text,
-	useBreakpointValue,
 	useColorModeValue,
 } from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
@@ -27,12 +26,12 @@ export default function Home(): JSX.Element {
 	const items = data?.marketItems;
 	return (
 		<Box as="section" flex={1}>
-			<Box mx="auto" px={6}>
+			<Box mx="auto" px={6} position="relative">
 				<Box
 					position="absolute"
-					top="94px"
+					top="0"
 					width="100%"
-					left={useBreakpointValue({base: "0", lg: "15px"})}
+					left={0}
 					bg={useColorModeValue(
 						"linear-gradient(180deg, rgba(128,91,213,0.3) 60%, rgba(9,9,121,0) 100%)",
 						"linear-gradient(180deg, rgba(128,91,213,0.15) 60%, rgba(9,9,121,0) 100%)",
