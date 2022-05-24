@@ -18,29 +18,32 @@ const useDimensions = (ref) => {
 		[ref],
 	);
 
-	useEffect(() => {
-		const handleResize = () => {
-			setDimensions(getDimensions());
-		};
+	const handleResize = useCallback(() => {
+		setDimensions(getDimensions());
+	}, [getDimensions]);
 
+	useEffect(() => {
 		if (ref.current) {
 			observer?.disconnect();
 			const obs = new ResizeObserver(handleResize);
 			obs.observe(ref.current);
-
 			setObserver(obs);
-			setDimensions(getDimensions());
 		}
+		return () => {
+			observer?.disconnect();
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [handleResize]);
 
+	useEffect(() => {
 		window.addEventListener("resize", handleResize);
 		setTimeout(() => {
 			window.dispatchEvent(new Event("resize"));
 		}, 50);
 		return () => {
-			observer?.disconnect();
 			window.removeEventListener("resize", handleResize);
 		};
-	}, [getDimensions, observer, ref]);
+	}, [handleResize]);
 
 	return dimensions;
 };
