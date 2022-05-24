@@ -51,7 +51,15 @@ function Page({Component, pageProps}): JSX.Element {
 			<MainLayout>
 				<ErrorBoundary>
 					{isWeb3EnableLoading || isAuthenticating ? (
-						<Loader />
+						<Loader
+							message={
+								isAuthenticating
+									? "Authenticating..."
+									: isWeb3EnableLoading
+									? "Connecting to the wallet..."
+									: null
+							}
+						/>
 					) : (
 						<Component {...pageProps} />
 					)}

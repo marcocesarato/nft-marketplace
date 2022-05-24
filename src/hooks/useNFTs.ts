@@ -9,7 +9,7 @@ import useAccount from "./useAccount";
 import useIPFS from "./useIPFS";
 import useNFTMetadata from "./useNFTMetadata";
 
-const useNFTs = () => {
+const useNFTs = ({address = null}) => {
 	const Web3Api = useMoralisWeb3Api();
 	const {account, chainId} = useAccount();
 	const {withMetadata} = useNFTMetadata();
@@ -28,12 +28,13 @@ const useNFTs = () => {
 		}
 		return nft;
 	};
+	const accountAddress = address ?? account;
 	return useQuery<NFT[], Error>(
 		["NFTs", account, chainId],
 		async () => {
 			const options = {
 				chain: chainId,
-				address: account,
+				address: accountAddress,
 			};
 			const optionsContract = {
 				...options,
@@ -48,7 +49,7 @@ const useNFTs = () => {
 			}
 			return [];
 		},
-		{enabled: !!(chainId && account)},
+		{enabled: !!(chainId && accountAddress)},
 	);
 };
 
