@@ -56,8 +56,8 @@ export async function service() {
 				} else if (
 					existingToken.price.toString() !== item.price.toString() ||
 					existingToken.sold !== item.sold ||
-					existingToken.owner !== item.owner ||
-					existingToken.seller !== item.seller
+					existingToken.owner.toLowerCase() !== item.owner.toLowerCase() ||
+					existingToken.seller.toLowerCase() !== item.seller.toLowerCase()
 				) {
 					updateMarketItem(item.tokenId, item);
 				}
