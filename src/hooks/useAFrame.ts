@@ -1,4 +1,4 @@
-import {DOMAttributes, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 
 let AFRAME = null;
 export default function useAFrame(callback?: () => void) {
@@ -16,18 +16,4 @@ export default function useAFrame(callback?: () => void) {
 	}, [setLoaded, callback]);
 
 	return {isLoading};
-}
-
-type AFrameElement<T> = Partial<T & DOMAttributes<T> & {children: any}>;
-declare global {
-	namespace JSX {
-		interface IntrinsicElements {
-			["a-scene"]: AFrameElement<any>;
-			["a-entity"]: AFrameElement<any>;
-			["a-plane"]: AFrameElement<any>;
-			["a-sphere"]: AFrameElement<any>;
-			["a-sky"]: AFrameElement<any>;
-			["a-light"]: AFrameElement<any>;
-		}
-	}
 }

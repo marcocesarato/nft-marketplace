@@ -11,6 +11,7 @@ import {
 	Torus,
 } from "@belivvr/aframe-react";
 
+import {Environment} from "@components/AFrame";
 import Content from "@components/Content";
 import Loading from "@components/Loading";
 import useAFrame from "@hooks/useAFrame";
@@ -56,7 +57,7 @@ export default function Gallery(): JSX.Element {
 				loading-screen="dotsColor: #000; backgroundColor: #FFF"
 				deviceOrientationPermissionUI={{enabled: true}}>
 				{/* Environment */}
-				<a-entity environment="preset: forest; grid: cross"></a-entity>
+				<Environment config="preset: forest; grid: cross"></Environment>
 
 				{/* Sky */}
 				<Sky id="sky" color="#0000ff"></Sky>
