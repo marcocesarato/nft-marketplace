@@ -1,21 +1,12 @@
 import {GalleryAssetTypesEnum, ObjectModelTypeEnum} from "@app/enums";
 import type {ObjectModel, TextureAsset} from "@app/types";
 
-export const defaultFloorAttributes = {
-	"shadow": "cast:false;receive:true;",
-	"rotation": "-90 0 0",
-	"class": "navmesh",
-	"nav-mesh": "",
-};
+export const MinMapSize = 10;
+export const MaxMapSize = 30;
 
-export const defaultCeilingAttributes = {
-	"shadow": "cast:false;receive:true;",
-	"rotation": "-270 0 0",
-};
-
-export const defaultWallAttributes = {
-	"shadow": "cast:true;receive:true;",
-};
+export const WallSize = 3;
+export const WallHeight = 6;
+export const CameraHeight = 1.6;
 
 export const defaultTextureAttributes = {
 	"color": "#ffffff",
@@ -25,8 +16,6 @@ export const defaultTextureAttributes = {
 		"normal-texture-repeat: 4 4;" +
 		"normal-scale: 4 4;" +
 		"roughness-map: #wall-roughness;",
-	"physx-body": "type: static",
-	"physx-restitution": "1.5",
 	"segments-height": "2",
 	"segments-width": "2",
 	"segments-depth": "2",

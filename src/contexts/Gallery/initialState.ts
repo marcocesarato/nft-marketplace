@@ -1,11 +1,10 @@
 import {PlanimetryBlockTypeEnum} from "@app/enums";
 import type {PlanimetryMap, TGalleryContext} from "@app/types";
+import {MaxMapSize, MinMapSize} from "@configs/gallery";
 import {PlanimetrySchema} from "@utils/planimetry";
 
-export const minMapSize = 10;
-
 export function createInitialSchema(mapSize: number): PlanimetrySchema {
-	const size = Math.max(mapSize || minMapSize, minMapSize);
+	const size = Math.max(MinMapSize, Math.min(MaxMapSize, mapSize));
 	const map: PlanimetryMap = {
 		height: size,
 		width: size,
@@ -24,8 +23,8 @@ export function createInitialSchema(mapSize: number): PlanimetrySchema {
 
 export function createInitialState(): TGalleryContext {
 	return {
-		schema: createInitialSchema(minMapSize),
-		size: minMapSize,
+		schema: createInitialSchema(MinMapSize),
+		size: MinMapSize,
 		mode: "planimetry",
 		selected: null,
 		clearMap: () => {},

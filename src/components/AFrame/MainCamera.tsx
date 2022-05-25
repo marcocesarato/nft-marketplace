@@ -1,7 +1,12 @@
 import React from "react";
 import {AssetItem, Assets, Entity, Mixin, Sphere, Torus} from "@belivvr/aframe-react";
 
-export default function MainCamera({children = null, camera = {}, ...props}): JSX.Element {
+export default function MainCamera({
+	children = null,
+	camera = {},
+	userHeight = 1.65,
+	...props
+}): JSX.Element {
 	return (
 		<>
 			{children}
@@ -30,9 +35,9 @@ export default function MainCamera({children = null, camera = {}, ...props}): JS
 					id="head"
 					camera={{near: 0.01}}
 					lookControls={{enabled: true}}
-					position={{x: 0, y: 1.65, z: 0}}
+					position={{x: 0, y: userHeight, z: 0}}
 					wasdControls={{enabled: true, acceleration: 20}}
-					navmesh-constraint="navmesh:.navmesh;fall:0.5;height:1.6;exclude:.navmesh-hole;"
+					navmesh-constraint={`navmesh:.navmesh;fall:0.5;height:${userHeight};exclude:.navmesh-hole;`}
 					{...camera}></Entity>
 
 				{/* Hand tracking */}

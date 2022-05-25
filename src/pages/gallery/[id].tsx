@@ -1,16 +1,16 @@
 import {useRouter} from "next/router";
 import {GetStaticPaths} from "next/types";
-import {Center, Heading} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
-import Header from "@/src/components/Header";
 import Content from "@components/Content";
+import Gallery from "@components/Gallery";
+import Header from "@components/Header";
 import Loading from "@components/Loading";
 import {useUserQuery} from "@services/graphql";
 import {getStaticPropsLocale} from "@utils/i18n";
 
 export const getStaticProps = getStaticPropsLocale;
-export default function Account(): JSX.Element {
+export default function AccountGallery(): JSX.Element {
 	const {t} = useTranslation();
 	const router = useRouter();
 	const {id} = router.query;
@@ -29,13 +29,12 @@ export default function Account(): JSX.Element {
 			</Content>
 		);
 	}
-	if (error) return <Header title={t<string>("error:title")} subtitle={error.message} />;
 
-	return (
-		<Center flex="1" p="8">
-			<Heading>Account {id}</Heading>
-		</Center>
-	);
+	if (error) return <Header title={t<string>("error:title")} subtitle={error.message} />;
+	if (!data?.user?.planimetry)
+		return <Header title={"Empty gallery"} subtitle={"No gallery found"} />;
+
+	return <Gallery user={data.user} />;
 }
 
 export const getStaticPaths: GetStaticPaths<{slug: string}> = async () => {

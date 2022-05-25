@@ -9,7 +9,7 @@ import useAccount from "./useAccount";
 import useIPFS from "./useIPFS";
 import useNFTMetadata from "./useNFTMetadata";
 
-const useNFTs = ({address = null}) => {
+const useNFTs = ({address = null} = {}) => {
 	const Web3Api = useMoralisWeb3Api();
 	const {account, chainId} = useAccount();
 	const {withMetadata} = useNFTMetadata();
