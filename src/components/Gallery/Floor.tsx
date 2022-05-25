@@ -1,8 +1,11 @@
-import {Entity} from "@belivvr/aframe-react";
+import {Plane} from "@belivvr/aframe-react";
 
 import {TextureAsset} from "@app/types";
+import {WallSize} from "@configs/gallery";
 
 export const defaultFloorAttributes = {
+	"height": WallSize,
+	"width": WallSize,
 	"shadow": {cast: false, receive: true},
 	"rotation": {x: -90, y: 0, z: 0},
 	"physx-body": "type: static",
@@ -22,13 +25,13 @@ type FloorProps = {
 };
 
 export default function Floor({
-	navmesh = true,
+	navmesh = false,
 	color = "#FFFFFF",
 	texture = null,
 	...props
 }: FloorProps): JSX.Element {
 	return (
-		<Entity
+		<Plane
 			{...defaultFloorAttributes}
 			color={color}
 			{...(texture ? texture.attributes : {})}

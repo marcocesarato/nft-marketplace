@@ -1,4 +1,4 @@
-import {Entity} from "@belivvr/aframe-react";
+import {Box} from "@belivvr/aframe-react";
 
 import {TextureAsset} from "@app/types";
 import {WallHeight, WallSize} from "@configs/gallery";
@@ -29,7 +29,7 @@ export default function Wall({
 }: WallProps): JSX.Element {
 	return (
 		<>
-			<Entity
+			<Box
 				position={position}
 				color={color}
 				{...defaultWallAttributes}

@@ -3,7 +3,7 @@ import {Global} from "@emotion/react";
 const GlobalStyles = () => (
 	<Global
 		styles={`
-            html.a-fullscreen .a-canvas.a-grab-cursor, html.a-fullscreen #a-scene canvas.a-canvas {
+            html.a-fullscreen .a-canvas.a-grab-cursor, html.a-fullscreen #main-scene canvas.a-canvas {
                 position: static !important;
             }
             @font-face {

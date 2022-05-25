@@ -7,8 +7,11 @@ export default function useAFrame(callback?: () => void) {
 	useEffect(() => {
 		setLoaded(true);
 		if (AFRAME == null && typeof window !== "undefined") {
-			// Libs
+			// Main
 			require("aframe");
+			// Polyfills
+			require("@utils/polyfills/geometry");
+			// Libs
 			require("aframe-extras");
 			require("aframe-environment-component");
 			require("handy-work/build/esm/handy-work.standalone");

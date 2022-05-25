@@ -12,7 +12,7 @@ export default function MainScene(props): JSX.Element {
 	}, [scene]);
 
 	return (
-		<div ref={scene} style={{position: "relative"}}>
+		<div id="main-scene" ref={scene} style={{position: "relative"}}>
 			<Scene
 				fog={{type: "linear", color: "#000", far: 50, near: 10}}
 				background={{color: "skyblue"}}
