@@ -3,9 +3,10 @@ import {GetStaticPaths} from "next/types";
 import {Center, Heading} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
-import Header from "@/src/components/Header";
 import Content from "@components/Content";
+import Header from "@components/Header";
 import Loading from "@components/Loading";
+import ErrorNotFound from "@errors/ErrorNotFound";
 import {useUserQuery} from "@services/graphql";
 import {getStaticPropsLocale} from "@utils/i18n";
 
@@ -21,6 +22,7 @@ export default function Account(): JSX.Element {
 			},
 		},
 	});
+	const user = data?.user;
 
 	if (loading) {
 		return (
@@ -30,10 +32,11 @@ export default function Account(): JSX.Element {
 		);
 	}
 	if (error) return <Header title={t<string>("error:title")} subtitle={error.message} />;
+	if (!user) return <ErrorNotFound />;
 
 	return (
 		<Center flex="1" p="8">
-			<Heading>Account {id}</Heading>
+			<Heading>Account {user.username || user.account}</Heading>
 		</Center>
 	);
 }

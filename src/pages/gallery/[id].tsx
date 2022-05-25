@@ -6,6 +6,7 @@ import Content from "@components/Content";
 import Gallery from "@components/Gallery";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
+import ErrorNotFound from "@errors/ErrorNotFound";
 import {useUserQuery} from "@services/graphql";
 import {getStaticPropsLocale} from "@utils/i18n";
 
@@ -21,6 +22,7 @@ export default function AccountGallery(): JSX.Element {
 			},
 		},
 	});
+	const user = data?.user;
 
 	if (loading) {
 		return (
@@ -31,6 +33,7 @@ export default function AccountGallery(): JSX.Element {
 	}
 
 	if (error) return <Header title={t<string>("error:title")} subtitle={error.message} />;
+	if (!user) return <ErrorNotFound />;
 	if (!data?.user?.planimetry)
 		return <Header title={"Empty gallery"} subtitle={"No gallery found"} />;
 
