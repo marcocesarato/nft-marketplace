@@ -1,16 +1,14 @@
-import React, {useEffect} from "react";
+import React from "react";
 import Link from "next/link";
-import {Light, Sky} from "@belivvr/aframe-react";
 import {SettingsIcon} from "@chakra-ui/icons";
 import {IconButton} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
-import {GenericObject, PlanimetryMap} from "@app/types";
-import {Environment, MainCamera, MainScene} from "@components/AFrame";
+import {GenericObject} from "@app/types";
+import {MainScene} from "@components/AFrame";
 import Content from "@components/Content";
 import Loading from "@components/Loading";
-import {CameraHeight} from "@configs/gallery";
-import useGallery, {GalleryProvider} from "@contexts/Gallery";
+import {GalleryProvider} from "@contexts/Gallery";
 import useAFrame from "@hooks/useAFrame";
 
 import Map from "./Map";
@@ -21,15 +19,7 @@ type GalleryProps = {
 
 export default function Gallery({user}: GalleryProps): JSX.Element {
 	const {isLoading} = useAFrame();
-	const {setPlanimetry} = useGallery();
 	const {t} = useTranslation();
-
-	useEffect(() => {
-		if (!isLoading && user?.planimetry && Object.keys(user?.planimetry).length > 0) {
-			setPlanimetry(user.planimetry as PlanimetryMap);
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [user, isLoading]);
 
 	if (!isLoading) {
 		return (
@@ -40,29 +30,21 @@ export default function Gallery({user}: GalleryProps): JSX.Element {
 	}
 
 	return (
-		<>
+		<GalleryProvider>
 			<MainScene>
-				{/* Environment */}
-				<Environment config="preset: forest; grid: cross"></Environment>
-
 				{/* Sky */}
-				<Sky id="sky" color="#0000ff"></Sky>
+				<a-sky id="sky" color="#0000ff"></a-sky>
 
 				{/* Light */}
-				<Light light={{type: "ambient", castShadow: false}} intensity={0.4}></Light>
-				<Light
+				<a-light light="type:ambient;castShadow:false" intensity="0.4"></a-light>
+				<a-light
 					id="dirlight"
 					shadow-camera-automatic=".navmesh"
-					intensity={0.6}
-					light={{castShadow: true, type: "directional"}}
-					position={{x: 0, y: 15, z: -6}}></Light>
+					intensity="0.6"
+					light="castShadow:true;type:directional"
+					position="0 15 -6"></a-light>
 
-				{/* Camera */}
-				<MainCamera userHeight={CameraHeight} />
-
-				<GalleryProvider>
-					<Map />
-				</GalleryProvider>
+				<Map planimetry={user?.planimetry} />
 			</MainScene>
 			<Link href="/builder">
 				<IconButton
@@ -75,6 +57,6 @@ export default function Gallery({user}: GalleryProps): JSX.Element {
 					icon={<SettingsIcon />}
 				/>
 			</Link>
-		</>
+		</GalleryProvider>
 	);
 }
