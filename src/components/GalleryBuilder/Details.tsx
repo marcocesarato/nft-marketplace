@@ -114,15 +114,15 @@ export default function GalleryBlockDetails(): JSX.Element {
 								</AccordionButton>
 							</h2>
 							<AccordionPanel pb={4}>
-								<Button width="full" size="sm" mb={2} onClick={() => {}}>
-									Add new object
-								</Button>
-								{key === "ground" ||
-									(key === "ceiling" && (
-										<Button width="full" size="sm" mb={2} onClick={() => {}}>
-											Add new painting
-										</Button>
-									))}
+								{key === "ground" || key === "ceiling" ? (
+									<Button width="full" size="sm" mb={2} onClick={() => {}}>
+										Add new object
+									</Button>
+								) : (
+									<Button width="full" size="sm" mb={2} onClick={() => {}}>
+										Add new painting
+									</Button>
+								)}
 							</AccordionPanel>
 						</AccordionItem>
 					);
