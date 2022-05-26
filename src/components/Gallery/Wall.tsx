@@ -1,7 +1,8 @@
 import {Box} from "@belivvr/aframe-react";
 
 import {TextureAsset} from "@app/types";
-import {WallHeight, WallSize} from "@configs/gallery";
+import {defaultWallTexture, WallHeight, WallSize} from "@configs/gallery";
+import {convertAllStringToAttributes} from "@utils/converters";
 
 import Floor from "./Floor";
 
@@ -12,6 +13,7 @@ export const defaultWallAttributes = {
 	"shadow": {cast: true, receive: true},
 	"physx-body": "type: static",
 	"physx-restitution": "1.5",
+	...convertAllStringToAttributes(defaultWallTexture.attributes),
 };
 
 type WallProps = {
@@ -33,7 +35,7 @@ export default function Wall({
 				position={position}
 				color={color}
 				{...defaultWallAttributes}
-				{...(texture ? texture.attributes : {})}
+				{...(texture ? convertAllStringToAttributes(texture.attributes) : {})}
 				{...props}
 			/>
 			<Floor position={position} color={color} texture={texture} navmesh={false} />

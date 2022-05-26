@@ -1,7 +1,8 @@
 import {Plane} from "@belivvr/aframe-react";
 
 import {TextureAsset} from "@app/types";
-import {WallSize} from "@configs/gallery";
+import {defaultCeilingTexture, WallSize} from "@configs/gallery";
+import {convertAllStringToAttributes} from "@utils/converters";
 
 export const defaultCeilingAttributes = {
 	"height": WallSize,
@@ -10,6 +11,7 @@ export const defaultCeilingAttributes = {
 	"rotation": {x: -270, y: 0, z: 0},
 	"physx-body": "type: static",
 	"physx-restitution": "1.5",
+	...convertAllStringToAttributes(defaultCeilingTexture.attributes),
 };
 
 type CeilingProps = {
@@ -27,7 +29,7 @@ export default function Ceiling({
 		<Plane
 			{...defaultCeilingAttributes}
 			color={color}
-			{...(texture ? texture.attributes : {})}
+			{...(texture ? convertAllStringToAttributes(texture.attributes) : {})}
 			{...props}
 		/>
 	);

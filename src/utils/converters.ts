@@ -1,6 +1,7 @@
 import {formatEther} from "@ethersproject/units";
 import type {BigNumberish} from "ethers";
 
+import {GenericObject} from "@app/types";
 import {formatUnits} from "@utils/units";
 
 export const convertEtherToPrice = (ether: BigNumberish, etherPrice: number) =>
@@ -28,4 +29,43 @@ export const clone = (obj: any): any => {
 	return JSON.parse(
 		JSON.stringify(obj, (_key, value) => (value instanceof Set ? [...value] : value)),
 	);
+};
+
+export const convertToPositionAttributes = (
+	attributes: string,
+): {x: number; y: number; z?: number} => {
+	const [x, y, z] = attributes.split(" ").map((value) => parseFloat(value));
+	return {x, y, z};
+};
+
+export const convertStringToAttributes = (attributes: string): GenericObject => {
+	const regex = /^([-]?\d+\s){2,}$/;
+	const result: GenericObject = {};
+	const attributesArray = attributes.split(";");
+	attributesArray.forEach((attribute) => {
+		let [key, value] = attribute.split(":");
+		if (key && value) {
+			key = key.replace("-map-map", "-map");
+			result[key] = String(value).trim();
+			if (regex.exec(result[key] + " ") !== null) {
+				result[key] = convertToPositionAttributes(result[key]);
+			}
+		}
+	});
+	return result;
+};
+
+export const convertAllStringToAttributes = (attributes: GenericObject) => {
+	const newAttributes = {};
+	Object.keys(attributes).forEach((key) => {
+		const value = attributes[key];
+		if (typeof value === "string") {
+			if (value.includes(";") || value.includes(":")) {
+				newAttributes[key] = convertStringToAttributes(value);
+				return;
+			}
+		}
+		newAttributes[key] = value;
+	});
+	return newAttributes;
 };

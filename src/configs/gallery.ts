@@ -49,8 +49,81 @@ export const textures: TextureAsset[] = [
 				"repeat: 4 4;" +
 				"normal-map: #wall-normal;" +
 				"normal-texture-repeat: 4 4;" +
-				"normal-scale: 8 8;" +
+				"normal-scale: 4 4;" +
 				"roughness-map: #wall-roughness;",
+		},
+	},
+	{
+		name: "textures.terrazzo",
+		image: "/assets/textures/terrazzo/terrazzo.jpg",
+		assets: [
+			{
+				id: "terrazzo",
+				src: "/assets/textures/terrazzo/terrazzo.jpg",
+				type: GalleryAssetTypesEnum.Image,
+			},
+			{
+				id: "terrazzo-normal",
+				src: "/assets/textures/terrazzo/terrazzo_normal.jpg",
+				type: GalleryAssetTypesEnum.Image,
+			},
+			{
+				id: "terrazzo-roughness",
+				src: "/assets/textures/terrazzo/terrazzo_roughness.jpg",
+				type: GalleryAssetTypesEnum.Image,
+			},
+		],
+		attributes: {
+			...defaultTextureAttributes,
+			"material":
+				"src: #terrazzo;" +
+				"repeat: 1 1;" +
+				"normal-map: #terrazzo-normal;" +
+				"normal-texture-repeat: 1 1;" +
+				"normal-scale: 1 1;" +
+				"roughness-map: #terrazzo-roughness;",
+		},
+	},
+	{
+		name: "textures.ceiling",
+		image: "/assets/textures/ceiling/ceiling.jpg",
+		assets: [
+			{
+				id: "ceiling",
+				src: "/assets/textures/ceiling/ceiling.jpg",
+				type: GalleryAssetTypesEnum.Image,
+			},
+			{
+				id: "ceiling-normal",
+				src: "/assets/textures/ceiling/ceiling_normal.jpg",
+				type: GalleryAssetTypesEnum.Image,
+			},
+			{
+				id: "ceiling-roughness",
+				src: "/assets/textures/ceiling/ceiling_roughness.jpg",
+				type: GalleryAssetTypesEnum.Image,
+			},
+			{
+				id: "ceiling-ao",
+				src: "/assets/textures/ceiling/ceiling_ao.jpg",
+				type: GalleryAssetTypesEnum.Image,
+			},
+			{
+				id: "ceiling-height",
+				src: "/assets/textures/ceiling/ceiling_height.jpg",
+				type: GalleryAssetTypesEnum.Image,
+			},
+		],
+		attributes: {
+			...defaultTextureAttributes,
+			"material":
+				"src: #ceiling;" +
+				"repeat: 1 1;" +
+				"normal-map: #ceiling-normal;" +
+				"normal-texture-repeat: 1 1;" +
+				"normal-scale: 1 1;" +
+				"roughness-map: #ceiling-roughness;" +
+				"metalness-map: #ceiling-metallic;",
 		},
 	},
 	{
@@ -92,7 +165,7 @@ export const textures: TextureAsset[] = [
 				"normal-texture-repeat: 1 1;" +
 				"normal-scale: 2 2;" +
 				"roughness-map: #rocks-roughness;" +
-				"ambient-occlusion-map-map: #rocks-ao;",
+				"ambient-occlusion-map: #rocks-ao;",
 			"segments-height": "3",
 			"segments-depth": "3",
 		},
@@ -219,37 +292,6 @@ export const textures: TextureAsset[] = [
 		},
 	},
 	{
-		name: "textures.terrazzo",
-		image: "/assets/textures/terrazzo/terrazzo.jpg",
-		assets: [
-			{
-				id: "terrazzo",
-				src: "/assets/textures/terrazzo/terrazzo.jpg",
-				type: GalleryAssetTypesEnum.Image,
-			},
-			{
-				id: "terrazzo-normal",
-				src: "/assets/textures/terrazzo/terrazzo_normal.jpg",
-				type: GalleryAssetTypesEnum.Image,
-			},
-			{
-				id: "terrazzo-roughness",
-				src: "/assets/textures/terrazzo/terrazzo_roughness.jpg",
-				type: GalleryAssetTypesEnum.Image,
-			},
-		],
-		attributes: {
-			...defaultTextureAttributes,
-			"material":
-				"src: #terrazzo;" +
-				"repeat: 1 1;" +
-				"normal-map: #terrazzo-normal;" +
-				"normal-texture-repeat: 1 1;" +
-				"normal-scale: 1 1;" +
-				"roughness-map: #terrazzo-roughness;",
-		},
-	},
-	{
 		name: "textures.parquet",
 		image: "/assets/textures/parquet/parquet.jpg",
 		assets: [
@@ -280,51 +322,11 @@ export const textures: TextureAsset[] = [
 				"roughness-map: #parquet-roughness;",
 		},
 	},
-	{
-		name: "textures.ceiling",
-		image: "/assets/textures/ceiling/ceiling.jpg",
-		assets: [
-			{
-				id: "ceiling",
-				src: "/assets/textures/ceiling/ceiling.jpg",
-				type: GalleryAssetTypesEnum.Image,
-			},
-			{
-				id: "ceiling-normal",
-				src: "/assets/textures/ceiling/ceiling_normal.jpg",
-				type: GalleryAssetTypesEnum.Image,
-			},
-			{
-				id: "ceiling-roughness",
-				src: "/assets/textures/ceiling/ceiling_roughness.jpg",
-				type: GalleryAssetTypesEnum.Image,
-			},
-			{
-				id: "ceiling-ao",
-				src: "/assets/textures/ceiling/ceiling_ao.jpg",
-				type: GalleryAssetTypesEnum.Image,
-			},
-			{
-				id: "ceiling-height",
-				src: "/assets/textures/ceiling/ceiling_height.jpg",
-				type: GalleryAssetTypesEnum.Image,
-			},
-		],
-		attributes: {
-			...defaultTextureAttributes,
-			"material":
-				"src: #ceiling;" +
-				"repeat: 1 1;" +
-				"normal-map: #ceiling-normal;" +
-				"normal-texture-repeat: 1 1;" +
-				"normal-scale: 1 1;" +
-				"roughness-map: #ceiling-roughness;" +
-				"metalness-map: #ceiling-metallic;",
-		},
-	},
 ];
 
 export const defaultWallTexture = textures[0];
+export const defaultFloorTexture = textures[1];
+export const defaultCeilingTexture = textures[2];
 
 export const objectsModels: ObjectModel[] = [
 	{

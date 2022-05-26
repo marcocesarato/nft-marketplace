@@ -15,9 +15,8 @@ declare global {
 	namespace JSX {
 		interface IntrinsicElements {
 			["a-scene"]: HTMLAttributes<EntityProps>;
-			["a-box"]: HTMLAttributes<EntityProps>;
-			["a-plane"]: HTMLAttributes<EntityProps>;
 			["a-entity"]: HTMLAttributes<EntityProps>;
+			["a-box"]: HTMLAttributes<EntityProps>;
 			["a-plane"]: HTMLAttributes<EntityProps>;
 			["a-sphere"]: HTMLAttributes<EntityProps>;
 			["a-sky"]: HTMLAttributes<EntityProps>;
