@@ -1215,7 +1215,7 @@ class Geometry extends THREE.EventDispatcher {
 	}
 
 	applyMatrix(matrix) {
-		console.warn("THREE.Geometry: .applyMatrix() has been renamed to .applyMatrix4().");
+		//console.warn("THREE.Geometry: .applyMatrix() has been renamed to .applyMatrix4().");
 		return this.applyMatrix4(matrix);
 	}
 
@@ -1423,7 +1423,7 @@ class DirectGeometry {
 				if (vertexUvs !== undefined) {
 					this.uvs.push(vertexUvs[0], vertexUvs[1], vertexUvs[2]);
 				} else {
-					console.warn("THREE.DirectGeometry.fromGeometry(): Undefined vertexUv ", i);
+					//console.warn("THREE.DirectGeometry.fromGeometry(): Undefined vertexUv ", i);
 
 					this.uvs.push(new THREE.Vector2(), new THREE.Vector2(), new THREE.Vector2());
 				}
@@ -1435,7 +1435,7 @@ class DirectGeometry {
 				if (vertexUvs !== undefined) {
 					this.uvs2.push(vertexUvs[0], vertexUvs[1], vertexUvs[2]);
 				} else {
-					console.warn("THREE.DirectGeometry.fromGeometry(): Undefined vertexUv2 ", i);
+					//console.warn("THREE.DirectGeometry.fromGeometry(): Undefined vertexUv2 ", i);
 
 					this.uvs2.push(new THREE.Vector2(), new THREE.Vector2(), new THREE.Vector2());
 				}
