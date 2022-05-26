@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import {Light, Sky} from "@belivvr/aframe-react";
 import {SettingsIcon} from "@chakra-ui/icons";
 import {IconButton} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
@@ -33,16 +34,16 @@ export default function Gallery({user}: GalleryProps): JSX.Element {
 		<GalleryProvider>
 			<MainScene>
 				{/* Sky */}
-				<a-sky id="sky" color="#0000ff"></a-sky>
+				<Sky id="sky" color="#0000ff"></Sky>
 
 				{/* Light */}
-				<a-light light="type:ambient;castShadow:false" intensity="0.4"></a-light>
-				<a-light
+				<Light light={{type: "ambient", castShadow: false}} intensity={0.8}></Light>
+				<Light
 					id="dirlight"
 					shadow-camera-automatic=".navmesh"
-					intensity="0.6"
-					light="castShadow:true;type:directional"
-					position="0 15 -6"></a-light>
+					intensity={0.6}
+					light={{type: "directional", castShadow: false}}
+					position={{x: 0, y: 15, z: -6}}></Light>
 
 				<Map planimetry={user?.planimetry} />
 			</MainScene>

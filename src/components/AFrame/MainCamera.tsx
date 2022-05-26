@@ -1,5 +1,5 @@
 import React from "react";
-import {AssetItem, Assets, Entity, Mixin, Sphere, Torus} from "@belivvr/aframe-react";
+import {AssetItem, Assets, Entity, Mixin, Sphere} from "@belivvr/aframe-react";
 
 export default function MainCamera({
 	children = null,
@@ -33,34 +33,18 @@ export default function MainCamera({
 				{...props}>
 				<Entity
 					id="head"
-					camera={{near: 0.01}}
+					camera={{near: 0.5}}
 					lookControls={{enabled: true}}
 					position={{x: 0, y: userHeight, z: 0}}
 					wasdControls={{enabled: true, acceleration: 20}}
 					navmesh-constraint={`navmesh:.navmesh;fall:0.5;height:${userHeight};exclude:.navmesh-hole;`}
-					{...camera}></Entity>
+					{...camera}
+				/>
 
 				{/* Hand tracking */}
 				<Entity
 					handy-controls="right:#right-gltf;materialOverride:right;"
 					material={{color: "gold", metalness: 1, roughness: 0}}>
-					{/* For screen space inputs like mobile AR */}
-					<Torus
-						radius={0.008}
-						radiusTubular={0.001}
-						material={{shader: "flat", color: "blue"}}
-						data-none="screen-0"></Torus>
-					<Torus
-						radius={0.008}
-						radiusTubular={0.001}
-						material={{shader: "flat", color: "green"}}
-						data-none="screen-1"></Torus>
-					<Torus
-						radius={0.008}
-						radiusTubular={0.001}
-						material={{shader: "flat", color: "red"}}
-						data-none="screen-2"></Torus>
-
 					{/* Use the finger tips for teleporting when the user points */}
 					<Entity
 						data-right="index-finger-tip"

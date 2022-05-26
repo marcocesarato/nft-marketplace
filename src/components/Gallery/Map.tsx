@@ -32,6 +32,9 @@ export default function GalleryMap({planimetry}): JSX.Element {
 		z: (spawnY - map.height / 2) * WallSize,
 	};
 
+	const spawnDirection = schema.getLongestBlockDirection(spawn);
+	let cameraRotation = schema.getDirectionRotation(spawnDirection);
+
 	useEffect(() => {
 		if (planimetry) setPlanimetry(planimetry);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -126,7 +129,11 @@ export default function GalleryMap({planimetry}): JSX.Element {
 			{/* Blocks */}
 			{BlocksRender}
 			{/* Camera */}
-			<MainCamera userHeight={CameraHeight} position={cameraPosition} />
+			<MainCamera
+				userHeight={CameraHeight}
+				position={cameraPosition}
+				rotation={cameraRotation}
+			/>
 		</>
 	);
 }

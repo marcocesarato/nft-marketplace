@@ -58,16 +58,16 @@ function Block({
 				});
 			}
 			const marginBorder = isWall ? wallBorder : defaultMarginBorder;
-			if (schema.isMapBorderTop(block.id)) {
+			if (schema.isMapBorderNorth(block.id)) {
 				styles.borderTop = marginBorder;
 			}
-			if (schema.isMapBorderBottom(block.id)) {
+			if (schema.isMapBorderSouth(block.id)) {
 				styles.borderBottom = marginBorder;
 			}
-			if (schema.isMapBorderLeft(block.id)) {
+			if (schema.isMapBorderWest(block.id)) {
 				styles.borderLeft = marginBorder;
 			}
-			if (schema.isMapBorderRight(block.id)) {
+			if (schema.isMapBorderEast(block.id)) {
 				styles.borderRight = marginBorder;
 			}
 			if (selected?.id === block.id) {

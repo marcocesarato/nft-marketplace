@@ -110,7 +110,12 @@ export const textures: TextureAsset[] = [
 			},
 			{
 				id: "ceiling-height",
-				src: "/assets/textures/ceiling/ceiling_height.jpg",
+				src: "/assets/textures/ceiling/ceiling_height.png",
+				type: GalleryAssetTypesEnum.Image,
+			},
+			{
+				id: "ceiling-metallic",
+				src: "/assets/textures/ceiling/ceiling_metallic.jpg",
 				type: GalleryAssetTypesEnum.Image,
 			},
 		],
@@ -202,7 +207,7 @@ export const textures: TextureAsset[] = [
 				"repeat: 1 1;" +
 				"normal-map: #bricks-normal;" +
 				"normal-texture-repeat: 1 1;" +
-				"normal-scale: 4 4;" +
+				"normal-scale: 2 2;" +
 				"roughness-map: #bricks-roughness;" +
 				"ambient-occlusion-map: #bricks-ao;",
 		},
@@ -244,7 +249,7 @@ export const textures: TextureAsset[] = [
 				"repeat: 2 2;" +
 				"normal-map: #wood-bricks-normal;" +
 				"normal-texture-repeat: 2 2;" +
-				"normal-scale: 6 6;" +
+				"normal-scale: 4 4;" +
 				"roughness-map: #wood-bricks-roughness;" +
 				"ambient-occlusion-map: #wood-bricks-ao;",
 		},
@@ -271,6 +276,11 @@ export const textures: TextureAsset[] = [
 			{
 				id: "scifi-ao",
 				src: "/assets/textures/scifi/scifi_ao.jpg",
+				type: GalleryAssetTypesEnum.Image,
+			},
+			{
+				id: "scifi-metallic",
+				src: "/assets/textures/scifi/scifi_metallic.jpg",
 				type: GalleryAssetTypesEnum.Image,
 			},
 			{
@@ -324,10 +334,6 @@ export const textures: TextureAsset[] = [
 	},
 ];
 
-export const defaultWallTexture = textures[0];
-export const defaultFloorTexture = textures[1];
-export const defaultCeilingTexture = textures[2];
-
 export const objectsModels: ObjectModel[] = [
 	{
 		name: "Sofa",
@@ -363,3 +369,7 @@ export const objectsModels: ObjectModel[] = [
 		},
 	},
 ];
+
+export const defaultWallTexture = textures[0];
+export const defaultFloorTexture = textures[1];
+export const defaultCeilingTexture = textures[2];

@@ -25,6 +25,13 @@ export enum GalleryAssetTypes {
 	Item = "Item",
 }
 
+export enum MapDirection {
+	North = "North",
+	East = "East",
+	South = "South",
+	West = "West",
+}
+
 export const PlanimetryBlockTypeEnum = {
 	Wall: "Wall" as PlanimetryBlockType,
 	Floor: "Floor" as PlanimetryBlockType,
@@ -50,4 +57,11 @@ export const GalleryActionTypesEnum = {
 export const GalleryAssetTypesEnum = {
 	Image: "Image" as GalleryAssetTypes,
 	Item: "Item" as GalleryAssetTypes,
+};
+
+export const MapDirectionEnum = {
+	North: "North" as MapDirection,
+	East: "East" as MapDirection,
+	South: "South" as MapDirection,
+	West: "West" as MapDirection,
 };

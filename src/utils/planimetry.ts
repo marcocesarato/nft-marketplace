@@ -1,4 +1,4 @@
-import {PlanimetryBlockTypeEnum} from "@app/enums";
+import {MapDirection, MapDirectionEnum, PlanimetryBlockTypeEnum} from "@app/enums";
 import type {PlanimetryMap} from "@app/types";
 
 export class PlanimetrySchema {
@@ -35,28 +35,28 @@ export class PlanimetrySchema {
 		return this.map.blocks;
 	}
 
-	public isMapBorderTop(i: number) {
+	public isMapBorderNorth(i: number) {
 		return i < this.map.width;
 	}
 
-	public isMapBorderBottom(i: number) {
+	public isMapBorderSouth(i: number) {
 		return i >= this.map.width * this.map.height - this.map.width;
 	}
 
-	public isMapBorderLeft(i: number) {
+	public isMapBorderWest(i: number) {
 		return i % this.map.width === 0;
 	}
 
-	public isMapBorderRight(i: number) {
+	public isMapBorderEast(i: number) {
 		return i % this.map.width === this.map.width - 1;
 	}
 
 	public isMapBorder(i: number) {
 		return (
-			this.isMapBorderTop(i) ||
-			this.isMapBorderBottom(i) ||
-			this.isMapBorderLeft(i) ||
-			this.isMapBorderRight(i)
+			this.isMapBorderNorth(i) ||
+			this.isMapBorderSouth(i) ||
+			this.isMapBorderWest(i) ||
+			this.isMapBorderEast(i)
 		);
 	}
 
@@ -95,18 +95,30 @@ export class PlanimetrySchema {
 		const neighbors = [];
 		const x = i % this.map.width;
 		const y = Math.floor(i / this.map.width);
-		if (x > 0) neighbors.push({direction: "left", ...this.map.blocks[i - 1]});
-		if (x < this.map.width - 1) neighbors.push({direction: "right", ...this.map.blocks[i + 1]});
-		if (y > 0) neighbors.push({direction: "top", ...this.map.blocks[i - this.map.width]});
+		if (x > 0)
+			neighbors.push({
+				direction: MapDirectionEnum.West,
+				...this.map.blocks[i - 1],
+			});
+		if (x < this.map.width - 1)
+			neighbors.push({
+				direction: MapDirectionEnum.East,
+				...this.map.blocks[i + 1],
+			});
+		if (y > 0)
+			neighbors.push({
+				direction: MapDirectionEnum.North,
+				...this.map.blocks[i - this.map.width],
+			});
 		if (y < this.map.height - 1)
 			neighbors.push({
-				direction: "bottom",
+				direction: MapDirectionEnum.South,
 				...this.map.blocks[i + this.map.width],
 			});
 		return neighbors;
 	}
 
-	private findConnectedBlocks(i: number): Set<number> {
+	private getConnectedBlocks(i: number): Set<number> {
 		const type = this.map.blocks[i]?.type;
 		const visited = new Set<number>();
 		const connected = new Set<number>();
@@ -130,6 +142,31 @@ export class PlanimetrySchema {
 		return connected;
 	}
 
+	private getConnectedBlocksOnDirection(i: number, direction: MapDirection): Set<number> {
+		const type = this.map.blocks[i]?.type;
+		const visited = new Set<number>();
+		const connected = new Set<number>();
+		const toCheck = new Set<number>([i]);
+		while (toCheck.size > 0) {
+			const current = toCheck.values().next().value;
+			toCheck.delete(current);
+			visited.add(current);
+			connected.add(current);
+			const neighbors = this.getNeighborsDetails(current);
+			for (const neighbor of neighbors) {
+				if (
+					neighbor.type === type &&
+					neighbor.direction === direction &&
+					!visited.has(neighbor.id) &&
+					!toCheck.has(neighbor.id)
+				) {
+					toCheck.add(neighbor.id);
+				}
+			}
+		}
+		return connected;
+	}
+
 	public getOutsideWallBlocks() {
 		if (this.blocksOutsideWall.size > 0) return this.blocksOutsideWall;
 		for (var x = 0; x < this.map.height; x++) {
@@ -143,7 +180,7 @@ export class PlanimetrySchema {
 						this.map.blocks[i].type == null)
 				) {
 					// Add all connected planes to outsideWallsPlanes
-					const connected = this.findConnectedBlocks(i);
+					const connected = this.getConnectedBlocks(i);
 					this.blocksOutsideWall = new Set([...this.blocksOutsideWall, ...connected]);
 				}
 			}
@@ -175,5 +212,37 @@ export class PlanimetrySchema {
 	public isValidPlanimetry() {
 		const insideFloor = this.getInsideWallBlocks();
 		return insideFloor.size > 0;
+	}
+
+	public getLongestBlockDirection(i: number): MapDirection {
+		const connectedNorth = this.getConnectedBlocksOnDirection(i, MapDirectionEnum.North);
+		const connectedSouth = this.getConnectedBlocksOnDirection(i, MapDirectionEnum.South);
+		const connectedWest = this.getConnectedBlocksOnDirection(i, MapDirectionEnum.West);
+		const connectedEast = this.getConnectedBlocksOnDirection(i, MapDirectionEnum.East);
+		const max = Math.max(
+			connectedNorth.size,
+			connectedSouth.size,
+			connectedWest.size,
+			connectedEast.size,
+		);
+		if (max === connectedNorth.size) return MapDirectionEnum.North;
+		if (max === connectedSouth.size) return MapDirectionEnum.South;
+		if (max === connectedWest.size) return MapDirectionEnum.West;
+		if (max === connectedEast.size) return MapDirectionEnum.East;
+		return MapDirectionEnum.North;
+	}
+
+	public getDirectionRotation(direction: MapDirection) {
+		switch (direction) {
+			case MapDirectionEnum.South:
+				return {x: 0, y: 180, z: 0};
+			case MapDirectionEnum.West:
+				return {x: 0, y: 90, z: 0};
+			case MapDirectionEnum.East:
+				return {x: 0, y: 270, z: 0};
+			case MapDirectionEnum.North:
+			default:
+				return {x: 0, y: 0, z: 0};
+		}
 	}
 }

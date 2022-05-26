@@ -23,7 +23,7 @@ export default function MainScene(props): JSX.Element {
 						"https://cdn.jsdelivr.net/npm/three@0.129.0/examples/js/libs/draco/gltf/",
 				}}
 				physx="autoLoad: true; delay: 1000; wasmUrl: https://stemkoski.github.io/A-Frame-Examples/js/physx.release.wasm; useDefaultScene: false;"
-				raycaster="objects: Sphere"
+				raycaster="objects: a-sphere"
 				loading-screen="dotsColor: #000; backgroundColor: #FFF"
 				deviceOrientationPermissionUI={{enabled: true}}
 				{...props}

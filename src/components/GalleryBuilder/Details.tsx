@@ -13,7 +13,7 @@ import {
 	VStack,
 } from "@chakra-ui/react";
 
-import {PlanimetryBlockType, PlanimetryBlockTypeEnum} from "@app/enums";
+import {MapDirectionEnum, PlanimetryBlockType, PlanimetryBlockTypeEnum} from "@app/enums";
 import useGallery from "@contexts/Gallery";
 
 const blockTypesOptions = [
@@ -26,10 +26,10 @@ export default function GalleryBlockDetails(): JSX.Element {
 	let sections = {
 		"ceiling": false,
 		"ground": false,
-		"left": false,
-		"right": false,
-		"top": false,
-		"bottom": false,
+		[MapDirectionEnum.West]: false,
+		[MapDirectionEnum.East]: false,
+		[MapDirectionEnum.North]: false,
+		[MapDirectionEnum.South]: false,
 	};
 	const neightbours = useMemo(
 		() => (selected && schema ? schema.getNeighborsDetails(selected.id) : []),
