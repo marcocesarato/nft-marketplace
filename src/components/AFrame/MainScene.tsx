@@ -1,15 +1,15 @@
-import React, {useEffect, useRef} from "react";
+import React, {useRef} from "react";
 import {Scene} from "@belivvr/aframe-react";
 
 export default function MainScene(props): JSX.Element {
 	const scene = useRef();
 
-	useEffect(() => {
+	/*useEffect(() => {
 		if (scene.current) {
 			const canvas = (scene.current as Element).querySelector("canvas");
 			canvas?.setAttribute("tabindex", "0");
 		}
-	}, [scene]);
+	}, [scene]);*/
 
 	return (
 		<div id="main-scene" ref={scene} style={{position: "relative"}}>
