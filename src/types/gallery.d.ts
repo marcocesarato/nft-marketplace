@@ -1,4 +1,4 @@
-import {GalleryAssetTypes, PlanimetryBlockType} from "@app/enums";
+import {GalleryAssetTypes, MapDirection, PlanimetryBlockType} from "@app/enums";
 
 export type PlanimetryBlock = {
 	id: number;
@@ -48,4 +48,5 @@ export type ObjectModel = {
 	planeAttributes?: {
 		[key: string]: string;
 	};
+	rotation?: MapDirection;
 };
