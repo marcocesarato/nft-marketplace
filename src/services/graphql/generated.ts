@@ -87,8 +87,10 @@ export type FilterCountUserInput = {
 	/** List of *indexed* fields that can be filtered via operators. */
 	_operators?: InputMaybe<FilterCountUserOperatorsInput>;
 	account?: InputMaybe<Scalars["String"]>;
+	cover?: InputMaybe<Scalars["String"]>;
 	createdAt?: InputMaybe<Scalars["Date"]>;
 	favourites?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
+	icon?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	planimetry?: InputMaybe<FilterCountUserPlanimetryInput>;
 	updatedAt?: InputMaybe<Scalars["Date"]>;
@@ -171,8 +173,10 @@ export type FilterFindManyUserInput = {
 	/** List of *indexed* fields that can be filtered via operators. */
 	_operators?: InputMaybe<FilterFindManyUserOperatorsInput>;
 	account?: InputMaybe<Scalars["String"]>;
+	cover?: InputMaybe<Scalars["String"]>;
 	createdAt?: InputMaybe<Scalars["Date"]>;
 	favourites?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
+	icon?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	planimetry?: InputMaybe<FilterFindManyUserPlanimetryInput>;
 	updatedAt?: InputMaybe<Scalars["Date"]>;
@@ -255,8 +259,10 @@ export type FilterFindOneUserInput = {
 	/** List of *indexed* fields that can be filtered via operators. */
 	_operators?: InputMaybe<FilterFindOneUserOperatorsInput>;
 	account?: InputMaybe<Scalars["String"]>;
+	cover?: InputMaybe<Scalars["String"]>;
 	createdAt?: InputMaybe<Scalars["Date"]>;
 	favourites?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
+	icon?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	planimetry?: InputMaybe<FilterFindOneUserPlanimetryInput>;
 	updatedAt?: InputMaybe<Scalars["Date"]>;
@@ -475,8 +481,10 @@ export enum SortFindOneUserInput {
 
 export type UpdateByIdUserInput = {
 	account?: InputMaybe<Scalars["String"]>;
+	cover?: InputMaybe<Scalars["String"]>;
 	createdAt?: InputMaybe<Scalars["Date"]>;
 	favourites?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
+	icon?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	planimetry?: InputMaybe<UpdateByIdUserPlanimetryInput>;
 	updatedAt?: InputMaybe<Scalars["Date"]>;
@@ -505,8 +513,10 @@ export type User = {
 	__typename?: "User";
 	_id: Scalars["MongoID"];
 	account: Scalars["String"];
+	cover?: Maybe<Scalars["String"]>;
 	createdAt?: Maybe<Scalars["Date"]>;
 	favourites?: Maybe<Array<Maybe<Scalars["Float"]>>>;
+	icon?: Maybe<Scalars["String"]>;
 	likes?: Maybe<Array<Maybe<Scalars["Float"]>>>;
 	planimetry?: Maybe<Scalars["JSON"]>;
 	updatedAt?: Maybe<Scalars["Date"]>;
@@ -708,9 +718,13 @@ export type UserQuery = {
 		_id: any;
 		username: string;
 		account: string;
+		icon?: string | null;
+		cover?: string | null;
 		favourites?: Array<number | null> | null;
 		likes?: Array<number | null> | null;
 		planimetry?: any | null;
+		createdAt?: any | null;
+		updatedAt?: any | null;
 	} | null;
 };
 
@@ -728,9 +742,13 @@ export type UsersQuery = {
 		_id: any;
 		username: string;
 		account: string;
+		icon?: string | null;
+		cover?: string | null;
 		favourites?: Array<number | null> | null;
 		likes?: Array<number | null> | null;
 		planimetry?: any | null;
+		createdAt?: any | null;
+		updatedAt?: any | null;
 	}>;
 };
 
@@ -1174,9 +1192,13 @@ export const UserDocument = gql`
 			_id
 			username
 			account
+			icon
+			cover
 			favourites
 			likes
 			planimetry
+			createdAt
+			updatedAt
 		}
 	}
 `;
@@ -1221,9 +1243,13 @@ export const UsersDocument = gql`
 			_id
 			username
 			account
+			icon
+			cover
 			favourites
 			likes
 			planimetry
+			createdAt
+			updatedAt
 		}
 	}
 `;

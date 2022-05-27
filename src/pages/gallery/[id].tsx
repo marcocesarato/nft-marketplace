@@ -18,7 +18,7 @@ export default function AccountGallery(): JSX.Element {
 	const {data, loading, error} = useUserQuery({
 		variables: {
 			filter: {
-				_id: id,
+				account: id.toString(),
 			},
 		},
 	});

@@ -11,7 +11,7 @@ export default function useUser() {
 	let username = useMemo(() => {
 		if (isLoadingUser) return formatAddress(account);
 		if (userData?.user?.username) return userData.user.username;
-		if (error) console.log(error);
+		if (error) console.error(error);
 	}, [isLoadingUser, account, userData, error]);
 
 	useEffect(() => {

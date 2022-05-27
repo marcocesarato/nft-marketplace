@@ -4,6 +4,8 @@ const UserSchema = new mongoose.Schema(
 	{
 		username: {type: String, required: true, trim: true},
 		account: {type: String, required: true, trim: true},
+		icon: {type: String, trim: true},
+		cover: {type: String, trim: true},
 		likes: {
 			type: [
 				{

@@ -238,7 +238,7 @@ export const textures: TextureAsset[] = [
 			},
 			{
 				id: "wood-bricks-height",
-				src: "/assets/textures/wood-bricks/wood_height.jpg",
+				src: "/assets/textures/wood-bricks/wood_height.png",
 				type: GalleryAssetTypesEnum.Image,
 			},
 		],

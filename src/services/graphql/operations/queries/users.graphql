@@ -8,8 +8,12 @@ query Users(
 		_id
 		username
 		account
+		icon
+		cover
 		favourites
 		likes
 		planimetry
+		createdAt
+		updatedAt
 	}
 }
