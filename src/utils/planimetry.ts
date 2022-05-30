@@ -1,5 +1,6 @@
 import {MapDirection, MapDirectionEnum, PlanimetryBlockTypeEnum} from "@app/enums";
 import type {PlanimetryMap} from "@app/types";
+import {debounce} from "@utils/common";
 
 export class PlanimetrySchema {
 	private map: PlanimetryMap;
@@ -8,6 +9,7 @@ export class PlanimetrySchema {
 
 	constructor(planimetryMap?: PlanimetryMap) {
 		this.map = planimetryMap || ({} as PlanimetryMap);
+		this.adjustSpawnPosition = debounce(this.adjustSpawnPosition.bind(this), 300, true);
 	}
 
 	public setMap(planimetryMap: PlanimetryMap) {
