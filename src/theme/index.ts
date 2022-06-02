@@ -12,13 +12,11 @@ import {drawerStyles} from "./components/drawer";
 import {linkStyles} from "./components/link";
 import {menuStyles} from "./components/menu";
 import {modalStyles} from "./components/modal";
-import {breakpoints} from "./foundations/breakpoints";
 import {semanticTokens} from "./foundations/semanticTokens";
 import {globalStyles} from "./styles";
 
 export default extendTheme(
 	globalStyles,
-	{breakpoints}, // Breakpoints
 	{semanticTokens}, // Semantic tokens
 	buttonStyles, // Button styles
 	badgeStyles, // Badge styles
