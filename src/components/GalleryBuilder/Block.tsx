@@ -2,7 +2,7 @@ import {memo, MouseEvent, useCallback, useMemo} from "react";
 import {IoAccessibilitySharp} from "react-icons/io5";
 import {Box} from "@chakra-ui/react";
 
-import {MapDirectionEnum, PlanimetryBlockTypeEnum} from "@app/enums";
+import {GalleryBuilderModeEnum, MapDirectionEnum, PlanimetryBlockTypeEnum} from "@app/enums";
 import type {PlanimetryBlock} from "@app/types";
 import useGallery from "@contexts/Gallery";
 import {clone} from "@utils/converters";
@@ -94,7 +94,11 @@ function Block({
 				styles.borderLeft = selectedBorder;
 				styles.borderRight = selectedBorder;
 			}
-			if (mode === "planimetry" || mode === "erase" || mode === "color") {
+			if (
+				mode === GalleryBuilderModeEnum.Planimetry ||
+				mode === GalleryBuilderModeEnum.Erase ||
+				mode === GalleryBuilderModeEnum.Color
+			) {
 				styles.cursor = "crosshair";
 			}
 			return styles;
@@ -115,26 +119,26 @@ function Block({
 					setMouseRightDown(true);
 				}
 				switch (mode) {
-					case "planimetry":
+					case GalleryBuilderModeEnum.Planimetry:
 						if (!isRightMouse) {
 							blockData.type = PlanimetryBlockTypeEnum.Wall;
 							onChangeBlock(data.id, blockData);
 							break;
 						}
 					// eslint-disable-next-line no-fallthrough
-					case "erase":
+					case GalleryBuilderModeEnum.Erase:
 						onChangeBlock(data.id, {
 							id: data.id,
 							type: PlanimetryBlockTypeEnum.Floor,
 						});
 						break;
-					case "select":
+					case GalleryBuilderModeEnum.Select:
 						onSelect(data);
 						break;
-					case "spawn":
+					case GalleryBuilderModeEnum.Spawn:
 						onChangeSpawn(data.id);
 						break;
-					case "color":
+					case GalleryBuilderModeEnum.Color:
 						if (schema.isBlockColorable(data.id)) {
 							blockData.color = isRightMouse ? null : color;
 							blockData.texture = isRightMouse ? null : texture;
@@ -146,20 +150,20 @@ function Block({
 			onMouseEnter={() => {
 				if (mouseDown) {
 					switch (mode) {
-						case "planimetry":
+						case GalleryBuilderModeEnum.Planimetry:
 							if (!mouseRightDown) {
 								blockData.type = PlanimetryBlockTypeEnum.Wall;
 								onChangeBlock(data.id, blockData);
 								break;
 							}
 						// eslint-disable-next-line no-fallthrough
-						case "erase":
+						case GalleryBuilderModeEnum.Erase:
 							onChangeBlock(data.id, {
 								id: data.id,
 								type: PlanimetryBlockTypeEnum.Floor,
 							});
 							break;
-						case "color":
+						case GalleryBuilderModeEnum.Color:
 							if (schema.isBlockColorable(data.id)) {
 								blockData.color = mouseRightDown ? null : color;
 								blockData.texture = mouseRightDown ? null : texture;

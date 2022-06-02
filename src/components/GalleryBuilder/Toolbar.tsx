@@ -27,6 +27,7 @@ import {
 	VStack,
 } from "@chakra-ui/react";
 
+import {GalleryBuilderModeEnum} from "@/src/enums";
 import Alert from "@components/Alert";
 import ColorPicker from "@components/ColorPicker";
 import TexturePicker from "@components/TexturePicker";
@@ -40,7 +41,7 @@ export default function Toolbar({onSave}): JSX.Element {
 		size,
 		color,
 		texture,
-		clearMap,
+		resetMap,
 		onChangeMode,
 		onChangeMapSize,
 		onChangeColor,
@@ -105,22 +106,22 @@ export default function Toolbar({onSave}): JSX.Element {
 							<HStack width={"full"}>
 								<ToolButton
 									icon={<IoHammerOutline />}
-									onClick={() => onChangeMode("planimetry")}
-									isActive={mode === "planimetry"}>
+									onClick={() => onChangeMode(GalleryBuilderModeEnum.Planimetry)}
+									isActive={mode === GalleryBuilderModeEnum.Planimetry}>
 									Build walls
 								</ToolButton>
 							</HStack>
 							<ToolButton
 								icon={<IoScanOutline />}
-								onClick={() => onChangeMode("select")}
-								isActive={mode === "select"}>
+								onClick={() => onChangeMode(GalleryBuilderModeEnum.Select)}
+								isActive={mode === GalleryBuilderModeEnum.Select}>
 								Select block
 							</ToolButton>
 							<HStack width={"full"}>
 								<ToolButton
 									icon={<IoColorPaletteOutline />}
-									onClick={() => onChangeMode("color")}
-									isActive={mode === "color"}>
+									onClick={() => onChangeMode(GalleryBuilderModeEnum.Color)}
+									isActive={mode === GalleryBuilderModeEnum.Color}>
 									Apply color/texture
 								</ToolButton>
 								<ColorPicker value={color} onChange={onChangeColor} />
@@ -128,23 +129,23 @@ export default function Toolbar({onSave}): JSX.Element {
 							</HStack>
 							<ToolButton
 								icon={<IoAccessibilitySharp />}
-								onClick={() => onChangeMode("spawn")}
-								isActive={mode === "spawn"}>
+								onClick={() => onChangeMode(GalleryBuilderModeEnum.Spawn)}
+								isActive={mode === GalleryBuilderModeEnum.Spawn}>
 								Place spawn
 							</ToolButton>
 							<ToolButton
 								icon={<IoRemoveCircleOutline />}
-								onClick={() => onChangeMode("erase")}
-								isActive={mode === "erase"}>
+								onClick={() => onChangeMode(GalleryBuilderModeEnum.Erase)}
+								isActive={mode === GalleryBuilderModeEnum.Erase}>
 								Erase block
 							</ToolButton>
 							<ToolButton
 								icon={<IoTrashBinOutline />}
-								onClick={clearMap}
+								onClick={resetMap}
 								withConfirm={true}
-								confirmTitle="Clear map"
-								confirmContent="Are you sure you want clear your gallery map?">
-								Clear map
+								confirmTitle="Reset map"
+								confirmContent="Are you sure you want reset your gallery map?">
+								Reset map
 							</ToolButton>
 						</VStack>
 					</AccordionPanel>

@@ -1,6 +1,6 @@
 import {createContext, useCallback, useContext, useReducer, useState} from "react";
 
-import {GalleryActionTypesEnum} from "@app/enums";
+import {GalleryActionTypesEnum, GalleryBuilderMode} from "@app/enums";
 import type {PlanimetryBlock, PlanimetryMap, TextureAsset, TGalleryContext} from "@app/types";
 
 import {createInitialState} from "./initialState";
@@ -11,7 +11,7 @@ export const GalleryPlanimetryContext = createContext<TGalleryContext>(initialSt
 
 export const GalleryProvider = ({children}): JSX.Element => {
 	const [planimetry, dispatch] = useReducer(reducer, initialState.schema);
-	const [mode, setMode] = useState(initialState.mode);
+	const [mode, setMode] = useState<GalleryBuilderMode>(initialState.mode);
 	const [selected, setSelected] = useState<PlanimetryBlock | null>();
 	const [color, setColor] = useState(initialState.color);
 	const [texture, setTexture] = useState<TextureAsset>(initialState.texture);
@@ -50,7 +50,7 @@ export const GalleryProvider = ({children}): JSX.Element => {
 		});
 	}, []);
 
-	const clearMap = useCallback(() => {
+	const resetMap = useCallback(() => {
 		dispatch({
 			type: GalleryActionTypesEnum.ResetMap,
 		});
@@ -73,7 +73,7 @@ export const GalleryProvider = ({children}): JSX.Element => {
 		size: planimetryMap.width || initialState.size,
 		color: color,
 		texture: texture,
-		clearMap: clearMap,
+		resetMap: resetMap,
 		setPlanimetry: setPlanimetry,
 		onSelect: onSelect,
 		onChangeBlock: setBlock,

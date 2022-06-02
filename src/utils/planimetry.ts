@@ -120,7 +120,7 @@ export class PlanimetrySchema {
 		return neighbors;
 	}
 
-	private getConnectedBlocks(i: number): Set<number> {
+	private getConnectedBlocks(i: number): {connected: Set<number>; visited: Set<number>} {
 		const type = this.map.blocks[i]?.type;
 		const visited = new Set<number>();
 		const connected = new Set<number>();
@@ -141,7 +141,7 @@ export class PlanimetrySchema {
 				}
 			}
 		}
-		return connected;
+		return {connected, visited};
 	}
 
 	private getConnectedBlocksOnDirection(i: number, direction: MapDirection): Set<number> {
@@ -171,38 +171,35 @@ export class PlanimetrySchema {
 
 	public getOutsideWallBlocks() {
 		if (this.blocksOutsideWall.size > 0) return this.blocksOutsideWall;
-		for (var x = 0; x < this.map.height; x++) {
-			for (var y = 0; y < this.map.width; y++) {
-				const i = y * this.map.width + x;
-				if (
-					!this.blocksOutsideWall.has(i) &&
-					this.isMapBorder(i) &&
-					(!this.map.blocks[i] ||
-						this.map.blocks[i].type === PlanimetryBlockTypeEnum.Floor ||
-						this.map.blocks[i].type == null)
-				) {
-					// Add all connected planes to outsideWallsPlanes
-					const connected = this.getConnectedBlocks(i);
-					this.blocksOutsideWall = new Set([...this.blocksOutsideWall, ...connected]);
-				}
+		let toCheck = new Set<number>([...Array(this.map.blocks.length).keys()]);
+		while (toCheck.size > 0) {
+			const i = toCheck.values().next().value;
+			toCheck.delete(i);
+			if (
+				!this.blocksOutsideWall.has(i) &&
+				this.isMapBorder(i) &&
+				(!this.map.blocks[i] || this.map.blocks[i].type === PlanimetryBlockTypeEnum.Floor)
+			) {
+				const {connected, visited} = this.getConnectedBlocks(i);
+				toCheck = new Set([...toCheck].filter((x) => !visited.has(x)));
+				// Add all connected planes to outsideWallsPlanes
+				this.blocksOutsideWall = new Set([...this.blocksOutsideWall, ...connected]);
 			}
 		}
 		return this.blocksOutsideWall;
 	}
 
-	public getInsideWallBlocks() {
+	public getInsideWallBlocks(): Set<number> {
 		if (this.blocksInsideWall.size > 0) return this.blocksInsideWall;
 		const outsidePlanes = this.getOutsideWallBlocks();
-		for (var i = 0; i < this.map.blocks.length; i++) {
-			if (
-				!this.blocksInsideWall.has(i) &&
-				!outsidePlanes.has(i) &&
-				(this.map.blocks[i].type === PlanimetryBlockTypeEnum.Floor ||
-					this.map.blocks[i].type == null)
-			) {
-				this.blocksInsideWall.add(i);
-			}
-		}
+		const allBlocks = new Set<number>([...Array(this.map.blocks.length).keys()]);
+		this.blocksInsideWall = new Set(
+			[...allBlocks].filter(
+				(x) =>
+					!outsidePlanes.has(x) &&
+					this.map.blocks[x].type === PlanimetryBlockTypeEnum.Floor,
+			),
+		);
 		return this.blocksInsideWall;
 	}
 

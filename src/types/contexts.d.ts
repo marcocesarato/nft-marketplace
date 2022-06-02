@@ -14,16 +14,16 @@ export type TGlobalContext = {
 export type TGalleryContext = {
 	schema: PlanimetrySchema;
 	size: number;
-	mode: string;
+	mode: GalleryBuilderMode;
 	selected?: PlanimetryBlock;
 	color?: string;
 	texture?: TextureAsset;
-	clearMap: () => void;
+	resetMap: () => void;
 	setPlanimetry: (payload: PlanimetryMap) => void;
 	onChangeColor: (payload: string) => void;
 	onChangeTexture: (payload: TextureAsset) => void;
 	onChangeMapSize: (payload: number) => void;
-	onChangeMode: (payload: string) => void;
+	onChangeMode: (payload: GalleryBuilderMode) => void;
 	onSelect: (payload: PlanimetryBlock) => void;
 	onChangeSpawn: (payload: number) => void;
 	onChangeBlock: (id: number, block: PlanimetryBlock) => void;

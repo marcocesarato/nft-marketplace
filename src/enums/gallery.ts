@@ -25,6 +25,14 @@ export enum GalleryAssetTypes {
 	Item = "Item",
 }
 
+export enum GalleryBuilderMode {
+	Select = "Select",
+	Planimetry = "Planimetry",
+	Spawn = "Spawn",
+	Erase = "Erase",
+	Color = "Color",
+}
+
 export enum MapDirection {
 	North = "North",
 	East = "East",
@@ -57,6 +65,14 @@ export const GalleryActionTypesEnum = {
 export const GalleryAssetTypesEnum = {
 	Image: "Image" as GalleryAssetTypes,
 	Item: "Item" as GalleryAssetTypes,
+};
+
+export const GalleryBuilderModeEnum = {
+	Select: "Select" as GalleryBuilderMode,
+	Planimetry: "Planimetry" as GalleryBuilderMode,
+	Spawn: "Spawn" as GalleryBuilderMode,
+	Erase: "Erase" as GalleryBuilderMode,
+	Color: "Color" as GalleryBuilderMode,
 };
 
 export const MapDirectionEnum = {

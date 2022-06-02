@@ -3,7 +3,7 @@ export function debounce(
 	wait: number,
 	immediate: boolean = false,
 ) {
-	let timeout: number | undefined;
+	let timeout: NodeJS.Timeout | undefined;
 
 	return function executedFunction(this: any) {
 		const context: any = this;
@@ -16,7 +16,7 @@ export function debounce(
 		};
 		const callNow: boolean = immediate && !timeout;
 		clearTimeout(timeout);
-		timeout = window.setTimeout(later, wait);
+		timeout = setTimeout(later, wait);
 		if (callNow) {
 			func.apply(context, [args]);
 		}
