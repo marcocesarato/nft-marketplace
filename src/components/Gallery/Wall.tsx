@@ -33,8 +33,8 @@ export default function Wall({
 		<>
 			<Box
 				position={position}
-				color={color}
 				{...defaultWallAttributes}
+				color={color}
 				{...(texture ? convertAllStringToAttributes(texture.attributes) : {})}
 				{...props}
 			/>
