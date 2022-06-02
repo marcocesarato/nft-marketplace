@@ -1,11 +1,13 @@
 /* global AFRAME, THREE */
 
-/**
- * Constrain an object to a navmesh, for example place this element after wasd-controls like so:
- * `wasd-controls navmesh-physics="#navmesh-el"`
- */
+/* Constrain an object to a navmesh, for example place this element after wasd-controls like so:
+`wasd-controls navmesh-physics="#navmesh-el"`
+*/
 AFRAME.registerComponent("navmesh-constraint", {
 	schema: {
+		enabled: {
+			default: true,
+		},
 		navmesh: {
 			default: "",
 		},
@@ -13,7 +15,7 @@ AFRAME.registerComponent("navmesh-constraint", {
 			default: 0.5,
 		},
 		height: {
-			default: 1.65,
+			default: 1.6,
 		},
 		exclude: {
 			default: "",
@@ -60,6 +62,7 @@ AFRAME.registerComponent("navmesh-constraint", {
 		let firstTry = true;
 
 		return function tick(time, delta) {
+			if (this.data.enabled === false) return;
 			if (this.lastPosition === null) {
 				firstTry = true;
 				this.lastPosition = new THREE.Vector3();
@@ -82,7 +85,7 @@ AFRAME.registerComponent("navmesh-constraint", {
 				tempVec.y += maxYVelocity;
 				tempVec.y -= this.data.height;
 				raycaster.set(tempVec, down);
-				raycaster.far = /*this.data.fall > 0 ? this.data.fall + maxYVelocity :*/ Infinity;
+				raycaster.far = /*this.data.fall > 0 ? this.data.fall + maxYVelocity : */ Infinity;
 				raycaster.intersectObjects(this.objects, true, results);
 
 				if (results.length) {

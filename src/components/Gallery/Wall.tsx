@@ -29,6 +29,7 @@ export default function Wall({
 	color = "#FFFFFF",
 	...props
 }: WallProps): JSX.Element {
+	const floorPosition = {x: position.x, y: 0, z: position.z};
 	return (
 		<>
 			<Box
@@ -38,7 +39,7 @@ export default function Wall({
 				{...(texture ? convertAllStringToAttributes(texture.attributes) : {})}
 				{...props}
 			/>
-			<Floor position={position} color={color} texture={texture} navmesh={false} />
+			<Floor position={floorPosition} color={color} texture={texture} navmesh={false} />
 		</>
 	);
 }

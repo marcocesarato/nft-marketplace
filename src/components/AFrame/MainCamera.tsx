@@ -27,17 +27,17 @@ export default function MainCamera({
 			</Assets>
 			{/* Camera */}
 			<Entity
+				id="cameraRig"
 				position={{x: 0, y: 0, z: 0}}
 				rotation={{x: 0, y: 0, z: 0}}
-				id="cameraRig"
+				movement-controls="speed:0.15;camera:#head;"
+				navmesh-constraint={`navmesh:.navmesh;fall:0.5;height:${userHeight};exclude:.navmesh-hole;`}
 				{...props}>
 				<Entity
 					id="head"
-					camera={{near: 0.5}}
-					lookControls={{enabled: true}}
+					camera={{near: 0.01}}
+					lookControls={{pointerLockEnabled: false}}
 					position={{x: 0, y: userHeight, z: 0}}
-					wasdControls={{enabled: true, acceleration: 20}}
-					navmesh-constraint={`navmesh:.navmesh;fall:0.5;height:${userHeight};exclude:.navmesh-hole;`}
 					{...camera}
 				/>
 
