@@ -4,8 +4,8 @@ import type {ObjectModel, TextureAsset} from "@app/types";
 export const MinMapSize = 10;
 export const MaxMapSize = 30;
 
-export const WallSize = 3;
-export const WallHeight = 6;
+export const WallSize = 4;
+export const WallHeight = 8;
 export const CameraHeight = 1.6;
 
 export const defaultTextureAttributes = {
@@ -16,9 +16,8 @@ export const defaultTextureAttributes = {
 		"normal-texture-repeat: 4 4;" +
 		"normal-scale: 4 4;" +
 		"roughness-map: #wall-roughness;",
-	"segments-height": "2",
-	"segments-width": "2",
-	"segments-depth": "2",
+	"segments-height": "64",
+	"segments-width": "64",
 };
 
 export const textures: TextureAsset[] = [
@@ -128,7 +127,9 @@ export const textures: TextureAsset[] = [
 				"normal-texture-repeat: 1 1;" +
 				"normal-scale: 1 1;" +
 				"roughness-map: #ceiling-roughness;" +
-				"metalness-map: #ceiling-metallic;",
+				"metalness-map: #ceiling-metallic;" +
+				"displacement-map: #ceiling-height;" +
+				"displacement-scale: 0.5;",
 		},
 	},
 	{
@@ -170,9 +171,9 @@ export const textures: TextureAsset[] = [
 				"normal-texture-repeat: 1 1;" +
 				"normal-scale: 2 2;" +
 				"roughness-map: #rocks-roughness;" +
-				"ambient-occlusion-map: #rocks-ao;",
-			"segments-height": "3",
-			"segments-depth": "3",
+				"ambient-occlusion-map: #rocks-ao;" +
+				"displacement-map: #rocks-height;" +
+				"displacement-scale: 0.5;",
 		},
 	},
 	{
@@ -207,7 +208,7 @@ export const textures: TextureAsset[] = [
 				"repeat: 1 1;" +
 				"normal-map: #bricks-normal;" +
 				"normal-texture-repeat: 1 1;" +
-				"normal-scale: 2 2;" +
+				"normal-scale: 1 1;" +
 				"roughness-map: #bricks-roughness;" +
 				"ambient-occlusion-map: #bricks-ao;",
 		},
@@ -251,7 +252,9 @@ export const textures: TextureAsset[] = [
 				"normal-texture-repeat: 2 2;" +
 				"normal-scale: 4 4;" +
 				"roughness-map: #wood-bricks-roughness;" +
-				"ambient-occlusion-map: #wood-bricks-ao;",
+				"ambient-occlusion-map: #wood-bricks-ao;" +
+				"displacement-map: #wood-bricks-height;" +
+				"displacement-scale: 0.5;",
 		},
 	},
 	{
@@ -298,7 +301,9 @@ export const textures: TextureAsset[] = [
 				"normal-texture-repeat: 1 1;" +
 				"normal-scale: 1 1;" +
 				"roughness-map: #scifi-roughness;" +
-				"metalness-map: #scifi-metallic;",
+				"metalness-map: #scifi-metallic;" +
+				"displacement-map: #scifi-height;" +
+				"displacement-scale: 0.5;",
 		},
 	},
 	{

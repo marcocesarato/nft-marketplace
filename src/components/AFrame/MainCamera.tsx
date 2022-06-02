@@ -30,7 +30,7 @@ export default function MainCamera({
 				id="cameraRig"
 				position={{x: 0, y: 0, z: 0}}
 				rotation={{x: 0, y: 0, z: 0}}
-				movement-controls="speed:0.15;camera:#head;"
+				movement-controls="speed:0.3;camera:#head;"
 				navmesh-constraint={`navmesh:.navmesh;fall:0.5;height:${userHeight};exclude:.navmesh-hole;`}
 				{...props}>
 				<Entity
