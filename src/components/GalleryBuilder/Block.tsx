@@ -2,7 +2,7 @@ import {memo, MouseEvent, useCallback, useMemo} from "react";
 import {IoAccessibilitySharp} from "react-icons/io5";
 import {Box} from "@chakra-ui/react";
 
-import {PlanimetryBlockTypeEnum} from "@app/enums";
+import {MapDirectionEnum, PlanimetryBlockTypeEnum} from "@app/enums";
 import type {PlanimetryBlock} from "@app/types";
 import useGallery from "@contexts/Gallery";
 import {clone} from "@utils/converters";
@@ -43,17 +43,35 @@ function Block({
 				const neightbours = schema.getNeighborsDetails(block.id);
 				neightbours.forEach((neightbour) => {
 					if (neightbour.type !== PlanimetryBlockTypeEnum.Wall) {
-						styles[
-							"border" +
-								neightbour.direction.charAt(0).toUpperCase() +
-								neightbour.direction.slice(1)
-						] = wallBorder;
+						switch (neightbour.direction) {
+							case MapDirectionEnum.North:
+								styles.borderTop = wallBorder;
+								break;
+							case MapDirectionEnum.South:
+								styles.borderBottom = wallBorder;
+								break;
+							case MapDirectionEnum.East:
+								styles.borderRight = wallBorder;
+								break;
+							case MapDirectionEnum.West:
+								styles.borderLeft = wallBorder;
+								break;
+						}
 					} else {
-						styles[
-							"border" +
-								neightbour.direction.charAt(0).toUpperCase() +
-								neightbour.direction.slice(1)
-						] = "none";
+						switch (neightbour.direction) {
+							case MapDirectionEnum.North:
+								styles.borderTop = "none";
+								break;
+							case MapDirectionEnum.South:
+								styles.borderBottom = "none";
+								break;
+							case MapDirectionEnum.East:
+								styles.borderRight = "none";
+								break;
+							case MapDirectionEnum.West:
+								styles.borderLeft = "none";
+								break;
+						}
 					}
 				});
 			}
@@ -117,9 +135,11 @@ function Block({
 						onChangeSpawn(data.id);
 						break;
 					case "color":
-						blockData.color = isRightMouse ? null : color;
-						blockData.texture = isRightMouse ? null : texture;
-						onChangeBlock(data.id, blockData);
+						if (schema.isBlockColorable(data.id)) {
+							blockData.color = isRightMouse ? null : color;
+							blockData.texture = isRightMouse ? null : texture;
+							onChangeBlock(data.id, blockData);
+						}
 						break;
 				}
 			}}
@@ -140,9 +160,11 @@ function Block({
 							});
 							break;
 						case "color":
-							blockData.color = mouseRightDown ? null : color;
-							blockData.texture = mouseRightDown ? null : texture;
-							onChangeBlock(data.id, blockData);
+							if (schema.isBlockColorable(data.id)) {
+								blockData.color = mouseRightDown ? null : color;
+								blockData.texture = mouseRightDown ? null : texture;
+								onChangeBlock(data.id, blockData);
+							}
 							break;
 					}
 				}

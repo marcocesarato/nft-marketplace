@@ -206,6 +206,13 @@ export class PlanimetrySchema {
 		return this.blocksInsideWall;
 	}
 
+	public isBlockColorable(i: number): boolean {
+		const block = this.map.blocks[i];
+		if (block.type === PlanimetryBlockTypeEnum.Floor && this.isBlockInsideWalls(i)) return true;
+		if (block.type === PlanimetryBlockTypeEnum.Wall) return true;
+		return false;
+	}
+
 	public isBlockInsideWalls(i: number) {
 		const outsidePlanes = this.getInsideWallBlocks();
 		return outsidePlanes.has(i);
