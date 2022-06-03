@@ -38,6 +38,10 @@ export enum MapDirection {
 	East = "East",
 	South = "South",
 	West = "West",
+	NorthEast = "NorthEast",
+	NorthWest = "NorthWest",
+	SouthEast = "SouthEast",
+	SouthWest = "SouthWest",
 }
 
 export const PlanimetryBlockTypeEnum = {
@@ -80,4 +84,8 @@ export const MapDirectionEnum = {
 	East: "East" as MapDirection,
 	South: "South" as MapDirection,
 	West: "West" as MapDirection,
+	NorthEast: "NorthEast" as MapDirection,
+	NorthWest: "NorthWest" as MapDirection,
+	SouthEast: "SouthEast" as MapDirection,
+	SouthWest: "SouthWest" as MapDirection,
 };

@@ -5,11 +5,11 @@ import {SettingsIcon} from "@chakra-ui/icons";
 import {IconButton} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
-import {WallHeight} from "@configs/gallery";
 import {GenericObject} from "@app/types";
 import {Environment, MainScene} from "@components/AFrame";
 import Content from "@components/Content";
 import Loading from "@components/Loading";
+import {WallHeight} from "@configs/gallery";
 import {GalleryProvider} from "@contexts/Gallery";
 import useAFrame from "@hooks/useAFrame";
 
@@ -35,7 +35,6 @@ export default function Gallery({user}: GalleryProps): JSX.Element {
 		<GalleryProvider>
 			<MainScene>
 				{/* Sky */}
-				<Sky id="sky" color="#0000ff"></Sky>
 				<Environment
 					config="
                     preset: starry;
@@ -43,14 +42,13 @@ export default function Gallery({user}: GalleryProps): JSX.Element {
                     ground: flat;
                     groundTexture: none;
                     shadow: true;
-                    lightPosition: 0 1 0;
-                    shadowSize: 1024;
+                    lightPosition: 0 12 0;
                     playArea: 100;"
 					position="0 -0.2 0"
 				/>
 
 				{/* Light */}
-				<Light light={{type: "ambient", castShadow: false}} intensity={0.8}></Light>
+				<Light light={{type: "ambient", castShadow: false}} intensity={0.9}></Light>
 				<Light
 					id="dirlight"
 					shadow-camera-automatic=".navmesh"

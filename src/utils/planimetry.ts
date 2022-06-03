@@ -1,5 +1,5 @@
 import {MapDirection, MapDirectionEnum, PlanimetryBlockTypeEnum} from "@app/enums";
-import type {PlanimetryMap} from "@app/types";
+import type {PlanimetryBlock, PlanimetryMap} from "@app/types";
 import {debounce} from "@utils/common";
 
 export class PlanimetrySchema {
@@ -90,10 +90,15 @@ export class PlanimetrySchema {
 		if (x < this.map.width - 1) neighbors.push(i + 1);
 		if (y > 0) neighbors.push(i - this.map.width);
 		if (y < this.map.height - 1) neighbors.push(i + this.map.width);
+		if (x > 0 && y > 0) neighbors.push(i - this.map.width - 1);
+		if (x < this.map.width - 1 && y > 0) neighbors.push(i - this.map.width + 1);
+		if (x > 0 && y < this.map.height - 1) neighbors.push(i + this.map.width - 1);
+		if (x < this.map.width - 1 && y < this.map.height - 1)
+			neighbors.push(i + this.map.width + 1);
 		return neighbors;
 	}
 
-	public getNeighborsDetails(i: number) {
+	public getNeighborsDetails(i: number): PlanimetryBlock[] {
 		const neighbors = [];
 		const x = i % this.map.width;
 		const y = Math.floor(i / this.map.width);
@@ -116,6 +121,26 @@ export class PlanimetrySchema {
 			neighbors.push({
 				direction: MapDirectionEnum.South,
 				...this.map.blocks[i + this.map.width],
+			});
+		if (x > 0 && y > 0)
+			neighbors.push({
+				direction: MapDirectionEnum.NorthWest,
+				...this.map.blocks[i - this.map.width - 1],
+			});
+		if (x < this.map.width - 1 && y > 0)
+			neighbors.push({
+				direction: MapDirectionEnum.NorthEast,
+				...this.map.blocks[i - this.map.width + 1],
+			});
+		if (x > 0 && y < this.map.height - 1)
+			neighbors.push({
+				direction: MapDirectionEnum.SouthWest,
+				...this.map.blocks[i + this.map.width - 1],
+			});
+		if (x < this.map.width - 1 && y < this.map.height - 1)
+			neighbors.push({
+				direction: MapDirectionEnum.SouthEast,
+				...this.map.blocks[i + this.map.width + 1],
 			});
 		return neighbors;
 	}

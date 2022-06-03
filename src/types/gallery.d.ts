@@ -5,6 +5,7 @@ export type PlanimetryBlock = {
 	texture?: TextureAsset;
 	color?: string;
 	type?: PlanimetryBlockType;
+	direction?: MapDirection;
 	objects?: {
 		top?: ObjectModel;
 		bottom?: ObjectModel;

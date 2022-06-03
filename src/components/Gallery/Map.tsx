@@ -71,9 +71,11 @@ export default function GalleryMap({planimetry}): JSX.Element {
 					y: WallHeight / 2,
 					z: (y - map.height / 2) * WallSize,
 				};
+				const neighbors = schema.getNeighborsDetails(block.id);
 				BlocksRender.push(
 					<Wall
 						key={"wall" + block.id}
+						neighbors={neighbors}
 						position={position}
 						texture={block.texture}
 						color={block.color}
