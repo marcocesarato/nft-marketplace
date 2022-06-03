@@ -6,7 +6,7 @@ import {IconButton} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
 import {GenericObject} from "@app/types";
-import {MainScene} from "@components/AFrame";
+import {Environment, MainScene} from "@components/AFrame";
 import Content from "@components/Content";
 import Loading from "@components/Loading";
 import {GalleryProvider} from "@contexts/Gallery";
@@ -35,6 +35,17 @@ export default function Gallery({user}: GalleryProps): JSX.Element {
 			<MainScene>
 				{/* Sky */}
 				<Sky id="sky" color="#0000ff"></Sky>
+				<Environment
+					config="
+                    preset: starry;
+                    grid: none;
+                    ground: flat;
+                    groundTexture: none;
+                    shadow: true;
+                    lightPosition: 0 0 0;
+                    playArea: 100;"
+					position="0 -0.2 0"
+				/>
 
 				{/* Light */}
 				<Light light={{type: "ambient", castShadow: false}} intensity={0.8}></Light>
