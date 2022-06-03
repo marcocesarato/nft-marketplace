@@ -26,6 +26,10 @@ export default function UserMenu({openAccountModal}): JSX.Element {
 		router.push("/");
 	}
 
+	function handleProfile() {
+		router.push("/account/" + account);
+	}
+
 	return (
 		<Menu>
 			<MenuButton as={Button} borderRadius="xl" m="1px" px={3} height="38px">
@@ -42,6 +46,7 @@ export default function UserMenu({openAccountModal}): JSX.Element {
 			</MenuButton>
 			<MenuList alignItems={"center"}>
 				<MenuItem onClick={openAccountModal}>{t<string>("common:account.title")}</MenuItem>
+				<MenuItem onClick={handleProfile}>{t<string>("common:account.profile")}</MenuItem>
 				<MenuItem onClick={() => router.push("/transactions")}>
 					{t<string>("common:account.activities")}
 				</MenuItem>

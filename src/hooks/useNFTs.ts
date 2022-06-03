@@ -2,6 +2,7 @@ import {useMoralisWeb3Api} from "react-moralis";
 import {useQuery} from "react-query";
 
 import type {NFT} from "@app/types";
+import {ChainId} from "@configs/chain";
 import {MarketAddress} from "@configs/contracts";
 import {isString} from "@utils/objects";
 
@@ -11,7 +12,7 @@ import useNFTMetadata from "./useNFTMetadata";
 
 const useNFTs = ({address = null} = {}) => {
 	const Web3Api = useMoralisWeb3Api();
-	const {account, chainId} = useAccount();
+	const {account} = useAccount();
 	const {withMetadata} = useNFTMetadata();
 	const {resolveLink} = useIPFS();
 	const resultMap = async (nft) => {
@@ -30,10 +31,10 @@ const useNFTs = ({address = null} = {}) => {
 	};
 	const accountAddress = address ?? account;
 	return useQuery<NFT[], Error>(
-		["NFTs", account, chainId],
+		["NFTs", account, ChainId],
 		async () => {
 			const options = {
-				chain: chainId,
+				chain: ChainId,
 				address: accountAddress,
 			};
 			const optionsContract = {
@@ -49,7 +50,7 @@ const useNFTs = ({address = null} = {}) => {
 			}
 			return [];
 		},
-		{enabled: !!(chainId && accountAddress)},
+		{enabled: !!accountAddress},
 	);
 };
 

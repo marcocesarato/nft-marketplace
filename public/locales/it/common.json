@@ -3,7 +3,8 @@
 		"activities": "Attività",
 		"balance": "Saldo",
 		"compress": "Comprimi",
-		"title": "Account"
+		"title": "Account",
+		"profile": "Profilo"
 	},
 	"action": {
 		"close": "Chiudi",

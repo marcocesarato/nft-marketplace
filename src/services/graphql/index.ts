@@ -17,14 +17,14 @@ export const useMarketItemsOnSaleQuery = (baseOptions?: MarketItemsQueryVariable
 
 export const useMarketItemsOwnedQuery = (baseOptions?: MarketItemsQueryVariables) => {
 	const {account} = useAccount();
-	const options = generateVariables(baseOptions, {filter: {owner: account, sold: true}});
+	const options = generateVariables({filter: {owner: account, sold: true}}, baseOptions);
 	return useMarketItemsQuery(options);
 };
 
 export const useMarketItemsCreatedQuery = (baseOptions?: MarketItemsQueryVariables) => {
 	const {account} = useAccount();
 
-	const generatedVariables = generateVariables(baseOptions, {filter: {creator: account}});
+	const generatedVariables = generateVariables({filter: {creator: account}}, baseOptions);
 	return useMarketItemsQuery(generatedVariables);
 };
 

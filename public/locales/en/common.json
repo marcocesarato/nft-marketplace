@@ -3,7 +3,8 @@
 		"activities": "Activities",
 		"balance": "Balance",
 		"compress": "Compress",
-		"title": "Account"
+		"title": "Account",
+		"profile": "Profile"
 	},
 	"action": {
 		"close": "Close",
