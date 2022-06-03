@@ -127,9 +127,9 @@ export const textures: TextureAsset[] = [
 				"normal-texture-repeat: 1 1;" +
 				"normal-scale: 1 1;" +
 				"roughness-map: #ceiling-roughness;" +
-				"metalness-map: #ceiling-metallic;" +
+				"metalness-map: #ceiling-metallic;" /* +
 				"displacement-map: #ceiling-height;" +
-				"displacement-scale: 0.5;",
+				"displacement-scale: 0.5;",*/,
 		},
 	},
 	{
@@ -171,9 +171,9 @@ export const textures: TextureAsset[] = [
 				"normal-texture-repeat: 1 1;" +
 				"normal-scale: 2 2;" +
 				"roughness-map: #rocks-roughness;" +
-				"ambient-occlusion-map: #rocks-ao;" +
+				"ambient-occlusion-map: #rocks-ao;" /* +
 				"displacement-map: #rocks-height;" +
-				"displacement-scale: 0.5;",
+				"displacement-scale: 0.5;",*/,
 		},
 	},
 	{
@@ -252,9 +252,9 @@ export const textures: TextureAsset[] = [
 				"normal-texture-repeat: 2 2;" +
 				"normal-scale: 4 4;" +
 				"roughness-map: #wood-bricks-roughness;" +
-				"ambient-occlusion-map: #wood-bricks-ao;" +
+				"ambient-occlusion-map: #wood-bricks-ao;" /* +
 				"displacement-map: #wood-bricks-height;" +
-				"displacement-scale: 0.5;",
+				"displacement-scale: 0.5;",*/,
 		},
 	},
 	{
@@ -301,9 +301,9 @@ export const textures: TextureAsset[] = [
 				"normal-texture-repeat: 1 1;" +
 				"normal-scale: 1 1;" +
 				"roughness-map: #scifi-roughness;" +
-				"metalness-map: #scifi-metallic;" +
+				"metalness-map: #scifi-metallic;" /* +
 				"displacement-map: #scifi-height;" +
-				"displacement-scale: 0.5;",
+				"displacement-scale: 0.5;",*/,
 		},
 	},
 	{
