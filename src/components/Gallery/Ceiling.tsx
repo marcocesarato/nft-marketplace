@@ -7,7 +7,7 @@ import {convertAllStringToAttributes} from "@utils/converters";
 export const defaultCeilingAttributes = {
 	"height": WallSize,
 	"width": WallSize,
-	"shadow": {cast: false, receive: true},
+	"shadow": {cast: true, receive: true},
 	"rotation": {x: -270, y: 0, z: 0},
 	"physx-body": "type: static",
 	"physx-restitution": "1.5",

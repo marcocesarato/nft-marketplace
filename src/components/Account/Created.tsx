@@ -5,7 +5,7 @@ import Header from "@components/Header";
 import Loading from "@components/Loading";
 import {useMarketItemsCreatedQuery} from "@services/graphql";
 
-export default function Created({address}): JSX.Element {
+export default function Created({address = null}): JSX.Element {
 	const {t} = useTranslation();
 	const {data, error, loading} = useMarketItemsCreatedQuery({filter: {creator: address}});
 	const items = data?.marketItems;

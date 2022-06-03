@@ -5,6 +5,7 @@ import {SettingsIcon} from "@chakra-ui/icons";
 import {IconButton} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
+import {WallHeight} from "@configs/gallery";
 import {GenericObject} from "@app/types";
 import {Environment, MainScene} from "@components/AFrame";
 import Content from "@components/Content";
@@ -42,7 +43,8 @@ export default function Gallery({user}: GalleryProps): JSX.Element {
                     ground: flat;
                     groundTexture: none;
                     shadow: true;
-                    lightPosition: 0 0 0;
+                    lightPosition: 0 1 0;
+                    shadowSize: 1024;
                     playArea: 100;"
 					position="0 -0.2 0"
 				/>
@@ -54,7 +56,7 @@ export default function Gallery({user}: GalleryProps): JSX.Element {
 					shadow-camera-automatic=".navmesh"
 					intensity={0.6}
 					light={{type: "directional", castShadow: false}}
-					position={{x: 0, y: 15, z: -6}}></Light>
+					position={{x: 0, y: WallHeight / 2, z: 0}}></Light>
 
 				<Map planimetry={user?.planimetry} />
 			</MainScene>

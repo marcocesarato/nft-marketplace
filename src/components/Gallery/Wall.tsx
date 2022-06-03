@@ -4,6 +4,7 @@ import {TextureAsset} from "@app/types";
 import {defaultWallTexture, WallHeight, WallSize} from "@configs/gallery";
 import {convertAllStringToAttributes} from "@utils/converters";
 
+import Ceiling from "./Ceiling";
 import Floor from "./Floor";
 
 export const defaultWallAttributes = {
@@ -30,6 +31,7 @@ export default function Wall({
 	...props
 }: WallProps): JSX.Element {
 	const floorPosition = {x: position.x, y: 0, z: position.z};
+	const ceilingPosition = {x: position.x, y: WallHeight, z: position.z};
 	return (
 		<>
 			<Box
@@ -40,6 +42,7 @@ export default function Wall({
 				{...props}
 			/>
 			<Floor position={floorPosition} color={color} texture={texture} navmesh={false} />
+			<Ceiling position={ceilingPosition} color={color} texture={texture} />
 		</>
 	);
 }
