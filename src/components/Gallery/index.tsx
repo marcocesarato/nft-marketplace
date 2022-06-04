@@ -49,12 +49,12 @@ export default function Gallery({user}: GalleryProps): JSX.Element {
 				/>
 
 				{/* Light */}
-				<Light light={{type: "ambient", castShadow: false}} intensity={0.8}></Light>
+				<Light light={{type: "ambient", castShadow: true}} intensity={0.8}></Light>
 				<Light
 					id="dirlight"
 					intensity={0.8}
 					light={{type: "directional", castShadow: true}}
-					position={{x: 0, y: 12, z: 0}}></Light>
+					position={{x: -1, y: 1, z: -1}}></Light>
 
 				<Map planimetry={user?.planimetry} />
 			</MainScene>
