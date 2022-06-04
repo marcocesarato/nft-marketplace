@@ -50,7 +50,8 @@ export default function GalleryBlockDetails(): JSX.Element {
 			neightbours.forEach((neightbour) => {
 				if (
 					neightbour.type === PlanimetryBlockTypeEnum.Floor &&
-					insideWallFloor.has(neightbour.id)
+					insideWallFloor.has(neightbour.id) &&
+					sections.hasOwnProperty(neightbour.direction)
 				) {
 					sections[neightbour.direction] = true;
 				}

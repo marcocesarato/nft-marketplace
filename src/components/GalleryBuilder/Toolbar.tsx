@@ -53,6 +53,9 @@ export default function Toolbar({onSave}): JSX.Element {
 		onOpen: onOpenResizeMap,
 		onClose: onCloseResizeMap,
 	} = useDisclosure();
+	const openGallery = () => {
+		window.open("/gallery", "_blank").focus();
+	};
 	return (
 		<Box flex={1} maxWidth={300}>
 			<Heading size="md" mb={3}>
@@ -103,6 +106,12 @@ export default function Toolbar({onSave}): JSX.Element {
 					</h2>
 					<AccordionPanel pb={4}>
 						<VStack spacing={4}>
+							<ToolButton
+								icon={<IoScanOutline />}
+								onClick={() => onChangeMode(GalleryBuilderModeEnum.Select)}
+								isActive={mode === GalleryBuilderModeEnum.Select}>
+								Select block
+							</ToolButton>
 							<HStack width={"full"}>
 								<ToolButton
 									icon={<IoHammerOutline />}
@@ -111,12 +120,6 @@ export default function Toolbar({onSave}): JSX.Element {
 									Build walls
 								</ToolButton>
 							</HStack>
-							<ToolButton
-								icon={<IoScanOutline />}
-								onClick={() => onChangeMode(GalleryBuilderModeEnum.Select)}
-								isActive={mode === GalleryBuilderModeEnum.Select}>
-								Select block
-							</ToolButton>
 							<HStack width={"full"}>
 								<ToolButton
 									icon={<IoColorPaletteOutline />}
@@ -162,6 +165,9 @@ export default function Toolbar({onSave}): JSX.Element {
 				confirmTitle="Save map"
 				confirmContent="Are you sure you want save your gallery map? All old data will be lost.">
 				Save
+			</ToolButton>
+			<ToolButton size="md" mt={4} w={"full"} justifyContent="center" onClick={openGallery}>
+				Open your gallery
 			</ToolButton>
 			<Alert
 				title="Confirm resize map"
