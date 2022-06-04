@@ -5,16 +5,16 @@ export const MinMapSize = 10;
 export const MaxMapSize = 30;
 
 export const WallSize = 4;
-export const WallHeight = 8;
+export const WallHeight = 6;
 export const CameraHeight = 1.6;
 
 export const defaultTextureAttributes = {
 	"color": "#ffffff",
 	"material":
-		"repeat: 4 4;" +
+		`repeat: 1 ${WallHeight};` +
 		"normal-map: #wall-normal;" +
-		"normal-texture-repeat: 4 4;" +
-		"normal-scale: 4 4;" +
+		`normal-texture-repeat: 1 ${WallHeight};` +
+		`normal-scale: 1 ${WallHeight};` +
 		"roughness-map: #wall-roughness;",
 	"segments-height": "64",
 	"segments-width": "64",
@@ -45,10 +45,10 @@ export const textures: TextureAsset[] = [
 			...defaultTextureAttributes,
 			"material":
 				"src: #wall;" +
-				"repeat: 4 4;" +
+				`repeat: 1 ${WallHeight};` +
 				"normal-map: #wall-normal;" +
-				"normal-texture-repeat: 4 4;" +
-				"normal-scale: 4 4;" +
+				`normal-texture-repeat: 1 ${WallHeight};` +
+				`normal-scale: 1 ${WallHeight};` +
 				"roughness-map: #wall-roughness;",
 		},
 	},

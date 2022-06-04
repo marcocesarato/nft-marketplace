@@ -276,4 +276,26 @@ export class PlanimetrySchema {
 				return {x: 0, y: 0, z: 0};
 		}
 	}
+
+	public isIntersection(i: number): boolean {
+		const block = this.map.blocks?.[i];
+		if (!block) return false;
+		const neighbors = this.getNeighborsDetails(block.id);
+		const intsersections = [
+			[MapDirectionEnum.North, MapDirectionEnum.East],
+			[MapDirectionEnum.North, MapDirectionEnum.West],
+			[MapDirectionEnum.South, MapDirectionEnum.East],
+			[MapDirectionEnum.South, MapDirectionEnum.West],
+		];
+		for (const intersection of intsersections) {
+			const a = neighbors.find(
+				(x) => x.type === PlanimetryBlockTypeEnum.Wall && x.direction === intersection[0],
+			);
+			const b = neighbors.find(
+				(x) => x.type === PlanimetryBlockTypeEnum.Wall && x.direction === intersection[1],
+			);
+			if (a && b) return true;
+		}
+		return false;
+	}
 }

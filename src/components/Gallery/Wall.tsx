@@ -8,6 +8,12 @@ import {convertAllStringToAttributes} from "@utils/converters";
 import Ceiling from "./Ceiling";
 import Floor from "./Floor";
 
+const materialWall = {
+	"repeat": {x: 1, y: WallHeight},
+	"normal-texture-repeat": {x: 1, y: WallHeight},
+	"normal-scale": {x: 1, y: WallHeight},
+};
+
 export const defaultWallAttributes = {
 	"height": WallHeight,
 	"width": WallSize,
@@ -27,9 +33,10 @@ type WallProps = {
 
 export default function Wall({
 	position,
-	texture = null,
+	texture = {} as TextureAsset,
 	color = "#FFFFFF",
 	neighbors = [],
+	isIntersection = false,
 	...props
 }: WallProps): JSX.Element {
 	const connections: {[key: string]: PlanimetryBlock} = {};
@@ -49,6 +56,62 @@ export default function Wall({
 			isColumn = false;
 		}
 	});
+	const textureAttributes = texture
+		? convertAllStringToAttributes(texture?.attributes ?? {}, materialWall)
+		: {};
+	const textureNorth =
+		isIntersection && connections[MapDirectionEnum.North]?.texture?.attributes
+			? convertAllStringToAttributes(
+					connections[MapDirectionEnum.North].texture.attributes,
+					materialWall,
+			  )
+			: isIntersection
+			? {}
+			: textureAttributes;
+	const textureSouth =
+		isIntersection && connections[MapDirectionEnum.South]?.texture?.attributes
+			? convertAllStringToAttributes(
+					connections[MapDirectionEnum.South].texture.attributes,
+					materialWall,
+			  )
+			: isIntersection
+			? {}
+			: textureAttributes;
+	const textureWest =
+		isIntersection && connections[MapDirectionEnum.West]?.texture?.attributes
+			? convertAllStringToAttributes(
+					connections[MapDirectionEnum.West].texture.attributes,
+					materialWall,
+			  )
+			: isIntersection
+			? {}
+			: textureAttributes;
+	const textureEast =
+		isIntersection && connections[MapDirectionEnum.East]?.texture?.attributes
+			? convertAllStringToAttributes(
+					connections[MapDirectionEnum.East].texture.attributes,
+					materialWall,
+			  )
+			: isIntersection
+			? {}
+			: textureAttributes;
+
+	const colorNorth =
+		isIntersection && connections[MapDirectionEnum.North]?.color
+			? connections[MapDirectionEnum.North]?.color
+			: color;
+	const colorSouth =
+		isIntersection && connections[MapDirectionEnum.South]?.color
+			? connections[MapDirectionEnum.South]?.color
+			: color;
+	const colorWest =
+		isIntersection && connections[MapDirectionEnum.West]?.color
+			? connections[MapDirectionEnum.West]?.color
+			: color;
+	const colorEast =
+		isIntersection && connections[MapDirectionEnum.East]?.color
+			? connections[MapDirectionEnum.East]?.color
+			: color;
 
 	return (
 		<Entity>
@@ -59,7 +122,7 @@ export default function Wall({
 					depth={WallSize / 2}
 					width={WallSize / 2}
 					color={color}
-					{...(texture ? convertAllStringToAttributes(texture.attributes) : {})}
+					{...textureAttributes}
 					{...props}
 				/>
 			) : (
@@ -69,7 +132,7 @@ export default function Wall({
 					depth={WallSize / 3}
 					width={WallSize / 3}
 					color={color}
-					{...(texture ? convertAllStringToAttributes(texture.attributes) : {})}
+					{...textureAttributes}
 					{...props}
 				/>
 			)}
@@ -79,8 +142,8 @@ export default function Wall({
 					position={positionNorth}
 					depth={WallSize / 3}
 					width={WallSize / 3}
-					color={color}
-					{...(texture ? convertAllStringToAttributes(texture.attributes) : {})}
+					color={colorNorth}
+					{...textureNorth}
 					{...props}
 				/>
 			)}
@@ -90,8 +153,8 @@ export default function Wall({
 					position={positionSouth}
 					depth={WallSize / 3}
 					width={WallSize / 3}
-					color={color}
-					{...(texture ? convertAllStringToAttributes(texture.attributes) : {})}
+					color={colorSouth}
+					{...textureSouth}
 					{...props}
 				/>
 			)}
@@ -101,8 +164,8 @@ export default function Wall({
 					position={positionEast}
 					depth={WallSize / 3}
 					width={WallSize / 3}
-					color={color}
-					{...(texture ? convertAllStringToAttributes(texture.attributes) : {})}
+					color={colorEast}
+					{...textureEast}
 					{...props}
 				/>
 			)}
@@ -112,14 +175,14 @@ export default function Wall({
 					position={positionWest}
 					depth={WallSize / 3}
 					width={WallSize / 3}
-					color={color}
-					{...(texture ? convertAllStringToAttributes(texture.attributes) : {})}
+					color={colorWest}
+					{...textureWest}
 					{...props}
 				/>
 			)}
 
 			<Floor position={floorPosition} navmesh={false} />
-			<Ceiling position={ceilingPosition} texture={texture} />
+			<Ceiling position={ceilingPosition} />
 		</Entity>
 	);
 }

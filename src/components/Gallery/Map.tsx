@@ -49,7 +49,6 @@ export default function GalleryMap({planimetry}): JSX.Element {
 		});
 	});
 
-	// Blocks + assets
 	const BlocksRender = [];
 	map.blocks.forEach((block) => {
 		const x = block.id % map.width;
@@ -72,11 +71,13 @@ export default function GalleryMap({planimetry}): JSX.Element {
 					z: (y - map.height / 2) * WallSize,
 				};
 				const neighbors = schema.getNeighborsDetails(block.id);
+				const isIntersection = schema.isIntersection(block.id);
 				BlocksRender.push(
 					<Wall
 						key={"wall" + block.id}
 						neighbors={neighbors}
 						position={position}
+						isIntersection={isIntersection}
 						texture={block.texture}
 						color={block.color}
 					/>,

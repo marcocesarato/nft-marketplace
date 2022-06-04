@@ -4,6 +4,8 @@ import type {BigNumberish} from "ethers";
 import {GenericObject} from "@app/types";
 import {formatUnits} from "@utils/units";
 
+import {deepMerge} from "./objects";
+
 export const convertEtherToPrice = (ether: BigNumberish, etherPrice: number) =>
 	((etherPrice ?? 0) * parseFloat(formatEther(ether ?? 0))).toFixed(2);
 
@@ -55,7 +57,10 @@ export const convertStringToAttributes = (attributes: string): GenericObject => 
 	return result;
 };
 
-export const convertAllStringToAttributes = (attributes: GenericObject) => {
+export const convertAllStringToAttributes = (
+	attributes: GenericObject,
+	overwrite: GenericObject = {},
+) => {
 	const newAttributes = {};
 	Object.keys(attributes).forEach((key) => {
 		const value = attributes[key];
@@ -67,5 +72,5 @@ export const convertAllStringToAttributes = (attributes: GenericObject) => {
 		}
 		newAttributes[key] = value;
 	});
-	return newAttributes;
+	return deepMerge(newAttributes, overwrite);
 };
