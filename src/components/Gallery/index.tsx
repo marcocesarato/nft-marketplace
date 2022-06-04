@@ -43,18 +43,18 @@ export default function Gallery({user}: GalleryProps): JSX.Element {
                     groundTexture: none;
                     shadow: true;
                     lightPosition: 0 12 0;
-                    playArea: 100;"
-					position="0 -0.2 0"
+                    playArea: 100;
+                    lighting:none;"
+					position="0 -0.1 0"
 				/>
 
 				{/* Light */}
-				<Light light={{type: "ambient", castShadow: false}} intensity={0.9}></Light>
+				<Light light={{type: "ambient", castShadow: false}} intensity={0.8}></Light>
 				<Light
 					id="dirlight"
-					shadow-camera-automatic=".navmesh"
-					intensity={0.6}
-					light={{type: "directional", castShadow: false}}
-					position={{x: 0, y: WallHeight / 2, z: 0}}></Light>
+					intensity={0.8}
+					light={{type: "directional", castShadow: true}}
+					position={{x: 0, y: 12, z: 0}}></Light>
 
 				<Map planimetry={user?.planimetry} />
 			</MainScene>
