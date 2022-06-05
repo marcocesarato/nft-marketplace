@@ -307,4 +307,17 @@ export class PlanimetrySchema {
 		}
 		return false;
 	}
+
+	public isColumn(i: number): boolean {
+		const block = this.map.blocks?.[i];
+		if (!block) return false;
+		const neighbors = this.getNeighborsDetails(block.id);
+		let isColumn = true;
+		neighbors.forEach((neighbor: PlanimetryBlock) => {
+			if (neighbor.type !== PlanimetryBlockTypeEnum.Floor) {
+				isColumn = false;
+			}
+		});
+		return isColumn;
+	}
 }

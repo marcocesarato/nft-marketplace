@@ -27,7 +27,7 @@ import {
 	VStack,
 } from "@chakra-ui/react";
 
-import {GalleryBuilderModeEnum} from "@/src/enums";
+import {GalleryBuilderModeEnum} from "@app/enums";
 import Alert from "@components/Alert";
 import ColorPicker from "@components/ColorPicker";
 import TexturePicker from "@components/TexturePicker";

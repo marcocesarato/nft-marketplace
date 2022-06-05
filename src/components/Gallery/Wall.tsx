@@ -8,16 +8,7 @@ import {convertAllStringToAttributes} from "@utils/converters";
 import Ceiling from "./Ceiling";
 import Floor from "./Floor";
 
-const materialWall = {
-	"repeat": {x: 1, y: WallHeight},
-	"normal-texture-repeat": {x: 1, y: WallHeight},
-	"normal-scale": {x: 1, y: WallHeight},
-};
-
 export const defaultWallAttributes = {
-	"height": WallHeight,
-	"width": WallSize,
-	"depth": WallSize,
 	"shadow": {cast: true, receive: true},
 	"physx-body": "type: static",
 	"physx-restitution": "1.5",
@@ -28,6 +19,12 @@ type WallProps = {
 	texture?: TextureAsset;
 	color?: string;
 	position?: {x: number; y: number; z: number};
+	rotation?: {x: number; y: number; z: number};
+	neighbors: PlanimetryBlock[];
+	navmesh?: boolean;
+	height?: number;
+	isColumn?: boolean;
+	isIntersection?: boolean;
 	[key: string]: any;
 };
 
@@ -36,6 +33,9 @@ export default function Wall({
 	texture = {} as TextureAsset,
 	color = "#FFFFFF",
 	neighbors = [],
+	navmesh = false,
+	height = WallHeight,
+	isColumn = false,
 	isIntersection = false,
 	...props
 }: WallProps): JSX.Element {
@@ -49,11 +49,15 @@ export default function Wall({
 	const positionEast = {x: position.x + WallSize / 3, y: position.y, z: position.z};
 	const positionWest = {x: position.x - WallSize / 3, y: position.y, z: position.z};
 
-	let isColumn = true;
+	const materialWall = {
+		"repeat": {x: 1, y: height},
+		"normal-texture-repeat": {x: 1, y: height},
+		"normal-scale": {x: 1, y: height},
+	};
+
 	neighbors.forEach((neighbor: PlanimetryBlock) => {
-		if (neighbor.type === PlanimetryBlockTypeEnum.Wall) {
+		if (neighbor.type !== PlanimetryBlockTypeEnum.Floor) {
 			connections[neighbor.direction] = neighbor;
-			isColumn = false;
 		}
 	});
 	const textureAttributes = texture
@@ -121,6 +125,7 @@ export default function Wall({
 					position={position}
 					depth={WallSize / 2}
 					width={WallSize / 2}
+					height={height}
 					color={color}
 					{...textureAttributes}
 					{...props}
@@ -131,6 +136,7 @@ export default function Wall({
 					position={position}
 					depth={WallSize / 3}
 					width={WallSize / 3}
+					height={height}
 					color={color}
 					{...textureAttributes}
 					{...props}
@@ -142,6 +148,7 @@ export default function Wall({
 					position={positionNorth}
 					depth={WallSize / 3}
 					width={WallSize / 3}
+					height={height}
 					color={colorNorth}
 					{...textureNorth}
 					{...props}
@@ -153,6 +160,7 @@ export default function Wall({
 					position={positionSouth}
 					depth={WallSize / 3}
 					width={WallSize / 3}
+					height={height}
 					color={colorSouth}
 					{...textureSouth}
 					{...props}
@@ -164,6 +172,7 @@ export default function Wall({
 					position={positionEast}
 					depth={WallSize / 3}
 					width={WallSize / 3}
+					height={height}
 					color={colorEast}
 					{...textureEast}
 					{...props}
@@ -175,13 +184,14 @@ export default function Wall({
 					position={positionWest}
 					depth={WallSize / 3}
 					width={WallSize / 3}
+					height={height}
 					color={colorWest}
 					{...textureWest}
 					{...props}
 				/>
 			)}
 
-			<Floor position={floorPosition} navmesh={false} />
+			<Floor position={floorPosition} navmesh={navmesh} />
 			<Ceiling position={ceilingPosition} />
 		</Entity>
 	);

@@ -3,7 +3,7 @@ import {useEffect} from "react";
 import {AssetItem, Assets} from "@belivvr/aframe-react";
 
 import {GalleryAssetTypesEnum, PlanimetryBlockTypeEnum} from "@app/enums";
-import {GalleryAsset} from "@app/types";
+import {GalleryAsset, PlanimetryBlock} from "@app/types";
 import {MainCamera} from "@components/AFrame";
 import {
 	CameraHeight,
@@ -16,8 +16,10 @@ import {
 import useGallery from "@contexts/Gallery";
 
 import Ceiling from "./Ceiling";
+import Door from "./Door";
 import Floor from "./Floor";
 import Wall from "./Wall";
+import Window from "./Window";
 
 export default function GalleryMap({planimetry}): JSX.Element {
 	const {schema, setPlanimetry} = useGallery();
@@ -63,7 +65,9 @@ export default function GalleryMap({planimetry}): JSX.Element {
 			});
 		}
 		switch (block.type) {
+			case PlanimetryBlockTypeEnum.Door:
 			case PlanimetryBlockTypeEnum.Wall:
+			case PlanimetryBlockTypeEnum.Window:
 				navmesh = false;
 				position = {
 					x: (x - map.width / 2) * WallSize,
@@ -71,12 +75,23 @@ export default function GalleryMap({planimetry}): JSX.Element {
 					z: (y - map.height / 2) * WallSize,
 				};
 				const neighbors = schema.getNeighborsDetails(block.id);
+				const isColumn = schema.isColumn(block.id);
 				const isIntersection = schema.isIntersection(block.id);
+				const WallComponent =
+					!isIntersection && !isColumn
+						? block.type === PlanimetryBlockTypeEnum.Door
+							? Door
+							: block.type === PlanimetryBlockTypeEnum.Window
+							? Window
+							: Wall
+						: Wall;
+
 				BlocksRender.push(
-					<Wall
+					<WallComponent
 						key={"wall" + block.id}
 						neighbors={neighbors}
 						position={position}
+						isColumn={isColumn}
 						isIntersection={isIntersection}
 						texture={block.texture}
 						color={block.color}

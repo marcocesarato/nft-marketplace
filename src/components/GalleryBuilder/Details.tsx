@@ -19,6 +19,8 @@ import useGallery from "@contexts/Gallery";
 const blockTypesOptions = [
 	{value: PlanimetryBlockTypeEnum.Wall.toString(), label: "Wall"},
 	{value: PlanimetryBlockTypeEnum.Floor.toString(), label: "Floor"},
+	{value: PlanimetryBlockTypeEnum.Window.toString(), label: "Window"},
+	{value: PlanimetryBlockTypeEnum.Door.toString(), label: "Door"},
 ];
 
 export default function GalleryBlockDetails(): JSX.Element {
