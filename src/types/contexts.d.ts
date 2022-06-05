@@ -27,4 +27,5 @@ export type TGalleryContext = {
 	onSelect: (payload: PlanimetryBlock) => void;
 	onChangeSpawn: (payload: number) => void;
 	onChangeBlock: (id: number, block: PlanimetryBlock) => void;
+	onChangeBlockMetadata: (id: number, metadata: GenericObject) => void;
 };

@@ -25,7 +25,7 @@ export default function GalleryBlockDetails(): JSX.Element {
 	const {schema, selected, onChangeBlock, onSelect} = useGallery();
 	let sections = {
 		"ceiling": false,
-		"ground": false,
+		"floor": false,
 		[MapDirectionEnum.West]: false,
 		[MapDirectionEnum.East]: false,
 		[MapDirectionEnum.North]: false,
@@ -41,12 +41,9 @@ export default function GalleryBlockDetails(): JSX.Element {
 	);
 	if (selected) {
 		if (selected.type === PlanimetryBlockTypeEnum.Floor && insideWallFloor.has(selected.id)) {
-			// If selected is a floor enable ground and ceiling section
 			sections.ground = true;
 			sections.ceiling = true;
-		}
-		// If selected is a wall check if neightbours are floors then enable direction sections to place objects
-		if (selected.type === PlanimetryBlockTypeEnum.Wall) {
+		} else if (selected.type === PlanimetryBlockTypeEnum.Wall) {
 			neightbours.forEach((neightbour) => {
 				if (
 					neightbour.type === PlanimetryBlockTypeEnum.Floor &&
@@ -115,7 +112,7 @@ export default function GalleryBlockDetails(): JSX.Element {
 								</AccordionButton>
 							</h2>
 							<AccordionPanel pb={4}>
-								{key === "ground" || key === "ceiling" ? (
+								{key === "floor" || key === "ceiling" ? (
 									<Button width="full" size="sm" mb={2} onClick={() => {}}>
 										Add new object
 									</Button>

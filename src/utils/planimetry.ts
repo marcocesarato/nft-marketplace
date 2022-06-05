@@ -1,5 +1,5 @@
 import {MapDirection, MapDirectionEnum, PlanimetryBlockTypeEnum} from "@app/enums";
-import type {PlanimetryBlock, PlanimetryMap} from "@app/types";
+import type {GenericObject, PlanimetryBlock, PlanimetryMap} from "@app/types";
 import {debounce} from "@utils/common";
 
 export class PlanimetrySchema {
@@ -35,6 +35,15 @@ export class PlanimetrySchema {
 
 	public getBlocks() {
 		return this.map.blocks;
+	}
+
+	public setBlockMetadata(i: number, metadata: GenericObject) {
+		this.map.blocks[i] = {
+			...this.map.blocks[i],
+			...metadata,
+			id: this.map.blocks[i].id,
+			type: this.map.blocks[i].type,
+		};
 	}
 
 	public isMapBorderNorth(i: number) {

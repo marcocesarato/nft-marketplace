@@ -1,7 +1,13 @@
 import {createContext, useCallback, useContext, useReducer, useState} from "react";
 
 import {GalleryActionTypesEnum, GalleryBuilderMode} from "@app/enums";
-import type {PlanimetryBlock, PlanimetryMap, TextureAsset, TGalleryContext} from "@app/types";
+import type {
+	GenericObject,
+	PlanimetryBlock,
+	PlanimetryMap,
+	TextureAsset,
+	TGalleryContext,
+} from "@app/types";
 
 import {createInitialState} from "./initialState";
 import reducer from "./reducer";
@@ -26,6 +32,13 @@ export const GalleryProvider = ({children}): JSX.Element => {
 	const setBlock = useCallback((id: number, value: PlanimetryBlock) => {
 		dispatch({
 			type: GalleryActionTypesEnum.SetBlock,
+			payload: {id, value},
+		});
+	}, []);
+
+	const setBlockMetadata = useCallback((id: number, value: GenericObject) => {
+		dispatch({
+			type: GalleryActionTypesEnum.SetBlockMetadata,
 			payload: {id, value},
 		});
 	}, []);
@@ -77,6 +90,7 @@ export const GalleryProvider = ({children}): JSX.Element => {
 		setPlanimetry: setPlanimetry,
 		onSelect: onSelect,
 		onChangeBlock: setBlock,
+		onChangeBlockMetadata: setBlockMetadata,
 		onChangePlanimetry: setPlanimetry,
 		onChangeMapSize: setMapSize,
 		onChangeMode: setMode,

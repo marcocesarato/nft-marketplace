@@ -61,6 +61,7 @@ export const ObjectModelTypeEnum = {
 export const GalleryActionTypesEnum = {
 	SetData: "SET_DATA" as GalleryActionTypes,
 	SetBlock: "SET_BLOCK" as GalleryActionTypes,
+	SetBlockMetadata: "SET_BLOCK_METADATA" as GalleryActionTypes,
 	SetSpawn: "SET_SPAWN" as GalleryActionTypes,
 	SetSize: "SET_SIZE" as GalleryActionTypes,
 	ResetMap: "RESET_MAP" as GalleryActionTypes,

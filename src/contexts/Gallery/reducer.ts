@@ -23,6 +23,10 @@ export const reducer = (
 			newState.setMap(resultMap);
 			return newState;
 		}
+		case GalleryActionTypesEnum.SetBlockMetadata: {
+			newState.setBlockMetadata(action.payload.value.id, action.payload.value);
+			return newState;
+		}
 		case GalleryActionTypesEnum.SetSpawn: {
 			if (
 				state.isBlockInsideWalls(action.payload) &&

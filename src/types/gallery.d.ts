@@ -6,13 +6,13 @@ export type PlanimetryBlock = {
 	color?: string;
 	type?: PlanimetryBlockType;
 	direction?: MapDirection;
-	objects?: {
-		top?: ObjectModel;
-		bottom?: ObjectModel;
+	items?: {
+		front?: ObjectModel;
+		back?: ObjectModel;
 		left?: ObjectModel;
 		right?: ObjectModel;
-		groud?: ObjectModel;
-		ceiling?: ObjectModel;
+		up?: ObjectModel;
+		down?: ObjectModel;
 	};
 };
 
