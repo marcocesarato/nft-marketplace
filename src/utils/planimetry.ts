@@ -298,10 +298,10 @@ export class PlanimetrySchema {
 		];
 		for (const intersection of intsersections) {
 			const a = neighbors.find(
-				(x) => x.type === PlanimetryBlockTypeEnum.Wall && x.direction === intersection[0],
+				(x) => x.type !== PlanimetryBlockTypeEnum.Floor && x.direction === intersection[0],
 			);
 			const b = neighbors.find(
-				(x) => x.type === PlanimetryBlockTypeEnum.Wall && x.direction === intersection[1],
+				(x) => x.type !== PlanimetryBlockTypeEnum.Floor && x.direction === intersection[1],
 			);
 			if (a && b) return true;
 		}
