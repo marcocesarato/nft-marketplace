@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import {Light, Sky} from "@belivvr/aframe-react";
+import {Light} from "@belivvr/aframe-react";
 import {SettingsIcon} from "@chakra-ui/icons";
 import {IconButton} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
@@ -9,7 +9,6 @@ import {GenericObject} from "@app/types";
 import {Environment, MainScene} from "@components/AFrame";
 import Content from "@components/Content";
 import Loading from "@components/Loading";
-import {WallHeight} from "@configs/gallery";
 import {GalleryProvider} from "@contexts/Gallery";
 import useAFrame from "@hooks/useAFrame";
 

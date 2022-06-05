@@ -36,7 +36,7 @@ export const GalleryProvider = ({children}): JSX.Element => {
 				type: GalleryActionTypesEnum.SetSpawn,
 				payload: id,
 			});
-			if (selected.id === id) {
+			if (selected?.id === id) {
 				setSelected(null);
 			}
 		},
