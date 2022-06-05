@@ -38,13 +38,12 @@ export default function Gallery({user}: GalleryProps): JSX.Element {
 					config="
                     preset: starry;
                     grid: none;
-                    ground: flat;
-                    groundTexture: none;
+                    ground: hills;
+                    groundColor: #663926;
                     shadow: true;
                     lightPosition: 0 12 0;
-                    playArea: 100;
-                    lighting:none;"
-					position="0 -0.1 0"
+                    lighting: none;"
+					position="0 -1 0"
 				/>
 
 				{/* Light */}
