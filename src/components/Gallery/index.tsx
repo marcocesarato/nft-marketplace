@@ -49,7 +49,7 @@ export default function Gallery({user}: GalleryProps): JSX.Element {
 				/>
 
 				{/* Light */}
-				<Light light={{type: "ambient", castShadow: true}} intensity={0.8}></Light>
+				<Light light={{type: "ambient"}} intensity={0.8}></Light>
 				<Light
 					id="dirlight"
 					intensity={0.8}
