@@ -16,23 +16,19 @@ import {
 import {MapDirectionEnum, PlanimetryBlockType, PlanimetryBlockTypeEnum} from "@app/enums";
 import useGallery from "@contexts/Gallery";
 
-const blockTypesOptions = [
-	{value: PlanimetryBlockTypeEnum.Wall.toString(), label: "Wall"},
-	{value: PlanimetryBlockTypeEnum.Floor.toString(), label: "Floor"},
-	{value: PlanimetryBlockTypeEnum.Window.toString(), label: "Window"},
-	{value: PlanimetryBlockTypeEnum.Door.toString(), label: "Door"},
-];
-
 export default function GalleryBlockDetails(): JSX.Element {
 	const {schema, selected, onChangeBlock, onSelect} = useGallery();
-	let sections = {
-		"ceiling": false,
-		"floor": false,
-		[MapDirectionEnum.West]: false,
-		[MapDirectionEnum.East]: false,
-		[MapDirectionEnum.North]: false,
-		[MapDirectionEnum.South]: false,
-	};
+	const blockTypesOptions = useMemo(() => {
+		const types = [
+			{value: PlanimetryBlockTypeEnum.Wall.toString(), label: "Wall"},
+			{value: PlanimetryBlockTypeEnum.Floor.toString(), label: "Floor"},
+			{value: PlanimetryBlockTypeEnum.Window.toString(), label: "Window"},
+		];
+		if (selected && !schema.isPerimeterWall(selected.id)) {
+			types.push({value: PlanimetryBlockTypeEnum.Door.toString(), label: "Door"});
+		}
+		return types;
+	}, [selected, schema]);
 	const neightbours = useMemo(
 		() => (selected && schema ? schema.getNeighborsDetails(selected.id) : []),
 		[selected, schema],
@@ -41,6 +37,14 @@ export default function GalleryBlockDetails(): JSX.Element {
 		() => (schema ? schema.getInsideWallBlocks() : new Set()),
 		[schema],
 	);
+	let sections = {
+		"ceiling": false,
+		"floor": false,
+		[MapDirectionEnum.West]: false,
+		[MapDirectionEnum.East]: false,
+		[MapDirectionEnum.North]: false,
+		[MapDirectionEnum.South]: false,
+	};
 	if (selected) {
 		if (selected.type === PlanimetryBlockTypeEnum.Floor && insideWallFloor.has(selected.id)) {
 			sections.ground = true;

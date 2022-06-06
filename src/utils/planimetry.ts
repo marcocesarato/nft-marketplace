@@ -237,6 +237,18 @@ export class PlanimetrySchema {
 		return this.blocksInsideWall;
 	}
 
+	public isPerimeterWall(i: number) {
+		const block = this.map.blocks[i];
+		if (block.type !== PlanimetryBlockTypeEnum.Wall) return false;
+		const outsideWalls = this.getOutsideWallBlocks();
+		const neighbors = this.getNeighborsDetails(i);
+		for (const neighbor of neighbors) {
+			if (neighbor.type === PlanimetryBlockTypeEnum.Floor && outsideWalls.has(neighbor.id))
+				return true;
+		}
+		return false;
+	}
+
 	public isBlockColorable(i: number): boolean {
 		const block = this.map.blocks[i];
 		if (block.type === PlanimetryBlockTypeEnum.Floor && this.isBlockInsideWalls(i)) return true;

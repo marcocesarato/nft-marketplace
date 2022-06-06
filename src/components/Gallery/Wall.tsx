@@ -41,6 +41,8 @@ export default function Wall({
 }: WallProps): JSX.Element {
 	const connections: {[key: string]: PlanimetryBlock} = {};
 
+	const columnSize = WallSize / 2;
+	const wallSize = WallSize / 3;
 	const floorPosition = {x: position.x, y: 0, z: position.z};
 	const ceilingPosition = {x: position.x, y: WallHeight, z: position.z};
 
@@ -123,8 +125,8 @@ export default function Wall({
 				<Box
 					{...defaultWallAttributes}
 					position={position}
-					depth={WallSize / 2}
-					width={WallSize / 2}
+					depth={columnSize}
+					width={columnSize}
 					height={height}
 					color={color}
 					{...textureAttributes}
@@ -134,8 +136,8 @@ export default function Wall({
 				<Box
 					{...defaultWallAttributes}
 					position={position}
-					depth={WallSize / 3}
-					width={WallSize / 3}
+					depth={wallSize}
+					width={wallSize}
 					height={height}
 					color={color}
 					{...textureAttributes}
@@ -146,8 +148,8 @@ export default function Wall({
 				<Box
 					{...defaultWallAttributes}
 					position={positionNorth}
-					depth={WallSize / 3}
-					width={WallSize / 3}
+					depth={wallSize}
+					width={wallSize}
 					height={height}
 					color={colorNorth}
 					{...textureNorth}
@@ -158,8 +160,8 @@ export default function Wall({
 				<Box
 					{...defaultWallAttributes}
 					position={positionSouth}
-					depth={WallSize / 3}
-					width={WallSize / 3}
+					depth={wallSize}
+					width={wallSize}
 					height={height}
 					color={colorSouth}
 					{...textureSouth}
@@ -170,8 +172,8 @@ export default function Wall({
 				<Box
 					{...defaultWallAttributes}
 					position={positionEast}
-					depth={WallSize / 3}
-					width={WallSize / 3}
+					depth={wallSize}
+					width={wallSize}
 					height={height}
 					color={colorEast}
 					{...textureEast}
@@ -182,8 +184,8 @@ export default function Wall({
 				<Box
 					{...defaultWallAttributes}
 					position={positionWest}
-					depth={WallSize / 3}
-					width={WallSize / 3}
+					depth={wallSize}
+					width={wallSize}
 					height={height}
 					color={colorWest}
 					{...textureWest}
