@@ -47,7 +47,7 @@ export default function GalleryBlockDetails(): JSX.Element {
 	};
 	if (selected) {
 		if (selected.type === PlanimetryBlockTypeEnum.Floor && insideWallFloor.has(selected.id)) {
-			sections.ground = true;
+			sections.floor = true;
 			sections.ceiling = true;
 		} else if (selected.type === PlanimetryBlockTypeEnum.Wall) {
 			neightbours.forEach((neightbour) => {

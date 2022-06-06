@@ -1,5 +1,6 @@
 import {memo, MouseEvent, useCallback, useMemo} from "react";
 import {IoAccessibilitySharp} from "react-icons/io5";
+import {TbDoor, TbWindow} from "react-icons/tb";
 import {Box} from "@chakra-ui/react";
 
 import {GalleryBuilderModeEnum, MapDirectionEnum, PlanimetryBlockTypeEnum} from "@app/enums";
@@ -18,6 +19,9 @@ function Block({
 	const {schema, mode, selected, onSelect, onChangeSpawn, onChangeBlock, color, texture} =
 		useGallery();
 	const blockData = useMemo(() => clone(data), [data]);
+	const isDoor = data?.type === PlanimetryBlockTypeEnum.Door;
+	const isWindow = data?.type === PlanimetryBlockTypeEnum.Window;
+	const isWall = data?.type === PlanimetryBlockTypeEnum.Wall;
 	const getBlockStyle = useCallback(
 		(block: PlanimetryBlock) => {
 			const defaultWallColor = "#cbd5e0";
@@ -37,12 +41,15 @@ function Block({
 				backgroundSize: "cover",
 				cursor: "pointer",
 			};
-			const isWall = block.type === PlanimetryBlockTypeEnum.Wall;
-			if (isWall) {
+			if (isWall || isDoor || isWindow) {
 				styles.backgroundColor ||= defaultWallColor;
 				const neightbours = schema.getNeighborsDetails(block.id);
 				neightbours.forEach((neightbour) => {
-					if (neightbour.type !== PlanimetryBlockTypeEnum.Wall) {
+					if (
+						neightbour.type !== PlanimetryBlockTypeEnum.Wall &&
+						neightbour.type !== PlanimetryBlockTypeEnum.Door &&
+						neightbour.type !== PlanimetryBlockTypeEnum.Window
+					) {
 						switch (neightbour.direction) {
 							case MapDirectionEnum.North:
 								styles.borderTop = wallBorder;
@@ -75,7 +82,7 @@ function Block({
 					}
 				});
 			}
-			const marginBorder = isWall ? wallBorder : defaultMarginBorder;
+			const marginBorder = isWall || isDoor || isWindow ? wallBorder : defaultMarginBorder;
 			if (schema.isMapBorderNorth(block.id)) {
 				styles.borderTop = marginBorder;
 			}
@@ -103,7 +110,7 @@ function Block({
 			}
 			return styles;
 		},
-		[mode, schema, size, selected],
+		[size, isWall, isDoor, isWindow, schema, selected, mode],
 	);
 
 	return (
@@ -185,9 +192,10 @@ function Block({
 				borderRadius="50%"
 				height="100%"
 				width="100%"
-				display="flex"
+				fontSize="larger"
 				justifyContent="center"
 				alignItems="center"
+				display={isDoor || isWindow ? "none" : "flex"}
 				visibility={data.id === schema.getSpawn() ? "visible" : "hidden"}>
 				<IoAccessibilitySharp
 					style={{
@@ -195,6 +203,44 @@ function Block({
 					}}
 				/>
 			</Box>
+			{isDoor && (
+				<Box
+					as="span"
+					backgroundColor="#FFF"
+					color="#000"
+					borderRadius="50%"
+					height="100%"
+					width="100%"
+					fontSize="larger"
+					display="flex"
+					justifyContent="center"
+					alignItems="center">
+					<TbDoor
+						style={{
+							display: "inline-block",
+						}}
+					/>
+				</Box>
+			)}
+			{isWindow && (
+				<Box
+					as="span"
+					backgroundColor="#FFF"
+					color="#000"
+					borderRadius="50%"
+					height="100%"
+					width="100%"
+					fontSize="larger"
+					display="flex"
+					justifyContent="center"
+					alignItems="center">
+					<TbWindow
+						style={{
+							display: "inline-block",
+						}}
+					/>
+				</Box>
+			)}
 		</Box>
 	);
 }
