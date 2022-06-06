@@ -40,8 +40,8 @@ export default function Gallery({user}: GalleryProps): JSX.Element {
                     grid: none;
                     ground: hills;
                     groundColor: #663926;
+                    groundColor2: #663926;
                     shadow: true;
-                    lightPosition: 0 12 0;
                     lighting: none;"
 					position="0 -1 0"
 				/>

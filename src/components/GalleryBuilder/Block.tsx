@@ -19,6 +19,7 @@ function Block({
 	const {schema, mode, selected, onSelect, onChangeSpawn, onChangeBlock, color, texture} =
 		useGallery();
 	const blockData = useMemo(() => clone(data), [data]);
+	const isSpawn = data?.id === schema.getSpawn();
 	const isDoor = data?.type === PlanimetryBlockTypeEnum.Door;
 	const isWindow = data?.type === PlanimetryBlockTypeEnum.Window;
 	const isWall = data?.type === PlanimetryBlockTypeEnum.Wall;
@@ -32,6 +33,7 @@ function Block({
 			const styles = {
 				width: size,
 				height: size,
+				padding: 2,
 				borderTop: defaultBorder,
 				borderBottom: defaultBorder,
 				borderLeft: defaultBorder,
@@ -195,52 +197,30 @@ function Block({
 				fontSize="larger"
 				justifyContent="center"
 				alignItems="center"
-				display={isDoor || isWindow ? "none" : "flex"}
-				visibility={data.id === schema.getSpawn() ? "visible" : "hidden"}>
-				<IoAccessibilitySharp
-					style={{
-						display: "inline-block",
-					}}
-				/>
-			</Box>
-			{isDoor && (
-				<Box
-					as="span"
-					backgroundColor="#FFF"
-					color="#000"
-					borderRadius="50%"
-					height="100%"
-					width="100%"
-					fontSize="larger"
-					display="flex"
-					justifyContent="center"
-					alignItems="center">
+				display="flex"
+				visibility={isSpawn || isDoor || isWindow ? "visible" : "hidden"}>
+				{isSpawn && (
+					<IoAccessibilitySharp
+						style={{
+							display: "inline-block",
+						}}
+					/>
+				)}
+				{isDoor && (
 					<TbDoor
 						style={{
 							display: "inline-block",
 						}}
 					/>
-				</Box>
-			)}
-			{isWindow && (
-				<Box
-					as="span"
-					backgroundColor="#FFF"
-					color="#000"
-					borderRadius="50%"
-					height="100%"
-					width="100%"
-					fontSize="larger"
-					display="flex"
-					justifyContent="center"
-					alignItems="center">
+				)}
+				{isWindow && (
 					<TbWindow
 						style={{
 							display: "inline-block",
 						}}
 					/>
-				</Box>
-			)}
+				)}
+			</Box>
 		</Box>
 	);
 }

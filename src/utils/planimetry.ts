@@ -251,9 +251,9 @@ export class PlanimetrySchema {
 
 	public isBlockColorable(i: number): boolean {
 		const block = this.map.blocks[i];
-		if (block.type === PlanimetryBlockTypeEnum.Floor && this.isBlockInsideWalls(i)) return true;
-		if (block.type === PlanimetryBlockTypeEnum.Wall) return true;
-		return false;
+		if (block.type === PlanimetryBlockTypeEnum.Floor && !this.isBlockInsideWalls(i))
+			return false;
+		return true;
 	}
 
 	public isBlockInsideWalls(i: number) {
