@@ -9,6 +9,7 @@
 	"action": {
 		"close": "Chiudi",
 		"back": "Indietro",
+		"confirm": "Conferma",
 		"connectToWallet": "Connetti",
 		"connectWallet": "Connetti wallet",
 		"copyAddress": "Copia indirizzo",

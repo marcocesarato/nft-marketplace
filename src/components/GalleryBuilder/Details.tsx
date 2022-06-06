@@ -7,13 +7,13 @@ import {
 	AccordionItem,
 	AccordionPanel,
 	Box,
-	Button,
 	IconButton,
 	Select,
 	VStack,
 } from "@chakra-ui/react";
 
 import {MapDirectionEnum, PlanimetryBlockType, PlanimetryBlockTypeEnum} from "@app/enums";
+import AssetPicker from "@components/AssetPicker";
 import useGallery from "@contexts/Gallery";
 
 export default function GalleryBlockDetails(): JSX.Element {
@@ -40,9 +40,9 @@ export default function GalleryBlockDetails(): JSX.Element {
 	let sections = {
 		"ceiling": false,
 		"floor": false,
+		[MapDirectionEnum.North]: false,
 		[MapDirectionEnum.West]: false,
 		[MapDirectionEnum.East]: false,
-		[MapDirectionEnum.North]: false,
 		[MapDirectionEnum.South]: false,
 	};
 	if (selected) {
@@ -108,7 +108,7 @@ export default function GalleryBlockDetails(): JSX.Element {
 				{Object.entries(sections).map(([key, value]) => {
 					if (!value) return null;
 					return (
-						<AccordionItem>
+						<AccordionItem key={key}>
 							<h2>
 								<AccordionButton>
 									<Box flex="1" textAlign="left">
@@ -119,13 +119,23 @@ export default function GalleryBlockDetails(): JSX.Element {
 							</h2>
 							<AccordionPanel pb={4}>
 								{key === "floor" || key === "ceiling" ? (
-									<Button width="full" size="sm" mb={2} onClick={() => {}}>
-										Add new object
-									</Button>
+									<AssetPicker
+										width="full"
+										size="sm"
+										mb={2}
+										value={selected.items?.[key]}
+										onChange={() => {}}
+										label="Add new object"
+									/>
 								) : (
-									<Button width="full" size="sm" mb={2} onClick={() => {}}>
-										Add new painting
-									</Button>
+									<AssetPicker
+										width="full"
+										size="sm"
+										mb={2}
+										value={selected.items?.[key]}
+										onChange={() => {}}
+										label="Add new painting"
+									/>
 								)}
 							</AccordionPanel>
 						</AccordionItem>

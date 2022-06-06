@@ -6,7 +6,7 @@ export type NFT = {
 	block_number: string;
 	block_number_minted: string;
 	token_uri?: string | null | undefined;
-	metadata?: NFTMetadata | string | null | undefined;
+	metadata?: NFTMetadata | null | undefined;
 	synced_at?: string | undefined;
 	amount?: string | null | undefined;
 	name: string;
@@ -17,6 +17,7 @@ export type NFTMetadata = {
 	name: string;
 	description: string;
 	image: string;
+	thumbnail: string;
 	externalUrl?: string;
 	attributes?: [ItemAttribute];
 	data?: NFTMetadata;

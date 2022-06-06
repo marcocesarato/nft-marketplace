@@ -9,6 +9,7 @@
 	"action": {
 		"close": "Close",
 		"back": "Back",
+		"confirm": "Confirm",
 		"connectToWallet": "Connect",
 		"connectWallet": "Connect wallet",
 		"copyAddress": "Copy Address",

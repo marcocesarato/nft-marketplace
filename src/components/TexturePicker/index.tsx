@@ -49,24 +49,32 @@ export default function TexturePicker({value, onChange}) {
 					</PopoverHeader>
 					<PopoverBody height="120px">
 						<SimpleGrid columns={5} spacing={2}>
-							{options.map((c) => (
-								<Button
-									key={c.name}
-									backgroundImage={c.image}
-									backgroundSize="cover"
-									height="22px"
-									width="22px"
-									padding={0}
-									minWidth="unset"
-									borderRadius={3}
-									_hover={{backgroundImage: c.image, backgroundSize: "cover"}}
-									onClick={() => {
-										if (!c.name) {
-											return onChange(null);
-										}
-										onChange(c);
-									}}></Button>
-							))}
+							{options.map((c) => {
+								const background = {
+									backgroundImage: c.image,
+									backgroundSize: "cover",
+									backgroundPosition: "center",
+								};
+								return (
+									<Button
+										key={c.name}
+										height="22px"
+										width="22px"
+										padding={0}
+										minWidth="unset"
+										borderRadius={3}
+										_hover={background}
+										_focus={background}
+										_active={background}
+										{...background}
+										onClick={() => {
+											if (!c.name) {
+												return onChange(null);
+											}
+											onChange(c);
+										}}></Button>
+								);
+							})}
 						</SimpleGrid>
 					</PopoverBody>
 				</PopoverContent>
