@@ -34,7 +34,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 		z: (spawnY - map.height / 2) * WallSize,
 	};
 
-	const spawnDirection = schema.getLongestBlockDirection(spawn);
+	const spawnDirection = schema.getLongestConnectedBlocksDirection(spawn);
 	let cameraRotation = schema.getDirectionRotation(spawnDirection);
 
 	useEffect(() => {

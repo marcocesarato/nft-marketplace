@@ -4,8 +4,8 @@ import {debounce} from "@utils/common";
 
 export class PlanimetrySchema {
 	private map: PlanimetryMap;
-	private blocksInsideWall: Set<number> = new Set();
-	private blocksOutsideWall: Set<number> = new Set();
+	private blocksInsideRoom: Set<number> = new Set();
+	private blocksOutsideRoom: Set<number> = new Set();
 
 	constructor(planimetryMap?: PlanimetryMap) {
 		this.map = planimetryMap || ({} as PlanimetryMap);
@@ -14,8 +14,8 @@ export class PlanimetrySchema {
 
 	public setMap(planimetryMap: PlanimetryMap) {
 		if (this.map.blocks !== planimetryMap.blocks) {
-			this.blocksInsideWall = new Set();
-			this.blocksOutsideWall = new Set();
+			this.blocksInsideRoom = new Set();
+			this.blocksOutsideRoom = new Set();
 		}
 		this.map = planimetryMap;
 		this.adjustSpawnPosition();
@@ -81,7 +81,7 @@ export class PlanimetrySchema {
 				}
 			}
 			if (spawn === -1) {
-				const insideFloor = this.getInsideWallBlocks();
+				const insideFloor = this.getBlocksInsideRoom();
 				const arrayFloor: number[] = Array.from(insideFloor);
 				if (arrayFloor.length > 0) {
 					spawn = arrayFloor[0];
@@ -203,44 +203,44 @@ export class PlanimetrySchema {
 		return connected;
 	}
 
-	public getOutsideWallBlocks() {
-		if (this.blocksOutsideWall.size > 0) return this.blocksOutsideWall;
+	public getBlocksOutsideRoom() {
+		if (this.blocksOutsideRoom.size > 0) return this.blocksOutsideRoom;
 		let toCheck = new Set<number>([...Array(this.map.blocks.length).keys()]);
 		while (toCheck.size > 0) {
 			const i = toCheck.values().next().value;
 			toCheck.delete(i);
 			if (
-				!this.blocksOutsideWall.has(i) &&
+				!this.blocksOutsideRoom.has(i) &&
 				this.isMapBorder(i) &&
 				(!this.map.blocks[i] || this.map.blocks[i].type === PlanimetryBlockTypeEnum.Floor)
 			) {
 				const {connected, visited} = this.getConnectedBlocks(i);
 				toCheck = new Set([...toCheck].filter((x) => !visited.has(x)));
 				// Add all connected planes to outsideWallsPlanes
-				this.blocksOutsideWall = new Set([...this.blocksOutsideWall, ...connected]);
+				this.blocksOutsideRoom = new Set([...this.blocksOutsideRoom, ...connected]);
 			}
 		}
-		return this.blocksOutsideWall;
+		return this.blocksOutsideRoom;
 	}
 
-	public getInsideWallBlocks(): Set<number> {
-		if (this.blocksInsideWall.size > 0) return this.blocksInsideWall;
-		const outsidePlanes = this.getOutsideWallBlocks();
+	public getBlocksInsideRoom(): Set<number> {
+		if (this.blocksInsideRoom.size > 0) return this.blocksInsideRoom;
+		const outsidePlanes = this.getBlocksOutsideRoom();
 		const allBlocks = new Set<number>([...Array(this.map.blocks.length).keys()]);
-		this.blocksInsideWall = new Set(
+		this.blocksInsideRoom = new Set(
 			[...allBlocks].filter(
 				(x) =>
 					!outsidePlanes.has(x) &&
 					this.map.blocks[x].type === PlanimetryBlockTypeEnum.Floor,
 			),
 		);
-		return this.blocksInsideWall;
+		return this.blocksInsideRoom;
 	}
 
-	public isPerimeterWall(i: number) {
+	public isRoomPerimeter(i: number) {
 		const block = this.map.blocks[i];
 		if (block.type !== PlanimetryBlockTypeEnum.Wall) return false;
-		const outsideWalls = this.getOutsideWallBlocks();
+		const outsideWalls = this.getBlocksOutsideRoom();
 		const neighbors = this.getNeighborsDetails(i);
 		for (const neighbor of neighbors) {
 			if (neighbor.type === PlanimetryBlockTypeEnum.Floor && outsideWalls.has(neighbor.id))
@@ -257,16 +257,16 @@ export class PlanimetrySchema {
 	}
 
 	public isBlockInsideWalls(i: number) {
-		const outsidePlanes = this.getInsideWallBlocks();
+		const outsidePlanes = this.getBlocksInsideRoom();
 		return outsidePlanes.has(i);
 	}
 
 	public isValidPlanimetry() {
-		const insideFloor = this.getInsideWallBlocks();
+		const insideFloor = this.getBlocksInsideRoom();
 		return insideFloor.size > 0;
 	}
 
-	public getLongestBlockDirection(i: number): MapDirection {
+	public getLongestConnectedBlocksDirection(i: number): MapDirection {
 		const connectedNorth = this.getConnectedBlocksOnDirection(i, MapDirectionEnum.North);
 		const connectedSouth = this.getConnectedBlocksOnDirection(i, MapDirectionEnum.South);
 		const connectedWest = this.getConnectedBlocksOnDirection(i, MapDirectionEnum.West);

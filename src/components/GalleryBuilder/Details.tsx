@@ -24,7 +24,7 @@ export default function GalleryBlockDetails(): JSX.Element {
 			{value: PlanimetryBlockTypeEnum.Floor.toString(), label: "Floor"},
 			{value: PlanimetryBlockTypeEnum.Window.toString(), label: "Window"},
 		];
-		if (selected && !schema.isPerimeterWall(selected.id)) {
+		if (selected && !schema.isRoomPerimeter(selected.id)) {
 			types.push({value: PlanimetryBlockTypeEnum.Door.toString(), label: "Door"});
 		}
 		return types;
@@ -34,7 +34,7 @@ export default function GalleryBlockDetails(): JSX.Element {
 		[selected, schema],
 	);
 	const insideWallFloor = useMemo(
-		() => (schema ? schema.getInsideWallBlocks() : new Set()),
+		() => (schema ? schema.getBlocksInsideRoom() : new Set()),
 		[schema],
 	);
 	let sections = {
