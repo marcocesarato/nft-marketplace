@@ -239,8 +239,8 @@ export class PlanimetrySchema {
 
 	public isRoomPerimeter(i: number) {
 		const block = this.map.blocks[i];
-		if (block.type !== PlanimetryBlockTypeEnum.Wall) return false;
 		const outsideWalls = this.getBlocksOutsideRoom();
+		if (block.type === PlanimetryBlockTypeEnum.Floor) return outsideWalls.has(i);
 		const neighbors = this.getNeighborsDetails(i);
 		for (const neighbor of neighbors) {
 			if (neighbor.type === PlanimetryBlockTypeEnum.Floor && outsideWalls.has(neighbor.id))
