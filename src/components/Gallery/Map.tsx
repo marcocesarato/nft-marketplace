@@ -74,7 +74,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 					y: WallHeight / 2,
 					z: (y - map.height / 2) * WallSize,
 				};
-				const neighbors = schema.getNeighborsDetails(block.id);
+				const neighbors = schema.getNeighbors(block.id);
 				const isColumn = schema.isColumn(block.id);
 				const isIntersection = schema.isIntersection(block.id);
 				const WallComponent =

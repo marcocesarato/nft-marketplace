@@ -30,7 +30,7 @@ export default function GalleryBlockDetails(): JSX.Element {
 		return types;
 	}, [selected, schema]);
 	const neightbours = useMemo(
-		() => (selected && schema ? schema.getNeighborsDetails(selected.id) : []),
+		() => (selected && schema ? schema.getNeighbors(selected.id) : []),
 		[selected, schema],
 	);
 	const insideWallFloor = useMemo(

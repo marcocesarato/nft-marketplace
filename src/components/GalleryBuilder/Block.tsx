@@ -45,7 +45,7 @@ function Block({
 			};
 			if (isWall || isDoor || isWindow) {
 				styles.backgroundColor ||= defaultWallColor;
-				const neightbours = schema.getNeighborsDetails(block.id);
+				const neightbours = schema.getNeighbors(block.id);
 				neightbours.forEach((neightbour) => {
 					if (
 						neightbour.type !== PlanimetryBlockTypeEnum.Wall &&
@@ -189,8 +189,8 @@ function Block({
 			{...getBlockStyle(data)}>
 			<Box
 				as="span"
-				backgroundColor="#FFF"
-				color="#000"
+				backgroundColor="rgba(0,0,0,0.3)"
+				color="rgba(255,255,255,0.9)"
 				borderRadius="50%"
 				height="100%"
 				width="100%"

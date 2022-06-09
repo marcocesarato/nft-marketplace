@@ -91,23 +91,7 @@ export class PlanimetrySchema {
 		this.map.spawn = spawn;
 	}
 
-	public getNeighbors(i: number) {
-		const neighbors = [];
-		const x = i % this.map.width;
-		const y = Math.floor(i / this.map.width);
-		if (x > 0) neighbors.push(i - 1);
-		if (x < this.map.width - 1) neighbors.push(i + 1);
-		if (y > 0) neighbors.push(i - this.map.width);
-		if (y < this.map.height - 1) neighbors.push(i + this.map.width);
-		if (x > 0 && y > 0) neighbors.push(i - this.map.width - 1);
-		if (x < this.map.width - 1 && y > 0) neighbors.push(i - this.map.width + 1);
-		if (x > 0 && y < this.map.height - 1) neighbors.push(i + this.map.width - 1);
-		if (x < this.map.width - 1 && y < this.map.height - 1)
-			neighbors.push(i + this.map.width + 1);
-		return neighbors;
-	}
-
-	public getNeighborsDetails(i: number): PlanimetryBlock[] {
+	public getNeighbors(i: number): PlanimetryBlock[] {
 		const neighbors = [];
 		const x = i % this.map.width;
 		const y = Math.floor(i / this.map.width);
@@ -154,7 +138,10 @@ export class PlanimetrySchema {
 		return neighbors;
 	}
 
-	private getConnectedBlocks(i: number): {connected: Set<number>; visited: Set<number>} {
+	private getConnectedBlocks(
+		i: number,
+		direction?: MapDirection,
+	): {connected: Set<number>; visited: Set<number>} {
 		const type = this.map.blocks[i]?.type;
 		const visited = new Set<number>();
 		const connected = new Set<number>();
@@ -167,40 +154,16 @@ export class PlanimetrySchema {
 			const neighbors = this.getNeighbors(current);
 			for (const neighbor of neighbors) {
 				if (
-					this.map.blocks[neighbor]?.type === type &&
-					!visited.has(neighbor) &&
-					!toCheck.has(neighbor)
-				) {
-					toCheck.add(neighbor);
-				}
-			}
-		}
-		return {connected, visited};
-	}
-
-	private getConnectedBlocksOnDirection(i: number, direction: MapDirection): Set<number> {
-		const type = this.map.blocks[i]?.type;
-		const visited = new Set<number>();
-		const connected = new Set<number>();
-		const toCheck = new Set<number>([i]);
-		while (toCheck.size > 0) {
-			const current = toCheck.values().next().value;
-			toCheck.delete(current);
-			visited.add(current);
-			connected.add(current);
-			const neighbors = this.getNeighborsDetails(current);
-			for (const neighbor of neighbors) {
-				if (
-					neighbor.type === type &&
-					neighbor.direction === direction &&
+					this.map.blocks[neighbor.id]?.type === type &&
 					!visited.has(neighbor.id) &&
-					!toCheck.has(neighbor.id)
+					!toCheck.has(neighbor.id) &&
+					(direction == null || neighbor.direction === direction)
 				) {
 					toCheck.add(neighbor.id);
 				}
 			}
 		}
-		return connected;
+		return {connected, visited};
 	}
 
 	public getBlocksOutsideRoom() {
@@ -241,7 +204,7 @@ export class PlanimetrySchema {
 		const block = this.map.blocks[i];
 		const outsideWalls = this.getBlocksOutsideRoom();
 		if (block.type === PlanimetryBlockTypeEnum.Floor) return outsideWalls.has(i);
-		const neighbors = this.getNeighborsDetails(i);
+		const neighbors = this.getNeighbors(i);
 		for (const neighbor of neighbors) {
 			if (neighbor.type === PlanimetryBlockTypeEnum.Floor && outsideWalls.has(neighbor.id))
 				return true;
@@ -267,10 +230,10 @@ export class PlanimetrySchema {
 	}
 
 	public getLongestConnectedBlocksDirection(i: number): MapDirection {
-		const connectedNorth = this.getConnectedBlocksOnDirection(i, MapDirectionEnum.North);
-		const connectedSouth = this.getConnectedBlocksOnDirection(i, MapDirectionEnum.South);
-		const connectedWest = this.getConnectedBlocksOnDirection(i, MapDirectionEnum.West);
-		const connectedEast = this.getConnectedBlocksOnDirection(i, MapDirectionEnum.East);
+		const {connected: connectedNorth} = this.getConnectedBlocks(i, MapDirectionEnum.North);
+		const {connected: connectedSouth} = this.getConnectedBlocks(i, MapDirectionEnum.South);
+		const {connected: connectedWest} = this.getConnectedBlocks(i, MapDirectionEnum.West);
+		const {connected: connectedEast} = this.getConnectedBlocks(i, MapDirectionEnum.East);
 		const max = Math.max(
 			connectedNorth.size,
 			connectedSouth.size,
@@ -301,7 +264,7 @@ export class PlanimetrySchema {
 	public isIntersection(i: number): boolean {
 		const block = this.map.blocks?.[i];
 		if (!block) return false;
-		const neighbors = this.getNeighborsDetails(block.id);
+		const neighbors = this.getNeighbors(block.id);
 		const intsersections = [
 			[MapDirectionEnum.North, MapDirectionEnum.East],
 			[MapDirectionEnum.North, MapDirectionEnum.West],
@@ -323,7 +286,7 @@ export class PlanimetrySchema {
 	public isColumn(i: number): boolean {
 		const block = this.map.blocks?.[i];
 		if (!block) return false;
-		const neighbors = this.getNeighborsDetails(block.id);
+		const neighbors = this.getNeighbors(block.id);
 		let isColumn = true;
 		neighbors.forEach((neighbor: PlanimetryBlock) => {
 			if (neighbor.type !== PlanimetryBlockTypeEnum.Floor) {
