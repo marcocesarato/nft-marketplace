@@ -8,8 +8,9 @@ export const WallSize = 4;
 export const WallHeight = 6;
 export const CameraHeight = 1.6;
 
-export const defaultTextureAttributes = {
-	"color": "#ffffff",
+export const DefaultColor = "#FFF";
+export const DefaultTextureAttributes = {
+	"color": DefaultColor,
 	"material":
 		`repeat: 1 ${WallHeight};` +
 		"normal-map: #wall-normal;" +
@@ -42,7 +43,7 @@ export const textures: TextureAsset[] = [
 			},
 		],
 		attributes: {
-			...defaultTextureAttributes,
+			...DefaultTextureAttributes,
 			"material":
 				"src: #wall;" +
 				`repeat: 1 ${WallHeight};` +
@@ -73,7 +74,7 @@ export const textures: TextureAsset[] = [
 			},
 		],
 		attributes: {
-			...defaultTextureAttributes,
+			...DefaultTextureAttributes,
 			"material":
 				"src: #terrazzo;" +
 				"repeat: 1 1;" +
@@ -119,7 +120,7 @@ export const textures: TextureAsset[] = [
 			},
 		],
 		attributes: {
-			...defaultTextureAttributes,
+			...DefaultTextureAttributes,
 			"material":
 				"src: #ceiling;" +
 				"repeat: 1 1;" +
@@ -163,7 +164,7 @@ export const textures: TextureAsset[] = [
 			},
 		],
 		attributes: {
-			...defaultTextureAttributes,
+			...DefaultTextureAttributes,
 			"material":
 				"src: #rocks;" +
 				"repeat: 1 1;" +
@@ -202,7 +203,7 @@ export const textures: TextureAsset[] = [
 			},
 		],
 		attributes: {
-			...defaultTextureAttributes,
+			...DefaultTextureAttributes,
 			"material":
 				"src: #bricks;" +
 				"repeat: 1 1;" +
@@ -244,7 +245,7 @@ export const textures: TextureAsset[] = [
 			},
 		],
 		attributes: {
-			...defaultTextureAttributes,
+			...DefaultTextureAttributes,
 			"material":
 				"src: #wood-bricks;" +
 				"repeat: 2 2;" +
@@ -293,7 +294,7 @@ export const textures: TextureAsset[] = [
 			},
 		],
 		attributes: {
-			...defaultTextureAttributes,
+			...DefaultTextureAttributes,
 			"material":
 				"src: #scifi;" +
 				"repeat: 1 1;" +
@@ -327,7 +328,7 @@ export const textures: TextureAsset[] = [
 			},
 		],
 		attributes: {
-			...defaultTextureAttributes,
+			...DefaultTextureAttributes,
 			"material":
 				"src: #parquet;" +
 				"repeat: 1 1;" +
@@ -375,6 +376,6 @@ export const objectsModels: ObjectModel[] = [
 	},
 ];
 
-export const defaultWallTexture = textures[0];
-export const defaultFloorTexture = textures[1];
-export const defaultCeilingTexture = textures[2];
+export const DefaultWallTexture = textures[0];
+export const DefaultFloorTexture = textures[1];
+export const DefaultCeilingTexture = textures[2];

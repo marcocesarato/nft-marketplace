@@ -7,9 +7,9 @@ import {GalleryAsset, PlanimetryBlock} from "@app/types";
 import {MainCamera} from "@components/AFrame";
 import {
 	CameraHeight,
-	defaultCeilingTexture,
-	defaultFloorTexture,
-	defaultWallTexture,
+	DefaultCeilingTexture,
+	DefaultFloorTexture,
+	DefaultWallTexture,
 	WallHeight,
 	WallSize,
 } from "@configs/gallery";
@@ -44,7 +44,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 
 	// Load default assets
 	const assets = new Map<String, GalleryAsset>();
-	const defaultTextures = [defaultFloorTexture, defaultWallTexture, defaultCeilingTexture];
+	const defaultTextures = [DefaultFloorTexture, DefaultWallTexture, DefaultCeilingTexture];
 	defaultTextures.forEach((texture) => {
 		texture.assets.forEach((asset) => {
 			assets.set(asset.id, asset);

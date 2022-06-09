@@ -2,17 +2,17 @@ import {Box, Entity} from "@belivvr/aframe-react";
 
 import {MapDirectionEnum, PlanimetryBlockTypeEnum} from "@app/enums";
 import {PlanimetryBlock, TextureAsset} from "@app/types";
-import {defaultWallTexture, WallHeight, WallSize} from "@configs/gallery";
+import {DefaultColor, DefaultWallTexture, WallHeight, WallSize} from "@configs/gallery";
 import {convertAllStringToAttributes} from "@utils/converters";
 
 import Ceiling from "./Ceiling";
 import Floor from "./Floor";
 
-export const defaultWallAttributes = {
+export const DefaultWallAttributes = {
 	"shadow": {cast: true, receive: true},
 	"physx-body": "type: static",
 	"physx-restitution": "1.5",
-	...convertAllStringToAttributes(defaultWallTexture.attributes),
+	...convertAllStringToAttributes(DefaultWallTexture.attributes),
 };
 
 type WallProps = {
@@ -31,7 +31,7 @@ type WallProps = {
 export default function Wall({
 	position,
 	texture = {} as TextureAsset,
-	color = "#FFFFFF",
+	color = DefaultColor,
 	neighbors = [],
 	navmesh = false,
 	height = WallHeight,
@@ -105,25 +105,33 @@ export default function Wall({
 	const colorNorth =
 		isIntersection && connections[MapDirectionEnum.North]?.color
 			? connections[MapDirectionEnum.North]?.color
+			: isIntersection
+			? DefaultColor
 			: color;
 	const colorSouth =
 		isIntersection && connections[MapDirectionEnum.South]?.color
 			? connections[MapDirectionEnum.South]?.color
+			: isIntersection
+			? DefaultColor
 			: color;
 	const colorWest =
 		isIntersection && connections[MapDirectionEnum.West]?.color
 			? connections[MapDirectionEnum.West]?.color
+			: isIntersection
+			? DefaultColor
 			: color;
 	const colorEast =
 		isIntersection && connections[MapDirectionEnum.East]?.color
 			? connections[MapDirectionEnum.East]?.color
+			: isIntersection
+			? DefaultColor
 			: color;
 
 	return (
 		<Entity>
 			{isColumn ? (
 				<Box
-					{...defaultWallAttributes}
+					{...DefaultWallAttributes}
 					position={position}
 					depth={columnSize}
 					width={columnSize}
@@ -134,7 +142,7 @@ export default function Wall({
 				/>
 			) : (
 				<Box
-					{...defaultWallAttributes}
+					{...DefaultWallAttributes}
 					position={position}
 					depth={wallSize}
 					width={wallSize}
@@ -146,7 +154,7 @@ export default function Wall({
 			)}
 			{connections[MapDirectionEnum.North] && (
 				<Box
-					{...defaultWallAttributes}
+					{...DefaultWallAttributes}
 					position={positionNorth}
 					depth={wallSize}
 					width={wallSize}
@@ -158,7 +166,7 @@ export default function Wall({
 			)}
 			{connections[MapDirectionEnum.South] && (
 				<Box
-					{...defaultWallAttributes}
+					{...DefaultWallAttributes}
 					position={positionSouth}
 					depth={wallSize}
 					width={wallSize}
@@ -170,7 +178,7 @@ export default function Wall({
 			)}
 			{connections[MapDirectionEnum.East] && (
 				<Box
-					{...defaultWallAttributes}
+					{...DefaultWallAttributes}
 					position={positionEast}
 					depth={wallSize}
 					width={wallSize}
@@ -182,7 +190,7 @@ export default function Wall({
 			)}
 			{connections[MapDirectionEnum.West] && (
 				<Box
-					{...defaultWallAttributes}
+					{...DefaultWallAttributes}
 					position={positionWest}
 					depth={wallSize}
 					width={wallSize}

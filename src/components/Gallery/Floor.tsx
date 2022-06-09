@@ -1,7 +1,7 @@
 import {Plane} from "@belivvr/aframe-react";
 
 import {TextureAsset} from "@app/types";
-import {defaultFloorTexture, WallSize} from "@configs/gallery";
+import {DefaultFloorTexture, WallSize} from "@configs/gallery";
 import {convertAllStringToAttributes} from "@utils/converters";
 
 export const defaultFloorAttributes = {
@@ -11,7 +11,7 @@ export const defaultFloorAttributes = {
 	"rotation": {x: -90, y: 0, z: 0},
 	"physx-body": "type: static",
 	"physx-restitution": "1.5",
-	...convertAllStringToAttributes(defaultFloorTexture.attributes),
+	...convertAllStringToAttributes(DefaultFloorTexture.attributes),
 };
 
 export const navmeshAttributes = {
