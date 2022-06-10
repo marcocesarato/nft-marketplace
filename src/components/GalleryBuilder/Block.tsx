@@ -23,6 +23,9 @@ function Block({
 	const isDoor = data?.type === PlanimetryBlockTypeEnum.Door;
 	const isWindow = data?.type === PlanimetryBlockTypeEnum.Window;
 	const isWall = data?.type === PlanimetryBlockTypeEnum.Wall;
+	const iconStyle = {
+		display: "inline-block",
+	};
 	const getBlockStyle = useCallback(
 		(block: PlanimetryBlock) => {
 			const defaultWallColor = "#cbd5e0";
@@ -199,27 +202,9 @@ function Block({
 				alignItems="center"
 				display="flex"
 				visibility={isSpawn || isDoor || isWindow ? "visible" : "hidden"}>
-				{isSpawn && (
-					<IoAccessibilitySharp
-						style={{
-							display: "inline-block",
-						}}
-					/>
-				)}
-				{isDoor && (
-					<TbDoor
-						style={{
-							display: "inline-block",
-						}}
-					/>
-				)}
-				{isWindow && (
-					<TbWindow
-						style={{
-							display: "inline-block",
-						}}
-					/>
-				)}
+				{isSpawn && <IoAccessibilitySharp style={iconStyle} />}
+				{isDoor && <TbDoor style={iconStyle} />}
+				{isWindow && <TbWindow style={iconStyle} />}
 			</Box>
 		</Box>
 	);

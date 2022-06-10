@@ -1,7 +1,7 @@
 import {Entity} from "@belivvr/aframe-react";
 
-import {WallHeight} from "@/src/configs/gallery";
 import {PlanimetryBlock} from "@app/types";
+import {WallHeight} from "@configs/gallery";
 
 import Wall from "./Wall";
 
