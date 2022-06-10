@@ -20,7 +20,7 @@ import {
 	PlanimetryBlockType,
 	PlanimetryBlockTypeEnum,
 } from "@app/enums";
-import {NFT} from "@app/types";
+import {TokenItem} from "@app/types";
 import AssetPicker from "@components/AssetPicker";
 import useGallery from "@contexts/Gallery";
 
@@ -154,7 +154,7 @@ export default function GalleryBlockDetails(): JSX.Element {
 										size="sm"
 										mb={2}
 										value={selected.items?.[key]}
-										onChange={(asset: NFT) => {
+										onChange={(asset: TokenItem) => {
 											selected.items = selected.items ?? {};
 											selected.items[section] = {
 												name: asset.metadata.name,

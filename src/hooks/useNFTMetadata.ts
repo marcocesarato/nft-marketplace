@@ -1,10 +1,12 @@
 import {useState} from "react";
 import axios from "axios";
 
+import {TokenItem} from "@app/types";
+
 import useIPFS from "./useIPFS";
 
 /**
- * This is a hook that loads the NFT metadata in case it doesn't alreay exist
+ * This is a hook that loads the TokenItem metadata in case it doesn't alreay exist
  * If metadata is missing, the object is replaced with a reactive object that updatees when the data becomes available
  * The hook will retry until request is successful (with OpenSea, for now)
  */
@@ -13,40 +15,40 @@ export default function useNFTMetadata() {
 	const [results, setResults] = useState({});
 
 	/**
-	 * Fet Metadata  from NFT and Cache Results
-	 * @param {object} NFT
-	 * @returns NFT
+	 * Fet Metadata from Token and Cache Results
+	 * @param {object} item
+	 * @returns TokenItem
 	 */
-	function verifyMetadata(NFT) {
+	function verifyMetadata(item: TokenItem) {
 		//Pass Through if Metadata already present
-		if (NFT.metadata) return NFT;
+		if (item.metadata) return item;
 		//Get the Metadata
-		withMetadata(NFT);
-		//Return Hooked NFT Object
-		return results?.[NFT.token_uri] ? results?.[NFT.token_uri] : NFT;
+		withMetadata(item);
+		//Return Hooked Token Object
+		return results?.[item.token_uri] ? results?.[item.token_uri] : item;
 	}
 
 	/**
-	 * Extract Metadata from NFT,
-	 *  Fallback: Fetch from URI
-	 * @param {object} NFT
-	 * @returns {object} NFT
+	 * Extract Metadata from Token
+	 * Fallback: Fetch from URI
+	 * @param {object} item
+	 * @returns {object} TokenItem
 	 */
-	async function withMetadata(NFT) {
+	async function withMetadata(item: TokenItem) {
 		//Validate URI
-		if (!NFT.token_uri || !NFT.token_uri.includes("://")) {
-			console.log("withMetadata() Invalid URI", {URI: NFT.token_uri, NFT});
+		if (!item.token_uri || !item.token_uri.includes("://")) {
+			console.log("withMetadata() Invalid URI", {URI: item.token_uri, item});
 			return;
 		}
 		//Get Metadata
 		return await axios
-			.get(NFT.token_uri)
+			.get(item.token_uri)
 			.then((metadata) => {
 				if (!metadata) {
 					//Log
 					console.error("useVerifyMetadata.withMetadata() No Metadata found on URI:", {
-						URI: NFT.token_uri,
-						NFT,
+						URI: item.token_uri,
+						item,
 					});
 				}
 				//Handle Setbacks
@@ -57,47 +59,50 @@ export default function useNFTMetadata() {
 					//Log
 					console.warn(
 						"useVerifyMetadata.withMetadata() Bad Result for:" +
-							NFT.token_uri +
+							item.token_uri +
 							"  Will retry later",
 						{results, metadata},
 					);
 					//Retry That Again after 1s
 					setTimeout(function () {
-						withMetadata(NFT);
+						withMetadata(item);
 					}, 1000);
 				} //Handle Opensea's {detail: "Request was throttled. Expected available in 1 second."}
 				else {
 					//No Errors
 					//Set
-					setMetadata(NFT, metadata);
+					setMetadata(item, metadata);
 					//Log
-					console.debug("withMetadata() Late-load for NFT Metadata " + NFT.token_uri, {
-						metadata,
-					});
+					console.debug(
+						"withMetadata() Late-load for TokenItem Metadata " + item.token_uri,
+						{
+							metadata,
+						},
+					);
 				} //Valid Result
-				return NFT;
+				return item;
 			})
 			.catch((err) => {
 				console.error("useVerifyMetadata.withMetadata() Error Caught:", {
 					err,
-					NFT,
-					URI: NFT.token_uri,
+					item,
+					URI: item.token_uri,
 				});
 			});
 	}
 
 	/**
-	 * Update NFT Object
-	 * @param {object} NFT
+	 * Update Token Object
+	 * @param {object} item
 	 * @param {object} metadata
 	 */
-	function setMetadata(NFT, metadata) {
+	function setMetadata(item: TokenItem, metadata) {
 		//Add Metadata
-		NFT.metadata = metadata;
+		item.metadata = metadata;
 		//Set Image
-		if (metadata?.image) NFT.image = resolveLink(metadata.image);
+		if (metadata?.image) item.image = resolveLink(metadata.image);
 		//Set to State
-		if (metadata && !results[NFT.token_uri]) setResults({...results, [NFT.token_uri]: NFT});
+		if (metadata && !results[item.token_uri]) setResults({...results, [item.token_uri]: item});
 	}
 
 	return {verifyMetadata, withMetadata};

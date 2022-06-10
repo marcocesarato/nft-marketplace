@@ -13,15 +13,15 @@ import {
 } from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
-import {NFT} from "@app/types";
+import {TokenItem} from "@app/types";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
 import useNFTs from "@hooks/useNFTs";
 
 type AssetPickerProps = {
-	value?: NFT;
+	value?: TokenItem;
 	label: string;
-	onChange: (asset: NFT) => void;
+	onChange: (asset: TokenItem) => void;
 	[key: string]: any;
 };
 export default function AssetPicker({value, label, onChange, ...props}: AssetPickerProps) {
@@ -49,7 +49,7 @@ export default function AssetPicker({value, label, onChange, ...props}: AssetPic
 					<ModalCloseButton />
 					<ModalBody>
 						<SimpleGrid columns={5} spacing={2}>
-							{data.map((c: NFT) => {
+							{data.map((c: TokenItem) => {
 								const background = {
 									backgroundImage: c.metadata?.thumbnail || c.metadata?.image,
 									backgroundSize: "cover",

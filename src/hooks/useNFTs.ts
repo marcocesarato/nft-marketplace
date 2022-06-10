@@ -1,7 +1,7 @@
 import {useMoralisWeb3Api} from "react-moralis";
 import {useQuery} from "react-query";
 
-import type {NFT} from "@app/types";
+import type {TokenItem} from "@app/types";
 import {ChainId} from "@configs/chain";
 import {MarketAddress} from "@configs/contracts";
 import {isString} from "@utils/objects";
@@ -30,7 +30,7 @@ const useNFTs = ({address = null} = {}) => {
 		return nft;
 	};
 	const accountAddress = address ?? account;
-	return useQuery<NFT[], Error>(
+	return useQuery<TokenItem[], Error>(
 		["NFTs", account, ChainId],
 		async () => {
 			const options = {

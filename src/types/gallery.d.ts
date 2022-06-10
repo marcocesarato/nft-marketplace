@@ -1,6 +1,6 @@
 import {GalleryAssetTypes, MapDirection, PlanimetryBlockType} from "@app/enums";
 
-import {NFT} from "./marketplace";
+import {TokenItem} from "./marketplace";
 
 export type PlanimetryBlock = {
 	id: number;
@@ -45,7 +45,7 @@ export type ObjectModel = {
 	image: string;
 	type: ObjectModelType;
 	assets: GalleryAsset[];
-	data?: NFT;
+	data?: TokenItem;
 	attributes?: {
 		[key: string]: string;
 	};
