@@ -8,16 +8,24 @@ import {
 	AccordionPanel,
 	Box,
 	IconButton,
+	Image,
 	Select,
 	VStack,
 } from "@chakra-ui/react";
 
-import {MapDirectionEnum, PlanimetryBlockType, PlanimetryBlockTypeEnum} from "@app/enums";
+import {
+	GalleryAssetTypesEnum,
+	MapDirectionEnum,
+	ObjectModelTypeEnum,
+	PlanimetryBlockType,
+	PlanimetryBlockTypeEnum,
+} from "@app/enums";
+import {NFT} from "@app/types";
 import AssetPicker from "@components/AssetPicker";
 import useGallery from "@contexts/Gallery";
 
 export default function GalleryBlockDetails(): JSX.Element {
-	const {schema, selected, onChangeBlock, onSelect} = useGallery();
+	const {schema, selected, onChangeBlockMetadata, onChangeBlock, onSelect} = useGallery();
 	const blockTypesOptions = useMemo(() => {
 		const types = [
 			{value: PlanimetryBlockTypeEnum.Wall.toString(), label: "Wall"},
@@ -61,13 +69,18 @@ export default function GalleryBlockDetails(): JSX.Element {
 			});
 		}
 	} else {
-		return null;
+		return <VStack flex={1} maxWidth={300}></VStack>;
 	}
-	const defaultIndex = Object.values(sections)
-		.filter(Boolean)
-		.map((key, i) => i);
+	console.log(selected);
+	const defaultIndex = Array.from(Array(10).keys());
 	return (
-		<VStack spacing={4} flex={1} maxWidth={300} alignItems="flex-end">
+		<VStack
+			spacing={4}
+			flex={1}
+			maxWidth={300}
+			height="calc(100vh - 90px)"
+			overflow="scroll"
+			alignItems="flex-end">
 			<IconButton
 				icon={<CloseIcon />}
 				variant="ghost"
@@ -76,7 +89,7 @@ export default function GalleryBlockDetails(): JSX.Element {
 				aria-label={""}
 			/>
 			<Accordion defaultIndex={defaultIndex} allowMultiple width={"full"}>
-				<AccordionItem>
+				<AccordionItem key={`detail-${selected.id}-wall`}>
 					<h2>
 						<AccordionButton>
 							<Box flex="1" textAlign="left">
@@ -92,12 +105,10 @@ export default function GalleryBlockDetails(): JSX.Element {
 								onChange={(e) => {
 									selected.type = e.target.value as PlanimetryBlockType;
 									onChangeBlock(selected.id, selected);
-								}}>
+								}}
+								defaultValue={selected.type}>
 								{blockTypesOptions.map((option) => (
-									<option
-										key={option.value}
-										value={option.value}
-										selected={option.value === selected.type}>
+									<option key={option.value} value={option.value}>
 										{option.label}
 									</option>
 								))}
@@ -107,8 +118,9 @@ export default function GalleryBlockDetails(): JSX.Element {
 				</AccordionItem>
 				{Object.entries(sections).map(([key, value]) => {
 					if (!value) return null;
+					const section = key.toLowerCase();
 					return (
-						<AccordionItem key={key}>
+						<AccordionItem key={`details-${selected.id}-${key}`}>
 							<h2>
 								<AccordionButton>
 									<Box flex="1" textAlign="left">
@@ -118,6 +130,15 @@ export default function GalleryBlockDetails(): JSX.Element {
 								</AccordionButton>
 							</h2>
 							<AccordionPanel pb={4}>
+								{selected.items?.[section] && (
+									<Box>
+										<Image
+											src={selected.items[section].data?.metadata?.image}
+											width="full"
+											mb={4}
+										/>
+									</Box>
+								)}
 								{key === "floor" || key === "ceiling" ? (
 									<AssetPicker
 										width="full"
@@ -133,7 +154,23 @@ export default function GalleryBlockDetails(): JSX.Element {
 										size="sm"
 										mb={2}
 										value={selected.items?.[key]}
-										onChange={() => {}}
+										onChange={(asset: NFT) => {
+											selected.items = selected.items ?? {};
+											selected.items[section] = {
+												name: asset.metadata.name,
+												image: asset.metadata.image,
+												type: ObjectModelTypeEnum.Picture,
+												assets: [
+													{
+														id: asset.token_address + asset.token_id,
+														src: asset.metadata.image,
+														type: GalleryAssetTypesEnum.Image,
+													},
+												],
+												data: asset,
+											};
+											onChangeBlockMetadata(selected.id, selected);
+										}}
 										label="Add new painting"
 									/>
 								)}

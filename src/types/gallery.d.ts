@@ -1,5 +1,7 @@
 import {GalleryAssetTypes, MapDirection, PlanimetryBlockType} from "@app/enums";
 
+import {NFT} from "./marketplace";
+
 export type PlanimetryBlock = {
 	id: number;
 	texture?: TextureAsset;
@@ -7,10 +9,10 @@ export type PlanimetryBlock = {
 	type?: PlanimetryBlockType;
 	direction?: MapDirection;
 	items?: {
-		front?: ObjectModel;
-		back?: ObjectModel;
-		left?: ObjectModel;
-		right?: ObjectModel;
+		north?: ObjectModel;
+		south?: ObjectModel;
+		west?: ObjectModel;
+		east?: ObjectModel;
 		up?: ObjectModel;
 		down?: ObjectModel;
 	};
@@ -43,7 +45,8 @@ export type ObjectModel = {
 	image: string;
 	type: ObjectModelType;
 	assets: GalleryAsset[];
-	attributes: {
+	data?: NFT;
+	attributes?: {
 		[key: string]: string;
 	};
 	planeAttributes?: {

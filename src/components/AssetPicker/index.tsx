@@ -18,7 +18,13 @@ import Header from "@components/Header";
 import Loading from "@components/Loading";
 import useNFTs from "@hooks/useNFTs";
 
-export default function AssetPicker({value, onChange, label, ...props}) {
+type AssetPickerProps = {
+	value?: NFT;
+	label: string;
+	onChange: (asset: NFT) => void;
+	[key: string]: any;
+};
+export default function AssetPicker({value, label, onChange, ...props}: AssetPickerProps) {
 	const {t} = useTranslation();
 	const [selected, setSelected] = useState(value);
 	const {isOpen, onOpen, onClose} = useDisclosure();
@@ -85,7 +91,7 @@ export default function AssetPicker({value, onChange, label, ...props}) {
 						<Button
 							colorScheme="purple"
 							onClick={() => {
-								onChange(selected.metadata?.image);
+								onChange(selected);
 								onClose();
 							}}>
 							{t<string>("common:action.confirm")}

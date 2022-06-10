@@ -1,5 +1,5 @@
 import {GalleryActionTypes, GalleryActionTypesEnum, PlanimetryBlockTypeEnum} from "@app/enums";
-import {PlanimetryMap} from "@app/types";
+import {PlanimetryBlock, PlanimetryMap} from "@app/types";
 import {clone} from "@utils/converters";
 import {PlanimetrySchema} from "@utils/planimetry";
 
@@ -7,13 +7,14 @@ import {createInitialSchema} from "./initialState";
 
 export const reducer = (
 	state: PlanimetrySchema,
-	action: {type: GalleryActionTypes; payload?: any},
+	action: {type: GalleryActionTypes; payload?: any; callback?: (block?: PlanimetryBlock) => void},
 ) => {
-	let newState = new PlanimetrySchema();
+	let newState = Object.assign(Object.create(Object.getPrototypeOf(state)), state);
 	const planimetryMap: PlanimetryMap = state.getMap();
 	switch (action.type) {
 		case GalleryActionTypesEnum.SetData: {
 			newState.setMap(clone(action.payload));
+			action.callback && action.callback();
 			return newState;
 		}
 		case GalleryActionTypesEnum.SetBlock: {
@@ -21,10 +22,12 @@ export const reducer = (
 			resultMap = clone(planimetryMap);
 			resultMap.blocks[action.payload.value.id] = clone(action.payload.value);
 			newState.setMap(resultMap);
+			action.callback && action.callback(action.payload.value);
 			return newState;
 		}
 		case GalleryActionTypesEnum.SetBlockMetadata: {
 			newState.setBlockMetadata(action.payload.value.id, action.payload.value);
+			action.callback && action.callback(action.payload.value);
 			return newState;
 		}
 		case GalleryActionTypesEnum.SetSpawn: {
@@ -41,6 +44,7 @@ export const reducer = (
 		}
 		case GalleryActionTypesEnum.SetSize:
 		case GalleryActionTypesEnum.ResetMap: {
+			action.callback && action.callback();
 			return createInitialSchema(action.payload || planimetryMap.width);
 		}
 		default:

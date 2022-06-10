@@ -3,7 +3,7 @@ import {useEffect} from "react";
 import {AssetItem, Assets} from "@belivvr/aframe-react";
 
 import {GalleryAssetTypesEnum, PlanimetryBlockTypeEnum} from "@app/enums";
-import {GalleryAsset, PlanimetryBlock} from "@app/types";
+import {GalleryAsset} from "@app/types";
 import {MainCamera} from "@components/AFrame";
 import {
 	CameraHeight,

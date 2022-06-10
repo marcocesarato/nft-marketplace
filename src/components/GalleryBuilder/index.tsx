@@ -37,7 +37,7 @@ export default function GallerySettings(): JSX.Element {
 
 	return (
 		<Box>
-			<HStack isInline alignItems={"flex-start"}>
+			<HStack isInline alignItems={"flex-start"} justifyContent="space-between">
 				<Toolbar onSave={onSave} />
 				<Map />
 				<Details />

@@ -22,6 +22,26 @@ export const GalleryProvider = ({children}): JSX.Element => {
 	const [color, setColor] = useState(initialState.color);
 	const [texture, setTexture] = useState<TextureAsset>(initialState.texture);
 
+	const onSelect = useCallback(
+		(block: PlanimetryBlock) => {
+			if (block?.id !== planimetry.getSpawn()) {
+				setSelected(block);
+			}
+		},
+		[planimetry],
+	);
+
+	const cleanSelected = useCallback(() => {
+		setSelected(null);
+	}, []);
+
+	const updateSelected = useCallback(
+		(block: PlanimetryBlock) => {
+			if (block.id === selected?.id) setSelected(block);
+		},
+		[selected],
+	);
+
 	const setPlanimetry = useCallback((map: PlanimetryMap) => {
 		dispatch({
 			type: GalleryActionTypesEnum.SetData,
@@ -29,19 +49,30 @@ export const GalleryProvider = ({children}): JSX.Element => {
 		});
 	}, []);
 
-	const setBlock = useCallback((id: number, value: PlanimetryBlock) => {
-		dispatch({
-			type: GalleryActionTypesEnum.SetBlock,
-			payload: {id, value},
-		});
-	}, []);
+	const setBlock = useCallback(
+		(id: number, value: PlanimetryBlock) => {
+			dispatch({
+				type: GalleryActionTypesEnum.SetBlock,
+				payload: {id, value},
+				callback: updateSelected,
+			});
+		},
+		[updateSelected],
+	);
 
-	const setBlockMetadata = useCallback((id: number, value: GenericObject) => {
-		dispatch({
-			type: GalleryActionTypesEnum.SetBlockMetadata,
-			payload: {id, value},
-		});
-	}, []);
+	const setBlockMetadata = useCallback(
+		(id: number, value: GenericObject) => {
+			dispatch({
+				type: GalleryActionTypesEnum.SetBlockMetadata,
+				payload: {
+					id,
+					value,
+				},
+				callback: updateSelected,
+			});
+		},
+		[updateSelected],
+	);
 
 	const setSpawn = useCallback(
 		(id: number) => {
@@ -56,27 +87,23 @@ export const GalleryProvider = ({children}): JSX.Element => {
 		[selected],
 	);
 
-	const setMapSize = useCallback((size: number) => {
-		dispatch({
-			type: GalleryActionTypesEnum.SetSize,
-			payload: size,
-		});
-	}, []);
+	const setMapSize = useCallback(
+		(size: number) => {
+			dispatch({
+				type: GalleryActionTypesEnum.SetSize,
+				payload: size,
+				callback: cleanSelected,
+			});
+		},
+		[cleanSelected],
+	);
 
 	const resetMap = useCallback(() => {
 		dispatch({
 			type: GalleryActionTypesEnum.ResetMap,
+			callback: cleanSelected,
 		});
-	}, []);
-
-	const onSelect = useCallback(
-		(block: PlanimetryBlock) => {
-			if (block?.id !== planimetry.getSpawn()) {
-				setSelected(block);
-			}
-		},
-		[planimetry],
-	);
+	}, [cleanSelected]);
 
 	const planimetryMap = planimetry.getMap();
 	const globalState = {
