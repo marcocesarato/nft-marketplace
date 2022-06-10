@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 
 import {
-	GalleryAssetTypesEnum,
+	GalleryAssetTypeEnum,
 	MapDirectionEnum,
 	ObjectModelTypeEnum,
 	PlanimetryBlockType,
@@ -71,7 +71,6 @@ export default function GalleryBlockDetails(): JSX.Element {
 	} else {
 		return <VStack flex={1} maxWidth={300}></VStack>;
 	}
-	console.log(selected);
 	const defaultIndex = Array.from(Array(10).keys());
 	return (
 		<VStack
@@ -155,16 +154,22 @@ export default function GalleryBlockDetails(): JSX.Element {
 										mb={2}
 										value={selected.items?.[key]}
 										onChange={(asset: TokenItem) => {
+											const assetId =
+												asset.token_address +
+												asset.token_id +
+												selected.id +
+												key;
 											selected.items = selected.items ?? {};
 											selected.items[section] = {
 												name: asset.metadata.name,
 												image: asset.metadata.image,
 												type: ObjectModelTypeEnum.Picture,
+												src: `#${assetId}`,
 												assets: [
 													{
-														id: asset.token_address + asset.token_id,
+														id: assetId,
 														src: asset.metadata.image,
-														type: GalleryAssetTypesEnum.Image,
+														type: GalleryAssetTypeEnum.Image,
 													},
 												],
 												data: asset,

@@ -12,7 +12,7 @@ export enum ObjectModelType {
 	GLB = "GLB",
 }
 
-export enum GalleryActionTypes {
+export enum GalleryActionType {
 	SetData = "SET_DATA",
 	SetBlock = "SET_BLOCK",
 	SetSpawn = "SET_SPAWN",
@@ -20,7 +20,7 @@ export enum GalleryActionTypes {
 	ResetMap = "RESET_MAP",
 }
 
-export enum GalleryAssetTypes {
+export enum GalleryAssetType {
 	Image = "Image",
 	Item = "Item",
 }
@@ -58,18 +58,18 @@ export const ObjectModelTypeEnum = {
 	GLB: "GLB" as ObjectModelType,
 };
 
-export const GalleryActionTypesEnum = {
-	SetData: "SET_DATA" as GalleryActionTypes,
-	SetBlock: "SET_BLOCK" as GalleryActionTypes,
-	SetBlockMetadata: "SET_BLOCK_METADATA" as GalleryActionTypes,
-	SetSpawn: "SET_SPAWN" as GalleryActionTypes,
-	SetSize: "SET_SIZE" as GalleryActionTypes,
-	ResetMap: "RESET_MAP" as GalleryActionTypes,
+export const GalleryActionTypeEnum = {
+	SetData: "SET_DATA" as GalleryActionType,
+	SetBlock: "SET_BLOCK" as GalleryActionType,
+	SetBlockMetadata: "SET_BLOCK_METADATA" as GalleryActionType,
+	SetSpawn: "SET_SPAWN" as GalleryActionType,
+	SetSize: "SET_SIZE" as GalleryActionType,
+	ResetMap: "RESET_MAP" as GalleryActionType,
 };
 
-export const GalleryAssetTypesEnum = {
-	Image: "Image" as GalleryAssetTypes,
-	Item: "Item" as GalleryAssetTypes,
+export const GalleryAssetTypeEnum = {
+	Image: "Image" as GalleryAssetType,
+	Item: "Item" as GalleryAssetType,
 };
 
 export const GalleryBuilderModeEnum = {
@@ -90,3 +90,7 @@ export const MapDirectionEnum = {
 	SouthEast: "SouthEast" as MapDirection,
 	SouthWest: "SouthWest" as MapDirection,
 };
+
+export function getMapDirectionEnum(direction: string): MapDirection {
+	return MapDirectionEnum[direction.charAt(0).toUpperCase() + direction.slice(1).toLowerCase()];
+}

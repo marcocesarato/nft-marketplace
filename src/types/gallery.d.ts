@@ -1,4 +1,4 @@
-import {GalleryAssetTypes, MapDirection, PlanimetryBlockType} from "@app/enums";
+import {GalleryAssetType, MapDirection, PlanimetryBlockType} from "@app/enums";
 
 import {TokenItem} from "./marketplace";
 
@@ -28,7 +28,7 @@ export type PlanimetryMap = {
 export type GalleryAsset = {
 	id: string;
 	src: string;
-	type: GalleryAssetTypes;
+	type: GalleryAssetType;
 };
 
 export type TextureAsset = {
@@ -45,6 +45,7 @@ export type ObjectModel = {
 	image: string;
 	type: ObjectModelType;
 	assets: GalleryAsset[];
+	src?: string;
 	data?: TokenItem;
 	attributes?: {
 		[key: string]: string;

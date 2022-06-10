@@ -1,6 +1,6 @@
 import {createContext, useCallback, useContext, useReducer, useState} from "react";
 
-import {GalleryActionTypesEnum, GalleryBuilderMode} from "@app/enums";
+import {GalleryActionTypeEnum, GalleryBuilderMode} from "@app/enums";
 import type {
 	GenericObject,
 	PlanimetryBlock,
@@ -44,7 +44,7 @@ export const GalleryProvider = ({children}): JSX.Element => {
 
 	const setPlanimetry = useCallback((map: PlanimetryMap) => {
 		dispatch({
-			type: GalleryActionTypesEnum.SetData,
+			type: GalleryActionTypeEnum.SetData,
 			payload: map,
 		});
 	}, []);
@@ -52,7 +52,7 @@ export const GalleryProvider = ({children}): JSX.Element => {
 	const setBlock = useCallback(
 		(id: number, value: PlanimetryBlock) => {
 			dispatch({
-				type: GalleryActionTypesEnum.SetBlock,
+				type: GalleryActionTypeEnum.SetBlock,
 				payload: {id, value},
 				callback: updateSelected,
 			});
@@ -63,7 +63,7 @@ export const GalleryProvider = ({children}): JSX.Element => {
 	const setBlockMetadata = useCallback(
 		(id: number, value: GenericObject) => {
 			dispatch({
-				type: GalleryActionTypesEnum.SetBlockMetadata,
+				type: GalleryActionTypeEnum.SetBlockMetadata,
 				payload: {
 					id,
 					value,
@@ -77,7 +77,7 @@ export const GalleryProvider = ({children}): JSX.Element => {
 	const setSpawn = useCallback(
 		(id: number) => {
 			dispatch({
-				type: GalleryActionTypesEnum.SetSpawn,
+				type: GalleryActionTypeEnum.SetSpawn,
 				payload: id,
 			});
 			if (selected?.id === id) {
@@ -90,7 +90,7 @@ export const GalleryProvider = ({children}): JSX.Element => {
 	const setMapSize = useCallback(
 		(size: number) => {
 			dispatch({
-				type: GalleryActionTypesEnum.SetSize,
+				type: GalleryActionTypeEnum.SetSize,
 				payload: size,
 				callback: cleanSelected,
 			});
@@ -100,7 +100,7 @@ export const GalleryProvider = ({children}): JSX.Element => {
 
 	const resetMap = useCallback(() => {
 		dispatch({
-			type: GalleryActionTypesEnum.ResetMap,
+			type: GalleryActionTypeEnum.ResetMap,
 			callback: cleanSelected,
 		});
 	}, [cleanSelected]);

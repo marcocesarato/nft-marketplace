@@ -1,4 +1,4 @@
-import {GalleryActionTypes, GalleryActionTypesEnum, PlanimetryBlockTypeEnum} from "@app/enums";
+import {GalleryActionType, GalleryActionTypeEnum, PlanimetryBlockTypeEnum} from "@app/enums";
 import {PlanimetryBlock, PlanimetryMap} from "@app/types";
 import {clone} from "@utils/converters";
 import {PlanimetrySchema} from "@utils/planimetry";
@@ -7,17 +7,17 @@ import {createInitialSchema} from "./initialState";
 
 export const reducer = (
 	state: PlanimetrySchema,
-	action: {type: GalleryActionTypes; payload?: any; callback?: (block?: PlanimetryBlock) => void},
+	action: {type: GalleryActionType; payload?: any; callback?: (block?: PlanimetryBlock) => void},
 ) => {
 	let newState = Object.assign(Object.create(Object.getPrototypeOf(state)), state);
 	const planimetryMap: PlanimetryMap = state.getMap();
 	switch (action.type) {
-		case GalleryActionTypesEnum.SetData: {
+		case GalleryActionTypeEnum.SetData: {
 			newState.setMap(clone(action.payload));
 			action.callback && action.callback();
 			return newState;
 		}
-		case GalleryActionTypesEnum.SetBlock: {
+		case GalleryActionTypeEnum.SetBlock: {
 			let resultMap: PlanimetryMap = {} as PlanimetryMap;
 			resultMap = clone(planimetryMap);
 			resultMap.blocks[action.payload.value.id] = clone(action.payload.value);
@@ -25,12 +25,12 @@ export const reducer = (
 			action.callback && action.callback(action.payload.value);
 			return newState;
 		}
-		case GalleryActionTypesEnum.SetBlockMetadata: {
+		case GalleryActionTypeEnum.SetBlockMetadata: {
 			newState.setBlockMetadata(action.payload.value.id, action.payload.value);
 			action.callback && action.callback(action.payload.value);
 			return newState;
 		}
-		case GalleryActionTypesEnum.SetSpawn: {
+		case GalleryActionTypeEnum.SetSpawn: {
 			if (
 				state.isBlockInsideWalls(action.payload) &&
 				planimetryMap.blocks[action.payload]?.type !== PlanimetryBlockTypeEnum.Wall
@@ -42,8 +42,8 @@ export const reducer = (
 			}
 			return state;
 		}
-		case GalleryActionTypesEnum.SetSize:
-		case GalleryActionTypesEnum.ResetMap: {
+		case GalleryActionTypeEnum.SetSize:
+		case GalleryActionTypeEnum.ResetMap: {
 			action.callback && action.callback();
 			return createInitialSchema(action.payload || planimetryMap.width);
 		}
