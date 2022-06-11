@@ -2,7 +2,6 @@ import axios from "axios";
 
 async function handler(req, res) {
 	try {
-		console.log(req.query.cid);
 		const response = await axios.get(req.query.cid, {
 			responseType: "arraybuffer",
 			headers: {
