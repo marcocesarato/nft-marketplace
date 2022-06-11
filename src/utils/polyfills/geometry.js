@@ -642,7 +642,7 @@ class Geometry extends THREE.EventDispatcher {
 				unique.push(this.vertices[i]);
 				changes[i] = unique.length - 1;
 			} else {
-				//console.log('Duplicate vertex found. ', i, ' could be using ', verticesMap[key]);
+				//console.debug('Duplicate vertex found. ', i, ' could be using ', verticesMap[key]);
 				changes[i] = changes[verticesMap[key]];
 			}
 		}

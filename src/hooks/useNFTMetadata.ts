@@ -37,7 +37,7 @@ export default function useNFTMetadata() {
 	async function withMetadata(item: TokenItem) {
 		//Validate URI
 		if (!item.token_uri || !item.token_uri.includes("://")) {
-			console.log("withMetadata() Invalid URI", {URI: item.token_uri, item});
+			console.debug("withMetadata() Invalid URI", {URI: item.token_uri, item});
 			return;
 		}
 		//Get Metadata

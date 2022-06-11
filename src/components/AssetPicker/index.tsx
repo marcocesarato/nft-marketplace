@@ -45,7 +45,6 @@ export default function AssetPicker({
 
 	useEffect(() => {
 		setSelected(value);
-		console.log(value);
 	}, [value]);
 
 	if (isError) return <Header title={t<string>("error:title")} subtitle={error.message} />;

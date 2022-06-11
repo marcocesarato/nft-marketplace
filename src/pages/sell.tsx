@@ -74,7 +74,7 @@ export default function Sell(): JSX.Element {
 			const url = await saveIPFS(formData);
 			createSale(url);
 		} catch (error) {
-			console.log("Error uploading file: ", error);
+			console.error("Error uploading file: ", error);
 			setProcessing(false);
 		}
 	}
