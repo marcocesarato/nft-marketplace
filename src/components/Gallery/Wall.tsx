@@ -24,7 +24,7 @@ type WallProps = {
 	navmesh?: boolean;
 	height?: number;
 	isColumn?: boolean;
-	isIntersection?: boolean;
+	isIncidence?: boolean;
 	[key: string]: any;
 };
 
@@ -36,7 +36,7 @@ export default function Wall({
 	navmesh = false,
 	height = WallHeight,
 	isColumn = false,
-	isIntersection = false,
+	isIncidence = false,
 	...props
 }: WallProps): JSX.Element {
 	const connections: {[key: string]: PlanimetryBlock} = {};
@@ -66,64 +66,64 @@ export default function Wall({
 		? convertAllStringToAttributes(texture?.attributes ?? {}, materialWall)
 		: {};
 	const textureNorth =
-		isIntersection && connections[MapDirectionEnum.North]?.texture?.attributes
+		isIncidence && connections[MapDirectionEnum.North]?.texture?.attributes
 			? convertAllStringToAttributes(
 					connections[MapDirectionEnum.North].texture.attributes,
 					materialWall,
 			  )
-			: isIntersection
+			: isIncidence
 			? {}
 			: textureAttributes;
 	const textureSouth =
-		isIntersection && connections[MapDirectionEnum.South]?.texture?.attributes
+		isIncidence && connections[MapDirectionEnum.South]?.texture?.attributes
 			? convertAllStringToAttributes(
 					connections[MapDirectionEnum.South].texture.attributes,
 					materialWall,
 			  )
-			: isIntersection
+			: isIncidence
 			? {}
 			: textureAttributes;
 	const textureWest =
-		isIntersection && connections[MapDirectionEnum.West]?.texture?.attributes
+		isIncidence && connections[MapDirectionEnum.West]?.texture?.attributes
 			? convertAllStringToAttributes(
 					connections[MapDirectionEnum.West].texture.attributes,
 					materialWall,
 			  )
-			: isIntersection
+			: isIncidence
 			? {}
 			: textureAttributes;
 	const textureEast =
-		isIntersection && connections[MapDirectionEnum.East]?.texture?.attributes
+		isIncidence && connections[MapDirectionEnum.East]?.texture?.attributes
 			? convertAllStringToAttributes(
 					connections[MapDirectionEnum.East].texture.attributes,
 					materialWall,
 			  )
-			: isIntersection
+			: isIncidence
 			? {}
 			: textureAttributes;
 
 	const colorNorth =
-		isIntersection && connections[MapDirectionEnum.North]?.color
+		isIncidence && connections[MapDirectionEnum.North]?.color
 			? connections[MapDirectionEnum.North]?.color
-			: isIntersection
+			: isIncidence
 			? DefaultColor
 			: color;
 	const colorSouth =
-		isIntersection && connections[MapDirectionEnum.South]?.color
+		isIncidence && connections[MapDirectionEnum.South]?.color
 			? connections[MapDirectionEnum.South]?.color
-			: isIntersection
+			: isIncidence
 			? DefaultColor
 			: color;
 	const colorWest =
-		isIntersection && connections[MapDirectionEnum.West]?.color
+		isIncidence && connections[MapDirectionEnum.West]?.color
 			? connections[MapDirectionEnum.West]?.color
-			: isIntersection
+			: isIncidence
 			? DefaultColor
 			: color;
 	const colorEast =
-		isIntersection && connections[MapDirectionEnum.East]?.color
+		isIncidence && connections[MapDirectionEnum.East]?.color
 			? connections[MapDirectionEnum.East]?.color
-			: isIntersection
+			: isIncidence
 			? DefaultColor
 			: color;
 

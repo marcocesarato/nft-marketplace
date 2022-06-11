@@ -261,28 +261,6 @@ export class PlanimetrySchema {
 		}
 	}
 
-	public isIntersection(i: number): boolean {
-		const block = this.map.blocks?.[i];
-		if (!block) return false;
-		const neighbors = this.getNeighbors(block.id);
-		const intsersections = [
-			[MapDirectionEnum.North, MapDirectionEnum.East],
-			[MapDirectionEnum.North, MapDirectionEnum.West],
-			[MapDirectionEnum.South, MapDirectionEnum.East],
-			[MapDirectionEnum.South, MapDirectionEnum.West],
-		];
-		for (const intersection of intsersections) {
-			const a = neighbors.find(
-				(x) => x.type !== PlanimetryBlockTypeEnum.Floor && x.direction === intersection[0],
-			);
-			const b = neighbors.find(
-				(x) => x.type !== PlanimetryBlockTypeEnum.Floor && x.direction === intersection[1],
-			);
-			if (a && b) return true;
-		}
-		return false;
-	}
-
 	public isColumn(i: number): boolean {
 		const block = this.map.blocks?.[i];
 		if (!block) return false;
@@ -294,5 +272,47 @@ export class PlanimetrySchema {
 			}
 		});
 		return isColumn;
+	}
+
+	public isStraightSegment(i: number) {
+		const neighbors = this.getNeighbors(i);
+		const intsersections = [
+			[MapDirectionEnum.North, MapDirectionEnum.South],
+			[MapDirectionEnum.West, MapDirectionEnum.East],
+		];
+		for (const [a, b] of intsersections) {
+			const blockA = neighbors.find(
+				(x) => x.type !== PlanimetryBlockTypeEnum.Floor && x.direction === a,
+			);
+			const blockB = neighbors.find(
+				(x) => x.type !== PlanimetryBlockTypeEnum.Floor && x.direction === b,
+			);
+			if (blockA && blockB) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public isIncidenceSegment(i: number): boolean {
+		const block = this.map.blocks?.[i];
+		if (!block) return false;
+		const neighbors = this.getNeighbors(block.id);
+		const intsersections = [
+			[MapDirectionEnum.North, MapDirectionEnum.East],
+			[MapDirectionEnum.North, MapDirectionEnum.West],
+			[MapDirectionEnum.South, MapDirectionEnum.East],
+			[MapDirectionEnum.South, MapDirectionEnum.West],
+		];
+		for (const [a, b] of intsersections) {
+			const blockA = neighbors.find(
+				(x) => x.type !== PlanimetryBlockTypeEnum.Floor && x.direction === a,
+			);
+			const blockB = neighbors.find(
+				(x) => x.type !== PlanimetryBlockTypeEnum.Floor && x.direction === b,
+			);
+			if (blockA && blockB) return true;
+		}
+		return false;
 	}
 }

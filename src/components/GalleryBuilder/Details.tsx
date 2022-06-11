@@ -30,10 +30,12 @@ export default function GalleryBlockDetails(): JSX.Element {
 		const types = [
 			{value: PlanimetryBlockTypeEnum.Wall.toString(), label: "Wall"},
 			{value: PlanimetryBlockTypeEnum.Floor.toString(), label: "Floor"},
-			{value: PlanimetryBlockTypeEnum.Window.toString(), label: "Window"},
 		];
-		if (selected && !schema.isRoomPerimeter(selected.id)) {
-			types.push({value: PlanimetryBlockTypeEnum.Door.toString(), label: "Door"});
+		if (selected && schema.isStraightSegment(selected.id)) {
+			types.push({value: PlanimetryBlockTypeEnum.Window.toString(), label: "Window"});
+			if (!schema.isRoomPerimeter(selected.id)) {
+				types.push({value: PlanimetryBlockTypeEnum.Door.toString(), label: "Door"});
+			}
 		}
 		return types;
 	}, [selected, schema]);

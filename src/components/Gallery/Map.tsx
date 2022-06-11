@@ -76,9 +76,10 @@ export default function GalleryMap({planimetry}): JSX.Element {
 				};
 				const neighbors = schema.getNeighbors(block.id);
 				const isColumn = schema.isColumn(block.id);
-				const isIntersection = schema.isIntersection(block.id);
+				const isIncidenceSegment = schema.isIncidenceSegment(block.id);
+				const isStraightSegment = schema.isStraightSegment(block.id);
 				const WallComponent =
-					!isIntersection && !isColumn
+					!isIncidenceSegment && !isColumn && isStraightSegment
 						? block.type === PlanimetryBlockTypeEnum.Door
 							? Door
 							: block.type === PlanimetryBlockTypeEnum.Window
@@ -92,7 +93,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 						neighbors={neighbors}
 						position={position}
 						isColumn={isColumn}
-						isIntersection={isIntersection}
+						isIncidence={isIncidenceSegment}
 						texture={block.texture}
 						color={block.color}
 					/>,
