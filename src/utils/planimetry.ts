@@ -274,7 +274,7 @@ export class PlanimetrySchema {
 		return isColumn;
 	}
 
-	public isStraightSegment(i: number) {
+	public isStraightSegment(i: number): boolean {
 		const neighbors = this.getNeighbors(i);
 		const intsersections = [
 			[MapDirectionEnum.North, MapDirectionEnum.South],

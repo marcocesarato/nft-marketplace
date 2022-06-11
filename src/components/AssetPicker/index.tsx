@@ -1,4 +1,4 @@
-import {useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {
 	Button,
 	Modal,
@@ -21,10 +21,19 @@ import useNFTs from "@hooks/useNFTs";
 type AssetPickerProps = {
 	value?: TokenItem;
 	label: string;
+	labelClean: string;
 	onChange: (asset: TokenItem) => void;
+	onClean: () => void;
 	[key: string]: any;
 };
-export default function AssetPicker({value, label, onChange, ...props}: AssetPickerProps) {
+export default function AssetPicker({
+	value,
+	label,
+	labelClean,
+	onChange,
+	onClean,
+	...props
+}: AssetPickerProps) {
 	const {t} = useTranslation();
 	const [selected, setSelected] = useState(value);
 	const {isOpen, onOpen, onClose} = useDisclosure();
@@ -34,6 +43,11 @@ export default function AssetPicker({value, label, onChange, ...props}: AssetPic
 		return rawData || [];
 	}, [isSuccess, rawData]);
 
+	useEffect(() => {
+		setSelected(value);
+		console.log(value);
+	}, [value]);
+
 	if (isError) return <Header title={t<string>("error:title")} subtitle={error.message} />;
 	if (isLoading) return <Loading />;
 	return (
@@ -41,6 +55,11 @@ export default function AssetPicker({value, label, onChange, ...props}: AssetPic
 			<Button onClick={onOpen} {...props}>
 				{label}
 			</Button>
+			{value != null && (
+				<Button onClick={onClean} {...props}>
+					{labelClean}
+				</Button>
+			)}
 
 			<Modal isOpen={isOpen} onClose={onClose} size="2xl">
 				<ModalOverlay />

@@ -151,6 +151,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 							data={item.data}
 							src={item.src}
 							position={itemPosition}
+							direction={direction}
 							rotation={rotation}
 						/>,
 					);

@@ -145,22 +145,30 @@ export default function GalleryBlockDetails(): JSX.Element {
 										width="full"
 										size="sm"
 										mb={2}
-										value={selected.items?.[key]}
-										onChange={() => {}}
+										value={selected.items?.[section]}
 										label="Add new object"
+										labelClean="Remove"
+										onChange={() => {}}
+										onClean={() => {
+											selected.items = selected.items ?? {};
+											selected.items[section] = null;
+											onChangeBlockMetadata(selected.id, selected);
+										}}
 									/>
 								) : (
 									<AssetPicker
 										width="full"
 										size="sm"
 										mb={2}
-										value={selected.items?.[key]}
+										value={selected.items?.[section]}
+										label="Add new painting"
+										labelClean="Remove"
 										onChange={(asset: TokenItem) => {
 											const assetId =
 												asset.token_address +
 												asset.token_id +
 												selected.id +
-												key;
+												section;
 											selected.items = selected.items ?? {};
 											selected.items[section] = {
 												name: asset.metadata.name,
@@ -178,7 +186,11 @@ export default function GalleryBlockDetails(): JSX.Element {
 											};
 											onChangeBlockMetadata(selected.id, selected);
 										}}
-										label="Add new painting"
+										onClean={() => {
+											selected.items = selected.items ?? {};
+											selected.items[section] = null;
+											onChangeBlockMetadata(selected.id, selected);
+										}}
 									/>
 								)}
 							</AccordionPanel>
