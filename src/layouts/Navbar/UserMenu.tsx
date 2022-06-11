@@ -30,6 +30,14 @@ export default function UserMenu({openAccountModal}): JSX.Element {
 		router.push("/account/" + account);
 	}
 
+	function handleGallery() {
+		router.push("/gallery");
+	}
+
+	function handleGalleryBuilder() {
+		router.push("/builder");
+	}
+
 	return (
 		<Menu>
 			<MenuButton as={Button} borderRadius="xl" m="1px" px={3} height="38px">
@@ -46,9 +54,15 @@ export default function UserMenu({openAccountModal}): JSX.Element {
 			</MenuButton>
 			<MenuList alignItems={"center"}>
 				<MenuItem onClick={openAccountModal}>{t<string>("common:account.title")}</MenuItem>
+				<MenuDivider />
 				<MenuItem onClick={handleProfile}>{t<string>("common:account.profile")}</MenuItem>
 				<MenuItem onClick={() => router.push("/transactions")}>
 					{t<string>("common:account.activities")}
+				</MenuItem>
+				<MenuDivider />
+				<MenuItem onClick={handleGallery}>{t<string>("common:account.gallery")}</MenuItem>
+				<MenuItem onClick={handleGalleryBuilder}>
+					{t<string>("common:account.galleryBuilder")}
 				</MenuItem>
 				<MenuDivider />
 				<MenuItem onClick={handleLogout}>{t<string>("common:action.disconnect")}</MenuItem>

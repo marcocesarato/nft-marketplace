@@ -4,7 +4,9 @@
 		"balance": "Balance",
 		"compress": "Compress",
 		"title": "Account",
-		"profile": "Profile"
+		"profile": "Profile",
+		"gallery": "Gallery",
+		"galleryBuilder": "Gallery builder"
 	},
 	"action": {
 		"close": "Close",
