@@ -24,6 +24,7 @@ import {useUserQuery} from "@services/graphql";
 import {formatDate} from "@utils/formatters";
 
 import Created from "./Created";
+import Favourites from "./Favourites";
 import Owned from "./Owned";
 
 export default function Account({id}): JSX.Element {
@@ -107,7 +108,9 @@ export default function Account({id}): JSX.Element {
 							<TabPanel>
 								<Created address={user.account} />
 							</TabPanel>
-							<TabPanel></TabPanel>
+							<TabPanel>
+								<Favourites items={user.favourites} />
+							</TabPanel>
 							<TabPanel></TabPanel>
 						</TabPanels>
 					</Tabs>

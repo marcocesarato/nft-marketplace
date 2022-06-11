@@ -28,6 +28,17 @@ export const useMarketItemsCreatedQuery = (baseOptions?: MarketItemsQueryVariabl
 	return useMarketItemsQuery(generatedVariables);
 };
 
+export const useMarketItemsByIdsQuery = (
+	ids: number[],
+	baseOptions?: MarketItemsQueryVariables,
+) => {
+	const generatedVariables = generateVariables(
+		{filter: {_operators: {_id: {in: ids}}}},
+		baseOptions,
+	);
+	return useMarketItemsQuery(generatedVariables);
+};
+
 export {
 	useAddToFavouritesMutation,
 	useDislikeMutation,
