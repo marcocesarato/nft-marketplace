@@ -55,7 +55,11 @@ export default function GalleryBlockDetails(): JSX.Element {
 		[MapDirectionEnum.East]: false,
 		[MapDirectionEnum.South]: false,
 	};
+	let enableItems = false;
 	if (selected) {
+		const isColumn = schema.isColumn(selected.id);
+		const isIncidenceSegment = schema.isIncidenceSegment(selected.id);
+		enableItems = !isColumn && !isIncidenceSegment;
 		if (selected.type === PlanimetryBlockTypeEnum.Floor && insideWallFloor.has(selected.id)) {
 			sections.floor = true;
 			sections.ceiling = true;
@@ -117,86 +121,87 @@ export default function GalleryBlockDetails(): JSX.Element {
 						</VStack>
 					</AccordionPanel>
 				</AccordionItem>
-				{Object.entries(sections).map(([key, value]) => {
-					if (!value) return null;
-					const section = key.toLowerCase();
-					return (
-						<AccordionItem key={`details-${selected.id}-${key}`}>
-							<h2>
-								<AccordionButton>
-									<Box flex="1" textAlign="left">
-										{key.charAt(0).toUpperCase() + key.slice(1)}
-									</Box>
-									<AccordionIcon />
-								</AccordionButton>
-							</h2>
-							<AccordionPanel pb={4}>
-								{selected.items?.[section] && (
-									<Box>
-										<Image
-											src={selected.items[section].data?.metadata?.image}
+				{enableItems &&
+					Object.entries(sections).map(([key, value]) => {
+						if (!value) return null;
+						const section = key.toLowerCase();
+						return (
+							<AccordionItem key={`details-${selected.id}-${key}`}>
+								<h2>
+									<AccordionButton>
+										<Box flex="1" textAlign="left">
+											{key.charAt(0).toUpperCase() + key.slice(1)}
+										</Box>
+										<AccordionIcon />
+									</AccordionButton>
+								</h2>
+								<AccordionPanel pb={4}>
+									{selected.items?.[section] && (
+										<Box>
+											<Image
+												src={selected.items[section].data?.metadata?.image}
+												width="full"
+												mb={4}
+											/>
+										</Box>
+									)}
+									{key === "floor" || key === "ceiling" ? (
+										<AssetPicker
 											width="full"
-											mb={4}
+											size="sm"
+											mb={2}
+											value={selected.items?.[section]}
+											label="Add new object"
+											labelClean="Remove"
+											onChange={() => {}}
+											onClean={() => {
+												selected.items = selected.items ?? {};
+												selected.items[section] = null;
+												onChangeBlockMetadata(selected.id, selected);
+											}}
 										/>
-									</Box>
-								)}
-								{key === "floor" || key === "ceiling" ? (
-									<AssetPicker
-										width="full"
-										size="sm"
-										mb={2}
-										value={selected.items?.[section]}
-										label="Add new object"
-										labelClean="Remove"
-										onChange={() => {}}
-										onClean={() => {
-											selected.items = selected.items ?? {};
-											selected.items[section] = null;
-											onChangeBlockMetadata(selected.id, selected);
-										}}
-									/>
-								) : (
-									<AssetPicker
-										width="full"
-										size="sm"
-										mb={2}
-										value={selected.items?.[section]}
-										label="Add new painting"
-										labelClean="Remove"
-										onChange={(asset: TokenItem) => {
-											const assetId =
-												asset.token_address +
-												asset.token_id +
-												selected.id +
-												section;
-											selected.items = selected.items ?? {};
-											selected.items[section] = {
-												name: asset.metadata.name,
-												image: asset.metadata.image,
-												type: ObjectModelTypeEnum.Picture,
-												src: `#${assetId}`,
-												assets: [
-													{
-														id: assetId,
-														src: asset.metadata.image,
-														type: GalleryAssetTypeEnum.Image,
-													},
-												],
-												data: asset,
-											};
-											onChangeBlockMetadata(selected.id, selected);
-										}}
-										onClean={() => {
-											selected.items = selected.items ?? {};
-											selected.items[section] = null;
-											onChangeBlockMetadata(selected.id, selected);
-										}}
-									/>
-								)}
-							</AccordionPanel>
-						</AccordionItem>
-					);
-				})}
+									) : (
+										<AssetPicker
+											width="full"
+											size="sm"
+											mb={2}
+											value={selected.items?.[section]}
+											label="Add new painting"
+											labelClean="Remove"
+											onChange={(asset: TokenItem) => {
+												const assetId =
+													asset.token_address +
+													asset.token_id +
+													selected.id +
+													section;
+												selected.items = selected.items ?? {};
+												selected.items[section] = {
+													name: asset.metadata.name,
+													image: asset.metadata.image,
+													type: ObjectModelTypeEnum.Picture,
+													src: `#${assetId}`,
+													assets: [
+														{
+															id: assetId,
+															src: asset.metadata.image,
+															type: GalleryAssetTypeEnum.Image,
+														},
+													],
+													data: asset,
+												};
+												onChangeBlockMetadata(selected.id, selected);
+											}}
+											onClean={() => {
+												selected.items = selected.items ?? {};
+												selected.items[section] = null;
+												onChangeBlockMetadata(selected.id, selected);
+											}}
+										/>
+									)}
+								</AccordionPanel>
+							</AccordionItem>
+						);
+					})}
 			</Accordion>
 		</VStack>
 	);

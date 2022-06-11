@@ -64,6 +64,10 @@ export default function GalleryMap({planimetry}): JSX.Element {
 				assets.set(asset.id, asset);
 			}
 		});
+		const neighbors = schema.getNeighbors(block.id);
+		const isColumn = schema.isColumn(block.id);
+		const isIncidenceSegment = schema.isIncidenceSegment(block.id);
+		const isStraightSegment = schema.isStraightSegment(block.id);
 		// Block render
 		switch (block.type) {
 			case PlanimetryBlockTypeEnum.Door:
@@ -74,10 +78,6 @@ export default function GalleryMap({planimetry}): JSX.Element {
 					y: WallHeight / 2,
 					z: (y - map.height / 2) * WallSize,
 				};
-				const neighbors = schema.getNeighbors(block.id);
-				const isColumn = schema.isColumn(block.id);
-				const isIncidenceSegment = schema.isIncidenceSegment(block.id);
-				const isStraightSegment = schema.isStraightSegment(block.id);
 				const WallComponent =
 					!isIncidenceSegment && !isColumn && isStraightSegment
 						? block.type === PlanimetryBlockTypeEnum.Door
@@ -127,40 +127,43 @@ export default function GalleryMap({planimetry}): JSX.Element {
 				break;
 		}
 		// Items
-		Object.keys(block.items || {}).forEach(async (key) => {
-			const item = block.items[key];
-			const direction = getMapDirectionEnum(key);
-			const rotation = schema.getDirectionRotation(direction);
-			let itemPosition = (position = {
-				x: (x - map.width / 2) * WallSize,
-				y: WallHeight / 2,
-				z: (y - map.height / 2) * WallSize,
-			});
-			// Load item assets
-			item.assets?.forEach(async (asset) => {
-				if (!assets.has(asset.id)) {
-					const src = getEmbeddedIPFSImageUrl(item.image);
-					assets.set(asset.id, {...asset, src});
+		if (!isColumn && !isIncidenceSegment) {
+			Object.keys(block.items || {}).forEach(async (key) => {
+				const item = block.items[key];
+				const direction = getMapDirectionEnum(key);
+				const rotation = schema.getDirectionRotation(direction);
+				let itemPosition = (position = {
+					x: (x - map.width / 2) * WallSize,
+					y: WallHeight / 2,
+					z: (y - map.height / 2) * WallSize,
+				});
+				// Load item assets
+				item.assets?.forEach(async (asset) => {
+					if (!assets.has(asset.id)) {
+						const src = getEmbeddedIPFSImageUrl(item.image);
+						assets.set(asset.id, {...asset, src});
+					}
+				});
+				switch (item.type) {
+					case ObjectModelTypeEnum.Picture:
+						BlocksRender.push(
+							<Picture
+								key={"picture" + block.id + item.name}
+								data={item.data}
+								src={item.src}
+								position={itemPosition}
+								direction={direction}
+								rotation={rotation}
+							/>,
+						);
+						break;
+					case ObjectModelTypeEnum.Object:
+						break;
 				}
 			});
-			switch (item.type) {
-				case ObjectModelTypeEnum.Picture:
-					BlocksRender.push(
-						<Picture
-							key={"picture" + block.id + item.name}
-							data={item.data}
-							src={item.src}
-							position={itemPosition}
-							direction={direction}
-							rotation={rotation}
-						/>,
-					);
-					break;
-				case ObjectModelTypeEnum.Object:
-					break;
-			}
-		});
+		}
 	});
+
 	const assetList = Array.from(assets.values());
 
 	useEffect(() => {
