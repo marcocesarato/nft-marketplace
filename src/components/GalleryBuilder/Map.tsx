@@ -1,4 +1,5 @@
 import {useMemo, useRef, useState} from "react";
+import {Box} from "@chakra-ui/react";
 
 import {PlanimetryBlockTypeEnum} from "@app/enums";
 import useGallery from "@contexts/Gallery";
@@ -13,10 +14,11 @@ export default function Map(): JSX.Element {
 	const mapRef = useRef();
 	const {width: mapWidth, height, global} = useContainerDimensions(mapRef);
 	const planimetry = schema.getMap();
-	const size = useMemo(
-		() => mapWidth / Math.max(planimetry.width, planimetry.height),
-		[mapWidth, planimetry.width, planimetry.height],
+	const maxRowWidth = useMemo(
+		() => Math.max(planimetry.width, planimetry.height),
+		[planimetry.width, planimetry.height],
 	);
+	const size = useMemo(() => mapWidth / maxRowWidth, [mapWidth, maxRowWidth]);
 
 	return (
 		<table
@@ -29,7 +31,7 @@ export default function Map(): JSX.Element {
 			}}>
 			<tbody>
 				{Array.from(Array(planimetry.width).keys()).map((row) => (
-					<tr key={`galleryRow-${row}`}>
+					<Box as="tr" key={`galleryRow-${row}`} height={size}>
 						{Array.from(Array(planimetry.height).keys()).map((column) => {
 							const id = row * planimetry.width + column;
 							const cell = planimetry?.blocks?.[row * planimetry.width + column] || {
@@ -48,7 +50,7 @@ export default function Map(): JSX.Element {
 								/>
 							);
 						})}
-					</tr>
+					</Box>
 				))}
 			</tbody>
 		</table>

@@ -1,4 +1,4 @@
-import {memo, MouseEvent, useMemo} from "react";
+import {CSSProperties, memo, MouseEvent, useMemo} from "react";
 import {IoAccessibilitySharp} from "react-icons/io5";
 import {TbDoor, TbWindow} from "react-icons/tb";
 import {Box} from "@chakra-ui/react";
@@ -24,11 +24,16 @@ function Block({
 	const isWall = data?.type === PlanimetryBlockTypeEnum.Wall;
 	const iconStyle = {
 		display: "inline-block",
-	};
+		position: "absolute",
+		margin: "auto",
+		top: "50%",
+		transform: "translateY(-50%)",
+	} as CSSProperties;
 	const itemsCount = useMemo(() => {
 		return Object.keys(data?.items || {}).filter((key: string) => data.items[key] !== null)
 			.length;
 	}, [data]);
+	const blockSize = `${size}px`;
 	const blockStyle = useMemo(() => {
 		const defaultWallColor = "#cbd5e0";
 		const selectedBorder = "3px dashed #00bfff";
@@ -36,8 +41,8 @@ function Block({
 		const defaultMarginBorder = "3px solid #cbd5e0";
 		const wallBorder = "3px solid black";
 		const styles = {
-			width: size,
-			height: size,
+			width: blockSize,
+			height: blockSize,
 			padding: 2,
 			borderTop: defaultBorder,
 			borderBottom: defaultBorder,
@@ -116,7 +121,7 @@ function Block({
 			styles.cursor = "crosshair";
 		}
 		return styles;
-	}, [size, isWall, isDoor, isWindow, schema, selected, mode, data]);
+	}, [blockSize, data, isWall, isDoor, isWindow, schema, selected, mode]);
 	return (
 		<Box
 			as={"td"}
@@ -194,8 +199,10 @@ function Block({
 				backgroundColor="rgba(0,0,0,0.3)"
 				color="rgba(255,255,255,0.9)"
 				borderRadius="50%"
-				height="100%"
+				position="relative"
 				width="100%"
+				height="0"
+				paddingTop="100%"
 				fontSize="larger"
 				justifyContent="center"
 				alignItems="center"
@@ -204,7 +211,11 @@ function Block({
 				{isSpawn && <IoAccessibilitySharp style={iconStyle} />}
 				{isDoor && <TbDoor style={iconStyle} />}
 				{isWindow && <TbWindow style={iconStyle} />}
-				{itemsCount > 0 && <span>{itemsCount}</span>}
+				{itemsCount > 0 && (
+					<Box as="span" style={iconStyle}>
+						{itemsCount}
+					</Box>
+				)}
 			</Box>
 		</Box>
 	);
