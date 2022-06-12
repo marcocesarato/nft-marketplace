@@ -31,7 +31,7 @@ function Block({item, size}): JSX.Element {
 		onMouseDown,
 		onMouseRightDown,
 	} = useGallery();
-	const data = schema.getBlock(item);
+	const data = useMemo(() => schema.getBlock(item), [item, schema]);
 	const blockData = useMemo(() => clone(data), [data]);
 	const itemsCount = useMemo(() => {
 		return Object.keys(data?.items || {}).filter((key: string) => data.items[key] !== null)
