@@ -7,6 +7,7 @@ import {
 	IoScanOutline,
 	IoTrashBinOutline,
 } from "react-icons/io5";
+import {TbDoor, TbWindow} from "react-icons/tb";
 import {CheckIcon} from "@chakra-ui/icons";
 import {
 	Accordion,
@@ -119,6 +120,18 @@ export default function Toolbar({onSave}): JSX.Element {
 									isActive={mode === GalleryBuilderModeEnum.Planimetry}>
 									Build walls
 								</ToolButton>
+								<ToolButton
+									icon={<TbDoor />}
+									onClick={() => onChangeMode(GalleryBuilderModeEnum.Doors)}
+									isActive={mode === GalleryBuilderModeEnum.Doors}
+									w="auto"
+								/>
+								<ToolButton
+									icon={<TbWindow />}
+									onClick={() => onChangeMode(GalleryBuilderModeEnum.Windows)}
+									isActive={mode === GalleryBuilderModeEnum.Windows}
+									w="auto"
+								/>
 							</HStack>
 							<HStack width={"full"}>
 								<ToolButton

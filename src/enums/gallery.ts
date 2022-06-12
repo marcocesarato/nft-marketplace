@@ -28,6 +28,8 @@ export enum GalleryAssetType {
 export enum GalleryBuilderMode {
 	Select = "Select",
 	Planimetry = "Planimetry",
+	Doors = "Doors",
+	Windows = "Windows",
 	Spawn = "Spawn",
 	Erase = "Erase",
 	Color = "Color",
@@ -75,6 +77,8 @@ export const GalleryAssetTypeEnum = {
 export const GalleryBuilderModeEnum = {
 	Select: "Select" as GalleryBuilderMode,
 	Planimetry: "Planimetry" as GalleryBuilderMode,
+	Doors: "Doors" as GalleryBuilderMode,
+	Windows: "Windows" as GalleryBuilderMode,
 	Spawn: "Spawn" as GalleryBuilderMode,
 	Erase: "Erase" as GalleryBuilderMode,
 	Color: "Color" as GalleryBuilderMode,

@@ -5,7 +5,7 @@ import Alert from "@components/Alert";
 
 function ToolButton({
 	onClick,
-	children,
+	children = null,
 	icon = null,
 	size = "sm",
 	isActive = true,

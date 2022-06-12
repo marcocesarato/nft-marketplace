@@ -3,7 +3,12 @@ import {IoAccessibilitySharp} from "react-icons/io5";
 import {TbDoor, TbWindow} from "react-icons/tb";
 import {Box} from "@chakra-ui/react";
 
-import {GalleryBuilderModeEnum, MapDirectionEnum, PlanimetryBlockTypeEnum} from "@app/enums";
+import {
+	GalleryBuilderModeEnum,
+	MapDirectionEnum,
+	PlanimetryBlockType,
+	PlanimetryBlockTypeEnum,
+} from "@app/enums";
 import {Textures} from "@configs/gallery";
 import useGallery from "@contexts/Gallery";
 import {clone} from "@utils/converters";
@@ -154,10 +159,25 @@ function Block({item, size}): JSX.Element {
 				isRightMouse = true;
 				onMouseRightDown(true);
 			}
+			let wallType: PlanimetryBlockType;
 			switch (mode) {
+				case GalleryBuilderModeEnum.Doors:
+					wallType = PlanimetryBlockTypeEnum.Door;
+				// eslint-disable-next-line no-fallthrough
+				case GalleryBuilderModeEnum.Windows:
+					if (!wallType) {
+						wallType = PlanimetryBlockTypeEnum.Window;
+					}
+					if (itemsCount > 0) break;
+					if (isRightMouse) {
+						blockData.type = PlanimetryBlockTypeEnum.Wall;
+						onChangeBlock(data.id, blockData);
+						break;
+					}
+				// eslint-disable-next-line no-fallthrough
 				case GalleryBuilderModeEnum.Planimetry:
 					if (!isRightMouse) {
-						blockData.type = PlanimetryBlockTypeEnum.Wall;
+						blockData.type = wallType ?? PlanimetryBlockTypeEnum.Wall;
 						onChangeBlock(data.id, blockData);
 						break;
 					}
@@ -184,6 +204,7 @@ function Block({item, size}): JSX.Element {
 			}
 		},
 		[
+			itemsCount,
 			blockData,
 			color,
 			data,
