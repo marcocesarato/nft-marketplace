@@ -14,8 +14,6 @@ export function createInitialSchema(mapSize: number): PlanimetrySchema {
 	for (let i = 0; i < size * size; i++) {
 		map.blocks[i] = {
 			id: i,
-			texture: null,
-			color: null,
 			type: PlanimetryBlockTypeEnum.Floor,
 		};
 	}
@@ -38,8 +36,10 @@ export function createInitialState(): TGalleryContext {
 		size: MinMapSize,
 		mode: GalleryBuilderModeEnum.Select,
 		selected: null,
+		mouseDown: false,
+		mouseRightDown: false,
 		resetMap: () => {},
-		setPlanimetry: () => {},
+		setSchema: () => {},
 		onChangeMapSize: () => {},
 		onChangeMode: () => {},
 		onSelect: () => {},
@@ -47,5 +47,8 @@ export function createInitialState(): TGalleryContext {
 		onChangeBlock: () => {},
 		onChangeColor: () => {},
 		onChangeTexture: () => {},
+		onChangeBlockMetadata: () => {},
+		onMouseDown: () => {},
+		onMouseRightDown: () => {},
 	};
 }

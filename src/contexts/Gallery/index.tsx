@@ -1,4 +1,4 @@
-import {createContext, useCallback, useContext, useReducer, useState} from "react";
+import {createContext, useCallback, useContext, useMemo, useReducer, useState} from "react";
 
 import {GalleryActionTypeEnum, GalleryBuilderMode} from "@app/enums";
 import type {
@@ -16,19 +16,21 @@ const initialState = createInitialState();
 export const GalleryPlanimetryContext = createContext<TGalleryContext>(initialState);
 
 export const GalleryProvider = ({children}): JSX.Element => {
-	const [planimetry, dispatch] = useReducer(reducer, initialState.schema);
+	const [schema, dispatch] = useReducer(reducer, initialState.schema);
 	const [mode, setMode] = useState<GalleryBuilderMode>(initialState.mode);
 	const [selected, setSelected] = useState<PlanimetryBlock | null>();
 	const [color, setColor] = useState(initialState.color);
 	const [texture, setTexture] = useState<TextureAsset>(initialState.texture);
+	const [mouseDown, setMouseDown] = useState(false);
+	const [mouseRightDown, setMouseRightDown] = useState(false);
 
 	const onSelect = useCallback(
 		(block: PlanimetryBlock) => {
-			if (block?.id !== planimetry.getSpawn()) {
+			if (block?.id !== schema.getSpawn()) {
 				setSelected(block);
 			}
 		},
-		[planimetry],
+		[schema],
 	);
 
 	const cleanSelected = useCallback(() => {
@@ -42,7 +44,7 @@ export const GalleryProvider = ({children}): JSX.Element => {
 		[selected],
 	);
 
-	const setPlanimetry = useCallback((map: PlanimetryMap) => {
+	const setSchema = useCallback((map: PlanimetryMap) => {
 		dispatch({
 			type: GalleryActionTypeEnum.SetData,
 			payload: map,
@@ -105,26 +107,49 @@ export const GalleryProvider = ({children}): JSX.Element => {
 		});
 	}, [cleanSelected]);
 
-	const planimetryMap = planimetry.getMap();
-	const globalState = {
-		schema: planimetry,
-		mode: mode,
-		selected: selected,
-		size: planimetryMap.width || initialState.size,
-		color: color,
-		texture: texture,
-		resetMap: resetMap,
-		setPlanimetry: setPlanimetry,
-		onSelect: onSelect,
-		onChangeBlock: setBlock,
-		onChangeBlockMetadata: setBlockMetadata,
-		onChangePlanimetry: setPlanimetry,
-		onChangeMapSize: setMapSize,
-		onChangeMode: setMode,
-		onChangeSpawn: setSpawn,
-		onChangeColor: setColor,
-		onChangeTexture: setTexture,
-	};
+	const schemaMap = schema.getMap();
+	const globalState = useMemo(
+		() => ({
+			schema: schema,
+			mode: mode,
+			selected: selected,
+			size: schemaMap.width || initialState.size,
+			color: color,
+			texture: texture,
+			resetMap: resetMap,
+			setSchema: setSchema,
+			onSelect: onSelect,
+			mouseDown: mouseDown,
+			mouseRightDown: mouseRightDown,
+			onMouseDown: setMouseDown,
+			onMouseRightDown: setMouseRightDown,
+			onChangeBlock: setBlock,
+			onChangeBlockMetadata: setBlockMetadata,
+			onChangePlanimetry: setSchema,
+			onChangeMapSize: setMapSize,
+			onChangeMode: setMode,
+			onChangeSpawn: setSpawn,
+			onChangeColor: setColor,
+			onChangeTexture: setTexture,
+		}),
+		[
+			color,
+			mode,
+			mouseDown,
+			mouseRightDown,
+			onSelect,
+			schema,
+			schemaMap.width,
+			resetMap,
+			selected,
+			setBlock,
+			setBlockMetadata,
+			setMapSize,
+			setSchema,
+			setSpawn,
+			texture,
+		],
+	);
 
 	return (
 		<GalleryPlanimetryContext.Provider value={globalState}>

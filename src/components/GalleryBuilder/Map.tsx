@@ -1,16 +1,13 @@
-import {useMemo, useRef, useState} from "react";
+import {useMemo, useRef} from "react";
 import {Box} from "@chakra-ui/react";
 
-import {PlanimetryBlockTypeEnum} from "@app/enums";
 import useGallery from "@contexts/Gallery";
 import useContainerDimensions from "@hooks/useDimensions";
 
 import Block from "./Block";
 
-export default function Map(): JSX.Element {
+function Map(): JSX.Element {
 	const {schema} = useGallery();
-	const [mouseDown, setMouseDown] = useState(false);
-	const [mouseRightDown, setMouseRightDown] = useState(false);
 	const mapRef = useRef();
 	const {width: mapWidth, height, global} = useContainerDimensions(mapRef);
 	const planimetry = schema.getMap();
@@ -31,24 +28,10 @@ export default function Map(): JSX.Element {
 			}}>
 			<tbody>
 				{Array.from(Array(planimetry.width).keys()).map((row) => (
-					<Box as="tr" key={`galleryRow-${row}`} height={size}>
+					<Box as="tr" key={`gallery-row-${row}`} height={size}>
 						{Array.from(Array(planimetry.height).keys()).map((column) => {
 							const id = row * planimetry.width + column;
-							const cell = planimetry?.blocks?.[row * planimetry.width + column] || {
-								id: id,
-								type: PlanimetryBlockTypeEnum.Floor,
-							};
-							return (
-								<Block
-									key={`galleryCell-${id}`}
-									data={cell}
-									size={size}
-									mouseDown={mouseDown}
-									setMouseDown={setMouseDown}
-									mouseRightDown={mouseRightDown}
-									setMouseRightDown={setMouseRightDown}
-								/>
-							);
+							return <Block key={`gallery-cell-${id}`} item={id} size={size} />;
 						})}
 					</Box>
 				))}
@@ -56,3 +39,5 @@ export default function Map(): JSX.Element {
 		</table>
 	);
 }
+
+export default Map;

@@ -19,7 +19,9 @@ export type TGalleryContext = {
 	color?: string;
 	texture?: TextureAsset;
 	resetMap: () => void;
-	setPlanimetry: (payload: PlanimetryMap) => void;
+	mouseDown: boolean;
+	mouseRightDown: boolean;
+	setSchema: (payload: PlanimetryMap) => void;
 	onChangeColor: (payload: string) => void;
 	onChangeTexture: (payload: TextureAsset) => void;
 	onChangeMapSize: (payload: number) => void;
@@ -28,4 +30,6 @@ export type TGalleryContext = {
 	onChangeSpawn: (payload: number) => void;
 	onChangeBlock: (id: number, block: PlanimetryBlock) => void;
 	onChangeBlockMetadata: (id: number, metadata: GenericObject) => void;
+	onMouseDown: (payload: boolean) => void;
+	onMouseRightDown: (payload: boolean) => void;
 };

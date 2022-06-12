@@ -1,4 +1,4 @@
-import {CSSProperties, memo, MouseEvent, useMemo} from "react";
+import {CSSProperties, MouseEvent, useCallback, useMemo} from "react";
 import {IoAccessibilitySharp} from "react-icons/io5";
 import {TbDoor, TbWindow} from "react-icons/tb";
 import {Box} from "@chakra-ui/react";
@@ -8,42 +8,49 @@ import {Textures} from "@configs/gallery";
 import useGallery from "@contexts/Gallery";
 import {clone} from "@utils/converters";
 
-function Block({
-	data,
-	size,
-	mouseDown,
-	setMouseDown,
-	mouseRightDown,
-	setMouseRightDown,
-}): JSX.Element {
-	const {schema, mode, selected, onSelect, onChangeSpawn, onChangeBlock, color, texture} =
-		useGallery();
+const iconStyle = {
+	display: "inline-block",
+	position: "absolute",
+	margin: "auto",
+	top: "50%",
+	transform: "translateY(-50%)",
+} as CSSProperties;
+
+function Block({item, size}): JSX.Element {
+	const {
+		schema,
+		mode,
+		selected,
+		color,
+		texture,
+		mouseDown,
+		mouseRightDown,
+		onSelect,
+		onChangeSpawn,
+		onChangeBlock,
+		onMouseDown,
+		onMouseRightDown,
+	} = useGallery();
+	const data = schema.getBlock(item);
 	const blockData = useMemo(() => clone(data), [data]);
-	const isSpawn = data?.id === schema.getSpawn();
-	const isDoor = data?.type === PlanimetryBlockTypeEnum.Door;
-	const isWindow = data?.type === PlanimetryBlockTypeEnum.Window;
-	const isWall = data?.type === PlanimetryBlockTypeEnum.Wall;
-	const iconStyle = {
-		display: "inline-block",
-		position: "absolute",
-		margin: "auto",
-		top: "50%",
-		transform: "translateY(-50%)",
-	} as CSSProperties;
 	const itemsCount = useMemo(() => {
 		return Object.keys(data?.items || {}).filter((key: string) => data.items[key] !== null)
 			.length;
 	}, [data]);
-	const blockSize = `${size}px`;
+	const isSpawn = useMemo(() => data?.id === schema.getSpawn(), [data?.id, schema]);
+	const isDoor = useMemo(() => data?.type === PlanimetryBlockTypeEnum.Door, [data?.type]);
+	const isWindow = useMemo(() => data?.type === PlanimetryBlockTypeEnum.Window, [data?.type]);
+	const isWall = useMemo(() => data?.type === PlanimetryBlockTypeEnum.Wall, [data?.type]);
 	const blockStyle = useMemo(() => {
+		const blockSize = `${size}px`;
 		const defaultWallColor = "#cbd5e0";
-		const selectedBorder = "3px dashed #00bfff";
 		const defaultBorder = "1px dashed #cbd5e0";
 		const defaultMarginBorder = "3px solid #cbd5e0";
 		const texture =
 			data.texture && Object.prototype.hasOwnProperty.call(Textures, data.texture)
 				? Textures[data.texture]
 				: null;
+		const selectedBorder = "3px dashed #00bfff";
 		const wallBorder = "3px solid black";
 		const styles = {
 			width: blockSize,
@@ -126,78 +133,121 @@ function Block({
 			styles.cursor = "crosshair";
 		}
 		return styles;
-	}, [blockSize, data, isWall, isDoor, isWindow, schema, selected, mode]);
+	}, [
+		size,
+		data.texture,
+		data.color,
+		data.id,
+		isWall,
+		isDoor,
+		isWindow,
+		schema,
+		selected?.id,
+		mode,
+	]);
+
+	const handleMouseDown = useCallback(
+		(e: MouseEvent) => {
+			let isRightMouse = false;
+			onMouseDown(true);
+			if (e.button === 2) {
+				isRightMouse = true;
+				onMouseRightDown(true);
+			}
+			switch (mode) {
+				case GalleryBuilderModeEnum.Planimetry:
+					if (!isRightMouse) {
+						blockData.type = PlanimetryBlockTypeEnum.Wall;
+						onChangeBlock(data.id, blockData);
+						break;
+					}
+				// eslint-disable-next-line no-fallthrough
+				case GalleryBuilderModeEnum.Erase:
+					onChangeBlock(data.id, {
+						id: data.id,
+						type: PlanimetryBlockTypeEnum.Floor,
+					});
+					break;
+				case GalleryBuilderModeEnum.Select:
+					onSelect(data);
+					break;
+				case GalleryBuilderModeEnum.Spawn:
+					onChangeSpawn(data.id);
+					break;
+				case GalleryBuilderModeEnum.Color:
+					if (schema.isBlockColorable(data.id)) {
+						blockData.color = isRightMouse ? null : color;
+						blockData.texture = isRightMouse ? null : texture?.name;
+						onChangeBlock(data.id, blockData);
+					}
+					break;
+			}
+		},
+		[
+			blockData,
+			color,
+			data,
+			mode,
+			onChangeBlock,
+			onChangeSpawn,
+			onMouseDown,
+			onMouseRightDown,
+			onSelect,
+			schema,
+			texture?.name,
+		],
+	);
+
+	const handleMouseEnter = useCallback(() => {
+		if (mouseDown) {
+			switch (mode) {
+				case GalleryBuilderModeEnum.Planimetry:
+					if (!mouseRightDown) {
+						blockData.type = PlanimetryBlockTypeEnum.Wall;
+						onChangeBlock(data.id, blockData);
+						break;
+					}
+				// eslint-disable-next-line no-fallthrough
+				case GalleryBuilderModeEnum.Erase:
+					onChangeBlock(data.id, {
+						id: data.id,
+						type: PlanimetryBlockTypeEnum.Floor,
+					});
+					break;
+				case GalleryBuilderModeEnum.Color:
+					if (schema.isBlockColorable(data.id)) {
+						blockData.color = mouseRightDown ? null : color;
+						blockData.texture = mouseRightDown ? null : texture?.name;
+						onChangeBlock(data.id, blockData);
+					}
+					break;
+			}
+		}
+	}, [
+		blockData,
+		color,
+		data.id,
+		mode,
+		mouseDown,
+		mouseRightDown,
+		onChangeBlock,
+		schema,
+		texture?.name,
+	]);
+
+	const handleMouseUp = useCallback(() => {
+		onMouseDown(false);
+		onMouseRightDown(false);
+	}, [onMouseDown, onMouseRightDown]);
+
 	return (
 		<Box
 			as={"td"}
 			userSelect="none"
 			onContextMenu={(e) => e.preventDefault()}
-			onMouseDown={(e: MouseEvent) => {
-				let isRightMouse = false;
-				setMouseDown(true);
-				if (e.button === 2) {
-					isRightMouse = true;
-					setMouseRightDown(true);
-				}
-				switch (mode) {
-					case GalleryBuilderModeEnum.Planimetry:
-						if (!isRightMouse) {
-							blockData.type = PlanimetryBlockTypeEnum.Wall;
-							onChangeBlock(data.id, blockData);
-							break;
-						}
-					// eslint-disable-next-line no-fallthrough
-					case GalleryBuilderModeEnum.Erase:
-						onChangeBlock(data.id, {
-							id: data.id,
-							type: PlanimetryBlockTypeEnum.Floor,
-						});
-						break;
-					case GalleryBuilderModeEnum.Select:
-						onSelect(data);
-						break;
-					case GalleryBuilderModeEnum.Spawn:
-						onChangeSpawn(data.id);
-						break;
-					case GalleryBuilderModeEnum.Color:
-						if (schema.isBlockColorable(data.id)) {
-							blockData.color = isRightMouse ? null : color;
-							blockData.texture = isRightMouse ? null : texture?.name;
-							onChangeBlock(data.id, blockData);
-						}
-						break;
-				}
-			}}
-			onMouseEnter={() => {
-				if (mouseDown) {
-					switch (mode) {
-						case GalleryBuilderModeEnum.Planimetry:
-							if (!mouseRightDown) {
-								blockData.type = PlanimetryBlockTypeEnum.Wall;
-								onChangeBlock(data.id, blockData);
-								break;
-							}
-						// eslint-disable-next-line no-fallthrough
-						case GalleryBuilderModeEnum.Erase:
-							onChangeBlock(data.id, {
-								id: data.id,
-								type: PlanimetryBlockTypeEnum.Floor,
-							});
-							break;
-						case GalleryBuilderModeEnum.Color:
-							if (schema.isBlockColorable(data.id)) {
-								blockData.color = mouseRightDown ? null : color;
-								blockData.texture = mouseRightDown ? null : texture?.name;
-								onChangeBlock(data.id, blockData);
-							}
-							break;
-					}
-				}
-			}}
-			onMouseUp={(e: MouseEvent) => {
-				setMouseDown(false);
-				setMouseRightDown(false);
-			}}
+			onMouseDown={handleMouseDown}
+			onMouseEnter={handleMouseEnter}
+			onMouseUp={handleMouseUp}
 			{...blockStyle}>
 			<Box
 				as="span"
@@ -226,4 +276,4 @@ function Block({
 	);
 }
 
-export default memo(Block);
+export default Block;

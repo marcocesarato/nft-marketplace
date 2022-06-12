@@ -11,8 +11,8 @@ import Details from "./Details";
 import Map from "./Map";
 import Toolbar from "./Toolbar";
 
-export default function GallerySettings(): JSX.Element {
-	const {schema, setPlanimetry} = useGallery();
+export default function GalleryBuilder(): JSX.Element {
+	const {schema, setSchema} = useGallery();
 	const {user, isLoading} = useUser();
 	const [userUpdate] = useUserUpdatePlanimetryMutation();
 
@@ -30,7 +30,7 @@ export default function GallerySettings(): JSX.Element {
 
 	useEffect(() => {
 		if (!isLoading && user?.planimetry && Object.keys(user?.planimetry).length > 0) {
-			setPlanimetry(user.planimetry as PlanimetryMap);
+			setSchema(user.planimetry as PlanimetryMap);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user, isLoading]);

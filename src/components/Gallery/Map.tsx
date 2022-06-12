@@ -30,7 +30,7 @@ import Wall from "./Wall";
 import Window from "./Window";
 
 export default function GalleryMap({planimetry}): JSX.Element {
-	const {schema, setPlanimetry} = useGallery();
+	const {schema, setSchema} = useGallery();
 	const map = schema.getMap();
 
 	const spawn = schema.getSpawn();
@@ -172,7 +172,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 	const assetList = Array.from(assets.values());
 
 	useEffect(() => {
-		if (planimetry) setPlanimetry(planimetry);
+		if (planimetry) setSchema(planimetry);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [planimetry]);
 

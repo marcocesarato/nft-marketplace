@@ -1,5 +1,7 @@
 import {useCallback, useEffect, useState} from "react";
 
+import useDebounceCallback from "./useDebounceCallback";
+
 const useDimensions = (ref) => {
 	const [observer, setObserver] = useState(null);
 	const [dimensions, setDimensions] = useState({width: 0, height: 0, global: null});
@@ -18,9 +20,9 @@ const useDimensions = (ref) => {
 		[ref],
 	);
 
-	const handleResize = useCallback(() => {
+	const handleResize = useDebounceCallback(() => {
 		setDimensions(getDimensions());
-	}, [getDimensions]);
+	}, 200);
 
 	useEffect(() => {
 		if (ref.current) {
@@ -33,7 +35,7 @@ const useDimensions = (ref) => {
 			observer?.disconnect();
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [handleResize]);
+	}, []);
 
 	useEffect(() => {
 		window.addEventListener("resize", handleResize);
@@ -43,7 +45,8 @@ const useDimensions = (ref) => {
 		return () => {
 			window.removeEventListener("resize", handleResize);
 		};
-	}, [handleResize]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return dimensions;
 };

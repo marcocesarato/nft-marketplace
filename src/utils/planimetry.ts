@@ -1,24 +1,27 @@
 import {MapDirection, MapDirectionEnum, PlanimetryBlockTypeEnum} from "@app/enums";
 import type {GenericObject, PlanimetryBlock, PlanimetryMap} from "@app/types";
-import {debounce} from "@utils/common";
+//import {debounce} from "@utils/common";
 
 export class PlanimetrySchema {
 	private map: PlanimetryMap;
 	private blocksInsideRoom: Set<number> = new Set();
 	private blocksOutsideRoom: Set<number> = new Set();
+	private connectedBlockTypes = [
+		[PlanimetryBlockTypeEnum.Door, PlanimetryBlockTypeEnum.Floor],
+		[PlanimetryBlockTypeEnum.Window, PlanimetryBlockTypeEnum.Wall],
+	];
+	//private debouncedAdjustSpawn: Function;
 
 	constructor(planimetryMap?: PlanimetryMap) {
-		this.map = planimetryMap || ({} as PlanimetryMap);
-		this.adjustSpawnPosition = debounce(this.adjustSpawnPosition.bind(this), 300, true);
+		//this.debouncedAdjustSpawn = debounce(this.adjustSpawn.bind(this), 300, true);
+		this.setMap(planimetryMap || ({} as PlanimetryMap));
 	}
 
 	public setMap(planimetryMap: PlanimetryMap) {
-		if (this.map.blocks !== planimetryMap.blocks) {
-			this.blocksInsideRoom = new Set();
-			this.blocksOutsideRoom = new Set();
-		}
+		this.blocksInsideRoom = new Set();
+		this.blocksOutsideRoom = new Set();
 		this.map = planimetryMap;
-		this.adjustSpawnPosition();
+		this.adjustSpawn();
 	}
 
 	public getMap() {
@@ -30,11 +33,17 @@ export class PlanimetrySchema {
 	}
 
 	public setSpawn(spawn: number) {
-		this.map.spawn = spawn;
+		if (this.isBlockInsideWalls(spawn) || spawn == null) {
+			this.map.spawn = spawn;
+		}
 	}
 
 	public getBlocks() {
 		return this.map.blocks;
+	}
+
+	public getBlock(i: number) {
+		return this.map.blocks[i];
 	}
 
 	public setBlockMetadata(i: number, metadata: GenericObject) {
@@ -69,26 +78,6 @@ export class PlanimetrySchema {
 			this.isMapBorderWest(i) ||
 			this.isMapBorderEast(i)
 		);
-	}
-
-	public adjustSpawnPosition() {
-		let spawn = this.getSpawn();
-		const blocks = this.getBlocks();
-		if (blocks && blocks.length > 0) {
-			if (spawn !== -1) {
-				if (!this.isBlockInsideWalls(spawn)) {
-					spawn = -1;
-				}
-			}
-			if (spawn === -1) {
-				const insideFloor = this.getBlocksInsideRoom();
-				const arrayFloor: number[] = Array.from(insideFloor);
-				if (arrayFloor.length > 0) {
-					spawn = arrayFloor[0];
-				}
-			}
-		}
-		this.map.spawn = spawn;
 	}
 
 	public getNeighbors(i: number): PlanimetryBlock[] {
@@ -143,6 +132,7 @@ export class PlanimetrySchema {
 		direction?: MapDirection,
 	): {connected: Set<number>; visited: Set<number>} {
 		const type = this.map.blocks[i]?.type;
+		const connections = this.connectedBlockTypes.find((types) => types.includes(type));
 		const visited = new Set<number>();
 		const connected = new Set<number>();
 		const toCheck = new Set<number>([i]);
@@ -154,7 +144,7 @@ export class PlanimetrySchema {
 			const neighbors = this.getNeighbors(current);
 			for (const neighbor of neighbors) {
 				if (
-					this.map.blocks[neighbor.id]?.type === type &&
+					connections.includes(neighbor.type) &&
 					!visited.has(neighbor.id) &&
 					!toCheck.has(neighbor.id) &&
 					(direction == null || neighbor.direction === direction)
@@ -173,7 +163,6 @@ export class PlanimetrySchema {
 			const i = toCheck.values().next().value;
 			toCheck.delete(i);
 			if (
-				!this.blocksOutsideRoom.has(i) &&
 				this.isMapBorder(i) &&
 				(!this.map.blocks[i] || this.map.blocks[i].type === PlanimetryBlockTypeEnum.Floor)
 			) {
@@ -220,8 +209,7 @@ export class PlanimetrySchema {
 	}
 
 	public isBlockInsideWalls(i: number) {
-		const outsidePlanes = this.getBlocksInsideRoom();
-		return outsidePlanes.has(i);
+		return this.getBlocksInsideRoom().has(i);
 	}
 
 	public isValidPlanimetry() {
@@ -314,5 +302,24 @@ export class PlanimetrySchema {
 			if (blockA && blockB) return true;
 		}
 		return false;
+	}
+
+	public adjustSpawn() {
+		let spawn = this.getSpawn();
+		if ((this.map.blocks.length ?? 0) > 0) {
+			if (spawn != null) {
+				if (!this.isBlockInsideWalls(spawn)) {
+					spawn = null;
+				}
+			}
+			if (spawn == null) {
+				const insideFloor = this.getBlocksInsideRoom();
+				const arrayFloor: number[] = Array.from(insideFloor);
+				if (arrayFloor.length > 0) {
+					spawn = arrayFloor[0];
+				}
+			}
+		}
+		this.setSpawn(spawn);
 	}
 }
