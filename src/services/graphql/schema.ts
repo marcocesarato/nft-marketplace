@@ -49,9 +49,8 @@ schemaComposer.Mutation.addFields({
 		type: UserTC,
 		args: {planimetry: "JSON"},
 		resolve: async (source, args, context, info) => {
-			/*const {account, isAuthenticated} = context;
-			if (!isAuthenticated) return false;*/
-			const account = "0xad35c27c74677759afeb435c4e7e09e7946c5c4f".toLowerCase();
+			const {account, isAuthenticated} = context;
+			if (!isAuthenticated) return false;
 			const user = await User.findOne({account});
 			if (!user) return false;
 			await User.updateOne({account}, {"planimetry": JSON.stringify(args.planimetry)});
