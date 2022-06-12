@@ -3,14 +3,14 @@
 		"activities": "Attività",
 		"balance": "Saldo",
 		"compress": "Comprimi",
-		"title": "Account",
-		"profile": "Profilo",
 		"gallery": "Galleria",
-		"galleryBuilder": "Impostazioni galleria"
+		"galleryBuilder": "Impostazioni galleria",
+		"profile": "Profilo",
+		"title": "Account"
 	},
 	"action": {
-		"close": "Chiudi",
 		"back": "Indietro",
+		"close": "Chiudi",
 		"confirm": "Conferma",
 		"connectToWallet": "Connetti",
 		"connectWallet": "Connetti wallet",
@@ -117,15 +117,25 @@
 		}
 	},
 	"product": {
+		"attributes": "Attributi",
 		"createdBy": "Creato da",
 		"description": "Descrizione",
 		"item": "Articolo",
 		"price": "Prezzo",
-		"attributes": "Attributi",
 		"soldBy": "Venduto da"
 	},
 	"search": {
 		"assets": "Cerca risorse digitali qui..."
+	},
+	"texture": {
+		"bricks": "Mattoni",
+		"ceiling": "Soffitto",
+		"concrete": "Calcestruzzo",
+		"parquet": "Parquet",
+		"rocks": "Rocce",
+		"scifi": "Fantascienza",
+		"terrazzo": "Terrazzo",
+		"woodBricks": "Mattoni di legno"
 	},
 	"xr": {
 		"notSupported": "Il tuo browser attuale non supporta la tecnologia richiesta.",

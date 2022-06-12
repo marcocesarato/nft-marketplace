@@ -29,7 +29,7 @@ type FloorProps = {
 export default function Floor({
 	navmesh = false,
 	color = "#FFFFFF",
-	texture = null,
+	texture,
 	...props
 }: FloorProps): JSX.Element {
 	return (

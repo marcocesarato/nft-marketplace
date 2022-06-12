@@ -9,6 +9,7 @@ import {GenericObject} from "@app/types";
 import {Environment, MainScene} from "@components/AFrame";
 import Content from "@components/Content";
 import Loading from "@components/Loading";
+import {EnvironmentMaps} from "@configs/gallery";
 import {GalleryProvider} from "@contexts/Gallery";
 import useAFrame from "@hooks/useAFrame";
 
@@ -34,17 +35,7 @@ export default function Gallery({user}: GalleryProps): JSX.Element {
 		<GalleryProvider>
 			<MainScene>
 				{/* Sky */}
-				<Environment
-					config="
-                    preset: starry;
-                    grid: none;
-                    ground: hills;
-                    groundColor: #663926;
-                    groundColor2: #663926;
-                    shadow: true;
-                    lighting: none;"
-					position="0 -1 0"
-				/>
+				<Environment config={EnvironmentMaps.night} position="0 -1 0" />
 
 				{/* Light */}
 				<Light light={{type: "ambient"}} intensity={0.8}></Light>

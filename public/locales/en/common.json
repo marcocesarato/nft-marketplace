@@ -3,14 +3,14 @@
 		"activities": "Activities",
 		"balance": "Balance",
 		"compress": "Compress",
-		"title": "Account",
-		"profile": "Profile",
 		"gallery": "Gallery",
-		"galleryBuilder": "Gallery builder"
+		"galleryBuilder": "Gallery builder",
+		"profile": "Profile",
+		"title": "Account"
 	},
 	"action": {
-		"close": "Close",
 		"back": "Back",
+		"close": "Close",
 		"confirm": "Confirm",
 		"connectToWallet": "Connect",
 		"connectWallet": "Connect wallet",
@@ -117,15 +117,25 @@
 		}
 	},
 	"product": {
+		"attributes": "Attributes",
 		"createdBy": "Created by",
 		"description": "Description",
 		"item": "Item",
 		"price": "Price",
-		"attributes": "Attributes",
 		"soldBy": "Sold by"
 	},
 	"search": {
 		"assets": "Search assets here..."
+	},
+	"texture": {
+		"bricks": "Bricks",
+		"ceiling": "Ceiling",
+		"concrete": "Concrete",
+		"parquet": "Parquet",
+		"rocks": "Rocks",
+		"scifi": "Sci-Fi",
+		"terrazzo": "Terrazzo",
+		"woodBricks": "Wood Bricks"
 	},
 	"xr": {
 		"notSupported": "Your current browser does not support required technology.",

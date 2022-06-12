@@ -11,16 +11,18 @@ import {
 	PopoverTrigger,
 	SimpleGrid,
 } from "@chakra-ui/react";
+import {useTranslation} from "next-i18next";
 
-import {textures} from "@configs/gallery";
+import {Textures} from "@configs/gallery";
 
 export default function TexturePicker({value, onChange}) {
+	const {t} = useTranslation();
 	const options = [
 		{
 			name: "",
 			image: null,
 		},
-		...textures,
+		...Object.values(Textures),
 	];
 	return (
 		<Box>
@@ -45,7 +47,7 @@ export default function TexturePicker({value, onChange}) {
 						borderTopLeftRadius={5}
 						borderTopRightRadius={5}
 						color="white">
-						<Center height="100%">{value?.name}</Center>
+						<Center height="100%">{t<string>(`texture.${value?.name}`)}</Center>
 					</PopoverHeader>
 					<PopoverBody height="120px">
 						<SimpleGrid columns={5} spacing={2}>

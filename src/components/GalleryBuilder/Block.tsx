@@ -4,6 +4,7 @@ import {TbDoor, TbWindow} from "react-icons/tb";
 import {Box} from "@chakra-ui/react";
 
 import {GalleryBuilderModeEnum, MapDirectionEnum, PlanimetryBlockTypeEnum} from "@app/enums";
+import {Textures} from "@configs/gallery";
 import useGallery from "@contexts/Gallery";
 import {clone} from "@utils/converters";
 
@@ -39,6 +40,10 @@ function Block({
 		const selectedBorder = "3px dashed #00bfff";
 		const defaultBorder = "1px dashed #cbd5e0";
 		const defaultMarginBorder = "3px solid #cbd5e0";
+		const texture =
+			data.texture && Object.prototype.hasOwnProperty.call(Textures, data.texture)
+				? Textures[data.texture]
+				: null;
 		const wallBorder = "3px solid black";
 		const styles = {
 			width: blockSize,
@@ -49,7 +54,7 @@ function Block({
 			borderLeft: defaultBorder,
 			borderRight: defaultBorder,
 			backgroundColor: data.color,
-			backgroundImage: data.texture?.image,
+			backgroundImage: texture?.image,
 			backgroundSize: "cover",
 			cursor: "pointer",
 		};
@@ -157,7 +162,7 @@ function Block({
 					case GalleryBuilderModeEnum.Color:
 						if (schema.isBlockColorable(data.id)) {
 							blockData.color = isRightMouse ? null : color;
-							blockData.texture = isRightMouse ? null : texture;
+							blockData.texture = isRightMouse ? null : texture?.name;
 							onChangeBlock(data.id, blockData);
 						}
 						break;
@@ -182,7 +187,7 @@ function Block({
 						case GalleryBuilderModeEnum.Color:
 							if (schema.isBlockColorable(data.id)) {
 								blockData.color = mouseRightDown ? null : color;
-								blockData.texture = mouseRightDown ? null : texture;
+								blockData.texture = mouseRightDown ? null : texture?.name;
 								onChangeBlock(data.id, blockData);
 							}
 							break;

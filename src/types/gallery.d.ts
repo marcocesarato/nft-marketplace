@@ -4,7 +4,7 @@ import {TokenItem} from "./marketplace";
 
 export type PlanimetryBlock = {
 	id: number;
-	texture?: TextureAsset;
+	texture?: string;
 	color?: string;
 	type?: PlanimetryBlockType;
 	direction?: MapDirection;

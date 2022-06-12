@@ -21,23 +21,30 @@ export const DefaultTextureAttributes = {
 	"segments-width": "64",
 };
 
-export const textures: TextureAsset[] = [
-	{
-		name: "textures.concrete",
+export const EnvironmentMaps = {
+	"forest":
+		"preset: forest; grid: none; ground: hills; groundTexture: noise; shadow: true;playArea: 20; lighting: true;",
+	"night":
+		"preset: starry; grid: none; ground: hills; groundColor: #663926; groundColor2: #663926; shadow: true; lighting: none;",
+};
+
+export const Textures: {[key: string]: TextureAsset} = {
+	"concrete": {
+		name: "concrete",
 		image: "/assets/textures/default-wall/wall.jpg",
 		assets: [
 			{
-				id: "wall",
+				id: "texture-wall",
 				src: "/assets/textures/default-wall/wall.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "wall-normal",
+				id: "texture-wall-normal",
 				src: "/assets/textures/default-wall/wall_normal.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "wall-roughness",
+				id: "texture-wall-roughness",
 				src: "/assets/textures/default-wall/wall_roughness.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
@@ -45,30 +52,30 @@ export const textures: TextureAsset[] = [
 		attributes: {
 			...DefaultTextureAttributes,
 			"material":
-				"src: #wall;" +
+				"src: #texture-wall;" +
 				`repeat: 1 ${WallHeight};` +
-				"normal-map: #wall-normal;" +
+				"normal-map: #texture-wall-normal;" +
 				`normal-texture-repeat: 1 ${WallHeight};` +
 				`normal-scale: 1 ${WallHeight};` +
-				"roughness-map: #wall-roughness;",
+				"roughness-map: #texture-wall-roughness;",
 		},
 	},
-	{
-		name: "textures.terrazzo",
+	"terrazzo": {
+		name: "terrazzo",
 		image: "/assets/textures/terrazzo/terrazzo.jpg",
 		assets: [
 			{
-				id: "terrazzo",
+				id: "texture-terrazzo",
 				src: "/assets/textures/terrazzo/terrazzo.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "terrazzo-normal",
+				id: "texture-terrazzo-normal",
 				src: "/assets/textures/terrazzo/terrazzo_normal.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "terrazzo-roughness",
+				id: "texture-terrazzo-roughness",
 				src: "/assets/textures/terrazzo/terrazzo_roughness.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
@@ -76,45 +83,45 @@ export const textures: TextureAsset[] = [
 		attributes: {
 			...DefaultTextureAttributes,
 			"material":
-				"src: #terrazzo;" +
+				"src: #texture-terrazzo;" +
 				"repeat: 1 1;" +
-				"normal-map: #terrazzo-normal;" +
+				"normal-map: #texture-terrazzo-normal;" +
 				"normal-texture-repeat: 1 1;" +
 				"normal-scale: 1 1;" +
-				"roughness-map: #terrazzo-roughness;",
+				"roughness-map: #texture-terrazzo-roughness;",
 		},
 	},
-	{
-		name: "textures.ceiling",
+	"ceiling": {
+		name: "ceiling",
 		image: "/assets/textures/ceiling/ceiling.jpg",
 		assets: [
 			{
-				id: "ceiling",
+				id: "texture-ceiling",
 				src: "/assets/textures/ceiling/ceiling.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "ceiling-normal",
+				id: "texture-ceiling-normal",
 				src: "/assets/textures/ceiling/ceiling_normal.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "ceiling-roughness",
+				id: "texture-ceiling-roughness",
 				src: "/assets/textures/ceiling/ceiling_roughness.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "ceiling-ao",
+				id: "texture-ceiling-ao",
 				src: "/assets/textures/ceiling/ceiling_ao.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "ceiling-height",
+				id: "texture-ceiling-height",
 				src: "/assets/textures/ceiling/ceiling_height.png",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "ceiling-metallic",
+				id: "texture-ceiling-metallic",
 				src: "/assets/textures/ceiling/ceiling_metallic.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
@@ -122,43 +129,43 @@ export const textures: TextureAsset[] = [
 		attributes: {
 			...DefaultTextureAttributes,
 			"material":
-				"src: #ceiling;" +
+				"src: #texture-ceiling;" +
 				"repeat: 1 1;" +
-				"normal-map: #ceiling-normal;" +
+				"normal-map: #texture-ceiling-normal;" +
 				"normal-texture-repeat: 1 1;" +
 				"normal-scale: 1 1;" +
-				"roughness-map: #ceiling-roughness;" +
-				"metalness-map: #ceiling-metallic;" /* +
-				"displacement-map: #ceiling-height;" +
+				"roughness-map: #texture-ceiling-roughness;" +
+				"metalness-map: #texture-ceiling-metallic;" /* +
+				"displacement-map: #texture-ceiling-height;" +
 				"displacement-scale: 0.5;",*/,
 		},
 	},
-	{
-		name: "textures.rocks",
+	"rocks": {
+		name: "rocks",
 		image: "/assets/textures/rocks/rocks.jpg",
 		assets: [
 			{
-				id: "rocks",
+				id: "texture-rocks",
 				src: "/assets/textures/rocks/rocks.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "rocks-normal",
+				id: "texture-rocks-normal",
 				src: "/assets/textures/rocks/rocks_normal.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "rocks-roughness",
+				id: "texture-rocks-roughness",
 				src: "/assets/textures/rocks/rocks_roughness.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "rocks-ao",
+				id: "texture-rocks-ao",
 				src: "/assets/textures/rocks/rocks_ao.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "rocks-height",
+				id: "texture-rocks-height",
 				src: "/assets/textures/rocks/rocks_height.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
@@ -166,38 +173,38 @@ export const textures: TextureAsset[] = [
 		attributes: {
 			...DefaultTextureAttributes,
 			"material":
-				"src: #rocks;" +
+				"src: #texture-rocks;" +
 				"repeat: 1 1;" +
-				"normal-map: #rocks-normal;" +
+				"normal-map: #texture-rocks-normal;" +
 				"normal-texture-repeat: 1 1;" +
 				"normal-scale: 2 2;" +
-				"roughness-map: #rocks-roughness;" +
-				"ambient-occlusion-map: #rocks-ao;" /* +
-				"displacement-map: #rocks-height;" +
+				"roughness-map: #texture-rocks-roughness;" +
+				"ambient-occlusion-map: #texture-rocks-ao;" /* +
+				"displacement-map: #texture-rocks-height;" +
 				"displacement-scale: 0.5;",*/,
 		},
 	},
-	{
-		name: "textures.bricks",
+	"bricks": {
+		name: "bricks",
 		image: "/assets/textures/bricks/bricks.jpg",
 		assets: [
 			{
-				id: "bricks",
+				id: "texture-bricks",
 				src: "/assets/textures/bricks/bricks.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "bricks-normal",
+				id: "texture-bricks-normal",
 				src: "/assets/textures/bricks/bricks_normal.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "bricks-roughness",
+				id: "texture-bricks-roughness",
 				src: "/assets/textures/bricks/bricks_roughness.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "bricks-ao",
+				id: "texture-bricks-ao",
 				src: "/assets/textures/bricks/bricks_ao.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
@@ -205,41 +212,41 @@ export const textures: TextureAsset[] = [
 		attributes: {
 			...DefaultTextureAttributes,
 			"material":
-				"src: #bricks;" +
+				"src: #texture-bricks;" +
 				"repeat: 1 1;" +
-				"normal-map: #bricks-normal;" +
+				"normal-map: #texture-bricks-normal;" +
 				"normal-texture-repeat: 1 1;" +
 				"normal-scale: 1 1;" +
-				"roughness-map: #bricks-roughness;" +
-				"ambient-occlusion-map: #bricks-ao;",
+				"roughness-map: #texture-bricks-roughness;" +
+				"ambient-occlusion-map: #texture-bricks-ao;",
 		},
 	},
-	{
-		name: "textures.woodBricks",
+	"woodBricks": {
+		name: "woodBricks",
 		image: "/assets/textures/wood-bricks/wood.jpg",
 		assets: [
 			{
-				id: "wood-bricks",
+				id: "texture-wood-bricks",
 				src: "/assets/textures/wood-bricks/wood.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "wood-bricks-normal",
+				id: "texture-wood-bricks-normal",
 				src: "/assets/textures/wood-bricks/wood_normal.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "wood-bricks-roughness",
+				id: "texture-wood-bricks-roughness",
 				src: "/assets/textures/wood-bricks/wood_roughness.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "wood-bricks-ao",
+				id: "texture-wood-bricks-ao",
 				src: "/assets/textures/wood-bricks/wood_ao.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "wood-bricks-height",
+				id: "texture-wood-bricks-height",
 				src: "/assets/textures/wood-bricks/wood_height.png",
 				type: GalleryAssetTypeEnum.Image,
 			},
@@ -247,48 +254,48 @@ export const textures: TextureAsset[] = [
 		attributes: {
 			...DefaultTextureAttributes,
 			"material":
-				"src: #wood-bricks;" +
+				"src: #texture-wood-bricks;" +
 				"repeat: 2 2;" +
-				"normal-map: #wood-bricks-normal;" +
+				"normal-map: #texture-wood-bricks-normal;" +
 				"normal-texture-repeat: 2 2;" +
 				"normal-scale: 4 4;" +
-				"roughness-map: #wood-bricks-roughness;" +
-				"ambient-occlusion-map: #wood-bricks-ao;" /* +
-				"displacement-map: #wood-bricks-height;" +
+				"roughness-map: #texture-wood-bricks-roughness;" +
+				"ambient-occlusion-map: #texture-wood-bricks-ao;" /* +
+				"displacement-map: #texture-wood-bricks-height;" +
 				"displacement-scale: 0.5;",*/,
 		},
 	},
-	{
-		name: "textures.scifi",
+	"scifi": {
+		name: "scifi",
 		image: "/assets/textures/scifi/scifi.jpg",
 		assets: [
 			{
-				id: "scifi",
+				id: "texture-scifi",
 				src: "/assets/textures/scifi/scifi.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "scifi-normal",
+				id: "texture-scifi-normal",
 				src: "/assets/textures/scifi/scifi_normal.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "scifi-roughness",
+				id: "texture-scifi-roughness",
 				src: "/assets/textures/scifi/scifi_roughness.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "scifi-ao",
+				id: "texture-scifi-ao",
 				src: "/assets/textures/scifi/scifi_ao.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "scifi-metallic",
+				id: "texture-scifi-metallic",
 				src: "/assets/textures/scifi/scifi_metallic.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "scifi-height",
+				id: "texture-scifi-height",
 				src: "/assets/textures/scifi/scifi_height.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
@@ -296,33 +303,33 @@ export const textures: TextureAsset[] = [
 		attributes: {
 			...DefaultTextureAttributes,
 			"material":
-				"src: #scifi;" +
+				"src: #texture-scifi;" +
 				"repeat: 1 1;" +
-				"normal-map: #scifi-normal;" +
+				"normal-map: #texture-scifi-normal;" +
 				"normal-texture-repeat: 1 1;" +
 				"normal-scale: 1 1;" +
-				"roughness-map: #scifi-roughness;" +
-				"metalness-map: #scifi-metallic;" /* +
-				"displacement-map: #scifi-height;" +
+				"roughness-map: #texture-scifi-roughness;" +
+				"metalness-map: #texture-scifi-metallic;" /* +
+				"displacement-map: #texture-scifi-height;" +
 				"displacement-scale: 0.5;",*/,
 		},
 	},
-	{
-		name: "textures.parquet",
+	"parquet": {
+		name: "parquet",
 		image: "/assets/textures/parquet/parquet.jpg",
 		assets: [
 			{
-				id: "parquet",
+				id: "texture-parquet",
 				src: "/assets/textures/parquet/parquet.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "parquet-normal",
+				id: "texture-parquet-normal",
 				src: "/assets/textures/parquet/parquet_normal.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
 			{
-				id: "parquet-roughness",
+				id: "texture-parquet-roughness",
 				src: "/assets/textures/parquet/parquet_roughness.jpg",
 				type: GalleryAssetTypeEnum.Image,
 			},
@@ -330,19 +337,19 @@ export const textures: TextureAsset[] = [
 		attributes: {
 			...DefaultTextureAttributes,
 			"material":
-				"src: #parquet;" +
+				"src: #texture-parquet;" +
 				"repeat: 1 1;" +
-				"normal-map: #parquet-normal;" +
+				"normal-map: #texture-parquet-normal;" +
 				"normal-texture-repeat: 1 1;" +
 				"normal-scale: 1 1;" +
-				"roughness-map: #parquet-roughness;",
+				"roughness-map: #texture-parquet-roughness;",
 		},
 	},
-];
+};
 
-export const objectsModels: ObjectModel[] = [
-	{
-		name: "Sofa",
+export const ObjectsModels: {[key: string]: ObjectModel} = {
+	"sofa": {
+		name: "sofa",
 		type: ObjectModelTypeEnum.Object,
 		image: "/assets/objects/sofa/sofa.jpg",
 		assets: [
@@ -374,8 +381,8 @@ export const objectsModels: ObjectModel[] = [
 			"visible": "false",
 		},
 	},
-];
+};
 
-export const DefaultWallTexture = textures[0];
-export const DefaultFloorTexture = textures[1];
-export const DefaultCeilingTexture = textures[2];
+export const DefaultWallTexture = Textures.concrete;
+export const DefaultFloorTexture = Textures.terrazzo;
+export const DefaultCeilingTexture = Textures.ceiling;

@@ -8,13 +8,14 @@ import {
 	ObjectModelTypeEnum,
 	PlanimetryBlockTypeEnum,
 } from "@app/enums";
-import {GalleryAsset} from "@app/types";
+import {GalleryAsset, TextureAsset} from "@app/types";
 import {MainCamera} from "@components/AFrame";
 import {
 	CameraHeight,
 	DefaultCeilingTexture,
 	DefaultFloorTexture,
 	DefaultWallTexture,
+	Textures,
 	WallHeight,
 	WallSize,
 } from "@configs/gallery";
@@ -58,12 +59,16 @@ export default function GalleryMap({planimetry}): JSX.Element {
 		const x = block.id % map.width;
 		const y = Math.floor(block.id / map.width);
 		let position = {x: 0, y: 0, z: 0};
-		// Load assets
-		block.texture?.assets?.forEach((asset) => {
-			if (!assets.has(asset.id)) {
-				assets.set(asset.id, asset);
-			}
-		});
+		let textureData: TextureAsset;
+		if (block.texture && Object.prototype.hasOwnProperty.call(Textures, block.texture)) {
+			textureData = Textures[block.texture];
+			// Load assets
+			textureData?.assets?.forEach((asset) => {
+				if (!assets.has(asset.id)) {
+					assets.set(asset.id, asset);
+				}
+			});
+		}
 		const neighbors = schema.getNeighbors(block.id);
 		const isColumn = schema.isColumn(block.id);
 		const isIncidenceSegment = schema.isIncidenceSegment(block.id);
@@ -94,7 +99,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 						position={position}
 						isColumn={isColumn}
 						isIncidence={isIncidenceSegment}
-						texture={block.texture}
+						texture={textureData}
 						color={block.color}
 					/>,
 				);
@@ -111,7 +116,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 						key={"floor" + block.id}
 						position={position}
 						navmesh={true}
-						texture={block.texture}
+						texture={textureData}
 						color={block.color}
 					/>,
 				);

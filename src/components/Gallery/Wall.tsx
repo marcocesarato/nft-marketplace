@@ -1,8 +1,8 @@
 import {Box, Entity} from "@belivvr/aframe-react";
 
-import {MapDirectionEnum, PlanimetryBlockTypeEnum} from "@app/enums";
-import {PlanimetryBlock, TextureAsset} from "@app/types";
-import {DefaultColor, DefaultWallTexture, WallHeight, WallSize} from "@configs/gallery";
+import {MapDirection, MapDirectionEnum, PlanimetryBlockTypeEnum} from "@app/enums";
+import {GenericObject, PlanimetryBlock, TextureAsset} from "@app/types";
+import {DefaultColor, DefaultWallTexture, Textures, WallHeight, WallSize} from "@configs/gallery";
 import {convertAllStringToAttributes} from "@utils/converters";
 
 import Ceiling from "./Ceiling";
@@ -14,6 +14,13 @@ export const DefaultWallAttributes = {
 	"physx-restitution": "1.5",
 	...convertAllStringToAttributes(DefaultWallTexture.attributes),
 };
+
+const externalBlocks = [
+	MapDirectionEnum.North,
+	MapDirectionEnum.South,
+	MapDirectionEnum.East,
+	MapDirectionEnum.West,
+];
 
 type WallProps = {
 	texture?: TextureAsset;
@@ -30,7 +37,7 @@ type WallProps = {
 
 export default function Wall({
 	position,
-	texture = {} as TextureAsset,
+	texture,
 	color = DefaultColor,
 	neighbors = [],
 	navmesh = false,
@@ -41,91 +48,57 @@ export default function Wall({
 }: WallProps): JSX.Element {
 	const connections: {[key: string]: PlanimetryBlock} = {};
 
+	// Sizes
 	const columnSize = WallSize / 2;
 	const wallSize = WallSize / 3;
+
+	// Positions
 	const floorPosition = {x: position.x, y: 0, z: position.z};
 	const ceilingPosition = {x: position.x, y: WallHeight, z: position.z};
+	const blocksPosition = {
+		[MapDirectionEnum.North]: {x: position.x, y: position.y, z: position.z - wallSize},
+		[MapDirectionEnum.South]: {x: position.x, y: position.y, z: position.z + wallSize},
+		[MapDirectionEnum.East]: {x: position.x + wallSize, y: position.y, z: position.z},
+		[MapDirectionEnum.West]: {x: position.x - wallSize, y: position.y, z: position.z},
+	};
 
-	const positionNorth = {x: position.x, y: position.y, z: position.z - WallSize / 3};
-	const positionSouth = {x: position.x, y: position.y, z: position.z + WallSize / 3};
-	const positionEast = {x: position.x + WallSize / 3, y: position.y, z: position.z};
-	const positionWest = {x: position.x - WallSize / 3, y: position.y, z: position.z};
-
-	const materialWall = {
+	// Materials
+	const wallMaterial = {
 		"repeat": {x: 1, y: height},
 		"normal-texture-repeat": {x: 1, y: height},
 		"normal-scale": {x: 1, y: height},
 	};
+	const wallTexture = texture
+		? convertAllStringToAttributes(texture?.attributes ?? {}, wallMaterial)
+		: {};
 
+	// External blocks
+	const blocks: MapDirection[] = [];
+	const blocksTexture: {[key: string]: GenericObject} = {};
+	const blocksColor: {[key: string]: string} = {};
 	neighbors.forEach((neighbor: PlanimetryBlock) => {
 		if (neighbor.type !== PlanimetryBlockTypeEnum.Floor) {
 			connections[neighbor.direction] = neighbor;
+			if (externalBlocks.includes(neighbor.direction)) {
+				blocks.push(neighbor.direction);
+			}
 		}
 	});
-	const textureAttributes = texture
-		? convertAllStringToAttributes(texture?.attributes ?? {}, materialWall)
-		: {};
-	const textureNorth =
-		isIncidence && connections[MapDirectionEnum.North]?.texture?.attributes
-			? convertAllStringToAttributes(
-					connections[MapDirectionEnum.North].texture.attributes,
-					materialWall,
-			  )
-			: isIncidence
-			? {}
-			: textureAttributes;
-	const textureSouth =
-		isIncidence && connections[MapDirectionEnum.South]?.texture?.attributes
-			? convertAllStringToAttributes(
-					connections[MapDirectionEnum.South].texture.attributes,
-					materialWall,
-			  )
-			: isIncidence
-			? {}
-			: textureAttributes;
-	const textureWest =
-		isIncidence && connections[MapDirectionEnum.West]?.texture?.attributes
-			? convertAllStringToAttributes(
-					connections[MapDirectionEnum.West].texture.attributes,
-					materialWall,
-			  )
-			: isIncidence
-			? {}
-			: textureAttributes;
-	const textureEast =
-		isIncidence && connections[MapDirectionEnum.East]?.texture?.attributes
-			? convertAllStringToAttributes(
-					connections[MapDirectionEnum.East].texture.attributes,
-					materialWall,
-			  )
-			: isIncidence
-			? {}
-			: textureAttributes;
-
-	const colorNorth =
-		isIncidence && connections[MapDirectionEnum.North]?.color
-			? connections[MapDirectionEnum.North]?.color
-			: isIncidence
-			? DefaultColor
-			: color;
-	const colorSouth =
-		isIncidence && connections[MapDirectionEnum.South]?.color
-			? connections[MapDirectionEnum.South]?.color
-			: isIncidence
-			? DefaultColor
-			: color;
-	const colorWest =
-		isIncidence && connections[MapDirectionEnum.West]?.color
-			? connections[MapDirectionEnum.West]?.color
-			: isIncidence
-			? DefaultColor
-			: color;
-	const colorEast =
-		isIncidence && connections[MapDirectionEnum.East]?.color
-			? connections[MapDirectionEnum.East]?.color
-			: isIncidence
-			? DefaultColor
-			: color;
+	blocks.forEach((direction: MapDirection) => {
+		const conn = connections[direction];
+		let textureData: TextureAsset;
+		if (conn.texture && Object.prototype.hasOwnProperty.call(Textures, conn.texture)) {
+			textureData = Textures[conn.texture];
+		}
+		blocksTexture[direction] =
+			isIncidence && blocksTexture?.attributes
+				? convertAllStringToAttributes(textureData.attributes, wallMaterial)
+				: isIncidence
+				? {}
+				: wallTexture;
+		blocksColor[direction] =
+			isIncidence && conn.color ? conn.color : isIncidence ? DefaultColor : color;
+	});
 
 	return (
 		<Entity>
@@ -137,7 +110,7 @@ export default function Wall({
 					width={columnSize}
 					height={height}
 					color={color}
-					{...textureAttributes}
+					{...wallTexture}
 					{...props}
 				/>
 			) : (
@@ -148,58 +121,25 @@ export default function Wall({
 					width={wallSize}
 					height={height}
 					color={color}
-					{...textureAttributes}
+					{...wallTexture}
 					{...props}
 				/>
 			)}
-			{connections[MapDirectionEnum.North] && (
-				<Box
-					{...DefaultWallAttributes}
-					position={positionNorth}
-					depth={wallSize}
-					width={wallSize}
-					height={height}
-					color={colorNorth}
-					{...textureNorth}
-					{...props}
-				/>
-			)}
-			{connections[MapDirectionEnum.South] && (
-				<Box
-					{...DefaultWallAttributes}
-					position={positionSouth}
-					depth={wallSize}
-					width={wallSize}
-					height={height}
-					color={colorSouth}
-					{...textureSouth}
-					{...props}
-				/>
-			)}
-			{connections[MapDirectionEnum.East] && (
-				<Box
-					{...DefaultWallAttributes}
-					position={positionEast}
-					depth={wallSize}
-					width={wallSize}
-					height={height}
-					color={colorEast}
-					{...textureEast}
-					{...props}
-				/>
-			)}
-			{connections[MapDirectionEnum.West] && (
-				<Box
-					{...DefaultWallAttributes}
-					position={positionWest}
-					depth={wallSize}
-					width={wallSize}
-					height={height}
-					color={colorWest}
-					{...textureWest}
-					{...props}
-				/>
-			)}
+
+			{blocks.map((direction: MapDirection) => {
+				return (
+					<Box
+						{...DefaultWallAttributes}
+						position={blocksPosition[direction]}
+						depth={wallSize}
+						width={wallSize}
+						height={height}
+						color={blocksColor[direction]}
+						{...blocksTexture[direction]}
+						{...props}
+					/>
+				);
+			})}
 
 			<Floor position={floorPosition} navmesh={navmesh} />
 			<Ceiling position={ceilingPosition} />
