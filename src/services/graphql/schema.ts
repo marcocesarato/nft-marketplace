@@ -40,7 +40,6 @@ schemaComposer.Query.addFields({
 schemaComposer.Mutation.addFields({
 	userUpdate: wrapAccessResolve(UserTC.getResolver("updateById"), (rp) => {
 		rp.beforeQuery = (query, rp) => {
-			console.log(rp.context);
 			const {account} = rp.context;
 			query.where("account", account);
 		};

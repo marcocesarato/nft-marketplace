@@ -18,11 +18,13 @@ import {
 import {useTranslation} from "next-i18next";
 
 import Avatar from "@components/Avatar";
+import useGlobalContext from "@contexts/Global";
 import ErrorAlert from "@errors/ErrorAlert";
 import useAccount from "@hooks/useAccount";
 import useBalance from "@hooks/useBalance";
 import useDebounceCallback from "@hooks/useDebounceCallback";
 import useUser from "@hooks/useUser";
+import {useUserUpdateMutation} from "@services/graphql";
 import {formatAddress} from "@utils/formatters";
 import {getExplorer} from "@utils/networks";
 
@@ -32,10 +34,12 @@ import LinkButton from "./LinkButton";
 
 export default function AccountModal({isOpen, onClose}): JSX.Element {
 	const {t} = useTranslation();
-	const {account, logout, chainId, setUserData, userError} = useAccount();
-	const {username} = useUser();
+	const {account, logout, chainId, userError} = useAccount();
+	const {id, username} = useUser();
 	const {data: balance} = useBalance();
 	const router = useRouter();
+	const [userUpdate] = useUserUpdateMutation();
+	const {setConfig} = useGlobalContext();
 
 	function handleLogout() {
 		logout();
@@ -54,7 +58,13 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 	}
 
 	function handleChangeUsername(event) {
-		setUserData({username: event.target.value});
+		userUpdate({
+			variables: {
+				id,
+				record: {username: event.target.value},
+			},
+		});
+		setConfig({username: event.target.value});
 	}
 
 	const changeUsername = useDebounceCallback(handleChangeUsername.bind(this), 500);
