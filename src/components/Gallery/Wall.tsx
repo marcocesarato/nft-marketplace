@@ -130,6 +130,7 @@ export default function Wall({
 				return (
 					<Box
 						{...DefaultWallAttributes}
+						key={direction}
 						position={blocksPosition[direction]}
 						depth={wallSize}
 						width={wallSize}
