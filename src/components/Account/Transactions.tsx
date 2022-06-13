@@ -19,13 +19,28 @@ export default function Transactions({address = null, ...props}): JSX.Element {
 			title: t<string>("common:page.transactions.column.from"),
 			dataIndex: "from_address",
 			key: "from_address",
-			render: (from) => formatAddress(from, 5),
+			render: (from) => (
+				<a
+					href={`${getExplorer(chainId)}/address/${from}`}
+					target="_blank"
+					rel="noreferrer">
+					<Button variant="link" colorScheme="purple">
+						{formatAddress(from, 5)}
+					</Button>
+				</a>
+			),
 		},
 		{
 			title: t<string>("common:page.transactions.column.to"),
 			dataIndex: "to_address",
 			key: "to_address",
-			render: (to) => formatAddress(to, 5),
+			render: (to) => (
+				<a href={`${getExplorer(chainId)}/address/${to}`} target="_blank" rel="noreferrer">
+					<Button variant="link" colorScheme="purple">
+						{formatAddress(to, 5)}
+					</Button>
+				</a>
+			),
 		},
 		{
 			title: t<string>("common:page.transactions.column.value"),
