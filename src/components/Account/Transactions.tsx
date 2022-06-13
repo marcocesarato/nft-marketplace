@@ -1,4 +1,5 @@
-import {Box, Button} from "@chakra-ui/react";
+import {ExternalLinkIcon} from "@chakra-ui/icons";
+import {Box, Link} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
 import Header from "@components/Header";
@@ -20,14 +21,14 @@ export default function Transactions({address = null, ...props}): JSX.Element {
 			dataIndex: "from_address",
 			key: "from_address",
 			render: (from) => (
-				<a
+				<Link
 					href={`${getExplorer(chainId)}/address/${from}`}
-					target="_blank"
-					rel="noreferrer">
-					<Button variant="link" colorScheme="purple">
-						{formatAddress(from, 5)}
-					</Button>
-				</a>
+					isExternal
+					color="primary"
+					colorScheme="purple">
+					{formatAddress(from, 5)}
+					<ExternalLinkIcon mx="3px" />
+				</Link>
 			),
 		},
 		{
@@ -35,11 +36,14 @@ export default function Transactions({address = null, ...props}): JSX.Element {
 			dataIndex: "to_address",
 			key: "to_address",
 			render: (to) => (
-				<a href={`${getExplorer(chainId)}/address/${to}`} target="_blank" rel="noreferrer">
-					<Button variant="link" colorScheme="purple">
-						{formatAddress(to, 5)}
-					</Button>
-				</a>
+				<Link
+					href={`${getExplorer(chainId)}/address/${to}`}
+					isExternal
+					color="primary"
+					colorScheme="purple">
+					{formatAddress(to, 5)}
+					<ExternalLinkIcon mx="3px" />
+				</Link>
 			),
 		},
 		{
@@ -60,11 +64,14 @@ export default function Transactions({address = null, ...props}): JSX.Element {
 			key: "transaction_hash",
 			render: (hash) => (
 				<Box textAlign="right">
-					<a href={`${getExplorer(chainId)}/tx/${hash}`} target="_blank" rel="noreferrer">
-						<Button variant="link" colorScheme="purple">
-							{t<string>("common:action.viewOnExplorer")}
-						</Button>
-					</a>
+					<Link
+						href={`${getExplorer(chainId)}/tx/${hash}`}
+						isExternal
+						color="primary"
+						colorScheme="purple">
+						{t<string>("common:action.viewOnExplorer")}
+						<ExternalLinkIcon mx="3px" />
+					</Link>
 				</Box>
 			),
 		},

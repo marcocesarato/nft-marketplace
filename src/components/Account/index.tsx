@@ -1,10 +1,12 @@
 import {useRouter} from "next/router";
+import {ExternalLinkIcon} from "@chakra-ui/icons";
 import {
 	Avatar,
 	Box,
 	Flex,
 	Heading,
 	Image,
+	Link,
 	Stack,
 	Tab,
 	TabList,
@@ -21,8 +23,10 @@ import Content from "@components/Content";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
 import ErrorNotFound from "@errors/ErrorNotFound";
+import useAccount from "@hooks/useAccount";
 import {useUserQuery} from "@services/graphql";
 import {formatDate} from "@utils/formatters";
+import {getExplorer} from "@utils/networks";
 import {getGalleryUrl} from "@utils/url";
 
 import Created from "./Created";
@@ -32,6 +36,7 @@ import Transactions from "./Transactions";
 
 export default function Account({id}): JSX.Element {
 	const {t} = useTranslation();
+	const {chainId} = useAccount();
 	const router = useRouter();
 	const {data, loading, error} = useUserQuery({
 		variables: {
@@ -80,9 +85,16 @@ export default function Account({id}): JSX.Element {
 						<Heading fontSize={"2xl"} fontWeight={500} fontFamily={"body"}>
 							{user.username || user.account}
 						</Heading>
-						<Text pt={4} color={"gray.500"}>
-							Joined at {formatDate(user.createdAt)}
-						</Text>
+						<Text color={"gray.500"}>Joined at {formatDate(user.createdAt)}</Text>
+						<Link
+							href={`${getExplorer(chainId)}/address/${user.account}`}
+							isExternal
+							color="primary"
+							fontSize="sm"
+							colorScheme="purple">
+							{t<string>("common:action.viewOnExplorer")}
+							<ExternalLinkIcon mx="3px" />
+						</Link>
 					</Stack>
 
 					<Stack direction={"row"} justify={"center"} spacing={6}>
@@ -102,6 +114,7 @@ export default function Account({id}): JSX.Element {
 					<Tabs
 						mt={4}
 						isLazy
+						colorScheme="purple"
 						onChange={(index) => {
 							if (index === 4) {
 								router.push(getGalleryUrl(user.account));
