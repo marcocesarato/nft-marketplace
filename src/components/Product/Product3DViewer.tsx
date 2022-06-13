@@ -5,6 +5,7 @@ import {Canvas} from "@react-three/fiber";
 
 import Frame from "@components/Frame";
 import useIPFS from "@hooks/useIPFS";
+import {getEmbeddedIPFSImageUrl} from "@utils/url";
 
 export default function Product3DViewer({data}): JSX.Element {
 	const {resolveLink} = useIPFS();
@@ -17,7 +18,7 @@ export default function Product3DViewer({data}): JSX.Element {
 						intensity={0.5}
 						contactShadow={{opacity: 0.7, blur: 2}}>
 						<Frame
-							url={resolveLink(data.image)}
+							url={getEmbeddedIPFSImageUrl(resolveLink(data.image))}
 							rotation={[0, 0, 0]}
 							position={[0, 0, 0]}
 							disableHover={true}

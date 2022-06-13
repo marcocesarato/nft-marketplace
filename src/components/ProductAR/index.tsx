@@ -6,6 +6,7 @@ import {createBrowserHistory} from "history";
 import {useTranslation} from "next-i18next";
 
 import stabilizationIcon from "@assets/images/stabilization.gif";
+import {getEmbeddedIPFSImageUrl} from "@utils/url";
 
 import ARController from "./ARController";
 
@@ -51,7 +52,7 @@ export default function ProductAR({image, onClose}): JSX.Element {
 				if (result) {
 					controller.init();
 					controller.open();
-					controller.setPicture(image);
+					controller.setPicture(getEmbeddedIPFSImageUrl(image));
 				}
 			});
 			controller.onToggle((insideXR) => {
