@@ -1,9 +1,5 @@
 import React from "react";
-import Link from "next/link";
 import {Light} from "@belivvr/aframe-react";
-import {SettingsIcon} from "@chakra-ui/icons";
-import {IconButton} from "@chakra-ui/react";
-import {useTranslation} from "next-i18next";
 
 import {GenericObject} from "@app/types";
 import {Environment, MainScene} from "@components/AFrame";
@@ -21,8 +17,6 @@ type GalleryProps = {
 
 export default function Gallery({user}: GalleryProps): JSX.Element {
 	const {isLoading} = useAFrame();
-	const {t} = useTranslation();
-
 	if (!isLoading) {
 		return (
 			<Content>
@@ -47,17 +41,6 @@ export default function Gallery({user}: GalleryProps): JSX.Element {
 
 				<Map planimetry={user?.planimetry} />
 			</MainScene>
-			<Link href="/builder">
-				<IconButton
-					colorScheme="purple"
-					aria-label={t<string>("common:page.gallery.builder.title")}
-					position="fixed"
-					top="130px"
-					right="25px"
-					size="lg"
-					icon={<SettingsIcon />}
-				/>
-			</Link>
 		</GalleryProvider>
 	);
 }

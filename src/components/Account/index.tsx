@@ -1,3 +1,4 @@
+import {useRouter} from "next/router";
 import {
 	Avatar,
 	Box,
@@ -22,6 +23,7 @@ import Loading from "@components/Loading";
 import ErrorNotFound from "@errors/ErrorNotFound";
 import {useUserQuery} from "@services/graphql";
 import {formatDate} from "@utils/formatters";
+import {getGalleryUrl} from "@utils/url";
 
 import Created from "./Created";
 import Favourites from "./Favourites";
@@ -30,6 +32,7 @@ import Transactions from "./Transactions";
 
 export default function Account({id}): JSX.Element {
 	const {t} = useTranslation();
+	const router = useRouter();
 	const {data, loading, error} = useUserQuery({
 		variables: {
 			filter: {
@@ -96,12 +99,20 @@ export default function Account({id}): JSX.Element {
 							</Text>
 						</Stack>
 					</Stack>
-					<Tabs isLazy>
+					<Tabs
+						mt={4}
+						isLazy
+						onChange={(index) => {
+							if (index === 4) {
+								router.push(getGalleryUrl(user.account));
+							}
+						}}>
 						<TabList>
 							<Tab>Owned</Tab>
 							<Tab>Created</Tab>
 							<Tab>Favourites</Tab>
 							<Tab>Activities</Tab>
+							<Tab>Gallery</Tab>
 						</TabList>
 
 						<TabPanels>
