@@ -14,6 +14,7 @@ import {useTranslation} from "next-i18next";
 import Avatar from "@components/Avatar";
 import useAccount from "@hooks/useAccount";
 import useUser from "@hooks/useUser";
+import {getAccountUrl, getGalleryBuilderUrl, getGalleryUrl} from "@utils/url";
 
 export default function UserMenu({openAccountModal}): JSX.Element {
 	const {t} = useTranslation();
@@ -27,15 +28,15 @@ export default function UserMenu({openAccountModal}): JSX.Element {
 	}
 
 	function handleProfile() {
-		router.push("/account/" + account);
+		router.push(getAccountUrl(account));
 	}
 
 	function handleGallery() {
-		router.push("/gallery");
+		router.push(getGalleryUrl());
 	}
 
 	function handleGalleryBuilder() {
-		router.push("/builder");
+		router.push(getGalleryBuilderUrl());
 	}
 
 	return (

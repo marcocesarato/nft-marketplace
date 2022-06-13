@@ -2,6 +2,7 @@ import type {TGlobalContext} from "@app/types";
 
 const initialState: TGlobalContext = {
 	config: {
+		username: "",
 		nativeToken: {
 			name: "MATIC",
 			symbol: "MATIC",

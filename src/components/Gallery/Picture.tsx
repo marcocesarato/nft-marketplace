@@ -1,6 +1,6 @@
 import {Entity, Image} from "@belivvr/aframe-react";
 
-import {MapDirection} from "@/src/enums";
+import {MapDirection} from "@app/enums";
 import {WallSize} from "@configs/gallery";
 
 export const defaultPictureAttributes = {
