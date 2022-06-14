@@ -1,3 +1,4 @@
+import {useRef} from "react";
 import {
 	Box,
 	Button,
@@ -25,16 +26,22 @@ import {useTranslation} from "next-i18next";
 
 import Address from "@components/Address";
 import {useConfig} from "@contexts/Global";
+import useContainerDimensions from "@hooks/useContainerDimensions";
 import useIPFS from "@hooks/useIPFS";
 import {getAssetUrl} from "@utils/url";
 
-export default function ProductDetails({data, onPurchase = (tokenId, price) => {}}): JSX.Element {
+export default function ProductDetails({
+	data,
+	onPurchase = (tokenId: number, price: number) => {},
+}): JSX.Element {
+	const containerRef = useRef();
+	const {width: imageWidth} = useContainerDimensions(containerRef);
 	const {resolveLink} = useIPFS();
 	const {nativeToken} = useConfig();
 	const {t} = useTranslation();
 	return (
 		<SimpleGrid columns={{base: 1, lg: 2}} spacing={{base: 8, md: 10}}>
-			<Stack spacing={{base: 6, md: 10}}>
+			<Stack spacing={{base: 6, md: 10}} ref={containerRef}>
 				<Image
 					rounded={"md"}
 					alt={data?.name}
@@ -43,8 +50,8 @@ export default function ProductDetails({data, onPurchase = (tokenId, price) => {
 					fallbackSrc="/assets/images/empty.jpg"
 					align={"center"}
 					boxShadow="lg"
-					w={"100%"}
-					h={{base: "100%", sm: "400px", lg: "500px"}}
+					width={`${imageWidth}px`}
+					height={`${imageWidth}px`}
 				/>
 				{data?.attributes && data?.attributes.length > 0 && (
 					<Text

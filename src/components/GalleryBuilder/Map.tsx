@@ -2,7 +2,7 @@ import {useMemo, useRef} from "react";
 import {Box} from "@chakra-ui/react";
 
 import useGallery from "@contexts/Gallery";
-import useContainerDimensions from "@hooks/useDimensions";
+import useContainerDimensions from "@hooks/useContainerDimensions";
 
 import Block from "./Block";
 

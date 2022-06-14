@@ -2,7 +2,7 @@ import {useCallback, useEffect, useState} from "react";
 
 import useDebounceCallback from "./useDebounceCallback";
 
-const useDimensions = (ref) => {
+const useContainerDimensions = (ref) => {
 	const [observer, setObserver] = useState(null);
 	const [dimensions, setDimensions] = useState({width: 0, height: 0, global: null});
 
@@ -50,4 +50,4 @@ const useDimensions = (ref) => {
 
 	return dimensions;
 };
-export default useDimensions;
+export default useContainerDimensions;
