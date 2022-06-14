@@ -1,4 +1,4 @@
-import {Box, Entity} from "@belivvr/aframe-react";
+import {Box, Cylinder, Entity} from "@belivvr/aframe-react";
 
 import {MapDirection, MapDirectionEnum, PlanimetryBlockTypeEnum} from "@app/enums";
 import {GenericObject, PlanimetryBlock, TextureAsset} from "@app/types";
@@ -64,9 +64,9 @@ export default function Wall({
 
 	// Materials
 	const wallMaterial = {
-		"repeat": {x: 1, y: height},
-		"normal-texture-repeat": {x: 1, y: height},
-		"normal-scale": {x: 1, y: height},
+		"repeat": {x: isColumn ? 4 : 1, y: height},
+		"normal-texture-repeat": {x: isColumn ? 4 : 1, y: height},
+		"normal-scale": {x: isColumn ? 4 : 1, y: height},
 	};
 	const wallTexture = texture
 		? convertAllStringToAttributes(texture?.attributes ?? {}, wallMaterial)
@@ -103,7 +103,7 @@ export default function Wall({
 	return (
 		<Entity>
 			{isColumn ? (
-				<Box
+				<Cylinder
 					{...DefaultWallAttributes}
 					position={position}
 					depth={columnSize}
