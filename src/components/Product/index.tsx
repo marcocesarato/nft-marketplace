@@ -168,7 +168,11 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 							/>
 						)}
 					</Stack>
-					<HStack px={4} justifyContent="center" w="full">
+					<HStack
+						px={4}
+						justifyContent="center"
+						w="full"
+						visibility={data._id ? "visible" : "hidden"}>
 						<Box
 							transition="all .3s ease"
 							color={isLiked ? "red.500" : mode("gray.700", "white")}
