@@ -20,7 +20,7 @@ export default function Main({children}: {children: React.ReactNode}): JSX.Eleme
 						: `calc(100% - ${sidebarWidth})`,
 				}}>
 				<Navbar />
-				<PanelContainer>
+				<PanelContainer pb={{base: "80px", lg: "0"}}>
 					{children}
 					<BottomBar display={{base: "flex", lg: "none"}} />
 				</PanelContainer>

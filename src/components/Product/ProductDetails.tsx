@@ -1,186 +1,103 @@
-import {useRef} from "react";
-import {
-	Box,
-	Button,
-	Heading,
-	Image,
-	Popover,
-	PopoverArrow,
-	PopoverBody,
-	PopoverCloseButton,
-	PopoverContent,
-	PopoverHeader,
-	PopoverTrigger,
-	Progress,
-	SimpleGrid,
-	Stack,
-	Table,
-	TableContainer,
-	Tbody,
-	Td,
-	Text,
-	Tr,
-	useColorModeValue as mode,
-} from "@chakra-ui/react";
+import {ReactNode, useState} from "react";
+import {AiOutlineShoppingCart} from "react-icons/ai";
+import {IoArrowBackOutline, IoCloseOutline, IoCubeOutline} from "react-icons/io5";
+import {SiOculus} from "react-icons/si";
+import {SimpleGrid, Text} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
-import Address from "@components/Address";
-import {useConfig} from "@contexts/Global";
-import useContainerDimensions from "@hooks/useContainerDimensions";
-import useIPFS from "@hooks/useIPFS";
-import {getAssetUrl} from "@utils/url";
+import ProductAR from "@components/ProductAR";
+import useWebXR from "@hooks/useWebXR";
+
+import Product3DViewer from "./Product3DViewer";
+import ProductInfos from "./ProductInfos";
+import ProductModeButton from "./ProductModeButton";
 
 export default function ProductDetails({
 	data,
-	onPurchase = (tokenId: number, price: number) => {},
+	onClose = null,
+	onPurchase = null,
+	...props
 }): JSX.Element {
-	const containerRef = useRef();
-	const {width: imageWidth} = useContainerDimensions(containerRef);
-	const {resolveLink} = useIPFS();
-	const {nativeToken} = useConfig();
 	const {t} = useTranslation();
-	return (
-		<SimpleGrid columns={{base: 1, lg: 2}} spacing={{base: 8, md: 10}}>
-			<Stack spacing={{base: 6, md: 10}} ref={containerRef}>
-				<Image
-					rounded={"md"}
-					alt={data?.name}
-					src={resolveLink(data?.image)}
-					fit={"cover"}
-					fallbackSrc="/assets/images/empty.jpg"
-					align={"center"}
-					boxShadow="lg"
-					width={`${imageWidth}px`}
-					height={`${imageWidth}px`}
-				/>
-				{data?.attributes && data?.attributes.length > 0 && (
-					<Text
-						fontSize={{base: "16px", lg: "18px"}}
-						color={mode("gray.900", "gray.400")}
-						fontWeight={"500"}
-						textTransform={"uppercase"}
-						mb={"4"}>
-						{t<string>("common:product.attributes")}
-					</Text>
-				)}
-			</Stack>
-			<Stack spacing={{base: 6, md: 10}}>
-				<Box as={"header"}>
-					<Heading
-						lineHeight={1.1}
-						fontWeight={600}
-						mb={4}
-						fontSize={{base: "2xl", sm: "4xl", lg: "5xl"}}>
-						{data?.name}
-					</Heading>
-					{data?.creator && (
-						<Address
-							fontSize={"sm"}
-							label={t<string>("common:product:createdBy")}
-							address={data?.creator}
-						/>
-					)}
-					{data?.seller && data?.seller !== data?.creator && (
-						<Address
-							fontSize={"sm"}
-							label={t<string>("common:product:soldBy")}
-							address={data?.seller}
-						/>
-					)}
-					<Popover>
-						<PopoverTrigger>
-							<Button variant="link">{t<string>("common:product:qrcode")}</Button>
-						</PopoverTrigger>
-						<PopoverContent w="auto">
-							<PopoverArrow />
-							<PopoverCloseButton />
-							<PopoverHeader>{t<string>("common:product:qrcode")}</PopoverHeader>
-							<PopoverBody>
-								<Image
-									src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(
-										getAssetUrl(data),
-									)}`}
-									width={150}
-									height={150}
-								/>
-							</PopoverBody>
-						</PopoverContent>
-					</Popover>
-				</Box>
+	const {supportsVRSession, supportsARSession} = useWebXR();
 
-				<Box>
-					<Text
-						fontSize={{base: "16px", lg: "18px"}}
-						color={mode("gray.900", "gray.400")}
-						fontWeight={"500"}
-						textTransform={"uppercase"}
-						mb={"4"}>
-						{t<string>("common:product.description")}
-					</Text>
-					<Text fontSize={"lg"}>{data?.description || "No description."}</Text>
-					{onPurchase && data?.price && (
-						<Text fontWeight={300} fontSize={"2xl"} mt={5}>
-							<Text as={"span"} fontWeight={"bold"}>
-								{t<string>("common:product.price")}:
-							</Text>{" "}
-							{data?.priceFormatted || data?.price} {nativeToken?.symbol}
-						</Text>
-					)}
-					{data?.attributes && data?.attributes.length > 0 && (
-						<Box>
-							<Text
-								fontSize={{base: "16px", lg: "18px"}}
-								color={mode("gray.900", "gray.400")}
-								fontWeight={"500"}
-								textTransform={"uppercase"}
-								mt={"4"}>
-								{t<string>("common:product.attributes")}
-							</Text>
-							<TableContainer>
-								<Table>
-									<Tbody>
-										{data?.attributes.map(
-											(attribute: ItemAttribute, index: number) => (
-												<Tr key={attribute.trait_type}>
-													<Td>
-														<Text fontWeight={"bold"}>
-															{attribute.trait_type}
-														</Text>
-													</Td>
-													<Td>
-														{attribute.display_type === "date" ? (
-															<Text>
-																{new Date(
-																	attribute.value,
-																).toLocaleDateString()}
-															</Text>
-														) : attribute.display_type === "url" ? (
-															<Text>
-																<a href={attribute.value}>
-																	{attribute.value}
-																</a>
-															</Text>
-														) : attribute.display_type ===
-																"boost_percentage" ||
-														  attribute.display_type ===
-																"percentage" ? (
-															<Progress
-																value={parseInt(attribute.value)}
-															/>
-														) : (
-															<Text>{attribute.value}</Text>
-														)}
-													</Td>
-												</Tr>
-											),
-										)}
-									</Tbody>
-								</Table>
-							</TableContainer>
-						</Box>
-					)}
-				</Box>
-			</Stack>
-		</SimpleGrid>
+	const [mode, setMode] = useState(null);
+	const resetMode = () => setMode(null);
+
+	const setARMode = () => setMode("ar");
+	const setVRMode = () => setMode("vr");
+	const set3DMode = () => setMode("3d");
+
+	const isARMode = mode === "ar";
+	const isVRMode = mode === "vr";
+	const is3DMode = mode === "3d";
+
+	const isDetailMode = !isARMode && !isVRMode && !is3DMode;
+
+	let body: ReactNode;
+	switch (mode) {
+		case "ar":
+			body = <ProductAR image={data.image} onClose={resetMode} />;
+			break;
+		case "vr":
+			body = <ProductAR image={data.image} onClose={resetMode} />;
+			break;
+		case "3d":
+			body = <Product3DViewer data={data} />;
+			break;
+		default:
+			body = <ProductInfos data={data} onPurchase={onPurchase} />;
+	}
+
+	return (
+		<>
+			{body}
+			<SimpleGrid minChildWidth="120px" spacing="4" mt="6">
+				{supportsARSession && isDetailMode && data?.image && (
+					<ProductModeButton onClick={setARMode}>
+						<SiOculus /> <Text ml="4">AR</Text>
+					</ProductModeButton>
+				)}
+				{supportsVRSession && isDetailMode && data?.image && (
+					<ProductModeButton onClick={setVRMode}>
+						<SiOculus /> <Text ml="4">VR</Text>
+					</ProductModeButton>
+				)}
+				{!supportsARSession && !supportsVRSession && isDetailMode && data?.image && (
+					<ProductModeButton onClick={set3DMode}>
+						<IoCubeOutline /> <Text ml="4">3D View</Text>
+					</ProductModeButton>
+				)}
+			</SimpleGrid>
+			<SimpleGrid minChildWidth="120px" spacing="4" my="4">
+				{!isDetailMode ? (
+					<ProductModeButton onClick={resetMode}>
+						<IoArrowBackOutline />
+						<Text ml="4">{t<string>("common:action.back")}</Text>
+					</ProductModeButton>
+				) : (
+					onClose && (
+						<ProductModeButton
+							onClick={() => {
+								onClose && onClose();
+								resetMode();
+							}}>
+							<IoCloseOutline />
+							<Text ml="4">{t<string>("common:action.close")}</Text>
+						</ProductModeButton>
+					)
+				)}
+				{onPurchase && (
+					<ProductModeButton
+						onClick={() => {
+							onClose && onClose();
+							onPurchase();
+						}}>
+						<AiOutlineShoppingCart />
+						<Text ml="4">{t<string>("common:action.purchase")}</Text>
+					</ProductModeButton>
+				)}
+			</SimpleGrid>
+		</>
 	);
 }
