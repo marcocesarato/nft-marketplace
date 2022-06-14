@@ -1,39 +1,43 @@
+import {useMemo} from "react";
 import {useRouter} from "next/router";
 import {GetStaticPaths} from "next/types";
 import {useTranslation} from "next-i18next";
 
-import Content from "@components/Content";
 import Header from "@components/Header";
-import Loading from "@components/Loading";
-import ProductDetails from "@components/Product/ProductDetails";
-import useMarket from "@hooks/useMarket";
-import {useMarketItemQuery} from "@services/graphql";
+import ProductByAddress from "@components/Product/ProductByAddress";
+import ProductById from "@components/Product/ProductById";
 import {getStaticPropsLocale} from "@utils/i18n";
+import {isNumeric} from "@utils/units";
 
 export const getStaticProps = getStaticPropsLocale;
 export default function SingleAsset(): JSX.Element {
 	const {t} = useTranslation();
 	const router = useRouter();
 	const {id} = router.query;
-	const {purchase} = useMarket();
-	const {data, loading, error} = useMarketItemQuery({
-		variables: {filter: {"_id": parseInt(id as string)}},
-	});
-	const item = data?.marketItem;
-	if (error) return <Header title={t<string>("error:title")} subtitle={error.message} />;
-	if (loading) return <Loading />;
-	if (!item)
+	const content = useMemo(() => {
+		if (isNumeric(id as string)) {
+			return <ProductById id={id as string} />;
+		}
+		const splitted = (id as string).split("/");
+		if (splitted.length === 3) {
+			const data = {
+				"account": splitted[0],
+				"tokenAddress": splitted[1],
+				"tokenId": splitted[2],
+			};
+
+			return <ProductByAddress {...data} />;
+		}
+		return null;
+	}, [id]);
+	if (!content)
 		return (
 			<Header
 				title={t<string>("common:page.explore.title")}
 				subtitle={t<string>("common:page.explore.empty")}
 			/>
 		);
-	return (
-		<Content flex="1" p="8">
-			<ProductDetails data={item} onPurchase={purchase} />
-		</Content>
-	);
+	return content;
 }
 
 export const getStaticPaths: GetStaticPaths<{slug: string}> = async () => {

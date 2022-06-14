@@ -638,6 +638,7 @@ export type MarketItemQuery = {
 	__typename?: "Query";
 	marketItem?: {
 		__typename?: "MarketItem";
+		_id: number;
 		name: string;
 		tokenId: number;
 		tokenURI: string;
@@ -678,6 +679,7 @@ export type MarketItemsQuery = {
 	__typename?: "Query";
 	marketItems: Array<{
 		__typename?: "MarketItem";
+		_id: number;
 		name: string;
 		tokenId: number;
 		tokenURI: string;
@@ -1043,6 +1045,7 @@ export type UserUpdatePlanimetryMutationOptions = Apollo.BaseMutationOptions<
 export const MarketItemDocument = gql`
 	query MarketItem($filter: FilterFindOneMarketItemInput) {
 		marketItem(filter: $filter) {
+			_id
 			name
 			tokenId
 			tokenURI
@@ -1114,6 +1117,7 @@ export const MarketItemsDocument = gql`
 		$sort: SortFindManyMarketItemInput
 	) {
 		marketItems(filter: $filter, skip: $skip, limit: $limit, sort: $sort) {
+			_id
 			name
 			tokenId
 			tokenURI

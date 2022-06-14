@@ -77,7 +77,7 @@ export default function Catalog({
 					.map((product, i: number) => (
 						<Product
 							variants={productVariant}
-							key={product?.token_id || i}
+							key={product?.token_address + product?.token_id || i}
 							data={product}
 							onPurchase={handlePurchase(product)}
 						/>
@@ -85,7 +85,9 @@ export default function Catalog({
 				{emptyItems > 0 &&
 					Array(emptyItems)
 						.fill(null)
-						.map((_, i) => <Box minW={{base: "40vw", md: "250px"}} key={i} />)}
+						.map((_, i) => (
+							<Box minW={{base: "40vw", md: "250px"}} key={`placeholder-${i}`} />
+						))}
 			</MotionSimpleGrid>
 		</Box>
 	);

@@ -26,6 +26,7 @@ const useNFTs = ({address = null} = {}) => {
 				if (nft.metadata["image"])
 					nft.metadata["image"] = resolveLink(nft.metadata["image"]);
 			}
+			nft.metadata = {...nft, ...nft.metadata};
 		}
 		return nft;
 	};

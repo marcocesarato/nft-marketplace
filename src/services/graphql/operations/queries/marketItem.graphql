@@ -1,5 +1,6 @@
 query MarketItem($filter: FilterFindOneMarketItemInput) {
 	marketItem(filter: $filter) {
+		_id
 		name
 		tokenId
 		tokenURI

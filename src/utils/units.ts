@@ -18,3 +18,8 @@ export function formatUnits(value, unitName: BigNumberish = 18) {
 
 	return parseFloat(result);
 }
+
+export function isNumeric(str: string | number) {
+	if (typeof str != "string") return false;
+	return !isNaN(str as any) && !isNaN(parseFloat(str));
+}

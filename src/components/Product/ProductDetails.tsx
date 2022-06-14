@@ -1,7 +1,15 @@
 import {
 	Box,
+	Button,
 	Heading,
 	Image,
+	Popover,
+	PopoverArrow,
+	PopoverBody,
+	PopoverCloseButton,
+	PopoverContent,
+	PopoverHeader,
+	PopoverTrigger,
 	Progress,
 	SimpleGrid,
 	Stack,
@@ -18,6 +26,7 @@ import {useTranslation} from "next-i18next";
 import Address from "@components/Address";
 import {useConfig} from "@contexts/Global";
 import useIPFS from "@hooks/useIPFS";
+import {getAssetUrl} from "@utils/url";
 
 export default function ProductDetails({data, onPurchase = (tokenId, price) => {}}): JSX.Element {
 	const {resolveLink} = useIPFS();
@@ -71,6 +80,25 @@ export default function ProductDetails({data, onPurchase = (tokenId, price) => {
 							address={data?.seller}
 						/>
 					)}
+					<Popover>
+						<PopoverTrigger>
+							<Button variant="link">{t<string>("common:product:qrcode")}</Button>
+						</PopoverTrigger>
+						<PopoverContent w="auto">
+							<PopoverArrow />
+							<PopoverCloseButton />
+							<PopoverHeader>{t<string>("common:product:qrcode")}</PopoverHeader>
+							<PopoverBody>
+								<Image
+									src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(
+										getAssetUrl(data),
+									)}`}
+									width={150}
+									height={150}
+								/>
+							</PopoverBody>
+						</PopoverContent>
+					</Popover>
 				</Box>
 
 				<Box>

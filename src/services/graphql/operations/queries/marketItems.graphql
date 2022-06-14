@@ -5,6 +5,7 @@ query MarketItems(
 	$sort: SortFindManyMarketItemInput
 ) {
 	marketItems(filter: $filter, skip: $skip, limit: $limit, sort: $sort) {
+		_id
 		name
 		tokenId
 		tokenURI

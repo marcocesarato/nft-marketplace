@@ -122,6 +122,7 @@
 		"description": "Description",
 		"item": "Item",
 		"price": "Price",
+		"qrcode": "QR Code",
 		"soldBy": "Sold by"
 	},
 	"search": {
