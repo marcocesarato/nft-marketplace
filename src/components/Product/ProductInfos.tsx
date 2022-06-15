@@ -1,4 +1,4 @@
-import {useRef} from "react";
+import {useMemo, useRef, useState} from "react";
 import {
 	Box,
 	Button,
@@ -35,10 +35,28 @@ export default function ProductInfos({
 	onPurchase = (tokenId: number, price: number) => {},
 }): JSX.Element {
 	const containerRef = useRef();
+	const [imageFullscreen, setImageFullscreen] = useState<boolean>(false);
 	const {width: imageWidth} = useContainerDimensions(containerRef);
 	const {resolveLink} = useIPFS();
 	const {nativeToken} = useConfig();
 	const {t} = useTranslation();
+	const fullscreenStyle = useMemo(() => {
+		if (imageFullscreen) {
+			return {
+				position: "fixed",
+				width: "full",
+				height: "full",
+				objectFit: "contain",
+				top: 0,
+				left: 0,
+				right: 0,
+				bottom: 0,
+				zIndex: 9999,
+				backgroundColor: mode("gray.100", "gray.900"),
+			} as any;
+		}
+		return {} as any;
+	}, [imageFullscreen]);
 	return (
 		<SimpleGrid columns={{base: 1, lg: 2}} spacing={{base: 8, md: 10}}>
 			<Stack spacing={{base: 6, md: 10}} ref={containerRef}>
@@ -52,6 +70,9 @@ export default function ProductInfos({
 					boxShadow="lg"
 					width={`${imageWidth}px`}
 					height={`${imageWidth}px`}
+					cursor="pointer"
+					onClick={() => setImageFullscreen((fullscreen) => !fullscreen)}
+					{...fullscreenStyle}
 				/>
 				{data?.attributes && data?.attributes.length > 0 && (
 					<Text
