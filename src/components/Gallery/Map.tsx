@@ -172,7 +172,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 	const assetList = Array.from(assets.values());
 
 	useEffect(() => {
-		if (planimetry) setSchema(planimetry);
+		if (planimetry && Object.keys(planimetry).length > 0) setSchema(planimetry);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [planimetry]);
 
