@@ -135,6 +135,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 		if (!isColumn && !isIncidenceSegment) {
 			Object.keys(block.items || {}).forEach(async (key) => {
 				const item = block.items[key];
+				if (!item) return;
 				const direction = getMapDirectionEnum(key);
 				const rotation = schema.getDirectionRotation(direction);
 				let itemPosition = (position = {
