@@ -256,6 +256,7 @@ export default class ARController {
 			SessionUtils.start(
 				this.renderer,
 				{
+					worldKnowledge: true,
 					optionalFeatures: [
 						"dom-overlay",
 						"light-estimation",
@@ -366,9 +367,28 @@ export default class ARController {
 				// init hittest on vr enter
 				if (this.hitTestSourceRequested === false) {
 					session.requestReferenceSpace("viewer").then((ref) => {
-						session.requestHitTestSource({space: ref}).then((source) => {
+						const hitTestOptionsInit = {
+							space: ref,
+							entityTypes: ["plane", "point"],
+						};
+						session.requestHitTestSource(hitTestOptionsInit).then((source) => {
 							this.hitTestSource = source;
 						});
+						session.updateWorldSensingState &&
+							session
+								.updateWorldSensingState({
+									illuminationDetectionState: {
+										enabled: true,
+									},
+									meshDetectionState: {
+										enabled: true,
+										normals: true,
+									},
+									planeDetectionState: {
+										enabled: true,
+									},
+								})
+								.catch((err) => console.error(err));
 					});
 					session.addEventListener("end", () => {
 						this.hitTestSourceRequested = false;
