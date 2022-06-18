@@ -22,7 +22,7 @@ export default function Navbar(): JSX.Element {
 	return (
 		<Box px={4} my="15px">
 			<Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-				<InputGroup flex={1} mr={4} boxShadow="sm">
+				{/*<InputGroup flex={1} mr={4} boxShadow="sm">
 					<InputLeftElement
 						pointerEvents="none"
 						children={<SearchIcon color="primary" />}
@@ -34,7 +34,7 @@ export default function Navbar(): JSX.Element {
 						bg={mode("gray.100", "gray.900")}
 						placeholder={t<string>("common:search.assets")}
 					/>
-				</InputGroup>
+                </InputGroup>*/}
 
 				<Flex ml="auto" alignItems={"center"}>
 					<ConnectButton openAccountModal={onModalOpen} />

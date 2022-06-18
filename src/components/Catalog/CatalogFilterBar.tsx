@@ -11,7 +11,7 @@ export default function CatalogFilterBar({
 }) {
 	const {t} = useTranslation();
 	const [sortBy, setSortBy] = useState(sort);
-	const [categories, setCategories] = useState(filters?.categories || []);
+	//const [categories, setCategories] = useState(filters?.categories || []);
 	const hasRowDirection = useBreakpointValue({base: false, md: true});
 	const filterOptions = [
 		{value: "newest", label: t<string>("common:catalog.sortType.newest")},
@@ -19,12 +19,12 @@ export default function CatalogFilterBar({
 		{value: "highest", label: t<string>("common:catalog.sortType.priceDESC")},
 		{value: "likes", label: t<string>("common:catalog.sortType.mostLikes")},
 	];
-	const categoriesOptions = [
+	/*const categoriesOptions = [
 		{value: "category1", label: "Category 1"},
 		{value: "category2", label: "Category 2"},
 		{value: "category3", label: "Category 3"},
 		{value: "category4", label: "Category 4"},
-	];
+	];*/
 	return (
 		<Box pb={10} mx={4}>
 			<Stack
@@ -32,7 +32,7 @@ export default function CatalogFilterBar({
 				direction={hasRowDirection ? "row" : "column"}
 				gap={"1rem"}>
 				<Box flex={2}>
-					<Select
+					{/*<Select
 						isMulti
 						isSearchable={false}
 						placeholder={t<string>("common:catalog.filter.categories")}
@@ -63,7 +63,7 @@ export default function CatalogFilterBar({
 							setCategories(options);
 							onFilter && onFilter("categories", values);
 						}}
-					/>
+					/>*/}
 				</Box>
 				<Box flex={1}>
 					<Select
