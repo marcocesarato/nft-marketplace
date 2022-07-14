@@ -1,3 +1,4 @@
+import {useRouter} from "next/router";
 import {SearchIcon} from "@chakra-ui/icons";
 import {
 	Box,
@@ -11,14 +12,25 @@ import {AsyncSelect} from "chakra-react-select";
 import {useTranslation} from "next-i18next";
 
 import AccountModal from "@layouts/AccountModal";
+import {useMarketItemsLazyQuery} from "@services/graphql";
+import {deepMerge} from "@utils/objects";
+import {getAssetUrl} from "@utils/url";
 
 import {ColorModeSwitcher} from "./ColorModeSwitcher";
 import ConnectButton from "./ConnectButton";
 import LocaleMenu from "./LocaleMenu";
 
+const maxSearchItems = 10;
+const defaultMarketItemsSearchArgs = {filter: {sold: false}, limit: maxSearchItems};
+
 export default function Navbar(): JSX.Element {
 	const {t} = useTranslation();
+	const router = useRouter();
+	const [geMarketItems] = useMarketItemsLazyQuery({
+		variables: defaultMarketItemsSearchArgs,
+	});
 	const {isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose} = useDisclosure();
+
 	return (
 		<Box px={4} my="15px">
 			<Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
@@ -42,7 +54,6 @@ export default function Navbar(): JSX.Element {
 							}),
 							control: (provided, state) => ({
 								...provided,
-								focusBorderColor: "none",
 								border: 0,
 								cursor: "text",
 							}),
@@ -54,13 +65,34 @@ export default function Navbar(): JSX.Element {
 								boxShadow: "md",
 							}),
 						}}
+						onChange={(data) => {
+							const item = (data as any)?.value;
+							if (item) router.push(getAssetUrl(item));
+						}}
 						focusBorderColor="none"
 						placeholder={t<string>("common:search.assets")}
-						closeMenuOnSelect={false}
 						loadOptions={(inputValue, callback) => {
-							setTimeout(() => {
-								callback([]);
-							}, 3000);
+							const loadData = async () => {
+								const {data} = await geMarketItems(
+									deepMerge(
+										{variables: {filters: {search: inputValue}}},
+										defaultMarketItemsSearchArgs,
+									),
+								);
+								const options = !data
+									? []
+									: [
+											{
+												label: t<string>("common:product.item"),
+												options: data.marketItems.map((item) => ({
+													label: item.name,
+													value: item,
+												})),
+											},
+									  ];
+								callback(options);
+							};
+							loadData();
 						}}
 					/>
 				</InputGroup>
