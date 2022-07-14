@@ -2,12 +2,12 @@ import {SearchIcon} from "@chakra-ui/icons";
 import {
 	Box,
 	Flex,
-	Input,
 	InputGroup,
 	InputLeftElement,
 	useColorModeValue as mode,
 	useDisclosure,
 } from "@chakra-ui/react";
+import {AsyncSelect} from "chakra-react-select";
 import {useTranslation} from "next-i18next";
 
 import AccountModal from "@layouts/AccountModal";
@@ -22,20 +22,48 @@ export default function Navbar(): JSX.Element {
 	return (
 		<Box px={4} my="15px">
 			<Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-				{/*<InputGroup flex={1} mr={4} boxShadow="sm">
+				<InputGroup
+					flex={1}
+					mr={4}
+					boxShadow="sm"
+					bg={mode("gray.100", "gray.900")}
+					borderRadius="lg">
 					<InputLeftElement
 						pointerEvents="none"
 						children={<SearchIcon color="primary" />}
 					/>
-					<Input
-						border={0}
+					<AsyncSelect
+						chakraStyles={{
+							container: (provided, state) => ({
+								...provided,
+								width: "full",
+								ml: "10",
+								focusBorderColor: "none",
+							}),
+							control: (provided, state) => ({
+								...provided,
+								focusBorderColor: "none",
+								border: 0,
+								cursor: "text",
+							}),
+							dropdownIndicator: () => ({
+								display: "none",
+							}),
+							menu: (provided, state) => ({
+								...provided,
+								boxShadow: "md",
+							}),
+						}}
 						focusBorderColor="none"
-						type="search"
-						bg={mode("gray.100", "gray.900")}
 						placeholder={t<string>("common:search.assets")}
+						closeMenuOnSelect={false}
+						loadOptions={(inputValue, callback) => {
+							setTimeout(() => {
+								callback([]);
+							}, 3000);
+						}}
 					/>
-                </InputGroup>*/}
-
+				</InputGroup>
 				<Flex ml="auto" alignItems={"center"}>
 					<ConnectButton openAccountModal={onModalOpen} />
 					<LocaleMenu />
