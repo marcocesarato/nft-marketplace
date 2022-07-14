@@ -5,9 +5,7 @@ const isDev = process.env.NODE_ENV === "development";
 
 module.exports = withPWA({
 	reactStrictMode: true,
-	experimental: {
-		outputStandalone: true,
-	},
+	outputStandalone: true,
 	pwa: {
 		dest: "public",
 		register: true,
