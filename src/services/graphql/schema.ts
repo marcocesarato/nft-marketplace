@@ -1,5 +1,5 @@
 import {GraphQLJSON, SchemaComposer} from "graphql-compose";
-import {composeMongoose, composeWithMongoose} from "graphql-compose-mongoose";
+import {composeWithMongoose} from "graphql-compose-mongoose";
 
 import MarketItem from "@models/MarketItem";
 import User from "@models/User";
@@ -23,6 +23,18 @@ function wrapAccessResolve(resolver, callback = (rp) => {}) {
 	});
 }
 
+const searchArgs = {
+	name: "search",
+	type: "String",
+	query: (query, value, resolveParams) => {
+		resolveParams.args.sort = {
+			score: {$meta: "textScore"},
+		};
+		query.$text = {$search: value, $language: "en"};
+		resolveParams.projection.score = {$meta: "textScore"};
+	},
+};
+
 // User
 const UserTC = composeWithMongoose(User, {schemaComposer});
 UserTC.addFields({
@@ -31,12 +43,22 @@ UserTC.addFields({
 		resolve: (source: any) => JSON.parse(source.planimetry),
 	},
 });
+
+// Add search filter
+const userPaginationResolver = UserTC.getResolver("pagination").addFilterArg(searchArgs);
+const userFindManyResolver = UserTC.getResolver("findMany").addFilterArg(searchArgs);
+const userCountResolver = UserTC.getResolver("count").addFilterArg(searchArgs);
+UserTC.setResolver("pagination", userPaginationResolver);
+UserTC.setResolver("findMany", userFindManyResolver);
+UserTC.setResolver("count", userCountResolver);
+
 schemaComposer.Query.addFields({
 	user: UserTC.getResolver("findOne"),
 	users: UserTC.getResolver("findMany"),
 	usersCount: UserTC.getResolver("count"),
 	usersPagination: UserTC.getResolver("pagination"),
 });
+
 schemaComposer.Mutation.addFields({
 	userUpdate: wrapAccessResolve(UserTC.getResolver("updateById"), (rp) => {
 		rp.beforeQuery = (query, rp) => {
@@ -59,12 +81,12 @@ schemaComposer.Mutation.addFields({
 });
 
 // Market Item
-const MarketItemTC = composeMongoose(MarketItem, {schemaComposer});
+const MarketItemTC = composeWithMongoose(MarketItem, {schemaComposer});
 MarketItemTC.addFields({
 	priceFormatted: {
 		type: "Float",
 		description: "Price formatted",
-		resolve: (source) => formatUnits(source.price, "ether"),
+		resolve: (source: any) => formatUnits(source.price, "ether"),
 	},
 	isLiked: {
 		type: "Boolean",
@@ -89,13 +111,23 @@ MarketItemTC.addFields({
 		},
 	},
 });
-const marketItemResolvers = MarketItemTC.mongooseResolvers;
+
+// Add search filter
+const marketItemsPaginationResolver =
+	MarketItemTC.getResolver("pagination").addFilterArg(searchArgs);
+const marketItemsFindManyResolver = MarketItemTC.getResolver("findMany").addFilterArg(searchArgs);
+const marketItemsCountResolver = MarketItemTC.getResolver("count").addFilterArg(searchArgs);
+MarketItemTC.setResolver("pagination", marketItemsPaginationResolver);
+MarketItemTC.setResolver("findMany", marketItemsFindManyResolver);
+MarketItemTC.setResolver("count", marketItemsCountResolver);
+
 schemaComposer.Query.addFields({
-	marketItem: marketItemResolvers.findOne({lean: true}),
-	marketItems: marketItemResolvers.findMany({lean: true}),
-	marketItemsCount: marketItemResolvers.count(),
-	marketItemsPagination: marketItemResolvers.pagination(),
+	marketItem: MarketItemTC.getResolver("findOne"),
+	marketItems: MarketItemTC.getResolver("findMany"),
+	marketItemsCount: MarketItemTC.getResolver("count"),
+	marketItemsPagination: MarketItemTC.getResolver("pagination"),
 });
+
 schemaComposer.Mutation.addFields({
 	like: {
 		type: MarketItemTC,

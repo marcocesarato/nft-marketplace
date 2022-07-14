@@ -24,6 +24,11 @@ export type Scalars = {
 	 * also may accepts string or integer as correct values for _id field.
 	 */
 	MongoID: any;
+	/**
+	 * The string representation of JavaScript regexp. You may provide it with flags
+	 * "/^abc.*\/i" or without flags like "^abc.*". More info about RegExp characters and flags: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+	 */
+	RegExpAsString: any;
 };
 
 export type ErrorInterface = {
@@ -36,6 +41,18 @@ export type FilterCountMarketItemAttributesInput = {
 	displayType?: InputMaybe<Scalars["String"]>;
 	traitType?: InputMaybe<Scalars["String"]>;
 	value?: InputMaybe<Scalars["String"]>;
+};
+
+export type FilterCountMarketItemDescriptionOperatorsInput = {
+	exists?: InputMaybe<Scalars["Boolean"]>;
+	gt?: InputMaybe<Scalars["String"]>;
+	gte?: InputMaybe<Scalars["String"]>;
+	in?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	lt?: InputMaybe<Scalars["String"]>;
+	lte?: InputMaybe<Scalars["String"]>;
+	ne?: InputMaybe<Scalars["String"]>;
+	nin?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	regex?: InputMaybe<Scalars["RegExpAsString"]>;
 };
 
 export type FilterCountMarketItemInput = {
@@ -55,6 +72,7 @@ export type FilterCountMarketItemInput = {
 	name?: InputMaybe<Scalars["String"]>;
 	owner?: InputMaybe<Scalars["String"]>;
 	price?: InputMaybe<Scalars["String"]>;
+	search?: InputMaybe<Scalars["String"]>;
 	seller?: InputMaybe<Scalars["String"]>;
 	sold?: InputMaybe<Scalars["Boolean"]>;
 	thumbnail?: InputMaybe<Scalars["String"]>;
@@ -64,9 +82,23 @@ export type FilterCountMarketItemInput = {
 	youtubeUrl?: InputMaybe<Scalars["String"]>;
 };
 
+export type FilterCountMarketItemNameOperatorsInput = {
+	exists?: InputMaybe<Scalars["Boolean"]>;
+	gt?: InputMaybe<Scalars["String"]>;
+	gte?: InputMaybe<Scalars["String"]>;
+	in?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	lt?: InputMaybe<Scalars["String"]>;
+	lte?: InputMaybe<Scalars["String"]>;
+	ne?: InputMaybe<Scalars["String"]>;
+	nin?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	regex?: InputMaybe<Scalars["RegExpAsString"]>;
+};
+
 /** For performance reason this type contains only *indexed* fields. */
 export type FilterCountMarketItemOperatorsInput = {
 	_id?: InputMaybe<FilterCountMarketItem_IdOperatorsInput>;
+	description?: InputMaybe<FilterCountMarketItemDescriptionOperatorsInput>;
+	name?: InputMaybe<FilterCountMarketItemNameOperatorsInput>;
 };
 
 export type FilterCountMarketItem_IdOperatorsInput = {
@@ -78,6 +110,18 @@ export type FilterCountMarketItem_IdOperatorsInput = {
 	lte?: InputMaybe<Scalars["Int"]>;
 	ne?: InputMaybe<Scalars["Int"]>;
 	nin?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
+};
+
+export type FilterCountUserAccountOperatorsInput = {
+	exists?: InputMaybe<Scalars["Boolean"]>;
+	gt?: InputMaybe<Scalars["String"]>;
+	gte?: InputMaybe<Scalars["String"]>;
+	in?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	lt?: InputMaybe<Scalars["String"]>;
+	lte?: InputMaybe<Scalars["String"]>;
+	ne?: InputMaybe<Scalars["String"]>;
+	nin?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	regex?: InputMaybe<Scalars["RegExpAsString"]>;
 };
 
 export type FilterCountUserInput = {
@@ -93,6 +137,7 @@ export type FilterCountUserInput = {
 	icon?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	planimetry?: InputMaybe<FilterCountUserPlanimetryInput>;
+	search?: InputMaybe<Scalars["String"]>;
 	updatedAt?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
@@ -100,10 +145,24 @@ export type FilterCountUserInput = {
 /** For performance reason this type contains only *indexed* fields. */
 export type FilterCountUserOperatorsInput = {
 	_id?: InputMaybe<FilterCountUser_IdOperatorsInput>;
+	account?: InputMaybe<FilterCountUserAccountOperatorsInput>;
+	username?: InputMaybe<FilterCountUserUsernameOperatorsInput>;
 };
 
 export type FilterCountUserPlanimetryInput = {
 	type?: InputMaybe<Scalars["JSON"]>;
+};
+
+export type FilterCountUserUsernameOperatorsInput = {
+	exists?: InputMaybe<Scalars["Boolean"]>;
+	gt?: InputMaybe<Scalars["String"]>;
+	gte?: InputMaybe<Scalars["String"]>;
+	in?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	lt?: InputMaybe<Scalars["String"]>;
+	lte?: InputMaybe<Scalars["String"]>;
+	ne?: InputMaybe<Scalars["String"]>;
+	nin?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	regex?: InputMaybe<Scalars["RegExpAsString"]>;
 };
 
 export type FilterCountUser_IdOperatorsInput = {
@@ -124,6 +183,18 @@ export type FilterFindManyMarketItemAttributesInput = {
 	value?: InputMaybe<Scalars["String"]>;
 };
 
+export type FilterFindManyMarketItemDescriptionOperatorsInput = {
+	exists?: InputMaybe<Scalars["Boolean"]>;
+	gt?: InputMaybe<Scalars["String"]>;
+	gte?: InputMaybe<Scalars["String"]>;
+	in?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	lt?: InputMaybe<Scalars["String"]>;
+	lte?: InputMaybe<Scalars["String"]>;
+	ne?: InputMaybe<Scalars["String"]>;
+	nin?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	regex?: InputMaybe<Scalars["RegExpAsString"]>;
+};
+
 export type FilterFindManyMarketItemInput = {
 	AND?: InputMaybe<Array<FilterFindManyMarketItemInput>>;
 	OR?: InputMaybe<Array<FilterFindManyMarketItemInput>>;
@@ -141,6 +212,7 @@ export type FilterFindManyMarketItemInput = {
 	name?: InputMaybe<Scalars["String"]>;
 	owner?: InputMaybe<Scalars["String"]>;
 	price?: InputMaybe<Scalars["String"]>;
+	search?: InputMaybe<Scalars["String"]>;
 	seller?: InputMaybe<Scalars["String"]>;
 	sold?: InputMaybe<Scalars["Boolean"]>;
 	thumbnail?: InputMaybe<Scalars["String"]>;
@@ -150,9 +222,23 @@ export type FilterFindManyMarketItemInput = {
 	youtubeUrl?: InputMaybe<Scalars["String"]>;
 };
 
+export type FilterFindManyMarketItemNameOperatorsInput = {
+	exists?: InputMaybe<Scalars["Boolean"]>;
+	gt?: InputMaybe<Scalars["String"]>;
+	gte?: InputMaybe<Scalars["String"]>;
+	in?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	lt?: InputMaybe<Scalars["String"]>;
+	lte?: InputMaybe<Scalars["String"]>;
+	ne?: InputMaybe<Scalars["String"]>;
+	nin?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	regex?: InputMaybe<Scalars["RegExpAsString"]>;
+};
+
 /** For performance reason this type contains only *indexed* fields. */
 export type FilterFindManyMarketItemOperatorsInput = {
 	_id?: InputMaybe<FilterFindManyMarketItem_IdOperatorsInput>;
+	description?: InputMaybe<FilterFindManyMarketItemDescriptionOperatorsInput>;
+	name?: InputMaybe<FilterFindManyMarketItemNameOperatorsInput>;
 };
 
 export type FilterFindManyMarketItem_IdOperatorsInput = {
@@ -164,6 +250,18 @@ export type FilterFindManyMarketItem_IdOperatorsInput = {
 	lte?: InputMaybe<Scalars["Int"]>;
 	ne?: InputMaybe<Scalars["Int"]>;
 	nin?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
+};
+
+export type FilterFindManyUserAccountOperatorsInput = {
+	exists?: InputMaybe<Scalars["Boolean"]>;
+	gt?: InputMaybe<Scalars["String"]>;
+	gte?: InputMaybe<Scalars["String"]>;
+	in?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	lt?: InputMaybe<Scalars["String"]>;
+	lte?: InputMaybe<Scalars["String"]>;
+	ne?: InputMaybe<Scalars["String"]>;
+	nin?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	regex?: InputMaybe<Scalars["RegExpAsString"]>;
 };
 
 export type FilterFindManyUserInput = {
@@ -179,6 +277,7 @@ export type FilterFindManyUserInput = {
 	icon?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	planimetry?: InputMaybe<FilterFindManyUserPlanimetryInput>;
+	search?: InputMaybe<Scalars["String"]>;
 	updatedAt?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
@@ -186,10 +285,24 @@ export type FilterFindManyUserInput = {
 /** For performance reason this type contains only *indexed* fields. */
 export type FilterFindManyUserOperatorsInput = {
 	_id?: InputMaybe<FilterFindManyUser_IdOperatorsInput>;
+	account?: InputMaybe<FilterFindManyUserAccountOperatorsInput>;
+	username?: InputMaybe<FilterFindManyUserUsernameOperatorsInput>;
 };
 
 export type FilterFindManyUserPlanimetryInput = {
 	type?: InputMaybe<Scalars["JSON"]>;
+};
+
+export type FilterFindManyUserUsernameOperatorsInput = {
+	exists?: InputMaybe<Scalars["Boolean"]>;
+	gt?: InputMaybe<Scalars["String"]>;
+	gte?: InputMaybe<Scalars["String"]>;
+	in?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	lt?: InputMaybe<Scalars["String"]>;
+	lte?: InputMaybe<Scalars["String"]>;
+	ne?: InputMaybe<Scalars["String"]>;
+	nin?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	regex?: InputMaybe<Scalars["RegExpAsString"]>;
 };
 
 export type FilterFindManyUser_IdOperatorsInput = {
@@ -208,6 +321,18 @@ export type FilterFindOneMarketItemAttributesInput = {
 	displayType?: InputMaybe<Scalars["String"]>;
 	traitType?: InputMaybe<Scalars["String"]>;
 	value?: InputMaybe<Scalars["String"]>;
+};
+
+export type FilterFindOneMarketItemDescriptionOperatorsInput = {
+	exists?: InputMaybe<Scalars["Boolean"]>;
+	gt?: InputMaybe<Scalars["String"]>;
+	gte?: InputMaybe<Scalars["String"]>;
+	in?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	lt?: InputMaybe<Scalars["String"]>;
+	lte?: InputMaybe<Scalars["String"]>;
+	ne?: InputMaybe<Scalars["String"]>;
+	nin?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	regex?: InputMaybe<Scalars["RegExpAsString"]>;
 };
 
 export type FilterFindOneMarketItemInput = {
@@ -236,9 +361,23 @@ export type FilterFindOneMarketItemInput = {
 	youtubeUrl?: InputMaybe<Scalars["String"]>;
 };
 
+export type FilterFindOneMarketItemNameOperatorsInput = {
+	exists?: InputMaybe<Scalars["Boolean"]>;
+	gt?: InputMaybe<Scalars["String"]>;
+	gte?: InputMaybe<Scalars["String"]>;
+	in?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	lt?: InputMaybe<Scalars["String"]>;
+	lte?: InputMaybe<Scalars["String"]>;
+	ne?: InputMaybe<Scalars["String"]>;
+	nin?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	regex?: InputMaybe<Scalars["RegExpAsString"]>;
+};
+
 /** For performance reason this type contains only *indexed* fields. */
 export type FilterFindOneMarketItemOperatorsInput = {
 	_id?: InputMaybe<FilterFindOneMarketItem_IdOperatorsInput>;
+	description?: InputMaybe<FilterFindOneMarketItemDescriptionOperatorsInput>;
+	name?: InputMaybe<FilterFindOneMarketItemNameOperatorsInput>;
 };
 
 export type FilterFindOneMarketItem_IdOperatorsInput = {
@@ -250,6 +389,18 @@ export type FilterFindOneMarketItem_IdOperatorsInput = {
 	lte?: InputMaybe<Scalars["Int"]>;
 	ne?: InputMaybe<Scalars["Int"]>;
 	nin?: InputMaybe<Array<InputMaybe<Scalars["Int"]>>>;
+};
+
+export type FilterFindOneUserAccountOperatorsInput = {
+	exists?: InputMaybe<Scalars["Boolean"]>;
+	gt?: InputMaybe<Scalars["String"]>;
+	gte?: InputMaybe<Scalars["String"]>;
+	in?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	lt?: InputMaybe<Scalars["String"]>;
+	lte?: InputMaybe<Scalars["String"]>;
+	ne?: InputMaybe<Scalars["String"]>;
+	nin?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	regex?: InputMaybe<Scalars["RegExpAsString"]>;
 };
 
 export type FilterFindOneUserInput = {
@@ -272,10 +423,24 @@ export type FilterFindOneUserInput = {
 /** For performance reason this type contains only *indexed* fields. */
 export type FilterFindOneUserOperatorsInput = {
 	_id?: InputMaybe<FilterFindOneUser_IdOperatorsInput>;
+	account?: InputMaybe<FilterFindOneUserAccountOperatorsInput>;
+	username?: InputMaybe<FilterFindOneUserUsernameOperatorsInput>;
 };
 
 export type FilterFindOneUserPlanimetryInput = {
 	type?: InputMaybe<Scalars["JSON"]>;
+};
+
+export type FilterFindOneUserUsernameOperatorsInput = {
+	exists?: InputMaybe<Scalars["Boolean"]>;
+	gt?: InputMaybe<Scalars["String"]>;
+	gte?: InputMaybe<Scalars["String"]>;
+	in?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	lt?: InputMaybe<Scalars["String"]>;
+	lte?: InputMaybe<Scalars["String"]>;
+	ne?: InputMaybe<Scalars["String"]>;
+	nin?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+	regex?: InputMaybe<Scalars["RegExpAsString"]>;
 };
 
 export type FilterFindOneUser_IdOperatorsInput = {
@@ -460,21 +625,37 @@ export type RuntimeError = ErrorInterface & {
 };
 
 export enum SortFindManyMarketItemInput {
+	DescriptionAsc = "DESCRIPTION_ASC",
+	DescriptionDesc = "DESCRIPTION_DESC",
+	NameAsc = "NAME_ASC",
+	NameDesc = "NAME_DESC",
 	IdAsc = "_ID_ASC",
 	IdDesc = "_ID_DESC",
 }
 
 export enum SortFindManyUserInput {
+	AccountAsc = "ACCOUNT_ASC",
+	AccountDesc = "ACCOUNT_DESC",
+	UsernameAsc = "USERNAME_ASC",
+	UsernameDesc = "USERNAME_DESC",
 	IdAsc = "_ID_ASC",
 	IdDesc = "_ID_DESC",
 }
 
 export enum SortFindOneMarketItemInput {
+	DescriptionAsc = "DESCRIPTION_ASC",
+	DescriptionDesc = "DESCRIPTION_DESC",
+	NameAsc = "NAME_ASC",
+	NameDesc = "NAME_DESC",
 	IdAsc = "_ID_ASC",
 	IdDesc = "_ID_DESC",
 }
 
 export enum SortFindOneUserInput {
+	AccountAsc = "ACCOUNT_ASC",
+	AccountDesc = "ACCOUNT_DESC",
+	UsernameAsc = "USERNAME_ASC",
+	UsernameDesc = "USERNAME_DESC",
 	IdAsc = "_ID_ASC",
 	IdDesc = "_ID_DESC",
 }

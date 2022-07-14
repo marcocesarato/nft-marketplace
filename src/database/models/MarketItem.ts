@@ -10,8 +10,8 @@ const MarketItemSchema = new mongoose.Schema(
 		owner: {type: String, required: true, trim: true},
 		price: {type: String, required: true, trim: true},
 		sold: {type: Boolean, required: true},
-		name: {type: String, required: true, trim: true},
-		description: {type: String, required: true, trim: true},
+		name: {type: String, required: true, trim: true, text: true},
+		description: {type: String, required: true, trim: true, text: true},
 		image: {type: String, required: true, trim: true},
 		thumbnail: {type: String, trim: true},
 		externalUrl: {type: String, trim: true},
@@ -29,6 +29,21 @@ const MarketItemSchema = new mongoose.Schema(
 		likes: {type: Number, default: 0},
 	},
 	{timestamps: true},
+);
+
+MarketItemSchema.index(
+	{
+		name: "text",
+		description: "text",
+	},
+	{
+		name: "MarketItemTextIndex",
+		default_language: "english",
+		weights: {
+			name: 10,
+			description: 5,
+		},
+	},
 );
 
 export default mongoose.models.MarketItem || mongoose.model("MarketItem", MarketItemSchema);

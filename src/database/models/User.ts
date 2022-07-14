@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(
 	{
-		username: {type: String, required: true, trim: true},
-		account: {type: String, required: true, trim: true},
+		username: {type: String, required: true, trim: true, text: true},
+		account: {type: String, required: true, trim: true, text: true},
 		icon: {type: String, trim: true},
 		cover: {type: String, trim: true},
 		likes: {
@@ -33,6 +33,21 @@ const UserSchema = new mongoose.Schema(
 		},
 	},
 	{timestamps: true},
+);
+
+UserSchema.index(
+	{
+		username: "text",
+		account: "text",
+	},
+	{
+		name: "UserTextIndex",
+		default_language: "english",
+		weights: {
+			username: 10,
+			account: 5,
+		},
+	},
 );
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);
