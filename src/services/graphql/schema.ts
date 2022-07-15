@@ -135,7 +135,9 @@ schemaComposer.Mutation.addFields({
 		resolve: async (source, args, context, info) => {
 			const {account, isAuthenticated} = context;
 			if (!isAuthenticated) throw new Error("Not authenticated"); // Check auth
-			const user = await User.updateOne({account: account}, {$push: {likes: args.tokenId}});
+			const user = await User.updateOne({account: account}, {
+				$push: {likes: args.tokenId},
+			} as any);
 			if (!user) throw new Error("User not found"); // Check user
 			await MarketItem.updateOne({_id: args.tokenId}, {$inc: {"likes": 1}});
 			return MarketItem.findOne({_id: args.tokenId});
@@ -147,7 +149,9 @@ schemaComposer.Mutation.addFields({
 		resolve: async (source, args, context, info) => {
 			const {account, isAuthenticated} = context;
 			if (!isAuthenticated) throw new Error("Not authenticated"); // Check auth
-			const user = await User.updateOne({account: account}, {$pull: {likes: args.tokenId}});
+			const user = await User.updateOne({account: account}, {
+				$pull: {likes: args.tokenId},
+			} as any);
 			if (!user) throw new Error("User not found"); // Check user
 			await MarketItem.updateOne({_id: args.tokenId}, {$inc: {"likes": -1}});
 			return MarketItem.findOne({_id: args.tokenId});
@@ -161,7 +165,7 @@ schemaComposer.Mutation.addFields({
 			if (!isAuthenticated) throw new Error("Not authenticated"); // Check auth
 			const user = await User.updateOne(
 				{account: account},
-				{$push: {favourites: args.tokenId}},
+				{$push: {favourites: args.tokenId} as any},
 			);
 			if (!user) throw new Error("User not found"); // Check user
 			return MarketItem.findOne({_id: args.tokenId});
@@ -175,7 +179,7 @@ schemaComposer.Mutation.addFields({
 			if (!isAuthenticated) throw new Error("Not authenticated"); // Check auth
 			const user = await User.updateOne(
 				{account: account},
-				{$pull: {favourites: args.tokenId}},
+				{$pull: {favourites: args.tokenId} as any},
 			);
 			if (!user) throw new Error("User not found"); // Check user
 			return MarketItem.findOne({_id: args.tokenId});
