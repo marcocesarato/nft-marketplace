@@ -63,7 +63,7 @@ export default function ProductDetails({
 						<SiOculus /> <Text ml="4">VR</Text>
 					</ProductModeButton>
 				)}
-				{!supportsARSession && !supportsVRSession && isDetailMode && data?.image && (
+				{isDetailMode && data?.image && (
 					<ProductModeButton onClick={set3DMode}>
 						<IoCubeOutline /> <Text ml="4">3D View</Text>
 					</ProductModeButton>
