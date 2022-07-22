@@ -30,7 +30,7 @@ const searchArgs = {
 		resolveParams.args.sort = {
 			score: {$meta: "textScore"},
 		};
-		query.$text = {$search: value, $language: "en"};
+		query.$text = {$search: value};
 		resolveParams.projection.score = {$meta: "textScore"};
 	},
 };

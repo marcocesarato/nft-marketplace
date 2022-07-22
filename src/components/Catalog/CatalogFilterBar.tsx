@@ -67,6 +67,7 @@ export default function CatalogFilterBar({
 				</Box>
 				<Box flex={1}>
 					<Select
+						instanceId="catalogFilterSortBy"
 						placeholder={t<string>("common:catalog.sortBy")}
 						value={sortBy}
 						options={filterOptions}
