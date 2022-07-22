@@ -3,7 +3,10 @@ const withPWA = require("next-pwa");
 
 const isDev = process.env.NODE_ENV === "development";
 
-module.exports = withPWA({
+/**
+ * @type {import('next').NextConfig}
+ */
+const nextConfig = withPWA({
 	reactStrictMode: true,
 	outputStandalone: true,
 	pwa: {
@@ -25,3 +28,5 @@ module.exports = withPWA({
 		return config;
 	},
 });
+
+module.exports = nextConfig;
