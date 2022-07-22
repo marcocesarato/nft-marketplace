@@ -26,6 +26,7 @@ const cors = Cors({
 });
 const server = new ApolloServer({
 	schema: GraphQLSchema,
+	cache: "bounded",
 	// Check authentication
 	context: async ({req}) => {
 		const msg = Base64.decode(req.headers["x-eth-data"] || "");
