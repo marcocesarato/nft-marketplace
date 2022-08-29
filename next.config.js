@@ -1,20 +1,19 @@
 const {i18n} = require("./next-i18next.config");
-const withPWA = require("next-pwa");
 
 const isDev = process.env.NODE_ENV === "development";
+const withPWA = require("next-pwa")({
+	dest: "public",
+	register: true,
+	skipWaiting: true,
+	disable: isDev,
+});
 
 /**
  * @type {import('next').NextConfig}
  */
 const nextConfig = withPWA({
 	reactStrictMode: true,
-	outputStandalone: true,
-	pwa: {
-		dest: "public",
-		register: true,
-		skipWaiting: true,
-		disable: isDev,
-	},
+	output: "standalone",
 	poweredByHeader: false,
 	i18n,
 	webpack: (config, {webpack, dev, isServer}) => {
