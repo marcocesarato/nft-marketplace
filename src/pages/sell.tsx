@@ -40,7 +40,7 @@ export default function Sell(): JSX.Element {
 	}
 
 	async function createSale(url) {
-		const signer = web3.getSigner();
+		const signer = web3.getSigner() as any;
 
 		setMessage(t<string>("common:page.sell.minting"));
 		const contract = new ethers.Contract(MarketAddress, MarketContract, signer);

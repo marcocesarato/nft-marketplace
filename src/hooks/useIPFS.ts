@@ -1,12 +1,14 @@
 import {useState} from "react";
 import axios from "axios";
 
+import {getEmbeddedIPFSImageUrl} from "@utils/url";
+
 export default function useIPFS() {
 	const [isUploading, setIsUploading] = useState(false);
 
 	const resolveLink = (url) => {
-		if (!url || !url.includes("ipfs://")) return url;
-		return url.replace("ipfs://", "https://ipfs.io/ipfs/");
+		if (!url || !url.includes("ipfs://")) return getEmbeddedIPFSImageUrl(url);
+		return getEmbeddedIPFSImageUrl(url.replace("ipfs://", "https://ipfs.io/ipfs/"));
 	};
 
 	const saveIPFS = async (formData: any) => {
