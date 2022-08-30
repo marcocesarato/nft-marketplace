@@ -16,6 +16,7 @@ import {useTranslation} from "next-i18next";
 import {TokenItem} from "@app/types";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
+import useIPFS from "@hooks/useIPFS";
 import useNFTs from "@hooks/useNFTs";
 
 type AssetPickerProps = {
@@ -37,6 +38,7 @@ export default function AssetPicker({
 	const {t} = useTranslation();
 	const [selected, setSelected] = useState(value);
 	const {isOpen, onOpen, onClose} = useDisclosure();
+	const {resolveLink} = useIPFS();
 	const {data: rawData, error, isError, isSuccess, isLoading} = useNFTs();
 	const data = useMemo(() => {
 		if (!isSuccess) return [];
@@ -69,7 +71,9 @@ export default function AssetPicker({
 						<SimpleGrid columns={5} spacing={2}>
 							{data.map((c: TokenItem) => {
 								const background = {
-									backgroundImage: c.metadata?.thumbnail || c.metadata?.image,
+									backgroundImage: resolveLink(
+										c.metadata?.thumbnail || c.metadata?.image,
+									),
 									backgroundSize: "cover",
 									backgroundPosition: "center",
 								};
