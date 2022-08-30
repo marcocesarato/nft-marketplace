@@ -50,4 +50,4 @@ UserSchema.index(
 	},
 );
 
-export default mongoose.models.User || mongoose.model("User", UserSchema);
+export default (mongoose.models.User as any) || (mongoose.model("User", UserSchema) as any);

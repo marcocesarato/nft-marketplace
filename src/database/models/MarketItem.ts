@@ -46,4 +46,5 @@ MarketItemSchema.index(
 	},
 );
 
-export default mongoose.models.MarketItem || mongoose.model("MarketItem", MarketItemSchema);
+export default (mongoose.models.MarketItem as any) ||
+	(mongoose.model("MarketItem", MarketItemSchema) as any);

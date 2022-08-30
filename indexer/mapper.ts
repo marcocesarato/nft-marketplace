@@ -66,7 +66,7 @@ export async function createMarketItem(
 				animationUrl: metadata.animation_url,
 				youtubeUrl: metadata.youtube_url,
 				attributes: attributes,
-			},
+			} as any,
 			function (err: any, item: any) {
 				if (err) return logger.error(err.message);
 				logger.info(`Created item #${item.tokenId}`);

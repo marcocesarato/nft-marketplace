@@ -8,7 +8,7 @@ import {parseUnits} from "@utils/units";
 
 export default function useMarket() {
 	const {web3} = useWeb3();
-	const signer = useMemo(() => web3?.getSigner(), [web3]);
+	const signer = useMemo(() => web3?.getSigner() as any, [web3]);
 	const contract = useMemo(
 		() => new ethers.Contract(MarketAddress, MarketContract, signer),
 		[signer],
