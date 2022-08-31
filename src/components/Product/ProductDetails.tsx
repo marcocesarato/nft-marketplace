@@ -53,16 +53,15 @@ export default function ProductDetails({
 		<>
 			{body}
 			<SimpleGrid minChildWidth="120px" spacing="4" mt="6">
-				{supportsARSession && isDetailMode && data?.image && (
+				{supportsARSession && isDetailMode && data?.image ? (
 					<ProductModeButton onClick={setARMode}>
 						<SiOculus /> <Text ml="4">AR</Text>
 					</ProductModeButton>
-				)}
-				{supportsVRSession && isDetailMode && data?.image && (
+				) : supportsVRSession && isDetailMode && data?.image ? (
 					<ProductModeButton onClick={setVRMode}>
 						<SiOculus /> <Text ml="4">VR</Text>
 					</ProductModeButton>
-				)}
+				) : null}
 				{isDetailMode && data?.image && (
 					<ProductModeButton onClick={set3DMode}>
 						<IoCubeOutline /> <Text ml="4">3D View</Text>
