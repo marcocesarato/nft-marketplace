@@ -47,6 +47,7 @@ export default function Wall({
 	...props
 }: WallProps): JSX.Element {
 	const connections: {[key: string]: PlanimetryBlock} = {};
+	const floors: PlanimetryBlock[] = [];
 
 	// Sizes
 	const columnSize = WallSize / 2;
@@ -77,13 +78,39 @@ export default function Wall({
 	const blocksTexture: {[key: string]: GenericObject} = {};
 	const blocksColor: {[key: string]: string} = {};
 	neighbors.forEach((neighbor: PlanimetryBlock) => {
-		if (neighbor.type !== PlanimetryBlockTypeEnum.Floor) {
+		if (neighbor.type === PlanimetryBlockTypeEnum.Floor) {
+			if (externalBlocks.includes(neighbor.direction) || isIncidence) {
+				floors.push(neighbor);
+			}
+		} else {
 			connections[neighbor.direction] = neighbor;
 			if (externalBlocks.includes(neighbor.direction)) {
 				blocks.push(neighbor.direction);
 			}
 		}
 	});
+
+	// Floor
+	let commonFloorTextureData: TextureAsset;
+	const commonFloorTexture = floors
+		.sort(
+			(a, b) =>
+				floors.filter((v) => v.texture === a.texture).length -
+				floors.filter((v) => v.texture === b.texture).length,
+		)
+		.pop()?.texture;
+	if (commonFloorTexture && Object.prototype.hasOwnProperty.call(Textures, commonFloorTexture)) {
+		commonFloorTextureData = Textures[commonFloorTexture];
+	}
+	const commonFloorColor = floors
+		.sort(
+			(a, b) =>
+				floors.filter((v) => v.color === a.color).length -
+				floors.filter((v) => v.color === b.color).length,
+		)
+		.pop()?.color;
+
+	// Walls
 	blocks.forEach((direction: MapDirection) => {
 		const conn = connections[direction];
 		let textureData: TextureAsset;
@@ -91,7 +118,7 @@ export default function Wall({
 			textureData = Textures[conn.texture];
 		}
 		blocksTexture[direction] =
-			isIncidence && blocksTexture?.attributes
+			isIncidence && textureData?.attributes
 				? convertAllStringToAttributes(textureData.attributes, wallMaterial)
 				: isIncidence
 				? {}
@@ -142,7 +169,12 @@ export default function Wall({
 				);
 			})}
 
-			<Floor position={floorPosition} navmesh={navmesh} />
+			<Floor
+				position={floorPosition}
+				navmesh={navmesh}
+				color={commonFloorColor}
+				texture={commonFloorTextureData}
+			/>
 			<Ceiling position={ceilingPosition} />
 		</Entity>
 	);
