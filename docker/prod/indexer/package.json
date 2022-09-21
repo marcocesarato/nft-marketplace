@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "start": "ts-node-esm --transpile-only indexer/main.ts"
+        "start": "ts-node-esm --transpile-only servers/indexer/main.ts"
     },
     "dependencies": {
         "@types/node": "^18.7.13",
