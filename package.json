@@ -17,7 +17,7 @@
         "lint": "next lint",
         "prepare": "husky install",
         "servers:indexer": "ts-node-esm --project servers/indexer/tsconfig.json servers/indexer/main.ts",
-        "servers:parse-migration": "cd servers/parse-migration && yarn dev",
+        "servers:parser": "cd servers/parse-migration && yarn dev",
         "release": "standard-version",
         "start": "next start",
         "start:local": "concurrently -n \"main,--\" \"next start\" \"npm:servers:*\"",

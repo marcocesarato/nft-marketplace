@@ -10,7 +10,7 @@ import http from 'http';
 export const app = express();
 
 Moralis.start({
-  apiKey: config.MORALIS_API_KEY,
+    apiKey: config.MORALIS_API_KEY,
 });
 
 app.use(express.urlencoded({ extended: true }));
@@ -22,8 +22,8 @@ app.use(`/server`, parseServer);
 
 const httpServer = http.createServer(app);
 httpServer.listen(config.PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Moralis Server is running on port ${config.PORT}.`);
+    // eslint-disable-next-line no-console
+    console.log(`Moralis Server is running on port ${config.PORT}.`);
 });
 // This will enable the Live Query real-time server
 ParseServer.createLiveQueryServer(httpServer);
