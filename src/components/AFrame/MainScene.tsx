@@ -29,6 +29,13 @@ export default function MainScene(props): JSX.Element {
 				raycaster="objects: a-sphere"
 				loading-screen="dotsColor: #000; backgroundColor: #FFF"
 				deviceOrientationPermissionUI={{enabled: true}}
+				networked-scene={`
+                    serverURL: ${process.env.NEXT_PUBLIC_URL}/api/socket;
+                    audio: true;
+                    room: nametag;
+                    debug: true;
+                    adapter: socketio;
+                `}
 				{...props}
 			/>
 		</div>

@@ -18,6 +18,12 @@ export default function useAFrame(callback?: () => void) {
 			// Utils
 			require("@components/AFrame/utils/navmesh");
 			require("@components/AFrame/utils/physx");
+			require("@components/AFrame/utils/networked.min");
+			require("@components/AFrame/utils/spawnInCircle");
+
+			const {io} = require("socket.io-client");
+			global.io = io;
+
 			callback && callback();
 		}
 	}, [setLoaded, callback]);

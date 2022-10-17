@@ -69,3 +69,5 @@ errors/
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+servers

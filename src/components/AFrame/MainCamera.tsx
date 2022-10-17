@@ -1,5 +1,5 @@
 import React from "react";
-import {AssetItem, Assets, Entity, Mixin, Sphere} from "@belivvr/aframe-react";
+import {AssetItem, Assets, Entity, Mixin, Sphere, Text} from "@belivvr/aframe-react";
 
 export default function MainCamera({
 	children = null,
@@ -24,20 +24,66 @@ export default function MainCamera({
 				<Mixin
 					id="handle-visual"
 					geometry={{width: 0.05, height: 0.05, depth: 0.2}}></Mixin>
+
+				<template id="rig-template">
+					<Entity></Entity>
+				</template>
+
+				<template id="head-template">
+					<Entity class="avatar" player-info>
+						<Sphere class="head" scale={{x: 0.2, y: 0.22, z: 0.2}}></Sphere>
+						<Entity class="face" position={{x: 0, y: 0.05, z: 0}}>
+							<Sphere
+								class="eye"
+								color="white"
+								position={{x: 0.06, y: 0.05, z: -0.16}}
+								scale={{x: 0.04, y: 0.04, z: 0.04}}>
+								<Sphere
+									class="pupil"
+									color="black"
+									position={{x: 0, y: 0, z: -1}}
+									scale={{x: 0.2, y: 0.2, z: 0.2}}></Sphere>
+							</Sphere>
+							<Sphere
+								class="eye"
+								color="white"
+								position={{x: -0.06, y: 0.05, z: -0.16}}
+								scale={{x: 0.04, y: 0.04, z: 0.04}}>
+								<Sphere
+									class="pupil"
+									color="black"
+									position={{x: 0, y: 0, z: -1}}
+									scale={{x: 0.2, y: 0.2, z: 0.2}}></Sphere>
+							</Sphere>
+						</Entity>
+
+						<Text
+							class="nametag"
+							value="?"
+							rotation={{x: 0, y: 180, z: 0}}
+							position={{x: 0.25, y: -0.35, z: 0}}
+							side="double"
+							scale={{x: 0.5, y: 0.5, z: 0.5}}></Text>
+					</Entity>
+				</template>
 			</Assets>
 			{/* Camera */}
 			<Entity
 				id="cameraRig"
 				position={{x: 0, y: 0, z: 0}}
 				rotation={{x: 0, y: 0, z: 0}}
+				spawn-in-circle="radius:3"
+				networked="template:#rig-template;"
 				movement-controls="speed:0.3;camera:#head;"
 				navmesh-constraint={`navmesh:.navmesh;fall:0.5;height:${userHeight};exclude:.navmesh-hole;`}
 				{...props}>
 				<Entity
 					id="head"
 					camera={{near: 0.01}}
+					networked="template:#head-template;"
 					lookControls={{pointerLockEnabled: false}}
 					position={{x: 0, y: userHeight, z: 0}}
+					visible={false}
 					{...camera}
 				/>
 
