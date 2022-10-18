@@ -27,7 +27,7 @@ export default function Gallery({user}: GalleryProps): JSX.Element {
 
 	return (
 		<GalleryProvider>
-			<MainScene>
+			<MainScene room={user.account}>
 				{/* Sky */}
 				<Environment config={EnvironmentMaps.night} position="0 -1 0" />
 
