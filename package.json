@@ -11,17 +11,19 @@
         "deploy:upgrade": "npx hardhat run scripts/upgrade.js --network matic",
         "deploy:upgrade:local": "npx hardhat run scripts/upgrade.js --network localhost",
         "deploy:upgrade:test": "npx hardhat run scripts/upgrade.js --network mumbai",
-        "dev": "concurrently -n \"main,--\" \"next dev\" \"npm:process:*\"",
+        "dev": "concurrently -n \"main,--\" \"next dev\" \"npm:servers:*\"",
         "dev:chain": "npx hardhat node",
         "format": "prettier --write .",
         "lint": "next lint",
         "prepare": "husky install",
-        "process:indexer": "ts-node-esm --project indexer/tsconfig.json indexer/main.ts",
+        "servers:indexer": "ts-node-esm --project servers/indexer/tsconfig.json servers/indexer/main.ts",
+        "servers:parser": "cd servers/parser && yarn dev",
         "release": "standard-version",
         "start": "next start",
-        "start:local": "concurrently -n \"main,--\" \"next start\" \"npm:process:*\"",
+        "start:local": "concurrently -n \"main,--\" \"next start\" \"npm:servers:*\"",
         "static:build": "yarn build && next export",
-        "static:serve": "yarn static:build && npx servor out index.html 5000"
+        "static:serve": "yarn static:build && npx servor out index.html 5000",
+        "postinstall": "cd servers/parser && yarn install"
     },
     "dependencies": {
         "@apollo/client": "^3.7.0",

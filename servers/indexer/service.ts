@@ -1,14 +1,14 @@
 import * as ethers from "ethers";
 
 // @ts-ignore
-import {MarketAddress} from "../addresses";
-import {connectDatabase} from "../src/database/connect";
-import MarketItem from "../src/database/models/MarketItem";
+import {MarketAddress} from "../../addresses";
+import {connectDatabase} from "../../src/database/connect";
+import MarketItem from "../../src/database/models/MarketItem";
 import logger from "./logger";
 import {createMarketItem, updateMarketItem} from "./mapper";
 
 // @ts-ignore
-import MarketContract from "../abis/Market.json";
+import MarketContract from "../../abis/Market.json";
 
 const EXPECTED_PONG_BACK = 15000;
 const KEEP_ALIVE_CHECK_INTERVAL = 7500;

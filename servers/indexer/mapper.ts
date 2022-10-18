@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import MarketItem from "../src/database/models/MarketItem";
+import MarketItem from "../../src/database/models/MarketItem";
 import logger from "./logger";
 import {resolveIPFSLink} from "./utils";
 
