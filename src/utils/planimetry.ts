@@ -238,11 +238,11 @@ export class PlanimetrySchema {
 	public getDirectionRotation(direction: MapDirection) {
 		switch (direction) {
 			case MapDirectionEnum.South:
-				return {x: 0, y: 180, z: 0};
+				return {x: 0, y: -180, z: 0};
 			case MapDirectionEnum.West:
-				return {x: 0, y: 90, z: 0};
+				return {x: 0, y: -90, z: 0};
 			case MapDirectionEnum.East:
-				return {x: 0, y: 270, z: 0};
+				return {x: 0, y: -270, z: 0};
 			case MapDirectionEnum.North:
 			default:
 				return {x: 0, y: 0, z: 0};

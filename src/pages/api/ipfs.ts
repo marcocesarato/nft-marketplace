@@ -3,6 +3,7 @@ import axios from "axios";
 async function handler(req, res) {
 	try {
 		const response = await axios.get(req.query.cid, {
+			timeout: 5000,
 			responseType: "arraybuffer",
 			headers: {
 				"Access-Control-Allow-Origin": "*",

@@ -42,7 +42,7 @@ export default function useNFTMetadata() {
 		}
 		//Get Metadata
 		return await axios
-			.get(item.token_uri)
+			.get(item.token_uri, {timeout: 3000})
 			.then((metadata) => {
 				if (!metadata) {
 					//Log
@@ -88,6 +88,7 @@ export default function useNFTMetadata() {
 					item,
 					URI: item.token_uri,
 				});
+				return item;
 			});
 	}
 
