@@ -172,7 +172,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 						px={4}
 						justifyContent="center"
 						w="full"
-						visibility={data._id ? "visible" : "hidden"}>
+						visibility={data?._id ? "visible" : "hidden"}>
 						<Box
 							transition="all .3s ease"
 							color={isLiked ? "red.500" : mode("gray.700", "white")}

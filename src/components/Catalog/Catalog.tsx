@@ -35,10 +35,10 @@ const productVariant = {
 };
 
 const sort = {
-	"newest": (a, b) => b.price - a.price || a.tokenId - b.tokenId,
-	"lowest": (a, b) => a.price - b.price || a.tokenId - b.tokenId,
-	"highest": (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt),
-	"likes": (a, b) => a.likes - b.likes || a.tokenId - b.tokenId,
+	"newest": (a, b) => b?.price - a?.price || a?.tokenId - b?.tokenId,
+	"lowest": (a, b) => a?.price - b?.price || a?.tokenId - b?.tokenId,
+	"highest": (a, b) => Date.parse(b?.createdAt) - Date.parse(a?.createdAt),
+	"likes": (a, b) => a?.likes - b?.likes || a?.tokenId - b?.tokenId,
 };
 
 export default function Catalog({
