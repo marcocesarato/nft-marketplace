@@ -5,10 +5,7 @@
 .env.production
 .env.development
 .env.test
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+*.local
 
 .openzeppelin
 addresses.js
@@ -72,3 +69,5 @@ errors/
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+servers

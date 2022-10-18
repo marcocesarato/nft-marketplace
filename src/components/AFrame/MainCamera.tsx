@@ -1,5 +1,14 @@
-import React from "react";
-import {AssetItem, Assets, Entity, Mixin, Sphere} from "@belivvr/aframe-react";
+import {DetailedHTMLProps, HTMLAttributes} from "react";
+import {AssetItem, Assets, Entity, Mixin, Sphere, Text} from "@belivvr/aframe-react";
+
+const Template = "naf-template";
+declare global {
+	namespace JSX {
+		interface IntrinsicElements {
+			["naf-template"]: DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
+		}
+	}
+}
 
 export default function MainCamera({
 	children = null,
@@ -9,7 +18,6 @@ export default function MainCamera({
 }): JSX.Element {
 	return (
 		<>
-			{children}
 			{/* Assets */}
 			<Assets>
 				<AssetItem
@@ -20,31 +28,48 @@ export default function MainCamera({
 					src="https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/skeleton-left-hand-webxr/model.gltf"></AssetItem>
 				<Mixin
 					id="blink"
-					blink-controls="rotateOnTeleport:false;cameraRig: #cameraRig; teleportOrigin: #head; collisionEntities:.navmesh;"></Mixin>
+					blink-controls="rotateOnTeleport:false;cameraRig: #cameraRig; teleportOrigin: #avatar; collisionEntities:.navmesh;"></Mixin>
 				<Mixin
 					id="handle-visual"
 					geometry={{width: 0.05, height: 0.05, depth: 0.2}}></Mixin>
+
+				<Template id="rig-template">
+					<Entity></Entity>
+				</Template>
+
+				<Template id="avatar-template">
+					<Entity class="avatar" avatar-info>
+						<Sphere class="head" scale={{x: 0.2, y: 0.22, z: 0.2}}></Sphere>
+						<Text class="nametag" value="" side="double"></Text>
+					</Entity>
+				</Template>
 			</Assets>
 			{/* Camera */}
 			<Entity
 				id="cameraRig"
 				position={{x: 0, y: 0, z: 0}}
 				rotation={{x: 0, y: 0, z: 0}}
-				movement-controls="speed:0.3;camera:#head;"
+				spawn-in-circle="radius:3"
+				networked="template:#rig-template;"
+				movement-controls="speed:0.3;camera:#avatar;"
 				navmesh-constraint={`navmesh:.navmesh;fall:0.5;height:${userHeight};exclude:.navmesh-hole;`}
 				{...props}>
 				<Entity
-					id="head"
+					id="avatar"
 					camera={{near: 0.01}}
+					networked="template:#avatar-template;"
 					lookControls={{pointerLockEnabled: false}}
 					position={{x: 0, y: userHeight, z: 0}}
+					visible={false}
 					{...camera}
 				/>
 
 				{/* Hand tracking */}
 				<Entity
 					handy-controls="right:#right-gltf;materialOverride:right;"
-					material={{color: "gold", metalness: 1, roughness: 0}}>
+					/*networked-hand-controls="hand:right;handModelStyle:controller;"
+					networked="template:#right-hand-default-template"*/
+				>
 					{/* Use the finger tips for teleporting when the user points */}
 					<Entity
 						data-right="index-finger-tip"
@@ -54,54 +79,12 @@ export default function MainCamera({
 						data-left="index-finger-tip"
 						mixin="blink"
 						blink-controls="startEvents:pose_point_fuseShort;endEvents:pose_point_fuseLong;endEvents:pose_cancel_point;"></Entity>
-
-					{/* The direction hands are facing, we will also attach labels to show the currently detected pose or controller button */}
-					{/* These also do teleportaion for Blink controls in VR */}
-					<Entity
-						data-right="ray"
-						mixin="blink"
-						html-pointer=""
-						raycaster={{
-							objects: "[html]",
-							far: 0.3,
-							showLine: false,
-							lineColor: "black",
-						}}>
-						<Entity
-							position={{x: 0, y: 0, z: -0.22}}
-							visible={false}
-							class="pose-label"
-							text={{value: "Hello World", align: "center"}}></Entity>
-					</Entity>
-					<Entity
-						data-left="ray"
-						mixin="blink"
-						html-pointer=""
-						raycaster={{
-							objects: "[html]",
-							far: 0.3,
-							showLine: false,
-							lineColor: "black",
-						}}>
-						<Entity
-							position={{x: 0, y: 0, z: -0.22}}
-							visible={false}
-							class="pose-label"
-							text={{value: "Hello World", align: "center"}}></Entity>
-					</Entity>
-
 					{/* These get drawn towards grabable objects, moving the whole hand and the attached elements */}
-					<Entity
-						id="left-magnet"
-						data-left="grip"
-						data-magnet="magnet-left"
-						grab-magnet-target="startEvents:squeezestart,pose_fist;stopEvents:pose_flat_fuseShort,squeezeend;noMagnetEl:#left-no-magnet;"></Entity>
 					<Entity
 						id="right-magnet"
 						data-right="grip"
 						data-magnet="magnet-right"
 						grab-magnet-target="startEvents:squeezestart,pose_fist;stopEvents:pose_flat_fuseShort,squeezeend;noMagnetEl:#right-no-magnet;"></Entity>
-
 					{/* Invisible objects at the tips of each finger for physics or intersections */}
 					<Sphere
 						data-right="index-finger-tip"
@@ -128,6 +111,20 @@ export default function MainCamera({
 						radius={0.004}
 						visible={false}
 						physx-body="type: kinematic;"></Sphere>
+				</Entity>
+
+				<Entity
+					handy-controls="left:#left-gltf;materialOverride:left;"
+					/*networked-hand-controls="hand:left;color:gold;"
+					networked="template:#left-hand-default-template"*/
+				>
+					{/* These get drawn towards grabable objects, moving the whole hand and the attached elements */}
+					<Entity
+						id="left-magnet"
+						data-left="grip"
+						data-magnet="magnet-left"
+						grab-magnet-target="startEvents:squeezestart,pose_fist;stopEvents:pose_flat_fuseShort,squeezeend;noMagnetEl:#left-no-magnet;"></Entity>
+					{/* Invisible objects at the tips of each finger for physics or intersections */}
 					<Sphere
 						data-left="index-finger-tip"
 						radius={0.004}
@@ -155,6 +152,7 @@ export default function MainCamera({
 						physx-body="type: kinematic;"></Sphere>
 				</Entity>
 			</Entity>
+			{children}
 		</>
 	);
 }

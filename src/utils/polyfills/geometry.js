@@ -3,6 +3,8 @@ const _m1 = new THREE.Matrix4();
 const _obj = new THREE.Object3D();
 const _offset = new THREE.Vector3();
 
+THREE.Math = THREE.MathUtils;
+
 class Geometry extends THREE.EventDispatcher {
 	constructor() {
 		super();
