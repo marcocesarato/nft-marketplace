@@ -33,6 +33,7 @@ import {getAssetUrl} from "@utils/url";
 export default function ProductInfos({
 	id = "Product-" + Math.random(),
 	showPreview = true,
+	showQRCode = true,
 	data,
 	onPurchase = (tokenId: number, price: number) => {},
 }): JSX.Element {
@@ -84,25 +85,27 @@ export default function ProductInfos({
 						address={data?.seller}
 					/>
 				)}
-				<Popover>
-					<PopoverTrigger>
-						<Button variant="link">{t<string>("common:product:qrcode")}</Button>
-					</PopoverTrigger>
-					<PopoverContent w="auto">
-						<PopoverArrow />
-						<PopoverCloseButton />
-						<PopoverHeader>{t<string>("common:product:qrcode")}</PopoverHeader>
-						<PopoverBody>
-							<Image
-								src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(
-									getAssetUrl(data),
-								)}`}
-								width={150}
-								height={150}
-							/>
-						</PopoverBody>
-					</PopoverContent>
-				</Popover>
+				{showQRCode && (
+					<Popover>
+						<PopoverTrigger>
+							<Button variant="link">{t<string>("common:product:qrcode")}</Button>
+						</PopoverTrigger>
+						<PopoverContent w="auto">
+							<PopoverArrow />
+							<PopoverCloseButton />
+							<PopoverHeader>{t<string>("common:product:qrcode")}</PopoverHeader>
+							<PopoverBody>
+								<Image
+									src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(
+										getAssetUrl(data),
+									)}`}
+									width={150}
+									height={150}
+								/>
+							</PopoverBody>
+						</PopoverContent>
+					</Popover>
+				)}
 			</Box>
 
 			<Box>
