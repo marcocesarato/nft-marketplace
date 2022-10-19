@@ -1,5 +1,5 @@
 import {DetailedHTMLProps, HTMLAttributes} from "react";
-import {AssetItem, Assets, Entity, Mixin, Sphere, Text} from "@belivvr/aframe-react";
+import {AssetItem, Assets, Cursor, Entity, Mixin, Sphere, Text} from "@belivvr/aframe-react";
 
 const Template = "naf-template";
 declare global {
@@ -61,95 +61,80 @@ export default function MainCamera({
 					lookControls={{pointerLockEnabled: false}}
 					position={{x: 0, y: userHeight, z: 0}}
 					visible={false}
-					{...camera}
-				/>
-
-				{/* Hand tracking */}
-				<Entity
-					handy-controls="right:#right-gltf;materialOverride:right;"
-					/*networked-hand-controls="hand:right;handModelStyle:controller;"
-					networked="template:#right-hand-default-template"*/
-				>
-					{/* Use the finger tips for teleporting when the user points */}
-					<Entity
-						data-right="index-finger-tip"
-						mixin="blink"
-						blink-controls="startEvents:pose_point_fuseShort;endEvents:pose_point_fuseLong;endEvents:pose_cancel_point;"></Entity>
-					<Entity
-						data-left="index-finger-tip"
-						mixin="blink"
-						blink-controls="startEvents:pose_point_fuseShort;endEvents:pose_point_fuseLong;endEvents:pose_cancel_point;"></Entity>
-					{/* These get drawn towards grabable objects, moving the whole hand and the attached elements */}
-					<Entity
-						id="right-magnet"
-						data-right="grip"
-						data-magnet="magnet-right"
-						grab-magnet-target="startEvents:squeezestart,pose_fist;stopEvents:pose_flat_fuseShort,squeezeend;noMagnetEl:#right-no-magnet;"></Entity>
-					{/* Invisible objects at the tips of each finger for physics or intersections */}
-					<Sphere
-						data-right="index-finger-tip"
-						radius={0.004}
-						visible={false}
-						physx-body="type: kinematic;"></Sphere>
-					<Sphere
-						data-right="middle-finger-tip"
-						radius={0.004}
-						visible={false}
-						physx-body="type: kinematic;"></Sphere>
-					<Sphere
-						data-right="ring-finger-tip"
-						radius={0.004}
-						visible={false}
-						physx-body="type: kinematic;"></Sphere>
-					<Sphere
-						data-right="pinky-finger-tip"
-						radius={0.004}
-						visible={false}
-						physx-body="type: kinematic;"></Sphere>
-					<Sphere
-						data-right="thumb-tip"
-						radius={0.004}
-						visible={false}
-						physx-body="type: kinematic;"></Sphere>
+					{...camera}>
+					<Cursor fuseTimeout={2000} />
 				</Entity>
 
-				<Entity
-					handy-controls="left:#left-gltf;materialOverride:left;"
-					/*networked-hand-controls="hand:left;color:gold;"
-					networked="template:#left-hand-default-template"*/
-				>
-					{/* These get drawn towards grabable objects, moving the whole hand and the attached elements */}
+				{/* Hand tracking */}
+				<Entity handy-controls="materialOverride:both;">
+					{/* These also do teleportaion for Blink controls in VR */}
+					{/* These are present for hand tracking but hands don't have joysticks so do nothing */}
+					<Entity
+						data-right="ray"
+						mixin="blink"
+						cursor={{fuse: true}}
+						raycaster={{
+							showLine: false,
+							far: 100,
+							lineColor: "red",
+							objects: "[html]",
+							interval: 100,
+						}}></Entity>
+					<Entity
+						data-left="ray"
+						mixin="blink"
+						cursor={{fuse: true}}
+						raycaster={{
+							showLine: false,
+							far: 100,
+							lineColor: "red",
+							objects: "[html]",
+							interval: 100,
+						}}></Entity>
+
+					{/* Use the finger tips for teleporting when the user points in VR with hand tracking */}
+					<Entity
+						data-right="index-finger-tip"
+						mixin="blink"
+						blink-controls="startEvents:pose_point;cancelEvents:pose_cancel_point;endEvents:pose_point_fuseLong;"></Entity>
+					<Entity
+						data-left="index-finger-tip"
+						mixin="blink"
+						blink-controls="startEvents:pose_point;cancelEvents:pose_cancel_point;endEvents:pose_point_fuseLong;"></Entity>
+
+					{/* These get drawn towards grabable objects, moving the whole hand and the attached elements*/}
 					<Entity
 						id="left-magnet"
+						position={{x: 0, y: 0.6, z: 0}}
+						class="avatar-hand-left"
 						data-left="grip"
 						data-magnet="magnet-left"
-						grab-magnet-target="startEvents:squeezestart,pose_fist;stopEvents:pose_flat_fuseShort,squeezeend;noMagnetEl:#left-no-magnet;"></Entity>
-					{/* Invisible objects at the tips of each finger for physics or intersections */}
-					<Sphere
-						data-left="index-finger-tip"
-						radius={0.004}
-						visible={false}
-						physx-body="type: kinematic;"></Sphere>
-					<Sphere
-						data-left="middle-finger-tip"
-						radius={0.004}
-						visible={false}
-						physx-body="type: kinematic;"></Sphere>
-					<Sphere
-						data-left="ring-finger-tip"
-						radius={0.004}
-						visible={false}
-						physx-body="type: kinematic;"></Sphere>
-					<Sphere
-						data-left="pinky-finger-tip"
-						radius={0.004}
-						visible={false}
-						physx-body="type: kinematic;"></Sphere>
-					<Sphere
-						data-left="thumb-tip"
-						radius={0.004}
-						visible={false}
-						physx-body="type: kinematic;"></Sphere>
+						grab-magnet-target="startEvents:squeezestart,pose_fist;stopEvents:pose_flat_fuseShort,squeezeend;noMagnetEl:#left-no-magnet;"
+						/*networked-hand-controls="hand:left;color:gold;"
+					    networked="template:#left-hand-default-template"*/
+					></Entity>
+					<Entity
+						id="right-magnet"
+						position={{x: 0, y: 0.6, z: 0}}
+						class="avatar-hand-right"
+						data-right="grip"
+						data-magnet="magnet-right"
+						grab-magnet-target="startEvents:squeezestart,pose_fist;stopEvents:pose_flat_fuseShort,squeezeend;noMagnetEl:#right-no-magnet;"
+						/*networked-hand-controls="hand:right;color:gold;"
+					    networked="template:#right-hand-default-template"*/
+					></Entity>
+
+					{/* Markers to let us know the real location of the hands, you probably want to make them visible="false" or just make them empty <a-entities> */}
+					<Entity
+						id="left-no-magnet"
+						data-left="grip"
+						data-no-magnet
+						radius="0.01"></Entity>
+					<Entity
+						id="right-no-magnet"
+						data-right="grip"
+						data-no-magnet
+						radius="0.01"></Entity>
 				</Entity>
 			</Entity>
 			{children}

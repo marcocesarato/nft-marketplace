@@ -24,7 +24,7 @@ export default function MainScene({room, ...props}): JSX.Element {
 				}}
 				shadow={{type: "pcfsoft"}}
 				physx="autoLoad: true; delay: 1000; wasmUrl: https://stemkoski.github.io/A-Frame-Examples/js/physx.release.wasm; useDefaultScene: false;"
-				raycaster="objects: a-sphere"
+				raycaster="objects: [html]; interval:100;"
 				loading-screen="dotsColor: #000; backgroundColor: #FFF"
 				deviceOrientationPermissionUI={{enabled: true}}
 				networked-scene={`
@@ -34,6 +34,7 @@ export default function MainScene({room, ...props}): JSX.Element {
                     adapter: socketio;
                     debug: true;
                 `}
+				cursor="rayOrigin: mouse"
 				{...props}
 			/>
 		</div>

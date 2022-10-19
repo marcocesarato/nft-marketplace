@@ -152,9 +152,13 @@ export default function GalleryMap({planimetry}): JSX.Element {
 				});
 				switch (item.type) {
 					case ObjectModelTypeEnum.Picture:
+						const key = String("picture" + block.id + item.data?.token_id)
+							.replace(/[^A-Za-z0-9]/g, "")
+							.toLowerCase();
 						BlocksRender.push(
 							<Picture
-								key={"picture" + block.id + item.name}
+								key={key}
+								id={key}
 								data={item.data}
 								src={item.src}
 								position={itemPosition}
