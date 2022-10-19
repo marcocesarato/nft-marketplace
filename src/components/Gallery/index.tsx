@@ -1,4 +1,4 @@
-import React from "react";
+import {useEffect} from "react";
 import {Light} from "@belivvr/aframe-react";
 
 import {GenericObject} from "@app/types";
@@ -17,6 +17,18 @@ type GalleryProps = {
 
 export default function Gallery({user}: GalleryProps): JSX.Element {
 	const {isLoading} = useAFrame();
+
+	useEffect(() => {
+		const onMouseDown = () => (global.dragging = false);
+		const onMouseMove = () => (global.dragging = true);
+		document.addEventListener("mousedown", onMouseDown);
+		document.addEventListener("mousemove", onMouseMove);
+		return () => {
+			document.removeEventListener("mousedown", onMouseDown);
+			document.removeEventListener("mousemove", onMouseMove);
+		};
+	}, []);
+
 	if (!isLoading) {
 		return (
 			<Content>

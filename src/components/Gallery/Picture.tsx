@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from "react";
-import {Image, Plane, Text} from "@belivvr/aframe-react";
+import {Entity, Image, Plane, Text} from "@belivvr/aframe-react";
+import {useTranslation} from "next-i18next";
 
 import {MapDirection} from "@app/enums";
 import {TokenItem} from "@app/types";
@@ -36,17 +37,42 @@ export default function Picture({
 	...props
 }: PictureProps): JSX.Element {
 	const ref = useRef<HTMLElement>();
+	const purchaseRef = useRef<HTMLElement>();
 	const [openPanel, setOpenPanel] = useState(false);
+	const {t} = useTranslation();
+
 	const toggleOpen = useDebounceCallback(() => {
-		setOpenPanel(!openPanel);
+		if (!global.dragging) {
+			setOpenPanel(!openPanel);
+		}
 	}, 250);
+
+	const purchaseItem = useDebounceCallback((e) => {
+		e.preventDefault();
+		if (!global.dragging) {
+			console.log("Purchase");
+		}
+	}, 250);
+
 	useEffect(() => {
 		const element = ref.current;
-		element.addEventListener("click", toggleOpen);
-		return () => {
-			element.removeEventListener("click", toggleOpen);
-		};
-	}, [toggleOpen]);
+		if (element) {
+			element.addEventListener("mouseup", toggleOpen);
+			return () => {
+				element.removeEventListener("mouseup", toggleOpen);
+			};
+		}
+	}, [ref, purchaseItem, toggleOpen]);
+
+	useEffect(() => {
+		const purchase = purchaseRef.current;
+		if (purchase) {
+			purchase.addEventListener("mouseup", purchaseItem);
+			return () => {
+				purchase?.removeEventListener("mouseup", purchaseItem);
+			};
+		}
+	}, [purchaseRef, purchaseItem]);
 
 	const picturePosition = {
 		x: 0,
@@ -78,39 +104,67 @@ export default function Picture({
 			picturePosition.x = -wallSection - threshold;
 			panelPosition.x = -wallSection - threshold * 2;
 	}
+
+	const positionToString = (p) => Object.values(p).join(" ");
+	const width = WallSize * ratio;
+	const height = WallSize * ratio;
+	const textHeight = height * 0.9;
+	const textWidth = width * 0.9;
 	return (
-		<a-entity ref={ref} position={Object.values(position).join(" ")}>
+		<a-entity ref={ref} position={positionToString(position)}>
 			<Image
 				{...defaultPictureAttributes}
 				src={src}
 				position={picturePosition}
 				rotation={rotation}
-				height={WallSize * ratio}
-				width={WallSize * ratio}
+				height={height}
+				width={width}
 				{...props}
 			/>
 			{openPanel && (
-				<Plane
-					color="#000"
-					position={panelPosition}
-					rotation={rotation}
-					height={WallSize * ratio}
-					width={WallSize * ratio}>
+				<Entity position={panelPosition} rotation={rotation}>
+					<Plane
+						color="#000"
+						height={height}
+						width={width}
+						material={{opacity: 0.8, transparent: true}}>
+						<a-plane
+							ref={purchaseRef}
+							color="#FFF"
+							height={0.5}
+							width={2}
+							position={`0 -1 ${threshold}`}>
+							<Text
+								value={t<string>("common:action.purchase")}
+								height={textHeight}
+								width={textWidth}
+								align="center"
+								color="#000"
+							/>
+						</a-plane>
+					</Plane>
 					<Text
-						value={data.name}
-						height={WallSize * ratio}
-						width={WallSize * ratio}
+						value={data.metadata.name}
+						height={textHeight}
+						width={textWidth}
 						align="center"
-						position={{x: -0, y: 1, z: 0}}
+						position={{x: 0, y: 1, z: 0}}
 					/>
 					<Text
-						value={data.token_address}
-						height={WallSize * ratio}
-						width={WallSize * ratio}
+						value={`Description: ${data.metadata.description}`}
+						height={textHeight}
+						width={textWidth}
 						align="center"
-						position={{x: -0, y: -0, z: 0}}
+						position={{x: 0, y: 0.7, z: 0}}
 					/>
-				</Plane>
+					<Text
+						value={`Token Address: ${data.token_address}/${data.token_id}`}
+						height={textHeight}
+						width={textWidth}
+						align="center"
+						position={{x: 0, y: 0, z: 0}}
+					/>
+				</Entity>
 			)}
 		</a-entity>
 	);
