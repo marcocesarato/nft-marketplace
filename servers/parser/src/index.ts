@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import config from './config';
 import { parseServer } from './parseServer';
+import { parseDashboard } from './parseDashboard';
 // @ts-ignore
 import ParseServer from 'parse-server';
 import http from 'http';
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use(`/server`, parseServer);
+app.use(`/dashboard`, parseDashboard);
 
 const httpServer = http.createServer(app);
 httpServer.listen(config.PORT, () => {
