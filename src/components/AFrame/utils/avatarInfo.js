@@ -74,9 +74,12 @@ AFRAME.registerComponent("avatar-info", {
 		larm.setAttribute("mixin", "mixin-arm");
 		const rarm = document.createElement("a-entity");
 		rarm.setAttribute("mixin", "mixin-arm");
-		const body = document.createElement("a-entity");
 
+		const body = document.createElement("a-entity");
 		body.setAttribute("mixin", "mixin-body");
+
+		const neck = document.createElement("a-entity");
+		neck.setAttribute("mixin", "mixin-neck");
 
 		const x = 0;
 		const y = 0;
@@ -104,21 +107,24 @@ AFRAME.registerComponent("avatar-info", {
 		lpupil.setAttribute("position", lpx + " " + lpy + " " + lpz);
 		rpupil.setAttribute("position", rpx + " " + rpy + " " + rpz);
 
-		const larmx = x - 0.5;
-		const larmy = y - 1.8;
+		const larmx = x - 0.45;
+		const larmy = y - 1.4;
 		const larmz = z;
 
-		const rarmx = x + 0.5;
-		const rarmy = y - 1.8;
+		const rarmx = x + 0.45;
+		const rarmy = y - 1.4;
 		const rarmz = z;
 
 		larm.setAttribute("position", larmx + " " + larmy + " " + larmz);
-		larm.setAttribute("rotation", "0 0 -10");
+		larm.setAttribute("rotation", "0 0 -25");
 		rarm.setAttribute("position", rarmx + " " + rarmy + " " + rarmz);
-		rarm.setAttribute("rotation", "0 0 10");
+		rarm.setAttribute("rotation", "0 0 25");
 
-		body.setAttribute("position", "0 -1.25 0");
+		body.setAttribute("position", "0 -1.5 0");
 		body.setAttribute("rotation", "0 0 0");
+
+		neck.setAttribute("position", "0 -1 0");
+		neck.setAttribute("rotation", "0 0 0");
 
 		rarm.setAttribute("color", "#" + this.data.color);
 		rarm.setAttribute("material", "color", "#" + this.data.color);
@@ -127,6 +133,9 @@ AFRAME.registerComponent("avatar-info", {
 
 		body.setAttribute("color", "#" + this.data.color);
 		body.setAttribute("material", "color", "#" + this.data.color);
+
+		neck.setAttribute("color", "#" + this.data.color);
+		neck.setAttribute("material", "color", "#" + this.data.color);
 
 		//wrap the whole avatar inside a single entity
 		const avatarRoot = document.createElement("a-entity");
@@ -138,6 +147,7 @@ AFRAME.registerComponent("avatar-info", {
 		avatarRoot.appendChild(larm);
 		avatarRoot.appendChild(rarm);
 		avatarRoot.appendChild(body);
+		avatarRoot.appendChild(neck);
 
 		this.el.appendChild(avatarRoot);
 	},
