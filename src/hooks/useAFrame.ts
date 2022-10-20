@@ -20,7 +20,7 @@ export default function useAFrame(callback?: () => void) {
 				require("@components/AFrame/utils/physx");
 				require("@components/AFrame/utils/networked");
 				require("@components/AFrame/utils/spawnInCircle");
-				require("@components/AFrame/utils/avatarInfo");
+				require("@components/AFrame/utils/avatar");
 
 				const {io} = require("socket.io-client");
 				global.io = io;

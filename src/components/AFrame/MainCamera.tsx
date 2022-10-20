@@ -61,7 +61,7 @@ export default function MainCamera({
 				</Template>
 
 				<Template id="avatar-template">
-					<Entity class="avatar" avatar-info>
+					<Entity avatar>
 						<Text class="nametag" value="" side="double" color="#000"></Text>
 					</Entity>
 				</Template>
