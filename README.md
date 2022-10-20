@@ -1,5 +1,7 @@
 # NFT Marketplace
 
+![](/docs/images/cover.png)
+
 Watch your Digital Art on the wall of your home. Use the VR viewer to see all your NFTs digital art on the wall of your home in real time and interact with them.
 
 ## Summary
@@ -184,6 +186,7 @@ How to connect Polygon Testnet to MetaMask wallet? The easiest way to get it don
 - **Ethereum Client:** [Ethers](https://github.com/ethers-io/ethers.js) / [React Moralis](https://github.com/MoralisWeb3/react-moralis)
 - **Indexing Service:** [NodeJS](https://nodejs.org/)
 - **Cross Reality:** [WebXR](https://immersive-web.github.io/) / [ThreeJS](https://threejs.org/)
+- **Web Socket:** [socket.io](https://socket.io)
 
 ### Other
 
