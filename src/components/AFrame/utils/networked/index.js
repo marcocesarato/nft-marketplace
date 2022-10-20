@@ -1,8 +1,9 @@
 // Global vars and functions
-require("./NafIndex.js");
+import './NafIndex.js';
 
 // Network components
-require("./components/networked-scene");
-require("./components/networked");
-require("./components/networked-audio-source");
-require("./components/networked-video-source");
+import './components/networked-scene';
+
+import './components/networked';
+import './components/networked-audio-source';
+import './components/networked-video-source';

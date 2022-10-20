@@ -1,5 +1,5 @@
 /* global AFRAME, NAF, THREE */
-const naf = require("../NafIndex");
+import naf from '../NafIndex';
 
 AFRAME.registerComponent("networked-audio-source", {
 	schema: {

@@ -1,5 +1,5 @@
 /* global NAF */
-const NoOpAdapter = require("./NoOpAdapter");
+import NoOpAdapter from './NoOpAdapter';
 
 class WsEasyRtcInterface extends NoOpAdapter {
 	constructor(easyrtc) {

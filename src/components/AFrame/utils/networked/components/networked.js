@@ -1,6 +1,7 @@
 /* global AFRAME, NAF, THREE */
-var deepEqual = require("../DeepEquals");
-var InterpolationBuffer = require("buffered-interpolation");
+import deepEqual from '../DeepEquals';
+
+import InterpolationBuffer from 'buffered-interpolation';
 
 var DEG2RAD = THREE.MathUtils.DEG2RAD;
 var OBJECT3D_COMPONENTS = ["position", "rotation", "scale"];

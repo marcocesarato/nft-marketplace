@@ -1,7 +1,7 @@
-const WsEasyRtcAdapter = require("./WsEasyRtcAdapter");
-const EasyRtcAdapter = require("./EasyRtcAdapter");
-const WebrtcAdapter = require("./naf-webrtc-adapter");
-const SocketioAdapter = require("./naf-socketio-adapter");
+import WsEasyRtcAdapter from './WsEasyRtcAdapter';
+import EasyRtcAdapter from './EasyRtcAdapter';
+import WebrtcAdapter from './naf-webrtc-adapter';
+import SocketioAdapter from './naf-socketio-adapter';
 
 class AdapterFactory {
 	constructor() {

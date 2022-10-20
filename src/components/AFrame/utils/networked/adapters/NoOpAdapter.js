@@ -1,4 +1,4 @@
-var NafInterface = require("../NafInterface");
+import NafInterface from '../NafInterface';
 
 class NoOpAdapter extends NafInterface {
 	/* Pre-Connect setup methods - Call before `connect` */

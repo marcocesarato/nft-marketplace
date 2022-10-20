@@ -1,10 +1,10 @@
-var options = require("./options");
-var utils = require("./utils");
-var NafLogger = require("./NafLogger");
-var Schemas = require("./Schemas");
-var NetworkEntities = require("./NetworkEntities");
-var NetworkConnection = require("./NetworkConnection");
-var AdapterFactory = require("./adapters/AdapterFactory");
+import options from './options';
+import utils from './utils';
+import NafLogger from './NafLogger';
+import Schemas from './Schemas';
+import NetworkEntities from './NetworkEntities';
+import NetworkConnection from './NetworkConnection';
+import AdapterFactory from './adapters/AdapterFactory';
 
 var naf = {};
 naf.app = "";

@@ -1,5 +1,5 @@
 /* global NAF */
-var ChildEntityCache = require("./ChildEntityCache");
+import ChildEntityCache from './ChildEntityCache';
 
 class NetworkEntities {
 	constructor() {
