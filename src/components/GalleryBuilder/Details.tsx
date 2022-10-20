@@ -47,7 +47,7 @@ export default function GalleryBlockDetails(): JSX.Element {
 		() => (schema ? schema.getBlocksInsideRoom() : new Set()),
 		[schema],
 	);
-	let sections = {
+	const sections = {
 		"ceiling": false,
 		"floor": false,
 		[MapDirectionEnum.North]: false,

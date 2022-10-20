@@ -38,7 +38,7 @@ export default function useMarket() {
 		const priceFormatted = !isString(price) ? parseUnits(price, "ether") : price;
 		let listingPrice = await contract.getListingPrice();
 		listingPrice = listingPrice.toString();
-		let transaction = await contract.resellMarketItem(tokenId, priceFormatted, {
+		const transaction = await contract.resellMarketItem(tokenId, priceFormatted, {
 			value: listingPrice,
 		});
 		await transaction.wait();

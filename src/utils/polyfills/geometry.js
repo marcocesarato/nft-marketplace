@@ -1546,8 +1546,8 @@ THREE.Face3 = Face3;
 
 THREE.BufferGeometryUtils = {
 	computeTangents: function (geometry) {
-		let index = geometry.index;
-		let attributes = geometry.attributes;
+		const index = geometry.index;
+		const attributes = geometry.attributes;
 
 		// based on http://www.terathon.com/code/tangent.html
 		// (per vertex tangents)
@@ -1564,12 +1564,12 @@ THREE.BufferGeometryUtils = {
 			return;
 		}
 
-		let indices = index.array;
-		let positions = attributes.position.array;
-		let normals = attributes.normal.array;
-		let uvs = attributes.uv.array;
+		const indices = index.array;
+		const positions = attributes.position.array;
+		const normals = attributes.normal.array;
+		const uvs = attributes.uv.array;
 
-		let nVertices = positions.length / 3;
+		const nVertices = positions.length / 3;
 
 		if (attributes.tangent === undefined) {
 			geometry.addAttribute(
@@ -1578,9 +1578,9 @@ THREE.BufferGeometryUtils = {
 			);
 		}
 
-		let tangents = attributes.tangent.array;
+		const tangents = attributes.tangent.array;
 
-		let tan1 = [],
+		const tan1 = [],
 			tan2 = [];
 
 		for (let i = 0; i < nVertices; i++) {
@@ -1588,7 +1588,7 @@ THREE.BufferGeometryUtils = {
 			tan2[i] = new THREE.Vector3();
 		}
 
-		let vA = new THREE.Vector3(),
+		const vA = new THREE.Vector3(),
 			vB = new THREE.Vector3(),
 			vC = new THREE.Vector3(),
 			uvA = new THREE.Vector2(),
@@ -1606,22 +1606,22 @@ THREE.BufferGeometryUtils = {
 			uvB.fromArray(uvs, b * 2);
 			uvC.fromArray(uvs, c * 2);
 
-			let x1 = vB.x - vA.x;
-			let x2 = vC.x - vA.x;
+			const x1 = vB.x - vA.x;
+			const x2 = vC.x - vA.x;
 
-			let y1 = vB.y - vA.y;
-			let y2 = vC.y - vA.y;
+			const y1 = vB.y - vA.y;
+			const y2 = vC.y - vA.y;
 
-			let z1 = vB.z - vA.z;
-			let z2 = vC.z - vA.z;
+			const z1 = vB.z - vA.z;
+			const z2 = vC.z - vA.z;
 
-			let s1 = uvB.x - uvA.x;
-			let s2 = uvC.x - uvA.x;
+			const s1 = uvB.x - uvA.x;
+			const s2 = uvC.x - uvA.x;
 
-			let t1 = uvB.y - uvA.y;
-			let t2 = uvC.y - uvA.y;
+			const t1 = uvB.y - uvA.y;
+			const t2 = uvC.y - uvA.y;
 
-			let r = 1.0 / (s1 * t2 - s2 * t1);
+			const r = 1.0 / (s1 * t2 - s2 * t1);
 
 			sdir.set((t2 * x1 - t1 * x2) * r, (t2 * y1 - t1 * y2) * r, (t2 * z1 - t1 * z2) * r);
 
@@ -1648,19 +1648,19 @@ THREE.BufferGeometryUtils = {
 		}
 
 		for (let i = 0, il = groups.length; i < il; ++i) {
-			let group = groups[i];
+			const group = groups[i];
 
-			let start = group.start;
-			let count = group.count;
+			const start = group.start;
+			const count = group.count;
 
 			for (let j = start, jl = start + count; j < jl; j += 3) {
 				handleTriangle(indices[j + 0], indices[j + 1], indices[j + 2]);
 			}
 		}
 
-		let tmp = new THREE.Vector3(),
+		const tmp = new THREE.Vector3(),
 			tmp2 = new THREE.Vector3();
-		let n = new THREE.Vector3(),
+		const n = new THREE.Vector3(),
 			n2 = new THREE.Vector3();
 		let w, t, test;
 
@@ -1688,10 +1688,10 @@ THREE.BufferGeometryUtils = {
 		}
 
 		for (let i = 0, il = groups.length; i < il; ++i) {
-			let group = groups[i];
+			const group = groups[i];
 
-			let start = group.start;
-			let count = group.count;
+			const start = group.start;
+			const count = group.count;
 
 			for (let j = start, jl = start + count; j < jl; j += 3) {
 				handleVertex(indices[j + 0]);
@@ -1706,20 +1706,20 @@ THREE.BufferGeometryUtils = {
 	 * @return {THREE.BufferGeometry}
 	 */
 	mergeBufferGeometries: function (geometries, useGroups) {
-		let isIndexed = geometries[0].index !== null;
+		const isIndexed = geometries[0].index !== null;
 
-		let attributesUsed = new Set(Object.keys(geometries[0].attributes));
-		let morphAttributesUsed = new Set(Object.keys(geometries[0].morphAttributes));
+		const attributesUsed = new Set(Object.keys(geometries[0].attributes));
+		const morphAttributesUsed = new Set(Object.keys(geometries[0].morphAttributes));
 
-		let attributes = {};
-		let morphAttributes = {};
+		const attributes = {};
+		const morphAttributes = {};
 
-		let mergedGeometry = new THREE.BufferGeometry();
+		const mergedGeometry = new THREE.BufferGeometry();
 
 		let offset = 0;
 
 		for (let i = 0; i < geometries.length; ++i) {
-			let geometry = geometries[i];
+			const geometry = geometries[i];
 
 			// ensure that all geometries are indexed, or none
 
@@ -1727,7 +1727,7 @@ THREE.BufferGeometryUtils = {
 
 			// gather attributes, exit early if they're different
 
-			for (let name in geometry.attributes) {
+			for (const name in geometry.attributes) {
 				if (!attributesUsed.has(name)) return null;
 
 				if (attributes[name] === undefined) attributes[name] = [];
@@ -1737,7 +1737,7 @@ THREE.BufferGeometryUtils = {
 
 			// gather morph attributes, exit early if they're different
 
-			for (let name in geometry.morphAttributes) {
+			for (const name in geometry.morphAttributes) {
 				if (!morphAttributesUsed.has(name)) return null;
 
 				if (morphAttributes[name] === undefined) morphAttributes[name] = [];
@@ -1774,10 +1774,10 @@ THREE.BufferGeometryUtils = {
 
 		if (isIndexed) {
 			let indexOffset = 0;
-			let mergedIndex = [];
+			const mergedIndex = [];
 
 			for (let i = 0; i < geometries.length; ++i) {
-				let index = geometries[i].index;
+				const index = geometries[i].index;
 
 				for (let j = 0; j < index.count; ++j) {
 					mergedIndex.push(index.getX(j) + indexOffset);
@@ -1791,8 +1791,8 @@ THREE.BufferGeometryUtils = {
 
 		// merge attributes
 
-		for (let name in attributes) {
-			let mergedAttribute = this.mergeBufferAttributes(attributes[name]);
+		for (const name in attributes) {
+			const mergedAttribute = this.mergeBufferAttributes(attributes[name]);
 
 			if (!mergedAttribute) return null;
 
@@ -1801,8 +1801,8 @@ THREE.BufferGeometryUtils = {
 
 		// merge morph attributes
 
-		for (let name in morphAttributes) {
-			let numMorphTargets = morphAttributes[name][0].length;
+		for (const name in morphAttributes) {
+			const numMorphTargets = morphAttributes[name][0].length;
 
 			if (numMorphTargets === 0) break;
 
@@ -1810,13 +1810,13 @@ THREE.BufferGeometryUtils = {
 			mergedGeometry.morphAttributes[name] = [];
 
 			for (let i = 0; i < numMorphTargets; ++i) {
-				let morphAttributesToMerge = [];
+				const morphAttributesToMerge = [];
 
 				for (let j = 0; j < morphAttributes[name].length; ++j) {
 					morphAttributesToMerge.push(morphAttributes[name][j][i]);
 				}
 
-				let mergedMorphAttribute = this.mergeBufferAttributes(morphAttributesToMerge);
+				const mergedMorphAttribute = this.mergeBufferAttributes(morphAttributesToMerge);
 
 				if (!mergedMorphAttribute) return null;
 
@@ -1838,7 +1838,7 @@ THREE.BufferGeometryUtils = {
 		let arrayLength = 0;
 
 		for (let i = 0; i < attributes.length; ++i) {
-			let attribute = attributes[i];
+			const attribute = attributes[i];
 
 			if (attribute.isInterleavedBufferAttribute) return null;
 
@@ -1854,7 +1854,7 @@ THREE.BufferGeometryUtils = {
 			arrayLength += attribute.array.length;
 		}
 
-		let array = new TypedArray(arrayLength);
+		const array = new TypedArray(arrayLength);
 		let offset = 0;
 
 		for (let i = 0; i < attributes.length; ++i) {

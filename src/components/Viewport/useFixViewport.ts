@@ -5,7 +5,7 @@ const isBrowser = typeof window !== "undefined";
 export default function useFixViewport() {
 	useEffect(() => {
 		const updateCssViewportHeight = () => {
-			let vh = window.innerHeight * 0.01;
+			const vh = window.innerHeight * 0.01;
 			document.documentElement.style.setProperty("--vh", `${vh}px`);
 		};
 

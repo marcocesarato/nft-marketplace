@@ -26,6 +26,7 @@
         "postinstall": "cd servers/parser && yarn install"
     },
     "dependencies": {
+        "5to6-codemod": "^1.8.0",
         "@apollo/client": "^3.7.0",
         "@belivvr/aframe-react": "^0.4.2",
         "@chakra-ui/icons": "^2.0.11",

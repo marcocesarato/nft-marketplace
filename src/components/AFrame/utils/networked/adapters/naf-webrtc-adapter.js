@@ -423,7 +423,7 @@ class WebrtcAdapter {
 		const self = this;
 		const localId = this.myId;
 
-		for (let key in occupants) {
+		for (const key in occupants) {
 			const remoteId = key;
 			if (this.peers[remoteId]) continue;
 
@@ -512,7 +512,7 @@ class WebrtcAdapter {
 	}
 
 	broadcastData(type, data) {
-		for (let clientId in this.peers) {
+		for (const clientId in this.peers) {
 			this.sendData(clientId, type, data);
 		}
 	}

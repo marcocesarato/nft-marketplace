@@ -2,7 +2,6 @@
 // allocate memory via calling Object.keys
 //
 // https://github.com/epoberezkin/fast-deep-equal/blob/master/index.js
-"use strict";
 
 var isArray = Array.isArray;
 var keyList = Object.keys;

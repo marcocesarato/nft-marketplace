@@ -9,7 +9,7 @@ export const reducer = (
 	state: PlanimetrySchema,
 	action: {type: GalleryActionType; payload?: any; callback?: (block?: PlanimetryBlock) => void},
 ) => {
-	let newState = Object.assign(Object.create(Object.getPrototypeOf(state)), state);
+	const newState = Object.assign(Object.create(Object.getPrototypeOf(state)), state);
 	const map: PlanimetryMap = state.getMap();
 	switch (action.type) {
 		case GalleryActionTypeEnum.SetData: {

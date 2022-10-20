@@ -457,7 +457,7 @@ AFRAME.registerComponent("networked", {
 
 		const clients = NAF.connection.getConnectedClients();
 
-		for (let clientId in clients) {
+		for (const clientId in clients) {
 			if (clientId === this.data.owner) return false;
 		}
 

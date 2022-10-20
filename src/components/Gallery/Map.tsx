@@ -43,7 +43,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 	};
 
 	const spawnDirection = schema.getLongestConnectedBlocksDirection(spawn);
-	let cameraRotation = schema.getDirectionRotation(spawnDirection);
+	const cameraRotation = schema.getDirectionRotation(spawnDirection);
 
 	// Load default assets
 	const assets = new Map<String, GalleryAsset>();
@@ -138,7 +138,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 				if (!item) return;
 				const direction = getMapDirectionEnum(key);
 				const rotation = schema.getDirectionRotation(direction);
-				let itemPosition = (position = {
+				const itemPosition = (position = {
 					x: (x - map.width / 2) * WallSize,
 					y: WallHeight / 2,
 					z: (y - map.height / 2) * WallSize,

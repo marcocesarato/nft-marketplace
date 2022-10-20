@@ -328,7 +328,7 @@ export default class ARController {
 	private placePicture() {
 		if (!this.isRunning) return;
 
-		let visible = this.isReticleVisible();
+		const visible = this.isReticleVisible();
 		if (visible) {
 			LoaderUtils.loadPicture(this, this.pictureUrl, 1, (picture) => {
 				this.picture = picture;
