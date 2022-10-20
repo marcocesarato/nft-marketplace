@@ -1,7 +1,7 @@
-import WsEasyRtcAdapter from './WsEasyRtcAdapter';
-import EasyRtcAdapter from './EasyRtcAdapter';
-import WebrtcAdapter from './naf-webrtc-adapter';
-import SocketioAdapter from './naf-socketio-adapter';
+import EasyRtcAdapter from "./EasyRtcAdapter";
+import SocketioAdapter from "./naf-socketio-adapter";
+import WebrtcAdapter from "./naf-webrtc-adapter";
+import WsEasyRtcAdapter from "./WsEasyRtcAdapter";
 
 class AdapterFactory {
 	constructor() {
@@ -22,9 +22,9 @@ class AdapterFactory {
 	}
 
 	make(adapterName) {
-		var name = adapterName.toLowerCase();
+		const name = adapterName.toLowerCase();
 		if (this.adapters[name]) {
-			var AdapterClass = this.adapters[name];
+			const AdapterClass = this.adapters[name];
 			return new AdapterClass();
 		} else {
 			throw new Error(
@@ -40,4 +40,4 @@ AdapterFactory.IS_CONNECTED = "IS_CONNECTED";
 AdapterFactory.CONNECTING = "CONNECTING";
 AdapterFactory.NOT_CONNECTED = "NOT_CONNECTED";
 
-module.exports = AdapterFactory;
+export default AdapterFactory;

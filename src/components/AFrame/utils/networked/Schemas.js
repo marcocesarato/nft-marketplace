@@ -16,7 +16,7 @@ class Schemas {
 	add(schema) {
 		if (this.validateSchema(schema)) {
 			this.schemaDict[schema.template] = schema;
-			var templateEl = document.querySelector(schema.template);
+			const templateEl = document.querySelector(schema.template);
 			if (!templateEl) {
 				NAF.log.error(
 					`Template el not found for ${schema.template}, make sure NAF.schemas.add is called after <a-scene> is defined.`,
@@ -56,7 +56,7 @@ class Schemas {
 	}
 
 	getComponents(template) {
-		var components = ["position", "rotation"];
+		let components = ["position", "rotation"];
 		if (this.hasTemplate(template)) {
 			components = this.schemaDict[template].components;
 		}
@@ -68,7 +68,7 @@ class Schemas {
 	}
 
 	templateExistsInScene(templateSelector) {
-		var el = document.querySelector(templateSelector);
+		const el = document.querySelector(templateSelector);
 		return el && this.isTemplateTag(el);
 	}
 
@@ -119,4 +119,4 @@ class Schemas {
 	}
 }
 
-module.exports = Schemas;
+export default Schemas;

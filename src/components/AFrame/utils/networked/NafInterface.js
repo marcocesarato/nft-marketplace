@@ -5,4 +5,4 @@ class NafInterface {
 		NAF.log.error("Interface method not implemented:", name);
 	}
 }
-module.exports = NafInterface;
+export default NafInterface;

@@ -10,14 +10,14 @@ module.exports.whenEntityLoaded = function (entity, callback) {
 };
 
 module.exports.createHtmlNodeFromString = function (str) {
-	var div = document.createElement("div");
+	const div = document.createElement("div");
 	div.innerHTML = str;
-	var child = div.firstChild;
+	const child = div.firstChild;
 	return child;
 };
 
 module.exports.getCreator = function (el) {
-	var components = el.components;
+	const components = el.components;
 	if (components["networked"]) {
 		return components["networked"].data.creator;
 	}
@@ -25,7 +25,7 @@ module.exports.getCreator = function (el) {
 };
 
 module.exports.getNetworkOwner = function (el) {
-	var components = el.components;
+	const components = el.components;
 	if (components["networked"]) {
 		return components["networked"].data.owner;
 	}
@@ -33,7 +33,7 @@ module.exports.getNetworkOwner = function (el) {
 };
 
 module.exports.getNetworkId = function (el) {
-	var components = el.components;
+	const components = el.components;
 	if (components["networked"]) {
 		return components["networked"].data.networkId;
 	}

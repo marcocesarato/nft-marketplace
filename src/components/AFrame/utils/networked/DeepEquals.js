@@ -3,15 +3,15 @@
 //
 // https://github.com/epoberezkin/fast-deep-equal/blob/master/index.js
 
-var isArray = Array.isArray;
-var keyList = Object.keys;
-var hasProp = Object.prototype.hasOwnProperty;
+const isArray = Array.isArray;
+const keyList = Object.keys;
+const hasProp = Object.prototype.hasOwnProperty;
 
-module.exports = function equal(a, b) {
+export default function equal(a, b) {
 	if (a === b) return true;
 
 	if (a && b && typeof a == "object" && typeof b == "object") {
-		var arrA = isArray(a),
+		let arrA = isArray(a),
 			arrB = isArray(b),
 			i,
 			length,
@@ -26,17 +26,17 @@ module.exports = function equal(a, b) {
 
 		if (arrA != arrB) return false;
 
-		var dateA = a instanceof Date,
+		const dateA = a instanceof Date,
 			dateB = b instanceof Date;
 		if (dateA != dateB) return false;
 		if (dateA && dateB) return a.getTime() == b.getTime();
 
-		var regexpA = a instanceof RegExp,
+		const regexpA = a instanceof RegExp,
 			regexpB = b instanceof RegExp;
 		if (regexpA != regexpB) return false;
 		if (regexpA && regexpB) return a.toString() == b.toString();
 
-		var keys = keyList(a);
+		const keys = keyList(a);
 		length = keys.length;
 
 		if (length !== keyList(b).length) return false;

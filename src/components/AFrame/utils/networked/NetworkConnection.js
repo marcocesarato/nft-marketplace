@@ -1,5 +1,5 @@
 /* global NAF */
-var ReservedDataType = {Update: "u", UpdateMulti: "um", Remove: "r"};
+const ReservedDataType = {Update: "u", UpdateMulti: "um", Remove: "r"};
 
 class NetworkConnection {
 	constructor(networkEntities) {
@@ -38,7 +38,7 @@ class NetworkConnection {
 		this.adapter.setApp(appName);
 		this.adapter.setRoom(roomName);
 
-		var webrtcOptions = {
+		const webrtcOptions = {
 			audio: enableAudio,
 			video: enableVideo,
 			datachannel: true,
@@ -73,7 +73,7 @@ class NetworkConnection {
 		NAF.log.write("Networked-Aframe Client ID:", clientId);
 		NAF.clientId = clientId;
 
-		var evt = new CustomEvent("connected", {"detail": {clientId: clientId}});
+		const evt = new CustomEvent("connected", {"detail": {clientId: clientId}});
 		document.body.dispatchEvent(evt);
 	}
 
@@ -82,15 +82,15 @@ class NetworkConnection {
 	}
 
 	occupantsReceived(occupantList) {
-		var prevConnectedClients = Object.assign({}, this.connectedClients);
+		const prevConnectedClients = Object.assign({}, this.connectedClients);
 		this.connectedClients = occupantList;
 		this.checkForDisconnectingClients(prevConnectedClients, occupantList);
 		this.checkForConnectingClients(occupantList);
 	}
 
 	checkForDisconnectingClients(oldOccupantList, newOccupantList) {
-		for (var id in oldOccupantList) {
-			var clientFound = newOccupantList[id];
+		for (const id in oldOccupantList) {
+			const clientFound = newOccupantList[id];
 			if (!clientFound) {
 				NAF.log.write("Closing stream to", id);
 				this.adapter.closeStreamConnection(id);
@@ -100,8 +100,8 @@ class NetworkConnection {
 
 	// Some adapters will handle this internally
 	checkForConnectingClients(occupantList) {
-		for (var id in occupantList) {
-			var startConnection =
+		for (const id in occupantList) {
+			const startConnection =
 				this.isNewClient(id) && this.adapter.shouldStartConnectionTo(occupantList[id]);
 			if (startConnection) {
 				NAF.log.write("Opening datachannel to", id);
@@ -135,7 +135,7 @@ class NetworkConnection {
 		this.activeDataChannels[clientId] = true;
 		this.entities.completeSync(clientId, true);
 
-		var evt = new CustomEvent("clientConnected", {detail: {clientId: clientId}});
+		const evt = new CustomEvent("clientConnected", {detail: {clientId: clientId}});
 		document.body.dispatchEvent(evt);
 	}
 
@@ -144,7 +144,7 @@ class NetworkConnection {
 		this.activeDataChannels[clientId] = false;
 		this.entities.removeEntitiesOfClient(clientId);
 
-		var evt = new CustomEvent("clientDisconnected", {detail: {clientId: clientId}});
+		const evt = new CustomEvent("clientDisconnected", {detail: {clientId: clientId}});
 		document.body.dispatchEvent(evt);
 	}
 
@@ -240,4 +240,4 @@ class NetworkConnection {
 	}
 }
 
-module.exports = NetworkConnection;
+export default NetworkConnection;

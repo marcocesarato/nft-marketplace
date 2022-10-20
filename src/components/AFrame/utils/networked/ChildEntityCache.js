@@ -14,7 +14,7 @@ class ChildEntityCache {
 		if (!this.hasParent(parentNetworkId)) {
 			return [];
 		}
-		var children = this.dict[parentNetworkId];
+		const children = this.dict[parentNetworkId];
 		delete this.dict[parentNetworkId];
 		return children;
 	}
@@ -24,4 +24,4 @@ class ChildEntityCache {
 		return !!this.dict[parentId];
 	}
 }
-module.exports = ChildEntityCache;
+export default ChildEntityCache;

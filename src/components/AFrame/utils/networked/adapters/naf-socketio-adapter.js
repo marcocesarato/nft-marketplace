@@ -136,7 +136,7 @@ class SocketioAdapter {
 	}
 
 	getConnectStatus(clientId) {
-		var connected = this.connectedClients.indexOf(clientId) != -1;
+		const connected = this.connectedClients.indexOf(clientId) != -1;
 
 		if (connected) {
 			return NAF.adapters.IS_CONNECTED;
@@ -192,11 +192,11 @@ class SocketioAdapter {
 		const clientSentTime = Date.now() + this.avgTimeOffset;
 
 		return fetch(document.location.href, {method: "HEAD", cache: "no-cache"}).then((res) => {
-			var precision = 1000;
-			var serverReceivedTime = new Date(res.headers.get("Date")).getTime() + precision / 2;
-			var clientReceivedTime = Date.now();
-			var serverTime = serverReceivedTime + (clientReceivedTime - clientSentTime) / 2;
-			var timeOffset = serverTime - clientReceivedTime;
+			const precision = 1000;
+			const serverReceivedTime = new Date(res.headers.get("Date")).getTime() + precision / 2;
+			const clientReceivedTime = Date.now();
+			const serverTime = serverReceivedTime + (clientReceivedTime - clientSentTime) / 2;
+			const timeOffset = serverTime - clientReceivedTime;
 
 			this.serverTimeRequests++;
 
@@ -229,4 +229,4 @@ class SocketioAdapter {
 
 // NAF.adapters.register("socketio", SocketioAdapter);
 
-module.exports = SocketioAdapter;
+export default SocketioAdapter;

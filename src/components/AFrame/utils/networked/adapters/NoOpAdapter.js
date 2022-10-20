@@ -1,4 +1,4 @@
-import NafInterface from '../NafInterface';
+import NafInterface from "../NafInterface";
 
 class NoOpAdapter extends NafInterface {
 	/* Pre-Connect setup methods - Call before `connect` */
@@ -68,4 +68,4 @@ class NoOpAdapter extends NafInterface {
 	}
 }
 
-module.exports = NoOpAdapter;
+export default NoOpAdapter;

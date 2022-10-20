@@ -1,5 +1,5 @@
 /* global NAF */
-import NoOpAdapter from './NoOpAdapter';
+import NoOpAdapter from "./NoOpAdapter";
 
 class EasyRtcAdapter extends NoOpAdapter {
 	constructor(easyrtc) {
@@ -82,11 +82,11 @@ class EasyRtcAdapter extends NoOpAdapter {
 		const clientSentTime = Date.now() + this.avgTimeOffset;
 
 		return fetch(document.location.href, {method: "HEAD", cache: "no-cache"}).then((res) => {
-			var precision = 1000;
-			var serverReceivedTime = new Date(res.headers.get("Date")).getTime() + precision / 2;
-			var clientReceivedTime = Date.now();
-			var serverTime = serverReceivedTime + (clientReceivedTime - clientSentTime) / 2;
-			var timeOffset = serverTime - clientReceivedTime;
+			const precision = 1000;
+			const serverReceivedTime = new Date(res.headers.get("Date")).getTime() + precision / 2;
+			const clientReceivedTime = Date.now();
+			const serverTime = serverReceivedTime + (clientReceivedTime - clientSentTime) / 2;
+			const timeOffset = serverTime - clientReceivedTime;
 
 			this.serverTimeRequests++;
 
@@ -157,11 +157,11 @@ class EasyRtcAdapter extends NoOpAdapter {
 	}
 
 	broadcastData(dataType, data) {
-		var roomOccupants = this.easyrtc.getRoomOccupantsAsMap(this.room);
+		const roomOccupants = this.easyrtc.getRoomOccupantsAsMap(this.room);
 
 		// Iterate over the keys of the easyrtc room occupants map.
 		// getRoomOccupantsAsArray uses Object.keys which allocates memory.
-		for (var roomOccupant in roomOccupants) {
+		for (const roomOccupant in roomOccupants) {
 			if (roomOccupants[roomOccupant] && roomOccupant !== this.easyrtc.myEasyrtcid) {
 				// send via webrtc otherwise fallback to websockets
 				this.easyrtc.sendData(roomOccupant, dataType, data);
@@ -170,12 +170,12 @@ class EasyRtcAdapter extends NoOpAdapter {
 	}
 
 	broadcastDataGuaranteed(dataType, data) {
-		var destination = {targetRoom: this.room};
+		const destination = {targetRoom: this.room};
 		this.easyrtc.sendDataWS(destination, dataType, data);
 	}
 
 	getConnectStatus(clientId) {
-		var status = this.easyrtc.getConnectStatus(clientId);
+		const status = this.easyrtc.getConnectStatus(clientId);
 
 		if (status == this.easyrtc.IS_CONNECTED) {
 			return NAF.adapters.IS_CONNECTED;
@@ -309,7 +309,7 @@ class EasyRtcAdapter extends NoOpAdapter {
 	 */
 
 	_connect(connectSuccess, connectFailure) {
-		var that = this;
+		const that = this;
 
 		this.easyrtc.setStreamAcceptor(this.setMediaStream.bind(this));
 
@@ -347,8 +347,8 @@ class EasyRtcAdapter extends NoOpAdapter {
 	}
 
 	_getRoomJoinTime(clientId) {
-		var myRoomId = NAF.room;
-		var joinTime = this.easyrtc.getRoomOccupantsAsMap(myRoomId)[clientId].roomJoinTime;
+		const myRoomId = NAF.room;
+		const joinTime = this.easyrtc.getRoomOccupantsAsMap(myRoomId)[clientId].roomJoinTime;
 		return joinTime;
 	}
 
@@ -357,4 +357,4 @@ class EasyRtcAdapter extends NoOpAdapter {
 	}
 }
 
-module.exports = EasyRtcAdapter;
+export default EasyRtcAdapter;

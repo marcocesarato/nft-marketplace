@@ -1,10 +1,10 @@
 /* global AFRAME, NAF, THREE */
-import deepEqual from '../DeepEquals';
+import InterpolationBuffer from "buffered-interpolation";
 
-import InterpolationBuffer from 'buffered-interpolation';
+import deepEqual from "../DeepEquals";
 
-var DEG2RAD = THREE.MathUtils.DEG2RAD;
-var OBJECT3D_COMPONENTS = ["position", "rotation", "scale"];
+const DEG2RAD = THREE.MathUtils.DEG2RAD;
+const OBJECT3D_COMPONENTS = ["position", "rotation", "scale"];
 
 function defaultRequiresUpdate() {
 	let cachedData = null;
@@ -44,10 +44,10 @@ function isValidQuaternion(q) {
 	);
 }
 
-var throttle = (function () {
-	var previousLogTime = 0;
+const throttle = (function () {
+	let previousLogTime = 0;
 	return function throttle(f, milliseconds) {
-		var now = Date.now();
+		const now = Date.now();
 		if (now - previousLogTime > milliseconds) {
 			previousLogTime = now;
 			f();
@@ -147,7 +147,7 @@ AFRAME.registerComponent("networked", {
 		this.bufferQuaternion = new THREE.Quaternion();
 		this.bufferScale = new THREE.Vector3();
 
-		var wasCreatedByNetwork = this.wasCreatedByNetwork();
+		const wasCreatedByNetwork = this.wasCreatedByNetwork();
 
 		this.onConnected = this.onConnected.bind(this);
 
@@ -242,7 +242,7 @@ AFRAME.registerComponent("networked", {
 	},
 
 	initNetworkParent: function () {
-		var parentEl = this.el.parentElement;
+		const parentEl = this.el.parentElement;
 		if (parentEl["components"] && parentEl.components["networked"]) {
 			this.parent = parentEl;
 		} else {
@@ -264,7 +264,7 @@ AFRAME.registerComponent("networked", {
 	},
 
 	firstUpdate: function () {
-		var entityData = this.el.firstUpdateData;
+		const entityData = this.el.firstUpdateData;
 		this.networkUpdate(entityData);
 	},
 
@@ -297,11 +297,11 @@ AFRAME.registerComponent("networked", {
 
 	tick: function (time, dt) {
 		if (!this.isMine() && NAF.options.useLerp) {
-			for (var i = 0; i < this.bufferInfos.length; i++) {
-				var bufferInfo = this.bufferInfos[i];
-				var buffer = bufferInfo.buffer;
-				var object3D = bufferInfo.object3D;
-				var componentNames = bufferInfo.componentNames;
+			for (let i = 0; i < this.bufferInfos.length; i++) {
+				const bufferInfo = this.bufferInfos[i];
+				const buffer = bufferInfo.buffer;
+				const object3D = bufferInfo.object3D;
+				const componentNames = bufferInfo.componentNames;
 				buffer.update(dt);
 				if (componentNames.includes("position")) {
 					const position = buffer.getPosition();
@@ -338,9 +338,9 @@ AFRAME.registerComponent("networked", {
 			return;
 		}
 
-		var components = this.gatherComponentsData(true);
+		const components = this.gatherComponentsData(true);
 
-		var syncData = this.createSyncData(components, isFirstSync);
+		const syncData = this.createSyncData(components, isFirstSync);
 
 		if (targetClientId) {
 			NAF.connection.sendDataGuaranteed(targetClientId, "u", syncData);
@@ -354,7 +354,7 @@ AFRAME.registerComponent("networked", {
 			return;
 		}
 
-		var components = this.gatherComponentsData(false);
+		const components = this.gatherComponentsData(false);
 
 		if (components === null) {
 			return;
@@ -364,13 +364,13 @@ AFRAME.registerComponent("networked", {
 	},
 
 	getCachedElement(componentSchemaIndex) {
-		var cachedElement = this.cachedElements[componentSchemaIndex];
+		const cachedElement = this.cachedElements[componentSchemaIndex];
 
 		if (cachedElement) {
 			return cachedElement;
 		}
 
-		var componentSchema = this.componentSchemas[componentSchemaIndex];
+		const componentSchema = this.componentSchemas[componentSchemaIndex];
 
 		if (componentSchema.selector) {
 			return (this.cachedElements[componentSchemaIndex] = this.el.querySelector(
@@ -382,17 +382,17 @@ AFRAME.registerComponent("networked", {
 	},
 
 	invalidateCachedElements() {
-		for (var i = 0; i < this.cachedElements.length; i++) {
+		for (let i = 0; i < this.cachedElements.length; i++) {
 			this.cachedElements[i] = null;
 		}
 	},
 
 	gatherComponentsData: function (fullSync) {
-		var componentsData = null;
+		let componentsData = null;
 
-		for (var i = 0; i < this.componentSchemas.length; i++) {
-			var componentSchema = this.componentSchemas[i];
-			var componentElement = this.getCachedElement(i);
+		for (let i = 0; i < this.componentSchemas.length; i++) {
+			const componentSchema = this.componentSchemas[i];
+			const componentElement = this.getCachedElement(i);
 
 			if (!componentElement) {
 				if (fullSync) {
@@ -402,10 +402,10 @@ AFRAME.registerComponent("networked", {
 				continue;
 			}
 
-			var componentName = componentSchema.component
+			const componentName = componentSchema.component
 				? componentSchema.component
 				: componentSchema;
-			var componentData = componentElement.getAttribute(componentName);
+			const componentData = componentElement.getAttribute(componentName);
 
 			if (componentData === null) {
 				if (fullSync) {
@@ -415,7 +415,7 @@ AFRAME.registerComponent("networked", {
 				continue;
 			}
 
-			var syncedComponentData = componentSchema.property
+			const syncedComponentData = componentSchema.property
 				? componentData[componentSchema.property]
 				: componentData;
 
@@ -431,7 +431,7 @@ AFRAME.registerComponent("networked", {
 	},
 
 	createSyncData: function (components, isFirstSync) {
-		var {syncData, data} = this;
+		const {syncData, data} = this;
 		syncData.networkId = data.networkId;
 		syncData.owner = data.owner;
 		syncData.creator = data.creator;
@@ -470,7 +470,7 @@ AFRAME.registerComponent("networked", {
 		if (!this.parent) {
 			return null;
 		}
-		var netComp = this.parent.getAttribute("networked");
+		const netComp = this.parent.getAttribute("networked");
 		return netComp.networkId;
 	},
 
@@ -491,7 +491,7 @@ AFRAME.registerComponent("networked", {
 		}
 
 		if (this.data.owner !== entityData.owner) {
-			var wasMine = this.isMine();
+			const wasMine = this.isMine();
 			this.lastOwnerTime = entityData.lastOwnerTime;
 
 			const oldOwner = this.data.owner;
@@ -515,13 +515,13 @@ AFRAME.registerComponent("networked", {
 
 	updateNetworkedComponents: function (components) {
 		for (
-			var componentIndex = 0, l = this.componentSchemas.length;
+			let componentIndex = 0, l = this.componentSchemas.length;
 			componentIndex < l;
 			componentIndex++
 		) {
-			var componentData = components[componentIndex];
-			var componentSchema = this.componentSchemas[componentIndex];
-			var componentElement = this.getCachedElement(componentIndex);
+			const componentData = components[componentIndex];
+			const componentSchema = this.componentSchemas[componentIndex];
+			const componentElement = this.getCachedElement(componentIndex);
 
 			if (
 				componentElement === null ||
@@ -581,12 +581,12 @@ AFRAME.registerComponent("networked", {
 			};
 			this.bufferInfos.push(bufferInfo);
 		} else {
-			var componentNames = bufferInfo.componentNames;
+			const componentNames = bufferInfo.componentNames;
 			if (!componentNames.includes(componentName)) {
 				componentNames.push(componentName);
 			}
 		}
-		var buffer = bufferInfo.buffer;
+		const buffer = bufferInfo.buffer;
 
 		// eslint-disable-next-line default-case
 		switch (componentName) {
@@ -616,7 +616,7 @@ AFRAME.registerComponent("networked", {
 
 	remove: function () {
 		if (this.isMine() && NAF.connection.isConnected()) {
-			var syncData = {networkId: this.data.networkId};
+			const syncData = {networkId: this.data.networkId};
 			if (NAF.entities.hasEntity(this.data.networkId)) {
 				NAF.connection.broadcastDataGuaranteed("r", syncData);
 			} else {

@@ -24,4 +24,4 @@ class NafLogger {
 	}
 }
 
-module.exports = NafLogger;
+export default NafLogger;

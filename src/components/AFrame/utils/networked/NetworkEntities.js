@@ -1,5 +1,5 @@
 /* global NAF */
-import ChildEntityCache from './ChildEntityCache';
+import ChildEntityCache from "./ChildEntityCache";
 
 class NetworkEntities {
 	constructor() {
@@ -16,8 +16,8 @@ class NetworkEntities {
 	createRemoteEntity(entityData) {
 		NAF.log.write("Creating remote entity", entityData);
 
-		var networkId = entityData.networkId;
-		var el = NAF.schemas.getCachedTemplate(entityData.template);
+		const networkId = entityData.networkId;
+		const el = NAF.schemas.getCachedTemplate(entityData.template);
 
 		this.initPosition(el, entityData.components);
 		this.initRotation(el, entityData.components);
@@ -29,23 +29,23 @@ class NetworkEntities {
 	}
 
 	initPosition(entity, componentData) {
-		var hasPosition = componentData["position"];
+		const hasPosition = componentData["position"];
 		if (hasPosition) {
-			var position = componentData.position;
+			const position = componentData.position;
 			entity.setAttribute("position", position);
 		}
 	}
 
 	initRotation(entity, componentData) {
-		var hasRotation = componentData["rotation"];
+		const hasRotation = componentData["rotation"];
 		if (hasRotation) {
-			var rotation = componentData.rotation;
+			const rotation = componentData.rotation;
 			entity.setAttribute("rotation", rotation);
 		}
 	}
 
 	addNetworkComponent(entity, entityData) {
-		var networkData = {
+		const networkData = {
 			template: entityData.template,
 			creator: entityData.creator,
 			owner: entityData.owner,
@@ -66,7 +66,7 @@ class NetworkEntities {
 
 	updateEntity(client, dataType, entityData, source) {
 		if (NAF.options.syncSource && source !== NAF.options.syncSource) return;
-		var networkId = entityData.networkId;
+		const networkId = entityData.networkId;
 
 		if (this.hasEntity(networkId)) {
 			this.entities[networkId].components.networked.networkUpdate(entityData);
@@ -89,24 +89,24 @@ class NetworkEntities {
 	}
 
 	receiveFirstUpdateFromEntity(entityData) {
-		var parent = entityData.parent;
-		var networkId = entityData.networkId;
+		const parent = entityData.parent;
+		const networkId = entityData.networkId;
 
-		var parentNotCreatedYet = parent && !this.hasEntity(parent);
+		const parentNotCreatedYet = parent && !this.hasEntity(parent);
 		if (parentNotCreatedYet) {
 			this.childCache.addChild(parent, entityData);
 		} else {
-			var remoteEntity = this.createRemoteEntity(entityData);
+			const remoteEntity = this.createRemoteEntity(entityData);
 			this.createAndAppendChildren(networkId, remoteEntity);
 			this.addEntityToPage(remoteEntity, parent);
 		}
 	}
 
 	createAndAppendChildren(parentId, parentEntity) {
-		var children = this.childCache.getChildren(parentId);
-		for (var i = 0; i < children.length; i++) {
-			var childEntityData = children[i];
-			var childId = childEntityData.networkId;
+		const children = this.childCache.getChildren(parentId);
+		for (let i = 0; i < children.length; i++) {
+			const childEntityData = children[i];
+			const childId = childEntityData.networkId;
 			if (this.hasEntity(childId)) {
 				NAF.log.warn(
 					"Tried to instantiate entity multiple times",
@@ -117,7 +117,7 @@ class NetworkEntities {
 				);
 				continue;
 			}
-			var childEntity = this.createRemoteEntity(childEntityData);
+			const childEntity = this.createRemoteEntity(childEntityData);
 			this.createAndAppendChildren(childId, childEntity);
 			parentEntity.appendChild(childEntity);
 		}
@@ -136,12 +136,12 @@ class NetworkEntities {
 	}
 
 	addEntityToSceneRoot(el) {
-		var scene = document.querySelector("a-scene");
+		const scene = document.querySelector("a-scene");
 		scene.appendChild(el);
 	}
 
 	completeSync(targetClientId, isFirstSync) {
-		for (var id in this.entities) {
+		for (const id in this.entities) {
 			if (this.entities[id]) {
 				this.entities[id].components.networked.syncAll(targetClientId, isFirstSync);
 			}
@@ -150,13 +150,13 @@ class NetworkEntities {
 
 	removeRemoteEntity(toClient, dataType, data, source) {
 		if (NAF.options.syncSource && source !== NAF.options.syncSource) return;
-		var id = data.networkId;
+		const id = data.networkId;
 		return this.removeEntity(id);
 	}
 
 	removeEntitiesOfClient(clientId) {
 		const removedEntities = [];
-		for (var id in this.entities) {
+		for (const id in this.entities) {
 			const entity = this.entities[id];
 			const creator = NAF.utils.getCreator(entity);
 			const owner = NAF.utils.getNetworkOwner(entity);
@@ -177,7 +177,7 @@ class NetworkEntities {
 		this.forgetPersistentFirstSync(id);
 
 		if (this.hasEntity(id)) {
-			var entity = this.entities[id];
+			const entity = this.entities[id];
 			this.forgetEntity(id);
 			entity.parentNode.removeChild(entity);
 			return entity;
@@ -214,8 +214,8 @@ class NetworkEntities {
 	removeRemoteEntities() {
 		this.childCache = new ChildEntityCache();
 
-		for (var id in this.entities) {
-			var owner = this.entities[id].getAttribute("networked").owner;
+		for (const id in this.entities) {
+			const owner = this.entities[id].getAttribute("networked").owner;
 			if (owner != NAF.clientId) {
 				this.removeEntity(id);
 			}
@@ -223,4 +223,4 @@ class NetworkEntities {
 	}
 }
 
-module.exports = NetworkEntities;
+export default NetworkEntities;

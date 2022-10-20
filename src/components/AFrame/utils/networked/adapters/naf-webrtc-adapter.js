@@ -590,4 +590,4 @@ class WebrtcAdapter {
 
 // NAF.adapters.register("native-webrtc", WebrtcAdapter);
 
-module.exports = WebrtcAdapter;
+export default WebrtcAdapter;

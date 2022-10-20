@@ -1,5 +1,5 @@
 /* global NAF */
-import NoOpAdapter from './NoOpAdapter';
+import NoOpAdapter from "./NoOpAdapter";
 
 class WsEasyRtcInterface extends NoOpAdapter {
 	constructor(easyrtc) {
@@ -55,11 +55,11 @@ class WsEasyRtcInterface extends NoOpAdapter {
 		const clientSentTime = Date.now() + this.avgTimeOffset;
 
 		return fetch(document.location.href, {method: "HEAD", cache: "no-cache"}).then((res) => {
-			var precision = 1000;
-			var serverReceivedTime = new Date(res.headers.get("Date")).getTime() + precision / 2;
-			var clientReceivedTime = Date.now();
-			var serverTime = serverReceivedTime + (clientReceivedTime - clientSentTime) / 2;
-			var timeOffset = serverTime - clientReceivedTime;
+			const precision = 1000;
+			const serverReceivedTime = new Date(res.headers.get("Date")).getTime() + precision / 2;
+			const clientReceivedTime = Date.now();
+			const serverTime = serverReceivedTime + (clientReceivedTime - clientSentTime) / 2;
+			const timeOffset = serverTime - clientReceivedTime;
 
 			this.serverTimeRequests++;
 
@@ -104,7 +104,7 @@ class WsEasyRtcInterface extends NoOpAdapter {
 	}
 
 	closeStreamConnection(clientId) {
-		var index = this.connectedClients.indexOf(clientId);
+		const index = this.connectedClients.indexOf(clientId);
 		if (index > -1) {
 			this.connectedClients.splice(index, 1);
 		}
@@ -120,7 +120,7 @@ class WsEasyRtcInterface extends NoOpAdapter {
 	}
 
 	broadcastData(dataType, data) {
-		var destination = {targetRoom: this.room};
+		const destination = {targetRoom: this.room};
 		this.easyrtc.sendDataWS(destination, dataType, data);
 	}
 
@@ -129,7 +129,7 @@ class WsEasyRtcInterface extends NoOpAdapter {
 	}
 
 	getConnectStatus(clientId) {
-		var connected = this.connectedClients.indexOf(clientId) != -1;
+		const connected = this.connectedClients.indexOf(clientId) != -1;
 
 		if (connected) {
 			return NAF.adapters.IS_CONNECTED;
@@ -147,4 +147,4 @@ class WsEasyRtcInterface extends NoOpAdapter {
 	}
 }
 
-module.exports = WsEasyRtcInterface;
+export default WsEasyRtcInterface;

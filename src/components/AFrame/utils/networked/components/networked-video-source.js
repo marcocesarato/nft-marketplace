@@ -1,5 +1,5 @@
 /* global AFRAME, NAF, THREE */
-import naf from '../NafIndex';
+import naf from "../NafIndex";
 
 AFRAME.registerComponent("networked-video-source", {
 	schema: {
