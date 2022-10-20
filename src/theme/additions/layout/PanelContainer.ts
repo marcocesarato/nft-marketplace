@@ -9,6 +9,7 @@ const PanelContainer = {
 		marginLeft: {lg: "15px"},
 		display: "flex",
 		background: mode("gray.50", "gray.800")(props),
+		flexDirection: "column",
 	}),
 };
 
