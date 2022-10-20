@@ -42,8 +42,6 @@ AFRAME.registerComponent("avatar", {
 		this.head = document.createElement("a-sphere");
 		const attr = {
 			class: "head",
-			color: "#" + this.data.color,
-			material: "color: #" + this.data.color,
 			radius: "0.75",
 			height: "0.7",
 			width: "0.7",
@@ -100,21 +98,28 @@ AFRAME.registerComponent("avatar", {
 	updateAvatar: function () {
 		if (!this.avatar) return;
 
+		const material = {
+			shader: "standard",
+			color: "#" + this.data.color,
+			roughness: 0.5,
+			metalness: 0.5,
+		};
+
 		// Head
-		this.head.setAttribute("color", "#" + this.data.color);
-		this.head.setAttribute("material", "color", "#" + this.data.color);
+		this.head.setAttribute("material", material);
+		this.head.setAttribute("shadow", {cast: true, receive: true});
 
 		// Neck
 		this.neck.setAttribute("position", "0 -1 0");
 		this.neck.setAttribute("rotation", "0 0 0");
-		this.neck.setAttribute("color", "#" + this.data.color);
-		this.neck.setAttribute("material", "color", "#" + this.data.color);
+		this.neck.setAttribute("material", material);
+		this.head.setAttribute("shadow", {cast: true, receive: true});
 
 		// Body
 		this.body.setAttribute("position", "0 -1.5 0");
 		this.body.setAttribute("rotation", "0 0 0");
-		this.body.setAttribute("color", "#" + this.data.color);
-		this.body.setAttribute("material", "color", "#" + this.data.color);
+		this.body.setAttribute("material", material);
+		this.body.setAttribute("shadow", {cast: true, receive: true});
 
 		// Eyes
 		this.leftEye.setAttribute("position", "0.25 0.2 -0.6");
@@ -124,15 +129,15 @@ AFRAME.registerComponent("avatar", {
 		this.rightPupil.setAttribute("position", "-0.25 0.2 -0.8");
 
 		// Arms
-		this.rightArm.setAttribute("color", "#" + this.data.color);
-		this.rightArm.setAttribute("material", "color", "#" + this.data.color);
+		this.rightArm.setAttribute("material", material);
 		this.rightArm.setAttribute("position", "0.45 -1.4 0");
 		this.rightArm.setAttribute("rotation", "0 0 25");
+		this.rightArm.setAttribute("shadow", {cast: true, receive: true});
 
-		this.leftArm.setAttribute("color", "#" + this.data.color);
-		this.leftArm.setAttribute("material", "color", "#" + this.data.color);
+		this.leftArm.setAttribute("material", material);
 		this.leftArm.setAttribute("position", "-0.45 -1.4 0");
 		this.leftArm.setAttribute("rotation", "0 0 -25");
+		this.rightArm.setAttribute("shadow", {cast: true, receive: true});
 	},
 
 	updateNametag: function () {

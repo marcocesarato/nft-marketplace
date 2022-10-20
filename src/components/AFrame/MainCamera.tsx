@@ -43,17 +43,35 @@ export default function MainCamera({
 					material={{shader: "flat", side: "double", color: "#222"}}></Mixin>
 				<Mixin
 					id="mixin-arm"
-					geometry={{primitive: "box", depth: 0.2, height: 1, width: 0.2}}
+					geometry={{
+						primitive: "cylinder",
+						depth: 0.2,
+						height: 1,
+						width: 0.2,
+						radius: 0.1,
+					}}
 					material={{shader: "flat", color: "#222"}}></Mixin>
 
 				<Mixin
 					id="mixin-body"
-					geometry={{primitive: "box", depth: 0.5, height: 1.2, width: 0.65}}
+					geometry={{
+						primitive: "cylinder",
+						depth: 0.5,
+						height: 1.2,
+						width: 0.65,
+						radius: 0.34,
+					}}
 					material={{shader: "flat", color: "#222"}}></Mixin>
 
 				<Mixin
 					id="mixin-neck"
-					geometry={{primitive: "box", depth: 0.3, height: 1.3, width: 0.2}}
+					geometry={{
+						primitive: "cylinder",
+						depth: 0.3,
+						height: 1.3,
+						width: 0.2,
+						radius: 0.15,
+					}}
 					material={{shader: "flat", color: "#222"}}></Mixin>
 
 				<Template id="rig-template">
