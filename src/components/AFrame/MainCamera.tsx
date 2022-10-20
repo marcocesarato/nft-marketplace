@@ -53,7 +53,7 @@ export default function MainCamera({
 
 				<Mixin
 					id="mixin-neck"
-					geometry={{primitive: "box", depth: 0.2, height: 1.2, width: 0.2}}
+					geometry={{primitive: "box", depth: 0.3, height: 1.3, width: 0.2}}
 					material={{shader: "flat", color: "#222"}}></Mixin>
 
 				<Template id="rig-template">

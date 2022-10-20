@@ -26,18 +26,14 @@ AFRAME.registerComponent("avatar-info", {
 	init: function () {
 		if (!this.data.name) return;
 
-		this.head = this.el.querySelector(".head");
 		this.nametag = this.el.querySelector(".nametag");
-		this.createAvatar();
-
 		this.ownedByLocalUser = this.el.id === "avatar";
+
+		this.createAvatar();
 	},
 
 	update: function () {
-		if (this.head) {
-			this.head.setAttribute("color", "#" + this.data.color);
-			this.head.setAttribute("material", "color", "#" + this.data.color);
-		}
+		this.updateAvatar();
 		if (this.nametag) {
 			this.nametag.setAttribute("value", this.data.name);
 			this.nametag.setAttribute("rotation", "0 180 0");
@@ -47,44 +43,77 @@ AFRAME.registerComponent("avatar-info", {
 	},
 
 	createAvatar: function () {
+		// Head
+		this.head = document.createElement("a-sphere");
 		const attr = {
+			class: "head",
 			color: "#" + this.data.color,
 			material: "color: #" + this.data.color,
 			radius: "0.75",
 			height: "0.7",
 			width: "0.7",
 		};
-
-		const head = document.createElement("a-sphere");
 		for (const name in attr) {
-			head.setAttribute(name, attr[name]);
+			this.head.setAttribute(name, attr[name]);
 		}
 
-		const leye = document.createElement("a-entity");
-		leye.setAttribute("mixin", "mixin-eye");
-		const reye = document.createElement("a-entity");
-		reye.setAttribute("mixin", "mixin-eye");
+		// Eyes
+		this.leftEye = document.createElement("a-entity");
+		this.leftEye.setAttribute("mixin", "mixin-eye");
 
-		const lpupil = document.createElement("a-entity");
-		lpupil.setAttribute("mixin", "mixin-pupil");
-		const rpupil = document.createElement("a-entity");
-		rpupil.setAttribute("mixin", "mixin-pupil");
+		this.rightEye = document.createElement("a-entity");
+		this.rightEye.setAttribute("mixin", "mixin-eye");
 
-		const larm = document.createElement("a-entity");
-		larm.setAttribute("mixin", "mixin-arm");
-		const rarm = document.createElement("a-entity");
-		rarm.setAttribute("mixin", "mixin-arm");
+		this.leftPupil = document.createElement("a-entity");
+		this.leftPupil.setAttribute("mixin", "mixin-pupil");
 
-		const body = document.createElement("a-entity");
-		body.setAttribute("mixin", "mixin-body");
+		this.rightPupil = document.createElement("a-entity");
+		this.rightPupil.setAttribute("mixin", "mixin-pupil");
 
-		const neck = document.createElement("a-entity");
-		neck.setAttribute("mixin", "mixin-neck");
+		// Arms
+		this.leftArm = document.createElement("a-entity");
+		this.leftArm.setAttribute("mixin", "mixin-arm");
+
+		this.rightArm = document.createElement("a-entity");
+		this.rightArm.setAttribute("mixin", "mixin-arm");
+
+		// Body
+		this.body = document.createElement("a-entity");
+		this.body.setAttribute("mixin", "mixin-body");
+
+		// Neck
+		this.neck = document.createElement("a-entity");
+		this.neck.setAttribute("mixin", "mixin-neck");
+
+		this.updateAvatar();
+
+		//wrap the whole avatar inside a single entity
+		const avatarRoot = document.createElement("a-entity");
+		avatarRoot.appendChild(this.head);
+		avatarRoot.appendChild(this.leftEye);
+		avatarRoot.appendChild(this.rightEye);
+		avatarRoot.appendChild(this.leftPupil);
+		avatarRoot.appendChild(this.rightPupil);
+		avatarRoot.appendChild(this.leftArm);
+		avatarRoot.appendChild(this.rightArm);
+		avatarRoot.appendChild(this.body);
+		avatarRoot.appendChild(this.neck);
+
+		this.el.appendChild(avatarRoot);
+	},
+
+	updateAvatar: function () {
+		if (!this.head) return;
 
 		const x = 0;
 		const y = 0;
 		const z = 0;
 
+		// Head
+		this.head.setAttribute("color", "#" + this.data.color);
+		this.head.setAttribute("material", "color", "#" + this.data.color);
+
+		// Eyes
 		const leyex = x + 0.25;
 		const leyey = y + 0.2;
 		const leyez = z - 0.6;
@@ -101,12 +130,12 @@ AFRAME.registerComponent("avatar-info", {
 		const rpy = y + 0.2;
 		const rpz = z - 0.8;
 
-		leye.setAttribute("position", leyex + " " + leyey + " " + leyez);
-		reye.setAttribute("position", reyex + " " + reyey + " " + reyez);
+		this.leftEye.setAttribute("position", leyex + " " + leyey + " " + leyez);
+		this.leftPupil.setAttribute("position", lpx + " " + lpy + " " + lpz);
+		this.rightPupil.setAttribute("position", rpx + " " + rpy + " " + rpz);
+		this.rightEye.setAttribute("position", reyex + " " + reyey + " " + reyez);
 
-		lpupil.setAttribute("position", lpx + " " + lpy + " " + lpz);
-		rpupil.setAttribute("position", rpx + " " + rpy + " " + rpz);
-
+		// Arms
 		const larmx = x - 0.45;
 		const larmy = y - 1.4;
 		const larmz = z;
@@ -115,40 +144,25 @@ AFRAME.registerComponent("avatar-info", {
 		const rarmy = y - 1.4;
 		const rarmz = z;
 
-		larm.setAttribute("position", larmx + " " + larmy + " " + larmz);
-		larm.setAttribute("rotation", "0 0 -25");
-		rarm.setAttribute("position", rarmx + " " + rarmy + " " + rarmz);
-		rarm.setAttribute("rotation", "0 0 25");
+		this.rightArm.setAttribute("color", "#" + this.data.color);
+		this.rightArm.setAttribute("material", "color", "#" + this.data.color);
+		this.rightArm.setAttribute("position", rarmx + " " + rarmy + " " + rarmz);
+		this.rightArm.setAttribute("rotation", "0 0 25");
+		this.leftArm.setAttribute("color", "#" + this.data.color);
+		this.leftArm.setAttribute("material", "color", "#" + this.data.color);
+		this.leftArm.setAttribute("position", larmx + " " + larmy + " " + larmz);
+		this.leftArm.setAttribute("rotation", "0 0 -25");
 
-		body.setAttribute("position", "0 -1.5 0");
-		body.setAttribute("rotation", "0 0 0");
+		// Body
+		this.body.setAttribute("position", "0 -1.5 0");
+		this.body.setAttribute("rotation", "0 0 0");
+		this.body.setAttribute("color", "#" + this.data.color);
+		this.body.setAttribute("material", "color", "#" + this.data.color);
 
-		neck.setAttribute("position", "0 -1 0");
-		neck.setAttribute("rotation", "0 0 0");
-
-		rarm.setAttribute("color", "#" + this.data.color);
-		rarm.setAttribute("material", "color", "#" + this.data.color);
-		larm.setAttribute("color", "#" + this.data.color);
-		larm.setAttribute("material", "color", "#" + this.data.color);
-
-		body.setAttribute("color", "#" + this.data.color);
-		body.setAttribute("material", "color", "#" + this.data.color);
-
-		neck.setAttribute("color", "#" + this.data.color);
-		neck.setAttribute("material", "color", "#" + this.data.color);
-
-		//wrap the whole avatar inside a single entity
-		const avatarRoot = document.createElement("a-entity");
-		avatarRoot.appendChild(head);
-		avatarRoot.appendChild(leye);
-		avatarRoot.appendChild(reye);
-		avatarRoot.appendChild(lpupil);
-		avatarRoot.appendChild(rpupil);
-		avatarRoot.appendChild(larm);
-		avatarRoot.appendChild(rarm);
-		avatarRoot.appendChild(body);
-		avatarRoot.appendChild(neck);
-
-		this.el.appendChild(avatarRoot);
+		// Neck
+		this.neck.setAttribute("position", "0 -1 0");
+		this.neck.setAttribute("rotation", "0 0 0");
+		this.neck.setAttribute("color", "#" + this.data.color);
+		this.neck.setAttribute("material", "color", "#" + this.data.color);
 	},
 });
