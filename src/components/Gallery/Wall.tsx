@@ -9,7 +9,7 @@ import Ceiling from "./Ceiling";
 import Floor from "./Floor";
 
 export const DefaultWallAttributes = {
-	"shadow": {cast: true, receive: true},
+	"shadow": {cast: false, receive: true},
 	"physx-body": "type: static",
 	"physx-restitution": "1.5",
 	...convertAllStringToAttributes(DefaultWallTexture.attributes),
@@ -139,6 +139,7 @@ export default function Wall({
 					color={color}
 					{...wallTexture}
 					{...props}
+					shadow={{cast: true, receive: true}}
 				/>
 			) : (
 				<Box

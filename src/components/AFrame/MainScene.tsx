@@ -34,7 +34,6 @@ export default function MainScene({room, ...props}): JSX.Element {
                     adapter: socketio;
                     debug: true;
                 `}
-				cursor="rayOrigin: mouse"
 				{...props}
 			/>
 		</div>

@@ -1,11 +1,13 @@
-import {useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import {Entity, Image, Plane, Text} from "@belivvr/aframe-react";
 import {useTranslation} from "next-i18next";
 
 import {MapDirection} from "@app/enums";
 import {TokenItem} from "@app/types";
 import {WallSize} from "@configs/gallery";
+import useAccount from "@hooks/useAccount";
 import useDebounceCallback from "@hooks/useDebounceCallback";
+import useMarket from "@hooks/useMarket";
 
 export const defaultPictureAttributes = {
 	"height": WallSize,
@@ -40,19 +42,27 @@ export default function Picture({
 	const purchaseRef = useRef<HTMLElement>();
 	const [openPanel, setOpenPanel] = useState(false);
 	const {t} = useTranslation();
+	const {isAuthenticated} = useAccount();
+	const {purchase} = useMarket();
+
+	const handlePurchase = useCallback(() => {
+		if (isAuthenticated) {
+			purchase(data.token_id, Number(data.amount), () => {});
+		}
+	}, [data, isAuthenticated, purchase]);
 
 	const toggleOpen = useDebounceCallback(() => {
 		if (!global.dragging) {
 			setOpenPanel(!openPanel);
 		}
-	}, 250);
+	}, 50);
 
 	const purchaseItem = useDebounceCallback((e) => {
 		e.preventDefault();
 		if (!global.dragging) {
-			console.log("Purchase");
+			handlePurchase();
 		}
-	}, 250);
+	}, 50);
 
 	useEffect(() => {
 		const element = ref.current;
@@ -135,7 +145,7 @@ export default function Picture({
 							width={2}
 							position={`0 -1 ${threshold}`}>
 							<Text
-								value={t<string>("common:action.purchase")}
+								value={t<string>("common:action.purchase") + " " + data.amount}
 								height={textHeight}
 								width={textWidth}
 								align="center"

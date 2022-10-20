@@ -40,7 +40,7 @@ export default function MainCamera({
 				<Template id="avatar-template">
 					<Entity class="avatar" avatar-info>
 						<Sphere class="head" scale={{x: 0.2, y: 0.22, z: 0.2}}></Sphere>
-						<Text class="nametag" value="" side="double"></Text>
+						<Text class="nametag" value="" side="double" color="#000"></Text>
 					</Entity>
 				</Template>
 			</Assets>
@@ -62,7 +62,7 @@ export default function MainCamera({
 					position={{x: 0, y: userHeight, z: 0}}
 					visible={false}
 					{...camera}>
-					<Cursor fuseTimeout={2000} />
+					<Cursor cursor={{rayOrigin: "mouse"}} />
 				</Entity>
 
 				{/* Hand tracking */}

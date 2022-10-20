@@ -5,7 +5,7 @@ export const MinMapSize = 10;
 export const MaxMapSize = 30;
 
 export const WallSize = 4;
-export const WallHeight = 6;
+export const WallHeight = 8;
 export const CameraHeight = 1.6;
 
 export const DefaultColor = "#FFF";
@@ -23,7 +23,7 @@ export const DefaultTextureAttributes = {
 
 export const EnvironmentMaps = {
 	"forest":
-		"preset: forest; grid: none; ground: hills; groundTexture: noise; shadow: true;playArea: 20; lighting: true;",
+		"preset: forest; grid: none; ground: hills; groundTexture: noise; shadow: true;playArea: 20; lighting: none;",
 	"night":
 		"preset: starry; grid: none; ground: hills; groundColor: #663926; groundColor2: #663926; shadow: true; lighting: none;",
 };

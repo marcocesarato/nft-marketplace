@@ -5,7 +5,7 @@ import {GenericObject} from "@app/types";
 import {Environment, MainScene} from "@components/AFrame";
 import Content from "@components/Content";
 import Loading from "@components/Loading";
-import {EnvironmentMaps} from "@configs/gallery";
+import {EnvironmentMaps, WallSize} from "@configs/gallery";
 import {GalleryProvider} from "@contexts/Gallery";
 import useAFrame from "@hooks/useAFrame";
 
@@ -41,15 +41,15 @@ export default function Gallery({user}: GalleryProps): JSX.Element {
 		<GalleryProvider>
 			<MainScene room={user.account}>
 				{/* Sky */}
-				<Environment config={EnvironmentMaps.night} position="0 -1 0" />
+				<Environment config={EnvironmentMaps.forest} position="0 -1 0" />
 
 				{/* Light */}
-				<Light light={{type: "ambient"}} intensity={0.8}></Light>
+				<Light light={{type: "ambient"}} intensity={0.5}></Light>
 				<Light
 					id="dirlight"
 					intensity={0.8}
-					light={{type: "directional", castShadow: true}}
-					position={{x: -1, y: 1, z: -1}}></Light>
+					light={{type: "point", castShadow: true}}
+					position={{x: -1, y: WallSize, z: -1}}></Light>
 
 				<Map planimetry={user?.planimetry} />
 			</MainScene>
