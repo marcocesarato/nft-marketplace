@@ -1,5 +1,5 @@
 import {DetailedHTMLProps, HTMLAttributes} from "react";
-import {AssetItem, Assets, Cursor, Entity, Mixin, Sphere, Text} from "@belivvr/aframe-react";
+import {AssetItem, Assets, Cursor, Entity, Mixin, Text} from "@belivvr/aframe-react";
 
 const Template = "naf-template";
 declare global {
@@ -33,13 +33,30 @@ export default function MainCamera({
 					id="handle-visual"
 					geometry={{width: 0.05, height: 0.05, depth: 0.2}}></Mixin>
 
+				<Mixin
+					id="mixin-eye"
+					geometry={{primitive: "sphere", radius: 0.2}}
+					material={{shader: "flat", side: "double", color: "#FFF"}}></Mixin>
+				<Mixin
+					id="mixin-pupil"
+					geometry={{primitive: "sphere", radius: 0.05}}
+					material={{shader: "flat", side: "double", color: "#222"}}></Mixin>
+				<Mixin
+					id="mixin-arm"
+					geometry={{primitive: "box", depth: 0.2, height: 1.5, width: 0.2}}
+					material={{shader: "flat", color: "#222"}}></Mixin>
+
+				<Mixin
+					id="mixin-body"
+					geometry={{primitive: "box", depth: 0.5, height: 2, width: 0.65}}
+					material={{shader: "flat", color: "#222"}}></Mixin>
+
 				<Template id="rig-template">
 					<Entity></Entity>
 				</Template>
 
 				<Template id="avatar-template">
 					<Entity class="avatar" avatar-info>
-						<Sphere class="head" scale={{x: 0.2, y: 0.22, z: 0.2}}></Sphere>
 						<Text class="nametag" value="" side="double" color="#000"></Text>
 					</Entity>
 				</Template>
