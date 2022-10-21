@@ -16,7 +16,7 @@ export default function MainScene({room, ...props}): JSX.Element {
 		<Box id="main-scene" ref={scene} style={{position: "relative"}}>
 			<Box id="rpm-container">
 				<iframe
-					id="iframe"
+					id="rpm-container-iframe"
 					src="https://8thwall.readyplayer.me/avatar"
 					allow="camera *; microphone *"
 					title="Ready Player Me"

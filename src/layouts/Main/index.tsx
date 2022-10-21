@@ -13,6 +13,8 @@ export default function Main({children}: {children: React.ReactNode}): JSX.Eleme
 		<Viewport>
 			<Sidebar title={"Marketplace"} display={{base: "none", lg: "block"}} />
 			<MainPanel
+				display="flex"
+				flexDirection="column"
 				w={{
 					base: "100%",
 					lg: !isOpenSidebar
