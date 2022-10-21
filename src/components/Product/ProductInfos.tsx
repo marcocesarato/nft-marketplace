@@ -62,7 +62,7 @@ export default function ProductInfos({
 	}, [imageFullscreen]);
 
 	const content = (
-		<div id={id}>
+		<Box id={id}>
 			<Box as={"header"}>
 				<Heading
 					lineHeight={1.1}
@@ -179,7 +179,7 @@ export default function ProductInfos({
 					</Box>
 				)}
 			</Box>
-		</div>
+		</Box>
 	);
 
 	if (!showPreview) return content;

@@ -1,5 +1,6 @@
 import React, {useRef} from "react";
 import {Scene} from "@belivvr/aframe-react";
+import {Box} from "@chakra-ui/react";
 
 export default function MainScene({room, ...props}): JSX.Element {
 	const scene = useRef();
@@ -12,7 +13,21 @@ export default function MainScene({room, ...props}): JSX.Element {
 	}, [scene]);*/
 
 	return (
-		<div id="main-scene" ref={scene} style={{position: "relative"}}>
+		<Box id="main-scene" ref={scene} style={{position: "relative"}}>
+			<Box id="rpm-container">
+				<iframe
+					id="iframe"
+					src="https://8thwall.readyplayer.me/avatar"
+					allow="camera *; microphone *"
+					title="Ready Player Me"
+					style={{
+						zIndex: 999,
+						display: "block",
+						position: "absolute",
+						width: "100%",
+						height: "100%",
+					}}></iframe>
+			</Box>
 			<Scene
 				fog={{type: "linear", color: "#000", far: 30, near: 10}}
 				background={{color: "skyblue"}}
@@ -27,15 +42,15 @@ export default function MainScene({room, ...props}): JSX.Element {
 				raycaster="objects: [html]; interval:100;"
 				loading-screen="dotsColor: #000; backgroundColor: #FFF"
 				deviceOrientationPermissionUI={{enabled: true}}
-				networked-scene={`
-                    serverURL: ${process.env.NEXT_PUBLIC_URL}/api/socket;
-                    audio: true;
-                    room: ${room};
+				networked-scene={
+					`serverURL: ${process.env.NEXT_PUBLIC_URL}/api/socket;` +
+					/*audio: true;*/
+					`room: ${room};
                     adapter: socketio;
-                    debug: true;
-                `}
+                    connectOnLoad: true;`
+				}
 				{...props}
 			/>
-		</div>
+		</Box>
 	);
 }

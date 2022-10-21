@@ -13,7 +13,7 @@ declare global {
 export default function MainCamera({
 	children = null,
 	camera = {},
-	userHeight = 1.65,
+	userHeight = 2,
 	...props
 }): JSX.Element {
 	return (
@@ -26,6 +26,7 @@ export default function MainCamera({
 				<AssetItem
 					id="left-gltf"
 					src="https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/skeleton-left-hand-webxr/model.gltf"></AssetItem>
+
 				<Mixin
 					id="blink"
 					blink-controls="rotateOnTeleport:false;cameraRig: #cameraRig; teleportOrigin: #avatar; collisionEntities:.navmesh;"></Mixin>
@@ -79,8 +80,8 @@ export default function MainCamera({
 				</Template>
 
 				<Template id="avatar-template">
-					<Entity avatar>
-						<Text class="nametag" value="" side="double" color="#000"></Text>
+					<Entity>
+						<Entity class="avatar" position={{x: 0, y: -4, z: 0}}></Entity>
 					</Entity>
 				</Template>
 			</Assets>
@@ -176,6 +177,13 @@ export default function MainCamera({
 						data-no-magnet
 						radius="0.01"></Entity>
 				</Entity>
+
+				<Entity
+					id="animated-f"
+					gltfModel={`${process.env.NEXT_PUBLIC_URL}/assets/models/animated-m.glb`}></Entity>
+				<Entity
+					id="animated-m"
+					gltfModel={`${process.env.NEXT_PUBLIC_URL}/assets/models/animated-m.glb`}></Entity>
 			</Entity>
 			{children}
 		</>

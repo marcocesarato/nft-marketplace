@@ -372,7 +372,7 @@ AFRAME.registerComponent("networked", {
 
 		const componentSchema = this.componentSchemas[componentSchemaIndex];
 
-		if (componentSchema.selector) {
+		if (componentSchema.selector && componentSchema.selector !== ":scope") {
 			return (this.cachedElements[componentSchemaIndex] = this.el.querySelector(
 				componentSchema.selector,
 			));
@@ -406,6 +406,9 @@ AFRAME.registerComponent("networked", {
 				? componentSchema.component
 				: componentSchema;
 			const componentData = componentElement.getAttribute(componentName);
+			const componentCallback = componentSchema.callback
+				? componentSchema.callback
+				: (a) => a;
 
 			if (componentData === null) {
 				if (fullSync) {
@@ -416,8 +419,8 @@ AFRAME.registerComponent("networked", {
 			}
 
 			const syncedComponentData = componentSchema.property
-				? componentData[componentSchema.property]
-				: componentData;
+				? componentCallback(componentData[componentSchema.property])
+				: componentCallback(componentData);
 
 			// Use networkUpdatePredicate to check if the component needs to be updated.
 			// Call networkUpdatePredicate first so that it can update any cached values in the event of a fullSync.

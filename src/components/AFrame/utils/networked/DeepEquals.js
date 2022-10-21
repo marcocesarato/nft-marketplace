@@ -52,4 +52,4 @@ export default function equal(a, b) {
 	}
 
 	return a !== a && b !== b;
-};
+}

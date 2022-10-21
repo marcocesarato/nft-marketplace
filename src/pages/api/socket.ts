@@ -1,9 +1,13 @@
 import {Server} from "socket.io";
 
 export default function SocketHandler(req, res) {
+	const log = (...args: any[]): void => {
+		console.log("[socket]", ...args);
+	};
+
 	// It means that socket server was already initialised
 	if (res.socket.server.io) {
-		console.log("Already set up");
+		log("Already set up");
 		res.end();
 		return;
 	}
@@ -14,7 +18,7 @@ export default function SocketHandler(req, res) {
 	const rooms = {};
 
 	const onConnection = (socket) => {
-		console.log("user connected", socket.id);
+		log("User connected", socket.id);
 
 		let curRoom = null;
 
@@ -32,7 +36,7 @@ export default function SocketHandler(req, res) {
 			rooms[room].occupants[socket.id] = joinedTime;
 			curRoom = room;
 
-			console.log(`${socket.id} joined room ${room}`);
+			log(`${socket.id} joined room ${room}`);
 			socket.join(room);
 
 			socket.emit("connectSuccess", {joinedTime});
@@ -49,16 +53,16 @@ export default function SocketHandler(req, res) {
 		});
 
 		socket.on("disconnect", () => {
-			console.log("disconnected: ", socket.id, curRoom);
+			log("Disconnection", socket.id, curRoom);
 			if (rooms[curRoom]) {
-				console.log("user disconnected", socket.id);
+				log("User disconnected", socket.id);
 
 				delete rooms[curRoom].occupants[socket.id];
 				const occupants = rooms[curRoom].occupants;
 				socket.broadcast.to(curRoom).emit("occupantsChanged", {occupants});
 
 				if (Object.keys(occupants).length === 0) {
-					console.log("everybody left room");
+					log("Everybody left room");
 					delete rooms[curRoom];
 				}
 			}
@@ -68,6 +72,6 @@ export default function SocketHandler(req, res) {
 	// Define actions inside
 	io.on("connection", onConnection);
 
-	console.log("Setting up socket");
+	log("Setting up socket");
 	res.end();
 }
