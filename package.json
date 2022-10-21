@@ -26,7 +26,6 @@
         "postinstall": "cd servers/parser && yarn install"
     },
     "dependencies": {
-        "5to6-codemod": "^1.8.0",
         "@apollo/client": "^3.7.0",
         "@belivvr/aframe-react": "^0.4.2",
         "@chakra-ui/icons": "^2.0.11",
@@ -86,7 +85,7 @@
         "react-query": "^3.39.2",
         "socket.io": "^4.5.3",
         "socket.io-client": "^4.5.3",
-        "three": "^0.145.0",
+        "three": "^0.143.0",
         "three-to-cannon": "^4.2.0",
         "webxr-polyfill": "^2.0.3"
     },
@@ -110,7 +109,7 @@
         "@types/node": "^18.11.0",
         "@types/react": "^18.0.21",
         "@types/react-dom": "^18.0.6",
-        "@types/three": "^0.144.0",
+        "@types/three": "^0.143.0",
         "@types/webxr": "^0.5.0",
         "@typescript-eslint/eslint-plugin": "^5.40.1",
         "@typescript-eslint/parser": "^5.40.1",
