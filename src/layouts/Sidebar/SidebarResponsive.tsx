@@ -19,7 +19,7 @@ function SidebarResponsive({title, children}): JSX.Element {
 	const mainPanel = useRef();
 	const {isMenuOpen, onToggleMenu} = useMenu();
 
-	var brand = (
+	const brand = (
 		<Box pt={"35px"} mb="8px">
 			<Link
 				href={`/`}

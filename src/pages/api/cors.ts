@@ -2,7 +2,7 @@ import axios from "axios";
 
 async function handler(req, res) {
 	try {
-		const response = await axios.get(req.query.cid, {
+		const response = await axios.get(req.query.url, {
 			timeout: 5000,
 			responseType: "arraybuffer",
 			headers: {
@@ -18,7 +18,7 @@ async function handler(req, res) {
 		res.setHeader("Content-Length", response.headers["content-length"]);
 		return res.send(response.data);
 	} catch (error) {
-		//console.error("Error fetching file: ", error);
+		console.error("Error fetching file: ", error);
 		res.end();
 	}
 }

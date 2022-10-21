@@ -188,7 +188,7 @@ export default class ARController {
 		this.world.broadphase = new NaiveBroadphase();
 		this.world.broadphase.useBoundingBoxes = true;
 
-		var solver = new GSSolver();
+		const solver = new GSSolver();
 		solver.tolerance = 0.1;
 		solver.iterations = 7;
 		this.world.solver = new SplitSolver(solver);

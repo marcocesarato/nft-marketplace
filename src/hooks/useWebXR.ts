@@ -10,7 +10,7 @@ export default function useWebXR() {
 
 	useEffect(() => {
 		if (isWebXRAvailable) {
-			var errorHandler = function (err) {
+			const errorHandler = function (err) {
 				console.error("WebXR session support error: " + err.message);
 			};
 			if (xr?.isSessionSupported) {

@@ -16,7 +16,9 @@
 	},
 	"rules": {
 		"prettier/prettier": "error",
-		"jsx-a11y/anchor-is-valid": "warn"
+		"jsx-a11y/anchor-is-valid": "warn",
+		"no-var": "warn",
+		"prefer-const": "warn"
 	},
 	"overrides": [
 		{

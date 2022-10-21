@@ -5,7 +5,7 @@ export function getPath(uri: string | null | undefined): string {
 }
 
 export function getEmbeddedIPFSImageUrl(uri: string | null | undefined): string {
-	const basePath = `${process.env.NEXT_PUBLIC_URL}/api/ipfs?cid=`;
+	const basePath = `${process.env.NEXT_PUBLIC_URL}/api/cors?url=`;
 	const query = encodeURIComponent(uri);
 	return basePath + query;
 }
