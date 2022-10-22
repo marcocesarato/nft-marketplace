@@ -4,13 +4,13 @@
 	"private": true,
 	"scripts": {
 		"build": "next build",
-		"codegen:graphql": "graphql-codegen --config ./scripts/configs/codegen.graphql.yml",
-		"dev": "concurrently -n \"main,--\" \"next dev\" \"npm:servers:*\"",
+		"dev": "next dev",
 		"lint": "next lint",
 		"lint:fix": "next lint --fix",
 		"start": "next start",
 		"static:build": "yarn build && next export",
-		"static:serve": "yarn static:build && npx servor out index.html 5000"
+		"static:serve": "yarn static:build && npx servor out index.html 5000",
+        "codegen:graphql": "graphql-codegen --config ./scripts/configs/codegen.graphql.yml"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.7.0",
