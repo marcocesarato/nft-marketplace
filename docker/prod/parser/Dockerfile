@@ -6,7 +6,7 @@ WORKDIR /app
 
 ENV NODE_ENV production
 
-COPY servers/parser ./servers/parser
+COPY servers/parser ./
 
 RUN yarn install --production --ignore-scripts --prefer-offline --frozen-lockfile
 RUN yarn build
