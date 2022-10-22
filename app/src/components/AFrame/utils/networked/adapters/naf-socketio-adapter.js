@@ -131,12 +131,12 @@ class SocketioAdapter {
 	}
 
 	closeStreamConnection(clientId) {
-		this.connectedClients = this.connectedClients.filter((c) => c != clientId);
+		this.connectedClients = this.connectedClients.filter((c) => c !== clientId);
 		this.closedListener(clientId);
 	}
 
 	getConnectStatus(clientId) {
-		const connected = this.connectedClients.indexOf(clientId) != -1;
+		const connected = this.connectedClients.indexOf(clientId) !== -1;
 
 		if (connected) {
 			return NAF.adapters.IS_CONNECTED;

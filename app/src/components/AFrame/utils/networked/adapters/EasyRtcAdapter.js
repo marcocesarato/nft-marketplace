@@ -177,9 +177,9 @@ class EasyRtcAdapter extends NoOpAdapter {
 	getConnectStatus(clientId) {
 		const status = this.easyrtc.getConnectStatus(clientId);
 
-		if (status == this.easyrtc.IS_CONNECTED) {
+		if (status === this.easyrtc.IS_CONNECTED) {
 			return NAF.adapters.IS_CONNECTED;
-		} else if (status == this.easyrtc.NOT_CONNECTED) {
+		} else if (status === this.easyrtc.NOT_CONNECTED) {
 			return NAF.adapters.NOT_CONNECTED;
 		} else {
 			return NAF.adapters.CONNECTING;

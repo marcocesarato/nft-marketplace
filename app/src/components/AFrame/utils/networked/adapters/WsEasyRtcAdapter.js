@@ -129,7 +129,7 @@ class WsEasyRtcInterface extends NoOpAdapter {
 	}
 
 	getConnectStatus(clientId) {
-		const connected = this.connectedClients.indexOf(clientId) != -1;
+		const connected = this.connectedClients.indexOf(clientId) !== -1;
 
 		if (connected) {
 			return NAF.adapters.IS_CONNECTED;

@@ -1,7 +1,5 @@
-// Patched version of fast-deep-equal which does not
-// allocate memory via calling Object.keys
-//
-// https://github.com/epoberezkin/fast-deep-equal/blob/master/index.js
+/* eslint-disable no-self-compare */
+/* eslint-disable eqeqeq */
 
 const isArray = Array.isArray;
 const keyList = Object.keys;
@@ -11,11 +9,9 @@ export default function equal(a, b) {
 	if (a === b) return true;
 
 	if (a && b && typeof a == "object" && typeof b == "object") {
-		let arrA = isArray(a),
-			arrB = isArray(b),
-			i,
-			length,
-			key;
+		const arrA = isArray(a),
+			arrB = isArray(b);
+		let i, length, key;
 
 		if (arrA && arrB) {
 			length = a.length;
@@ -50,6 +46,5 @@ export default function equal(a, b) {
 
 		return true;
 	}
-
 	return a !== a && b !== b;
 }

@@ -56,7 +56,7 @@ AFRAME.registerComponent("networked-scene", {
 	},
 
 	hasOnConnectFunction: function () {
-		return this.data.onConnect != "" && window[this.data.onConnect];
+		return this.data.onConnect !== "" && window[this.data.onConnect];
 	},
 
 	callOnConnect: function () {

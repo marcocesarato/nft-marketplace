@@ -201,7 +201,7 @@ class NetworkConnection {
 	}
 
 	isReservedDataType(dataType) {
-		return dataType == ReservedDataType.Update || dataType == ReservedDataType.Remove;
+		return dataType === ReservedDataType.Update || dataType === ReservedDataType.Remove;
 	}
 
 	receivedData(fromClientId, dataType, data, source) {

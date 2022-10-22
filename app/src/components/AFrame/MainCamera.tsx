@@ -1,5 +1,5 @@
 import {DetailedHTMLProps, HTMLAttributes} from "react";
-import {AssetItem, Assets, Cursor, Entity, Mixin, Text} from "@belivvr/aframe-react";
+import {AssetItem, Assets, Cursor, Entity, Mixin} from "@belivvr/aframe-react";
 
 const Template = "naf-template";
 declare global {

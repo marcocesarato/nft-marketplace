@@ -20,7 +20,6 @@ import {
 	WallSize,
 } from "@configs/gallery";
 import useGallery from "@contexts/Gallery";
-import {getEmbeddedIPFSImageUrl} from "@utils/url";
 
 import Ceiling from "./Ceiling";
 import Door from "./Door";

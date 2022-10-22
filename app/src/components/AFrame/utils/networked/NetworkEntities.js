@@ -216,7 +216,7 @@ class NetworkEntities {
 
 		for (const id in this.entities) {
 			const owner = this.entities[id].getAttribute("networked").owner;
-			if (owner != NAF.clientId) {
+			if (owner !== NAF.clientId) {
 				this.removeEntity(id);
 			}
 		}

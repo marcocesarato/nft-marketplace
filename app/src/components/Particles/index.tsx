@@ -24,7 +24,8 @@ function Swarm({count}) {
 	useFrame((state) => {
 		if (!light?.current || !mesh?.current) return;
 		particles.forEach((particle, i) => {
-			let {t, factor, speed, xFactor, yFactor, zFactor} = particle;
+			let {t} = particle;
+			const {factor, speed, xFactor, yFactor, zFactor} = particle;
 			t += particle.t += speed / 2;
 			const s = Math.cos(t);
 			dummy.position.set(

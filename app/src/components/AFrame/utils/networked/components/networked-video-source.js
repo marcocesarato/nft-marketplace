@@ -34,7 +34,7 @@ AFRAME.registerComponent("networked-video-source", {
 			this.setupVideo();
 		}
 
-		if (newStream != this.stream) {
+		if (newStream !== this.stream) {
 			if (this.stream) {
 				this._clearMediaStream();
 			}
