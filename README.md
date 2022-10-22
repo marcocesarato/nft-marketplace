@@ -2,7 +2,7 @@
 
 ![](/docs/images/cover.png)
 
-Watch your Digital Art on the wall of your home. Use the VR viewer to see all your NFTs digital art on the wall of your home in real time and interact with them.
+Watch your Digital Art on the wall of your home. Use the VR viewer to see all your NFTs on your own metaverse, creating your virtual room gallery, or watch them with the AR on the wall of your home.
 
 ## Summary
 
@@ -20,8 +20,6 @@ Watch your Digital Art on the wall of your home. Use the VR viewer to see all yo
     - [Main](#main)
     - [Other](#other)
 - [Workflows](#workflows)
-    - [Main flow](#main-flow-docs-workflow-main-md)
-    - [Authentication flow](#authentication-flow-docs-workflow-auth-md)
 - [Structure](#structure)
 - [Coding Style](#coding-style-coding-style-md)
 - [How to Contribute](#how-to-contribute-contributing-md)
@@ -205,13 +203,12 @@ How to connect Polygon Testnet to MetaMask wallet? The easiest way to get it don
 
 ## Workflows
 
-### [Main flow](./docs/workflow-main.md)
-
-### [Authentication flow](./docs/workflow-auth.md)
+-   [Market flow](./docs/workflow-market.md)
+-   [Authentication flow](./docs/workflow-auth.md)
 
 ## Structure
 
-The project is a monotepo that contains the following applications:
+The project is a monorepo that contains the following applications:
 
 -   **Web App** (Path: `app`) - The NextJS client application of the NFT Marketplace.
 -   **Indexer** (Path: `servers/indexer`) - The NodeJS indexer for the smart contracts deployed on the blockchain.
@@ -221,7 +218,7 @@ The other important directories to keep in mind are:
 
 -   **Application Binary Interface** (Path: `abis`)
 
-    The smart contract ABIs are contained here. It is very similar to API (Application Program Interface), a human-readable representation of a code’s interface. ABI defines the methods and structures used to interact with the binary contract, just like API does but on a lower-level.
+    The smart contract's ABIs are contained here. They are very similar to API so they are a human-readable representation of a code’s interface. ABI defines the methods and structures used to interact with the binary contract, just like API does but on a lower-level.
 
 -   **Smart Contracts** (Path: `contracts`)
 
