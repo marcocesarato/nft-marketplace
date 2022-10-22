@@ -20,7 +20,10 @@ app.use(express.json());
 app.use(cors());
 
 app.use(`/server`, parseServer);
-app.use(`/dashboard`, parseDashboard);
+
+if (process.env.NODE_ENV !== 'production') {
+    app.use(`/dashboard`, parseDashboard);
+}
 
 const httpServer = http.createServer(app);
 httpServer.listen(config.PORT, () => {
