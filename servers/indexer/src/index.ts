@@ -1,10 +1,11 @@
-import dotenv from "dotenv";
-
 import logger from "@/logger";
 
-dotenv.config();
-dotenv.config({ path: `../../.env` });
-dotenv.config({ path: `../../.env.${process.env.NODE_ENV}` });
+if (process.env.NODE_ENV !== "production") {
+    const dotenv = require("dotenv");
+    dotenv.config();
+    dotenv.config({ path: `../../.env` });
+    dotenv.config({ path: `../../.env.${process.env.NODE_ENV}` });
+}
 
 const { service } = require("@/service");
 

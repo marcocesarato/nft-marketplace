@@ -1,7 +1,6 @@
 // @ts-ignore
 import ParseDashboard from 'parse-dashboard';
 import config from './config';
-import MoralisEthAdapter from './auth/MoralisEthAdapter';
 
 export const parseDashboard = new ParseDashboard({
     apps: [

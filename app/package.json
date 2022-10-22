@@ -8,6 +8,7 @@
 		"dev": "concurrently -n \"main,--\" \"next dev\" \"npm:servers:*\"",
 		"format": "prettier --write .",
 		"lint": "next lint",
+		"lint:fix": "next lint --fix",
 		"prepare": "husky install",
 		"release": "standard-version",
 		"start": "next start",
