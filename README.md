@@ -6,25 +6,25 @@ Watch your Digital Art on the wall of your home. Use the VR viewer to see all yo
 
 ## Summary
 
--   [Summary](#summary)
--   [Setup](#setup)
-    -   [Local Setup](#local-setup)
-    -   [Using Docker](#using-docker)
-        -   [Makefile](#makefile)
-    -   [Configuration](#configuration)
-        -   [Configure Moralis and Hardhat](#configure-moralis-and-hardhat)
--   [Requirements](#requirements)
-    -   [Background informations](#background-informations)
-    -   [Connect Metamask to Polygon](#connect-metamask-to-polygon)
--   [Technology Stack](#technology-stack)
-    -   [Main](#main)
-    -   [Other](#other)
--   [Workflows](#workflows)
--   [Structure](#structure)
--   [Coding Style](#coding-style-coding-style-md)
--   [How to Contribute](#how-to-contribute-contributing-md)
--   [How to Release](#how-to-release-docs-release-md)
--   [How to Deploy](#how-to-deploy-docs-deploy-md)
+- [Summary](#summary)
+- [Setup](#setup)
+    - [Local Setup](#local-setup)
+    - [Using Docker](#using-docker)
+        - [Makefile](#makefile)
+    - [Configuration](#configuration)
+        - [Configure Moralis and Hardhat](#configure-moralis-and-hardhat)
+- [Requirements](#requirements)
+    - [Background informations](#background-informations)
+    - [Connect Metamask to Polygon](#connect-metamask-to-polygon)
+- [Technology Stack](#technology-stack)
+    - [Main](#main)
+    - [Other](#other)
+- [Workflows](#workflows)
+- [Structure](#structure)
+- [Coding Style](#coding-style-coding-style-md)
+- [How to Contribute](#how-to-contribute-contributing-md)
+- [How to Release](#how-to-release-docs-release-md)
+- [How to Deploy](#how-to-deploy-docs-deploy-md)
 
 ## Setup
 
@@ -103,53 +103,6 @@ The project is based over Moralis API (but it's functionality is code wrapped to
 To deploy to Polygon test or main networks we need to configure hardhat so we need to get the WebSocket and JSON RPC url from Moralis. Once you log into your account, go to the "Speedy Nodes" section. Click on the "Endpoints" button for the Network you need to configure. You will see separate URLs for each network and each archive version.
 
 > **NOTE:** Moralis closes your server every 7 days, so if you have problems with API calls the server is probably down and you need to remember that you need to restart the server.
-
-**Example `.env` file:**
-
-```env
-ENV=dev # dev or prod
-NEXT_PUBLIC_URL=http://localhost:3000
-
-# MongoDB
-MONGODB_URI=mongodb://marketplace:CHANGEME!@mongo:27017
-MONGODB_DATABASE=metadata
-MONGODB_ROOT_USERNAME=marketplace
-MONGODB_ROOT_PASSWORD=CHANGEME!
-
-# IPFS
-IPFS_API_KEY=
-
-# JSON RPC
-CHAIN_TESTNET_URL=
-CHAIN_MAINNET_URL=
-
-# WebSocket
-CHAIN_TESTNET_WSS=
-CHAIN_MAINNET_WSS=
-
-# Private account key for signing transactions
-ACCOUNT_PRIVATE=
-
-# Chain ID
-NEXT_PUBLIC_CHAIN_ID=0x
-
-# Moralis
-NEXT_PUBLIC_MORALIS_SERVER_URL=
-NEXT_PUBLIC_MORALIS_APPLICATION_ID=
-
-# Docker registry
-DOCKER_USER=
-DOCKER_PASS=
-
-# Docker images
-DOCKER_APP_IMAGE=
-DOCKER_APP_PORT=3000
-DOCKER_INDEXER_IMAGE=
-
-# SSL Certificates
-SSL_CERT=
-SSL_KEY=
-```
 
 ## Requirements
 
