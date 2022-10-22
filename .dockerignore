@@ -6,16 +6,16 @@ node_modules
 .pnp.js
 
 # Testing
-/coverage
+coverage
 
 # Next.js
-/.next/
-/out/
+.next/
+out/
 
 # Production
-/build
-/public/storybook
-/storybook-static
+build
+public/storybook
+storybook-static
 
 # Misc
 .DS_Store

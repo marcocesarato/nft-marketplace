@@ -1,5 +1,10 @@
 const {i18n} = require("./next-i18next.config");
 
+const dotenv = require("dotenv");
+
+dotenv.config({path: `../.env`});
+dotenv.config({path: `../.env.${process.env.NODE_ENV}`});
+
 const isDev = process.env.NODE_ENV === "development";
 const withPWA = require("next-pwa")({
 	dest: "public",
@@ -15,6 +20,9 @@ const nextConfig = withPWA({
 	reactStrictMode: true,
 	output: "standalone",
 	poweredByHeader: false,
+	experimental: {
+		externalDir: true,
+	},
 	i18n,
 	webpack: (config, {webpack, dev, isServer}) => {
 		// graphql

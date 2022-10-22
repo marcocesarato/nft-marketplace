@@ -4,7 +4,7 @@ FROM node:16-alpine AS deps
 RUN apk add --no-cache libc6-compat git
 
 WORKDIR /app
-COPY package.json ./
+COPY app/package.json ./
 
 RUN yarn install --frozen-lockfile
 
@@ -15,7 +15,7 @@ RUN apk add --no-cache libc6-compat git
 
 WORKDIR /app
 
-COPY . .
+COPY ./app .
 COPY --from=deps /app/node_modules ./node_modules
 
 # Next.js collects completely anonymous telemetry data about general usage

@@ -10,14 +10,13 @@ ENV NODE_ENV production
 COPY src/database ./src/database
 COPY servers/indexer ./servers/indexer
 
-# Dependencies
-COPY docker/prod/indexer/package.json ./package.json
-
 # Configs
 COPY abis ./abis
 COPY addresses.js ./
-COPY servers/indexer/tsconfig.json ./tsconfig.json
+
+WORKDIR /app/servers/indexer/
 
 RUN yarn install --production --ignore-scripts --prefer-offline --frozen-lockfile
+RUN yarn build
 
 CMD ["yarn", "start"]

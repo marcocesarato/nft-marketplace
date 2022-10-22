@@ -12,18 +12,18 @@ addresses.js
 
 # Dependencies
 node_modules
-/.pnp
+.pnp
 .pnp.js
 
 # Testing
-/coverage
+coverage
 
 # Next.js
-/.next/
-/out/
+.next/
+out/
 
 # Production
-/build
+build
 
 # Misc
 .DS_Store
@@ -58,14 +58,17 @@ data
 
 # Logs
 logs/
-errors/
 .vscode/*.log
 
 # Yarn
 .pnp.*
 .yarn/*
+!.yarn/cache
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Turbo
+.turbo

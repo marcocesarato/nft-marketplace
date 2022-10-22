@@ -24,6 +24,7 @@ import {
 } from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
+import {ItemAttribute} from "@app/types";
 import Address from "@components/Address";
 import {useConfig} from "@contexts/Global";
 import useContainerDimensions from "@hooks/useContainerDimensions";
