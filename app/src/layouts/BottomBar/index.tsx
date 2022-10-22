@@ -20,7 +20,7 @@ export default function BottomNavigationBar(props): JSX.Element {
 	const {t} = useTranslation();
 
 	const Content = useMemo(() => {
-		return (): JSX.Element => (
+		const BottomBarContent = (): JSX.Element => (
 			<>
 				{routes.map(({label, href, icon}, key) => (
 					<BottomNavigationItem value={href} key={key}>
@@ -30,6 +30,7 @@ export default function BottomNavigationBar(props): JSX.Element {
 				))}
 			</>
 		);
+		return BottomBarContent;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [routes]);
 

@@ -21,7 +21,7 @@ function Sidebar({title, ...props}): JSX.Element {
 	const mainPanel = useRef();
 
 	const Content = useMemo(() => {
-		return ({mobile = false}): JSX.Element => {
+		const SidebarContent = ({mobile = false}): JSX.Element => {
 			const createRoutes = () => {
 				return routes.map(({label, ...prop}, key) => (
 					<SidebarSection
@@ -39,6 +39,7 @@ function Sidebar({title, ...props}): JSX.Element {
 				</>
 			);
 		};
+		return SidebarContent;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isSidebarCompress, routes]);
 

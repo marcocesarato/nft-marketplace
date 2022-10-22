@@ -54,7 +54,9 @@ export default function SearchBar(): JSX.Element {
 			boxShadow="sm"
 			bg={mode("gray.100", "gray.900")}
 			borderRadius="lg">
-			<InputLeftElement pointerEvents="none" children={<SearchIcon color="primary" />} />
+			<InputLeftElement pointerEvents="none">
+				<SearchIcon color="primary" />
+			</InputLeftElement>
 
 			<AsyncSelect
 				instanceId="navbarSearch"
