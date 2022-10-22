@@ -1,5 +1,5 @@
 module.exports = {
 	root: true,
-	extends: ["custom", "@moralisweb3"],
+	extends: ["@packages/eslint-config", "@moralisweb3"],
 	ignorePatterns: ["**/build/**/*"],
 };

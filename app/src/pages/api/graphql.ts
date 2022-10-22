@@ -1,4 +1,5 @@
 import {recoverPersonalSignature} from "@metamask/eth-sig-util";
+import {connectDatabase, User} from "@packages/database";
 import {ApolloServerPluginLandingPageGraphQLPlayground} from "apollo-server-core";
 import {ApolloServer} from "apollo-server-micro";
 import * as ethUtil from "ethereumjs-util";
@@ -6,8 +7,6 @@ import {Base64} from "js-base64";
 import {send} from "micro";
 import Cors from "micro-cors";
 
-import {connectDatabase} from "@database/connect";
-import User from "@models/User";
 import GraphQLSchema from "@services/graphql/schema";
 import {formatAddress} from "@utils/formatters";
 

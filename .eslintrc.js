@@ -1,6 +1,6 @@
 module.exports = {
 	root: true,
-	extends: ["custom"],
+	extends: ["@packages/eslint-config"],
 	settings: {
 		next: {
 			rootDir: ["app/"],

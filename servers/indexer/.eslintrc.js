@@ -1,5 +1,5 @@
 module.exports = {
 	root: true,
-	extends: ["custom"],
+	extends: ["@packages/eslint-config"],
 	ignorePatterns: ["**/build/**/*"],
 };

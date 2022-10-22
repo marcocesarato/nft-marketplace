@@ -1,6 +1,6 @@
 module.exports = {
 	root: true,
-	extends: ["custom", "next", "react-app", "plugin:@next/next/recommended"],
+	extends: ["@packages/eslint-config", "react-app", "next", "plugin:@next/next/recommended"],
 	rules: {
 		"jsx-a11y/anchor-is-valid": "warn",
 		"jsx-a11y/alt-text": "off",

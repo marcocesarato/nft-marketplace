@@ -1,12 +1,10 @@
 // @ts-ignore
 import {MarketAddress} from "@root/addresses";
 import * as ethers from "ethers";
-
+import {connectDatabase, MarketItem} from "@packages/database";
 import logger from "@/logger";
 // @ts-ignore
 import MarketContract from "@abis/Market.json";
-import {connectDatabase} from "@database/connect";
-import MarketItem from "@models/MarketItem";
 
 import {createMarketItem, updateMarketItem} from "./mapper";
 
@@ -15,7 +13,6 @@ const KEEP_ALIVE_CHECK_INTERVAL = 7500;
 
 export async function service() {
 	logger.info("Service started");
-
 	logger.info(`Connecting to: ${process.env.MONGODB_URI}/${process.env.MONGODB_DATABASE}`);
 	await connectDatabase();
 	logger.info("Connected to database");

@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"strict": false,
+		"module": "commonjs",
+		"baseUrl": ".",
+		"rootDir": ".",
+		"declaration": true,
+		"sourceMap": true,
+		"target": "es2017",
+		"esModuleInterop": true,
+		"useUnknownInCatchVariables": false,
+		"skipLibCheck": true
+	}
+}

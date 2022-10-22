@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"target": "es5",
+		"target": "esnext",
 		"lib": ["dom", "dom.iterable", "esnext", "es6"],
 		"allowJs": true,
 		"skipLibCheck": true,
@@ -25,11 +25,9 @@
 			"@components/*": ["src/components/*"],
 			"@configs/*": ["src/configs/*"],
 			"@contexts/*": ["src/contexts/*"],
-			"@database/*": ["src/database/*"],
 			"@errors/*": ["src/errors/*"],
 			"@hooks/*": ["src/hooks/*"],
 			"@layouts/*": ["src/layouts/*"],
-			"@models/*": ["src/database/models/*"],
 			"@services/*": ["src/services/*"],
 			"@utils/*": ["src/utils/*"]
 		},
