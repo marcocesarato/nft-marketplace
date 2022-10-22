@@ -1,5 +1,5 @@
 module.exports = {
 	root: true,
-	extends: ["custom", "@moralisweb3"],
+	extends: ["custom"],
 	ignorePatterns: ["**/build/**/*"],
 };

@@ -1,33 +1,33 @@
 {
-    // This is an alias to @tsconfig/node12: https://github.com/tsconfig/bases
-    "extends": "ts-node/node12/tsconfig.json",
-    // Most ts-node options can be specified here using their programmatic names.
-    "ts-node": {
-        "require": ["tsconfig-paths/register"],
-        "transpileOnly": true,
-        "files": true
-    },
-    "compilerOptions": {
-        "outDir": "./build",
-        "baseUrl": ".",
-        "rootDir": "../../",
-        "strict": false,
-        "declaration": true,
-        "declarationDir": "build",
-        "sourceMap": true,
-        "target": "es2017",
-        "esModuleInterop": true,
-        "useUnknownInCatchVariables": false,
-        "skipLibCheck": true,
-        "isolatedModules": false,
-        "module": "commonjs",
-        "paths": {
-            "@/*": ["./src/*"],
-            "@root/*": ["../../*"],
-            "@abis/*": ["../../abis/*"],
-            "@database/*": ["../../app/src/database/*"],
-            "@models/*": ["../../app/src/database/models/*"]
-        }
-    },
-    "include": ["src"]
+	// This is an alias to @tsconfig/node12: https://github.com/tsconfig/bases
+	"extends": "ts-node/node12/tsconfig.json",
+	// Most ts-node options can be specified here using their programmatic names.
+	"ts-node": {
+		"require": ["tsconfig-paths/register"],
+		"transpileOnly": true,
+		"files": true
+	},
+	"compilerOptions": {
+		"outDir": "./build",
+		"baseUrl": ".",
+		"rootDir": "../../",
+		"strict": false,
+		"declaration": true,
+		"declarationDir": "build",
+		"sourceMap": true,
+		"target": "es2017",
+		"esModuleInterop": true,
+		"useUnknownInCatchVariables": false,
+		"skipLibCheck": true,
+		"isolatedModules": false,
+		"module": "commonjs",
+		"paths": {
+			"@/*": ["./src/*"],
+			"@root/*": ["../../*"],
+			"@abis/*": ["../../abis/*"],
+			"@database/*": ["../../app/src/database/*"],
+			"@models/*": ["../../app/src/database/models/*"]
+		}
+	},
+	"include": ["src"]
 }
