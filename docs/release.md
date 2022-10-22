@@ -4,9 +4,9 @@ If you follow the [Conventional Commits](https://conventionalcommits.org/) speci
 
 How the the logic of autobump works:
 
-- **PATCH:** Commit of the type fix that patches a bug in your codebase.
-- **MINOR:** Commit of the type feat that introduces a new feature to the codebase.
-- **MAJOR:** A commit that has a footer BREAKING CHANGE:, or appends a ! after the type/scope, introduces a breaking API change. A BREAKING CHANGE can be part of commits of any type.
+-   **PATCH:** Commit of the type fix that patches a bug in your codebase.
+-   **MINOR:** Commit of the type feat that introduces a new feature to the codebase.
+-   **MAJOR:** A commit that has a footer BREAKING CHANGE:, or appends a ! after the type/scope, introduces a breaking API change. A BREAKING CHANGE can be part of commits of any type.
 
 ## First Release
 
