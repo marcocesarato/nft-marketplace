@@ -18,7 +18,7 @@ async function handler(req, res) {
 		res.setHeader("Content-Length", response.headers["content-length"]);
 		return res.send(response.data);
 	} catch (error) {
-		console.error("Error fetching file: ", error);
+		console.error("Error fetching file: ", error.message);
 		res.end();
 	}
 }
