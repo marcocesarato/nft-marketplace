@@ -9,8 +9,6 @@
 		"format": "prettier --write .",
 		"lint": "next lint",
 		"lint:fix": "next lint --fix",
-		"prepare": "husky install",
-		"release": "standard-version",
 		"start": "next start",
 		"static:build": "yarn build && next export",
 		"static:serve": "yarn static:build && npx servor out index.html 5000"
@@ -109,10 +107,8 @@
 		"eslint-plugin-react": "7.31.10",
 		"eslint-plugin-react-hooks": "4.6.0",
 		"eslint-plugin-simple-import-sort": "^8.0.0",
-		"husky": "^8.0.1",
 		"lint-staged": "^13.0.3",
 		"prettier": "^2.7.1",
-		"standard-version": "^9.5.0",
 		"typescript": "^4.8.4"
 	}
 }
