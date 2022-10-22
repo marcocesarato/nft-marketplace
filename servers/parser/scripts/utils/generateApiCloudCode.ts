@@ -1,23 +1,23 @@
-import { Endpoint } from '../types/Endpoint';
-import fs from 'fs';
+import {Endpoint} from "../types/Endpoint";
+import fs from "fs";
 
-type Module = 'EvmApi' | 'SolApi';
+type Module = "EvmApi" | "SolApi";
 
 const getModulePrefix = (module: Module) => {
-    switch (module) {
-        case 'EvmApi':
-            return '';
-        case 'SolApi':
-            return 'sol-';
-        default:
-            throw new Error(`No prefix defined for module '${module}'`);
-    }
+	switch (module) {
+		case "EvmApi":
+			return "";
+		case "SolApi":
+			return "sol-";
+		default:
+			throw new Error(`No prefix defined for module '${module}'`);
+	}
 };
 
 const generateCloudCode = (module: Module, endpoint: Endpoint) => {
-    let code = '';
-    const name = `${getModulePrefix(module)}${endpoint.name}`;
-    code += `Parse.Cloud.define("${name}", async ({params, user, ip}: any) => {
+	let code = "";
+	const name = `${getModulePrefix(module)}${endpoint.name}`;
+	code += `Parse.Cloud.define("${name}", async ({params, user, ip}: any) => {
   try {
     await beforeApiRequest(user, ip, '${endpoint.name}');
     const result = await Moralis.${module}.${endpoint.group}.${endpoint.name}(params);
@@ -27,11 +27,11 @@ const generateCloudCode = (module: Module, endpoint: Endpoint) => {
   }
 })`;
 
-    return code;
+	return code;
 };
 
 const generateAllCloudCode = (module: Module, endpoints: Endpoint[]) => {
-    let output = `/* eslint-disable @typescript-eslint/no-var-requires */
+	let output = `/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Moralis from 'moralis'
 import { MoralisError } from '@moralisweb3/core';
@@ -68,15 +68,15 @@ const beforeApiRequest = async (user: any, ip: any, name: string) => {
 
 `;
 
-    endpoints.forEach((endpoint) => {
-        output += generateCloudCode(module, endpoint);
-        output += '\n\n';
-    });
+	endpoints.forEach((endpoint) => {
+		output += generateCloudCode(module, endpoint);
+		output += "\n\n";
+	});
 
-    return output;
+	return output;
 };
 
 export const createCloudFile = async (outPath: string, module: Module, endpoints: Endpoint[]) => {
-    const code = generateAllCloudCode(module, endpoints);
-    await fs.writeFileSync(outPath, code);
+	const code = generateAllCloudCode(module, endpoints);
+	await fs.writeFileSync(outPath, code);
 };
