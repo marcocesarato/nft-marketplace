@@ -211,19 +211,19 @@ How to connect Polygon Testnet to MetaMask wallet? The easiest way to get it don
 
 ## Structure
 
-The project is a monotrepo and contains the following applications:
+The project is a monotepo that contains the following applications:
 
 -   **Web App** (Path: `app`) - The NextJS client application of the NFT Marketplace.
 -   **Indexer** (Path: `servers/indexer`) - The NodeJS indexer for the smart contracts deployed on the blockchain.
 -   **Parser** (Path: `servers/parser`) - A parse-server backend to migrate from a hosted server on Moralis to a self-hosted server.
 
-Thare are also others important directories on the main root to consider:
+The other important directories to keep in mind are:
 
 -   **Application Binary Interface** (Path: `abis`)
 
     The smart contract ABIs are contained here. It is very similar to API (Application Program Interface), a human-readable representation of a code’s interface. ABI defines the methods and structures used to interact with the binary contract, just like API does but on a lower-level.
 
--   **Smart contracts** (Path: `contracts`)
+-   **Smart Contracts** (Path: `contracts`)
 
     The contracts folder contains all the smart contracts (using [Solidity](https://docs.soliditylang.org/)) that need to be deployed on the blockchain and make our project work.
 
