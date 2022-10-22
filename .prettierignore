@@ -4,8 +4,8 @@
 .history
 .yarn
 out
+build
 node_modules
-package.json
 package-lock.json
 yarn.lock
 artifacts
