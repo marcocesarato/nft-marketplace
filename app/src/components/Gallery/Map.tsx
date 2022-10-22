@@ -146,8 +146,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 				// Load item assets
 				item.assets?.forEach(async (asset) => {
 					if (!assets.has(asset.id)) {
-						const src = getEmbeddedIPFSImageUrl(item.image);
-						assets.set(asset.id, {...asset, src});
+						assets.set(asset.id, {...asset, src: item.image});
 					}
 				});
 				switch (item.type) {
