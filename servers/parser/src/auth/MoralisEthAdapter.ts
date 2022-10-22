@@ -30,7 +30,8 @@ function validateAuthData(authData: any) {
 		.catch(() => {
 			// @ts-ignore (see note at top of file)
 			throw new Parse.Error(
-				Parse.Error.OBJECT_NOT_FOUND,
+				// @ts-ignore
+				Parse?.Error?.OBJECT_NOT_FOUND ?? 101,
 				"Moralis auth failed, invalid data",
 			);
 		});
