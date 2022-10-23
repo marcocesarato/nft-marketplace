@@ -1,5 +1,5 @@
 {
-	"name": "@packages/database",
+	"name": "@packages/mongo",
 	"version": "0.0.0",
 	"main": "index.ts",
 	"private": true,

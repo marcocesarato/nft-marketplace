@@ -1,7 +1,7 @@
 // @ts-ignore
 import {MarketAddress} from "@root/addresses";
 import * as ethers from "ethers";
-import {connectDatabase, MarketItem} from "@packages/database";
+import {connectDatabase, MarketItem} from "@packages/mongo";
 import logger from "@/logger";
 // @ts-ignore
 import MarketContract from "@packages/abis/Market.json";

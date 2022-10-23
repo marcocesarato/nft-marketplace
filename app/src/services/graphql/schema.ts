@@ -1,4 +1,4 @@
-import {MarketItem, User} from "@packages/database";
+import {MarketItem, User} from "@packages/mongo";
 import {GraphQLJSON, SchemaComposer} from "graphql-compose";
 import {composeWithMongoose} from "graphql-compose-mongoose";
 

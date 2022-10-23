@@ -2,7 +2,7 @@ import axios from "axios";
 
 import logger from "@/logger";
 import {resolveIPFSLink} from "@/utils";
-import {MarketItem} from "@packages/database";
+import {MarketItem} from "@packages/mongo";
 
 export async function createMarketItem(
 	contract: any,

@@ -1,5 +1,5 @@
 import {recoverPersonalSignature} from "@metamask/eth-sig-util";
-import {connectDatabase, User} from "@packages/database";
+import {connectDatabase, User} from "@packages/mongo";
 import {ApolloServerPluginLandingPageGraphQLPlayground} from "apollo-server-core";
 import {ApolloServer} from "apollo-server-micro";
 import * as ethUtil from "ethereumjs-util";
