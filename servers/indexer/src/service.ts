@@ -4,14 +4,14 @@ import * as ethers from "ethers";
 import {connectDatabase, MarketItem} from "@packages/database";
 import logger from "@/logger";
 // @ts-ignore
-import MarketContract from "@abis/Market.json";
+import MarketContract from "@packages/abis/Market.json";
 
 import {createMarketItem, updateMarketItem} from "./mapper";
 
 const EXPECTED_PONG_BACK = 15000;
 const KEEP_ALIVE_CHECK_INTERVAL = 7500;
 
-export async function service() {
+export default async function service() {
 	logger.info("Service started");
 	logger.info(`Connecting to: ${process.env.MONGODB_URI}/${process.env.MONGODB_DATABASE}`);
 	await connectDatabase();

@@ -9,13 +9,12 @@ async function main() {
 
 	console.log("Deploying contracts with the account:", deployer.address);
 
-	let txHash, txReceipt;
 	const NFTMarket = await ethers.getContractFactory("MarketUpgradeable");
 	const nftMarket = await upgrades.deployProxy(NFTMarket);
 	await nftMarket.deployed();
 
-	txHash = nftMarket.deployTransaction.hash;
-	txReceipt = await ethers.provider.waitForTransaction(txHash);
+	const txHash = nftMarket.deployTransaction.hash;
+	const txReceipt = await ethers.provider.waitForTransaction(txHash);
 	const nftMarketAddress = txReceipt.contractAddress;
 
 	console.log("Market contract deployed to", nftMarketAddress);
@@ -27,8 +26,8 @@ async function main() {
 	console.log(" - Admin Address", await upgrades.erc1967.getAdminAddress(nftMarket.address));
 
 	const artifact = require("../artifacts/contracts/MarketUpgradeable.sol/MarketUpgradeable.json");
-	fs.writeFileSync("abis/Market.json", JSON.stringify(artifact.abi));
-	console.log("Market contract ABI exported to ./abis/Market.json");
+	fs.writeFileSync("packages/abis/Market.json", JSON.stringify(artifact.abi));
+	console.log("Market contract ABI exported to ./packages/abis/Market.json");
 
 	const config = `module.exports = {MarketAddress: "${nftMarketAddress}"};\n`;
 	const data = JSON.stringify(config);

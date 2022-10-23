@@ -15,7 +15,7 @@
 		"tsc": "tsc"
 	},
 	"dependencies": {
-		"@codemirror/language": "^6.2.1",
+		"@codemirror/language": "^0.20.0",
 		"@moralisweb3/core": "^2.6.7",
 		"@types/node": "^18.11.3",
 		"dotenv": "^16.0.3",

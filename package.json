@@ -35,6 +35,7 @@
 		"@openzeppelin/contracts": "^4.7.3",
 		"@openzeppelin/contracts-upgradeable": "^4.7.3",
 		"@openzeppelin/hardhat-upgrades": "^1.21.0",
+		"@packages/dotenv": "*",
 		"@packages/eslint-config": "*",
 		"@typescript-eslint/eslint-plugin": "^5.40.1",
 		"@typescript-eslint/parser": "^5.40.1",
@@ -50,5 +51,9 @@
 		"node": ">=14.17",
 		"npm": "please-use-yarn",
 		"yarn": ">=1.22"
+	},
+	"lint-staged": {
+		"*.{js,jsx,ts,tsx}": "eslint --fix",
+		"*.{json,md}": "prettier --write"
 	}
 }

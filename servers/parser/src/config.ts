@@ -18,7 +18,7 @@ export default cleanEnv(process.env, {
 	}),
 	CLOUD_PATH: str({
 		desc: "Path to your cloud code",
-		default: "./build/cloud/main.js",
+		default: "./cloud/main.js",
 	}),
 	MASTER_KEY: str({
 		desc: "A secret key of your choice (keep this secret)",

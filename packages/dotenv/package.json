@@ -1,0 +1,17 @@
+{
+	"name": "@packages/dotenv",
+	"version": "0.0.0",
+	"main": "index.js",
+	"private": true,
+	"scripts": {
+		"lint": "eslint --ext .js,.ts .",
+		"lint:fix": "eslint --ext .js,.ts . --fix"
+	},
+	"dependencies": {
+		"dotenv": "^16.0.3",
+		"dotenv-expand": "^9.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}

@@ -1,13 +1,9 @@
 import logger from "@/logger";
+import service from "@/service";
+import {dotenvLoad} from "@packages/dotenv";
 
-if (process.env.NODE_ENV !== "production") {
-	const dotenv = require("dotenv");
-	dotenv.config();
-	dotenv.config({path: `../../.env`});
-	dotenv.config({path: `../../.env.${process.env.NODE_ENV}`});
-}
-
-const {service} = require("@/service");
+// Load env
+dotenvLoad();
 
 function main() {
 	service().catch((error: Error) => {

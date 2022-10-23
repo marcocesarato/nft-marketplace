@@ -6,7 +6,6 @@
 		"paths": {
 			"@/*": ["./*"],
 			"@root/*": ["../*"],
-			"@abis/*": ["../abis/*"],
 			"@app/*": ["src/*"],
 			"@assets/*": ["public/assets/*"],
 			"@components/*": ["src/components/*"],

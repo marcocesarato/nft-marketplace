@@ -1,7 +1,10 @@
 require("@nomiclabs/hardhat-ethers");
 require("@nomiclabs/hardhat-waffle");
 require("@openzeppelin/hardhat-upgrades");
-require("dotenv").config();
+const {dotenvLoad} = require("@packages/dotenv");
+
+// Load env
+dotenvLoad();
 
 module.exports = {
 	defaultNetwork: "hardhat",
