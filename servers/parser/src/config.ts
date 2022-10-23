@@ -1,7 +1,8 @@
-import * as dotenv from "dotenv";
 import {cleanEnv, num, str} from "envalid";
+import {dotenvLoad} from "@packages/dotenv";
 
-dotenv.config();
+// Load env
+dotenvLoad("parser");
 
 export default cleanEnv(process.env, {
 	MORALIS_API_KEY: str({
@@ -18,7 +19,7 @@ export default cleanEnv(process.env, {
 	}),
 	CLOUD_PATH: str({
 		desc: "Path to your cloud code",
-		default: "./cloud/main.js",
+		default: "./build/cloud/main.js",
 	}),
 	MASTER_KEY: str({
 		desc: "A secret key of your choice (keep this secret)",

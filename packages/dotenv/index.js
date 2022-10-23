@@ -4,14 +4,17 @@ const dotenv = require("dotenv");
 const dotenvExpand = require("dotenv-expand");
 
 class DotEnv {
-	constructor(autoLoad = true, cwd = null) {
+	constructor(ext = null, path = null) {
 		process.env.NODE_ENV = process.env.NODE_ENV || "development";
-		this.path = this.find();
-		this.cwd = cwd || process.cwd();
-		if (autoLoad) this.load();
+		this.path = path;
+		this.ext = ext;
+		this.env = {};
 	}
 
 	load() {
+		if (!this.path) {
+			this.path = this.find();
+		}
 		if (fs.existsSync(this.path)) {
 			const config = dotenv.config({
 				path: this.path,
@@ -24,15 +27,16 @@ class DotEnv {
 
 	find() {
 		let dotenv = null;
-		let directory = path.resolve(this.cwd || "");
+		let directory = path.resolve(process.cwd() || "");
 		const maxDepth = 3;
 		const {root} = path.parse(directory);
 
+		const ext = this.ext ? `.${this.ext}` : "";
 		const priorities = {
-			[`.env.${process.env.NODE_ENV}.local`]: 4,
-			[`.env.${process.env.NODE_ENV}`]: 3,
-			[`.env.local`]: 2,
-			[".env"]: 1,
+			[`.env${ext}.${process.env.NODE_ENV}.local`]: 4,
+			[`.env${ext}.${process.env.NODE_ENV}`]: 3,
+			[`.env${ext}.local`]: 2,
+			[`.env${ext}`]: 1,
 		};
 		const matcher = (cwd) => {
 			const priority = 0;
@@ -128,6 +132,7 @@ class DotEnv {
 module.exports = {
 	DotEnv,
 	dotenvLoad: (...args) => {
-		return new DotEnv(...args);
+		const dotenv = new DotEnv(...args);
+		return dotenv.load();
 	},
 };

@@ -2,10 +2,12 @@
 
 # Local env files
 .env
-.env.production
-.env.development
-.env.test
-*.local
+.env.parser
+.env.local
+.env.*.production
+.env.*.development
+.env.*.test
+.env.*.local
 
 .openzeppelin
 addresses.js
