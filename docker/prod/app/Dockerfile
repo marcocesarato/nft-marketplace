@@ -1,22 +1,27 @@
-# Install dependencies only when needed
-FROM node:16-alpine AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat git
-
-WORKDIR /app
-COPY app/package.json ./
-
-RUN yarn install --frozen-lockfile
-
-# Rebuild the source code only when needed
 FROM node:16-alpine AS builder
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk add --no-cache libc6-compat
+RUN apk update
+# Set working directory
+WORKDIR /main
+RUN yarn global add turbo
+COPY . .
+RUN turbo prune --scope=app --docker
 
-RUN apk add --no-cache libc6-compat git
+# Add lockfile and package.json's of isolated subworkspace
+FROM node:alpine AS installer
+RUN apk update
+WORKDIR /main
 
-WORKDIR /app
+# First install the dependencies (as they change less often)
+COPY .gitignore .gitignore
+COPY --from=builder /main/out/json/ .
+COPY --from=builder /main/out/yarn.lock ./yarn.lock
+RUN yarn install --production --ignore-scripts --prefer-offline --frozen-lockfile
 
-COPY ./app .
-COPY --from=deps /app/node_modules ./node_modules
+# Build the project
+COPY --from=builder /main/out/full/ .
+COPY turbo.json turbo.json
 
 # Next.js collects completely anonymous telemetry data about general usage
 # Learn more here: https://nextjs.org/telemetry
@@ -24,37 +29,35 @@ COPY --from=deps /app/node_modules ./node_modules
 RUN npx next telemetry disable
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN yarn build
-RUN yarn install --production --ignore-scripts --prefer-offline
+RUN yarn turbo run build --filter=app...
 
-# Production image, copy all the files and run next
-FROM node:16-alpine AS runner
-
-WORKDIR /app
+FROM node:alpine AS runner
+WORKDIR /main
 
 # Disable Next.js telemetry
 RUN npx next telemetry disable
 ENV NEXT_TELEMETRY_DISABLED 1
-
+# Production environment
 ENV NODE_ENV production
 
+# Don't run production as root
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
-
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/next-i18next.config.js ./
+USER nextjs
 
 # Custom server with HTTPS
-COPY ./docker/prod/app/server.js ./server.js
+COPY ./docker/prod/app/server.js app/server.js
 
-USER nextjs
+COPY --from=installer /main/app/next.config.js .
+COPY --from=installer /main/app/next-i18next.config.js ./
+COPY --from=installer /main/app/package.json .
+
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=installer --chown=nextjs:nodejs /main/app/.next/standalone ./
+COPY --from=installer --chown=nextjs:nodejs /main/app/.next/static ./main/app/.next/static
 
 EXPOSE 3000
 ENV PORT 3000
 
-CMD ["node", "server.js"]
+CMD ["node", "app/server.js"]
