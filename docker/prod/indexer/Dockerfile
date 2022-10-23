@@ -17,7 +17,7 @@ WORKDIR /main
 COPY .gitignore .gitignore
 COPY --from=builder /main/out/json/ .
 COPY --from=builder /main/out/yarn.lock ./yarn.lock
-RUN yarn install --production --ignore-scripts --prefer-offline --frozen-lockfile
+RUN yarn install --ignore-scripts --prefer-offline --frozen-lockfile
 
 # Build the project
 COPY --from=builder /main/out/full/ .
