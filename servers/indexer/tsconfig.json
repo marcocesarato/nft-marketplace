@@ -8,10 +8,9 @@
 	"compilerOptions": {
 		"outDir": "./build",
 		"baseUrl": ".",
-		"rootDir": "../../",
+		"rootDir": ".",
 		"paths": {
-			"@/*": ["./src/*"],
-			"@root/*": ["../../*"]
+			"@/*": ["./src/*"]
 		}
 	},
 	"include": ["src"]

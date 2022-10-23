@@ -30,3 +30,7 @@ type ItemAttribute = {
 	value: string;
 	display_type?: string | null | undefined;
 };
+
+type ContractAddresses = {
+	MarketAddress: string;
+};

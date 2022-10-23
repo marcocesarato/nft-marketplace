@@ -15,9 +15,6 @@ async function main() {
 	const nftMarket = await upgrades.upgradeProxy(MarketAddress, NFTMarket);
 	await nftMarket.deployed();
 
-	const txHash = nftMarket.deployTransaction.hash;
-	const txReceipt = await ethers.provider.waitForTransaction(txHash);
-
 	console.log("Market upgraded!");
 	console.log(" - Market(proxy) Address:", nftMarket.address);
 	console.log(

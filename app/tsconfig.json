@@ -5,7 +5,6 @@
 		"typeRoots": ["node", "node_modules/@types", "src/types"],
 		"paths": {
 			"@/*": ["./*"],
-			"@root/*": ["../*"],
 			"@app/*": ["src/*"],
 			"@assets/*": ["public/assets/*"],
 			"@components/*": ["src/components/*"],

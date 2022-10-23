@@ -11,15 +11,17 @@ class DotEnv {
 		this.env = {};
 	}
 
-	load() {
+	load(withEnv = true) {
 		if (!this.path) {
 			this.path = this.find();
 		}
 		if (fs.existsSync(this.path)) {
-			const config = dotenv.config({
-				path: this.path,
-			});
-			this.env = dotenvExpand.expand(config)?.parsed;
+			if (withEnv) {
+				const config = dotenv.config({
+					path: this.path,
+				});
+				this.env = dotenvExpand.expand(config)?.parsed;
+			}
 			this.envString = fs.readFileSync(this.path, {encoding: "utf8", flag: "r"});
 		}
 		return this;
@@ -49,9 +51,7 @@ class DotEnv {
 			if (typeof foundPath === "string") {
 				try {
 					const stat = fs.statSync(path.resolve(cwd, foundPath));
-					if (stat.isDirectory()) {
-						return foundPath;
-					}
+					if (stat.isDirectory()) return foundPath;
 				} catch {}
 			}
 			return foundPath;
@@ -61,15 +61,9 @@ class DotEnv {
 		while (maxDepth ? depth < maxDepth : true) {
 			depth++;
 			const foundPath = matcher(directory);
-			if (match) {
-				break;
-			}
-			if (foundPath) {
-				match = true;
-			}
-			if (directory === root) {
-				break;
-			}
+			if (match) break;
+			if (foundPath) match = true;
+			if (directory === root) break;
 			directory = path.dirname(directory);
 		}
 		return dotenv;
@@ -119,9 +113,10 @@ class DotEnv {
 				return `${result}${varname}=${value}${EOL}`;
 			}
 		}, this.envString);
-		return fs.writeFileSync(this.path, data, {
+		fs.writeFileSync(this.path, data, {
 			encoding: "utf8",
 		});
+		return this;
 	}
 
 	escapeRegExp(string) {

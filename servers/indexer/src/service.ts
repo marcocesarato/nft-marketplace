@@ -1,8 +1,8 @@
 // @ts-ignore
-import {MarketAddress} from "@root/addresses";
 import * as ethers from "ethers";
 import {connectDatabase, MarketItem} from "@packages/mongo";
 import logger from "@/logger";
+import {getAddresses} from "@/config";
 // @ts-ignore
 import MarketContract from "@packages/abis/Market.json";
 
@@ -20,7 +20,9 @@ export default async function service() {
 	const provider = startConnection();
 
 	// Contract events
+	const {MarketAddress} = getAddresses();
 	const contract = new ethers.Contract(MarketAddress, MarketContract, provider);
+
 	contract.on("MarketItemCreated", (tokenId, creator, seller, owner, price, sold) => {
 		logger.info("Event MarketItemCreated");
 		const item = {
