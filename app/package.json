@@ -87,6 +87,7 @@
 		"@graphql-tools/schema": "^9.0.4",
 		"@next/eslint-plugin-next": "^12.3.1",
 		"@packages/eslint-config": "*",
+		"@packages/ts-config": "*",
 		"@types/aframe": "^1.2.0",
 		"@types/graphql": "^14.5.0",
 		"@types/node": "^18.11.3",

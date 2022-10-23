@@ -1,7 +1,5 @@
 {
-	// This is an alias to @tsconfig/node12: https://github.com/tsconfig/bases
-	"extends": "ts-node/node12/tsconfig.json",
-	// Most ts-node options can be specified here using their programmatic names.
+	"extends": "@packages/ts-config/server.json",
 	"ts-node": {
 		"require": ["tsconfig-paths/register"],
 		"transpileOnly": true,
@@ -11,16 +9,6 @@
 		"outDir": "./build",
 		"baseUrl": ".",
 		"rootDir": "../../",
-		"strict": false,
-		"declaration": true,
-		"declarationDir": "build",
-		"sourceMap": true,
-		"target": "es2017",
-		"esModuleInterop": true,
-		"useUnknownInCatchVariables": false,
-		"skipLibCheck": true,
-		"isolatedModules": false,
-		"module": "commonjs",
 		"paths": {
 			"@/*": ["./src/*"],
 			"@root/*": ["../../*"],
