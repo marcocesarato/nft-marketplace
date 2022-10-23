@@ -169,10 +169,6 @@ The project is a monorepo that contains the following applications:
 
 The other important directories to keep in mind are:
 
--   **Application Binary Interface** (Path: `abis`)
-
-    The smart contract's ABIs are contained here. They are very similar to API so they are a human-readable representation of a code’s interface. ABI defines the methods and structures used to interact with the binary contract, just like API does but on a lower-level.
-
 -   **Smart Contracts** (Path: `contracts`)
 
     The contracts folder contains all the smart contracts (using [Solidity](https://docs.soliditylang.org/)) that need to be deployed on the blockchain and make our project work.
@@ -184,6 +180,10 @@ The other important directories to keep in mind are:
 -   **Scripts** (Path: `scripts`)
 
     This folder contains generic scripts but in particular here we can find the deploy script that allows us to deploy our smart contracts on the blockchain via hardhat.
+
+-   **Application Binary Interface** (Path: `packages/abis`)
+
+    The smart contract's ABIs are contained here. They are very similar to API so they are a human-readable representation of a code’s interface. ABI defines the methods and structures used to interact with the binary contract, just like API does but on a lower-level.
 
 ## [Coding Style](./CODING_STYLE.md)
 
