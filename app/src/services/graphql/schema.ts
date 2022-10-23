@@ -1,8 +1,7 @@
+import {MarketItem, User} from "@packages/database";
 import {GraphQLJSON, SchemaComposer} from "graphql-compose";
 import {composeWithMongoose} from "graphql-compose-mongoose";
 
-import MarketItem from "@models/MarketItem";
-import User from "@models/User";
 import {formatUnits} from "@utils/units";
 
 // Create a new schema composer
