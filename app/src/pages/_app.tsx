@@ -36,14 +36,10 @@ function Page({Component, pageProps}): JSX.Element {
 	useEffect(() => {
 		if (isLogged && !isWeb3Enabled && !isWeb3EnableLoading) {
 			loadWeb3();
+			setConfig({isLoggedSession: pageProps.isLoggedSession});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isLogged, isWeb3Enabled, connectorId]);
-
-	useEffect(() => {
-		setConfig({isLoggedSession: pageProps.isLoggedSession});
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [pageProps.isLoggedSession]);
+	}, [isLogged, isWeb3Enabled, connectorId, pageProps.isLoggedSession]);
 
 	useEffect(() => {
 		if (isInitialized) Moralis.initPlugins();
