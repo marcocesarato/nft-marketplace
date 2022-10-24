@@ -23,10 +23,10 @@
 		"clean": {
 			"cache": false
 		},
-		"e2e": {
+		"cypress": {
 			"cache": false
 		},
-		"e2e:headless": {
+		"cypress:headless": {
 			"cache": false
 		}
 	},
