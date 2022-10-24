@@ -33,15 +33,7 @@ Watch your Digital Art on the wall of your home. Use the VR viewer to see all yo
 To run this project locally, follow these steps.
 
 1. Clone the project locally, change into the directory
-
-2. Install the dependencies (`yarn` suggested):
-
-    ```sh
-    yarn
-    # or
-    npm install
-    ```
-
+2. Install the dependencies with `yarn`
 3. Start the local Hardhat node (**optional** on local environment, for test or main network just follow the [configuration](#configuration))
 
     ```sh
@@ -54,15 +46,7 @@ To run this project locally, follow these steps.
     npx hardhat run scripts/deploy.js --network localhost
     ```
 
-5. Start the app
-
-    ```sh
-    yarn dev
-    # or
-    npm run dev
-    ```
-
-    Open [http://localhost:3000](http://localhost:3000) with yomposeur browser to see the result.
+5. Start the app with `yarn dev`. Then go [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ### Using Docker
 
