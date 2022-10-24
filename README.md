@@ -12,7 +12,9 @@ Watch your Digital Art on the wall of your home. Use the VR viewer to see all yo
     -   [Using Docker](#using-docker)
         -   [Makefile](#makefile)
     -   [Configuration](#configuration)
-        -   [Configure Moralis and Hardhat](#configure-moralis-and-hardhat)
+        -   [Dotenv](#dotenv)
+        -   [Variables](#variables)
+        -   [Common issues](#common-issues)
 -   [Requirements](#requirements)
     -   [Background informations](#background-informations)
     -   [Connect Metamask to Polygon](#connect-metamask-to-polygon)
@@ -44,16 +46,16 @@ To run this project locally, follow these steps.
     yarn install
     ```
 
-3. Start the local Hardhat node (**optional** on local environment, for test or main network just follow the [configuration](#configuration)).
+3. (**optional**, to start localnet) Start a local Hardhat node. If you configure it, you need to start it every time you run the application (see [configuration](#configuration)).
 
     ```sh
     npx hardhat node
     ```
 
-4. With the network running, deploy the contracts to the local network in a separate terminal window. Change network depends your needs. (**optional** only if contracts never been deployed before).
+4. (**optional**, to deploy contracts) With the network running, deploy the contracts to the local network in a separate terminal window. Change network depends your needs.
 
     ```
-    npx hardhat run scripts/deploy.js --network localhost
+    yarn deploy # or yarn deploy:test for testnet and yarn deploy:local for localnet (started on step 3)
     ```
 
 5. Start the app and go to [http://localhost:3000](http://localhost:3000) with your browser.
@@ -94,13 +96,23 @@ Below some of the most important targets:
 
 ### Configuration
 
-#### Configure Moralis and Hardhat
+The project is based over Moralis API (but its functions is code wrapped to permit to be replaced easly based on future needs).
 
-The project is based over Moralis API (but it's functionality is code wrapped to permit to be replaced based on furure needs). Copy `docs/.env.sample` and move to root renaming to `.env` (if you use the server parser do it even for the file `docs/.env.parser.sample` moving to root and renaming to `.env.parser`) then provide your `appId` and `serverUrl` from Moralis ([How to start Moralis Server](https://docs.moralis.io/moralis-server/getting-started/create-a-moralis-server)).
+#### Dotenv
+
+Copy the dotenv sample from `docs/.env.sample` and move it to the root renaming to `.env`.
+
+if you use also the server parser do it even for the file `docs/.env.parser.sample`, moving it to the root and renaming it to `.env.parser`.
+
+#### Variables
+
+Provide your `appId` and `serverUrl` from Moralis ([How to start Moralis Server](https://docs.moralis.io/moralis-server/getting-started/create-a-moralis-server)).
 
 To deploy to the blockchain, test or main networks, we need to configure hardhat so we need to get the WebSocket and JSON RPC URLs from [Alchemy](https://www.alchemy.com/). Once you log into your account, create your project for the Network you need to configure and then copy the WebSocket and JSON RPC URLs and paste it on the `.env` file.
 
-> **NOTE:** If you use moralis hosted server, instead of the parser, rembember that Moralis closes your server every 7 days, so if you have problems with API calls the server is probably down and you need to remember that you need to restart the server.
+#### Common issues
+
+-   When the Moralis hosted-server is used, instead of the parser, remember that Moralis closes your server every 7 days, so if you have problems with API calls the server is probably down and you need to restart the server from the dashboard.
 
 ## Requirements
 
