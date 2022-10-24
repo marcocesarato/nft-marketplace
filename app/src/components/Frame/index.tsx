@@ -3,7 +3,7 @@ import {Image, Text, useCursor} from "@react-three/drei";
 import {useFrame} from "@react-three/fiber";
 import {Color, MathUtils} from "three";
 
-import {pictureSize} from "@app/utils/image";
+import {pictureSize} from "@utils/image";
 
 export default function Frame({
 	url,
