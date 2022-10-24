@@ -45,9 +45,8 @@ export const convertStringToAttributes = (attributes: string): GenericObject => 
 	const result: GenericObject = {};
 	const attributesArray = attributes.split(";");
 	attributesArray.forEach((attribute) => {
-		const attributesSplit = attributes.split(";");
-		let key = attributesSplit[0];
-		const value = attributesSplit[1];
+		// eslint-disable-next-line prefer-const
+		let [key, value] = attribute.split(":");
 		if (key && value) {
 			key = key.replace("-map-map", "-map");
 			result[key] = String(value).trim();
