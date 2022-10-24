@@ -98,9 +98,9 @@ Below some of the most important targets:
 
 #### Configure Moralis and Hardhat
 
-The project is based over Moralis API (but it's functionality is code wrapped to permit to be replaced based on furure needs). Rename `.env.sample` to `.env`, and if you use the server parser even the `.env.parser.sample` to `.env.parser`, from the main folder, then provide your `appId` and `serverUrl` from Moralis ([How to start Moralis Server](https://docs.moralis.io/moralis-server/getting-started/create-a-moralis-server)).
+The project is based over Moralis API (but it's functionality is code wrapped to permit to be replaced based on furure needs). Copy `docs/.env.sample` and move to root renaming to `.env` (if you use the server parser do it even for the file `docs/.env.parser.sample` moving to root and renaming to `.env.parser`) then provide your `appId` and `serverUrl` from Moralis ([How to start Moralis Server](https://docs.moralis.io/moralis-server/getting-started/create-a-moralis-server)).
 
-To deploy to Polygon test or main networks we need to configure hardhat so we need to get the WebSocket and JSON RPC url from Moralis. Once you log into your account, go to the "Speedy Nodes" section. Click on the "Endpoints" button for the Network you need to configure. You will see separate URLs for each network and each archive version.
+To deploy to the blockchain, test or main networks, we need to configure hardhat so we need to get the WebSocket and JSON RPC URLs from [Alchemy](https://www.alchemy.com/). Once you log into your account, create your project for the Network you need to configure and then copy the WebSocket and JSON RPC URLs and paste it on the `.env` file.
 
 > **NOTE:** Moralis closes your server every 7 days, so if you have problems with API calls the server is probably down and you need to remember that you need to restart the server.
 
