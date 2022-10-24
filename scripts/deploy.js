@@ -22,7 +22,7 @@ async function main() {
 	console.log("Market contract deployed to", nftMarketAddress);
 
 	const artifact = require("../artifacts/contracts/Market.sol/Market.json");
-	fs.writeFileSync("abis/Market.json", JSON.stringify(artifact.abi));
+	fs.writeFileSync("packages/abis/Market.json", JSON.stringify(artifact.abi));
 	console.log("Market contract ABI exported to ./packages/abis/Market.json");
 
 	const config = {MarketAddress: nftMarketAddress};
