@@ -1,9 +1,14 @@
 export function getAddresses(): ContractAddresses {
 	let addresses: ContractAddresses = {MarketAddress: "0x"};
 	try {
-		addresses = JSON.parse(process.env.NEXT_PUBLIC_CHAIN_ADDRESSES) || addresses;
+		addresses = JSON.parse(process.env.NEXT_PUBLIC_CHAIN_ADDRESSES);
+		if (!addresses.MarketAddress) {
+			console.error("Invalid NEXT_PUBLIC_CHAIN_ADDRESSES.MarketAddress environment variable");
+			process.exit(1);
+		}
 	} catch (e) {
-		console.warn("Can't parse chain contract addresses");
+		console.error("Can't parse chain contract addresses", e.message);
+		process.exit(1);
 	}
 	return addresses;
 }
