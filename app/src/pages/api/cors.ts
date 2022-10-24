@@ -1,8 +1,9 @@
 import axios from "axios";
+import {NextApiRequest, NextApiResponse} from "next";
 
-async function handler(req, res) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
 	try {
-		const response = await axios.get(req.query.url, {
+		const response = await axios.get(req.query.url as string, {
 			timeout: 5000,
 			responseType: "arraybuffer",
 			headers: {

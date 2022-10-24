@@ -6,7 +6,7 @@ import type {NextApiRequestFiles} from "@app/types";
 
 const middleware = nextConnect<NextApiRequestFiles, NextApiResponse>();
 
-middleware.use(async (req, res, next) => {
+middleware.use(async (req: NextApiRequestFiles, res: NextApiResponse, next) => {
 	const form = new multiparty.Form();
 
 	await form.parse(req, function (err, fields, files) {

@@ -1,13 +1,13 @@
-import {recoverPersonalSignature} from "@metamask/eth-sig-util";
 import {connectDatabase, User} from "@packages/mongo";
 import {ApolloServerPluginLandingPageGraphQLPlayground} from "apollo-server-core";
 import {ApolloServer} from "apollo-server-micro";
-import * as ethUtil from "ethereumjs-util";
 import {Base64} from "js-base64";
 import {send} from "micro";
 import Cors from "micro-cors";
+import {NextApiRequest, NextApiResponse} from "next";
 
 import GraphQLSchema from "@services/graphql/schema";
+import {authSignature} from "@utils/auth";
 import {formatAddress} from "@utils/formatters";
 
 const cors = Cors({
@@ -27,25 +27,12 @@ const server = new ApolloServer({
 	schema: GraphQLSchema,
 	cache: "bounded",
 	// Check authentication
-	context: async ({req}) => {
-		const msg = Base64.decode(req.headers["x-eth-data"] || "");
-		const signature = Base64.decode(req.headers["x-eth-signature"] || "");
-		const publicAddress = Base64.decode(req.headers["x-eth-account"] || "");
-
-		if (!signature || !publicAddress || !ethUtil.isValidAddress(publicAddress) || !msg) {
-			return {isAuthenticated: false};
-		}
-
-		const msgBufferHex = ethUtil.bufferToHex(Buffer.from(msg, "utf8"));
-		const address = recoverPersonalSignature({data: msgBufferHex, signature});
-
-		const isAuthenticated = publicAddress.toLowerCase() === address.toLowerCase();
-
-		if (address.toLowerCase() === publicAddress.toLowerCase()) {
-			return {isAuthenticated, account: publicAddress.toLowerCase()};
-		}
-
-		return {isAuthenticated};
+	context: async ({req}: {req: NextApiRequest}) => {
+		const msg = Base64.decode((req.headers["x-eth-data"] as string) || "");
+		const sign = Base64.decode((req.headers["x-eth-signature"] as string) || "");
+		const account = Base64.decode((req.headers["x-eth-account"] as string) || "");
+		const isAuthenticated = authSignature(msg, sign, account);
+		return {isAuthenticated, account: account.toLowerCase()};
 	},
 	plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
 });
@@ -53,14 +40,14 @@ const server = new ApolloServer({
 const startServer = server.start();
 const connection = connectDatabase();
 
-export default cors(async (req, res) => {
+export default cors(async (req: NextApiRequest, res: NextApiResponse) => {
 	if (req.method === "OPTIONS") {
 		return send(res, 200, "ok!");
 	}
 	await connection;
 
 	// User creation if not exists
-	const publicAddress = Base64.decode(req.headers["x-eth-account"] || "");
+	const publicAddress = Base64.decode((req.headers["x-eth-account"] as string) || "");
 	if (publicAddress) {
 		try {
 			const user = await User.findOne({"account": publicAddress});

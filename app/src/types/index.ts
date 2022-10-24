@@ -4,3 +4,4 @@ export * from "./gallery";
 export * from "./globals";
 export * from "./marketplace";
 export * from "./request";
+export * from "./socket";

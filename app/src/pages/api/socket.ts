@@ -1,6 +1,9 @@
-import {Server} from "socket.io";
+import type {NextApiRequest} from "next";
+import {Server, Socket} from "socket.io";
 
-export default function SocketHandler(req, res) {
+import {NextApiResponseWithSocket} from "@app/types";
+
+export default function SocketHandler(req: NextApiRequest, res: NextApiResponseWithSocket) {
 	const log = (...args: any[]): void => {
 		console.log("[socket]", ...args);
 	};
@@ -17,7 +20,7 @@ export default function SocketHandler(req, res) {
 
 	const rooms = {};
 
-	const onConnection = (socket) => {
+	const onConnection = (socket: Socket) => {
 		log("User connected", socket.id);
 
 		let curRoom = null;
