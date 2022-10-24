@@ -19,7 +19,8 @@
 		"prepare": "husky install",
 		"release": "standard-version",
 		"test": "turbo run test",
-		"e2e": "turbo run dev e2e --parallel --filter=app --filter=parser"
+		"e2e": "turbo run dev cypress --parallel --filter=app --filter=parser",
+		"e2e:headless": "turbo run dev cypress:headless --parallel --filter=app --filter=parser"
 	},
 	"workspaces": [
 		"app",

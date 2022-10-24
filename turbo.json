@@ -25,6 +25,9 @@
 		},
 		"e2e": {
 			"cache": false
+		},
+		"e2e:headless": {
+			"cache": false
 		}
 	},
 	"globalDependencies": [".env"]

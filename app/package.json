@@ -11,7 +11,8 @@
 		"static:build": "yarn build && next export",
 		"static:serve": "yarn static:build && npx servor out index.html 5000",
 		"codegen:graphql": "graphql-codegen --config ./scripts/configs/codegen.graphql.yml",
-		"e2e": "cypress open"
+		"cypress": "cypress open",
+		"cypress:headless": "cypress run"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.7.0",
