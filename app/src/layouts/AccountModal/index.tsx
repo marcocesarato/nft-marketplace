@@ -18,7 +18,7 @@ import {
 import {useTranslation} from "next-i18next";
 
 import Avatar from "@components/Avatar";
-import useGlobalContext from "@contexts/Global";
+import {useConfig} from "@contexts/Global";
 import ErrorAlert from "@errors/ErrorAlert";
 import useAccount from "@hooks/useAccount";
 import useBalance from "@hooks/useBalance";
@@ -39,7 +39,7 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 	const {data: balance} = useBalance();
 	const router = useRouter();
 	const [userUpdate] = useUserUpdateMutation();
-	const {setConfig} = useGlobalContext();
+	const {setConfig} = useConfig();
 
 	function handleLogout() {
 		logout();
