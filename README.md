@@ -32,26 +32,40 @@ Watch your Digital Art on the wall of your home. Use the VR viewer to see all yo
 
 To run this project locally, follow these steps.
 
-1. Clone the project locally, change into the directory
-2. Install the dependencies with `yarn`
-3. Start the local Hardhat node (**optional** on local environment, for test or main network just follow the [configuration](#configuration))
+1. Clone the project locally, change into the directory of the `marketplace`.
+
+    ```sh
+    git clone http://10.40.3.152:13000/gogsadmin/nft-marketplace.git marketplace
+    ```
+
+2. Install the dependencies.
+
+    ```sh
+    yarn install
+    ```
+
+3. Start the local Hardhat node (**optional** on local environment, for test or main network just follow the [configuration](#configuration)).
 
     ```sh
     npx hardhat node
     ```
 
-4. With the network running, deploy the contracts to the local network in a separate terminal window. Change network depends your needs. (**optional** only if contracts never been deployed before)
+4. With the network running, deploy the contracts to the local network in a separate terminal window. Change network depends your needs. (**optional** only if contracts never been deployed before).
 
-    ```sh
+    ```
     npx hardhat run scripts/deploy.js --network localhost
     ```
 
-5. Start the app with `yarn dev`. Then go [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Start the app and go to [http://localhost:3000](http://localhost:3000) with your browser.
+
+    ```sh
+    yarn dev
+    ```
 
 ### Using Docker
 
 1. [Install Docker](https://docs.docker.com/get-docker/) on your machine.
-2. Build your containers with `docker-compose build` _(you need to rebuild if you make changes to the source code)_
+2. Build your containers with `docker-compose build` _(you need to rebuild if you make changes to the configuration code)_
 3. Run your containers with `docker-compose up -d`
 4. You can check the status of your containers created with `docker-compose ps`
 
@@ -86,7 +100,7 @@ The project is based over Moralis API (but it's functionality is code wrapped to
 
 To deploy to the blockchain, test or main networks, we need to configure hardhat so we need to get the WebSocket and JSON RPC URLs from [Alchemy](https://www.alchemy.com/). Once you log into your account, create your project for the Network you need to configure and then copy the WebSocket and JSON RPC URLs and paste it on the `.env` file.
 
-> **NOTE:** Moralis closes your server every 7 days, so if you have problems with API calls the server is probably down and you need to remember that you need to restart the server.
+> **NOTE:** If you use moralis hosted server, instead of the parser, rembember that Moralis closes your server every 7 days, so if you have problems with API calls the server is probably down and you need to remember that you need to restart the server.
 
 ## Requirements
 
