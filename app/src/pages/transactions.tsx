@@ -3,11 +3,19 @@ import {useTranslation} from "next-i18next";
 
 import Transactions from "@components/Account/Transactions";
 import Header from "@components/Header";
-import {getStaticPropsLocale} from "@utils/i18n";
+import {useConfig} from "@contexts/Global";
+import {getServerSidePropsSession} from "@utils/ssr";
 
-export const getStaticProps = getStaticPropsLocale;
+export const getServerSideProps = getServerSidePropsSession;
 export default function MyTransactions(): JSX.Element {
 	const {t} = useTranslation();
+	const {isLoggedSession} = useConfig();
+
+	if (!isLoggedSession)
+		return (
+			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />
+		);
+
 	return (
 		<Box width="full">
 			<Box

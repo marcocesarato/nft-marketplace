@@ -1,5 +1,4 @@
 import {useRouter} from "next/router";
-import {GetStaticPaths} from "next/types";
 import {useTranslation} from "next-i18next";
 
 import Content from "@components/Content";
@@ -8,9 +7,9 @@ import Header from "@components/Header";
 import Loading from "@components/Loading";
 import ErrorNotFound from "@errors/ErrorNotFound";
 import {useUserQuery} from "@services/graphql";
-import {getStaticPropsLocale} from "@utils/i18n";
+import {getServerSidePropsSession} from "@utils/ssr";
 
-export const getStaticProps = getStaticPropsLocale;
+export const getServerSideProps = getServerSidePropsSession;
 export default function AccountGallery(): JSX.Element {
 	const {t} = useTranslation();
 	const router = useRouter();
@@ -39,10 +38,3 @@ export default function AccountGallery(): JSX.Element {
 
 	return <Gallery user={data.user} />;
 }
-
-export const getStaticPaths: GetStaticPaths<{slug: string}> = async () => {
-	return {
-		paths: [],
-		fallback: "blocking",
-	};
-};

@@ -7,17 +7,17 @@ import Content from "@components/Content";
 import Gallery from "@components/Gallery";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
-import useAccount from "@hooks/useAccount";
+import {useConfig} from "@contexts/Global";
 import useUser from "@hooks/useUser";
-import {getStaticPropsLocale} from "@utils/i18n";
+import {getServerSidePropsSession} from "@utils/ssr";
 import {getGalleryBuilderUrl} from "@utils/url";
 
-export const getStaticProps = getStaticPropsLocale;
+export const getServerSideProps = getServerSidePropsSession;
 export default function MyGallery(): JSX.Element {
 	const {user, isLoading} = useUser();
-	const {isAuthenticated} = useAccount();
+	const {isLoggedSession} = useConfig();
 	const {t} = useTranslation();
-	if (!isAuthenticated)
+	if (!isLoggedSession)
 		return (
 			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />
 		);

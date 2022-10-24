@@ -28,9 +28,9 @@ export function getAssetUrl(data: GenericObject | string) {
 		query = data;
 	} else {
 		query =
-			data._id ||
+			data?._id ||
 			encodeURIComponent(
-				(data.owner || data.owner_of) + "/" + data.token_address + "/" + data.token_id,
+				(data?.owner || data?.owner_of) + "/" + data?.token_address + "/" + data?.token_id,
 			);
 	}
 	return `${process.env.NEXT_PUBLIC_URL}/asset/${query}`;

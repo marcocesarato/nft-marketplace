@@ -8,6 +8,7 @@ import Providers from "@app/Providers";
 import type {TWeb3Provider} from "@app/types";
 import Loader from "@components/Loader";
 import {ChainId} from "@configs/chain";
+import {useConfig} from "@contexts/Global";
 import ErrorBoundary from "@errors/ErrorBoundary";
 import useAccount from "@hooks/useAccount";
 import useLocalStorage from "@hooks/useLocalStorage";
@@ -23,6 +24,7 @@ function Page({Component, pageProps}): JSX.Element {
 	const {Moralis, isInitialized} = useMoralis();
 	const {isLogged, isAuthenticating} = useAccount();
 	const {enableWeb3, isWeb3Enabled, isWeb3EnableLoading} = useWeb3();
+	const {setConfig} = useConfig();
 	const switchNetwork = useSwitchNetwork();
 	const [connectorId] = useLocalStorage<TWeb3Provider>("connectorId");
 
@@ -37,6 +39,11 @@ function Page({Component, pageProps}): JSX.Element {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isLogged, isWeb3Enabled, connectorId]);
+
+	useEffect(() => {
+		setConfig({isLoggedSession: pageProps.isLoggedSession});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [pageProps.isLoggedSession]);
 
 	useEffect(() => {
 		if (isInitialized) Moralis.initPlugins();

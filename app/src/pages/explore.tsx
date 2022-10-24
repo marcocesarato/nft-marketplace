@@ -5,9 +5,9 @@ import Content from "@components/Content";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
 import {useMarketItemsOnSaleQuery} from "@services/graphql";
-import {getStaticPropsLocale} from "@utils/i18n";
+import {getServerSidePropsSession} from "@utils/ssr";
 
-export const getStaticProps = getStaticPropsLocale;
+export const getServerSideProps = getServerSidePropsSession;
 export default function Explore(): JSX.Element {
 	const {t} = useTranslation();
 	const {data, loading, error} = useMarketItemsOnSaleQuery();

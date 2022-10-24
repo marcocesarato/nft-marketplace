@@ -4,22 +4,22 @@ import {Button, FormControl, FormLabel, Image, Input, Stack, Textarea} from "@ch
 import {ethers} from "ethers";
 import {useTranslation} from "next-i18next";
 
-import useAccount from "@app/hooks/useAccount";
 import Content from "@components/Content";
 import Dropzone from "@components/Dropzone";
 import Header from "@components/Header";
 import Loader from "@components/Loader";
 import {MarketAddress, MarketContract} from "@configs/contracts";
+import {useConfig} from "@contexts/Global";
 import useBalance from "@hooks/useBalance";
 import useIPFS from "@hooks/useIPFS";
 import useWeb3 from "@hooks/useWeb3";
-import {getStaticPropsLocale} from "@utils/i18n";
+import {getServerSidePropsSession} from "@utils/ssr";
 import {parseUnits} from "@utils/units";
 
-export const getStaticProps = getStaticPropsLocale;
+export const getServerSideProps = getServerSidePropsSession;
 export default function Sell(): JSX.Element {
 	const {t} = useTranslation();
-	const {isAuthenticated} = useAccount();
+	const {isLoggedSession} = useConfig();
 	const {nativeToken} = useBalance();
 	const {saveIPFS} = useIPFS();
 	const {web3} = useWeb3();
@@ -79,7 +79,7 @@ export default function Sell(): JSX.Element {
 		}
 	}
 
-	if (!isAuthenticated)
+	if (!isLoggedSession)
 		return (
 			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />
 		);

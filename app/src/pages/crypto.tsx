@@ -1,13 +1,19 @@
 import React, {useEffect, useState} from "react";
 import {useMoralis} from "react-moralis";
 import {Box, Center} from "@chakra-ui/react";
+import {useTranslation} from "next-i18next";
 
-import {getStaticPropsLocale} from "@utils/i18n";
+import Header from "@components/Header";
+import {useConfig} from "@contexts/Global";
+import {getServerSidePropsSession} from "@utils/ssr";
 
-export const getStaticProps = getStaticPropsLocale;
+export const getServerSideProps = getServerSidePropsSession;
 export default function Crypto(): JSX.Element {
 	const [ramper, setRamper] = useState();
 	const {Moralis} = useMoralis();
+	const {isLoggedSession} = useConfig();
+	const {t} = useTranslation();
+
 	useEffect(() => {
 		if (!Moralis?.["Plugins"]?.["fiat"]) return null;
 		async function initRamperPlugin() {
@@ -18,6 +24,11 @@ export default function Crypto(): JSX.Element {
 		initRamperPlugin();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [Moralis.Plugins]);
+
+	if (!isLoggedSession)
+		return (
+			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />
+		);
 
 	return (
 		<Center flex="1" p="8">

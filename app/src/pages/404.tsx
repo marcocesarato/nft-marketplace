@@ -1,5 +1,5 @@
 import ErrorNotFound from "@errors/ErrorNotFound";
-import {getStaticPropsLocale} from "@utils/i18n";
+import {getStaticPropsLocale} from "@utils/ssr";
 
 export const getStaticProps = getStaticPropsLocale;
 export default function NotFound(): JSX.Element {

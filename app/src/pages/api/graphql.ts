@@ -1,16 +1,16 @@
 import {connectDatabase, User} from "@packages/mongo";
 import {ApolloServerPluginLandingPageGraphQLPlayground} from "apollo-server-core";
 import {ApolloServer} from "apollo-server-micro";
-import {Base64} from "js-base64";
 import {send} from "micro";
 import Cors from "micro-cors";
 import {NextApiRequest, NextApiResponse} from "next";
 
 import GraphQLSchema from "@services/graphql/schema";
-import {authSignature} from "@utils/auth";
 import {formatAddress} from "@utils/formatters";
+import {withSessionRoute} from "@utils/session";
 
 const cors = Cors({
+	allowCredentials: true,
 	allowHeaders: [
 		"X-Requested-With",
 		"Access-Control-Allow-Origin",
@@ -28,11 +28,10 @@ const server = new ApolloServer({
 	cache: "bounded",
 	// Check authentication
 	context: async ({req}: {req: NextApiRequest}) => {
-		const msg = Base64.decode((req.headers["x-eth-data"] as string) || "");
-		const sign = Base64.decode((req.headers["x-eth-signature"] as string) || "");
-		const account = Base64.decode((req.headers["x-eth-account"] as string) || "");
-		const isAuthenticated = authSignature(msg, sign, account);
-		return {isAuthenticated, account: account.toLowerCase()};
+		return {
+			isAuthenticated: req.session.isAuthenticated || false,
+			account: String(req.session.account || "").toLowerCase(),
+		};
 	},
 	plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
 });
@@ -40,14 +39,14 @@ const server = new ApolloServer({
 const startServer = server.start();
 const connection = connectDatabase();
 
-export default cors(async (req: NextApiRequest, res: NextApiResponse) => {
+const graphqlRoute = cors(async (req: NextApiRequest, res: NextApiResponse) => {
 	if (req.method === "OPTIONS") {
 		return send(res, 200, "ok!");
 	}
 	await connection;
 
 	// User creation if not exists
-	const publicAddress = Base64.decode((req.headers["x-eth-account"] as string) || "");
+	const publicAddress = req.session.account;
 	if (publicAddress) {
 		try {
 			const user = await User.findOne({"account": publicAddress});
@@ -67,6 +66,8 @@ export default cors(async (req: NextApiRequest, res: NextApiResponse) => {
 		path: "/api/graphql",
 	})(req, res);
 });
+
+export default withSessionRoute(graphqlRoute);
 
 export const config = {
 	api: {

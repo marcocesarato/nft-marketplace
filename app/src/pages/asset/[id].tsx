@@ -1,15 +1,14 @@
 import {useMemo} from "react";
 import {useRouter} from "next/router";
-import {GetStaticPaths} from "next/types";
 import {useTranslation} from "next-i18next";
 
 import Header from "@components/Header";
 import ProductByAddress from "@components/Product/ProductByAddress";
 import ProductById from "@components/Product/ProductById";
-import {getStaticPropsLocale} from "@utils/i18n";
+import {getServerSidePropsSession} from "@utils/ssr";
 import {isNumeric} from "@utils/units";
 
-export const getStaticProps = getStaticPropsLocale;
+export const getServerSideProps = getServerSidePropsSession;
 export default function SingleAsset(): JSX.Element {
 	const {t} = useTranslation();
 	const router = useRouter();
@@ -39,10 +38,3 @@ export default function SingleAsset(): JSX.Element {
 		);
 	return content;
 }
-
-export const getStaticPaths: GetStaticPaths<{slug: string}> = async () => {
-	return {
-		paths: [],
-		fallback: "blocking",
-	};
-};

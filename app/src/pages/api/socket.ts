@@ -2,8 +2,13 @@ import type {NextApiRequest} from "next";
 import {Server, Socket} from "socket.io";
 
 import {NextApiResponseWithSocket} from "@app/types";
+import {withSessionRoute} from "@utils/session";
 
-export default function SocketHandler(req: NextApiRequest, res: NextApiResponseWithSocket) {
+function socketRoute(req: NextApiRequest, res: NextApiResponseWithSocket) {
+	if (!req.session.isAuthenticated) {
+		res.status(403).json({message: "Not authenticated"});
+	}
+
 	const log = (...args: any[]): void => {
 		console.log("[socket]", ...args);
 	};
@@ -78,3 +83,5 @@ export default function SocketHandler(req: NextApiRequest, res: NextApiResponseW
 	log("Setting up socket");
 	res.end();
 }
+
+export default withSessionRoute(socketRoute);

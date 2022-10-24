@@ -2,6 +2,7 @@ import type {TGlobalContext} from "@app/types";
 
 const initialState: TGlobalContext = {
 	config: {
+		isLoggedSession: false,
 		username: "",
 		nativeToken: {
 			name: "MATIC",
