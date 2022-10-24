@@ -4,9 +4,11 @@
 const {ethers, upgrades} = require("hardhat");
 const fs = require("fs");
 const path = require("path");
-const {DotEnv} = require("@packages/dotenv");
+const {dotenvLoad} = require("@packages/dotenv");
 
-async function main() {
+const dotenv = dotenvLoad();
+
+const main = async () => {
 	const [deployer] = await ethers.getSigners();
 
 	console.log("Deploying contracts with the account:", deployer.address);
@@ -32,13 +34,9 @@ async function main() {
 	console.log("Market contract ABI exported to ./packages/abis/Market.json");
 
 	const config = {MarketAddress: nftMarketAddress};
-
-	const dotenv = new DotEnv();
-	dotenv.load(false);
 	dotenv.save({"NEXT_PUBLIC_CHAIN_ADDRESSES": `'${JSON.stringify(config)}'`});
-
 	console.log(`Addresses exported to ./${path.basename(dotenv.path)}`);
-}
+};
 
 main()
 	.then(() => process.exit(0))

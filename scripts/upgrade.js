@@ -2,17 +2,21 @@
  * Upgrade smart contracts yet deployed on blockchain
  */
 const {ethers, upgrades} = require("hardhat");
-const {MarketAddress} = require("../addresses");
 const fs = require("fs");
+const {dotenvLoad} = require("@packages/dotenv");
 
-async function main() {
+dotenvLoad();
+
+const main = async () => {
 	const [deployer] = await ethers.getSigners();
 
+	const addresses = getAddresses();
+
 	console.log("Upgrading contracts with the account:", deployer.address);
-	console.log("Upgrading NFTMarket to address:", MarketAddress);
+	console.log("Upgrading NFTMarket to address:", addresses.MarketAddress);
 
 	const NFTMarket = await ethers.getContractFactory("MarketUpgradeable");
-	const nftMarket = await upgrades.upgradeProxy(MarketAddress, NFTMarket);
+	const nftMarket = await upgrades.upgradeProxy(addresses.MarketAddress, NFTMarket);
 	await nftMarket.deployed();
 
 	console.log("Market upgraded!");
@@ -29,7 +33,22 @@ async function main() {
 		flag: "w",
 	});
 	console.log("Market contract ABI exported to ./abis/Market.json");
-}
+};
+
+const getAddresses = () => {
+	let addresses;
+	try {
+		addresses = JSON.parse(process.env.NEXT_PUBLIC_CHAIN_ADDRESSES);
+		if (!addresses.MarketAddress) {
+			throw new Error(
+				"Invalid NEXT_PUBLIC_CHAIN_ADDRESSES.MarketAddress environment variable",
+			);
+		}
+	} catch (e) {
+		throw new Error("Can't parse chain contract addresses", e.message);
+	}
+	return addresses;
+};
 
 main()
 	.then(() => process.exit(0))
