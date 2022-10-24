@@ -9,9 +9,9 @@ import {getServerSidePropsSession} from "@utils/ssr";
 export const getServerSideProps = getServerSidePropsSession;
 export default function MyTransactions(): JSX.Element {
 	const {t} = useTranslation();
-	const {isLoggedSession} = useConfig();
+	const {isLogged} = useConfig();
 
-	if (!isLoggedSession)
+	if (!isLogged)
 		return (
 			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />
 		);

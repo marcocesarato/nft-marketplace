@@ -9,11 +9,11 @@ import UserMenu from "./UserMenu";
 
 export default function ConnectButton({openAccountModal}): JSX.Element {
 	const {t} = useTranslation();
-	const {isAuthenticated} = useAccount();
+	const {isFullAuthenticated} = useAccount();
 	const {isOpen, onOpen, onClose} = useDisclosure();
 	return (
 		<>
-			{isAuthenticated ? (
+			{isFullAuthenticated ? (
 				<Flex alignItems="center" borderRadius="xl" py="0">
 					<UserMenu openAccountModal={openAccountModal} />
 				</Flex>

@@ -5,7 +5,7 @@ import {NextApiResponseWithSocket} from "@app/types";
 import {withSessionRoute} from "@utils/session";
 
 function socketRoute(req: NextApiRequest, res: NextApiResponseWithSocket) {
-	if (!req.session.isAuthenticated) {
+	if (!req.session.isLogged) {
 		res.status(403).json({message: "Not authenticated"});
 	}
 

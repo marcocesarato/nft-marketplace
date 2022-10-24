@@ -9,7 +9,7 @@ export const getServerSidePropsSession = withSessionSsr(async function getServer
 	return {
 		props: {
 			...(await serverSideTranslations(locale, ["common", "error"])),
-			isLoggedSession: req.session.isAuthenticated,
+			isLogged: req.session.isLogged ?? false,
 		},
 	};
 });

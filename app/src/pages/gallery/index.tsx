@@ -15,9 +15,9 @@ import {getGalleryBuilderUrl} from "@utils/url";
 export const getServerSideProps = getServerSidePropsSession;
 export default function MyGallery(): JSX.Element {
 	const {user, isLoading} = useUser();
-	const {isLoggedSession} = useConfig();
+	const {isLogged} = useConfig();
 	const {t} = useTranslation();
-	if (!isLoggedSession)
+	if (!isLogged)
 		return (
 			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />
 		);

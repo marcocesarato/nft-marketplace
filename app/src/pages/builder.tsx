@@ -9,9 +9,9 @@ import {getServerSidePropsSession} from "@utils/ssr";
 
 export const getServerSideProps = getServerSidePropsSession;
 export default function Builder(): JSX.Element {
-	const {isLoggedSession} = useConfig();
+	const {isLogged} = useConfig();
 	const {t} = useTranslation();
-	if (!isLoggedSession)
+	if (!isLogged)
 		return (
 			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />
 		);

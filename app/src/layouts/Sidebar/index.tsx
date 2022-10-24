@@ -16,7 +16,7 @@ import SidebarSection from "./SidebarSection";
 function Sidebar({title, ...props}): JSX.Element {
 	const {t} = useTranslation();
 	const routes = useRoutes();
-	const {isAuthenticated, logout} = useAccount();
+	const {isFullAuthenticated, logout} = useAccount();
 	const {sidebarWidth, isSidebarCompress, onToggleSidebar} = useSidebar();
 	const mainPanel = useRef();
 
@@ -69,7 +69,7 @@ function Sidebar({title, ...props}): JSX.Element {
 								px={paddingX}
 								w={sidebarWidth}
 								my={marginsY}>
-								{isAuthenticated && (
+								{isFullAuthenticated && (
 									<SidebarSection
 										label={t<string>("common:action.disconnect")}
 										icon={AiOutlineLogout}

@@ -10,15 +10,18 @@ import {
 import useAccount from "./useAccount";
 
 export function useRoutes() {
-	const {isAuthenticated} = useAccount();
-	return useMemo(() => (isAuthenticated ? routesAuthenticated : routes), [isAuthenticated]);
+	const {isFullAuthenticated} = useAccount();
+	return useMemo(
+		() => (isFullAuthenticated ? routesAuthenticated : routes),
+		[isFullAuthenticated],
+	);
 }
 
 export function useMobileRoutes() {
-	const {isAuthenticated} = useAccount();
+	const {isFullAuthenticated} = useAccount();
 	return useMemo(
-		() => (isAuthenticated ? routesMobileAuthenticated : routesMobile),
-		[isAuthenticated],
+		() => (isFullAuthenticated ? routesMobileAuthenticated : routesMobile),
+		[isFullAuthenticated],
 	);
 }
 

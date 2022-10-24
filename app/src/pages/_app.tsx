@@ -22,7 +22,7 @@ lazy(() => import("webxr-polyfill"));
 
 function Page({Component, pageProps}): JSX.Element {
 	const {Moralis, isInitialized} = useMoralis();
-	const {isLogged, isAuthenticating} = useAccount();
+	const {isAuthenticated, isAuthenticating} = useAccount();
 	const {enableWeb3, isWeb3Enabled, isWeb3EnableLoading} = useWeb3();
 	const {setConfig} = useConfig();
 	const switchNetwork = useSwitchNetwork();
@@ -34,12 +34,12 @@ function Page({Component, pageProps}): JSX.Element {
 	};
 
 	useEffect(() => {
-		if (isLogged && !isWeb3Enabled && !isWeb3EnableLoading) {
+		if (isAuthenticated && !isWeb3Enabled && !isWeb3EnableLoading) {
 			loadWeb3();
-			setConfig({isLoggedSession: pageProps.isLoggedSession});
+			setConfig({isLogged: pageProps.isLogged});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isLogged, isWeb3Enabled, connectorId, pageProps.isLoggedSession]);
+	}, [isAuthenticated, isWeb3Enabled, connectorId, pageProps.isLogged]);
 
 	useEffect(() => {
 		if (isInitialized) Moralis.initPlugins();

@@ -17,7 +17,7 @@ export default function useAccount() {
 		chainId,
 		user,
 	} = useMoralis();
-	const {isLoggedSession} = useConfig();
+	const {isLogged} = useConfig();
 	const {web3} = useWeb3();
 	const account = web3?.provider?.["selectedAddress"]?.toLowerCase();
 
@@ -32,8 +32,8 @@ export default function useAccount() {
 
 	return {
 		isAuthenticating,
-		isLogged: isAuthenticated,
-		isAuthenticated: isAuthenticated && account && web3 && isLoggedSession, // When web3 is authenticated
+		isAuthenticated,
+		isFullAuthenticated: isAuthenticated && account && web3 && isLogged, // When web3 is authenticated
 		logout: doLogout,
 		account,
 		signature,

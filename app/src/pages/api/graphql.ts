@@ -29,7 +29,7 @@ const server = new ApolloServer({
 	// Check authentication
 	context: async ({req}: {req: NextApiRequest}) => {
 		return {
-			isAuthenticated: req.session.isAuthenticated || false,
+			isLogged: req.session.isLogged || false,
 			account: String(req.session.account || "").toLowerCase(),
 		};
 	},

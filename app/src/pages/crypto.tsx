@@ -11,7 +11,7 @@ export const getServerSideProps = getServerSidePropsSession;
 export default function Crypto(): JSX.Element {
 	const [ramper, setRamper] = useState();
 	const {Moralis} = useMoralis();
-	const {isLoggedSession} = useConfig();
+	const {isLogged} = useConfig();
 	const {t} = useTranslation();
 
 	useEffect(() => {
@@ -25,7 +25,7 @@ export default function Crypto(): JSX.Element {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [Moralis.Plugins]);
 
-	if (!isLoggedSession)
+	if (!isLogged)
 		return (
 			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />
 		);

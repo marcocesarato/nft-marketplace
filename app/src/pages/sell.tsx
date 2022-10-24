@@ -19,7 +19,7 @@ import {parseUnits} from "@utils/units";
 export const getServerSideProps = getServerSidePropsSession;
 export default function Sell(): JSX.Element {
 	const {t} = useTranslation();
-	const {isLoggedSession} = useConfig();
+	const {isLogged} = useConfig();
 	const {nativeToken} = useBalance();
 	const {saveIPFS} = useIPFS();
 	const {web3} = useWeb3();
@@ -79,7 +79,7 @@ export default function Sell(): JSX.Element {
 		}
 	}
 
-	if (!isLoggedSession)
+	if (!isLogged)
 		return (
 			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />
 		);

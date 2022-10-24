@@ -7,5 +7,5 @@ export default withIronSessionApiRoute(logoutRoute, sessionOptions);
 
 function logoutRoute(req: NextApiRequest, res: NextApiResponse) {
 	req.session.destroy();
-	res.json({account: "", isAuthenticated: false});
+	res.json({account: "", isLogged: false});
 }

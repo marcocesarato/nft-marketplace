@@ -6,16 +6,16 @@ import {withSessionRoute} from "@utils/session";
 async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
 	const {message, signature, account} = await req.body;
 	try {
-		const isAuthenticated = authSignature(message, signature, account);
+		const isLogged = authSignature(message, signature, account);
 
-		if (!isAuthenticated) {
+		if (!isLogged) {
 			res.status(500).json({message: "Invalid signature"});
 		}
 
-		const result = {isAuthenticated, account: account.toLowerCase()};
+		const result = {isLogged, account: account.toLowerCase()};
 
 		req.session.account = result.account;
-		req.session.isAuthenticated = result.isAuthenticated;
+		req.session.isLogged = result.isLogged;
 
 		await req.session.save();
 		res.json(result);

@@ -9,10 +9,10 @@ import useAccount from "@hooks/useAccount";
 import useLocalStorage from "@hooks/useLocalStorage";
 
 export default function WalletConnect(): JSX.Element {
-	const {authenticate, signature, signatureData, account, isAuthenticated} = useAccount();
+	const {authenticate, signature, signatureData, account, isFullAuthenticated} = useAccount();
 	const [, setConnectorId] = useLocalStorage<TWeb3Provider>("connectorId");
 	useEffect(() => {
-		if (signature && signatureData && account && !isAuthenticated) {
+		if (signature && signatureData && account && !isFullAuthenticated) {
 			axios
 				.post(`${process.env.NEXT_PUBLIC_URL}/api/login`, {
 					message: signatureData,
@@ -21,7 +21,7 @@ export default function WalletConnect(): JSX.Element {
 				})
 				.then();
 		}
-	}, [signature, signatureData, account, isAuthenticated]);
+	}, [signature, signatureData, account, isFullAuthenticated]);
 	return (
 		<Grid templateColumns={"1fr 1fr"} rowGap={5}>
 			{connectors.map(({title, icon, connectorId}, key) => {

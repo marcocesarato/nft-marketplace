@@ -12,11 +12,11 @@ import {getServerSidePropsSession} from "@utils/ssr";
 export const getServerSideProps = getServerSidePropsSession;
 export default function CreatorDashboard(): JSX.Element {
 	const {t} = useTranslation();
-	const {isLoggedSession} = useConfig();
+	const {isLogged} = useConfig();
 	const {data, error, loading} = useMarketItemsCreatedQuery();
 	const items = data?.marketItems;
 	const sold = items?.filter((i) => i.sold) || [];
-	if (!isLoggedSession)
+	if (!isLogged)
 		return (
 			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />
 		);
