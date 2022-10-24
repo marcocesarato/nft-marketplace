@@ -10,7 +10,8 @@
 		"start": "next start",
 		"static:build": "yarn build && next export",
 		"static:serve": "yarn static:build && npx servor out index.html 5000",
-		"codegen:graphql": "graphql-codegen --config ./scripts/configs/codegen.graphql.yml"
+		"codegen:graphql": "graphql-codegen --config ./scripts/configs/codegen.graphql.yml",
+		"e2e": "cypress open"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.7.0",
@@ -97,8 +98,11 @@
 		"@types/react-dom": "^18.0.6",
 		"@types/three": "^0.143.0",
 		"@types/webxr": "^0.5.0",
+		"cypress": "^10.10.0",
 		"eslint-config-next": "12.3.1",
 		"eslint-config-react-app": "7.0.1",
+		"eslint-plugin-chai-friendly": "^0.7.2",
+		"eslint-plugin-cypress": "^2.12.1",
 		"eslint-plugin-jsx-a11y": "6.6.1",
 		"eslint-plugin-react": "7.31.10",
 		"eslint-plugin-react-hooks": "4.6.0",

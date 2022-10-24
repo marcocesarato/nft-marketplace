@@ -18,7 +18,8 @@
 		"lint:fix": "turbo run lint:fix",
 		"prepare": "husky install",
 		"release": "standard-version",
-		"test": "turbo run test"
+		"test": "turbo run test",
+		"e2e": "turbo run dev e2e --parallel --filter=app --filter=parser"
 	},
 	"workspaces": [
 		"app",

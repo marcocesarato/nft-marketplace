@@ -1,0 +1,4 @@
+{
+	"extends": "@packages/ts-config/cypress.json",
+	"include": ["**/*.ts"]
+}

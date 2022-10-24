@@ -22,6 +22,9 @@
 		},
 		"clean": {
 			"cache": false
+		},
+		"e2e": {
+			"cache": false
 		}
 	},
 	"globalDependencies": [".env"]
