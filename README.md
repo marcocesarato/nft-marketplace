@@ -54,7 +54,7 @@ To run this project locally, follow these steps.
 
 4. (**optional**, to deploy contracts) With the network running, deploy the contracts to the local network in a separate terminal window. Change network depends your needs.
 
-    ```
+    ```sh
     yarn deploy # or yarn deploy:test for testnet and yarn deploy:local for localnet (started on step 3)
     ```
 
