@@ -16,9 +16,9 @@ import Loading from "@components/Loading";
 import Particles from "@components/Particles";
 import useSidebar from "@hooks/useSidebar";
 import {useMarketItemsOnSaleQuery} from "@services/graphql";
-import {getServerSidePropsSession} from "@utils/ssr";
+import {getServerSidePropsHandler} from "@utils/ssr";
 
-export const getServerSideProps = getServerSidePropsSession;
+export const getServerSideProps = getServerSidePropsHandler();
 export default function Home(): JSX.Element {
 	const {t} = useTranslation();
 	const {isSidebarCompress} = useSidebar();

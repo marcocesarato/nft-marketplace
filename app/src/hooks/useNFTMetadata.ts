@@ -64,9 +64,9 @@ export default function useNFTMetadata() {
 						{results, metadata},
 					);
 					//Retry That Again after 1s
-					setTimeout(function () {
+					/*setTimeout(function () {
 						withMetadata(item);
-					}, 1000);
+					}, 1000);*/
 				} //Handle Opensea's {detail: "Request was throttled. Expected available in 1 second."}
 				else {
 					//No Errors

@@ -6,9 +6,9 @@ import Content from "@components/Content";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
 import useNFTs from "@hooks/useNFTs";
-import {getServerSidePropsSession} from "@utils/ssr";
+import {getServerSidePropsHandler} from "@utils/ssr";
 
-export const getServerSideProps = getServerSidePropsSession;
+export const getServerSideProps = getServerSidePropsHandler(["userNFTs"]);
 export default function MyAssets(): JSX.Element {
 	const {t} = useTranslation();
 	const {data: rawData, error, isError, isSuccess, isLoading} = useNFTs();

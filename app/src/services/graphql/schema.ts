@@ -11,8 +11,8 @@ const schemaComposer = new SchemaComposer();
 function wrapAccessResolve(resolver, callback = (rp) => {}) {
 	return resolver.wrapResolve((next) => async (rp) => {
 		rp.beforeRecordMutate = async function (doc, rp) {
-			const {isLogged} = rp.context;
-			if (!isLogged) {
+			const {isAuthenticated} = rp.context;
+			if (!isAuthenticated) {
 				throw new Error("Forbidden!");
 			}
 			return doc;
@@ -69,8 +69,8 @@ schemaComposer.Mutation.addFields({
 		type: UserTC,
 		args: {planimetry: "JSON"},
 		resolve: async (source, args, context, info) => {
-			const {account, isLogged} = context;
-			if (!isLogged) return false;
+			const {account, isAuthenticated} = context;
+			if (!isAuthenticated) return false;
 			const user = await User.findOne({account});
 			if (!user) return false;
 			await User.updateOne({account}, {"planimetry": JSON.stringify(args.planimetry)});
@@ -90,9 +90,9 @@ MarketItemTC.addFields({
 	isLiked: {
 		type: "Boolean",
 		resolve: async (source, args, context, info) => {
-			const {isLogged, account} = context;
+			const {isAuthenticated, account} = context;
 			const {_id} = source;
-			if (!isLogged) return false;
+			if (!isAuthenticated) return false;
 			const user = await User.findOne({"account": account}).lean();
 			if (!user) return false;
 			return user?.likes?.includes(_id) || false;
@@ -101,9 +101,9 @@ MarketItemTC.addFields({
 	isFavourited: {
 		type: "Boolean",
 		resolve: async (source, args, context, info) => {
-			const {isLogged, account} = context;
+			const {isAuthenticated, account} = context;
 			const {_id} = source;
-			if (!isLogged) return false;
+			if (!isAuthenticated) return false;
 			const user = await User.findOne({"account": account}).lean();
 			if (!user) return false;
 			return user?.favourites?.includes(_id) || false;
@@ -132,8 +132,8 @@ schemaComposer.Mutation.addFields({
 		type: MarketItemTC,
 		args: {tokenId: "Int"},
 		resolve: async (source, args, context, info) => {
-			const {account, isLogged} = context;
-			if (!isLogged) throw new Error("Not authenticated"); // Check auth
+			const {account, isAuthenticated} = context;
+			if (!isAuthenticated) throw new Error("Not authenticated"); // Check auth
 			const user = await User.updateOne({account: account}, {
 				$push: {likes: args.tokenId},
 			} as any);
@@ -146,8 +146,8 @@ schemaComposer.Mutation.addFields({
 		type: MarketItemTC,
 		args: {tokenId: "Int"},
 		resolve: async (source, args, context, info) => {
-			const {account, isLogged} = context;
-			if (!isLogged) throw new Error("Not authenticated"); // Check auth
+			const {account, isAuthenticated} = context;
+			if (!isAuthenticated) throw new Error("Not authenticated"); // Check auth
 			const user = await User.updateOne({account: account}, {
 				$pull: {likes: args.tokenId},
 			} as any);
@@ -160,8 +160,8 @@ schemaComposer.Mutation.addFields({
 		type: MarketItemTC,
 		args: {tokenId: "Int"},
 		resolve: async (source, args, context, info) => {
-			const {account, isLogged} = context;
-			if (!isLogged) throw new Error("Not authenticated"); // Check auth
+			const {account, isAuthenticated} = context;
+			if (!isAuthenticated) throw new Error("Not authenticated"); // Check auth
 			const user = await User.updateOne(
 				{account: account},
 				{$push: {favourites: args.tokenId} as any},
@@ -174,8 +174,8 @@ schemaComposer.Mutation.addFields({
 		type: MarketItemTC,
 		args: {tokenId: "Int"},
 		resolve: async (source, args, context, info) => {
-			const {account, isLogged} = context;
-			if (!isLogged) throw new Error("Not authenticated"); // Check auth
+			const {account, isAuthenticated} = context;
+			if (!isAuthenticated) throw new Error("Not authenticated"); // Check auth
 			const user = await User.updateOne(
 				{account: account},
 				{$pull: {favourites: args.tokenId} as any},

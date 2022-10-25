@@ -1,31 +1,18 @@
-import React, {useEffect, useState} from "react";
-import {useMoralis} from "react-moralis";
+import React, {useState} from "react";
 import {Box, Center} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
 import Header from "@components/Header";
-import {useConfig} from "@contexts/Global";
-import {getServerSidePropsSession} from "@utils/ssr";
+import useAccount from "@hooks/useAccount";
+import {getServerSidePropsHandler} from "@utils/ssr";
 
-export const getServerSideProps = getServerSidePropsSession;
+export const getServerSideProps = getServerSidePropsHandler();
 export default function Crypto(): JSX.Element {
-	const [ramper, setRamper] = useState();
-	const {Moralis} = useMoralis();
-	const {isLogged} = useConfig();
+	const [ramper] = useState();
+	const {isConnected} = useAccount();
 	const {t} = useTranslation();
 
-	useEffect(() => {
-		if (!Moralis?.["Plugins"]?.["fiat"]) return null;
-		async function initRamperPlugin() {
-			Moralis.Plugins.fiat
-				.buy({}, {disableTriggers: true})
-				.then((data) => setRamper(data.data));
-		}
-		initRamperPlugin();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [Moralis.Plugins]);
-
-	if (!isLogged)
+	if (!isConnected)
 		return (
 			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />
 		);

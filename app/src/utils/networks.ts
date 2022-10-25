@@ -71,8 +71,10 @@ export const networkConfigs = {
 };
 
 export const getNativeByChain = (chain) => networkConfigs[chain]?.currencySymbol || "NATIVE";
-export const getChainById = (chain) => networkConfigs[chain]?.chainId || null;
-export const getExplorer = (chain) => networkConfigs[chain]?.blockExplorerUrl;
 export const getWrappedNative = (chain) => networkConfigs[chain]?.wrapped || null;
 export const getChainAddressById = (chainId) =>
 	Object.keys(networkConfigs).find((key) => key === chainId) || null;
+export const getChainById = (chainId) =>
+	Object.values(networkConfigs).find((value) => value?.["chainId"] === chainId) || null;
+export const getExplorer = (chain) => networkConfigs[chain]?.blockExplorerUrl || "";
+export const getExplorerById = (chain) => getChainById(chain)?.["blockExplorerUrl"] || "";

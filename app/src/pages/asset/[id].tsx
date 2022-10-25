@@ -5,10 +5,10 @@ import {useTranslation} from "next-i18next";
 import Header from "@components/Header";
 import ProductByAddress from "@components/Product/ProductByAddress";
 import ProductById from "@components/Product/ProductById";
-import {getServerSidePropsSession} from "@utils/ssr";
+import {getServerSidePropsHandler} from "@utils/ssr";
 import {isNumeric} from "@utils/units";
 
-export const getServerSideProps = getServerSidePropsSession;
+export const getServerSideProps = getServerSidePropsHandler(["accountNFTs"]);
 export default function SingleAsset(): JSX.Element {
 	const {t} = useTranslation();
 	const router = useRouter();

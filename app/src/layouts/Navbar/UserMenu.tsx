@@ -1,34 +1,24 @@
 import {useRouter} from "next/router";
-import {
-	Button,
-	Flex,
-	Menu,
-	MenuButton,
-	MenuDivider,
-	MenuItem,
-	MenuList,
-	Text,
-} from "@chakra-ui/react";
+import {HamburgerIcon} from "@chakra-ui/icons";
+import {Button, Flex, Menu, MenuButton, MenuDivider, MenuItem, MenuList} from "@chakra-ui/react";
+import {signOut} from "next-auth/react";
 import {useTranslation} from "next-i18next";
 
-import Avatar from "@components/Avatar";
 import useAccount from "@hooks/useAccount";
-import useUser from "@hooks/useUser";
 import {getAccountUrl, getGalleryBuilderUrl, getGalleryUrl} from "@utils/url";
 
 export default function UserMenu({openAccountModal}): JSX.Element {
 	const {t} = useTranslation();
-	const {account, logout} = useAccount();
-	const {username} = useUser();
+	const {address} = useAccount();
 	const router = useRouter();
 
 	function handleLogout() {
-		logout();
+		signOut();
 		router.push("/");
 	}
 
 	function handleProfile() {
-		router.push(getAccountUrl(account));
+		router.push(getAccountUrl(address));
 	}
 
 	function handleGallery() {
@@ -39,18 +29,15 @@ export default function UserMenu({openAccountModal}): JSX.Element {
 		router.push(getGalleryBuilderUrl());
 	}
 
+	function handleBuyCrypto() {
+		router.push("/crypto");
+	}
+
 	return (
 		<Menu>
 			<MenuButton as={Button} borderRadius="xl" m="1px" px={3} height="38px">
 				<Flex alignItems="center" justifyContent="center">
-					<Avatar address={account} />
-					<Text
-						display={{base: "none", md: "inline-block"}}
-						fontSize="md"
-						fontWeight="500"
-						mx="2">
-						{username}
-					</Text>
+					<HamburgerIcon />
 				</Flex>
 			</MenuButton>
 			<MenuList alignItems={"center"}>
@@ -60,6 +47,7 @@ export default function UserMenu({openAccountModal}): JSX.Element {
 				<MenuItem onClick={() => router.push("/transactions")}>
 					{t<string>("common:account.activities")}
 				</MenuItem>
+				<MenuItem onClick={handleBuyCrypto}>Buy crypto</MenuItem>
 				<MenuDivider />
 				<MenuItem onClick={handleGallery}>{t<string>("common:account.gallery")}</MenuItem>
 				<MenuItem onClick={handleGalleryBuilder}>

@@ -5,18 +5,18 @@ import Catalog from "@components/Catalog";
 import Content from "@components/Content";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
-import {useConfig} from "@contexts/Global";
+import useAccount from "@hooks/useAccount";
 import {useMarketItemsCreatedQuery} from "@services/graphql";
-import {getServerSidePropsSession} from "@utils/ssr";
+import {getServerSidePropsHandler} from "@utils/ssr";
 
-export const getServerSideProps = getServerSidePropsSession;
+export const getServerSideProps = getServerSidePropsHandler();
 export default function CreatorDashboard(): JSX.Element {
 	const {t} = useTranslation();
-	const {isLogged} = useConfig();
+	const {isConnected} = useAccount();
 	const {data, error, loading} = useMarketItemsCreatedQuery();
 	const items = data?.marketItems;
 	const sold = items?.filter((i) => i.sold) || [];
-	if (!isLogged)
+	if (!isConnected)
 		return (
 			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />
 		);

@@ -1,25 +1,23 @@
-import {useMemo} from "react";
-import {ethers} from "ethers";
+import {useContract} from "wagmi";
 
 import {MarketAddress, MarketContract} from "@configs/contracts";
-import useWeb3 from "@hooks/useWeb3";
 import {isString} from "@utils/objects";
 import {parseUnits} from "@utils/units";
 
-export default function useMarket() {
-	const {web3} = useWeb3();
-	const signer = useMemo(() => web3?.getSigner() as any, [web3]);
-	const contract = useMemo(
-		() => new ethers.Contract(MarketAddress, MarketContract, signer),
-		[signer],
-	);
+type SellInput = {
+	price: string;
+	name: string;
+	description: string;
+	file: any;
+};
 
-	/**
-	 * Purchase
-	 * @param tokenId
-	 * @param callback
-	 */
-	async function purchase(tokenId, price: string | number, callback = () => {}) {
+export default function useMarket() {
+	const contract = useContract({
+		address: MarketAddress,
+		abi: MarketContract,
+	});
+
+	async function purchase(tokenId: string, price: string | number, callback = () => {}) {
 		/* user will be prompted to pay the asking proces to complete the transaction */
 		const priceFormatted = !isString(price) ? parseUnits(price, "ether") : price;
 		const transaction = await contract.createMarketSale(tokenId, {
@@ -29,12 +27,18 @@ export default function useMarket() {
 		callback && callback();
 	}
 
-	/**
-	 * Resell
-	 * @param tokenId
-	 * @param amount
-	 */
-	async function resell(tokenId, price: string | number) {
+	async function sell(url: string, formInput: SellInput) {
+		const listingPrice = await contract.getListingPrice();
+
+		const price = parseUnits(formInput.price, "ether");
+		const transaction = await contract.createToken(url, price, {
+			value: listingPrice,
+		});
+
+		await transaction.wait();
+	}
+
+	async function resell(tokenId: string, price: string | number) {
 		const priceFormatted = !isString(price) ? parseUnits(price, "ether") : price;
 		let listingPrice = await contract.getListingPrice();
 		listingPrice = listingPrice.toString();
@@ -44,5 +48,5 @@ export default function useMarket() {
 		await transaction.wait();
 	}
 
-	return {purchase, resell};
+	return {purchase, sell, resell};
 }

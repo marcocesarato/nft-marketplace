@@ -1,16 +1,19 @@
 import {useEffect} from "react";
-import {useNativeBalance} from "react-moralis";
+import {useAccount, useBalance} from "wagmi";
 
 import {useConfig} from "@contexts/Global";
 
-export default function useBalance() {
+export default function useNativeBalance() {
+	const {address} = useAccount();
 	const {setConfig} = useConfig();
-	const balance = useNativeBalance();
+	const {data, isError, isLoading} = useBalance({
+		addressOrName: address,
+	});
 
 	useEffect(() => {
-		setConfig({nativeToken: balance?.nativeToken});
+		setConfig({symbol: data?.symbol});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [balance?.nativeToken]);
+	}, [data?.symbol]);
 
-	return balance;
+	return {data, isError, isLoading};
 }

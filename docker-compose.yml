@@ -31,19 +31,6 @@ services:
             - mongo
         links:
             - mongo
-    parser:
-        container_name: parser
-        restart: unless-stopped
-        build:
-            context: .
-            dockerfile: docker/prod/parser/Dockerfile
-            target: runner
-        env_file:
-            - servers/parser/.env
-        depends_on:
-            - mongo
-        links:
-            - mongo
     mongo:
         container_name: mongo
         image: mongo

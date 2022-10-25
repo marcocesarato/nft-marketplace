@@ -1,14 +1,16 @@
 import type {NextApiRequest} from "next";
+import {getToken} from "next-auth/jwt";
 import {Server, Socket} from "socket.io";
 
 import {NextApiResponseWithSocket} from "@app/types";
-import {withSessionRoute} from "@utils/session";
 
-function socketRoute(req: NextApiRequest, res: NextApiResponseWithSocket) {
-	if (!req.session.isLogged) {
-		res.status(403).json({message: "Not authenticated"});
+async function socketRoute(req: NextApiRequest, res: NextApiResponseWithSocket) {
+	const token = await getToken({req});
+
+	if (!token || !token?.user) {
+		res.status(401);
+		res.end();
 	}
-
 	const log = (...args: any[]): void => {
 		console.log("[socket]", ...args);
 	};
@@ -84,4 +86,4 @@ function socketRoute(req: NextApiRequest, res: NextApiResponseWithSocket) {
 	res.end();
 }
 
-export default withSessionRoute(socketRoute);
+export default socketRoute;

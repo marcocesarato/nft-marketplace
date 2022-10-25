@@ -7,9 +7,9 @@ import Header from "@components/Header";
 import Loading from "@components/Loading";
 import ErrorNotFound from "@errors/ErrorNotFound";
 import {useUserQuery} from "@services/graphql";
-import {getServerSidePropsSession} from "@utils/ssr";
+import {getServerSidePropsHandler} from "@utils/ssr";
 
-export const getServerSideProps = getServerSidePropsSession;
+export const getServerSideProps = getServerSidePropsHandler();
 export default function AccountGallery(): JSX.Element {
 	const {t} = useTranslation();
 	const router = useRouter();

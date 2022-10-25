@@ -9,9 +9,9 @@ import SidebarSection from "./SidebarSection";
 
 function SidebarBalanceSection(): JSX.Element {
 	const {t} = useTranslation();
-	const {isFullAuthenticated} = useAccount();
+	const {isConnected} = useAccount();
 	const {data: balance} = useBalance();
-	if (!isFullAuthenticated) return null;
+	if (!isConnected) return null;
 	return (
 		<Box w="full">
 			<SidebarSection category label={t<string>("common:account.balance")} />

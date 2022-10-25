@@ -3,15 +3,15 @@ import {useTranslation} from "next-i18next";
 
 import Transactions from "@components/Account/Transactions";
 import Header from "@components/Header";
-import {useConfig} from "@contexts/Global";
-import {getServerSidePropsSession} from "@utils/ssr";
+import useAccount from "@hooks/useAccount";
+import {getServerSidePropsHandler} from "@utils/ssr";
 
-export const getServerSideProps = getServerSidePropsSession;
+export const getServerSideProps = getServerSidePropsHandler(["userTransfersERC20"]);
 export default function MyTransactions(): JSX.Element {
 	const {t} = useTranslation();
-	const {isLogged} = useConfig();
+	const {isConnected} = useAccount();
 
-	if (!isLogged)
+	if (!isConnected)
 		return (
 			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />
 		);

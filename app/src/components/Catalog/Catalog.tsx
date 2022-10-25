@@ -48,10 +48,10 @@ export default function Catalog({
 	...props
 }): JSX.Element {
 	const router = useRouter();
-	const {isFullAuthenticated} = useAccount();
+	const {isConnected} = useAccount();
 	const {purchase} = useMarket();
 	const handlePurchase = (product): (() => {}) => {
-		if (isFullAuthenticated && purchasable) {
+		if (isConnected && purchasable) {
 			return () => purchase(product.tokenId, product.price, () => router.push("/assets"));
 		}
 	};

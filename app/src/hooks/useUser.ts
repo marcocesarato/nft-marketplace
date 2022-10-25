@@ -6,25 +6,25 @@ import {useUserLazyQuery} from "@services/graphql";
 import {formatAddress} from "@utils/formatters";
 
 export default function useUser() {
-	const {account} = useAccount();
+	const {address} = useAccount();
 	const [getUserLazy, {data: userData, loading: isLoadingUser, error}] = useUserLazyQuery();
 	const {username, setConfig} = useConfig();
 
 	useEffect(() => {
-		if (account) {
+		if (address) {
 			getUserLazy({
-				variables: {filter: {account}},
+				variables: {filter: {account: address}},
 			});
 		}
-	}, [account, getUserLazy]);
+	}, [address, getUserLazy]);
 
 	useEffect(() => {
 		let user = "";
-		if (isLoadingUser) user = formatAddress(account);
+		if (isLoadingUser) user = formatAddress(address);
 		if (userData?.user?.username) user = userData.user.username;
 		setConfig({username: user});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isLoadingUser, account, userData, error]);
+	}, [isLoadingUser, address, userData, error]);
 
 	return {
 		id: userData?.user._id,

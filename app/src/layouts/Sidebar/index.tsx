@@ -2,6 +2,7 @@ import {useMemo, useRef} from "react";
 import {AiOutlineLogout} from "react-icons/ai";
 import {BsLayoutSidebar, BsLayoutSidebarInset} from "react-icons/bs";
 import {Box} from "@chakra-ui/react";
+import {signOut} from "next-auth/react";
 import {useTranslation} from "next-i18next";
 
 import useAccount from "@hooks/useAccount";
@@ -16,7 +17,7 @@ import SidebarSection from "./SidebarSection";
 function Sidebar({title, ...props}): JSX.Element {
 	const {t} = useTranslation();
 	const routes = useRoutes();
-	const {isFullAuthenticated, logout} = useAccount();
+	const {isConnected} = useAccount();
 	const {sidebarWidth, isSidebarCompress, onToggleSidebar} = useSidebar();
 	const mainPanel = useRef();
 
@@ -69,12 +70,12 @@ function Sidebar({title, ...props}): JSX.Element {
 								px={paddingX}
 								w={sidebarWidth}
 								my={marginsY}>
-								{isFullAuthenticated && (
+								{isConnected && (
 									<SidebarSection
 										label={t<string>("common:action.disconnect")}
 										icon={AiOutlineLogout}
 										compress={isSidebarCompress}
-										onClick={logout}
+										onClick={() => signOut()}
 									/>
 								)}
 								<SidebarSection

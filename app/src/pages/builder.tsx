@@ -4,14 +4,14 @@ import Content from "@components/Content";
 import GalleryBuilder from "@components/GalleryBuilder";
 import Header from "@components/Header";
 import {GalleryProvider} from "@contexts/Gallery";
-import {useConfig} from "@contexts/Global";
-import {getServerSidePropsSession} from "@utils/ssr";
+import useAccount from "@hooks/useAccount";
+import {getServerSidePropsHandler} from "@utils/ssr";
 
-export const getServerSideProps = getServerSidePropsSession;
+export const getServerSideProps = getServerSidePropsHandler(["userNFTs"]);
 export default function Builder(): JSX.Element {
-	const {isLogged} = useConfig();
+	const {isConnected} = useAccount();
 	const {t} = useTranslation();
-	if (!isLogged)
+	if (!isConnected)
 		return (
 			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />
 		);

@@ -1,9 +1,12 @@
 import {useRouter} from "next/router";
 
 import Account from "@components/Account";
-import {getServerSidePropsSession} from "@utils/ssr";
+import {getServerSidePropsHandler} from "@utils/ssr";
 
-export const getServerSideProps = getServerSidePropsSession;
+export const getServerSideProps = getServerSidePropsHandler([
+	"accountNFTs",
+	"accountTransfersERC20",
+]);
 export default function UserAccount(): JSX.Element {
 	const router = useRouter();
 	const {id} = router.query;

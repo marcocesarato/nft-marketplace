@@ -22,6 +22,9 @@ const nextConfig = withPWA({
 	experimental: {
 		externalDir: true,
 	},
+	compiler: {
+		emotion: true,
+	},
 	i18n,
 	webpack: (config, {webpack, dev, isServer}) => {
 		// graphql

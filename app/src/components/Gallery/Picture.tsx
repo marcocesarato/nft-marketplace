@@ -42,14 +42,14 @@ export default function Picture({
 	const purchaseRef = useRef<HTMLElement>();
 	const [openPanel, setOpenPanel] = useState(false);
 	const {t} = useTranslation();
-	const {isFullAuthenticated} = useAccount();
+	const {isConnected} = useAccount();
 	const {purchase} = useMarket();
 
 	const handlePurchase = useCallback(() => {
-		if (isFullAuthenticated) {
+		if (isConnected) {
 			purchase(data.token_id, Number(data.amount), () => {});
 		}
-	}, [data, isFullAuthenticated, purchase]);
+	}, [data, isConnected, purchase]);
 
 	const toggleOpen = useDebounceCallback(() => {
 		if (!global.dragging) {
