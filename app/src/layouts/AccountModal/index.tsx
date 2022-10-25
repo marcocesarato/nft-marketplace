@@ -15,18 +15,18 @@ import {
 	ModalOverlay,
 	Text,
 } from "@chakra-ui/react";
+import {signOut} from "next-auth/react";
 import {useTranslation} from "next-i18next";
+import {useNetwork} from "wagmi";
 
 import Avatar from "@components/Avatar";
-import useGlobalContext from "@contexts/Global";
-import ErrorAlert from "@errors/ErrorAlert";
+import {useConfig} from "@contexts/Global";
 import useAccount from "@hooks/useAccount";
 import useBalance from "@hooks/useBalance";
 import useDebounceCallback from "@hooks/useDebounceCallback";
 import useUser from "@hooks/useUser";
 import {useUserUpdateMutation} from "@services/graphql";
 import {formatAddress} from "@utils/formatters";
-import {getExplorer} from "@utils/networks";
 
 import ActionButton from "./ActionButton";
 import DisconnectButton from "./DisconnectButton";
@@ -34,15 +34,16 @@ import LinkButton from "./LinkButton";
 
 export default function AccountModal({isOpen, onClose}): JSX.Element {
 	const {t} = useTranslation();
-	const {account, logout, chainId, userError} = useAccount();
+	const {address} = useAccount();
+	const {chain} = useNetwork();
 	const {id, username} = useUser();
-	const {data: balance} = useBalance();
+	const {display: balance} = useBalance();
 	const router = useRouter();
 	const [userUpdate] = useUserUpdateMutation();
-	const {setConfig} = useGlobalContext();
+	const {setConfig} = useConfig();
 
 	function handleLogout() {
-		logout();
+		signOut();
 		onClose();
 		router.push("/");
 	}
@@ -84,12 +85,6 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 					}}
 				/>
 				<ModalBody>
-					{userError && (
-						<ErrorAlert
-							error={t<string>("error:account.errorSavingData")}
-							message={userError.message}
-						/>
-					)}
 					<Box
 						borderRadius="md"
 						border="1px"
@@ -97,7 +92,7 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 						borderColor="gray.600"
 						p={5}>
 						<Flex alignItems="center" mb={4} lineHeight={1}>
-							<Avatar address={account} />
+							<Avatar address={address} />
 							<Editable
 								color="white"
 								fontSize="2xl"
@@ -111,20 +106,20 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 						</Flex>
 						<Flex alignItems="center" mb={4} lineHeight={1}>
 							<Text color="gray.400" fontSize="sm" textAlign="right" lineHeight="1.1">
-								{account && formatAddress(account, 15)}
+								{address && formatAddress(address, 15)}
 							</Text>
 							<Text color="gray.400" ml="auto" fontSize="sm">
-								{balance?.formatted}
+								{balance}
 							</Text>
 						</Flex>
 						<Flex alignContent="center" my={3}>
-							<LinkButton onClick={() => navigator.clipboard.writeText(account)}>
+							<LinkButton onClick={() => navigator.clipboard.writeText(address)}>
 								<CopyIcon mr={1} />
 								{t<string>("common:action.copyAddress")}
 							</LinkButton>
 							<LinkButton
 								ml={6}
-								href={`${getExplorer(chainId)}address/${account}`}
+								href={`${chain.blockExplorers.default.url}address/${address}`}
 								isExternal>
 								<ExternalLinkIcon mr={1} />
 								{t<string>("common:action.viewOnExplorer")}

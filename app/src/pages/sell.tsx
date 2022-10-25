@@ -1,28 +1,24 @@
 import {useState} from "react";
 import {useRouter} from "next/router";
 import {Button, FormControl, FormLabel, Image, Input, Stack, Textarea} from "@chakra-ui/react";
-import {ethers} from "ethers";
 import {useTranslation} from "next-i18next";
 
-import useAccount from "@app/hooks/useAccount";
 import Content from "@components/Content";
 import Dropzone from "@components/Dropzone";
 import Header from "@components/Header";
 import Loader from "@components/Loader";
-import {MarketAddress, MarketContract} from "@configs/contracts";
+import useAccount from "@hooks/useAccount";
 import useBalance from "@hooks/useBalance";
 import useIPFS from "@hooks/useIPFS";
-import useWeb3 from "@hooks/useWeb3";
-import {getStaticPropsLocale} from "@utils/i18n";
-import {parseUnits} from "@utils/units";
+import useMarket from "@hooks/useMarket";
+import {getServerSidePropsHandler} from "@utils/ssr";
 
-export const getStaticProps = getStaticPropsLocale;
+export const getServerSideProps = getServerSidePropsHandler();
 export default function Sell(): JSX.Element {
 	const {t} = useTranslation();
-	const {isAuthenticated} = useAccount();
-	const {nativeToken} = useBalance();
+	const {isConnected} = useAccount();
+	const {data: balance} = useBalance();
 	const {saveIPFS} = useIPFS();
-	const {web3} = useWeb3();
 	const [fileUrl, setFileUrl] = useState(null);
 	const [message, setMessage] = useState("");
 	const [formInput, updateFormInput] = useState({
@@ -33,25 +29,16 @@ export default function Sell(): JSX.Element {
 	});
 	const [isProcessing, setProcessing] = useState(false);
 	const router = useRouter();
+	const {sell} = useMarket();
 
-	async function onChange(fileStream) {
+	async function onChange(fileStream: any) {
 		updateFormInput({...formInput, file: fileStream});
 		setFileUrl(URL.createObjectURL(fileStream));
 	}
 
-	async function createSale(url) {
-		const signer = web3.getSigner() as any;
-
+	async function createSale(url: string) {
 		setMessage(t<string>("common:page.sell.minting"));
-		const contract = new ethers.Contract(MarketAddress, MarketContract, signer);
-		const listingPrice = await contract.getListingPrice();
-
-		const price = parseUnits(formInput.price, "ether");
-		const transaction = await contract.createToken(url, price, {
-			value: listingPrice,
-		});
-
-		await transaction.wait();
+		sell(url, formInput);
 		setMessage(t<string>("common:page.sell.approved"));
 		router.push("/explore");
 	}
@@ -79,7 +66,7 @@ export default function Sell(): JSX.Element {
 		}
 	}
 
-	if (!isAuthenticated)
+	if (!isConnected)
 		return (
 			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />
 		);
@@ -108,7 +95,7 @@ export default function Sell(): JSX.Element {
 				</FormControl>
 				<FormControl>
 					<FormLabel>
-						{t<string>("common:page.sell.asset.price")} {nativeToken?.symbol}
+						{t<string>("common:page.sell.asset.price")} {balance?.symbol}
 					</FormLabel>
 					<Input
 						type="number"

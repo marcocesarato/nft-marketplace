@@ -24,9 +24,16 @@ export const GlobalProvider = ({children}): JSX.Element => {
 			payload: item,
 		});
 	}
+	function mergeData(item) {
+		dispatch({
+			type: "MERGE_DATA",
+			payload: item,
+		});
+	}
 
 	const globalState = {
 		...state,
+		mergeData,
 		setConfig,
 		removeConfig,
 		isMenuOpen,
@@ -47,6 +54,11 @@ export const useGlobalContext = () => {
 export const useConfig = (): GenericObject => {
 	const {config, setConfig, removeConfig} = useGlobalContext();
 	return {...config, setConfig, removeConfig};
+};
+
+export const useData = (): GenericObject => {
+	const {data, mergeData} = useGlobalContext();
+	return {...data, mergeData};
 };
 
 export const useMenu = () => {

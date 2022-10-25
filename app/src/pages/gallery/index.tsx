@@ -9,15 +9,15 @@ import Header from "@components/Header";
 import Loading from "@components/Loading";
 import useAccount from "@hooks/useAccount";
 import useUser from "@hooks/useUser";
-import {getStaticPropsLocale} from "@utils/i18n";
+import {getServerSidePropsHandler} from "@utils/ssr";
 import {getGalleryBuilderUrl} from "@utils/url";
 
-export const getStaticProps = getStaticPropsLocale;
+export const getServerSideProps = getServerSidePropsHandler();
 export default function MyGallery(): JSX.Element {
 	const {user, isLoading} = useUser();
-	const {isAuthenticated} = useAccount();
+	const {isConnected} = useAccount();
 	const {t} = useTranslation();
-	if (!isAuthenticated)
+	if (!isConnected)
 		return (
 			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />
 		);
@@ -33,7 +33,7 @@ export default function MyGallery(): JSX.Element {
 	return (
 		<>
 			<Gallery user={user} />
-			<Link href={getGalleryBuilderUrl()}>
+			<Link href={getGalleryBuilderUrl()} legacyBehavior>
 				<IconButton
 					colorScheme="purple"
 					aria-label={t<string>("common:page.gallery.builder.title")}

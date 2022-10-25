@@ -1,9 +1,16 @@
 import type {NextApiRequest} from "next";
+import {getToken} from "next-auth/jwt";
 import {Server, Socket} from "socket.io";
 
 import {NextApiResponseWithSocket} from "@app/types";
 
-export default function SocketHandler(req: NextApiRequest, res: NextApiResponseWithSocket) {
+async function socketRoute(req: NextApiRequest, res: NextApiResponseWithSocket) {
+	const token = await getToken({req});
+
+	if (!token || !token?.user) {
+		res.status(401);
+		res.end();
+	}
 	const log = (...args: any[]): void => {
 		console.log("[socket]", ...args);
 	};
@@ -78,3 +85,5 @@ export default function SocketHandler(req: NextApiRequest, res: NextApiResponseW
 	log("Setting up socket");
 	res.end();
 }
+
+export default socketRoute;

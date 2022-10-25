@@ -5,6 +5,8 @@ import {GenericObject} from "./globals";
 
 export type TGlobalContext = {
 	config: GenericObject;
+	data: GenericObject;
+	mergeData: (payload: GenericObject) => void;
 	setConfig: (payload: GenericObject) => void;
 	removeConfig: (payload: GenericObject) => void;
 	isMenuOpen: boolean;

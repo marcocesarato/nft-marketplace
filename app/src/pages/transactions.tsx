@@ -3,11 +3,19 @@ import {useTranslation} from "next-i18next";
 
 import Transactions from "@components/Account/Transactions";
 import Header from "@components/Header";
-import {getStaticPropsLocale} from "@utils/i18n";
+import useAccount from "@hooks/useAccount";
+import {getServerSidePropsHandler} from "@utils/ssr";
 
-export const getStaticProps = getStaticPropsLocale;
+export const getServerSideProps = getServerSidePropsHandler(["userTransfersERC20"]);
 export default function MyTransactions(): JSX.Element {
 	const {t} = useTranslation();
+	const {isConnected} = useAccount();
+
+	if (!isConnected)
+		return (
+			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />
+		);
+
 	return (
 		<Box width="full">
 			<Box

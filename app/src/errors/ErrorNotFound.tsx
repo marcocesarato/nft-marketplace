@@ -17,7 +17,7 @@ export default function ErrorNotFound(): JSX.Element {
 					{t<string>("error:notFound.message")}
 				</Text>
 
-				<NextLink href={"/"} passHref>
+				<NextLink href={"/"} passHref legacyBehavior>
 					<Button>{t<string>("common:action.goToHome")}</Button>
 				</NextLink>
 			</Box>

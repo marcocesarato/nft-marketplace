@@ -1,19 +1,18 @@
 import {ExternalLinkIcon} from "@chakra-ui/icons";
 import {Box, Link} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
+import {useNetwork} from "wagmi";
 
 import Header from "@components/Header";
 import Loading from "@components/Loading";
 import Table from "@components/Table";
-import useAccount from "@hooks/useAccount";
 import useTransfers from "@hooks/useTransfers";
 import {formatAddress} from "@utils/formatters";
-import {getExplorer} from "@utils/networks";
 import {formatUnits} from "@utils/units";
 
 export default function Transactions({address = null, ...props}): JSX.Element {
 	const {t} = useTranslation();
-	const {chainId} = useAccount();
+	const {chain} = useNetwork();
 	const {data, isLoading} = useTransfers({address});
 	const columns = [
 		{
@@ -22,7 +21,7 @@ export default function Transactions({address = null, ...props}): JSX.Element {
 			key: "from_address",
 			render: (from) => (
 				<Link
-					href={`${getExplorer(chainId)}/address/${from}`}
+					href={`${chain.blockExplorers.default.url}/address/${from}`}
 					isExternal
 					color="primary"
 					colorScheme="purple">
@@ -37,7 +36,7 @@ export default function Transactions({address = null, ...props}): JSX.Element {
 			key: "to_address",
 			render: (to) => (
 				<Link
-					href={`${getExplorer(chainId)}/address/${to}`}
+					href={`${chain.blockExplorers.default.url}/address/${to}`}
 					isExternal
 					color="primary"
 					colorScheme="purple">
@@ -65,7 +64,7 @@ export default function Transactions({address = null, ...props}): JSX.Element {
 			render: (hash) => (
 				<Box textAlign="right">
 					<Link
-						href={`${getExplorer(chainId)}/tx/${hash}`}
+						href={`${chain.blockExplorers.default.url}/tx/${hash}`}
 						isExternal
 						color="primary"
 						colorScheme="purple">

@@ -9,14 +9,14 @@ import SidebarSection from "./SidebarSection";
 
 function SidebarBalanceSection(): JSX.Element {
 	const {t} = useTranslation();
-	const {isAuthenticated} = useAccount();
-	const {data: balance} = useBalance();
-	if (!isAuthenticated) return null;
+	const {isConnected} = useAccount();
+	const {display} = useBalance();
+	if (!isConnected) return null;
 	return (
 		<Box w="full">
 			<SidebarSection category label={t<string>("common:account.balance")} />
 			<Heading ps="15px" fontSize={"2xl"} fontWeight={500}>
-				{balance?.formatted}
+				{display}
 			</Heading>
 			<LineChart
 				chartData={[

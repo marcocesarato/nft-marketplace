@@ -42,7 +42,7 @@ export default function ProductInfos({
 	const [imageFullscreen, setImageFullscreen] = useState<boolean>(false);
 	const {width: imageWidth} = useContainerDimensions(containerRef);
 	const {resolveLink} = useIPFS();
-	const {nativeToken} = useConfig();
+	const {symbol} = useConfig();
 	const {t} = useTranslation();
 	const fullscreenStyle = useMemo(() => {
 		if (imageFullscreen) {
@@ -124,7 +124,7 @@ export default function ProductInfos({
 						<Text as={"span"} fontWeight={"bold"}>
 							{t<string>("common:product.price")}:
 						</Text>{" "}
-						{data?.priceFormatted || data?.price} {nativeToken?.symbol}
+						{data?.priceFormatted || data?.price} {symbol}
 					</Text>
 				)}
 				{data?.attributes && data?.attributes.length > 0 && (

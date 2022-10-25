@@ -1,46 +1,38 @@
 /* eslint-disable no-restricted-globals */
-import {lazy, useEffect} from "react";
-import {useMoralis} from "react-moralis";
+import {lazy, useEffect, useState} from "react";
 import Head from "next/head";
+import {setCookie} from "cookies-next";
+import {SessionProvider} from "next-auth/react";
 import {appWithTranslation} from "next-i18next";
+import {useNetwork} from "wagmi";
 
-import Providers from "@app/Providers";
-import type {TWeb3Provider} from "@app/types";
 import Loader from "@components/Loader";
-import {ChainId} from "@configs/chain";
+import {useData} from "@contexts/Global";
+import Providers from "@contexts/Providers";
 import ErrorBoundary from "@errors/ErrorBoundary";
 import useAccount from "@hooks/useAccount";
-import useLocalStorage from "@hooks/useLocalStorage";
-import {useSwitchNetwork} from "@hooks/useSwitchNetwork";
-import useWeb3 from "@hooks/useWeb3";
 import MainLayout from "@layouts/Main";
 
 import "focus-visible/dist/focus-visible";
 
+import "@rainbow-me/rainbowkit/styles.css";
+
 lazy(() => import("webxr-polyfill"));
 
 function Page({Component, pageProps}): JSX.Element {
-	const {Moralis, isInitialized} = useMoralis();
-	const {isLogged, isAuthenticating} = useAccount();
-	const {enableWeb3, isWeb3Enabled, isWeb3EnableLoading} = useWeb3();
-	const switchNetwork = useSwitchNetwork();
-	const [connectorId] = useLocalStorage<TWeb3Provider>("connectorId");
+	const [mounted, setMounted] = useState(false);
+	const {isConnected, isConnecting} = useAccount();
+	const {chain} = useNetwork();
+	const {mergeData} = useData();
 
-	const loadWeb3 = async () => {
-		await enableWeb3();
-		await switchNetwork(ChainId);
-	};
-
+	useEffect(() => setMounted(true), []);
+	useEffect(() => setCookie("chain", chain), [chain]);
 	useEffect(() => {
-		if (isLogged && !isWeb3Enabled && !isWeb3EnableLoading) {
-			loadWeb3();
-		}
+		if (isConnected) mergeData(pageProps.data);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isLogged, isWeb3Enabled, connectorId]);
+	}, [isConnected, pageProps]);
 
-	useEffect(() => {
-		if (isInitialized) Moralis.initPlugins();
-	}, [isInitialized, Moralis]);
+	if (!mounted) return null;
 
 	return (
 		<>
@@ -48,23 +40,13 @@ function Page({Component, pageProps}): JSX.Element {
 				<title>NFT Marketplace</title>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			</Head>
-			<MainLayout>
-				<ErrorBoundary>
-					{isWeb3EnableLoading || isAuthenticating ? (
-						<Loader
-							message={
-								isAuthenticating
-									? "Authenticating..."
-									: isWeb3EnableLoading
-									? "Connecting to the wallet..."
-									: null
-							}
-						/>
-					) : (
-						<Component {...pageProps} />
-					)}
-				</ErrorBoundary>
-			</MainLayout>
+			<SessionProvider session={pageProps.session} refetchInterval={0}>
+				<MainLayout>
+					<ErrorBoundary>
+						{isConnecting ? <Loader /> : <Component {...pageProps} />}
+					</ErrorBoundary>
+				</MainLayout>
+			</SessionProvider>
 		</>
 	);
 }

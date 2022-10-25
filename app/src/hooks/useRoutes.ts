@@ -10,16 +10,13 @@ import {
 import useAccount from "./useAccount";
 
 export function useRoutes() {
-	const {isAuthenticated} = useAccount();
-	return useMemo(() => (isAuthenticated ? routesAuthenticated : routes), [isAuthenticated]);
+	const {isConnected} = useAccount();
+	return useMemo(() => (isConnected ? routesAuthenticated : routes), [isConnected]);
 }
 
 export function useMobileRoutes() {
-	const {isAuthenticated} = useAccount();
-	return useMemo(
-		() => (isAuthenticated ? routesMobileAuthenticated : routesMobile),
-		[isAuthenticated],
-	);
+	const {isConnected} = useAccount();
+	return useMemo(() => (isConnected ? routesMobileAuthenticated : routesMobile), [isConnected]);
 }
 
 export default useRoutes;

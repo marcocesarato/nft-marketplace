@@ -10,15 +10,15 @@ const StyledIdenticon = styled.div`
 	overflow: hidden;
 `;
 
-export default function Avatar({address, size = 16, ...props}): JSX.Element {
+const Avatar = function ({address, size = 16, ensImage = null, ...props}): JSX.Element {
 	const ref = useRef<HTMLDivElement>();
 
 	useEffect(() => {
-		if (address && ref.current) {
+		if (address && ref.current && !ensImage) {
 			ref.current.innerHTML = "";
 			ref.current.appendChild(Jazzicon(size, parseInt(address.slice(2, 10), 16)));
 		}
-	}, [address, size]);
+	}, [address, size, ensImage]);
 
 	const Icon = useMemo(() => {
 		return styled(StyledIdenticon)`
@@ -27,5 +27,11 @@ export default function Avatar({address, size = 16, ...props}): JSX.Element {
 		`;
 	}, [size]);
 
+	if (ensImage)
+		// eslint-disable-next-line @next/next/no-img-element
+		return <img src={ensImage} width={size} height={size} style={{borderRadius: 999}} />;
+
 	return <Icon ref={ref} {...props} />;
-}
+};
+
+export default Avatar;

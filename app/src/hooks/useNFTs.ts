@@ -1,24 +1,23 @@
-import {useMoralisWeb3Api} from "react-moralis";
 import {useQuery} from "react-query";
+import {useAccount, useNetwork} from "wagmi";
 
 import type {TokenItem} from "@app/types";
-import {ChainId} from "@configs/chain";
-import {MarketAddress} from "@configs/contracts";
+import {useData} from "@contexts/Global";
 import {isString} from "@utils/objects";
 
-import useAccount from "./useAccount";
 import useIPFS from "./useIPFS";
 import useNFTMetadata from "./useNFTMetadata";
 
 const useNFTs = ({address = null} = {}) => {
-	const Web3Api = useMoralisWeb3Api();
-	const {account} = useAccount();
-	const {withMetadata} = useNFTMetadata();
+	const {chain} = useNetwork();
+	const {address: account} = useAccount();
+	const {userNFTs, accountsNFTs} = useData();
+	//const {withMetadata} = useNFTMetadata();
 	const {resolveLink} = useIPFS();
 	const resultMap = async (nft) => {
-		if (!nft?.metadata) {
+		/*if (!nft?.metadata) {
 			nft = await withMetadata(nft);
-		}
+		}*/
 		if (nft?.metadata) {
 			if (isString(nft.metadata)) nft.metadata = JSON.parse(nft.metadata);
 			if (typeof nft.metadata === "object") {
@@ -30,28 +29,19 @@ const useNFTs = ({address = null} = {}) => {
 		}
 		return nft;
 	};
-	const accountAddress = address ?? account;
+	const source =
+		address && (account.toLowerCase() !== address.toLowerCase() || !userNFTs?.length)
+			? accountsNFTs[address] || []
+			: userNFTs || [];
 	return useQuery<TokenItem[], Error>(
-		["NFTs", account, ChainId],
+		["getNFTs" + (address ?? ""), source?.length, chain],
 		async () => {
-			const options = {
-				chain: ChainId,
-				address: accountAddress,
-			};
-			const optionsContract = {
-				...options,
-				token_address: MarketAddress,
-			};
-			// fix: Trigger specific contract sync
-			await Web3Api.account.getNFTsForContract(optionsContract as any);
-			// Load all NFTs
-			const data = await Web3Api.account.getNFTs(options as any);
-			if (data?.result) {
-				return Promise.all(data.result.map(resultMap));
+			if (source) {
+				return Promise.all(source.map(resultMap));
 			}
 			return [];
 		},
-		{enabled: !!accountAddress},
+		{enabled: !!source},
 	);
 };
 

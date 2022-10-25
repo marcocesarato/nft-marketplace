@@ -35,7 +35,7 @@ import ProductModal from "./ProductModal";
 const MotionStack = motion(Stack);
 export default function Product({data, onPurchase = null, ...rootProps}): JSX.Element {
 	const {t} = useTranslation();
-	const {nativeToken} = useConfig();
+	const {symbol} = useConfig();
 	const {resolveLink} = useIPFS();
 	const [likes, setLikes] = useState(data?.likes || 0);
 	const [isLiked, setIsLiked] = useState(data?.isLiked || false);
@@ -208,7 +208,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 							{data?.price && (
 								<Stack direction={"row"} align={"center"}>
 									<Text fontWeight="medium" fontSize={"md"}>
-										{data?.priceFormatted || data?.price} {nativeToken?.symbol}
+										{data?.priceFormatted || data?.price} {symbol}
 									</Text>
 								</Stack>
 							)}

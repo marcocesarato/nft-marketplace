@@ -17,16 +17,15 @@ import {
 	useColorModeValue as mode,
 } from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
+import {useNetwork} from "wagmi";
 
 import JazzAvatar from "@components/Avatar";
 import Content from "@components/Content";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
 import ErrorNotFound from "@errors/ErrorNotFound";
-import useAccount from "@hooks/useAccount";
 import {useUserQuery} from "@services/graphql";
 import {formatDate} from "@utils/formatters";
-import {getExplorer} from "@utils/networks";
 import {getGalleryUrl} from "@utils/url";
 
 import Created from "./Created";
@@ -36,7 +35,7 @@ import Transactions from "./Transactions";
 
 export default function Account({id}): JSX.Element {
 	const {t} = useTranslation();
-	const {chainId} = useAccount();
+	const {chain} = useNetwork();
 	const router = useRouter();
 	const {data, loading, error} = useUserQuery({
 		variables: {
@@ -87,7 +86,7 @@ export default function Account({id}): JSX.Element {
 						</Heading>
 						<Text color={"gray.500"}>Joined at {formatDate(user.createdAt)}</Text>
 						<Link
-							href={`${getExplorer(chainId)}/address/${user.account}`}
+							href={`${chain.blockExplorers.default.url}/address/${user.account}`}
 							isExternal
 							color="primary"
 							fontSize="sm"

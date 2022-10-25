@@ -1,47 +1,11 @@
-import {useMoralis} from "react-moralis";
+import {useAccount} from "wagmi";
 
-import useWeb3 from "@hooks/useWeb3";
-
-export default function useAccount() {
-	const {
-		setUserData,
-		userError,
-		isUserUpdating,
-		isAuthenticating,
-		isAuthenticated,
-		authenticate,
-		auth,
-		login,
-		authError,
-		signup,
-		logout,
-		chainId,
-		user,
-	} = useMoralis();
-	const {web3} = useWeb3();
-	const account = web3?.provider?.["selectedAddress"]?.toLowerCase();
-
-	// Auth signature
-	const signature = user?.get("authData")?.moralisEth.signature;
-	const signatureData = user?.get("authData")?.moralisEth.data;
+export default function useMyAccount() {
+	const account = useAccount();
+	const address = String(account.address ?? "").toLowerCase();
 
 	return {
-		isAuthenticating,
-		isLogged: isAuthenticated,
-		isAuthenticated: isAuthenticated && account && web3, // When web3 is authenticated
-		account,
-		signature,
-		signatureData,
-		user,
-		auth,
-		authenticate,
-		login,
-		signup,
-		authError,
-		logout,
-		chainId,
-		setUserData,
-		userError,
-		isUserUpdating,
+		...account,
+		address,
 	};
 }

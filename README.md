@@ -14,7 +14,6 @@ Watch your Digital Art on the wall of your home. Use the VR viewer to see all yo
     -   [Configuration](#configuration)
         -   [Dotenv](#dotenv)
         -   [Variables](#variables)
-        -   [Common issues](#common-issues)
 -   [Requirements](#requirements)
     -   [Background informations](#background-informations)
     -   [Connect Metamask to Polygon](#connect-metamask-to-polygon)
@@ -102,17 +101,11 @@ The project is based over Moralis API (but its functions is code wrapped to perm
 
 Copy the dotenv sample from `docs/.env.sample` and move it to the root renaming to `.env`.
 
-if you use also the server parser do it even for the file `docs/.env.parser.sample`, moving it to the root and renaming it to `.env.parser`.
-
 #### Variables
 
 Provide your `appId` and `serverUrl` from Moralis ([How to start Moralis Server](https://docs.moralis.io/moralis-server/getting-started/create-a-moralis-server)).
 
 To deploy to the blockchain, test or main networks, we need to configure hardhat so we need to get the WebSocket and JSON RPC URLs from [Alchemy](https://www.alchemy.com/). Once you log into your account, create your project for the Network you need to configure and then copy the WebSocket and JSON RPC URLs and paste it on the `.env` file.
-
-#### Common issues
-
--   When the Moralis hosted-server is used, instead of the parser, remember that Moralis closes your server every 7 days, so if you have problems with API calls the server is probably down and you need to restart the server from the dashboard.
 
 ## Requirements
 

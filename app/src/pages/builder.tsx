@@ -5,13 +5,13 @@ import GalleryBuilder from "@components/GalleryBuilder";
 import Header from "@components/Header";
 import {GalleryProvider} from "@contexts/Gallery";
 import useAccount from "@hooks/useAccount";
-import {getStaticPropsLocale} from "@utils/i18n";
+import {getServerSidePropsHandler} from "@utils/ssr";
 
-export const getStaticProps = getStaticPropsLocale;
+export const getServerSideProps = getServerSidePropsHandler(["userNFTs"]);
 export default function Builder(): JSX.Element {
-	const {isAuthenticated} = useAccount();
+	const {isConnected} = useAccount();
 	const {t} = useTranslation();
-	if (!isAuthenticated)
+	if (!isConnected)
 		return (
 			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />
 		);

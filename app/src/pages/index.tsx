@@ -16,9 +16,9 @@ import Loading from "@components/Loading";
 import Particles from "@components/Particles";
 import useSidebar from "@hooks/useSidebar";
 import {useMarketItemsOnSaleQuery} from "@services/graphql";
-import {getStaticPropsLocale} from "@utils/i18n";
+import {getServerSidePropsHandler} from "@utils/ssr";
 
-export const getStaticProps = getStaticPropsLocale;
+export const getServerSideProps = getServerSidePropsHandler();
 export default function Home(): JSX.Element {
 	const {t} = useTranslation();
 	const {isSidebarCompress} = useSidebar();
@@ -79,7 +79,7 @@ export default function Home(): JSX.Element {
 							direction={{base: "column", md: "row"}}
 							mt="10"
 							spacing="4">
-							<Link href="/explore" passHref>
+							<Link href="/explore" passHref legacyBehavior>
 								<Button
 									size="lg"
 									colorScheme="purple"
@@ -89,7 +89,7 @@ export default function Home(): JSX.Element {
 									{t<string>("common:page.home.header.exploreButton")}
 								</Button>
 							</Link>
-							<Link href="/sell" passHref>
+							<Link href="/sell" passHref legacyBehavior>
 								<Button size="lg" px="8" fontWeight="bold" fontSize="md">
 									{t<string>("common:page.home.header.sellButton")}
 								</Button>

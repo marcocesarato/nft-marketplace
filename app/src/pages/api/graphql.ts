@@ -1,38 +1,29 @@
 import {connectDatabase, User} from "@packages/mongo";
 import {ApolloServerPluginLandingPageGraphQLPlayground} from "apollo-server-core";
 import {ApolloServer} from "apollo-server-micro";
-import {Base64} from "js-base64";
 import {send} from "micro";
 import Cors from "micro-cors";
 import {NextApiRequest, NextApiResponse} from "next";
+import {getToken} from "next-auth/jwt";
 
+import {TUserData} from "@app/types";
 import GraphQLSchema from "@services/graphql/schema";
-import {authSignature} from "@utils/auth";
 import {formatAddress} from "@utils/formatters";
 
 const cors = Cors({
-	allowHeaders: [
-		"X-Requested-With",
-		"Access-Control-Allow-Origin",
-		"X-HTTP-Method-Override",
-		"Content-Type",
-		"Authorization",
-		"Accept",
-		"X-ETH-Data",
-		"X-ETH-Signature",
-		"X-ETH-Account",
-	],
+	allowCredentials: true,
 });
 const server = new ApolloServer({
 	schema: GraphQLSchema,
 	cache: "bounded",
 	// Check authentication
 	context: async ({req}: {req: NextApiRequest}) => {
-		const msg = Base64.decode((req.headers["x-eth-data"] as string) || "");
-		const sign = Base64.decode((req.headers["x-eth-signature"] as string) || "");
-		const account = Base64.decode((req.headers["x-eth-account"] as string) || "");
-		const isAuthenticated = authSignature(msg, sign, account);
-		return {isAuthenticated, account: account.toLowerCase()};
+		const token = await getToken({req});
+		const context = {
+			isAuthenticated: !!token.user,
+			account: String((token.user as TUserData).address || "").toLowerCase(),
+		};
+		return context;
 	},
 	plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
 });
@@ -40,14 +31,21 @@ const server = new ApolloServer({
 const startServer = server.start();
 const connection = connectDatabase();
 
-export default cors(async (req: NextApiRequest, res: NextApiResponse) => {
+const graphqlRoute = cors(async (req: NextApiRequest, res: NextApiResponse) => {
+	const token = await getToken({req});
+
 	if (req.method === "OPTIONS") {
-		return send(res, 200, "ok!");
+		return send(res, 200, "ok");
 	}
+
+	if (!token || !token?.user) {
+		return send(res, 401, "Unauthorized");
+	}
+
 	await connection;
 
 	// User creation if not exists
-	const publicAddress = Base64.decode((req.headers["x-eth-account"] as string) || "");
+	const publicAddress = String((token.user as TUserData).address || "");
 	if (publicAddress) {
 		try {
 			const user = await User.findOne({"account": publicAddress});
@@ -67,6 +65,8 @@ export default cors(async (req: NextApiRequest, res: NextApiResponse) => {
 		path: "/api/graphql",
 	})(req, res);
 });
+
+export default graphqlRoute;
 
 export const config = {
 	api: {

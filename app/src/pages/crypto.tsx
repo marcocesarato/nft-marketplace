@@ -1,38 +1,25 @@
-import React, {useEffect, useState} from "react";
-import {useMoralis} from "react-moralis";
-import {Box, Center} from "@chakra-ui/react";
+import React from "react";
+import {Center} from "@chakra-ui/react";
+import {useTranslation} from "next-i18next";
 
-import {getStaticPropsLocale} from "@utils/i18n";
+import BuyCrypto from "@components/BuyCrypto";
+import Header from "@components/Header";
+import useAccount from "@hooks/useAccount";
+import {getServerSidePropsHandler} from "@utils/ssr";
 
-export const getStaticProps = getStaticPropsLocale;
+export const getServerSideProps = getServerSidePropsHandler();
 export default function Crypto(): JSX.Element {
-	const [ramper, setRamper] = useState();
-	const {Moralis} = useMoralis();
-	useEffect(() => {
-		if (!Moralis?.["Plugins"]?.["fiat"]) return null;
-		async function initRamperPlugin() {
-			Moralis.Plugins.fiat
-				.buy({}, {disableTriggers: true})
-				.then((data) => setRamper(data.data));
-		}
-		initRamperPlugin();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [Moralis.Plugins]);
+	const {isConnected} = useAccount();
+	const {t} = useTranslation();
+
+	if (!isConnected)
+		return (
+			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />
+		);
 
 	return (
 		<Center flex="1" p="8">
-			<Box
-				as="iframe"
-				src={ramper}
-				title="ramper"
-				frameBorder="no"
-				allow="accelerometer; autoplay; camera; gyroscope; payment;"
-				w="420px"
-				h="625px"
-				boxShadow="lg"
-				borderRadius="xl"
-				bg="gray.100"
-			/>
+			<BuyCrypto />
 		</Center>
 	);
 }

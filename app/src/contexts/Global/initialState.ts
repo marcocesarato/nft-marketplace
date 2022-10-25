@@ -3,13 +3,16 @@ import type {TGlobalContext} from "@app/types";
 const initialState: TGlobalContext = {
 	config: {
 		username: "",
-		nativeToken: {
-			name: "MATIC",
-			symbol: "MATIC",
-			decimals: 5,
-		},
+		symbol: "",
 		isOpenSidebar: false,
 	},
+	data: {
+		userNFTs: [],
+		userTransfersERC20: [],
+		accountsNFTs: {},
+		accountsTransfersERC20: {},
+	},
+	mergeData: () => {},
 	setConfig: () => {},
 	removeConfig: () => {},
 	isMenuOpen: false,
