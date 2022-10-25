@@ -103,7 +103,7 @@ Copy the dotenv sample from `docs/.env.sample` and move it to the root renaming 
 
 #### Variables
 
-Provide your `appId` and `serverUrl` from Moralis ([How to start Moralis Server](https://docs.moralis.io/moralis-server/getting-started/create-a-moralis-server)).
+Provide your `MASTER_API_KEY` from [Moralis](https://docs.moralis.io/docs/moralis-onboarding).
 
 To deploy to the blockchain, test or main networks, we need to configure hardhat so we need to get the WebSocket and JSON RPC URLs from [Alchemy](https://www.alchemy.com/). Once you log into your account, create your project for the Network you need to configure and then copy the WebSocket and JSON RPC URLs and paste it on the `.env` file.
 
