@@ -1,4 +1,4 @@
-import {useColorModeValue} from "@chakra-ui/react";
+import {useColorModeValue, useToken} from "@chakra-ui/react";
 import {
 	darkTheme,
 	getDefaultWallets,
@@ -8,6 +8,9 @@ import {
 } from "@rainbow-me/rainbowkit";
 import {chain, configureChains, createClient, defaultChains, WagmiConfig} from "wagmi";
 import {publicProvider} from "wagmi/providers/public";
+
+import Avatar from "@components/Avatar";
+import {deepMerge} from "@utils/objects";
 
 const appName = "NFT Marketplace";
 
@@ -29,26 +32,44 @@ const client = createClient({
 });
 
 function Web3Provider({children}): JSX.Element {
+	const [primary, whiteAlpha800, whiteAlpha200, black, white] = useToken("colors", [
+		"primary",
+		"whiteAlpha.800",
+		"whiteAlpha.200",
+		"black",
+		"white",
+	]);
 	const mainTheme = useColorModeValue(lightTheme, darkTheme);
-	const rainbowTheme: Theme = {
-		...mainTheme(),
-		shadows: {
-			connectButton: "none",
-			dialog: "none",
-			profileDetailsAction: "none",
-			selectedOption: "none",
-			selectedWallet: "none",
-			walletLogo: "none",
+	const connectButtonBackground = useColorModeValue(whiteAlpha800, whiteAlpha200);
+	const accentColorForeground = useColorModeValue(white, black);
+	const rainbowTheme: Theme = deepMerge(
+		mainTheme({accentColor: primary, accentColorForeground}),
+		{
+			colors: {
+				connectButtonBackground,
+				connectButtonInnerBackground: "none",
+			},
+			fonts: {
+				body: "'Euclid Circular',sans-serif",
+			},
+			shadows: {
+				connectButton: "none",
+				dialog: "none",
+				profileDetailsAction: "none",
+				selectedOption: "none",
+				selectedWallet: "none",
+				walletLogo: "none",
+			},
 		},
-	};
+	);
 	return (
 		<WagmiConfig client={client}>
 			<RainbowKitProvider
-				appInfo={{appName}}
 				chains={chains}
 				coolMode
 				theme={rainbowTheme}
-				modalSize="wide">
+				modalSize="wide"
+				avatar={Avatar}>
 				{children}
 			</RainbowKitProvider>
 		</WagmiConfig>

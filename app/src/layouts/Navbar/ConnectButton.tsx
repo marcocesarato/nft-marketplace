@@ -2,18 +2,25 @@ import {useEffect} from "react";
 import {Flex} from "@chakra-ui/react";
 import {ConnectButton} from "@rainbow-me/rainbowkit";
 import axios from "axios";
-import {signIn, useSession} from "next-auth/react";
+import {signIn, signOut, useSession} from "next-auth/react";
 import {useTranslation} from "next-i18next";
 import {useAccount, useNetwork, useSignMessage} from "wagmi";
+
+import useRouterRefresh from "@hooks/useRouterRefresh";
 
 import UserMenu from "./UserMenu";
 
 export default function MyConnectButton({openAccountModal}): JSX.Element {
-	const {isConnected, address} = useAccount();
+	const {isConnected, address} = useAccount({
+		onDisconnect() {
+			signOut();
+		},
+	});
 	const {chain} = useNetwork();
 	const {status} = useSession();
 	const {signMessageAsync} = useSignMessage();
 	const {t} = useTranslation();
+	const {refresh} = useRouterRefresh();
 
 	useEffect(() => {
 		const handleAuth = async () => {
@@ -28,6 +35,7 @@ export default function MyConnectButton({openAccountModal}): JSX.Element {
 				signature,
 				redirect: false,
 			});
+			refresh();
 		};
 		if (status === "unauthenticated" && isConnected) {
 			handleAuth();
