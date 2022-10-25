@@ -33,7 +33,7 @@ export default function MyGallery(): JSX.Element {
 	return (
 		<>
 			<Gallery user={user} />
-			<Link href={getGalleryBuilderUrl()}>
+			<Link href={getGalleryBuilderUrl()} legacyBehavior>
 				<IconButton
 					colorScheme="purple"
 					aria-label={t<string>("common:page.gallery.builder.title")}

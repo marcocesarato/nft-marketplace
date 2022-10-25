@@ -3,7 +3,7 @@ import {Link, useColorModeValue} from "@chakra-ui/react";
 
 export default function NavLink({link, children}): JSX.Element {
 	return (
-		<NextLink href={link} passHref>
+		<NextLink href={link} passHref legacyBehavior>
 			<Link
 				px={2}
 				py={1}

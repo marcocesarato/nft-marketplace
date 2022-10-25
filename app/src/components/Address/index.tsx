@@ -16,7 +16,7 @@ const Address = ({address, name = null, label = null, ...props}): JSX.Element =>
 					{label}
 				</Text>
 			)}
-			<NextLink href={`/account/${address}`} passHref>
+			<NextLink href={`/account/${address}`} passHref legacyBehavior>
 				<Link width="full">
 					<Flex>
 						<Avatar address={address} />

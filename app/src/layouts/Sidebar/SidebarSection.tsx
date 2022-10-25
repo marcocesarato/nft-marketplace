@@ -59,7 +59,7 @@ function SidebarSection({
 
 	return (
 		<Box {...props} w={!compress ? "full" : "50px"}>
-			<NavLink href={href} key={href} passHref>
+			<NavLink href={href} key={href} passHref legacyBehavior>
 				<Button
 					transition="width 0.2s linear"
 					height="54px"

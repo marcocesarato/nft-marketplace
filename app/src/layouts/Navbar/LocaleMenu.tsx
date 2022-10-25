@@ -1,6 +1,6 @@
 import Image from "next/image";
 import {useRouter} from "next/router";
-import {Button, Flex, Menu, MenuButton, MenuItem, MenuList} from "@chakra-ui/react";
+import {Box, Button, Flex, Menu, MenuButton, MenuItem, MenuList} from "@chakra-ui/react";
 
 import EnFlag from "@assets/svg/flags/en.svg";
 import ItFlag from "@assets/svg/flags/it.svg";
@@ -20,12 +20,14 @@ export default function LocaleMenu(): JSX.Element {
 		<Menu>
 			<MenuButton as={Button} borderRadius="xl" ml={3} px={3} height="38px">
 				<Flex alignItems="center" justifyContent="center">
-					<Image
-						height={"16px"}
-						width={"16px"}
-						objectFit={"cover"}
-						src={locales[router?.locale || "en"]}
-					/>
+					<Box height="16px" width="16px" position="relative">
+						<Image
+							fill={true}
+							src={locales[router?.locale || "en"]}
+							style={{objectFit: "cover"}}
+							alt={router?.locale || "en"}
+						/>
+					</Box>
 				</Flex>
 			</MenuButton>
 			<MenuList
@@ -40,8 +42,15 @@ export default function LocaleMenu(): JSX.Element {
 						key={lang}
 						onClick={() => onSelectLocale(lang)}
 						width="48px"
-						height={"48px"}>
-						<Image height="100%" width="100%" objectFit={"cover"} src={flag} />
+						height="48px"
+						position="relative">
+						<Image
+							width={48}
+							height={48}
+							src={flag}
+							style={{objectFit: "cover"}}
+							alt={lang}
+						/>
 					</MenuItem>
 				))}
 			</MenuList>
