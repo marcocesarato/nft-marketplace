@@ -16,7 +16,7 @@ const appName = "NFT Marketplace";
 
 const customChains =
 	process.env.NODE_ENV !== "production"
-		? [chain.polygonMumbai, chain.ropsten, ...defaultChains]
+		? [chain.polygon, chain.polygonMumbai, chain.ropsten, ...defaultChains]
 		: [chain.polygon, ...defaultChains];
 
 const {provider, webSocketProvider, chains} = configureChains(customChains, [publicProvider()]);

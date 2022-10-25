@@ -10,13 +10,13 @@ import SidebarSection from "./SidebarSection";
 function SidebarBalanceSection(): JSX.Element {
 	const {t} = useTranslation();
 	const {isConnected} = useAccount();
-	const {data: balance} = useBalance();
+	const {display} = useBalance();
 	if (!isConnected) return null;
 	return (
 		<Box w="full">
 			<SidebarSection category label={t<string>("common:account.balance")} />
 			<Heading ps="15px" fontSize={"2xl"} fontWeight={500}>
-				{balance?.formatted}
+				{display}
 			</Heading>
 			<LineChart
 				chartData={[

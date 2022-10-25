@@ -38,7 +38,7 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 	const {address} = useAccount();
 	const {chain} = useNetwork();
 	const {id, username} = useUser();
-	const {data: balance} = useBalance();
+	const {display: balance} = useBalance();
 	const router = useRouter();
 	const [userUpdate] = useUserUpdateMutation();
 	const {setConfig} = useConfig();
@@ -110,7 +110,7 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 								{address && formatAddress(address, 15)}
 							</Text>
 							<Text color="gray.400" ml="auto" fontSize="sm">
-								{balance?.formatted}
+								{balance}
 							</Text>
 						</Flex>
 						<Flex alignContent="center" my={3}>
