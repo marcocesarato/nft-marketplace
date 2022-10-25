@@ -1,14 +1,14 @@
-import React, {useState} from "react";
-import {Box, Center} from "@chakra-ui/react";
+import React from "react";
+import {Center} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
+import BuyCrypto from "@components/BuyCrypto";
 import Header from "@components/Header";
 import useAccount from "@hooks/useAccount";
 import {getServerSidePropsHandler} from "@utils/ssr";
 
 export const getServerSideProps = getServerSidePropsHandler();
 export default function Crypto(): JSX.Element {
-	const [ramper] = useState();
 	const {isConnected} = useAccount();
 	const {t} = useTranslation();
 
@@ -19,18 +19,7 @@ export default function Crypto(): JSX.Element {
 
 	return (
 		<Center flex="1" p="8">
-			<Box
-				as="iframe"
-				src={ramper}
-				title="ramper"
-				frameBorder="no"
-				allow="accelerometer; autoplay; camera; gyroscope; payment;"
-				w="420px"
-				h="625px"
-				boxShadow="lg"
-				borderRadius="xl"
-				bg="gray.100"
-			/>
+			<BuyCrypto />
 		</Center>
 	);
 }

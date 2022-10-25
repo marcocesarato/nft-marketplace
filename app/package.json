@@ -23,6 +23,7 @@
 		"@emotion/styled": "11.10.4",
 		"@metamask/eth-sig-util": "^5.0.0",
 		"@metamask/jazzicon": "^2.0.0",
+		"@onramper/widget": "^2.2.24",
 		"@packages/abis": "*",
 		"@packages/mongo": "*",
 		"@rainbow-me/rainbowkit": "^0.7.3",
