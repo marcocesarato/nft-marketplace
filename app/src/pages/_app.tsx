@@ -6,9 +6,9 @@ import {SessionProvider} from "next-auth/react";
 import {appWithTranslation} from "next-i18next";
 import {useNetwork} from "wagmi";
 
-import Providers from "@app/Providers";
 import Loader from "@components/Loader";
 import {useData} from "@contexts/Global";
+import Providers from "@contexts/Providers";
 import ErrorBoundary from "@errors/ErrorBoundary";
 import useAccount from "@hooks/useAccount";
 import MainLayout from "@layouts/Main";
@@ -33,8 +33,6 @@ function Page({Component, pageProps}): JSX.Element {
 	}, [isConnected, pageProps]);
 
 	if (!mounted) return null;
-
-	console.log(pageProps);
 
 	return (
 		<>
