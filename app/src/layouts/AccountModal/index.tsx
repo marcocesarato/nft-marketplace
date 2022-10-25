@@ -27,7 +27,6 @@ import useDebounceCallback from "@hooks/useDebounceCallback";
 import useUser from "@hooks/useUser";
 import {useUserUpdateMutation} from "@services/graphql";
 import {formatAddress} from "@utils/formatters";
-import {getExplorerById} from "@utils/networks";
 
 import ActionButton from "./ActionButton";
 import DisconnectButton from "./DisconnectButton";
@@ -120,7 +119,7 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 							</LinkButton>
 							<LinkButton
 								ml={6}
-								href={`${getExplorerById(chain)}address/${address}`}
+								href={`${chain.blockExplorers.default.url}address/${address}`}
 								isExternal>
 								<ExternalLinkIcon mr={1} />
 								{t<string>("common:action.viewOnExplorer")}

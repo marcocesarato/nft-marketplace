@@ -6,7 +6,7 @@ import {
 	RainbowKitProvider,
 	Theme,
 } from "@rainbow-me/rainbowkit";
-import {chain, configureChains, createClient, defaultChains, WagmiConfig} from "wagmi";
+import {allChains, configureChains, createClient, WagmiConfig} from "wagmi";
 import {publicProvider} from "wagmi/providers/public";
 
 import Avatar from "@components/Avatar";
@@ -14,12 +14,7 @@ import {deepMerge} from "@utils/objects";
 
 const appName = "NFT Marketplace";
 
-const customChains =
-	process.env.NODE_ENV !== "production"
-		? [chain.polygon, chain.polygonMumbai, chain.ropsten, ...defaultChains]
-		: [chain.polygon, ...defaultChains];
-
-const {provider, webSocketProvider, chains} = configureChains(customChains, [publicProvider()]);
+const {provider, webSocketProvider, chains} = configureChains(allChains, [publicProvider()]);
 const {connectors} = getDefaultWallets({
 	appName,
 	chains,

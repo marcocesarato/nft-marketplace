@@ -26,7 +26,6 @@ import Loading from "@components/Loading";
 import ErrorNotFound from "@errors/ErrorNotFound";
 import {useUserQuery} from "@services/graphql";
 import {formatDate} from "@utils/formatters";
-import {getExplorerById} from "@utils/networks";
 import {getGalleryUrl} from "@utils/url";
 
 import Created from "./Created";
@@ -87,7 +86,7 @@ export default function Account({id}): JSX.Element {
 						</Heading>
 						<Text color={"gray.500"}>Joined at {formatDate(user.createdAt)}</Text>
 						<Link
-							href={`${getExplorerById(chain)}/address/${user.account}`}
+							href={`${chain.blockExplorers.default.url}/address/${user.account}`}
 							isExternal
 							color="primary"
 							fontSize="sm"
