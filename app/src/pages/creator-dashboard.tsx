@@ -7,9 +7,9 @@ import Header from "@components/Header";
 import Loading from "@components/Loading";
 import useAccount from "@hooks/useAccount";
 import {useMarketItemsCreatedQuery} from "@services/graphql";
-import {getServerSidePropsHandler} from "@utils/ssr";
+import {getStaticPropsLocale} from "@utils/i18n";
 
-export const getServerSideProps = getServerSidePropsHandler();
+export const getStaticProps = getStaticPropsLocale;
 export default function CreatorDashboard(): JSX.Element {
 	const {t} = useTranslation();
 	const {isConnected} = useAccount();

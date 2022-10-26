@@ -5,9 +5,9 @@ import GalleryBuilder from "@components/GalleryBuilder";
 import Header from "@components/Header";
 import {GalleryProvider} from "@contexts/Gallery";
 import useAccount from "@hooks/useAccount";
-import {getServerSidePropsHandler} from "@utils/ssr";
+import {getStaticPropsLocale} from "@utils/i18n";
 
-export const getServerSideProps = getServerSidePropsHandler(["userNFTs"]);
+export const getStaticProps = getStaticPropsLocale;
 export default function Builder(): JSX.Element {
 	const {isConnected} = useAccount();
 	const {t} = useTranslation();

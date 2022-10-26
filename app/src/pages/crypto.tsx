@@ -5,9 +5,9 @@ import {useTranslation} from "next-i18next";
 import BuyCrypto from "@components/BuyCrypto";
 import Header from "@components/Header";
 import useAccount from "@hooks/useAccount";
-import {getServerSidePropsHandler} from "@utils/ssr";
+import {getStaticPropsLocale} from "@utils/i18n";
 
-export const getServerSideProps = getServerSidePropsHandler();
+export const getStaticProps = getStaticPropsLocale;
 export default function Crypto(): JSX.Element {
 	const {isConnected} = useAccount();
 	const {t} = useTranslation();

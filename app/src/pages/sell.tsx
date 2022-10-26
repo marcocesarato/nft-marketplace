@@ -12,9 +12,9 @@ import useAccount from "@hooks/useAccount";
 import useBalance from "@hooks/useBalance";
 import useIPFS from "@hooks/useIPFS";
 import useMarket from "@hooks/useMarket";
-import {getServerSidePropsHandler} from "@utils/ssr";
+import {getStaticPropsLocale} from "@utils/i18n";
 
-export const getServerSideProps = getServerSidePropsHandler();
+export const getStaticProps = getStaticPropsLocale;
 export default function Sell(): JSX.Element {
 	const {t} = useTranslation();
 	const {isConnected} = useAccount();

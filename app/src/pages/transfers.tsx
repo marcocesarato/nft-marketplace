@@ -4,9 +4,9 @@ import {useTranslation} from "next-i18next";
 import {Transfers} from "@components/Account";
 import Header from "@components/Header";
 import useAccount from "@hooks/useAccount";
-import {getServerSidePropsHandler} from "@utils/ssr";
+import {getStaticPropsLocale} from "@utils/i18n";
 
-export const getServerSideProps = getServerSidePropsHandler(["userTransfersERC20"]);
+export const getStaticProps = getStaticPropsLocale;
 export default function MyTransfers(): JSX.Element {
 	const {t} = useTranslation();
 	const {isConnected, address} = useAccount();

@@ -6,12 +6,7 @@ const initialState: TGlobalContext = {
 		symbol: "",
 		isOpenSidebar: false,
 	},
-	data: {
-		userNFTs: [],
-		userTransfersERC20: [],
-		accountsNFTs: {},
-		accountsTransfersERC20: {},
-	},
+	data: {},
 	mergeData: () => {},
 	setConfig: () => {},
 	removeConfig: () => {},

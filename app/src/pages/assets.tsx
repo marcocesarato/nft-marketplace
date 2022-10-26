@@ -3,9 +3,9 @@ import {useTranslation} from "next-i18next";
 import {Owned} from "@components/Account";
 import Content from "@components/Content";
 import useAccount from "@hooks/useAccount";
-import {getServerSidePropsHandler} from "@utils/ssr";
+import {getStaticPropsLocale} from "@utils/i18n";
 
-export const getServerSideProps = getServerSidePropsHandler(["userNFTs"]);
+export const getStaticProps = getStaticPropsLocale;
 export default function MyAssets(): JSX.Element {
 	const {t} = useTranslation();
 	const {address} = useAccount();

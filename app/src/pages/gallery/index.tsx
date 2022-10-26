@@ -9,10 +9,10 @@ import Header from "@components/Header";
 import Loading from "@components/Loading";
 import useAccount from "@hooks/useAccount";
 import useUser from "@hooks/useUser";
-import {getServerSidePropsHandler} from "@utils/ssr";
+import {getStaticPropsLocale} from "@utils/i18n";
 import {getGalleryBuilderUrl} from "@utils/url";
 
-export const getServerSideProps = getServerSidePropsHandler();
+export const getStaticProps = getStaticPropsLocale;
 export default function MyGallery(): JSX.Element {
 	const {user, isLoading} = useUser();
 	const {isConnected} = useAccount();
