@@ -1,5 +1,6 @@
 /* eslint-disable no-restricted-globals */
-import {lazy, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import {setCookie} from "cookies-next";
 import {SessionProvider} from "next-auth/react";
@@ -16,7 +17,7 @@ import "focus-visible/dist/focus-visible";
 
 import "@rainbow-me/rainbowkit/styles.css";
 
-lazy(() => import("webxr-polyfill"));
+dynamic(() => import("webxr-polyfill"), {ssr: false});
 
 function Page({Component, pageProps: {session, ...pageProps}}): JSX.Element {
 	const [mounted, setMounted] = useState(false);
