@@ -25,7 +25,7 @@ export const getServerSidePropsSession = async function (entities: PropsDataType
 	if (entities.includes("accountNFTs")) {
 		data.accountsNFTs[id] = await getWalletNFTs(chain, id);
 	}
-	if (entities.includes("userTransfersERC20")) {
+	if (entities.includes("accountTransfersERC20")) {
 		data.accountsTransfersERC20[id] = await getWalletNFTTransfers(chain, id);
 	}
 
