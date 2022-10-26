@@ -9,7 +9,7 @@ import {getServerSidePropsHandler} from "@utils/ssr";
 export const getServerSideProps = getServerSidePropsHandler(["userTransfersERC20"]);
 export default function MyTransactions(): JSX.Element {
 	const {t} = useTranslation();
-	const {isConnected} = useAccount();
+	const {isConnected, address} = useAccount();
 
 	if (!isConnected)
 		return (
@@ -29,7 +29,7 @@ export default function MyTransactions(): JSX.Element {
 						title={t<string>("common:page.transactions.title")}
 						subtitle={t<string>("common:page.transactions.description")}
 					/>
-					<Transactions my={6} />
+					<Transactions my={6} address={address} />
 				</Box>
 			</Box>
 		</Box>

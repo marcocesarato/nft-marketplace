@@ -6,14 +6,21 @@ import {useNetwork} from "wagmi";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
 import Table from "@components/Table";
-import useTransfers from "@hooks/useTransfers";
+import ErrorAlert from "@errors/ErrorAlert";
+import {useWalletNFTTransferQuery} from "@services/graphql";
 import {formatAddress} from "@utils/formatters";
 import {formatUnits} from "@utils/units";
 
 export default function Transactions({address = null, ...props}): JSX.Element {
 	const {t} = useTranslation();
 	const {chain} = useNetwork();
-	const {data, isLoading} = useTransfers({address});
+	const {data, loading, error} = useWalletNFTTransferQuery({
+		variables: {
+			chain: `0x${chain.id.toString(16)}`,
+			address,
+		},
+	});
+	const items = data?.walletNFTTransfers;
 	const columns = [
 		{
 			title: t<string>("common:page.transactions.column.from"),
@@ -76,8 +83,8 @@ export default function Transactions({address = null, ...props}): JSX.Element {
 		},
 	];
 
-	if (isLoading) return <Loading />;
-	if (!data || data.length === 0)
+	if (loading) return <Loading />;
+	if (!items || items.length === 0)
 		return (
 			<Header
 				title={t<string>("common:page.transactions.title")}
@@ -87,14 +94,19 @@ export default function Transactions({address = null, ...props}): JSX.Element {
 
 	let key = 0;
 	return (
-		<Table
-			data={data}
-			columns={columns}
-			rowKey={(record) => {
-				key++;
-				return `${record.transaction_hash}-${key}`;
-			}}
-			{...props}
-		/>
+		<>
+			{error && (
+				<ErrorAlert error={t<string>("error:unexpectedError")} message={error.message} />
+			)}
+			<Table
+				data={items}
+				columns={columns}
+				rowKey={(record) => {
+					key++;
+					return `${record.transaction_hash}-${key}`;
+				}}
+				{...props}
+			/>
+		</>
 	);
 }

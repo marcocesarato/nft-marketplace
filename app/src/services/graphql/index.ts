@@ -52,4 +52,6 @@ export {
 	useUserQuery,
 	useUserUpdateMutation,
 	useUserUpdatePlanimetryMutation,
+	useWalletNfTsQuery as useWalletNFTQuery,
+	useWalletNftTransferQuery as useWalletNFTTransferQuery,
 } from "./generated";
