@@ -1,15 +1,25 @@
 const {i18n} = require("./next-i18next.config");
 const {dotenvLoad} = require("@packages/dotenv");
+const runtimeCaching = require("next-pwa/cache");
 
 // Load env
 dotenvLoad();
 
 const isDev = process.env.NODE_ENV === "development";
 const withPWA = require("next-pwa")({
+	runtimeCaching,
 	dest: "public",
 	register: true,
 	skipWaiting: true,
 	disable: isDev,
+	buildExcludes: [
+		/middleware-manifest\.json$/,
+		/middleware.*manifest\.js$/,
+		/_middleware\.js$/,
+		/_middleware\.js\.map$/,
+		/middleware-runtime\.js$/,
+		/middleware-runtime\.js\.map$/,
+	],
 });
 
 /**
