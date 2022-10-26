@@ -17,6 +17,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 		});
 		res.setHeader("Content-Type", response.headers["content-type"]);
 		res.setHeader("Content-Length", response.headers["content-length"]);
+		res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
 		return res.send(response.data);
 	} catch (error) {
 		console.error("Error fetching file: ", error.message);
