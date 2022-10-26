@@ -20,8 +20,8 @@ const server = new ApolloServer({
 	context: async ({req}: {req: NextApiRequest}) => {
 		const token = await getToken({req});
 		const context = {
-			isAuthenticated: !!token.user,
-			account: String((token.user as TUserData).address || "").toLowerCase(),
+			isAuthenticated: !!token?.user,
+			account: String((token?.user as TUserData)?.address || "").toLowerCase(),
 		};
 		return context;
 	},
@@ -38,14 +38,10 @@ const graphqlRoute = cors(async (req: NextApiRequest, res: NextApiResponse) => {
 		return send(res, 200, "ok");
 	}
 
-	if (!token || !token?.user) {
-		return send(res, 401, "Unauthorized");
-	}
-
 	await connection;
 
 	// User creation if not exists
-	const publicAddress = String((token.user as TUserData).address || "");
+	const publicAddress = String((token?.user as TUserData)?.address || "");
 	if (publicAddress) {
 		try {
 			const user = await User.findOne({"account": publicAddress});

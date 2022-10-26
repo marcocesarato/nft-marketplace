@@ -548,6 +548,53 @@ export type MutationUserUpdatePlanimetryArgs = {
 	planimetry?: InputMaybe<Scalars["JSON"]>;
 };
 
+export type Nft = {
+	__typename?: "NFT";
+	batch_id?: Maybe<Scalars["String"]>;
+	block_number_minted?: Maybe<Scalars["String"]>;
+	contract_type?: Maybe<Scalars["String"]>;
+	createdAt?: Maybe<Scalars["String"]>;
+	frozen?: Maybe<Scalars["String"]>;
+	frozen_log_index?: Maybe<Scalars["String"]>;
+	imported?: Maybe<Scalars["String"]>;
+	is_valid?: Maybe<Scalars["String"]>;
+	last_metadata_sync?: Maybe<Scalars["String"]>;
+	last_token_uri_sync?: Maybe<Scalars["String"]>;
+	metadata?: Maybe<Scalars["String"]>;
+	metadata_attributes?: Maybe<Scalars["String"]>;
+	metadata_description?: Maybe<Scalars["String"]>;
+	metadata_name?: Maybe<Scalars["String"]>;
+	minter_address?: Maybe<Scalars["String"]>;
+	opensea_lookup?: Maybe<Scalars["String"]>;
+	resyncing?: Maybe<Scalars["String"]>;
+	syncing?: Maybe<Scalars["String"]>;
+	token_address: Scalars["String"];
+	token_hash?: Maybe<Scalars["String"]>;
+	token_id: Scalars["String"];
+	token_uri?: Maybe<Scalars["String"]>;
+	transaction_minted?: Maybe<Scalars["String"]>;
+	updatedAt?: Maybe<Scalars["String"]>;
+};
+
+export type NftTransfer = {
+	__typename?: "NFTTransfer";
+	amount?: Maybe<Scalars["String"]>;
+	block_hash?: Maybe<Scalars["String"]>;
+	block_number?: Maybe<Scalars["String"]>;
+	block_timestamp?: Maybe<Scalars["String"]>;
+	contract_type?: Maybe<Scalars["String"]>;
+	from_address: Scalars["String"];
+	log_index?: Maybe<Scalars["Int"]>;
+	operator?: Maybe<Scalars["String"]>;
+	to_address: Scalars["String"];
+	token_address: Scalars["String"];
+	token_id: Scalars["String"];
+	transaction_hash?: Maybe<Scalars["String"]>;
+	transaction_index?: Maybe<Scalars["Int"]>;
+	transaction_type?: Maybe<Scalars["String"]>;
+	value?: Maybe<Scalars["String"]>;
+};
+
 export type PaginationInfo = {
 	__typename?: "PaginationInfo";
 	currentPage: Scalars["Int"];
@@ -568,6 +615,10 @@ export type Query = {
 	users: Array<User>;
 	usersCount?: Maybe<Scalars["Int"]>;
 	usersPagination?: Maybe<UserPagination>;
+	/** Get transfers of NFTs given the wallet and other parameters. */
+	walletNFTTransfers?: Maybe<Array<Maybe<NftTransfer>>>;
+	/** Get NFTs owned by a given address. */
+	walletNFTs?: Maybe<Array<Maybe<Nft>>>;
 };
 
 export type QueryMarketItemArgs = {
@@ -616,6 +667,16 @@ export type QueryUsersPaginationArgs = {
 	page?: InputMaybe<Scalars["Int"]>;
 	perPage?: InputMaybe<Scalars["Int"]>;
 	sort?: InputMaybe<SortFindManyUserInput>;
+};
+
+export type QueryWalletNftTransfersArgs = {
+	address: Scalars["String"];
+	chain: Scalars["String"];
+};
+
+export type QueryWalletNfTsArgs = {
+	address: Scalars["String"];
+	chain: Scalars["String"];
 };
 
 export type RuntimeError = ErrorInterface & {
@@ -933,6 +994,69 @@ export type UsersQuery = {
 		createdAt?: any | null;
 		updatedAt?: any | null;
 	}>;
+};
+
+export type WalletNftTransferQueryVariables = Exact<{
+	chain: Scalars["String"];
+	address: Scalars["String"];
+}>;
+
+export type WalletNftTransferQuery = {
+	__typename?: "Query";
+	walletNFTTransfers?: Array<{
+		__typename?: "NFTTransfer";
+		token_address: string;
+		token_id: string;
+		from_address: string;
+		to_address: string;
+		value?: string | null;
+		amount?: string | null;
+		contract_type?: string | null;
+		block_number?: string | null;
+		block_timestamp?: string | null;
+		block_hash?: string | null;
+		transaction_hash?: string | null;
+		transaction_type?: string | null;
+		transaction_index?: number | null;
+		log_index?: number | null;
+		operator?: string | null;
+	} | null> | null;
+};
+
+export type WalletNfTsQueryVariables = Exact<{
+	chain: Scalars["String"];
+	address: Scalars["String"];
+}>;
+
+export type WalletNfTsQuery = {
+	__typename?: "Query";
+	walletNFTs?: Array<{
+		__typename?: "NFT";
+		token_id: string;
+		token_address: string;
+		token_uri?: string | null;
+		metadata?: string | null;
+		is_valid?: string | null;
+		syncing?: string | null;
+		frozen?: string | null;
+		resyncing?: string | null;
+		contract_type?: string | null;
+		token_hash?: string | null;
+		batch_id?: string | null;
+		metadata_name?: string | null;
+		metadata_description?: string | null;
+		metadata_attributes?: string | null;
+		block_number_minted?: string | null;
+		opensea_lookup?: string | null;
+		minter_address?: string | null;
+		transaction_minted?: string | null;
+		frozen_log_index?: string | null;
+		imported?: string | null;
+		last_token_uri_sync?: string | null;
+		last_metadata_sync?: string | null;
+		createdAt?: string | null;
+		updatedAt?: string | null;
+	} | null> | null;
 };
 
 export const AddToFavouritesDocument = gql`
@@ -1473,3 +1597,135 @@ export function useUsersLazyQuery(
 export type UsersQueryHookResult = ReturnType<typeof useUsersQuery>;
 export type UsersLazyQueryHookResult = ReturnType<typeof useUsersLazyQuery>;
 export type UsersQueryResult = Apollo.QueryResult<UsersQuery, UsersQueryVariables>;
+export const WalletNftTransferDocument = gql`
+	query WalletNFTTransfer($chain: String!, $address: String!) {
+		walletNFTTransfers(chain: $chain, address: $address) {
+			token_address
+			token_id
+			from_address
+			to_address
+			value
+			amount
+			contract_type
+			block_number
+			block_timestamp
+			block_hash
+			transaction_hash
+			transaction_type
+			transaction_index
+			log_index
+			operator
+		}
+	}
+`;
+
+/**
+ * __useWalletNftTransferQuery__
+ *
+ * To run a query within a React component, call `useWalletNftTransferQuery` and pass it any options that fit your needs.
+ * When your component renders, `useWalletNftTransferQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useWalletNftTransferQuery({
+ *   variables: {
+ *      chain: // value for 'chain'
+ *      address: // value for 'address'
+ *   },
+ * });
+ */
+export function useWalletNftTransferQuery(
+	baseOptions: Apollo.QueryHookOptions<WalletNftTransferQuery, WalletNftTransferQueryVariables>,
+) {
+	const options = {...defaultOptions, ...baseOptions};
+	return Apollo.useQuery<WalletNftTransferQuery, WalletNftTransferQueryVariables>(
+		WalletNftTransferDocument,
+		options,
+	);
+}
+export function useWalletNftTransferLazyQuery(
+	baseOptions?: Apollo.LazyQueryHookOptions<
+		WalletNftTransferQuery,
+		WalletNftTransferQueryVariables
+	>,
+) {
+	const options = {...defaultOptions, ...baseOptions};
+	return Apollo.useLazyQuery<WalletNftTransferQuery, WalletNftTransferQueryVariables>(
+		WalletNftTransferDocument,
+		options,
+	);
+}
+export type WalletNftTransferQueryHookResult = ReturnType<typeof useWalletNftTransferQuery>;
+export type WalletNftTransferLazyQueryHookResult = ReturnType<typeof useWalletNftTransferLazyQuery>;
+export type WalletNftTransferQueryResult = Apollo.QueryResult<
+	WalletNftTransferQuery,
+	WalletNftTransferQueryVariables
+>;
+export const WalletNfTsDocument = gql`
+	query WalletNFTs($chain: String!, $address: String!) {
+		walletNFTs(chain: $chain, address: $address) {
+			token_id
+			token_address
+			token_uri
+			metadata
+			is_valid
+			syncing
+			frozen
+			resyncing
+			contract_type
+			token_hash
+			batch_id
+			metadata_name
+			metadata_description
+			metadata_attributes
+			block_number_minted
+			opensea_lookup
+			minter_address
+			transaction_minted
+			frozen_log_index
+			imported
+			last_token_uri_sync
+			last_metadata_sync
+			createdAt
+			updatedAt
+		}
+	}
+`;
+
+/**
+ * __useWalletNfTsQuery__
+ *
+ * To run a query within a React component, call `useWalletNfTsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useWalletNfTsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useWalletNfTsQuery({
+ *   variables: {
+ *      chain: // value for 'chain'
+ *      address: // value for 'address'
+ *   },
+ * });
+ */
+export function useWalletNfTsQuery(
+	baseOptions: Apollo.QueryHookOptions<WalletNfTsQuery, WalletNfTsQueryVariables>,
+) {
+	const options = {...defaultOptions, ...baseOptions};
+	return Apollo.useQuery<WalletNfTsQuery, WalletNfTsQueryVariables>(WalletNfTsDocument, options);
+}
+export function useWalletNfTsLazyQuery(
+	baseOptions?: Apollo.LazyQueryHookOptions<WalletNfTsQuery, WalletNfTsQueryVariables>,
+) {
+	const options = {...defaultOptions, ...baseOptions};
+	return Apollo.useLazyQuery<WalletNfTsQuery, WalletNfTsQueryVariables>(
+		WalletNfTsDocument,
+		options,
+	);
+}
+export type WalletNfTsQueryHookResult = ReturnType<typeof useWalletNfTsQuery>;
+export type WalletNfTsLazyQueryHookResult = ReturnType<typeof useWalletNfTsLazyQuery>;
+export type WalletNfTsQueryResult = Apollo.QueryResult<WalletNfTsQuery, WalletNfTsQueryVariables>;

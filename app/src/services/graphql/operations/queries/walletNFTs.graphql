@@ -1,0 +1,28 @@
+query WalletNFTs($chain: String!, $address: String!) {
+	walletNFTs(chain: $chain, address: $address) {
+		token_id
+		token_address
+		token_uri
+		metadata
+		is_valid
+		syncing
+		frozen
+		resyncing
+		contract_type
+		token_hash
+		batch_id
+		metadata_name
+		metadata_description
+		metadata_attributes
+		block_number_minted
+		opensea_lookup
+		minter_address
+		transaction_minted
+		frozen_log_index
+		imported
+		last_token_uri_sync
+		last_metadata_sync
+		createdAt
+		updatedAt
+	}
+}

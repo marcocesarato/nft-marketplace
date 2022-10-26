@@ -1,0 +1,19 @@
+query WalletNFTTransfer($chain: String!, $address: String!) {
+	walletNFTTransfers(chain: $chain, address: $address) {
+		token_address
+		token_id
+		from_address
+		to_address
+		value
+		amount
+		contract_type
+		block_number
+		block_timestamp
+		block_hash
+		transaction_hash
+		transaction_type
+		transaction_index
+		log_index
+		operator
+	}
+}
