@@ -6,7 +6,7 @@ import {PropsDataType} from "@app/enums";
 import {GenericObject, TUserData} from "@app/types";
 import {ChainId} from "@configs/chain";
 import {getWalletNFTs, getWalletNFTTransfers} from "@services/api";
-import {cleanEmpty} from "@utils/objects";
+import {cleanObject} from "@utils/objects";
 
 export const getServerSidePropsSession = async function (entities: PropsDataType[] = [], context) {
 	const {id} = context.query || {};
@@ -31,7 +31,7 @@ export const getServerSidePropsSession = async function (entities: PropsDataType
 
 	const props: GenericObject = {
 		...(await serverSideTranslations(context.locale, ["common", "error"])),
-		data: cleanEmpty(data),
+		data: cleanObject(data),
 	};
 
 	return {

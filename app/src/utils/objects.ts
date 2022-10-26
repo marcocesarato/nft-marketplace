@@ -46,15 +46,11 @@ export function deepMerge(target: GenericObject, ...sources: GenericObject[]): G
  * @param obj
  * @returns object
  */
-export function cleanEmpty(obj: GenericObject): GenericObject {
+export function cleanObject(obj: GenericObject): GenericObject {
 	for (const k in obj) {
-		if (!obj[k] || typeof obj[k] !== "object") {
-			continue;
-		}
-		if (Object.keys(obj[k]).length === 0) {
+		if (obj[k] == null || obj[k] === "" || Object.keys(obj[k]).length === 0) {
 			delete obj[k];
 		}
-		return obj;
 	}
 	return obj;
 }
