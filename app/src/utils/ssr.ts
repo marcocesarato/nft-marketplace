@@ -1,12 +1,12 @@
-import {EvmChain} from "@moralisweb3/evm-utils";
 import {getCookie} from "cookies-next";
-import Moralis from "moralis";
 import {getSession} from "next-auth/react";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 
 import {PropsDataType} from "@app/enums";
 import {GenericObject, TUserData} from "@app/types";
 import {ChainId} from "@configs/chain";
+import {getWalletNFTs, getWalletNFTTransfers} from "@services/api";
+import {cleanEmpty} from "@utils/objects";
 
 export const getServerSidePropsSession = async function (entities: PropsDataType[] = [], context) {
 	const {id} = context.query || {};
@@ -14,45 +14,24 @@ export const getServerSidePropsSession = async function (entities: PropsDataType
 	const address = (session?.user as TUserData)?.address;
 	const chain = Number(getCookie("chain") || ChainId);
 
-	const data: GenericObject = {};
-	await Moralis.start({apiKey: process.env.MORALIS_API_KEY});
+	const data: GenericObject = {accountsNFTs: {}, accountsTransfersERC20: {}};
 
 	if (entities.includes("userNFTs")) {
-		const result = await Moralis.EvmApi.nft.getWalletNFTs({
-			chain: EvmChain.create(chain),
-			address: address,
-		});
-		data.userNFTs = result.raw.result;
+		data.userNFTs = await getWalletNFTs(chain, address);
 	}
 	if (entities.includes("userTransfersERC20")) {
-		const result = await Moralis.EvmApi.nft.getWalletNFTTransfers({
-			chain: EvmChain.create(chain),
-			address: address,
-		});
-		data.userTransfersERC20 = result.raw.result;
+		data.userTransfersERC20 = await getWalletNFTTransfers(chain, address);
 	}
 	if (entities.includes("accountNFTs")) {
-		const result = await Moralis.EvmApi.nft.getWalletNFTs({
-			chain: EvmChain.create(chain),
-			address: id,
-		});
-		data.accountsNFTs = {
-			[id]: result.raw.result,
-		};
+		data.accountsNFTs[id] = await getWalletNFTs(chain, id);
 	}
-	if (entities.includes("accountTransfersERC20")) {
-		const result = await Moralis.EvmApi.nft.getWalletNFTTransfers({
-			chain: EvmChain.create(chain),
-			address: id,
-		});
-		data.accountsTransfersERC20 = {
-			[id]: result.raw.result,
-		};
+	if (entities.includes("userTransfersERC20")) {
+		data.accountsTransfersERC20[id] = await getWalletNFTTransfers(chain, id);
 	}
 
 	const props: GenericObject = {
 		...(await serverSideTranslations(context.locale, ["common", "error"])),
-		data,
+		data: cleanEmpty(data),
 	};
 
 	return {

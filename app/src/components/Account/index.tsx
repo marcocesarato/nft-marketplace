@@ -86,7 +86,7 @@ export default function Account({id}): JSX.Element {
 						</Heading>
 						<Text color={"gray.500"}>Joined at {formatDate(user.createdAt)}</Text>
 						<Link
-							href={`${chain.blockExplorers.default.url}/address/${user.account}`}
+							href={`${chain?.blockExplorers.default.url}/address/${user.account}`}
 							isExternal
 							color="primary"
 							fontSize="sm"

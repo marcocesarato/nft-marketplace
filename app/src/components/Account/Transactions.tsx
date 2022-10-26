@@ -21,7 +21,7 @@ export default function Transactions({address = null, ...props}): JSX.Element {
 			key: "from_address",
 			render: (from) => (
 				<Link
-					href={`${chain.blockExplorers.default.url}/address/${from}`}
+					href={`${chain?.blockExplorers.default.url}/address/${from}`}
 					isExternal
 					color="primary"
 					colorScheme="purple">
@@ -36,7 +36,7 @@ export default function Transactions({address = null, ...props}): JSX.Element {
 			key: "to_address",
 			render: (to) => (
 				<Link
-					href={`${chain.blockExplorers.default.url}/address/${to}`}
+					href={`${chain?.blockExplorers.default.url}/address/${to}`}
 					isExternal
 					color="primary"
 					colorScheme="purple">
@@ -64,7 +64,7 @@ export default function Transactions({address = null, ...props}): JSX.Element {
 			render: (hash) => (
 				<Box textAlign="right">
 					<Link
-						href={`${chain.blockExplorers.default.url}/tx/${hash}`}
+						href={`${chain?.blockExplorers.default.url}/tx/${hash}`}
 						isExternal
 						color="primary"
 						colorScheme="purple">

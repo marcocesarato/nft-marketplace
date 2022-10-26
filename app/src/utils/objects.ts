@@ -1,16 +1,18 @@
+import {GenericObject} from "@app/types";
+
 /**
  * Simple object check.
  * @param item
  * @returns {boolean}
  */
-export function isObject(item) {
+export function isObject(item: any): boolean {
 	return item && typeof item === "object" && !Array.isArray(item);
 }
 
 /**
  * Is string check.
  */
-export function isString(x) {
+export function isString(x: any): boolean {
 	return Object.prototype.toString.call(x) === "[object String]";
 }
 
@@ -19,7 +21,7 @@ export function isString(x) {
  * @param target
  * @param ...sources
  */
-export function deepMerge(target, ...sources) {
+export function deepMerge(target: GenericObject, ...sources: GenericObject[]): GenericObject {
 	target ??= {};
 
 	if (!sources.length) return target;
@@ -37,4 +39,22 @@ export function deepMerge(target, ...sources) {
 	}
 
 	return deepMerge(target, ...sources);
+}
+
+/**
+ * Clean empty object.
+ * @param obj
+ * @returns object
+ */
+export function cleanEmpty(obj: GenericObject): GenericObject {
+	for (const k in obj) {
+		if (!obj[k] || typeof obj[k] !== "object") {
+			continue;
+		}
+		if (Object.keys(obj[k]).length === 0) {
+			delete obj[k];
+		}
+		return obj;
+	}
+	return obj;
 }
