@@ -23,6 +23,7 @@ export default function LocaleMenu(): JSX.Element {
 					<Box height="16px" width="16px" position="relative">
 						<Image
 							fill={true}
+							sizes="16px"
 							src={locales[router?.locale || "en"]}
 							style={{objectFit: "cover"}}
 							alt={router?.locale || "en"}
