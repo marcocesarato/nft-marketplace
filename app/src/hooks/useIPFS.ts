@@ -11,7 +11,7 @@ export default function useIPFS() {
 		return getEmbeddedIPFSImageUrl(url.replace("ipfs://", "https://ipfs.io/ipfs/"));
 	};
 
-	const saveIPFS = async (formData: any) => {
+	const uploadFile = async (formData: any) => {
 		setIsUploading(true);
 		try {
 			const {data} = await axios.post("/api/upload", formData, {
@@ -25,5 +25,5 @@ export default function useIPFS() {
 		}
 	};
 
-	return {isUploading, saveIPFS, resolveLink};
+	return {isUploading, uploadFile, resolveLink};
 }

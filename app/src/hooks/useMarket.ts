@@ -1,4 +1,4 @@
-import {useContract} from "wagmi";
+import {useContract, useSigner} from "wagmi";
 
 import {MarketAddress, MarketContract} from "@configs/contracts";
 import {isString} from "@utils/objects";
@@ -12,9 +12,11 @@ type SellInput = {
 };
 
 export default function useMarket() {
+	const {data: signer, isError, isLoading, error} = useSigner();
 	const contract = useContract({
 		address: MarketAddress,
 		abi: MarketContract,
+		signerOrProvider: signer,
 	});
 
 	async function purchase(tokenId: string, price: string | number, callback = () => {}) {
@@ -48,5 +50,5 @@ export default function useMarket() {
 		await transaction.wait();
 	}
 
-	return {purchase, sell, resell};
+	return {purchase, sell, resell, error, isError, isLoading};
 }

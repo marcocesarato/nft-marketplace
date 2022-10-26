@@ -1,12 +1,11 @@
-// @ts-ignore
 import * as ethers from "ethers";
 import {connectDatabase, MarketItem} from "@packages/mongo";
 import logger from "@/logger";
 import {getAddresses} from "@/config";
+import {createMarketItem, updateMarketItem} from "@/mapper";
+
 // @ts-ignore
 import MarketContract from "@packages/abis/Market.json";
-
-import {createMarketItem, updateMarketItem} from "./mapper";
 
 const EXPECTED_PONG_BACK = 15000;
 const KEEP_ALIVE_CHECK_INTERVAL = 7500;

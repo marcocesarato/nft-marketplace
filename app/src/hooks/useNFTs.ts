@@ -6,7 +6,7 @@ import {useData} from "@contexts/Global";
 import {isString} from "@utils/objects";
 
 import useIPFS from "./useIPFS";
-import useNFTMetadata from "./useNFTMetadata";
+//import useNFTMetadata from "./useNFTMetadata";
 
 const useNFTs = ({address = null} = {}) => {
 	const {chain} = useNetwork();

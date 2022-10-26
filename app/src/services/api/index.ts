@@ -38,3 +38,13 @@ export async function getWalletNFTTransfers(
 	});
 	return result.raw.result ?? [];
 }
+
+export async function uploadFiles(
+	abi: {path: string; content: string}[],
+): Promise<{path: string}[]> {
+	await start();
+	const response = await Moralis.EvmApi.ipfs.uploadFolder({
+		abi,
+	});
+	return response.result;
+}

@@ -7,6 +7,7 @@ import Content from "@components/Content";
 import Dropzone from "@components/Dropzone";
 import Header from "@components/Header";
 import Loader from "@components/Loader";
+import ErrorAlert from "@errors/ErrorAlert";
 import useAccount from "@hooks/useAccount";
 import useBalance from "@hooks/useBalance";
 import useIPFS from "@hooks/useIPFS";
@@ -18,9 +19,10 @@ export default function Sell(): JSX.Element {
 	const {t} = useTranslation();
 	const {isConnected} = useAccount();
 	const {data: balance} = useBalance();
-	const {saveIPFS} = useIPFS();
+	const {uploadFile} = useIPFS();
 	const [fileUrl, setFileUrl] = useState(null);
 	const [message, setMessage] = useState("");
+	const [error, setError] = useState(null);
 	const [formInput, updateFormInput] = useState({
 		price: "",
 		name: "",
@@ -29,16 +31,17 @@ export default function Sell(): JSX.Element {
 	});
 	const [isProcessing, setProcessing] = useState(false);
 	const router = useRouter();
-	const {sell} = useMarket();
+	const {sell, isLoading, isError: isMarketError, error: marketError} = useMarket();
 
 	async function onChange(fileStream: any) {
+		setError(null);
 		updateFormInput({...formInput, file: fileStream});
 		setFileUrl(URL.createObjectURL(fileStream));
 	}
 
 	async function createSale(url: string) {
 		setMessage(t<string>("common:page.sell.minting"));
-		sell(url, formInput);
+		await sell(url, formInput);
 		setMessage(t<string>("common:page.sell.approved"));
 		router.push("/explore");
 	}
@@ -58,11 +61,12 @@ export default function Sell(): JSX.Element {
 			setProcessing(true);
 			setMessage(t<string>("common:page.sell.uploading"));
 			const formData = createFormDataFile(name, description, file);
-			const url = await saveIPFS(formData);
+			const url = await uploadFile(formData);
 			createSale(url);
-		} catch (error) {
-			console.error("Error uploading file: ", error);
+		} catch (e) {
+			console.error("Error uploading file: ", e);
 			setProcessing(false);
+			setError(e);
 		}
 	}
 
@@ -71,7 +75,8 @@ export default function Sell(): JSX.Element {
 			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />
 		);
 
-	if (isProcessing) return <Loader message={message} />;
+	if (isProcessing || isLoading) return <Loader message={message} />;
+
 	return (
 		<Content alignItems="center">
 			<Stack align="stretch" width="100%" maxWidth={768}>
@@ -79,6 +84,18 @@ export default function Sell(): JSX.Element {
 					title={t<string>("common:page.sell.title")}
 					subtitle={t<string>("common:page.sell.description")}
 				/>
+				{isMarketError && (
+					<ErrorAlert
+						error={t<string>("error:auth.unexpectedError")}
+						message={marketError.message}
+					/>
+				)}
+				{error && (
+					<ErrorAlert
+						error={t<string>("error:auth.unexpectedError")}
+						message={error.message}
+					/>
+				)}
 				<FormControl>
 					<FormLabel>{t<string>("common:page.sell.asset.name")}</FormLabel>
 					<Input
