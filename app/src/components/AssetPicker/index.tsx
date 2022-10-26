@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useState} from "react";
 import {
 	Button,
 	Modal,
@@ -12,12 +12,14 @@ import {
 	useDisclosure,
 } from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
+import {useAccount, useNetwork} from "wagmi";
 
 import {TokenItem} from "@app/types";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
 import useIPFS from "@hooks/useIPFS";
-import useNFTs from "@hooks/useNFTs";
+import {useWalletNFTsQuery} from "@services/graphql";
+import {chainHex} from "@utils/converters";
 
 type AssetPickerProps = {
 	value?: TokenItem;
@@ -39,18 +41,21 @@ export default function AssetPicker({
 	const [selected, setSelected] = useState(value);
 	const {isOpen, onOpen, onClose} = useDisclosure();
 	const {resolveLink} = useIPFS();
-	const {data: rawData, error, isError, isSuccess, isLoading} = useNFTs();
-	const data = useMemo(() => {
-		if (!isSuccess) return [];
-		return rawData || [];
-	}, [isSuccess, rawData]);
-
+	const {address} = useAccount();
+	const {chain} = useNetwork();
+	const {data, loading, error} = useWalletNFTsQuery({
+		variables: {
+			chain: chainHex(chain),
+			address,
+		},
+	});
+	const items = data?.walletNFTs;
 	useEffect(() => {
 		setSelected(value);
 	}, [value]);
 
-	if (isError) return <Header title={t<string>("error:title")} subtitle={error.message} />;
-	if (isLoading) return <Loading />;
+	if (error) return <Header title={t<string>("error:title")} subtitle={error.message} />;
+	if (loading) return <Loading />;
 	return (
 		<>
 			<Button onClick={onOpen} {...props}>
@@ -69,7 +74,7 @@ export default function AssetPicker({
 					<ModalCloseButton />
 					<ModalBody>
 						<SimpleGrid columns={5} spacing={2}>
-							{data.map((c: TokenItem) => {
+							{items.map((c: TokenItem) => {
 								const background = {
 									backgroundImage: resolveLink(
 										c.metadata?.thumbnail || c.metadata?.image,

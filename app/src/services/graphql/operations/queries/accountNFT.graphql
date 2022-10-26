@@ -1,5 +1,5 @@
-query WalletNFTs($chain: String!, $address: String!) {
-	walletNFTs(chain: $chain, address: $address) {
+query AccountNFT($chain: String!, $address: String!, $tokenAddress: String!, $tokenId: Int!) {
+	accountNFT(chain: $chain, address: $address, token_address: $tokenAddress, token_id: $tokenId) {
 		# Metadata
 		name
 		description

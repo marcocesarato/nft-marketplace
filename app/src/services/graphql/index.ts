@@ -40,6 +40,7 @@ export const useMarketItemsByIdsQuery = (
 };
 
 export {
+	useAccountNftQuery as useAccountNFTQuery,
 	useAddToFavouritesMutation,
 	useDislikeMutation,
 	useLikeMutation,
@@ -52,6 +53,6 @@ export {
 	useUserQuery,
 	useUserUpdateMutation,
 	useUserUpdatePlanimetryMutation,
-	useWalletNfTsQuery as useWalletNFTQuery,
+	useWalletNfTsQuery as useWalletNFTsQuery,
 	useWalletNftTransferQuery as useWalletNFTTransferQuery,
 } from "./generated";

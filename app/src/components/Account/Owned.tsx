@@ -1,28 +1,44 @@
-import {useMemo} from "react";
 import {useTranslation} from "next-i18next";
+import {useNetwork} from "wagmi";
 
 import Catalog from "@components/Catalog";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
-import useNFTs from "@hooks/useNFTs";
+import {useWalletNFTsQuery} from "@services/graphql";
+import {chainHex} from "@utils/converters";
 
-export default function Owned({address = null}): JSX.Element {
+type OwnedProps = {
+	address: string;
+	title?: string;
+	subtitle?: string;
+	[key: string]: any;
+};
+
+export default function Owned({address, title = null, subtitle = null}: OwnedProps): JSX.Element {
 	const {t} = useTranslation();
-	const {data: rawData, error, isError, isSuccess, isLoading} = useNFTs({address});
-	const data = useMemo(() => {
-		if (!isSuccess) return [];
-		return rawData?.map((item) => item?.metadata) || [];
-	}, [isSuccess, rawData]);
+	const {chain} = useNetwork();
+	const {data, loading, error} = useWalletNFTsQuery({
+		variables: {
+			chain: chainHex(chain),
+			address,
+		},
+	});
+	const items = data?.walletNFTs;
 
-	if (isError) return <Header title={t<string>("error:title")} subtitle={error.message} />;
-	if (isLoading) return <Loading />;
-	if (isSuccess && !data.length)
+	if (error) return <Header title={t<string>("error:title")} subtitle={error.message} />;
+	if (loading) return <Loading />;
+	if (!items || !items?.length)
 		return (
 			<Header
-				title={t<string>("common:page.assets.title")}
+				title={title ?? t<string>("common:page.assets.title")}
 				subtitle={t<string>("common:page.assets.empty")}
 			/>
 		);
 
-	return <Catalog data={data} />;
+	return (
+		<>
+			{(title || subtitle) && <Header title={title} subtitle={subtitle} />}
+			<Catalog data={items} />
+		</>
+	);
 }

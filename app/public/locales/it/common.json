@@ -6,7 +6,8 @@
 		"gallery": "Galleria",
 		"galleryBuilder": "Impostazioni galleria",
 		"profile": "Profilo",
-		"title": "Account"
+		"title": "Account",
+		"transfers": "Trasferimenti"
 	},
 	"action": {
 		"back": "Indietro",
@@ -103,17 +104,17 @@
 			"title": "Vendi risorsa digitale",
 			"uploading": "Caricamento dati in corso..."
 		},
-		"transactions": {
+		"transfers": {
 			"column": {
 				"from": "Da",
 				"timestamp": "Data",
 				"to": "a",
 				"value": "Valore"
 			},
-			"description": "Cronologia delle attività di transazione dell'account",
-			"empty": "Nessuna transazione trovata sul conto",
-			"shortTitle": "Transazioni",
-			"title": "Transazioni"
+			"description": "Cronologia delle attività di trasferimento dell'account",
+			"empty": "Nessuna trasferimento trovata sul conto",
+			"shortTitle": "Trasferimenti",
+			"title": "Trasferimenti"
 		}
 	},
 	"product": {

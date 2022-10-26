@@ -30,7 +30,12 @@ import {getGalleryUrl} from "@utils/url";
 import Created from "./Created";
 import Favourites from "./Favourites";
 import Owned from "./Owned";
-import Transactions from "./Transactions";
+import Transfers from "./Transfers";
+
+export {default as Created} from "./Created";
+export {default as Favourites} from "./Favourites";
+export {default as Owned} from "./Owned";
+export {default as Transfers} from "./Transfers";
 
 export default function Account({id}): JSX.Element {
 	const {t} = useTranslation();
@@ -135,7 +140,7 @@ export default function Account({id}): JSX.Element {
 								<Favourites items={user.favourites} />
 							</TabPanel>
 							<TabPanel>
-								<Transactions address={user.account} />
+								<Transfers address={user.account} />
 							</TabPanel>
 						</TabPanels>
 					</Tabs>

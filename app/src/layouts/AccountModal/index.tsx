@@ -48,9 +48,9 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 		router.push("/");
 	}
 
-	function handleViewTransactions() {
+	function handleViewTransfers() {
 		onClose();
-		router.push("/transactions");
+		router.push("/transfers");
 	}
 
 	function handleBuyCrypto() {
@@ -127,8 +127,8 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 						</Flex>
 						<Flex justifyContent={"flex-end"} mt={6}>
 							<ActionButton onClick={handleBuyCrypto}>Buy crypto</ActionButton>
-							<ActionButton onClick={handleViewTransactions}>
-								{t<string>("common:action.viewTransactions")}
+							<ActionButton onClick={handleViewTransfers}>
+								{t<string>("common:action.viewTransfers")}
 							</ActionButton>
 						</Flex>
 					</Box>

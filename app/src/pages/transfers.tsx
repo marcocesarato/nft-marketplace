@@ -1,13 +1,13 @@
 import {Box} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
-import Transactions from "@components/Account/Transactions";
+import {Transfers} from "@components/Account";
 import Header from "@components/Header";
 import useAccount from "@hooks/useAccount";
 import {getServerSidePropsHandler} from "@utils/ssr";
 
 export const getServerSideProps = getServerSidePropsHandler(["userTransfersERC20"]);
-export default function MyTransactions(): JSX.Element {
+export default function MyTransfers(): JSX.Element {
 	const {t} = useTranslation();
 	const {isConnected, address} = useAccount();
 
@@ -25,11 +25,12 @@ export default function MyTransactions(): JSX.Element {
 					md: "8",
 				}}>
 				<Box overflowX="auto">
-					<Header
-						title={t<string>("common:page.transactions.title")}
-						subtitle={t<string>("common:page.transactions.description")}
+					<Transfers
+						my={6}
+						address={address}
+						title={t<string>("common:page.transfers.title")}
+						subtitle={t<string>("common:page.transfers.description")}
 					/>
-					<Transactions my={6} address={address} />
 				</Box>
 			</Box>
 		</Box>

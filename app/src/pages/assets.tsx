@@ -1,39 +1,21 @@
-import {useMemo} from "react";
 import {useTranslation} from "next-i18next";
 
-import Catalog from "@components/Catalog";
+import {Owned} from "@components/Account";
 import Content from "@components/Content";
-import Header from "@components/Header";
-import Loading from "@components/Loading";
-import useNFTs from "@hooks/useNFTs";
+import useAccount from "@hooks/useAccount";
 import {getServerSidePropsHandler} from "@utils/ssr";
 
 export const getServerSideProps = getServerSidePropsHandler(["userNFTs"]);
 export default function MyAssets(): JSX.Element {
 	const {t} = useTranslation();
-	const {data: rawData, error, isError, isSuccess, isLoading} = useNFTs();
-	const data = useMemo(() => {
-		if (!isSuccess) return [];
-		return rawData?.map((item) => item?.metadata) || [];
-	}, [isSuccess, rawData]);
-
-	if (isError) return <Header title={t<string>("error:title")} subtitle={error.message} />;
-	if (isLoading) return <Loading />;
-	if (isSuccess && !data.length)
-		return (
-			<Header
-				title={t<string>("common:page.assets.title")}
-				subtitle={t<string>("common:page.assets.empty")}
-			/>
-		);
-
+	const {address} = useAccount();
 	return (
 		<Content>
-			<Header
+			<Owned
+				address={address}
 				title={t<string>("common:page.assets.title")}
 				subtitle={t<string>("common:page.assets.description")}
 			/>
-			<Catalog data={data} />
 		</Content>
 	);
 }

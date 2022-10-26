@@ -78,8 +78,6 @@ async function storeToIPFS(data: File, name: string, description: string) {
 		},
 	]);
 
-	console.log(metadata);
-
 	return metadata[0].path;
 }
 

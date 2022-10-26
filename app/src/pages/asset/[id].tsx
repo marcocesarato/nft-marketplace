@@ -20,7 +20,7 @@ export default function SingleAsset(): JSX.Element {
 		const splitted = (id as string).split("/");
 		if (splitted.length === 3) {
 			const data = {
-				"account": splitted[0],
+				"address": splitted[0],
 				"tokenAddress": splitted[1],
 				"tokenId": splitted[2],
 			};

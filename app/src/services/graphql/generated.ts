@@ -550,30 +550,38 @@ export type MutationUserUpdatePlanimetryArgs = {
 
 export type Nft = {
 	__typename?: "NFT";
+	animationUrl?: Maybe<Scalars["String"]>;
+	attributes?: Maybe<Scalars["JSON"]>;
 	batch_id?: Maybe<Scalars["String"]>;
 	block_number_minted?: Maybe<Scalars["String"]>;
 	contract_type?: Maybe<Scalars["String"]>;
 	createdAt?: Maybe<Scalars["String"]>;
+	description?: Maybe<Scalars["String"]>;
+	externalUrl?: Maybe<Scalars["String"]>;
 	frozen?: Maybe<Scalars["String"]>;
 	frozen_log_index?: Maybe<Scalars["String"]>;
+	image?: Maybe<Scalars["String"]>;
 	imported?: Maybe<Scalars["String"]>;
 	is_valid?: Maybe<Scalars["String"]>;
 	last_metadata_sync?: Maybe<Scalars["String"]>;
 	last_token_uri_sync?: Maybe<Scalars["String"]>;
-	metadata?: Maybe<Scalars["String"]>;
+	metadata?: Maybe<Scalars["JSON"]>;
 	metadata_attributes?: Maybe<Scalars["String"]>;
 	metadata_description?: Maybe<Scalars["String"]>;
 	metadata_name?: Maybe<Scalars["String"]>;
 	minter_address?: Maybe<Scalars["String"]>;
+	name?: Maybe<Scalars["String"]>;
 	opensea_lookup?: Maybe<Scalars["String"]>;
 	resyncing?: Maybe<Scalars["String"]>;
 	syncing?: Maybe<Scalars["String"]>;
+	thumbnail?: Maybe<Scalars["String"]>;
 	token_address: Scalars["String"];
 	token_hash?: Maybe<Scalars["String"]>;
 	token_id: Scalars["String"];
 	token_uri?: Maybe<Scalars["String"]>;
 	transaction_minted?: Maybe<Scalars["String"]>;
 	updatedAt?: Maybe<Scalars["String"]>;
+	youtubeUrl?: Maybe<Scalars["String"]>;
 };
 
 export type NftTransfer = {
@@ -607,6 +615,8 @@ export type PaginationInfo = {
 
 export type Query = {
 	__typename?: "Query";
+	/** Get NFT owned by a given address and token. */
+	accountNFT?: Maybe<Nft>;
 	marketItem?: Maybe<MarketItem>;
 	marketItems: Array<MarketItem>;
 	marketItemsCount?: Maybe<Scalars["Int"]>;
@@ -619,6 +629,13 @@ export type Query = {
 	walletNFTTransfers?: Maybe<Array<Maybe<NftTransfer>>>;
 	/** Get NFTs owned by a given address. */
 	walletNFTs?: Maybe<Array<Maybe<Nft>>>;
+};
+
+export type QueryAccountNftArgs = {
+	address: Scalars["String"];
+	chain: Scalars["String"];
+	token_address?: InputMaybe<Scalars["String"]>;
+	token_id?: InputMaybe<Scalars["Int"]>;
 };
 
 export type QueryMarketItemArgs = {
@@ -677,6 +694,7 @@ export type QueryWalletNftTransfersArgs = {
 export type QueryWalletNfTsArgs = {
 	address: Scalars["String"];
 	chain: Scalars["String"];
+	token_address?: InputMaybe<Scalars["String"]>;
 };
 
 export type RuntimeError = ErrorInterface & {
@@ -872,6 +890,52 @@ export type UserUpdatePlanimetryMutation = {
 	userUpdatePlanimetry?: {__typename?: "User"; planimetry?: any | null} | null;
 };
 
+export type AccountNftQueryVariables = Exact<{
+	chain: Scalars["String"];
+	address: Scalars["String"];
+	tokenAddress: Scalars["String"];
+	tokenId: Scalars["Int"];
+}>;
+
+export type AccountNftQuery = {
+	__typename?: "Query";
+	accountNFT?: {
+		__typename?: "NFT";
+		name?: string | null;
+		description?: string | null;
+		image?: string | null;
+		thumbnail?: string | null;
+		attributes?: any | null;
+		externalUrl?: string | null;
+		animationUrl?: string | null;
+		youtubeUrl?: string | null;
+		token_id: string;
+		token_address: string;
+		token_uri?: string | null;
+		metadata?: any | null;
+		is_valid?: string | null;
+		syncing?: string | null;
+		frozen?: string | null;
+		resyncing?: string | null;
+		contract_type?: string | null;
+		token_hash?: string | null;
+		batch_id?: string | null;
+		metadata_name?: string | null;
+		metadata_description?: string | null;
+		metadata_attributes?: string | null;
+		block_number_minted?: string | null;
+		opensea_lookup?: string | null;
+		minter_address?: string | null;
+		transaction_minted?: string | null;
+		frozen_log_index?: string | null;
+		imported?: string | null;
+		last_token_uri_sync?: string | null;
+		last_metadata_sync?: string | null;
+		createdAt?: string | null;
+		updatedAt?: string | null;
+	} | null;
+};
+
 export type MarketItemQueryVariables = Exact<{
 	filter?: InputMaybe<FilterFindOneMarketItemInput>;
 }>;
@@ -1032,10 +1096,18 @@ export type WalletNfTsQuery = {
 	__typename?: "Query";
 	walletNFTs?: Array<{
 		__typename?: "NFT";
+		name?: string | null;
+		description?: string | null;
+		image?: string | null;
+		thumbnail?: string | null;
+		attributes?: any | null;
+		externalUrl?: string | null;
+		animationUrl?: string | null;
+		youtubeUrl?: string | null;
 		token_id: string;
 		token_address: string;
 		token_uri?: string | null;
-		metadata?: string | null;
+		metadata?: any | null;
 		is_valid?: string | null;
 		syncing?: string | null;
 		frozen?: string | null;
@@ -1347,6 +1419,87 @@ export type UserUpdatePlanimetryMutationOptions = Apollo.BaseMutationOptions<
 	UserUpdatePlanimetryMutation,
 	UserUpdatePlanimetryMutationVariables
 >;
+export const AccountNftDocument = gql`
+	query AccountNFT($chain: String!, $address: String!, $tokenAddress: String!, $tokenId: Int!) {
+		accountNFT(
+			chain: $chain
+			address: $address
+			token_address: $tokenAddress
+			token_id: $tokenId
+		) {
+			name
+			description
+			image
+			thumbnail
+			attributes
+			externalUrl
+			animationUrl
+			youtubeUrl
+			token_id
+			token_address
+			token_uri
+			metadata
+			is_valid
+			syncing
+			frozen
+			resyncing
+			contract_type
+			token_hash
+			batch_id
+			metadata_name
+			metadata_description
+			metadata_attributes
+			block_number_minted
+			opensea_lookup
+			minter_address
+			transaction_minted
+			frozen_log_index
+			imported
+			last_token_uri_sync
+			last_metadata_sync
+			createdAt
+			updatedAt
+		}
+	}
+`;
+
+/**
+ * __useAccountNftQuery__
+ *
+ * To run a query within a React component, call `useAccountNftQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAccountNftQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAccountNftQuery({
+ *   variables: {
+ *      chain: // value for 'chain'
+ *      address: // value for 'address'
+ *      tokenAddress: // value for 'tokenAddress'
+ *      tokenId: // value for 'tokenId'
+ *   },
+ * });
+ */
+export function useAccountNftQuery(
+	baseOptions: Apollo.QueryHookOptions<AccountNftQuery, AccountNftQueryVariables>,
+) {
+	const options = {...defaultOptions, ...baseOptions};
+	return Apollo.useQuery<AccountNftQuery, AccountNftQueryVariables>(AccountNftDocument, options);
+}
+export function useAccountNftLazyQuery(
+	baseOptions?: Apollo.LazyQueryHookOptions<AccountNftQuery, AccountNftQueryVariables>,
+) {
+	const options = {...defaultOptions, ...baseOptions};
+	return Apollo.useLazyQuery<AccountNftQuery, AccountNftQueryVariables>(
+		AccountNftDocument,
+		options,
+	);
+}
+export type AccountNftQueryHookResult = ReturnType<typeof useAccountNftQuery>;
+export type AccountNftLazyQueryHookResult = ReturnType<typeof useAccountNftLazyQuery>;
+export type AccountNftQueryResult = Apollo.QueryResult<AccountNftQuery, AccountNftQueryVariables>;
 export const MarketItemDocument = gql`
 	query MarketItem($filter: FilterFindOneMarketItemInput) {
 		marketItem(filter: $filter) {
@@ -1666,6 +1819,14 @@ export type WalletNftTransferQueryResult = Apollo.QueryResult<
 export const WalletNfTsDocument = gql`
 	query WalletNFTs($chain: String!, $address: String!) {
 		walletNFTs(chain: $chain, address: $address) {
+			name
+			description
+			image
+			thumbnail
+			attributes
+			externalUrl
+			animationUrl
+			youtubeUrl
 			token_id
 			token_address
 			token_uri

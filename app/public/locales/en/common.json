@@ -6,7 +6,8 @@
 		"gallery": "Gallery",
 		"galleryBuilder": "Gallery builder",
 		"profile": "Profile",
-		"title": "Account"
+		"title": "Account",
+		"transfers": "Transfers"
 	},
 	"action": {
 		"back": "Back",
@@ -22,7 +23,7 @@
 		"purchase": "Purchase",
 		"showDetails": "Show details",
 		"viewOnExplorer": "View on Explorer",
-		"viewTransactions": "View transactions"
+		"viewTransactions": "View transfers"
 	},
 	"catalog": {
 		"count": "{{count}} products found",
@@ -103,7 +104,7 @@
 			"title": "Sell Assets",
 			"uploading": "Uploading data..."
 		},
-		"transactions": {
+		"transfers": {
 			"column": {
 				"from": "From",
 				"timestamp": "Timestamp",
@@ -111,7 +112,7 @@
 				"value": "Value"
 			},
 			"description": "Account transaction activities history",
-			"empty": "No transactions found on the account",
+			"empty": "No transfers found on the account",
 			"shortTitle": "Transactions",
 			"title": "Transactions"
 		}

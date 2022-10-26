@@ -6,10 +6,21 @@ export function walletSchemaComposer(schemaComposer: SchemaComposer) {
 	const NFTTC = schemaComposer.createObjectTC({
 		name: "NFT",
 		fields: {
+			// Metadata
+			"name": "String",
+			"description": "String",
+			"image": "String",
+			"thumbnail": "String",
+			"attributes": "JSON",
+			"externalUrl": "String",
+			"animationUrl": "String",
+			"youtubeUrl": "String",
+
+			// Details
 			"token_id": "String!",
 			"token_address": "String!",
 			"token_uri": "String",
-			"metadata": "String",
+			"metadata": "JSON",
 			"is_valid": "String",
 			"syncing": "String",
 			"frozen": "String",
@@ -56,9 +67,26 @@ export function walletSchemaComposer(schemaComposer: SchemaComposer) {
 		walletNFTs: {
 			type: [NFTTC],
 			description: "Get NFTs owned by a given address.",
-			args: {chain: "String!", address: "String!"},
-			resolve: async (_, {chain, address}) => {
-				return await getWalletNFTs(chain, address);
+			args: {
+				chain: "String!",
+				address: "String!",
+				token_address: "String",
+			},
+			resolve: async (_, {chain, address, token_address = null}) => {
+				return await getWalletNFTs(chain, address, {token_address});
+			},
+		},
+		accountNFT: {
+			type: NFTTC,
+			description: "Get NFT owned by a given address and token.",
+			args: {
+				chain: "String!",
+				address: "String!",
+				token_address: "String",
+				token_id: "Int",
+			},
+			resolve: async (_, {chain, address, token_address = null, token_id = null}) => {
+				return (await getWalletNFTs(chain, address, {token_id, token_address})?.[0]) || {};
 			},
 		},
 		walletNFTTransfers: {

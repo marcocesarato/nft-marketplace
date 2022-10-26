@@ -8,22 +8,35 @@ import Loading from "@components/Loading";
 import Table from "@components/Table";
 import ErrorAlert from "@errors/ErrorAlert";
 import {useWalletNFTTransferQuery} from "@services/graphql";
+import {chainHex} from "@utils/converters";
 import {formatAddress} from "@utils/formatters";
 import {formatUnits} from "@utils/units";
 
-export default function Transactions({address = null, ...props}): JSX.Element {
+type TransfersProps = {
+	address: string;
+	title?: string;
+	subtitle?: string;
+	[key: string]: any;
+};
+
+export default function Transfers({
+	address,
+	title = null,
+	subtitle = null,
+	...props
+}: TransfersProps): JSX.Element {
 	const {t} = useTranslation();
 	const {chain} = useNetwork();
 	const {data, loading, error} = useWalletNFTTransferQuery({
 		variables: {
-			chain: `0x${chain.id.toString(16)}`,
+			chain: chainHex(chain),
 			address,
 		},
 	});
 	const items = data?.walletNFTTransfers;
 	const columns = [
 		{
-			title: t<string>("common:page.transactions.column.from"),
+			title: t<string>("common:page.transfers.column.from"),
 			dataIndex: "from_address",
 			key: "from_address",
 			render: (from) => (
@@ -38,7 +51,7 @@ export default function Transactions({address = null, ...props}): JSX.Element {
 			),
 		},
 		{
-			title: t<string>("common:page.transactions.column.to"),
+			title: t<string>("common:page.transfers.column.to"),
 			dataIndex: "to_address",
 			key: "to_address",
 			render: (to) => (
@@ -53,13 +66,13 @@ export default function Transactions({address = null, ...props}): JSX.Element {
 			),
 		},
 		{
-			title: t<string>("common:page.transactions.column.value"),
+			title: t<string>("common:page.transfers.column.value"),
 			dataIndex: "value",
 			key: "value",
 			render: (value) => formatUnits(value),
 		},
 		{
-			title: t<string>("common:page.transactions.column.timestamp"),
+			title: t<string>("common:page.transfers.column.timestamp"),
 			dataIndex: "block_timestamp",
 			key: "block_timestamp",
 			render: (value) => new Date(value).toLocaleString(),
@@ -87,14 +100,15 @@ export default function Transactions({address = null, ...props}): JSX.Element {
 	if (!items || items.length === 0)
 		return (
 			<Header
-				title={t<string>("common:page.transactions.title")}
-				subtitle={t<string>("common:page.transactions.empty")}
+				title={title ?? t<string>("common:page.transfers.title")}
+				subtitle={t<string>("common:page.transfers.empty")}
 			/>
 		);
 
 	let key = 0;
 	return (
 		<>
+			{(title || subtitle) && <Header title={title} subtitle={subtitle} />}
 			{error && (
 				<ErrorAlert error={t<string>("error:unexpectedError")} message={error.message} />
 			)}

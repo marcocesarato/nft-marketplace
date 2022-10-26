@@ -44,8 +44,8 @@ export default function UserMenu({openAccountModal}): JSX.Element {
 				<MenuItem onClick={openAccountModal}>{t<string>("common:account.title")}</MenuItem>
 				<MenuDivider />
 				<MenuItem onClick={handleProfile}>{t<string>("common:account.profile")}</MenuItem>
-				<MenuItem onClick={() => router.push("/transactions")}>
-					{t<string>("common:account.activities")}
+				<MenuItem onClick={() => router.push("/transfers")}>
+					{t<string>("common:account.transfers")}
 				</MenuItem>
 				<MenuItem onClick={handleBuyCrypto}>Buy crypto</MenuItem>
 				<MenuDivider />

@@ -1,10 +1,15 @@
 import {formatEther} from "@ethersproject/units";
 import type {BigNumberish} from "ethers";
+import {Chain} from "wagmi";
 
 import {GenericObject} from "@app/types";
 import {formatUnits} from "@utils/units";
 
 import {deepMerge} from "./objects";
+
+export function chainHex(chain: Chain): string {
+	return `0x${chain.id.toString(16)}`;
+}
 
 export const convertEtherToPrice = (ether: BigNumberish, etherPrice: number) =>
 	((etherPrice ?? 0) * parseFloat(formatEther(ether ?? 0))).toFixed(2);

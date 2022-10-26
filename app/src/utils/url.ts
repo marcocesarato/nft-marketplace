@@ -35,3 +35,8 @@ export function getAssetUrl(data: GenericObject | string) {
 	}
 	return `${process.env.NEXT_PUBLIC_URL}/asset/${query}`;
 }
+
+export function resolveIPFSUrl(url: string): string {
+	if (!url || !url.includes("ipfs://")) return getEmbeddedIPFSImageUrl(url);
+	return getEmbeddedIPFSImageUrl(url.replace("ipfs://", "https://ipfs.io/ipfs/"));
+}
