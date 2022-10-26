@@ -2,9 +2,8 @@ import {MarketItem, User} from "@packages/mongo";
 import {SchemaComposer} from "graphql-compose";
 import {composeWithMongoose} from "graphql-compose-mongoose";
 
+import {searchArgs} from "@utils/graphql";
 import {formatUnits} from "@utils/units";
-
-import {searchArgs} from "./utils";
 
 export function marketItemSchemaComposer(schemaComposer: SchemaComposer) {
 	const MarketItemTC = composeWithMongoose(MarketItem, {schemaComposer});

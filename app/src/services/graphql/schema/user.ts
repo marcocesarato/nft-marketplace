@@ -2,7 +2,7 @@ import {User} from "@packages/mongo";
 import {GraphQLJSON, SchemaComposer} from "graphql-compose";
 import {composeWithMongoose} from "graphql-compose-mongoose";
 
-import {searchArgs, wrapAccessResolve} from "./utils";
+import {searchArgs, wrapAccessResolve} from "@utils/graphql";
 
 export function userSchemaComposer(schemaComposer: SchemaComposer) {
 	// User
