@@ -1,4 +1,5 @@
 import {useEffect, useMemo, useRef} from "react";
+import {Avatar as ChakraAvatar} from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import Jazzicon from "@metamask/jazzicon";
 
@@ -27,9 +28,7 @@ const Avatar = function ({address, size = 16, ensImage = null, ...props}): JSX.E
 		`;
 	}, [size]);
 
-	if (ensImage)
-		// eslint-disable-next-line @next/next/no-img-element
-		return <img src={ensImage} width={size} height={size} style={{borderRadius: 999}} />;
+	if (ensImage) return <ChakraAvatar w={size} h={size} src={ensImage} {...props} />;
 
 	return <Icon ref={ref} {...props} />;
 };

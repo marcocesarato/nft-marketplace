@@ -1,7 +1,6 @@
 import {useRouter} from "next/router";
 import {ExternalLinkIcon} from "@chakra-ui/icons";
 import {
-	Avatar,
 	Box,
 	Flex,
 	Heading,
@@ -14,12 +13,12 @@ import {
 	TabPanels,
 	Tabs,
 	Text,
-	useColorModeValue as mode,
+	useColorModeValue,
 } from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 import {useNetwork} from "wagmi";
 
-import JazzAvatar from "@components/Avatar";
+import Avatar from "@components/Avatar";
 import Content from "@components/Content";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
@@ -37,6 +36,8 @@ export default function Account({id}): JSX.Element {
 	const {t} = useTranslation();
 	const {chain} = useNetwork();
 	const router = useRouter();
+	const bg = useColorModeValue("white", "gray.800");
+	const bgCover = useColorModeValue("gray.300", "gray.900");
 	const {data, loading, error} = useUserQuery({
 		variables: {
 			filter: {
@@ -44,7 +45,6 @@ export default function Account({id}): JSX.Element {
 			},
 		},
 	});
-	const user = data?.user;
 
 	if (loading) {
 		return (
@@ -53,30 +53,27 @@ export default function Account({id}): JSX.Element {
 			</Content>
 		);
 	}
+	const user = data?.user;
 	if (error) return <Header title={t<string>("error:title")} subtitle={error.message} />;
 	if (!user) return <ErrorNotFound />;
 
 	return (
 		<Box flex="1">
-			<Box w={"full"} bg={mode("white", "gray.800")}>
+			<Box w={"full"} bg={bg}>
 				{user.cover ? (
 					<Image h={"120px"} w={"full"} src={user.cover} objectFit={"cover"} />
 				) : (
-					<Box h={"120px"} w={"full"} bg={mode("gray.300", "gray.900")} />
+					<Box h={"120px"} w={"full"} bg={bgCover} />
 				)}
 				<Flex justify={"center"} mt={-12}>
-					{user.icon ? (
-						<Avatar
-							w={150}
-							h={150}
-							src={user.icon}
-							css={{
-								border: "2px solid white",
-							}}
-						/>
-					) : (
-						<JazzAvatar address={user.account} size={150} />
-					)}
+					<Avatar
+						address={user.account}
+						size={150}
+						ensImage={user.icon}
+						css={{
+							border: "2px solid white",
+						}}
+					/>
 				</Flex>
 
 				<Box p={6}>

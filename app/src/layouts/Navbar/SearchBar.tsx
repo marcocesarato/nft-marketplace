@@ -1,6 +1,6 @@
 import {useRouter} from "next/router";
 import {SearchIcon} from "@chakra-ui/icons";
-import {InputGroup, InputLeftElement, useColorModeValue as mode} from "@chakra-ui/react";
+import {InputGroup, InputLeftElement, useColorModeValue} from "@chakra-ui/react";
 import {AsyncSelect} from "chakra-react-select";
 import {useTranslation} from "next-i18next";
 
@@ -16,6 +16,7 @@ export default function SearchBar(): JSX.Element {
 	const {t} = useTranslation();
 	const router = useRouter();
 	const [geMarketItems] = useMarketItemsLazyQuery();
+	const bg = useColorModeValue("gray.100", "gray.900");
 	const loadOptions = useDebounceCallback(async (inputValue, callback) => {
 		geMarketItems(
 			deepMerge(
@@ -48,12 +49,7 @@ export default function SearchBar(): JSX.Element {
 	}, 500);
 
 	return (
-		<InputGroup
-			flex={1}
-			mr={4}
-			boxShadow="sm"
-			bg={mode("gray.100", "gray.900")}
-			borderRadius="lg">
+		<InputGroup flex={1} mr={4} boxShadow="sm" bg={bg} borderRadius="lg">
 			<InputLeftElement pointerEvents="none">
 				<SearchIcon color="primary" />
 			</InputLeftElement>

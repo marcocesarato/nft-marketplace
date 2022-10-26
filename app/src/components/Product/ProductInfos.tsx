@@ -20,7 +20,7 @@ import {
 	Td,
 	Text,
 	Tr,
-	useColorModeValue as mode,
+	useColorModeValue,
 } from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
@@ -44,6 +44,8 @@ export default function ProductInfos({
 	const {resolveLink} = useIPFS();
 	const {symbol} = useConfig();
 	const {t} = useTranslation();
+	const textColor = useColorModeValue("gray.900", "gray.400");
+	const fullscreenBg = useColorModeValue("gray.100", "gray.900");
 	const fullscreenStyle = useMemo(() => {
 		if (imageFullscreen) {
 			return {
@@ -56,11 +58,11 @@ export default function ProductInfos({
 				right: 0,
 				bottom: 0,
 				zIndex: 9999,
-				backgroundColor: mode("gray.100", "gray.900"),
+				backgroundColor: fullscreenBg,
 			} as any;
 		}
 		return {} as any;
-	}, [imageFullscreen]);
+	}, [fullscreenBg, imageFullscreen]);
 
 	const content = (
 		<Box id={id}>
@@ -112,7 +114,7 @@ export default function ProductInfos({
 			<Box>
 				<Text
 					fontSize={{base: "16px", lg: "18px"}}
-					color={mode("gray.900", "gray.400")}
+					color={textColor}
 					fontWeight={"500"}
 					textTransform={"uppercase"}
 					mb={"4"}>
@@ -131,7 +133,7 @@ export default function ProductInfos({
 					<Box>
 						<Text
 							fontSize={{base: "16px", lg: "18px"}}
-							color={mode("gray.900", "gray.400")}
+							color={textColor}
 							fontWeight={"500"}
 							textTransform={"uppercase"}
 							mt={"4"}>
@@ -205,7 +207,7 @@ export default function ProductInfos({
 				{data?.attributes && data?.attributes.length > 0 && (
 					<Text
 						fontSize={{base: "16px", lg: "18px"}}
-						color={mode("gray.900", "gray.400")}
+						color={textColor}
 						fontWeight={"500"}
 						textTransform={"uppercase"}
 						mb={"4"}>

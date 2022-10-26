@@ -2,7 +2,7 @@ import {ComponentProps, ReactNode} from "react";
 import type {IconType} from "react-icons";
 import NavLink from "next/link";
 import {useRouter} from "next/router";
-import {As, Box, Button, Flex, Icon, Text, useColorModeValue as mode} from "@chakra-ui/react";
+import {As, Box, Button, Flex, Icon, Text, useColorModeValue} from "@chakra-ui/react";
 
 import {getPath} from "@utils/url";
 
@@ -26,17 +26,17 @@ function SidebarSection({
 	onClick,
 	...props
 }: SidebarSectionProps): JSX.Element {
+	const hoverBg = useColorModeValue("gray.200", "gray.900");
+	const activeBg = useColorModeValue("white", "gray.900");
+	const inactiveBg = useColorModeValue("white", "gray.700");
+	const activeColor = useColorModeValue("primary", "primary");
+	const inactiveColor = useColorModeValue("gray.500", "gray.400");
+
 	const router = useRouter();
 	const activeRoute = (routeName: string) => {
 		const path = getPath(router?.asPath);
 		return path === routeName ? "active" : "";
 	};
-
-	const hoverBg = mode("gray.200", "gray.900");
-	const activeBg = mode("white", "gray.900");
-	const inactiveBg = mode("white", "gray.700");
-	const activeColor = mode("primary", "primary");
-	const inactiveColor = mode("gray.500", "gray.400");
 
 	if (category) {
 		return (

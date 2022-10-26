@@ -14,7 +14,7 @@ import {
 	Stack,
 	Text,
 	useBreakpointValue,
-	useColorModeValue as mode,
+	useColorModeValue,
 	useDisclosure,
 } from "@chakra-ui/react";
 import {motion} from "framer-motion";
@@ -41,6 +41,9 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 	const [isLiked, setIsLiked] = useState(data?.isLiked || false);
 	const [isFavourited, setIsFavourited] = useState(data?.isFavourited || false);
 	const {isOpen, onOpen, onClose} = useDisclosure();
+	const bg = useColorModeValue("gray.200", "gray.900");
+	const bgButton = useColorModeValue("gray.700", "white");
+	const blur = useColorModeValue("80%", "50%");
 
 	const [addToFavourite] = useAddToFavouritesMutation({
 		variables: {
@@ -99,7 +102,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 					role={"group"}
 					w={"full"}
 					transition="all .5s ease"
-					bg={mode("gray.200", "gray.900")}
+					bg={bg}
 					rounded={"lg"}
 					pos={"relative"}
 					zIndex={1}
@@ -125,7 +128,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 							backgroundSize: "cover",
 							backgroundPosition: "center",
 							transform: "rotate(0)",
-							filter: `blur(15px) brightness(${mode("80%", "50%")})`,
+							filter: `blur(15px) brightness(${blur})`,
 							zIndex: -1,
 						}}
 						_groupHover={{
@@ -175,7 +178,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 						visibility={data?._id ? "visible" : "hidden"}>
 						<Box
 							transition="all .3s ease"
-							color={isLiked ? "red.500" : mode("gray.700", "white")}
+							color={isLiked ? "red.500" : bgButton}
 							cursor="pointer"
 							onClick={handleLike}
 							_hover={{
@@ -188,7 +191,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 						</Text>
 						<Box
 							transition="all .3s ease"
-							color={isFavourited ? "yellow.500" : mode("gray.700", "white")}
+							color={isFavourited ? "yellow.500" : bgButton}
 							cursor="pointer"
 							onClick={handleFavourite}
 							_hover={{
