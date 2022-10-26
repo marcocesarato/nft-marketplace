@@ -1,3 +1,4 @@
+/*
 import {recoverPersonalSignature} from "@metamask/eth-sig-util";
 import * as ethUtil from "ethereumjs-util";
 
@@ -15,3 +16,5 @@ export function authSignature(
 
 	return publicAddress.toLowerCase() === address.toLowerCase();
 }
+*/
+export {};

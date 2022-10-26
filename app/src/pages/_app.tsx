@@ -2,10 +2,8 @@
 import {useEffect, useState} from "react";
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import {setCookie} from "cookies-next";
 import {SessionProvider} from "next-auth/react";
 import {appWithTranslation} from "next-i18next";
-import {useNetwork} from "wagmi";
 
 import Loader from "@components/Loader";
 import Providers from "@contexts/Providers";
@@ -22,10 +20,8 @@ dynamic(() => import("webxr-polyfill"), {ssr: false});
 function Page({Component, pageProps: {session, ...pageProps}}): JSX.Element {
 	const [mounted, setMounted] = useState(false);
 	const {isConnecting} = useAccount();
-	const {chain} = useNetwork();
 
 	useEffect(() => setMounted(true), []);
-	useEffect(() => setCookie("chain", chain), [chain]);
 	if (!mounted) return null;
 
 	return (
