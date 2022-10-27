@@ -29,7 +29,7 @@
             "sellMessage": "Your asset has been successfully put up for sale in the marktplace!"
         },
         "viewOnExplorer": "View on Explorer",
-        "viewTransactions": "View transfers"
+        "viewTransfers": "View transfers"
     },
 	"catalog": {
 		"count": "{{count}} products found",

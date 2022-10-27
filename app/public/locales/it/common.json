@@ -28,8 +28,8 @@
             "purchasedMessage": "L'asset è stato acquistato con successo!",
             "sellMessage": "Il tuo asset è stato messo in vendita con successo nel marktplace!"
         },
-        "viewOnExplorer": "Visualizza su Explorer",
-        "viewTransactions": "Visualizza le transazioni"
+        "viewOnExplorer": "Explorer",
+        "viewTransfers": "Trasferimenti"
     },
 	"catalog": {
 		"count": "{{count}} prodotti trovati",
