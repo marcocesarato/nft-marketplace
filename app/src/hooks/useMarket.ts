@@ -1,3 +1,5 @@
+import {useToast} from "@chakra-ui/react";
+import {useTranslation} from "next-i18next";
 import {useContract, useSigner, useSwitchNetwork} from "wagmi";
 
 import {ChainId} from "@configs/chain";
@@ -20,6 +22,8 @@ export default function useMarket() {
 		isError: isErrorNetwork,
 		switchNetworkAsync,
 	} = useSwitchNetwork({chainId: ChainId});
+	const {t} = useTranslation();
+	const toast = useToast();
 	const contract = useContract({
 		address: MarketAddress,
 		abi: MarketContract,
@@ -27,40 +31,105 @@ export default function useMarket() {
 	});
 
 	async function purchase(tokenId: string, price: string | number, callback = () => {}) {
-		await switchNetworkAsync();
+		try {
+			await switchNetworkAsync();
 
-		/* user will be prompted to pay the asking proces to complete the transaction */
-		const priceFormatted = !isString(price) ? parseUnits(price, "ether") : price;
-		const transaction = await contract.createMarketSale(tokenId, {
-			value: priceFormatted,
-		});
-		await transaction.wait();
-		callback && callback();
+			/* user will be prompted to pay the asking proces to complete the transaction */
+			const priceFormatted = !isString(price) ? parseUnits(price, "ether") : price;
+			const transaction = await contract.createMarketSale(tokenId, {
+				value: priceFormatted,
+			});
+
+			await transaction.wait();
+
+			toast({
+				title: t<string>("common:page.action.purchased"),
+				description: t<string>("common:page.action.success.purchased"),
+				status: "success",
+				duration: 10000,
+				position: "bottom-right",
+				isClosable: true,
+			});
+
+			callback && callback();
+		} catch (error) {
+			toast({
+				title: t<string>("error:title"),
+				description: error.message,
+				status: "error",
+				duration: 10000,
+				position: "bottom-right",
+				isClosable: true,
+			});
+			throw error;
+		}
 	}
 
 	async function sell(url: string, formInput: SellInput) {
-		await switchNetworkAsync();
+		try {
+			await switchNetworkAsync();
 
-		const listingPrice = await contract.getListingPrice();
+			const listingPrice = await contract.getListingPrice();
+			const price = parseUnits(formInput.price, "ether");
+			const transaction = await contract.createToken(url, price, {
+				value: listingPrice,
+			});
 
-		const price = parseUnits(formInput.price, "ether");
-		const transaction = await contract.createToken(url, price, {
-			value: listingPrice,
-		});
+			await transaction.wait();
 
-		await transaction.wait();
+			toast({
+				title: t<string>("common:page.action.sell"),
+				description: t<string>("common:page.action.success.sell"),
+				status: "success",
+				duration: 10000,
+				position: "bottom-right",
+				isClosable: true,
+			});
+		} catch (error) {
+			toast({
+				title: t<string>("error:title"),
+				description: error.message,
+				status: "error",
+				duration: 10000,
+				position: "bottom-right",
+				isClosable: true,
+			});
+			throw error;
+		}
 	}
 
 	async function resell(tokenId: string, price: string | number) {
-		await switchNetworkAsync();
+		try {
+			await switchNetworkAsync();
 
-		const priceFormatted = !isString(price) ? parseUnits(price, "ether") : price;
-		let listingPrice = await contract.getListingPrice();
-		listingPrice = listingPrice.toString();
-		const transaction = await contract.resellMarketItem(tokenId, priceFormatted, {
-			value: listingPrice,
-		});
-		await transaction.wait();
+			const priceFormatted = !isString(price) ? parseUnits(price, "ether") : price;
+			let listingPrice = await contract.getListingPrice();
+			listingPrice = listingPrice.toString();
+			const transaction = await contract.resellMarketItem(tokenId, priceFormatted, {
+				value: listingPrice,
+			});
+
+			await transaction.wait();
+
+			toast({
+				title: t<string>("common:page.action.sell"),
+				description: t<string>("common:page.action.success.sell"),
+				status: "success",
+				duration: 10000,
+				position: "bottom-right",
+				isClosable: true,
+			});
+		} catch (error) {
+			toast({
+				title: t<string>("error:title"),
+				description: error.message,
+				status: "error",
+				duration: 10000,
+				position: "bottom-right",
+				isClosable: true,
+			});
+			throw error;
+		}
 	}
 
 	return {

@@ -42,7 +42,7 @@ export default function Sell(): JSX.Element {
 	async function createSale(url: string) {
 		setMessage(t<string>("common:page.sell.minting"));
 		await sell(url, formInput);
-		setMessage(t<string>("common:page.sell.approved"));
+		setMessage("");
 		router.push("/explore");
 	}
 

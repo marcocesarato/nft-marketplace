@@ -9,22 +9,28 @@
 		"title": "Account",
 		"transfers": "Trasferimenti"
 	},
-	"action": {
-		"back": "Indietro",
-		"close": "Chiudi",
-		"confirm": "Conferma",
-		"connectToWallet": "Connetti",
-		"connectWallet": "Connetti wallet",
-		"copyAddress": "Copia indirizzo",
-		"disconnect": "Disconnetti",
-		"goToHome": "Torna alla home",
-		"openMenu": "Apri menu",
-		"openWith": "Apri con",
-		"purchase": "Acquista",
-		"showDetails": "Mostra dettagli",
-		"viewOnExplorer": "Visualizza su Explorer",
-		"viewTransactions": "Visualizza le transazioni"
-	},
+    "action": {
+        "back": "Indietro",
+        "close": "Chiudi",
+        "confirm": "Conferma",
+        "connectToWallet": "Connetti",
+        "connectWallet": "Connetti wallet",
+        "copyAddress": "Copia indirizzo",
+        "disconnect": "Disconnetti",
+        "goToHome": "Torna alla home",
+        "openMenu": "Apri menu",
+        "openWith": "Apri con",
+        "purchase": "Acquista",
+        "purchased": "Acquistato",
+        "sell": "In vendita",
+        "showDetails": "Mostra dettagli",
+        "success": {
+            "purchasedMessage": "L'asset è stato acquistato con successo!",
+            "sellMessage": "Il tuo asset è stato messo in vendita con successo nel marktplace!"
+        },
+        "viewOnExplorer": "Visualizza su Explorer",
+        "viewTransactions": "Visualizza le transazioni"
+    },
 	"catalog": {
 		"count": "{{count}} prodotti trovati",
 		"filter": {
@@ -92,7 +98,6 @@
 			"action": {
 				"create": "Crea risorsa digitale"
 			},
-			"approved": "Articolo approvato! \nReindirizzamento a esplora...",
 			"asset": {
 				"description": "Descrizione della risorsa",
 				"name": "Nome della risorsa",

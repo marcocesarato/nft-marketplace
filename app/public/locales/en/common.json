@@ -10,21 +10,27 @@
 		"transfers": "Transfers"
 	},
 	"action": {
-		"back": "Back",
-		"close": "Close",
-		"confirm": "Confirm",
-		"connectToWallet": "Connect",
-		"connectWallet": "Connect wallet",
-		"copyAddress": "Copy Address",
-		"disconnect": "Disconnect",
-		"goToHome": "Go to Home",
-		"openMenu": "Open Menu",
-		"openWith": "Open with",
-		"purchase": "Purchase",
-		"showDetails": "Show details",
-		"viewOnExplorer": "View on Explorer",
-		"viewTransactions": "View transfers"
-	},
+        "back": "Back",
+        "close": "Close",
+        "confirm": "Confirm",
+        "connectToWallet": "Connect",
+        "connectWallet": "Connect wallet",
+        "copyAddress": "Copy Address",
+        "disconnect": "Disconnect",
+        "goToHome": "Go to Home",
+        "openMenu": "Open Menu",
+        "openWith": "Open with",
+        "purchase": "Purchase",
+        "purchased": "Purchase",
+        "sell": "On sale",
+        "showDetails": "Show details",
+        "success": {
+            "purchasedMessage": "The asset has been successfully purchased!",
+            "sellMessage": "Your asset has been successfully put up for sale in the marktplace!"
+        },
+        "viewOnExplorer": "View on Explorer",
+        "viewTransactions": "View transfers"
+    },
 	"catalog": {
 		"count": "{{count}} products found",
 		"filter": {
@@ -92,7 +98,6 @@
 			"action": {
 				"create": "Create digital asset"
 			},
-			"approved": "Item approved! Redirecting to explore...",
 			"asset": {
 				"description": "Asset description",
 				"name": "Asset name",
