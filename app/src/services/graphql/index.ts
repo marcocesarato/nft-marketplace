@@ -21,6 +21,12 @@ export const useMarketItemsOwnedQuery = (baseOptions?: MarketItemsQueryVariables
 	return useMarketItemsQuery(options);
 };
 
+export const useMarketItemsOwnedOnSaleQuery = (baseOptions?: MarketItemsQueryVariables) => {
+	const {address} = useAccount();
+	const options = generateVariables({filter: {seller: address, sold: false}}, baseOptions);
+	return useMarketItemsQuery(options);
+};
+
 export const useMarketItemsCreatedQuery = (baseOptions?: MarketItemsQueryVariables) => {
 	const {address} = useAccount();
 

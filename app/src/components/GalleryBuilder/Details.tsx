@@ -21,7 +21,7 @@ import {
 	PlanimetryBlockTypeEnum,
 } from "@app/enums";
 import {TokenItem} from "@app/types";
-import AssetPicker from "@components/AssetPicker";
+import AssetOwnedPicker from "@components/AssetPicker/Owned";
 import useGallery from "@contexts/Gallery";
 
 export default function GalleryBlockDetails(): JSX.Element {
@@ -146,7 +146,7 @@ export default function GalleryBlockDetails(): JSX.Element {
 										</Box>
 									)}
 									{key === "floor" || key === "ceiling" ? (
-										<AssetPicker
+										<AssetOwnedPicker
 											width="full"
 											size="sm"
 											mb={2}
@@ -161,7 +161,7 @@ export default function GalleryBlockDetails(): JSX.Element {
 											}}
 										/>
 									) : (
-										<AssetPicker
+										<AssetOwnedPicker
 											width="full"
 											size="sm"
 											mb={2}
