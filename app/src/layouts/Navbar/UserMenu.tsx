@@ -1,21 +1,22 @@
 import {useRouter} from "next/router";
 import {HamburgerIcon} from "@chakra-ui/icons";
 import {Button, Flex, Menu, MenuButton, MenuDivider, MenuItem, MenuList} from "@chakra-ui/react";
-import {signOut} from "next-auth/react";
 import {useTranslation} from "next-i18next";
 
 import useAccount from "@hooks/useAccount";
 import {getAccountUrl, getGalleryBuilderUrl, getGalleryUrl} from "@utils/url";
+
+//import {signOut} from "next-auth/react";
 
 export default function UserMenu({openAccountModal}): JSX.Element {
 	const {t} = useTranslation();
 	const {address} = useAccount();
 	const router = useRouter();
 
-	function handleLogout() {
+	/*function handleLogout() {
 		signOut();
 		router.push("/");
-	}
+	}*/
 
 	function handleProfile() {
 		router.push(getAccountUrl(address));
@@ -54,7 +55,7 @@ export default function UserMenu({openAccountModal}): JSX.Element {
 					{t<string>("common:account.galleryBuilder")}
 				</MenuItem>
 				<MenuDivider />
-				<MenuItem onClick={handleLogout}>{t<string>("common:action.disconnect")}</MenuItem>
+				{/*<MenuItem onClick={handleLogout}>{t<string>("common:action.disconnect")}</MenuItem>*/}
 			</MenuList>
 		</Menu>
 	);

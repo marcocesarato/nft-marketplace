@@ -15,7 +15,6 @@ import {
 	ModalOverlay,
 	Text,
 } from "@chakra-ui/react";
-import {signOut} from "next-auth/react";
 import {useTranslation} from "next-i18next";
 import {useNetwork} from "wagmi";
 
@@ -29,8 +28,10 @@ import {useUserUpdateMutation} from "@services/graphql";
 import {formatAddress} from "@utils/formatters";
 
 import ActionButton from "./ActionButton";
-import DisconnectButton from "./DisconnectButton";
 import LinkButton from "./LinkButton";
+
+//import {signOut} from "next-auth/react";
+//import DisconnectButton from "./DisconnectButton";
 
 export default function AccountModal({isOpen, onClose}): JSX.Element {
 	const {t} = useTranslation();
@@ -42,11 +43,11 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 	const [userUpdate] = useUserUpdateMutation();
 	const {setConfig} = useConfig();
 
-	function handleLogout() {
+	/*function handleLogout() {
 		signOut();
 		onClose();
 		router.push("/");
-	}
+	}*/
 
 	function handleViewTransfers() {
 		onClose();
@@ -134,7 +135,7 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 					</Box>
 				</ModalBody>
 				<ModalFooter pb={6}>
-					<DisconnectButton onDisconnect={handleLogout} />
+					{/*<DisconnectButton onDisconnect={handleLogout} />*/}
 				</ModalFooter>
 			</ModalContent>
 		</Modal>
