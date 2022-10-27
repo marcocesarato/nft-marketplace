@@ -47,7 +47,7 @@ export default function Picture({
 
 	const handlePurchase = useCallback(() => {
 		if (isConnected) {
-			purchase(data.token_id, Number(data.amount), () => {});
+			purchase(data.token_id, Number(data.amount));
 		}
 	}, [data, isConnected, purchase]);
 
