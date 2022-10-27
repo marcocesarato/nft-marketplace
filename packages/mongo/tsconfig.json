@@ -1,12 +1,10 @@
 {
 	"extends": "@packages/ts-config/base.json",
 	"compilerOptions": {
-		"baseUrl": ".",
-		"rootDir": ".",
+		"baseUrl": "./src",
 		"outDir": "./dist",
 		"target": "esnext",
 		"module": "commonjs"
 	},
-	"include": ["./**/*.ts"],
-	"exclude": ["./dist/**/*.js", "./dist/**/*.ts"]
+	"include": ["./src"]
 }
