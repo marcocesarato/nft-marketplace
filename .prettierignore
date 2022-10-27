@@ -5,6 +5,7 @@
 .yarn
 out
 build
+dist
 node_modules
 package-lock.json
 yarn.lock
