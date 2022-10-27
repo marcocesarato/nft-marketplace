@@ -90,7 +90,7 @@ class DotEnv {
 				.replace(returnPattern, returnReplacement)
 				.trim();
 			const safeName = this.escapeRegExp(varname);
-			const varPattern = new RegExp(`^(${h}*${safeName}${h}*=${h}*)\\S*(${h}*)$`, flags);
+			const varPattern = new RegExp(`^(${h}*${safeName}${h}*=${h}*).*?(${h}*)$`, flags);
 			if (varPattern.test(result)) {
 				const safeValue = value.replace(groupPattern, groupReplacement);
 				return result.replace(varPattern, `$1${safeValue}$2`);
