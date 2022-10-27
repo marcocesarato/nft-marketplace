@@ -56,7 +56,7 @@ function Web3Provider({children}): JSX.Element {
 				walletLogo: "none",
 			},
 		},
-	);
+	) as Theme;
 	return (
 		<WagmiConfig client={client}>
 			<RainbowKitProvider
