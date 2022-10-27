@@ -9,7 +9,8 @@
 		"lint:fix": "eslint --ext .js,.ts . --fix"
 	},
 	"dependencies": {
-		"mongoose": "^6.6.7"
+		"mongodb-client-encryption": "^2.3.0",
+		"mongoose": "^6.7.0"
 	},
 	"devDependencies": {
 		"@packages/ts-config": "*",

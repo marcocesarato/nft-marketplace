@@ -22,7 +22,7 @@
 	"devDependencies": {
 		"@packages/dotenv": "*",
 		"@packages/eslint-config": "*",
-		"@types/node": "^18.11.5",
+		"@types/node": "^18.11.7",
 		"ts-node": "^10.9.1",
 		"tsc-alias": "^1.7.0",
 		"tsconfig-paths": "^4.1.0",

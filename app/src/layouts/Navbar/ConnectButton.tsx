@@ -2,7 +2,7 @@ import {useEffect} from "react";
 import {Flex} from "@chakra-ui/react";
 import {ConnectButton} from "@rainbow-me/rainbowkit";
 import axios from "axios";
-import {signIn, signOut, useSession} from "next-auth/react";
+import {signIn, /*signOut,*/ useSession} from "next-auth/react";
 import {useTranslation} from "next-i18next";
 import {useAccount, useNetwork, useSignMessage} from "wagmi";
 
@@ -13,7 +13,7 @@ import UserMenu from "./UserMenu";
 export default function MyConnectButton({openAccountModal}): JSX.Element {
 	const {isConnected, address} = useAccount({
 		onDisconnect() {
-			signOut();
+			// signOut();
 		},
 	});
 	const {chain} = useNetwork();
