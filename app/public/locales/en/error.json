@@ -6,7 +6,7 @@
 		"failed": "Authentication has failed!",
 		"required": "Authentication required"
 	},
-    "sell": {
+	"notFound": {
 		"message": "The page you're looking for does not seem to exist",
 		"title": "Page Not Found"
 	},
