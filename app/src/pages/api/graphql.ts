@@ -44,7 +44,7 @@ const graphqlRoute = cors(async (req: NextApiRequest, res: NextApiResponse) => {
 	const publicAddress = String((token?.user as TUserData)?.address || "");
 	if (publicAddress) {
 		try {
-			const user = await User.findOne({"account": publicAddress});
+			const user = await User.findOne({"account": publicAddress.toLowerCase()});
 			if (!user) {
 				await User.create({
 					username: formatAddress(publicAddress),
