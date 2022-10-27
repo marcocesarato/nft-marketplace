@@ -1,9 +1,9 @@
-import {useToast} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 import {useContract, useSigner, useSwitchNetwork} from "wagmi";
 
 import {ChainId} from "@configs/chain";
 import {MarketAddress, MarketContract} from "@configs/contracts";
+import useToast from "@hooks/useToast";
 import {isString} from "@utils/objects";
 import {parseUnits} from "@utils/units";
 
@@ -23,7 +23,7 @@ export default function useMarket() {
 		switchNetworkAsync,
 	} = useSwitchNetwork({chainId: ChainId});
 	const {t} = useTranslation();
-	const toast = useToast();
+	const {successToast, errorToast} = useToast();
 	const contract = useContract({
 		address: MarketAddress,
 		abi: MarketContract,
@@ -42,24 +42,15 @@ export default function useMarket() {
 
 			await transaction.wait();
 
-			toast({
+			successToast({
 				title: t<string>("common:page.action.purchased"),
 				description: t<string>("common:page.action.success.purchased"),
-				status: "success",
-				duration: 10000,
-				position: "bottom-right",
-				isClosable: true,
 			});
 
 			callback && callback();
 		} catch (error) {
-			toast({
-				title: t<string>("error:title"),
+			errorToast({
 				description: error.message,
-				status: "error",
-				duration: 10000,
-				position: "bottom-right",
-				isClosable: true,
 			});
 			throw error;
 		}
@@ -77,22 +68,13 @@ export default function useMarket() {
 
 			await transaction.wait();
 
-			toast({
+			successToast({
 				title: t<string>("common:page.action.sell"),
 				description: t<string>("common:page.action.success.sell"),
-				status: "success",
-				duration: 10000,
-				position: "bottom-right",
-				isClosable: true,
 			});
 		} catch (error) {
-			toast({
-				title: t<string>("error:title"),
+			errorToast({
 				description: error.message,
-				status: "error",
-				duration: 10000,
-				position: "bottom-right",
-				isClosable: true,
 			});
 			throw error;
 		}
@@ -111,22 +93,13 @@ export default function useMarket() {
 
 			await transaction.wait();
 
-			toast({
+			successToast({
 				title: t<string>("common:page.action.sell"),
 				description: t<string>("common:page.action.success.sell"),
-				status: "success",
-				duration: 10000,
-				position: "bottom-right",
-				isClosable: true,
 			});
 		} catch (error) {
-			toast({
-				title: t<string>("error:title"),
+			errorToast({
 				description: error.message,
-				status: "error",
-				duration: 10000,
-				position: "bottom-right",
-				isClosable: true,
 			});
 			throw error;
 		}
