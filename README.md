@@ -1,4 +1,4 @@
-# NFT Marketplace
+# NFT MarketVerse
 
 ![](/docs/images/cover.png)
 

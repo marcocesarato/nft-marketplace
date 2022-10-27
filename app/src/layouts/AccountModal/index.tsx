@@ -76,7 +76,7 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 			<ModalOverlay />
 			<ModalContent background="gray.900">
 				<ModalHeader color="white" p={4} fontSize="lg" fontWeight="medium">
-					{t<string>("common:account.title")}
+					{t<string>("common:account.profile")}
 				</ModalHeader>
 				<ModalCloseButton
 					color="white"

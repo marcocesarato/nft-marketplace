@@ -12,7 +12,7 @@ import {publicProvider} from "wagmi/providers/public";
 import Avatar from "@components/Avatar";
 import {deepMerge} from "@utils/objects";
 
-const appName = "NFT Marketplace";
+const appName = "NFT MarketVerse";
 
 const {provider, webSocketProvider, chains} = configureChains(allChains, [publicProvider()]);
 const {connectors} = getDefaultWallets({

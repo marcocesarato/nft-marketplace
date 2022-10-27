@@ -18,7 +18,7 @@ export default function UserMenu({openAccountModal}): JSX.Element {
 		router.push("/");
 	}*/
 
-	function handleProfile() {
+	function handleAccount() {
 		router.push(getAccountUrl(address));
 	}
 
@@ -42,9 +42,11 @@ export default function UserMenu({openAccountModal}): JSX.Element {
 				</Flex>
 			</MenuButton>
 			<MenuList alignItems={"center"}>
-				<MenuItem onClick={openAccountModal}>{t<string>("common:account.title")}</MenuItem>
+				<MenuItem onClick={openAccountModal}>
+					{t<string>("common:account.profile")}
+				</MenuItem>
 				<MenuDivider />
-				<MenuItem onClick={handleProfile}>{t<string>("common:account.profile")}</MenuItem>
+				<MenuItem onClick={handleAccount}>{t<string>("common:account.title")}</MenuItem>
 				<MenuItem onClick={() => router.push("/transfers")}>
 					{t<string>("common:account.transfers")}
 				</MenuItem>
@@ -54,7 +56,7 @@ export default function UserMenu({openAccountModal}): JSX.Element {
 				<MenuItem onClick={handleGalleryBuilder}>
 					{t<string>("common:account.galleryBuilder")}
 				</MenuItem>
-				<MenuDivider />
+				{/*<MenuDivider />*/}
 				{/*<MenuItem onClick={handleLogout}>{t<string>("common:action.disconnect")}</MenuItem>*/}
 			</MenuList>
 		</Menu>

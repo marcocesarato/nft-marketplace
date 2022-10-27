@@ -1,4 +1,4 @@
-# NFT Marketplace - App
+# NFT MarketVerse - App
 
 NextJS client application of the NFT Marketplace.
 
