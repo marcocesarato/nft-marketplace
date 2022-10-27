@@ -1,9 +1,10 @@
 {
 	"name": "@packages/mongo",
 	"version": "0.0.0",
-	"main": "index.ts",
+	"main": "dist/index.js",
 	"private": true,
 	"scripts": {
+		"build": "tsc",
 		"lint": "eslint --ext .js,.ts .",
 		"lint:fix": "eslint --ext .js,.ts . --fix"
 	},

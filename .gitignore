@@ -15,14 +15,15 @@ node_modules
 .pnp.js
 
 # Testing
-coverage
+coverage/
 
 # Next.js
 .next/
 out/
 
 # Production
-build
+build/
+dist/
 
 # Misc
 .DS_Store
@@ -38,12 +39,12 @@ yarn-error.log*
 .vercel
 
 # Hardhat files
-cache
-artifacts
+cache/
+artifacts/
 .openzeppelin
 
 # MongoDB
-data
+data/
 
 # IntelliJ
 .idea/

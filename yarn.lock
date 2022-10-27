@@ -7536,7 +7536,7 @@ chevrotain@^10.1.2:
     lodash "4.17.21"
     regexp-to-ast "0.5.0"
 
-chokidar@3.5.3, chokidar@^3.4.0, chokidar@^3.5.2:
+chokidar@3.5.3, chokidar@^3.4.0, chokidar@^3.5.2, chokidar@^3.5.3:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.5.3.tgz#1cf37c8707b932bd1af1ae22c0432e2acd1903bd"
   integrity sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==
@@ -7885,7 +7885,7 @@ commander@^7.2.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-7.2.0.tgz#a36cb57d0b501ce108e4d20559a150a391d97ab7"
   integrity sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==
 
-commander@^9.3.0:
+commander@^9.0.0, commander@^9.3.0:
   version "9.4.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-9.4.1.tgz#d1dd8f2ce6faf93147295c0df13c7c21141cfbdd"
   integrity sha512-5EEkTNyHNGFPD2H+c/dXXfQZYa/scCKasxWcXJaWnNJ99pnQN9Vnmqow+p+PlFPE63Q6mThaZws1T+HxfpgtPw==
@@ -13965,6 +13965,11 @@ mute-stream@0.0.8:
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.8.tgz#1630c42b2251ff81e2a283de96a5497ea92e5e0d"
   integrity sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==
 
+mylas@^2.1.9:
+  version "2.1.13"
+  resolved "https://registry.yarnpkg.com/mylas/-/mylas-2.1.13.tgz#1e23b37d58fdcc76e15d8a5ed23f9ae9fc0cbdf4"
+  integrity sha512-+MrqnJRtxdF+xngFfUUkIMQrUUL0KsxbADUkn23Z/4ibGg192Q+z+CQyiYwvWTsYjJygmMR8+w3ZDa98Zh6ESg==
+
 nano-json-stream-parser@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/nano-json-stream-parser/-/nano-json-stream-parser-0.1.2.tgz#0cc8f6d0e2b622b479c40d499c46d64b755c6f5f"
@@ -14957,6 +14962,13 @@ pkg-dir@^4.1.0:
   dependencies:
     find-up "^4.0.0"
 
+plimit-lit@^1.2.6:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/plimit-lit/-/plimit-lit-1.4.1.tgz#7d6259e3cb2a341b38bb6ca343869e44ae0d5d38"
+  integrity sha512-bK14ePAod0XWhXwjT6XvYfjcQ9PbCUkZXnDCAKRMZTJCaDIV9VFya1S/I+3WSbpdR8uBhCDh8TS4lQ/JQvhNFA==
+  dependencies:
+    queue-lit "^1.4.0"
+
 pngjs@^3.3.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-3.4.0.tgz#99ca7d725965fb655814eaf65f38f12bbdbf555f"
@@ -15330,6 +15342,11 @@ querystring@0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
   integrity sha512-X/xY82scca2tau62i9mDyU9K+I+djTMUsvwf7xnUX5GLvVzgJybOJf4Y6o9Zx3oJK/LSXg5tTZBjwzqVPaPO2g==
+
+queue-lit@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/queue-lit/-/queue-lit-1.4.0.tgz#74e4d759624fa1e6c0e02d96b503a92f4c8efdd6"
+  integrity sha512-l1+4YHm4vHWpCnvTg8JMsnPETmPvLGWhqjvNOc8TSbqscGplHVSWXOxybA3vYeMNNIR9Z1PQt85U+S3wFJX2uQ==
 
 queue-microtask@^1.2.2, queue-microtask@^1.2.3:
   version "1.2.3"
@@ -17758,6 +17775,18 @@ ts-node@^10.8.1, ts-node@^10.9.1:
     make-error "^1.1.1"
     v8-compile-cache-lib "^3.0.1"
     yn "3.1.1"
+
+tsc-alias@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/tsc-alias/-/tsc-alias-1.7.0.tgz#733482751133a25b97608ee424f8a1f085fcaaef"
+  integrity sha512-n/K6g8S7Ec7Y/A2Z77Ikp2Uv1S1ERtT63ni69XV4W1YPT4rnNmz8ItgIiJYvKfFnKfqcZQ81UPjoKpMTxaC/rg==
+  dependencies:
+    chokidar "^3.5.3"
+    commander "^9.0.0"
+    globby "^11.0.4"
+    mylas "^2.1.9"
+    normalize-path "^3.0.0"
+    plimit-lit "^1.2.6"
 
 tsconfig-paths@^3.14.1:
   version "3.14.1"

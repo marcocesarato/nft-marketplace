@@ -3,8 +3,10 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"rootDir": ".",
-		"module": "esnext",
-		"target": "esnext"
+		"outDir": "./dist",
+		"target": "esnext",
+		"module": "commonjs"
 	},
-	"include": ["./**/*.ts"]
+	"include": ["./**/*.ts"],
+	"exclude": ["./dist/**/*.js", "./dist/**/*.ts"]
 }

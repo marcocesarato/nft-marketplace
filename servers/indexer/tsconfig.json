@@ -6,12 +6,12 @@
 		"files": true
 	},
 	"compilerOptions": {
-		"outDir": "./build",
-		"baseUrl": ".",
-		"rootDir": ".",
+		"outDir": "./dist",
+		"baseUrl": "./src",
 		"paths": {
-			"@/*": ["./src/*"]
+			"@/*": ["./*"]
 		}
 	},
-	"include": ["src"]
+	"include": ["src"],
+	"exclude": ["./dist/**/*.js", "./dist/**/*.ts"]
 }

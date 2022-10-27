@@ -4,6 +4,7 @@
 	"version": "0.1.0",
 	"packageManager": "^yarn@1.22.19",
 	"scripts": {
+		"start": "turbo run start",
 		"build": "turbo run build",
 		"clean": "turbo run clean",
 		"deploy": "npx hardhat run scripts/deploy-upgradeable.js --network matic",

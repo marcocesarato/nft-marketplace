@@ -17,8 +17,13 @@
 			"dependsOn": ["^build"],
 			"outputs": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "**/*.json", "**/*.md"]
 		},
+		"start": {
+			"cache": false,
+			"dependsOn": ["^build"]
+		},
 		"dev": {
-			"cache": false
+			"cache": false,
+			"dependsOn": ["^build"]
 		},
 		"clean": {
 			"cache": false
@@ -30,5 +35,5 @@
 			"cache": false
 		}
 	},
-	"globalDependencies": [".env"]
+	"globalDependencies": [".env", "tsconfig.json"]
 }
