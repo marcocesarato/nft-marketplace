@@ -1,39 +1,32 @@
-query AccountNFT($chain: String!, $address: String!, $tokenAddress: String!, $tokenId: Int!) {
-	accountNFT(chain: $chain, address: $address, token_address: $tokenAddress, token_id: $tokenId) {
-		# Metadata
+query AccountNFT($chain: String!, $address: String!, $token_address: String!, $token_id: Int!) {
+	accountNFT(
+		chain: $chain
+		address: $address
+		token_address: $token_address
+		token_id: $token_id
+	) {
+		# Details
+		token_address
+		token_id
+		contract_type
+		owner_of
+		block_number
+		block_number_minted
+		token_uri
+		metadata
 		name
+		amount
+		symbol
+		token_hash
+		last_token_uri_sync
+		last_metadata_sync
+		# Metadata
 		description
 		image
 		thumbnail
 		attributes
-		externalUrl
-		animationUrl
-		youtubeUrl
-
-		# Details
-		token_id
-		token_address
-		token_uri
-		metadata
-		is_valid
-		syncing
-		frozen
-		resyncing
-		contract_type
-		token_hash
-		batch_id
-		metadata_name
-		metadata_description
-		metadata_attributes
-		block_number_minted
-		opensea_lookup
-		minter_address
-		transaction_minted
-		frozen_log_index
-		imported
-		last_token_uri_sync
-		last_metadata_sync
-		createdAt
-		updatedAt
+		external_url
+		animation_url
+		youtube_url
 	}
 }

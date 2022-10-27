@@ -3,7 +3,6 @@ import type {BigNumberish} from "ethers";
 import {Chain} from "wagmi";
 
 import {GenericObject} from "@app/types";
-import {formatUnits} from "@utils/units";
 
 import {deepMerge} from "./objects";
 
@@ -11,26 +10,8 @@ export function chainHex(chain: Chain): string {
 	return `0x${chain.id.toString(16)}`;
 }
 
-export const convertEtherToPrice = (ether: BigNumberish, etherPrice: number) =>
+export const convertEtherToPrice = (ether: BigNumberish, etherPrice: number): string =>
 	((etherPrice ?? 0) * parseFloat(formatEther(ether ?? 0))).toFixed(2);
-
-export const withMetadata = (items) => {
-	if (!items) return items;
-	const mergeMetadata = (item) => {
-		return {
-			...item,
-			...(item.metadata || {}),
-			creator: item.creator?.id || item.owner?.id,
-			seller: item.seller?.id,
-			owner: item.owner?.id,
-			priceFormatted: formatUnits(item.price, "ether"),
-		};
-	};
-	if (Array.isArray(items)) {
-		return items.map(mergeMetadata);
-	}
-	return mergeMetadata(items);
-};
 
 export const clone = (obj: any): any => {
 	return JSON.parse(
@@ -80,3 +61,26 @@ export const convertAllStringToAttributes = (
 	});
 	return deepMerge(newAttributes, overwrite);
 };
+
+export function camelToUnderscore(key: string): string {
+	return key.replace(/([A-Z])/g, "_$1").toLowerCase();
+}
+
+export function objectCamelToUnderscore(
+	obj: GenericObject,
+	recursive: boolean = false,
+): GenericObject {
+	for (const oldName in obj) {
+		const newName = camelToUnderscore(oldName);
+		if (newName !== oldName) {
+			if (obj.hasOwnProperty(oldName)) {
+				obj[newName] = obj[oldName];
+				delete obj[oldName];
+			}
+		}
+		if (recursive && typeof obj[newName] == "object") {
+			obj[newName] = objectCamelToUnderscore(obj[newName]);
+		}
+	}
+	return obj;
+}

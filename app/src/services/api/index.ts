@@ -14,9 +14,6 @@ async function start() {
 }
 
 const resultNFTsMap = async (object: GenericObject) => {
-	/*if (!item?.metadata) {
-		    item = await withMetadata(item);
-		}*/
 	let metadata = object.metadata;
 	if (metadata && isString(metadata)) {
 		try {
@@ -44,14 +41,14 @@ export async function getWalletNFTs(
 		...options,
 	});
 	const data = result.raw.result ?? [];
-	const dataWithMetadata = data
+	const dataParsed = data
 		.filter((object) => {
 			if (!object?.metadata) return false;
 			if (token_id != null) return object.token_id === token_id;
 			return true;
 		})
 		.map(resultNFTsMap);
-	return await Promise.all(dataWithMetadata);
+	return await Promise.all(dataParsed);
 }
 
 export async function getWalletNFTTransfers(

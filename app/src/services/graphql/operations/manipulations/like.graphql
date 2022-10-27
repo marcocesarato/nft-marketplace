@@ -1,6 +1,6 @@
-mutation Like($tokenId: Int) {
-	like(tokenId: $tokenId) {
+mutation Like($token_id: Int) {
+	like(token_id: $token_id) {
 		likes
-		isLiked
+		is_liked
 	}
 }

@@ -8,12 +8,12 @@ import {formatUnits} from "@utils/units";
 export function marketItemSchemaComposer(schemaComposer: SchemaComposer) {
 	const MarketItemTC = composeWithMongoose(MarketItem, {schemaComposer});
 	MarketItemTC.addFields({
-		priceFormatted: {
+		price_formatted: {
 			type: "Float",
 			description: "Price formatted",
 			resolve: (source: any) => formatUnits(source.price, "ether"),
 		},
-		isLiked: {
+		is_liked: {
 			type: "Boolean",
 			resolve: async (source, args, context, info) => {
 				const {isAuthenticated, account} = context;
@@ -24,7 +24,7 @@ export function marketItemSchemaComposer(schemaComposer: SchemaComposer) {
 				return user?.likes?.includes(_id) || false;
 			},
 		},
-		isFavourited: {
+		is_favourited: {
 			type: "Boolean",
 			resolve: async (source, args, context, info) => {
 				const {isAuthenticated, account} = context;
@@ -57,58 +57,58 @@ export function marketItemSchemaComposer(schemaComposer: SchemaComposer) {
 	schemaComposer.Mutation.addFields({
 		like: {
 			type: MarketItemTC,
-			args: {tokenId: "Int"},
+			args: {token_id: "Int"},
 			resolve: async (source, args, context, info) => {
 				const {account, isAuthenticated} = context;
 				if (!isAuthenticated) throw new Error("Not authenticated"); // Check auth
 				const user = await User.updateOne({account: account}, {
-					$push: {likes: args.tokenId},
+					$push: {likes: args.token_id},
 				} as any);
 				if (!user) throw new Error("User not found"); // Check user
-				await MarketItem.updateOne({_id: args.tokenId}, {$inc: {"likes": 1}});
-				return MarketItem.findOne({_id: args.tokenId});
+				await MarketItem.updateOne({_id: args.token_id}, {$inc: {"likes": 1}});
+				return MarketItem.findOne({_id: args.token_id});
 			},
 		},
 		dislike: {
 			type: MarketItemTC,
-			args: {tokenId: "Int"},
+			args: {token_id: "Int"},
 			resolve: async (source, args, context, info) => {
 				const {account, isAuthenticated} = context;
 				if (!isAuthenticated) throw new Error("Not authenticated"); // Check auth
 				const user = await User.updateOne({account: account}, {
-					$pull: {likes: args.tokenId},
+					$pull: {likes: args.token_id},
 				} as any);
 				if (!user) throw new Error("User not found"); // Check user
-				await MarketItem.updateOne({_id: args.tokenId}, {$inc: {"likes": -1}});
-				return MarketItem.findOne({_id: args.tokenId});
+				await MarketItem.updateOne({_id: args.token_id}, {$inc: {"likes": -1}});
+				return MarketItem.findOne({_id: args.token_id});
 			},
 		},
 		addToFavourites: {
 			type: MarketItemTC,
-			args: {tokenId: "Int"},
+			args: {token_id: "Int"},
 			resolve: async (source, args, context, info) => {
 				const {account, isAuthenticated} = context;
 				if (!isAuthenticated) throw new Error("Not authenticated"); // Check auth
 				const user = await User.updateOne(
 					{account: account},
-					{$push: {favourites: args.tokenId} as any},
+					{$push: {favourites: args.token_id} as any},
 				);
 				if (!user) throw new Error("User not found"); // Check user
-				return MarketItem.findOne({_id: args.tokenId});
+				return MarketItem.findOne({_id: args.token_id});
 			},
 		},
 		removeFromFavourites: {
 			type: MarketItemTC,
-			args: {tokenId: "Int"},
+			args: {token_id: "Int"},
 			resolve: async (source, args, context, info) => {
 				const {account, isAuthenticated} = context;
 				if (!isAuthenticated) throw new Error("Not authenticated"); // Check auth
 				const user = await User.updateOne(
 					{account: account},
-					{$pull: {favourites: args.tokenId} as any},
+					{$pull: {favourites: args.token_id} as any},
 				);
 				if (!user) throw new Error("User not found"); // Check user
-				return MarketItem.findOne({_id: args.tokenId});
+				return MarketItem.findOne({_id: args.token_id});
 			},
 		},
 	});

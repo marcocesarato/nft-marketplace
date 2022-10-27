@@ -35,10 +35,10 @@ const productVariant = {
 };
 
 const sort = {
-	"newest": (a, b) => b?.price - a?.price || a?.tokenId - b?.tokenId,
-	"lowest": (a, b) => a?.price - b?.price || a?.tokenId - b?.tokenId,
-	"highest": (a, b) => Date.parse(b?.createdAt) - Date.parse(a?.createdAt),
-	"likes": (a, b) => a?.likes - b?.likes || a?.tokenId - b?.tokenId,
+	"newest": (a, b) => b?.price - a?.price || a?.token_id - b?.token_id,
+	"lowest": (a, b) => a?.price - b?.price || a?.token_id - b?.token_id,
+	"highest": (a, b) => Date.parse(b?.created_at) - Date.parse(a?.created_at),
+	"likes": (a, b) => a?.likes - b?.likes || a?.token_id - b?.token_id,
 };
 
 export default function Catalog({
@@ -52,7 +52,7 @@ export default function Catalog({
 	const {purchase} = useMarket();
 	const handlePurchase = (product): (() => {}) => {
 		if (isConnected && purchasable) {
-			return () => purchase(product.tokenId, product.price, () => router.push("/assets"));
+			return () => purchase(product.token_id, product.price, () => router.push("/assets"));
 		}
 	};
 	const minColumns = useBreakpointValue({base: 2, sm: 3, lg: 4, xl: 5});

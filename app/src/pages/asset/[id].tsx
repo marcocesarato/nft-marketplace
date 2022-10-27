@@ -23,8 +23,8 @@ export default function SingleAsset(): JSX.Element {
 		if (splitted.length === 3) {
 			const data = {
 				"address": splitted[0],
-				"tokenAddress": splitted[1],
-				"tokenId": splitted[2],
+				"token_address": splitted[1],
+				"token_id": splitted[2],
 			};
 
 			return <ProductByAddress {...data} />;

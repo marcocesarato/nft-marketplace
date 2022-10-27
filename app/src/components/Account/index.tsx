@@ -86,7 +86,7 @@ export default function Account({id}): JSX.Element {
 						<Heading fontSize={"2xl"} fontWeight={500} fontFamily={"body"}>
 							{user.username || user.account}
 						</Heading>
-						<Text color={"gray.500"}>Joined at {formatDate(user.createdAt)}</Text>
+						<Text color={"gray.500"}>Joined at {formatDate(user.created_at)}</Text>
 						<Link
 							href={`${chain?.blockExplorers.default.url}/address/${user.account}`}
 							isExternal

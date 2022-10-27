@@ -1,24 +1,25 @@
 import axios from "axios";
 
 import logger from "@/logger";
-import {resolveIPFSLink} from "@/utils";
+import {formatUnits, resolveIPFSLink} from "@/utils";
 import {MarketItem} from "@packages/mongo";
 
 export async function createMarketItem(
 	contract: any,
-	{tokenId, creator, seller, owner, price, sold}: Item,
+	{token_id, creator, seller, owner, price, sold}: Item,
 ) {
 	try {
-		logger.debug(`Creating Item #${tokenId}`);
+		token_id = token_id.toString();
+		logger.debug(`Creating Item #${token_id}`);
 
 		// Retrieve metadata
-		const tokenURI = await contract.tokenURI(tokenId);
+		const tokenURI = await contract.tokenURI(token_id);
 		const tokenURIResolve = resolveIPFSLink(tokenURI);
 		if (!tokenURIResolve) {
-			logger.warn(`Item #${tokenId} tokenURI not found`);
+			logger.warn(`Item #${token_id} tokenURI not found`);
 		}
 		const fallbackMetadata: ItemMetadata = {
-			name: `#${tokenId.toString()}`,
+			name: `#${token_id.toString()}`,
 			description: "No description.",
 			image: "",
 		};
@@ -31,8 +32,9 @@ export async function createMarketItem(
 						return fallbackMetadata;
 					})
 			: fallbackMetadata;
+		console.log(tokenURIResolve);
 		if (tokenURIResolve && !metadata) {
-			logger.warn(`Item #${tokenId} metadata not found or empty`);
+			logger.warn(`Item #${token_id} metadata not found or empty`);
 		}
 
 		// Map attributes
@@ -40,9 +42,9 @@ export async function createMarketItem(
 		if (metadata.attributes) {
 			attributes = metadata.attributes.map((attribute: any) => {
 				return {
-					traitType: attribute.trait_type,
+					trait_type: attribute.trait_type,
 					value: attribute.value,
-					displayType: attribute.display_type,
+					display_type: attribute.display_type,
 				};
 			});
 		}
@@ -50,26 +52,27 @@ export async function createMarketItem(
 		// Create item
 		MarketItem.create(
 			{
-				_id: tokenId,
-				tokenId: tokenId,
-				tokenURI: tokenURI,
+				_id: token_id,
+				token_id: token_id,
+				token_uri: tokenURI,
 				creator: creator?.toLowerCase(),
 				seller: seller?.toLowerCase(),
 				owner: owner?.toLowerCase(),
-				price: price,
+				price: price.toString(),
+				price_formatted: formatUnits(price),
 				sold: sold,
 				name: metadata.name,
 				description: metadata.description,
 				image: resolveIPFSLink(metadata.image),
 				thumbnail: resolveIPFSLink(metadata.thumbnail),
-				externalUrl: metadata.external_url,
-				animationUrl: metadata.animation_url,
-				youtubeUrl: metadata.youtube_url,
+				external_url: metadata.external_url,
+				animation_url: metadata.animation_url,
+				youtube_url: metadata.youtube_url,
 				attributes: attributes,
 			} as any,
 			function (err: any, item: any) {
 				if (err) return logger.error(err.message);
-				logger.info(`Created item #${item.tokenId}`);
+				logger.info(`Created item #${item.token_id}`);
 			},
 		);
 	} catch (err) {
@@ -77,21 +80,26 @@ export async function createMarketItem(
 	}
 }
 
-export async function updateMarketItem(tokenId: string, {seller, owner, price, sold}: ItemChanges) {
+export async function updateMarketItem(
+	token_id: string,
+	{seller, owner, price, sold}: ItemChanges,
+) {
 	try {
-		logger.debug(`Updating Item #${tokenId}`);
-		MarketItem.findOne({tokenId: tokenId}, function (err: Error, item: any) {
+		token_id = token_id.toString();
+		logger.debug(`Updating Item #${token_id}`);
+		MarketItem.findOne({token_id}, function (err: Error, item: any) {
 			if (err) return logger.error(err);
 			if (!item) {
-				return logger.warn(`No item #${tokenId} found`);
+				return logger.warn(`No item #${token_id} found`);
 			}
 			item.seller = seller?.toLowerCase();
 			item.owner = owner?.toLowerCase();
-			item.price = price;
+			item.price = price.toString();
+			item.price_formatted = formatUnits(price);
 			item.sold = sold;
 			item.save(function (e: Error) {
 				if (e) return logger.error(e.message);
-				logger.info(`Updated item #${item.tokenId}`);
+				logger.info(`Updated item #${item.token_id}`);
 			});
 		});
 	} catch (err) {

@@ -23,7 +23,7 @@ export default function useNFTMetadata() {
 		//Pass Through if Metadata already present
 		if (item.metadata) return item;
 		//Get the Metadata
-		withMetadata(item);
+		resolveMetadata(item);
 		//Return Hooked Token Object
 		return results?.[item.token_uri] ? results?.[item.token_uri] : item;
 	}
@@ -34,10 +34,10 @@ export default function useNFTMetadata() {
 	 * @param {object} item
 	 * @returns {object} TokenItem
 	 */
-	async function withMetadata(item: TokenItem) {
+	async function resolveMetadata(item: TokenItem) {
 		//Validate URI
 		if (!item.token_uri || !item.token_uri.includes("://")) {
-			console.debug("withMetadata() Invalid URI", {URI: item.token_uri, item});
+			console.debug("resolveMetadata() Invalid URI", {URI: item.token_uri, item});
 			return;
 		}
 		//Get Metadata
@@ -46,7 +46,7 @@ export default function useNFTMetadata() {
 			.then((metadata) => {
 				if (!metadata) {
 					//Log
-					console.error("useVerifyMetadata.withMetadata() No Metadata found on URI:", {
+					console.error("useVerifyMetadata.resolveMetadata() No Metadata found on URI:", {
 						URI: item.token_uri,
 						item,
 					});
@@ -58,14 +58,14 @@ export default function useNFTMetadata() {
 				) {
 					//Log
 					console.warn(
-						"useVerifyMetadata.withMetadata() Bad Result for:" +
+						"useVerifyMetadata.resolveMetadata() Bad Result for:" +
 							item.token_uri +
 							"  Will retry later",
 						{results, metadata},
 					);
 					//Retry That Again after 1s
 					/*setTimeout(function () {
-						withMetadata(item);
+						resolveMetadata(item);
 					}, 1000);*/
 				} //Handle Opensea's {detail: "Request was throttled. Expected available in 1 second."}
 				else {
@@ -74,7 +74,7 @@ export default function useNFTMetadata() {
 					setMetadata(item, metadata);
 					//Log
 					console.debug(
-						"withMetadata() Late-load for TokenItem Metadata " + item.token_uri,
+						"resolveMetadata() Late-load for TokenItem Metadata " + item.token_uri,
 						{
 							metadata,
 						},
@@ -83,7 +83,7 @@ export default function useNFTMetadata() {
 				return item;
 			})
 			.catch((err) => {
-				console.error("useVerifyMetadata.withMetadata() Error Caught:", {
+				console.error("useVerifyMetadata.resolveMetadata() Error Caught:", {
 					err,
 					item,
 					URI: item.token_uri,
@@ -106,5 +106,5 @@ export default function useNFTMetadata() {
 		if (metadata && !results[item.token_uri]) setResults({...results, [item.token_uri]: item});
 	}
 
-	return {verifyMetadata, withMetadata};
+	return {verifyMetadata, resolveMetadata};
 }

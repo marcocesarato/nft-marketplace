@@ -8,7 +8,7 @@ export function parseUnits(value, unitName: BigNumberish = 18) {
 	return ethers.utils.parseUnits(String(value), unitName).toString();
 }
 
-export function formatUnits(value, unitName: BigNumberish = 18) {
+export function formatUnits(value: BigNumberish, unitName: BigNumberish = 18): number {
 	// formatUnits will always add a trailing 0, remove this as we want to return "1" instead of "1.0"
 	const result = ethers.utils.formatUnits(value, unitName);
 	const splitResult = result.split(".");

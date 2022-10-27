@@ -38,8 +38,8 @@ export type ErrorInterface = {
 
 export type FilterCountMarketItemAttributesInput = {
 	_id?: InputMaybe<Scalars["MongoID"]>;
-	displayType?: InputMaybe<Scalars["String"]>;
-	traitType?: InputMaybe<Scalars["String"]>;
+	display_type?: InputMaybe<Scalars["String"]>;
+	trait_type?: InputMaybe<Scalars["String"]>;
 	value?: InputMaybe<Scalars["String"]>;
 };
 
@@ -61,25 +61,26 @@ export type FilterCountMarketItemInput = {
 	_id?: InputMaybe<Scalars["Int"]>;
 	/** List of *indexed* fields that can be filtered via operators. */
 	_operators?: InputMaybe<FilterCountMarketItemOperatorsInput>;
-	animationUrl?: InputMaybe<Scalars["String"]>;
+	animation_url?: InputMaybe<Scalars["String"]>;
 	attributes?: InputMaybe<Array<InputMaybe<FilterCountMarketItemAttributesInput>>>;
-	createdAt?: InputMaybe<Scalars["Date"]>;
+	created_at?: InputMaybe<Scalars["Date"]>;
 	creator?: InputMaybe<Scalars["String"]>;
 	description?: InputMaybe<Scalars["String"]>;
-	externalUrl?: InputMaybe<Scalars["String"]>;
+	external_url?: InputMaybe<Scalars["String"]>;
 	image?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Scalars["Float"]>;
 	name?: InputMaybe<Scalars["String"]>;
 	owner?: InputMaybe<Scalars["String"]>;
 	price?: InputMaybe<Scalars["String"]>;
+	price_formatted?: InputMaybe<Scalars["String"]>;
 	search?: InputMaybe<Scalars["String"]>;
 	seller?: InputMaybe<Scalars["String"]>;
 	sold?: InputMaybe<Scalars["Boolean"]>;
 	thumbnail?: InputMaybe<Scalars["String"]>;
-	tokenId?: InputMaybe<Scalars["Float"]>;
-	tokenURI?: InputMaybe<Scalars["String"]>;
-	updatedAt?: InputMaybe<Scalars["Date"]>;
-	youtubeUrl?: InputMaybe<Scalars["String"]>;
+	token_id?: InputMaybe<Scalars["Float"]>;
+	token_uri?: InputMaybe<Scalars["String"]>;
+	updated_at?: InputMaybe<Scalars["Date"]>;
+	youtube_url?: InputMaybe<Scalars["String"]>;
 };
 
 export type FilterCountMarketItemNameOperatorsInput = {
@@ -132,13 +133,13 @@ export type FilterCountUserInput = {
 	_operators?: InputMaybe<FilterCountUserOperatorsInput>;
 	account?: InputMaybe<Scalars["String"]>;
 	cover?: InputMaybe<Scalars["String"]>;
-	createdAt?: InputMaybe<Scalars["Date"]>;
+	created_at?: InputMaybe<Scalars["Date"]>;
 	favourites?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	icon?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	planimetry?: InputMaybe<FilterCountUserPlanimetryInput>;
 	search?: InputMaybe<Scalars["String"]>;
-	updatedAt?: InputMaybe<Scalars["Date"]>;
+	updated_at?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
 
@@ -178,8 +179,8 @@ export type FilterCountUser_IdOperatorsInput = {
 
 export type FilterFindManyMarketItemAttributesInput = {
 	_id?: InputMaybe<Scalars["MongoID"]>;
-	displayType?: InputMaybe<Scalars["String"]>;
-	traitType?: InputMaybe<Scalars["String"]>;
+	display_type?: InputMaybe<Scalars["String"]>;
+	trait_type?: InputMaybe<Scalars["String"]>;
 	value?: InputMaybe<Scalars["String"]>;
 };
 
@@ -201,25 +202,26 @@ export type FilterFindManyMarketItemInput = {
 	_id?: InputMaybe<Scalars["Int"]>;
 	/** List of *indexed* fields that can be filtered via operators. */
 	_operators?: InputMaybe<FilterFindManyMarketItemOperatorsInput>;
-	animationUrl?: InputMaybe<Scalars["String"]>;
+	animation_url?: InputMaybe<Scalars["String"]>;
 	attributes?: InputMaybe<Array<InputMaybe<FilterFindManyMarketItemAttributesInput>>>;
-	createdAt?: InputMaybe<Scalars["Date"]>;
+	created_at?: InputMaybe<Scalars["Date"]>;
 	creator?: InputMaybe<Scalars["String"]>;
 	description?: InputMaybe<Scalars["String"]>;
-	externalUrl?: InputMaybe<Scalars["String"]>;
+	external_url?: InputMaybe<Scalars["String"]>;
 	image?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Scalars["Float"]>;
 	name?: InputMaybe<Scalars["String"]>;
 	owner?: InputMaybe<Scalars["String"]>;
 	price?: InputMaybe<Scalars["String"]>;
+	price_formatted?: InputMaybe<Scalars["String"]>;
 	search?: InputMaybe<Scalars["String"]>;
 	seller?: InputMaybe<Scalars["String"]>;
 	sold?: InputMaybe<Scalars["Boolean"]>;
 	thumbnail?: InputMaybe<Scalars["String"]>;
-	tokenId?: InputMaybe<Scalars["Float"]>;
-	tokenURI?: InputMaybe<Scalars["String"]>;
-	updatedAt?: InputMaybe<Scalars["Date"]>;
-	youtubeUrl?: InputMaybe<Scalars["String"]>;
+	token_id?: InputMaybe<Scalars["Float"]>;
+	token_uri?: InputMaybe<Scalars["String"]>;
+	updated_at?: InputMaybe<Scalars["Date"]>;
+	youtube_url?: InputMaybe<Scalars["String"]>;
 };
 
 export type FilterFindManyMarketItemNameOperatorsInput = {
@@ -272,13 +274,13 @@ export type FilterFindManyUserInput = {
 	_operators?: InputMaybe<FilterFindManyUserOperatorsInput>;
 	account?: InputMaybe<Scalars["String"]>;
 	cover?: InputMaybe<Scalars["String"]>;
-	createdAt?: InputMaybe<Scalars["Date"]>;
+	created_at?: InputMaybe<Scalars["Date"]>;
 	favourites?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	icon?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	planimetry?: InputMaybe<FilterFindManyUserPlanimetryInput>;
 	search?: InputMaybe<Scalars["String"]>;
-	updatedAt?: InputMaybe<Scalars["Date"]>;
+	updated_at?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
 
@@ -318,8 +320,8 @@ export type FilterFindManyUser_IdOperatorsInput = {
 
 export type FilterFindOneMarketItemAttributesInput = {
 	_id?: InputMaybe<Scalars["MongoID"]>;
-	displayType?: InputMaybe<Scalars["String"]>;
-	traitType?: InputMaybe<Scalars["String"]>;
+	display_type?: InputMaybe<Scalars["String"]>;
+	trait_type?: InputMaybe<Scalars["String"]>;
 	value?: InputMaybe<Scalars["String"]>;
 };
 
@@ -341,24 +343,25 @@ export type FilterFindOneMarketItemInput = {
 	_id?: InputMaybe<Scalars["Int"]>;
 	/** List of *indexed* fields that can be filtered via operators. */
 	_operators?: InputMaybe<FilterFindOneMarketItemOperatorsInput>;
-	animationUrl?: InputMaybe<Scalars["String"]>;
+	animation_url?: InputMaybe<Scalars["String"]>;
 	attributes?: InputMaybe<Array<InputMaybe<FilterFindOneMarketItemAttributesInput>>>;
-	createdAt?: InputMaybe<Scalars["Date"]>;
+	created_at?: InputMaybe<Scalars["Date"]>;
 	creator?: InputMaybe<Scalars["String"]>;
 	description?: InputMaybe<Scalars["String"]>;
-	externalUrl?: InputMaybe<Scalars["String"]>;
+	external_url?: InputMaybe<Scalars["String"]>;
 	image?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Scalars["Float"]>;
 	name?: InputMaybe<Scalars["String"]>;
 	owner?: InputMaybe<Scalars["String"]>;
 	price?: InputMaybe<Scalars["String"]>;
+	price_formatted?: InputMaybe<Scalars["String"]>;
 	seller?: InputMaybe<Scalars["String"]>;
 	sold?: InputMaybe<Scalars["Boolean"]>;
 	thumbnail?: InputMaybe<Scalars["String"]>;
-	tokenId?: InputMaybe<Scalars["Float"]>;
-	tokenURI?: InputMaybe<Scalars["String"]>;
-	updatedAt?: InputMaybe<Scalars["Date"]>;
-	youtubeUrl?: InputMaybe<Scalars["String"]>;
+	token_id?: InputMaybe<Scalars["Float"]>;
+	token_uri?: InputMaybe<Scalars["String"]>;
+	updated_at?: InputMaybe<Scalars["Date"]>;
+	youtube_url?: InputMaybe<Scalars["String"]>;
 };
 
 export type FilterFindOneMarketItemNameOperatorsInput = {
@@ -411,12 +414,12 @@ export type FilterFindOneUserInput = {
 	_operators?: InputMaybe<FilterFindOneUserOperatorsInput>;
 	account?: InputMaybe<Scalars["String"]>;
 	cover?: InputMaybe<Scalars["String"]>;
-	createdAt?: InputMaybe<Scalars["Date"]>;
+	created_at?: InputMaybe<Scalars["Date"]>;
 	favourites?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	icon?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	planimetry?: InputMaybe<FilterFindOneUserPlanimetryInput>;
-	updatedAt?: InputMaybe<Scalars["Date"]>;
+	updated_at?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
 
@@ -457,35 +460,35 @@ export type FilterFindOneUser_IdOperatorsInput = {
 export type MarketItem = {
 	__typename?: "MarketItem";
 	_id: Scalars["Int"];
-	animationUrl?: Maybe<Scalars["String"]>;
+	animation_url?: Maybe<Scalars["String"]>;
 	attributes?: Maybe<Array<Maybe<MarketItemAttributes>>>;
-	createdAt?: Maybe<Scalars["Date"]>;
+	created_at?: Maybe<Scalars["Date"]>;
 	creator: Scalars["String"];
 	description: Scalars["String"];
-	externalUrl?: Maybe<Scalars["String"]>;
+	external_url?: Maybe<Scalars["String"]>;
 	image: Scalars["String"];
-	isFavourited?: Maybe<Scalars["Boolean"]>;
-	isLiked?: Maybe<Scalars["Boolean"]>;
+	is_favourited?: Maybe<Scalars["Boolean"]>;
+	is_liked?: Maybe<Scalars["Boolean"]>;
 	likes?: Maybe<Scalars["Float"]>;
 	name: Scalars["String"];
 	owner: Scalars["String"];
 	price: Scalars["String"];
 	/** Price formatted */
-	priceFormatted?: Maybe<Scalars["Float"]>;
+	price_formatted?: Maybe<Scalars["Float"]>;
 	seller: Scalars["String"];
 	sold: Scalars["Boolean"];
 	thumbnail?: Maybe<Scalars["String"]>;
-	tokenId: Scalars["Float"];
-	tokenURI: Scalars["String"];
-	updatedAt?: Maybe<Scalars["Date"]>;
-	youtubeUrl?: Maybe<Scalars["String"]>;
+	token_id: Scalars["Float"];
+	token_uri: Scalars["String"];
+	updated_at?: Maybe<Scalars["Date"]>;
+	youtube_url?: Maybe<Scalars["String"]>;
 };
 
 export type MarketItemAttributes = {
 	__typename?: "MarketItemAttributes";
 	_id?: Maybe<Scalars["MongoID"]>;
-	displayType?: Maybe<Scalars["String"]>;
-	traitType: Scalars["String"];
+	display_type?: Maybe<Scalars["String"]>;
+	trait_type: Scalars["String"];
 	value: Scalars["String"];
 };
 
@@ -524,19 +527,19 @@ export type Mutation = {
 };
 
 export type MutationAddToFavouritesArgs = {
-	tokenId?: InputMaybe<Scalars["Int"]>;
+	token_id?: InputMaybe<Scalars["Int"]>;
 };
 
 export type MutationDislikeArgs = {
-	tokenId?: InputMaybe<Scalars["Int"]>;
+	token_id?: InputMaybe<Scalars["Int"]>;
 };
 
 export type MutationLikeArgs = {
-	tokenId?: InputMaybe<Scalars["Int"]>;
+	token_id?: InputMaybe<Scalars["Int"]>;
 };
 
 export type MutationRemoveFromFavouritesArgs = {
-	tokenId?: InputMaybe<Scalars["Int"]>;
+	token_id?: InputMaybe<Scalars["Int"]>;
 };
 
 export type MutationUserUpdateArgs = {
@@ -550,38 +553,27 @@ export type MutationUserUpdatePlanimetryArgs = {
 
 export type Nft = {
 	__typename?: "NFT";
-	animationUrl?: Maybe<Scalars["String"]>;
+	amount?: Maybe<Scalars["String"]>;
+	animation_url?: Maybe<Scalars["String"]>;
 	attributes?: Maybe<Scalars["JSON"]>;
-	batch_id?: Maybe<Scalars["String"]>;
+	block_number?: Maybe<Scalars["String"]>;
 	block_number_minted?: Maybe<Scalars["String"]>;
 	contract_type?: Maybe<Scalars["String"]>;
-	createdAt?: Maybe<Scalars["String"]>;
 	description?: Maybe<Scalars["String"]>;
-	externalUrl?: Maybe<Scalars["String"]>;
-	frozen?: Maybe<Scalars["String"]>;
-	frozen_log_index?: Maybe<Scalars["String"]>;
+	external_url?: Maybe<Scalars["String"]>;
 	image?: Maybe<Scalars["String"]>;
-	imported?: Maybe<Scalars["String"]>;
-	is_valid?: Maybe<Scalars["String"]>;
 	last_metadata_sync?: Maybe<Scalars["String"]>;
 	last_token_uri_sync?: Maybe<Scalars["String"]>;
 	metadata?: Maybe<Scalars["JSON"]>;
-	metadata_attributes?: Maybe<Scalars["String"]>;
-	metadata_description?: Maybe<Scalars["String"]>;
-	metadata_name?: Maybe<Scalars["String"]>;
-	minter_address?: Maybe<Scalars["String"]>;
 	name?: Maybe<Scalars["String"]>;
-	opensea_lookup?: Maybe<Scalars["String"]>;
-	resyncing?: Maybe<Scalars["String"]>;
-	syncing?: Maybe<Scalars["String"]>;
+	owner_of?: Maybe<Scalars["String"]>;
+	symbol?: Maybe<Scalars["String"]>;
 	thumbnail?: Maybe<Scalars["String"]>;
 	token_address: Scalars["String"];
 	token_hash?: Maybe<Scalars["String"]>;
 	token_id: Scalars["String"];
 	token_uri?: Maybe<Scalars["String"]>;
-	transaction_minted?: Maybe<Scalars["String"]>;
-	updatedAt?: Maybe<Scalars["String"]>;
-	youtubeUrl?: Maybe<Scalars["String"]>;
+	youtube_url?: Maybe<Scalars["String"]>;
 };
 
 export type NftTransfer = {
@@ -742,12 +734,12 @@ export enum SortFindOneUserInput {
 export type UpdateByIdUserInput = {
 	account?: InputMaybe<Scalars["String"]>;
 	cover?: InputMaybe<Scalars["String"]>;
-	createdAt?: InputMaybe<Scalars["Date"]>;
+	created_at?: InputMaybe<Scalars["Date"]>;
 	favourites?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	icon?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	planimetry?: InputMaybe<UpdateByIdUserPlanimetryInput>;
-	updatedAt?: InputMaybe<Scalars["Date"]>;
+	updated_at?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
 
@@ -774,12 +766,12 @@ export type User = {
 	_id: Scalars["MongoID"];
 	account: Scalars["String"];
 	cover?: Maybe<Scalars["String"]>;
-	createdAt?: Maybe<Scalars["Date"]>;
+	created_at?: Maybe<Scalars["Date"]>;
 	favourites?: Maybe<Array<Maybe<Scalars["Float"]>>>;
 	icon?: Maybe<Scalars["String"]>;
 	likes?: Maybe<Array<Maybe<Scalars["Float"]>>>;
 	planimetry?: Maybe<Scalars["JSON"]>;
-	updatedAt?: Maybe<Scalars["Date"]>;
+	updated_at?: Maybe<Scalars["Date"]>;
 	username: Scalars["String"];
 };
 
@@ -819,39 +811,39 @@ export type ValidatorError = {
 };
 
 export type AddToFavouritesMutationVariables = Exact<{
-	tokenId?: InputMaybe<Scalars["Int"]>;
+	token_id?: InputMaybe<Scalars["Int"]>;
 }>;
 
 export type AddToFavouritesMutation = {
 	__typename?: "Mutation";
-	addToFavourites?: {__typename?: "MarketItem"; isFavourited?: boolean | null} | null;
+	addToFavourites?: {__typename?: "MarketItem"; is_favourited?: boolean | null} | null;
 };
 
 export type DislikeMutationVariables = Exact<{
-	tokenId?: InputMaybe<Scalars["Int"]>;
+	token_id?: InputMaybe<Scalars["Int"]>;
 }>;
 
 export type DislikeMutation = {
 	__typename?: "Mutation";
-	dislike?: {__typename?: "MarketItem"; likes?: number | null; isLiked?: boolean | null} | null;
+	dislike?: {__typename?: "MarketItem"; likes?: number | null; is_liked?: boolean | null} | null;
 };
 
 export type LikeMutationVariables = Exact<{
-	tokenId?: InputMaybe<Scalars["Int"]>;
+	token_id?: InputMaybe<Scalars["Int"]>;
 }>;
 
 export type LikeMutation = {
 	__typename?: "Mutation";
-	like?: {__typename?: "MarketItem"; likes?: number | null; isLiked?: boolean | null} | null;
+	like?: {__typename?: "MarketItem"; likes?: number | null; is_liked?: boolean | null} | null;
 };
 
 export type RemoveFromFavouritesMutationVariables = Exact<{
-	tokenId?: InputMaybe<Scalars["Int"]>;
+	token_id?: InputMaybe<Scalars["Int"]>;
 }>;
 
 export type RemoveFromFavouritesMutation = {
 	__typename?: "Mutation";
-	removeFromFavourites?: {__typename?: "MarketItem"; isFavourited?: boolean | null} | null;
+	removeFromFavourites?: {__typename?: "MarketItem"; is_favourited?: boolean | null} | null;
 };
 
 export type UserUpdateMutationVariables = Exact<{
@@ -893,46 +885,35 @@ export type UserUpdatePlanimetryMutation = {
 export type AccountNftQueryVariables = Exact<{
 	chain: Scalars["String"];
 	address: Scalars["String"];
-	tokenAddress: Scalars["String"];
-	tokenId: Scalars["Int"];
+	token_address: Scalars["String"];
+	token_id: Scalars["Int"];
 }>;
 
 export type AccountNftQuery = {
 	__typename?: "Query";
 	accountNFT?: {
 		__typename?: "NFT";
+		token_address: string;
+		token_id: string;
+		contract_type?: string | null;
+		owner_of?: string | null;
+		block_number?: string | null;
+		block_number_minted?: string | null;
+		token_uri?: string | null;
+		metadata?: any | null;
 		name?: string | null;
+		amount?: string | null;
+		symbol?: string | null;
+		token_hash?: string | null;
+		last_token_uri_sync?: string | null;
+		last_metadata_sync?: string | null;
 		description?: string | null;
 		image?: string | null;
 		thumbnail?: string | null;
 		attributes?: any | null;
-		externalUrl?: string | null;
-		animationUrl?: string | null;
-		youtubeUrl?: string | null;
-		token_id: string;
-		token_address: string;
-		token_uri?: string | null;
-		metadata?: any | null;
-		is_valid?: string | null;
-		syncing?: string | null;
-		frozen?: string | null;
-		resyncing?: string | null;
-		contract_type?: string | null;
-		token_hash?: string | null;
-		batch_id?: string | null;
-		metadata_name?: string | null;
-		metadata_description?: string | null;
-		metadata_attributes?: string | null;
-		block_number_minted?: string | null;
-		opensea_lookup?: string | null;
-		minter_address?: string | null;
-		transaction_minted?: string | null;
-		frozen_log_index?: string | null;
-		imported?: string | null;
-		last_token_uri_sync?: string | null;
-		last_metadata_sync?: string | null;
-		createdAt?: string | null;
-		updatedAt?: string | null;
+		external_url?: string | null;
+		animation_url?: string | null;
+		youtube_url?: string | null;
 	} | null;
 };
 
@@ -946,30 +927,30 @@ export type MarketItemQuery = {
 		__typename?: "MarketItem";
 		_id: number;
 		name: string;
-		tokenId: number;
-		tokenURI: string;
+		token_id: number;
+		token_uri: string;
 		creator: string;
 		seller: string;
 		owner: string;
 		price: string;
-		priceFormatted?: number | null;
+		price_formatted?: number | null;
 		sold: boolean;
 		description: string;
-		externalUrl?: string | null;
-		animationUrl?: string | null;
-		youtubeUrl?: string | null;
+		external_url?: string | null;
+		animation_url?: string | null;
+		youtube_url?: string | null;
 		image: string;
 		thumbnail?: string | null;
 		likes?: number | null;
-		isLiked?: boolean | null;
-		isFavourited?: boolean | null;
-		updatedAt?: any | null;
-		createdAt?: any | null;
+		is_liked?: boolean | null;
+		is_favourited?: boolean | null;
+		updated_at?: any | null;
+		created_at?: any | null;
 		attributes?: Array<{
 			__typename?: "MarketItemAttributes";
-			traitType: string;
+			trait_type: string;
 			value: string;
-			displayType?: string | null;
+			display_type?: string | null;
 		} | null> | null;
 	} | null;
 };
@@ -987,30 +968,30 @@ export type MarketItemsQuery = {
 		__typename?: "MarketItem";
 		_id: number;
 		name: string;
-		tokenId: number;
-		tokenURI: string;
+		token_id: number;
+		token_uri: string;
 		creator: string;
 		seller: string;
 		owner: string;
 		price: string;
-		priceFormatted?: number | null;
+		price_formatted?: number | null;
 		sold: boolean;
 		description: string;
-		externalUrl?: string | null;
-		animationUrl?: string | null;
-		youtubeUrl?: string | null;
+		external_url?: string | null;
+		animation_url?: string | null;
+		youtube_url?: string | null;
 		image: string;
 		thumbnail?: string | null;
 		likes?: number | null;
-		isLiked?: boolean | null;
-		isFavourited?: boolean | null;
-		updatedAt?: any | null;
-		createdAt?: any | null;
+		is_liked?: boolean | null;
+		is_favourited?: boolean | null;
+		updated_at?: any | null;
+		created_at?: any | null;
 		attributes?: Array<{
 			__typename?: "MarketItemAttributes";
-			traitType: string;
+			trait_type: string;
 			value: string;
-			displayType?: string | null;
+			display_type?: string | null;
 		} | null> | null;
 	}>;
 };
@@ -1031,8 +1012,8 @@ export type UserQuery = {
 		favourites?: Array<number | null> | null;
 		likes?: Array<number | null> | null;
 		planimetry?: any | null;
-		createdAt?: any | null;
-		updatedAt?: any | null;
+		created_at?: any | null;
+		updated_at?: any | null;
 	} | null;
 };
 
@@ -1055,8 +1036,8 @@ export type UsersQuery = {
 		favourites?: Array<number | null> | null;
 		likes?: Array<number | null> | null;
 		planimetry?: any | null;
-		createdAt?: any | null;
-		updatedAt?: any | null;
+		created_at?: any | null;
+		updated_at?: any | null;
 	}>;
 };
 
@@ -1096,45 +1077,34 @@ export type WalletNfTsQuery = {
 	__typename?: "Query";
 	walletNFTs?: Array<{
 		__typename?: "NFT";
+		token_address: string;
+		token_id: string;
+		contract_type?: string | null;
+		owner_of?: string | null;
+		block_number?: string | null;
+		block_number_minted?: string | null;
+		token_uri?: string | null;
+		metadata?: any | null;
+		amount?: string | null;
 		name?: string | null;
+		symbol?: string | null;
+		token_hash?: string | null;
+		last_token_uri_sync?: string | null;
+		last_metadata_sync?: string | null;
 		description?: string | null;
 		image?: string | null;
 		thumbnail?: string | null;
 		attributes?: any | null;
-		externalUrl?: string | null;
-		animationUrl?: string | null;
-		youtubeUrl?: string | null;
-		token_id: string;
-		token_address: string;
-		token_uri?: string | null;
-		metadata?: any | null;
-		is_valid?: string | null;
-		syncing?: string | null;
-		frozen?: string | null;
-		resyncing?: string | null;
-		contract_type?: string | null;
-		token_hash?: string | null;
-		batch_id?: string | null;
-		metadata_name?: string | null;
-		metadata_description?: string | null;
-		metadata_attributes?: string | null;
-		block_number_minted?: string | null;
-		opensea_lookup?: string | null;
-		minter_address?: string | null;
-		transaction_minted?: string | null;
-		frozen_log_index?: string | null;
-		imported?: string | null;
-		last_token_uri_sync?: string | null;
-		last_metadata_sync?: string | null;
-		createdAt?: string | null;
-		updatedAt?: string | null;
+		external_url?: string | null;
+		animation_url?: string | null;
+		youtube_url?: string | null;
 	} | null> | null;
 };
 
 export const AddToFavouritesDocument = gql`
-	mutation AddToFavourites($tokenId: Int) {
-		addToFavourites(tokenId: $tokenId) {
-			isFavourited
+	mutation AddToFavourites($token_id: Int) {
+		addToFavourites(token_id: $token_id) {
+			is_favourited
 		}
 	}
 `;
@@ -1156,7 +1126,7 @@ export type AddToFavouritesMutationFn = Apollo.MutationFunction<
  * @example
  * const [addToFavouritesMutation, { data, loading, error }] = useAddToFavouritesMutation({
  *   variables: {
- *      tokenId: // value for 'tokenId'
+ *      token_id: // value for 'token_id'
  *   },
  * });
  */
@@ -1179,10 +1149,10 @@ export type AddToFavouritesMutationOptions = Apollo.BaseMutationOptions<
 	AddToFavouritesMutationVariables
 >;
 export const DislikeDocument = gql`
-	mutation Dislike($tokenId: Int) {
-		dislike(tokenId: $tokenId) {
+	mutation Dislike($token_id: Int) {
+		dislike(token_id: $token_id) {
 			likes
-			isLiked
+			is_liked
 		}
 	}
 `;
@@ -1201,7 +1171,7 @@ export type DislikeMutationFn = Apollo.MutationFunction<DislikeMutation, Dislike
  * @example
  * const [dislikeMutation, { data, loading, error }] = useDislikeMutation({
  *   variables: {
- *      tokenId: // value for 'tokenId'
+ *      token_id: // value for 'token_id'
  *   },
  * });
  */
@@ -1218,10 +1188,10 @@ export type DislikeMutationOptions = Apollo.BaseMutationOptions<
 	DislikeMutationVariables
 >;
 export const LikeDocument = gql`
-	mutation Like($tokenId: Int) {
-		like(tokenId: $tokenId) {
+	mutation Like($token_id: Int) {
+		like(token_id: $token_id) {
 			likes
-			isLiked
+			is_liked
 		}
 	}
 `;
@@ -1240,7 +1210,7 @@ export type LikeMutationFn = Apollo.MutationFunction<LikeMutation, LikeMutationV
  * @example
  * const [likeMutation, { data, loading, error }] = useLikeMutation({
  *   variables: {
- *      tokenId: // value for 'tokenId'
+ *      token_id: // value for 'token_id'
  *   },
  * });
  */
@@ -1254,9 +1224,9 @@ export type LikeMutationHookResult = ReturnType<typeof useLikeMutation>;
 export type LikeMutationResult = Apollo.MutationResult<LikeMutation>;
 export type LikeMutationOptions = Apollo.BaseMutationOptions<LikeMutation, LikeMutationVariables>;
 export const RemoveFromFavouritesDocument = gql`
-	mutation RemoveFromFavourites($tokenId: Int) {
-		removeFromFavourites(tokenId: $tokenId) {
-			isFavourited
+	mutation RemoveFromFavourites($token_id: Int) {
+		removeFromFavourites(token_id: $token_id) {
+			is_favourited
 		}
 	}
 `;
@@ -1278,7 +1248,7 @@ export type RemoveFromFavouritesMutationFn = Apollo.MutationFunction<
  * @example
  * const [removeFromFavouritesMutation, { data, loading, error }] = useRemoveFromFavouritesMutation({
  *   variables: {
- *      tokenId: // value for 'tokenId'
+ *      token_id: // value for 'token_id'
  *   },
  * });
  */
@@ -1420,45 +1390,34 @@ export type UserUpdatePlanimetryMutationOptions = Apollo.BaseMutationOptions<
 	UserUpdatePlanimetryMutationVariables
 >;
 export const AccountNftDocument = gql`
-	query AccountNFT($chain: String!, $address: String!, $tokenAddress: String!, $tokenId: Int!) {
+	query AccountNFT($chain: String!, $address: String!, $token_address: String!, $token_id: Int!) {
 		accountNFT(
 			chain: $chain
 			address: $address
-			token_address: $tokenAddress
-			token_id: $tokenId
+			token_address: $token_address
+			token_id: $token_id
 		) {
+			token_address
+			token_id
+			contract_type
+			owner_of
+			block_number
+			block_number_minted
+			token_uri
+			metadata
 			name
+			amount
+			symbol
+			token_hash
+			last_token_uri_sync
+			last_metadata_sync
 			description
 			image
 			thumbnail
 			attributes
-			externalUrl
-			animationUrl
-			youtubeUrl
-			token_id
-			token_address
-			token_uri
-			metadata
-			is_valid
-			syncing
-			frozen
-			resyncing
-			contract_type
-			token_hash
-			batch_id
-			metadata_name
-			metadata_description
-			metadata_attributes
-			block_number_minted
-			opensea_lookup
-			minter_address
-			transaction_minted
-			frozen_log_index
-			imported
-			last_token_uri_sync
-			last_metadata_sync
-			createdAt
-			updatedAt
+			external_url
+			animation_url
+			youtube_url
 		}
 	}
 `;
@@ -1477,8 +1436,8 @@ export const AccountNftDocument = gql`
  *   variables: {
  *      chain: // value for 'chain'
  *      address: // value for 'address'
- *      tokenAddress: // value for 'tokenAddress'
- *      tokenId: // value for 'tokenId'
+ *      token_address: // value for 'token_address'
+ *      token_id: // value for 'token_id'
  *   },
  * });
  */
@@ -1505,30 +1464,30 @@ export const MarketItemDocument = gql`
 		marketItem(filter: $filter) {
 			_id
 			name
-			tokenId
-			tokenURI
+			token_id
+			token_uri
 			creator
 			seller
 			owner
 			price
-			priceFormatted
+			price_formatted
 			sold
 			description
-			externalUrl
-			animationUrl
-			youtubeUrl
+			external_url
+			animation_url
+			youtube_url
 			attributes {
-				traitType
+				trait_type
 				value
-				displayType
+				display_type
 			}
 			image
 			thumbnail
 			likes
-			isLiked
-			isFavourited
-			updatedAt
-			createdAt
+			is_liked
+			is_favourited
+			updated_at
+			created_at
 		}
 	}
 `;
@@ -1577,30 +1536,30 @@ export const MarketItemsDocument = gql`
 		marketItems(filter: $filter, skip: $skip, limit: $limit, sort: $sort) {
 			_id
 			name
-			tokenId
-			tokenURI
+			token_id
+			token_uri
 			creator
 			seller
 			owner
 			price
-			priceFormatted
+			price_formatted
 			sold
 			description
-			externalUrl
-			animationUrl
-			youtubeUrl
+			external_url
+			animation_url
+			youtube_url
 			attributes {
-				traitType
+				trait_type
 				value
-				displayType
+				display_type
 			}
 			image
 			thumbnail
 			likes
-			isLiked
-			isFavourited
-			updatedAt
-			createdAt
+			is_liked
+			is_favourited
+			updated_at
+			created_at
 		}
 	}
 `;
@@ -1659,8 +1618,8 @@ export const UserDocument = gql`
 			favourites
 			likes
 			planimetry
-			createdAt
-			updatedAt
+			created_at
+			updated_at
 		}
 	}
 `;
@@ -1710,8 +1669,8 @@ export const UsersDocument = gql`
 			favourites
 			likes
 			planimetry
-			createdAt
-			updatedAt
+			created_at
+			updated_at
 		}
 	}
 `;
@@ -1819,38 +1778,27 @@ export type WalletNftTransferQueryResult = Apollo.QueryResult<
 export const WalletNfTsDocument = gql`
 	query WalletNFTs($chain: String!, $address: String!) {
 		walletNFTs(chain: $chain, address: $address) {
+			token_address
+			token_id
+			contract_type
+			owner_of
+			block_number
+			block_number_minted
+			token_uri
+			metadata
+			amount
 			name
+			symbol
+			token_hash
+			last_token_uri_sync
+			last_metadata_sync
 			description
 			image
 			thumbnail
 			attributes
-			externalUrl
-			animationUrl
-			youtubeUrl
-			token_id
-			token_address
-			token_uri
-			metadata
-			is_valid
-			syncing
-			frozen
-			resyncing
-			contract_type
-			token_hash
-			batch_id
-			metadata_name
-			metadata_description
-			metadata_attributes
-			block_number_minted
-			opensea_lookup
-			minter_address
-			transaction_minted
-			frozen_log_index
-			imported
-			last_token_uri_sync
-			last_metadata_sync
-			createdAt
-			updatedAt
+			external_url
+			animation_url
+			youtube_url
 		}
 	}
 `;

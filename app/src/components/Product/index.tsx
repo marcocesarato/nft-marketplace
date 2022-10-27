@@ -38,8 +38,8 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 	const {symbol} = useConfig();
 	const {resolveLink} = useIPFS();
 	const [likes, setLikes] = useState(data?.likes || 0);
-	const [isLiked, setIsLiked] = useState(data?.isLiked || false);
-	const [isFavourited, setIsFavourited] = useState(data?.isFavourited || false);
+	const [isLiked, setIsLiked] = useState(data?.is_liked || false);
+	const [isFavourited, setIsFavourited] = useState(data?.is_favourited || false);
 	const {isOpen, onOpen, onClose} = useDisclosure();
 	const bg = useColorModeValue("gray.200", "gray.900");
 	const bgButton = useColorModeValue("gray.700", "white");
@@ -47,25 +47,25 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 
 	const [addToFavourite] = useAddToFavouritesMutation({
 		variables: {
-			tokenId: data?.tokenId,
+			token_id: data?.token_id,
 		},
 	});
 
 	const [removeFromFavourite] = useRemoveFromFavouritesMutation({
 		variables: {
-			tokenId: data?.tokenId,
+			token_id: data?.token_id,
 		},
 	});
 
 	const [like] = useLikeMutation({
 		variables: {
-			tokenId: data?.tokenId,
+			token_id: data?.token_id,
 		},
 	});
 
 	const [dislike] = useDislikeMutation({
 		variables: {
-			tokenId: data?.tokenId,
+			token_id: data?.token_id,
 		},
 	});
 
@@ -211,7 +211,7 @@ export default function Product({data, onPurchase = null, ...rootProps}): JSX.El
 							{data?.price && (
 								<Stack direction={"row"} align={"center"}>
 									<Text fontWeight="medium" fontSize={"md"}>
-										{data?.priceFormatted || data?.price} {symbol}
+										{data?.price_formatted || data?.price} {symbol}
 									</Text>
 								</Stack>
 							)}

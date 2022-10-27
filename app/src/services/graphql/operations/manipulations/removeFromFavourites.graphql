@@ -1,5 +1,5 @@
-mutation RemoveFromFavourites($tokenId: Int) {
-	removeFromFavourites(tokenId: $tokenId) {
-		isFavourited
+mutation RemoveFromFavourites($token_id: Int) {
+	removeFromFavourites(token_id: $token_id) {
+		is_favourited
 	}
 }

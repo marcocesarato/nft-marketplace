@@ -13,7 +13,7 @@ query Users(
 		favourites
 		likes
 		planimetry
-		createdAt
-		updatedAt
+		created_at
+		updated_at
 	}
 }

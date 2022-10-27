@@ -8,7 +8,7 @@ query User($filter: FilterFindOneUserInput) {
 		favourites
 		likes
 		planimetry
-		createdAt
-		updatedAt
+		created_at
+		updated_at
 	}
 }

@@ -3,6 +3,7 @@ import {connectDatabase, MarketItem} from "@packages/mongo";
 import logger from "@/logger";
 import {getAddresses} from "@/config";
 import {createMarketItem, updateMarketItem} from "@/mapper";
+import {convertToItem} from "@/utils";
 
 // @ts-ignore
 import MarketContract from "@packages/abis/Market.json";
@@ -22,44 +23,50 @@ export default async function service() {
 	const {MarketAddress} = getAddresses();
 	const contract = new ethers.Contract(MarketAddress, MarketContract, provider);
 
-	contract.on("MarketItemCreated", (tokenId, creator, seller, owner, price, sold) => {
+	contract.on("MarketItemCreated", (token_id, creator, seller, owner, price, sold) => {
 		logger.info("Event MarketItemCreated");
 		const item = {
-			tokenId: tokenId.toString(),
+			token_id,
+			price,
 			creator,
 			seller,
 			owner,
-			price: price.toString(),
 			sold,
 		};
 		logger.debug("MarketItemCreated", item);
 		createMarketItem(contract, item);
 	});
-	contract.on("MarketItemUpdated", (tokenId, seller, owner, price, sold) => {
+	contract.on("MarketItemUpdated", (token_id, seller, owner, price, sold) => {
 		logger.info("Event MarketItemUpdated");
 		const changes = {seller, owner, price, sold};
 		logger.debug("MarketItemUpdated", changes);
-		updateMarketItem(tokenId, changes);
+		updateMarketItem(token_id, changes);
 	});
 
 	// History synchronization
 	logger.debug("History synchronization started");
-	const history = await contract.fetchMarketItems();
+	const history = await (contract.fetchAllMarketItems
+		? contract.fetchAllMarketItems
+		: contract.fetchMarketItems)();
 	await Promise.all(
-		history.map(async (item: Item) => {
-			MarketItem.findOne({tokenId: item.tokenId}, function (err: Error, existingToken: any) {
-				if (err) return logger.error(err);
-				if (!existingToken) {
-					createMarketItem(contract, item);
-				} else if (
-					existingToken.price.toString() !== item.price.toString() ||
-					existingToken.sold !== item.sold ||
-					existingToken.owner.toLowerCase() !== item.owner.toLowerCase() ||
-					existingToken.seller.toLowerCase() !== item.seller.toLowerCase()
-				) {
-					updateMarketItem(item.tokenId, item);
-				}
-			});
+		history.map(async (contractItem: ContractItem) => {
+			const item = convertToItem(contractItem);
+			MarketItem.findOne(
+				{token_id: item.token_id},
+				function (err: Error, existingToken: any) {
+					if (err) return logger.error(err.message);
+					if (!existingToken) {
+						createMarketItem(contract, item);
+					} else if (
+						existingToken.price.toString() !== item.price.toString() ||
+						existingToken.sold !== item.sold ||
+						existingToken.owner.toLowerCase() !== item.owner.toLowerCase() ||
+						existingToken.seller.toLowerCase() !== item.seller.toLowerCase()
+					) {
+						updateMarketItem(item.token_id, item);
+					}
+				},
+			);
 		}),
 	);
 	logger.debug("History synchronization finished");

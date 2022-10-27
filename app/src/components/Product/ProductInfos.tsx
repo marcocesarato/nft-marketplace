@@ -36,7 +36,7 @@ export default function ProductInfos({
 	showPreview = true,
 	showQRCode = true,
 	data,
-	onPurchase = (tokenId: number, price: number) => {},
+	onPurchase = (token_id: number, price: number) => {},
 }): JSX.Element {
 	const containerRef = useRef();
 	const [imageFullscreen, setImageFullscreen] = useState<boolean>(false);
@@ -126,7 +126,7 @@ export default function ProductInfos({
 						<Text as={"span"} fontWeight={"bold"}>
 							{t<string>("common:product.price")}:
 						</Text>{" "}
-						{data?.priceFormatted || data?.price} {symbol}
+						{data?.price_formatted || data?.price} {symbol}
 					</Text>
 				)}
 				{data?.attributes && data?.attributes.length > 0 && (

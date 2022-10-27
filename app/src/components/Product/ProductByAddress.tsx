@@ -9,15 +9,15 @@ import {useAccountNFTQuery} from "@services/graphql";
 
 import ProductDetails from "./ProductDetails";
 
-export default function ProductByAddress({address, tokenAddress, tokenId}): JSX.Element {
+export default function ProductByAddress({address, token_address, token_id}): JSX.Element {
 	const {t} = useTranslation();
 	const {chain} = useNetwork();
 	const {data, error, loading} = useAccountNFTQuery({
 		variables: {
 			chain: chainHex(chain),
 			address,
-			tokenAddress,
-			tokenId,
+			token_address,
+			token_id,
 		},
 	});
 	const item = data?.accountNFT;

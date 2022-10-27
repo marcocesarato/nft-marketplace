@@ -19,14 +19,14 @@ export type TokenMetadata = {
 	description: string;
 	image: string;
 	thumbnail: string;
-	externalUrl?: string;
+	external_url?: string;
 	attributes?: [ItemAttribute];
 	data?: TokenMetadata;
 };
 
 export interface TokenMarketItem extends TokenMetadata {
 	price: float;
-	tokenId: int;
+	token_id: int;
 	sold: boolean;
 	owner: string;
 	creator?: string;

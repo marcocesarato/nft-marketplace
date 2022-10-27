@@ -7,29 +7,29 @@ query MarketItems(
 	marketItems(filter: $filter, skip: $skip, limit: $limit, sort: $sort) {
 		_id
 		name
-		tokenId
-		tokenURI
+		token_id
+		token_uri
 		creator
 		seller
 		owner
 		price
-		priceFormatted
+		price_formatted
 		sold
 		description
-		externalUrl
-		animationUrl
-		youtubeUrl
+		external_url
+		animation_url
+		youtube_url
 		attributes {
-			traitType
+			trait_type
 			value
-			displayType
+			display_type
 		}
 		image
 		thumbnail
 		likes
-		isLiked
-		isFavourited
-		updatedAt
-		createdAt
+		is_liked
+		is_favourited
+		updated_at
+		created_at
 	}
 }

@@ -30,13 +30,13 @@ export default function useMarket() {
 		signerOrProvider: signer,
 	});
 
-	async function purchase(tokenId: string, price: string | number, callback = () => {}) {
+	async function purchase(token_id: string, price: string | number, callback = () => {}) {
 		try {
 			await switchNetworkAsync();
 
 			/* user will be prompted to pay the asking proces to complete the transaction */
 			const priceFormatted = !isString(price) ? parseUnits(price, "ether") : price;
-			const transaction = await contract.createMarketSale(tokenId, {
+			const transaction = await contract.createMarketSale(token_id, {
 				value: priceFormatted,
 			});
 
@@ -80,14 +80,14 @@ export default function useMarket() {
 		}
 	}
 
-	async function resell(tokenId: string, price: string | number) {
+	async function resell(token_id: string, price: string | number) {
 		try {
 			await switchNetworkAsync();
 
 			const priceFormatted = !isString(price) ? parseUnits(price, "ether") : price;
 			let listingPrice = await contract.getListingPrice();
 			listingPrice = listingPrice.toString();
-			const transaction = await contract.resellMarketItem(tokenId, priceFormatted, {
+			const transaction = await contract.resellMarketItem(token_id, priceFormatted, {
 				value: listingPrice,
 			});
 
