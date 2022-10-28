@@ -2,6 +2,7 @@ import {useState} from "react";
 import {
 	AiFillHeart,
 	AiFillStar,
+	AiOutlineBlock,
 	AiOutlineHeart,
 	AiOutlineShoppingCart,
 	AiOutlineStar,
@@ -189,11 +190,7 @@ export default function Product({
 							/>
 						)}
 					</Stack>
-					<HStack
-						px={4}
-						justifyContent="center"
-						w="full"
-						visibility={data?._id ? "visible" : "hidden"}>
+					<HStack px={4} justifyContent="center" w="full">
 						<Box
 							transition="all .3s ease"
 							color={isLiked ? "red.500" : bgButton}
@@ -201,10 +198,14 @@ export default function Product({
 							onClick={handleLike}
 							_hover={{
 								transform: "scale(1.4)",
-							}}>
+							}}
+							display={data?._id ? "block" : "none"}>
 							{isLiked ? <AiFillHeart size={24} /> : <AiOutlineHeart size={24} />}
 						</Box>
-						<Text fontWeight="medium" fontSize={"lg"}>
+						<Text
+							fontWeight="medium"
+							fontSize={"lg"}
+							display={data?._id ? "block" : "none"}>
 							{likes}
 						</Text>
 						<Box
@@ -214,8 +215,20 @@ export default function Product({
 							onClick={handleFavourite}
 							_hover={{
 								transform: "scale(1.4)",
-							}}>
+							}}
+							display={data?._id ? "block" : "none"}>
 							{isFavourited ? <AiFillStar size={24} /> : <AiOutlineStar size={24} />}
+						</Box>
+						<Box
+							transition="all .3s ease"
+							color={bgButton}
+							cursor="pointer"
+							onClick={onOpen}
+							_hover={{
+								transform: "scale(1.4)",
+							}}
+							display={data?._id ? "none" : "block"}>
+							<AiOutlineBlock size={24} />
 						</Box>
 					</HStack>
 					{onPurchase && data?.price && (
