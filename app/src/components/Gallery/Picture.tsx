@@ -1,6 +1,7 @@
 import {useCallback, useEffect, useRef, useState} from "react";
 import {Entity, Image, Plane, Text} from "@belivvr/aframe-react";
 import {useTranslation} from "next-i18next";
+import {useToken} from "wagmi";
 
 import {MapDirection} from "@app/enums";
 import {TokenItem} from "@app/types";
@@ -44,6 +45,9 @@ export default function Picture({
 	const {t} = useTranslation();
 	const {isConnected} = useAccount();
 	const {purchase} = useMarket();
+	const {data: token} = useToken({
+		address: data.token_address as `0x${string}`,
+	});
 
 	const handlePurchase = useCallback(() => {
 		if (isConnected) {
@@ -145,7 +149,12 @@ export default function Picture({
 							width={2}
 							position={`0 -1 ${threshold}`}>
 							<Text
-								value={t<string>("common:action.purchase") + " " + data.price}
+								value={
+									t<string>("common:action.purchase") +
+									" " +
+									(data.price_formatted || data.price) +
+									token?.symbol
+								}
 								height={textHeight}
 								width={textWidth}
 								align="center"
