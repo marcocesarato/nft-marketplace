@@ -2,9 +2,10 @@ import {formatEther} from "@ethersproject/units";
 import type {BigNumberish} from "ethers";
 import {Chain} from "wagmi";
 
-import {GenericObject} from "@app/types";
+import {GenericObject, TokenItem} from "@app/types";
 
-import {deepMerge} from "./objects";
+import {deepMerge, isString} from "./objects";
+import {resolveIPFSUrl} from "./url";
 
 export function chainHex(chain: Chain): string {
 	return `0x${chain.id.toString(16)}`;
@@ -84,3 +85,28 @@ export function objectCamelToUnderscore(
 	}
 	return obj;
 }
+
+export const normalizeItem = async (object: GenericObject) => {
+	let metadata = object.metadata;
+	delete object.metadata;
+	if (metadata && isString(metadata)) {
+		try {
+			metadata = JSON.parse(metadata);
+		} catch (e) {
+			console.error(e);
+		}
+	}
+	if (typeof metadata === "object") {
+		if (metadata["image"]) metadata["image"] = resolveIPFSUrl(metadata["image"]);
+		if (metadata["thumbnail"]) metadata["thumbnail"] = resolveIPFSUrl(metadata["thumbnail"]);
+	}
+	return {...object, ...metadata};
+};
+
+export const toTokenItem = (object: GenericObject): TokenItem => {
+	return object as TokenItem;
+};
+
+export const toTokenItems = (objects?: GenericObject[]): TokenItem[] => {
+	return (objects as TokenItem[]) ?? [];
+};

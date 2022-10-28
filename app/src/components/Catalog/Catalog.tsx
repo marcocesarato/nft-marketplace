@@ -3,6 +3,7 @@ import {useRouter} from "next/router";
 import {Box, SimpleGrid, useBreakpointValue} from "@chakra-ui/react";
 import {motion} from "framer-motion";
 
+import {TokenItem} from "@app/types";
 import Product from "@components/Product";
 import useAccount from "@hooks/useAccount";
 import useMarket from "@hooks/useMarket";
@@ -35,10 +36,22 @@ const productVariant = {
 };
 
 const sort = {
-	"newest": (a, b) => b?.price - a?.price || a?.token_id - b?.token_id,
-	"lowest": (a, b) => a?.price - b?.price || a?.token_id - b?.token_id,
-	"highest": (a, b) => Date.parse(b?.created_at) - Date.parse(a?.created_at),
-	"likes": (a, b) => a?.likes - b?.likes || a?.token_id - b?.token_id,
+	"newest": (a: TokenItem, b: TokenItem) =>
+		Number(b?.price_formatted || b?.price) - Number(a?.price_formatted || a?.price) ||
+		a?.token_id - b?.token_id,
+	"lowest": (a: TokenItem, b: TokenItem) =>
+		Number(a?.price_formatted || a?.price) - Number(b?.price_formatted || b?.price) ||
+		a?.token_id - b?.token_id,
+	"highest": (a: TokenItem, b: TokenItem) =>
+		Date.parse(b?.created_at) - Date.parse(a?.created_at),
+	"likes": (a: TokenItem, b: TokenItem) => a?.likes - b?.likes || a?.token_id - b?.token_id,
+};
+
+type CatalogProps = {
+	data: TokenItem[];
+	sortable?: boolean;
+	purchasable?: boolean;
+	[key: string]: any;
 };
 
 export default function Catalog({
@@ -46,11 +59,11 @@ export default function Catalog({
 	sortable = true,
 	purchasable = false,
 	...props
-}): JSX.Element {
+}: CatalogProps): JSX.Element {
 	const router = useRouter();
 	const {isConnected} = useAccount();
 	const {purchase} = useMarket();
-	const handlePurchase = (product): (() => {}) => {
+	const handlePurchase = (product: TokenItem): (() => {}) => {
 		if (isConnected && purchasable) {
 			return () => purchase(product.token_id, product.price, () => router.push("/assets"));
 		}

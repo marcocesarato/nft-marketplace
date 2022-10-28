@@ -23,22 +23,23 @@ export default async function service() {
 	const {MarketAddress} = getAddresses();
 	const contract = new ethers.Contract(MarketAddress, MarketContract, provider);
 
-	contract.on("MarketItemCreated", (token_id, creator, seller, owner, price, sold) => {
+	contract.on("MarketItemCreated", (token_id, creator, seller, owner_of, price, sold) => {
 		logger.info("Event MarketItemCreated");
 		const item = {
+			token_address: MarketAddress,
 			token_id,
 			price,
 			creator,
 			seller,
-			owner,
+			owner_of,
 			sold,
 		};
 		logger.debug("MarketItemCreated", item);
 		createMarketItem(contract, item);
 	});
-	contract.on("MarketItemUpdated", (token_id, seller, owner, price, sold) => {
+	contract.on("MarketItemUpdated", (token_id, seller, owner_of, price, sold) => {
 		logger.info("Event MarketItemUpdated");
-		const changes = {seller, owner, price, sold};
+		const changes = {seller, owner_of, price, sold};
 		logger.debug("MarketItemUpdated", changes);
 		updateMarketItem(token_id, changes);
 	});
@@ -60,7 +61,7 @@ export default async function service() {
 					} else if (
 						existingToken.price.toString() !== item.price.toString() ||
 						existingToken.sold !== item.sold ||
-						existingToken.owner.toLowerCase() !== item.owner.toLowerCase() ||
+						existingToken.owner_of.toLowerCase() !== item.owner_of.toLowerCase() ||
 						existingToken.seller.toLowerCase() !== item.seller.toLowerCase()
 					) {
 						updateMarketItem(item.token_id, item);

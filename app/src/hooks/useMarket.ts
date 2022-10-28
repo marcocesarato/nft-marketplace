@@ -30,7 +30,11 @@ export default function useMarket() {
 		signerOrProvider: signer,
 	});
 
-	async function purchase(token_id: string, price: string | number, callback = () => {}) {
+	async function purchase(
+		token_id: string | number,
+		price: string | number,
+		callback = () => {},
+	) {
 		try {
 			await switchNetworkAsync();
 
@@ -80,7 +84,7 @@ export default function useMarket() {
 		}
 	}
 
-	async function resell(token_id: string, price: string | number) {
+	async function resell(token_id: string | number, price: string | number) {
 		try {
 			await switchNetworkAsync();
 

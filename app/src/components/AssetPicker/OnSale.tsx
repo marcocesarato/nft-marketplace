@@ -5,6 +5,7 @@ import AssetPicker from "@components/AssetPicker";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
 import {useMarketItemsOwnedOnSaleQuery} from "@services/graphql";
+import {toTokenItems} from "@utils/converters";
 
 type AssetOnSalePickerProps = {
 	value?: TokenItem;
@@ -17,7 +18,7 @@ type AssetOnSalePickerProps = {
 export default function AssetOnSalePicker(props: AssetOnSalePickerProps): JSX.Element {
 	const {t} = useTranslation();
 	const {data, loading, error} = useMarketItemsOwnedOnSaleQuery();
-	const items = data?.marketItems || [];
+	const items = toTokenItems(data?.marketItems);
 	if (error) return <Header title={t<string>("error:title")} subtitle={error.message} />;
 	if (loading) return <Loading />;
 	return <AssetPicker items={items} {...props} />;

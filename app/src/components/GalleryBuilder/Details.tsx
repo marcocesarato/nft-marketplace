@@ -20,7 +20,7 @@ import {
 	PlanimetryBlockType,
 	PlanimetryBlockTypeEnum,
 } from "@app/enums";
-import {TokenItem} from "@app/types";
+import {NativeTokenItem} from "@app/types";
 import AssetOwnedPicker from "@components/AssetPicker/Owned";
 import useGallery from "@contexts/Gallery";
 
@@ -139,7 +139,7 @@ export default function GalleryBlockDetails(): JSX.Element {
 									{selected.items?.[section] && (
 										<Box>
 											<Image
-												src={selected.items[section].data?.metadata?.image}
+												src={selected.items[section].data?.image}
 												width="full"
 												mb={4}
 											/>
@@ -168,7 +168,7 @@ export default function GalleryBlockDetails(): JSX.Element {
 											value={selected.items?.[section]}
 											label="Add new painting"
 											labelClean="Remove"
-											onChange={(asset: TokenItem) => {
+											onChange={(asset: NativeTokenItem) => {
 												const assetId =
 													asset.token_address +
 													asset.token_id +
@@ -176,14 +176,14 @@ export default function GalleryBlockDetails(): JSX.Element {
 													section;
 												selected.items = selected.items ?? {};
 												selected.items[section] = {
-													name: asset.metadata.name,
-													image: asset.metadata.image,
+													name: asset.name,
+													image: asset.image,
 													type: ObjectModelTypeEnum.Picture,
 													src: `#${assetId}`,
 													assets: [
 														{
 															id: assetId,
-															src: asset.metadata.image,
+															src: asset.image,
 															type: GalleryAssetTypeEnum.Image,
 														},
 													],

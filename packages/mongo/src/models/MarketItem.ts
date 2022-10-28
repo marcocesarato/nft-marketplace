@@ -3,11 +3,12 @@ import mongoose from "mongoose";
 const MarketItemSchema = new mongoose.Schema(
 	{
 		_id: {type: Number, required: true},
+		token_address: {type: String, required: true, trim: true},
 		token_id: {type: Number, required: true, trim: true},
 		token_uri: {type: String, required: true, trim: true},
 		creator: {type: String, required: true, trim: true},
 		seller: {type: String, required: true, trim: true},
-		owner: {type: String, required: true, trim: true},
+		owner_of: {type: String, required: true, trim: true},
 		price: {type: String, required: true, trim: true},
 		price_formatted: {type: String, trim: true},
 		sold: {type: Boolean, required: true},

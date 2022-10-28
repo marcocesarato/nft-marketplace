@@ -1,51 +1,74 @@
-export type TokenItem = {
+export type TokenItem = MarketTokenItem & NativeTokenItem;
+
+export type NativeTokenItem = {
 	token_address: string;
 	token_id: string;
-	contract_type: string;
-	owner_of: string;
-	block_number: string;
-	block_number_minted: string;
-	token_uri?: string | null | undefined;
-	metadata?: TokenMetadata | null | undefined;
-	synced_at?: string | undefined;
-	image?: string | undefined;
-	amount?: string | null | undefined;
-	name: string;
-	symbol: string;
+	contract_type?: string | null;
+	owner_of?: string | null;
+	block_number?: string | null;
+	block_number_minted?: string | null;
+	token_uri?: string | null;
+	name?: string | null;
+	amount?: string | null;
+	symbol?: string | null;
+	token_hash?: string | null;
+	last_token_uri_sync?: string | null;
+	last_metadata_sync?: string | null;
+	description?: string | null;
+	image?: string | null;
+	thumbnail?: string | null;
+	attributes?: any | null;
+	external_url?: string | null;
+	animation_url?: string | null;
+	youtube_url?: string | null;
 };
 
-export type TokenMetadata = {
-	name: string;
-	description: string;
+export type MarketTokenItem = {
+	_id: string | null;
+	name: string | null;
+	token_id: number | null;
+	token_address: string | null;
+	token_uri: string | null;
+	creator: string | null;
+	seller: string | null;
+	owner_of: string | null;
+	price: string | null;
+	price_formatted?: number | null;
+	sold: boolean | null;
+	description: string | null;
+	external_url?: string | null;
+	animation_url?: string | null;
+	youtube_url?: string | null;
 	image: string;
-	thumbnail: string;
-	external_url?: string;
-	attributes?: [ItemAttribute];
-	data?: TokenMetadata;
+	thumbnail?: string | null;
+	likes?: number | null;
+	is_liked?: boolean | null;
+	is_favourited?: boolean | null;
+	updated_at?: any | null;
+	created_at?: any | null;
+	attributes?: Array<TokenAttribute | null> | null;
 };
-
-export interface TokenMarketItem extends TokenMetadata {
-	price: float;
-	token_id: int;
-	sold: boolean;
-	owner: string;
-	creator?: string;
-	seller: string;
-}
 
 export type TokenTransfer = {
-	transaction_hash: string;
-	address: string;
-	block_timestamp: string;
-	block_number: string;
-	block_hash: string;
-	to_address: string;
+	token_address: string;
+	token_id: string;
 	from_address: string;
-	value: string;
+	to_address: string;
+	value?: string | null;
+	amount?: string | null;
+	contract_type?: string | null;
+	block_number?: string | null;
+	block_timestamp?: string | null;
+	block_hash?: string | null;
+	transaction_hash?: string | null;
+	transaction_type?: string | null;
+	transaction_index?: number | null;
+	log_index?: number | null;
+	operator?: string | null;
 };
 
-type ItemAttribute = {
+type TokenAttribute = {
 	trait_type: string;
 	value: string;
-	display_type?: string | null | undefined;
+	display_type?: string | null;
 };

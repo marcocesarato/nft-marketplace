@@ -8,7 +8,6 @@ query WalletNFTs($chain: String!, $address: String!) {
 		block_number
 		block_number_minted
 		token_uri
-		metadata
 		amount
 		name
 		symbol

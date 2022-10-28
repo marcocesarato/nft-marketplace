@@ -1,7 +1,7 @@
 import {useState} from "react";
 import axios from "axios";
 
-import {TokenItem} from "@app/types";
+import {GenericObject} from "@app/types";
 
 import useIPFS from "./useIPFS";
 
@@ -19,7 +19,7 @@ export default function useNFTMetadata() {
 	 * @param {object} item
 	 * @returns TokenItem
 	 */
-	function verifyMetadata(item: TokenItem) {
+	function verifyMetadata(item: GenericObject) {
 		//Pass Through if Metadata already present
 		if (item.metadata) return item;
 		//Get the Metadata
@@ -34,7 +34,7 @@ export default function useNFTMetadata() {
 	 * @param {object} item
 	 * @returns {object} TokenItem
 	 */
-	async function resolveMetadata(item: TokenItem) {
+	async function resolveMetadata(item: GenericObject): Promise<GenericObject> {
 		//Validate URI
 		if (!item.token_uri || !item.token_uri.includes("://")) {
 			console.debug("resolveMetadata() Invalid URI", {URI: item.token_uri, item});
@@ -97,7 +97,7 @@ export default function useNFTMetadata() {
 	 * @param {object} item
 	 * @param {object} metadata
 	 */
-	function setMetadata(item: TokenItem, metadata) {
+	function setMetadata(item: GenericObject, metadata: GenericObject) {
 		//Add Metadata
 		item.metadata = metadata;
 		//Set Image

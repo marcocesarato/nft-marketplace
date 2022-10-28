@@ -5,6 +5,7 @@ import {SiOculus} from "react-icons/si";
 import {SimpleGrid, Text} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
+import {TokenItem} from "@app/types";
 import ProductAR from "@components/ProductAR";
 import useWebXR from "@hooks/useWebXR";
 
@@ -12,12 +13,17 @@ import Product3DViewer from "./Product3DViewer";
 import ProductInfos from "./ProductInfos";
 import ProductModeButton from "./ProductModeButton";
 
+type ProductDetailsProps = {
+	data: TokenItem;
+	onClose?: () => void;
+	onPurchase?: Function;
+};
+
 export default function ProductDetails({
 	data,
 	onClose = null,
 	onPurchase = null,
-	...props
-}): JSX.Element {
+}: ProductDetailsProps): JSX.Element {
 	const {t} = useTranslation();
 	const {supportsVRSession, supportsARSession} = useWebXR();
 

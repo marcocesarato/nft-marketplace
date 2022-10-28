@@ -70,13 +70,14 @@ export type FilterCountMarketItemInput = {
 	image?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Scalars["Float"]>;
 	name?: InputMaybe<Scalars["String"]>;
-	owner?: InputMaybe<Scalars["String"]>;
+	owner_of?: InputMaybe<Scalars["String"]>;
 	price?: InputMaybe<Scalars["String"]>;
 	price_formatted?: InputMaybe<Scalars["String"]>;
 	search?: InputMaybe<Scalars["String"]>;
 	seller?: InputMaybe<Scalars["String"]>;
 	sold?: InputMaybe<Scalars["Boolean"]>;
 	thumbnail?: InputMaybe<Scalars["String"]>;
+	token_address?: InputMaybe<Scalars["String"]>;
 	token_id?: InputMaybe<Scalars["Float"]>;
 	token_uri?: InputMaybe<Scalars["String"]>;
 	updated_at?: InputMaybe<Scalars["Date"]>;
@@ -211,13 +212,14 @@ export type FilterFindManyMarketItemInput = {
 	image?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Scalars["Float"]>;
 	name?: InputMaybe<Scalars["String"]>;
-	owner?: InputMaybe<Scalars["String"]>;
+	owner_of?: InputMaybe<Scalars["String"]>;
 	price?: InputMaybe<Scalars["String"]>;
 	price_formatted?: InputMaybe<Scalars["String"]>;
 	search?: InputMaybe<Scalars["String"]>;
 	seller?: InputMaybe<Scalars["String"]>;
 	sold?: InputMaybe<Scalars["Boolean"]>;
 	thumbnail?: InputMaybe<Scalars["String"]>;
+	token_address?: InputMaybe<Scalars["String"]>;
 	token_id?: InputMaybe<Scalars["Float"]>;
 	token_uri?: InputMaybe<Scalars["String"]>;
 	updated_at?: InputMaybe<Scalars["Date"]>;
@@ -352,12 +354,13 @@ export type FilterFindOneMarketItemInput = {
 	image?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Scalars["Float"]>;
 	name?: InputMaybe<Scalars["String"]>;
-	owner?: InputMaybe<Scalars["String"]>;
+	owner_of?: InputMaybe<Scalars["String"]>;
 	price?: InputMaybe<Scalars["String"]>;
 	price_formatted?: InputMaybe<Scalars["String"]>;
 	seller?: InputMaybe<Scalars["String"]>;
 	sold?: InputMaybe<Scalars["Boolean"]>;
 	thumbnail?: InputMaybe<Scalars["String"]>;
+	token_address?: InputMaybe<Scalars["String"]>;
 	token_id?: InputMaybe<Scalars["Float"]>;
 	token_uri?: InputMaybe<Scalars["String"]>;
 	updated_at?: InputMaybe<Scalars["Date"]>;
@@ -471,13 +474,14 @@ export type MarketItem = {
 	is_liked?: Maybe<Scalars["Boolean"]>;
 	likes?: Maybe<Scalars["Float"]>;
 	name: Scalars["String"];
-	owner: Scalars["String"];
+	owner_of: Scalars["String"];
 	price: Scalars["String"];
 	/** Price formatted */
 	price_formatted?: Maybe<Scalars["Float"]>;
 	seller: Scalars["String"];
 	sold: Scalars["Boolean"];
 	thumbnail?: Maybe<Scalars["String"]>;
+	token_address: Scalars["String"];
 	token_id: Scalars["Float"];
 	token_uri: Scalars["String"];
 	updated_at?: Maybe<Scalars["Date"]>;
@@ -564,7 +568,6 @@ export type Nft = {
 	image?: Maybe<Scalars["String"]>;
 	last_metadata_sync?: Maybe<Scalars["String"]>;
 	last_token_uri_sync?: Maybe<Scalars["String"]>;
-	metadata?: Maybe<Scalars["JSON"]>;
 	name?: Maybe<Scalars["String"]>;
 	owner_of?: Maybe<Scalars["String"]>;
 	symbol?: Maybe<Scalars["String"]>;
@@ -900,7 +903,6 @@ export type AccountNftQuery = {
 		block_number?: string | null;
 		block_number_minted?: string | null;
 		token_uri?: string | null;
-		metadata?: any | null;
 		name?: string | null;
 		amount?: string | null;
 		symbol?: string | null;
@@ -927,11 +929,12 @@ export type MarketItemQuery = {
 		__typename?: "MarketItem";
 		_id: number;
 		name: string;
+		token_address: string;
 		token_id: number;
 		token_uri: string;
 		creator: string;
 		seller: string;
-		owner: string;
+		owner_of: string;
 		price: string;
 		price_formatted?: number | null;
 		sold: boolean;
@@ -968,11 +971,12 @@ export type MarketItemsQuery = {
 		__typename?: "MarketItem";
 		_id: number;
 		name: string;
+		token_address: string;
 		token_id: number;
 		token_uri: string;
 		creator: string;
 		seller: string;
-		owner: string;
+		owner_of: string;
 		price: string;
 		price_formatted?: number | null;
 		sold: boolean;
@@ -1084,7 +1088,6 @@ export type WalletNfTsQuery = {
 		block_number?: string | null;
 		block_number_minted?: string | null;
 		token_uri?: string | null;
-		metadata?: any | null;
 		amount?: string | null;
 		name?: string | null;
 		symbol?: string | null;
@@ -1404,7 +1407,6 @@ export const AccountNftDocument = gql`
 			block_number
 			block_number_minted
 			token_uri
-			metadata
 			name
 			amount
 			symbol
@@ -1464,11 +1466,12 @@ export const MarketItemDocument = gql`
 		marketItem(filter: $filter) {
 			_id
 			name
+			token_address
 			token_id
 			token_uri
 			creator
 			seller
-			owner
+			owner_of
 			price
 			price_formatted
 			sold
@@ -1536,11 +1539,12 @@ export const MarketItemsDocument = gql`
 		marketItems(filter: $filter, skip: $skip, limit: $limit, sort: $sort) {
 			_id
 			name
+			token_address
 			token_id
 			token_uri
 			creator
 			seller
-			owner
+			owner_of
 			price
 			price_formatted
 			sold
@@ -1785,7 +1789,6 @@ export const WalletNfTsDocument = gql`
 			block_number
 			block_number_minted
 			token_uri
-			metadata
 			amount
 			name
 			symbol

@@ -5,6 +5,7 @@ import Header from "@components/Header";
 import Loading from "@components/Loading";
 import useMarket from "@hooks/useMarket";
 import {useMarketItemQuery} from "@services/graphql";
+import {toTokenItem} from "@utils/converters";
 
 import ProductDetails from "./ProductDetails";
 
@@ -15,7 +16,8 @@ export default function ProductById({id}: {id: string}): JSX.Element {
 	const {data, loading, error} = useMarketItemQuery({
 		variables: {filter: {"_id": parseInt(id as string)}},
 	});
-	const item = data?.marketItem;
+	const item = toTokenItem(data?.marketItem);
+
 	if (error) return <Header title={t<string>("error:title")} subtitle={error.message} />;
 	if (loading) return <Loading />;
 	if (!item)

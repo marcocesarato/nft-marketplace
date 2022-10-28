@@ -7,6 +7,7 @@ import Header from "@components/Header";
 import Loading from "@components/Loading";
 import useAccount from "@hooks/useAccount";
 import {useMarketItemsCreatedQuery} from "@services/graphql";
+import {toTokenItems} from "@utils/converters";
 import {getStaticPropsLocale} from "@utils/i18n";
 
 export const getStaticProps = getStaticPropsLocale;
@@ -14,8 +15,8 @@ export default function CreatorDashboard(): JSX.Element {
 	const {t} = useTranslation();
 	const {isConnected} = useAccount();
 	const {data, error, loading} = useMarketItemsCreatedQuery();
-	const items = data?.marketItems;
-	const sold = items?.filter((i) => i.sold) || [];
+	const items = toTokenItems(data?.marketItems);
+	const sold = items?.filter((i) => i.sold);
 	if (!isConnected)
 		return (
 			<Header title={t<string>("error:title")} subtitle={t<string>("error:auth.required")} />

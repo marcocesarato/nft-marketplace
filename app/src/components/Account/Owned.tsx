@@ -5,7 +5,7 @@ import Catalog from "@components/Catalog";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
 import {useWalletNFTsQuery} from "@services/graphql";
-import {chainHex} from "@utils/converters";
+import {chainHex, toTokenItems} from "@utils/converters";
 
 type OwnedProps = {
 	address: string;
@@ -23,7 +23,7 @@ export default function Owned({address, title = null, subtitle = null}: OwnedPro
 			address,
 		},
 	});
-	const items = data?.walletNFTs;
+	const items = toTokenItems(data?.walletNFTs);
 
 	if (error) return <Header title={t<string>("error:title")} subtitle={error.message} />;
 	if (loading) return <Loading />;

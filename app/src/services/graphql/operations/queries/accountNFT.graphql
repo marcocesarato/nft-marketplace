@@ -13,7 +13,6 @@ query AccountNFT($chain: String!, $address: String!, $token_address: String!, $t
 		block_number
 		block_number_minted
 		token_uri
-		metadata
 		name
 		amount
 		symbol

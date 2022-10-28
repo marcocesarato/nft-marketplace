@@ -24,20 +24,28 @@ import {
 } from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
-import {ItemAttribute} from "@app/types";
+import {TokenAttribute, TokenItem} from "@app/types";
 import Address from "@components/Address";
 import {useConfig} from "@contexts/Global";
 import useContainerDimensions from "@hooks/useContainerDimensions";
 import useIPFS from "@hooks/useIPFS";
 import {getAssetUrl} from "@utils/url";
 
+type ProductInfoProps = {
+	data: TokenItem;
+	id?: string;
+	showPreview?: boolean;
+	showQRCode?: boolean;
+	onPurchase?: Function;
+};
+
 export default function ProductInfos({
 	id = "Product-" + Math.random(),
 	showPreview = true,
 	showQRCode = true,
 	data,
-	onPurchase = (token_id: number, price: number) => {},
-}): JSX.Element {
+	onPurchase = () => {},
+}: ProductInfoProps): JSX.Element {
 	const containerRef = useRef();
 	const [imageFullscreen, setImageFullscreen] = useState<boolean>(false);
 	const {width: imageWidth} = useContainerDimensions(containerRef);
@@ -143,7 +151,7 @@ export default function ProductInfos({
 							<Table>
 								<Tbody>
 									{data?.attributes.map(
-										(attribute: ItemAttribute, index: number) => (
+										(attribute: TokenAttribute, index: number) => (
 											<Tr key={attribute.trait_type}>
 												<Td>
 													<Text fontWeight={"bold"}>

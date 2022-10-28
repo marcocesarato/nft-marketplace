@@ -6,10 +6,9 @@ import {MarketItem} from "@packages/mongo";
 
 export async function createMarketItem(
 	contract: any,
-	{token_id, creator, seller, owner, price, sold}: Item,
+	{token_id, token_address, creator, seller, owner_of, price, sold}: Item,
 ) {
 	try {
-		token_id = token_id.toString();
 		logger.debug(`Creating Item #${token_id}`);
 
 		// Retrieve metadata
@@ -53,11 +52,12 @@ export async function createMarketItem(
 		MarketItem.create(
 			{
 				_id: token_id,
+				token_address: token_address,
 				token_id: token_id,
 				token_uri: tokenURI,
 				creator: creator?.toLowerCase(),
 				seller: seller?.toLowerCase(),
-				owner: owner?.toLowerCase(),
+				owner_of: owner_of?.toLowerCase(),
 				price: price.toString(),
 				price_formatted: formatUnits(price),
 				sold: sold,
@@ -82,10 +82,9 @@ export async function createMarketItem(
 
 export async function updateMarketItem(
 	token_id: string,
-	{seller, owner, price, sold}: ItemChanges,
+	{seller, owner_of, price, sold}: ItemChanges,
 ) {
 	try {
-		token_id = token_id.toString();
 		logger.debug(`Updating Item #${token_id}`);
 		MarketItem.findOne({token_id}, function (err: Error, item: any) {
 			if (err) return logger.error(err);
@@ -93,7 +92,7 @@ export async function updateMarketItem(
 				return logger.warn(`No item #${token_id} found`);
 			}
 			item.seller = seller?.toLowerCase();
-			item.owner = owner?.toLowerCase();
+			item.owner_of = owner_of?.toLowerCase();
 			item.price = price.toString();
 			item.price_formatted = formatUnits(price);
 			item.sold = sold;

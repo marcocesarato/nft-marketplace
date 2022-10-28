@@ -14,7 +14,6 @@ export function walletSchemaComposer(schemaComposer: SchemaComposer) {
 			"block_number": "String",
 			"block_number_minted": "String",
 			"token_uri": "String",
-			"metadata": "JSON",
 			"amount": "String",
 			"symbol": "String",
 			"token_hash": "String",

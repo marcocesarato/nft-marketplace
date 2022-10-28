@@ -17,7 +17,7 @@ export const useMarketItemsOnSaleQuery = (baseOptions?: MarketItemsQueryVariable
 
 export const useMarketItemsOwnedQuery = (baseOptions?: MarketItemsQueryVariables) => {
 	const {address} = useAccount();
-	const options = generateVariables({filter: {owner: address, sold: true}}, baseOptions);
+	const options = generateVariables({filter: {owner_of: address, sold: true}}, baseOptions);
 	return useMarketItemsQuery(options);
 };
 

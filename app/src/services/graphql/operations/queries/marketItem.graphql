@@ -2,11 +2,12 @@ query MarketItem($filter: FilterFindOneMarketItemInput) {
 	marketItem(filter: $filter) {
 		_id
 		name
+		token_address
 		token_id
 		token_uri
 		creator
 		seller
-		owner
+		owner_of
 		price
 		price_formatted
 		sold

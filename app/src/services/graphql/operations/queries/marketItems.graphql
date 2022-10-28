@@ -7,11 +7,12 @@ query MarketItems(
 	marketItems(filter: $filter, skip: $skip, limit: $limit, sort: $sort) {
 		_id
 		name
+		token_address
 		token_id
 		token_uri
 		creator
 		seller
-		owner
+		owner_of
 		price
 		price_formatted
 		sold

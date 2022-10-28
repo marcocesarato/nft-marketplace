@@ -2,8 +2,7 @@ import {EvmChain} from "@moralisweb3/evm-utils";
 import Moralis from "moralis";
 
 import {GenericObject} from "@app/types";
-import {isString} from "@utils/objects";
-import {resolveIPFSUrl} from "@utils/url";
+import {normalizeItem} from "@utils/converters";
 
 let isStarted = false;
 async function start() {
@@ -12,22 +11,6 @@ async function start() {
 		isStarted = true;
 	}
 }
-
-const resultNFTsMap = async (object: GenericObject) => {
-	let metadata = object.metadata;
-	if (metadata && isString(metadata)) {
-		try {
-			metadata = JSON.parse(metadata);
-		} catch (e) {
-			console.error(e);
-		}
-	}
-	if (typeof metadata === "object") {
-		if (metadata["image"]) metadata["image"] = resolveIPFSUrl(metadata["image"]);
-		if (metadata["thumbnail"]) metadata["thumbnail"] = resolveIPFSUrl(metadata["thumbnail"]);
-	}
-	return {...object, ...metadata, metadata};
-};
 
 export async function getWalletNFTs(
 	chain: number | `${number}`,
@@ -47,7 +30,7 @@ export async function getWalletNFTs(
 			if (token_id != null) return object.token_id === token_id;
 			return true;
 		})
-		.map(resultNFTsMap);
+		.map(normalizeItem);
 	return await Promise.all(dataParsed);
 }
 

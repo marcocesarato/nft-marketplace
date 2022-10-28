@@ -63,9 +63,7 @@ export default function AssetPicker({
 							{items.map((c) => {
 								c = objectCamelToUnderscore(c);
 								const background = {
-									backgroundImage: resolveLink(
-										c.metadata?.thumbnail || c.metadata?.image,
-									),
+									backgroundImage: resolveLink(c.thumbnail || c.image),
 									backgroundSize: "cover",
 									backgroundPosition: "center",
 								};

@@ -1,4 +1,5 @@
 import {BigNumberish, ethers} from "ethers";
+import {getAddresses} from "@/config";
 
 export function resolveIPFSLink(uri: string | null | undefined): string | null | undefined {
 	return uri?.replace("ipfs://", "https://ipfs.io/ipfs/") || null;
@@ -16,11 +17,13 @@ export function formatUnits(value: BigNumberish, unitName: BigNumberish = 18): n
 }
 
 export function convertToItem(value: ContractItem): Item {
+	const {MarketAddress} = getAddresses();
 	return {
 		token_id: value.tokenId,
+		token_address: MarketAddress,
 		creator: value.creator,
 		seller: value.seller,
-		owner: value.owner,
+		owner_of: value.owner,
 		price: value.price,
 		sold: value.sold,
 	};

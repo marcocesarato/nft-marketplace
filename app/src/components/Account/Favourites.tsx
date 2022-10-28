@@ -4,6 +4,7 @@ import Catalog from "@components/Catalog";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
 import {useMarketItemsByIdsQuery} from "@services/graphql";
+import {toTokenItems} from "@utils/converters";
 
 type FavouritesProps = {
 	items: number[];
@@ -19,7 +20,7 @@ export default function Favourites({
 }: FavouritesProps): JSX.Element {
 	const {t} = useTranslation();
 	const {data, error, loading} = useMarketItemsByIdsQuery(items);
-	const marketItems = data?.marketItems;
+	const marketItems = toTokenItems(data?.marketItems);
 
 	if (loading) return <Loading />;
 	if (error) return <Header title={t<string>("error:title")} subtitle={error.message} />;

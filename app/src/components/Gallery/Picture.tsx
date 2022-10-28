@@ -47,7 +47,7 @@ export default function Picture({
 
 	const handlePurchase = useCallback(() => {
 		if (isConnected) {
-			purchase(data.token_id, Number(data.amount));
+			purchase(data.token_id, Number(data.price));
 		}
 	}, [data, isConnected, purchase]);
 
@@ -131,7 +131,7 @@ export default function Picture({
 				width={width}
 				{...props}
 			/>
-			{openPanel && (
+			{openPanel && data.price && (
 				<Entity position={panelPosition} rotation={rotation}>
 					<Plane
 						color="#000"
@@ -145,7 +145,7 @@ export default function Picture({
 							width={2}
 							position={`0 -1 ${threshold}`}>
 							<Text
-								value={t<string>("common:action.purchase") + " " + data.amount}
+								value={t<string>("common:action.purchase") + " " + data.price}
 								height={textHeight}
 								width={textWidth}
 								align="center"
@@ -154,14 +154,14 @@ export default function Picture({
 						</a-plane>
 					</Plane>
 					<Text
-						value={data.metadata.name}
+						value={data.name}
 						height={textHeight}
 						width={textWidth}
 						align="center"
 						position={{x: 0, y: 1, z: 0}}
 					/>
 					<Text
-						value={`Description: ${data.metadata.description}`}
+						value={`Description: ${data.description}`}
 						height={textHeight}
 						width={textWidth}
 						align="center"

@@ -20,6 +20,7 @@ import {
 import {motion} from "framer-motion";
 import {useTranslation} from "next-i18next";
 
+import {TokenItem} from "@app/types";
 import Address from "@components/Address";
 import {useConfig} from "@contexts/Global";
 import useIPFS from "@hooks/useIPFS";
@@ -32,8 +33,18 @@ import {
 
 import ProductModal from "./ProductModal";
 
+type ProductProps = {
+	data: TokenItem;
+	onPurchase?: () => void;
+	[key: string]: any;
+};
+
 const MotionStack = motion(Stack);
-export default function Product({data, onPurchase = null, ...rootProps}): JSX.Element {
+export default function Product({
+	data,
+	onPurchase = null,
+	...rootProps
+}: ProductProps): JSX.Element {
 	const {t} = useTranslation();
 	const {symbol} = useConfig();
 	const {resolveLink} = useIPFS();

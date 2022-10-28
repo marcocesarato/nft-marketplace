@@ -39,7 +39,7 @@ export default function Transfers({
 			title: t<string>("common:page.transfers.column.from"),
 			dataIndex: "from_address",
 			key: "from_address",
-			render: (from) => (
+			render: (from: string) => (
 				<Link
 					href={`${chain?.blockExplorers.default.url}/address/${from}`}
 					isExternal
@@ -54,7 +54,7 @@ export default function Transfers({
 			title: t<string>("common:page.transfers.column.to"),
 			dataIndex: "to_address",
 			key: "to_address",
-			render: (to) => (
+			render: (to: string) => (
 				<Link
 					href={`${chain?.blockExplorers.default.url}/address/${to}`}
 					isExternal
@@ -69,19 +69,19 @@ export default function Transfers({
 			title: t<string>("common:page.transfers.column.value"),
 			dataIndex: "value",
 			key: "value",
-			render: (value) => formatUnits(value),
+			render: (value: string) => formatUnits(value),
 		},
 		{
 			title: t<string>("common:page.transfers.column.timestamp"),
 			dataIndex: "block_timestamp",
 			key: "block_timestamp",
-			render: (value) => new Date(value).toLocaleString(),
+			render: (value: string) => new Date(value).toLocaleString(),
 		},
 		{
 			title: "",
 			dataIndex: "transaction_hash",
 			key: "transaction_hash",
-			render: (hash) => (
+			render: (hash: string) => (
 				<Box textAlign="right">
 					<Link
 						href={`${chain?.blockExplorers.default.url}/tx/${hash}`}

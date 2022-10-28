@@ -4,6 +4,7 @@ import Catalog from "@components/Catalog";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
 import {useMarketItemsCreatedQuery} from "@services/graphql";
+import {toTokenItems} from "@utils/converters";
 
 type CreatedProps = {
 	address: string;
@@ -19,7 +20,7 @@ export default function Created({
 }: CreatedProps): JSX.Element {
 	const {t} = useTranslation();
 	const {data, error, loading} = useMarketItemsCreatedQuery({filter: {creator: address}});
-	const items = data?.marketItems;
+	const items = toTokenItems(data?.marketItems);
 
 	if (loading) return <Loading />;
 	if (error) return <Header title={t<string>("error:title")} subtitle={error.message} />;

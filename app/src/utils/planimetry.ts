@@ -10,7 +10,7 @@ export class PlanimetrySchema {
 		[PlanimetryBlockTypeEnum.Door, PlanimetryBlockTypeEnum.Floor],
 		[PlanimetryBlockTypeEnum.Window, PlanimetryBlockTypeEnum.Wall],
 	];
-	//private debouncedAdjustSpawn: Function;
+	//private debouncedAdjustSpawn: () => void;
 
 	constructor(planimetryMap?: PlanimetryMap) {
 		//this.debouncedAdjustSpawn = debounce(this.adjustSpawn.bind(this), 300, true);
@@ -46,10 +46,10 @@ export class PlanimetrySchema {
 		return this.map.blocks[i];
 	}
 
-	public setBlockMetadata(i: number, metadata: GenericObject) {
+	public setBlockMetadata(i: number, data: GenericObject) {
 		this.map.blocks[i] = {
 			...this.map.blocks[i],
-			...metadata,
+			...data,
 			id: this.map.blocks[i].id,
 			type: this.map.blocks[i].type,
 		};

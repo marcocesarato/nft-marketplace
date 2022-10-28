@@ -8,17 +8,18 @@ type ContractItem = {
 };
 
 type Item = {
+	token_address?: string;
 	token_id: string;
 	creator: string;
 	seller: string;
-	owner: string;
+	owner_of: string;
 	price: string | BigNumberish;
 	sold: boolean;
 };
 
 type ItemChanges = {
 	seller?: string | null | undefined;
-	owner?: string | null | undefined;
+	owner_of?: string | null | undefined;
 	price?: string | BigNumberish | null | undefined;
 	sold?: boolean | null | undefined;
 };
@@ -31,10 +32,10 @@ type ItemMetadata = {
 	external_url?: string | null | undefined;
 	animation_url?: string | null | undefined;
 	youtube_url?: string | null | undefined;
-	attributes?: ItemAttribute[] | null | undefined;
+	attributes?: TokenAttribute[] | null | undefined;
 };
 
-type ItemAttribute = {
+type TokenAttribute = {
 	trait_type: string;
 	value: string;
 	display_type?: string | null | undefined;
