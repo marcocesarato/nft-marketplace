@@ -125,6 +125,7 @@
 	"product": {
 		"attributes": "Attributes",
 		"createdBy": "Created by",
+		"ownedBy": "Owned by",
 		"description": "Description",
 		"item": "Item",
 		"price": "Price",

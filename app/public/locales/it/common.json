@@ -125,6 +125,7 @@
 	"product": {
 		"attributes": "Attributi",
 		"createdBy": "Creato da",
+        "ownedBy": "Posseduto da",
 		"description": "Descrizione",
 		"item": "Articolo",
 		"price": "Prezzo",

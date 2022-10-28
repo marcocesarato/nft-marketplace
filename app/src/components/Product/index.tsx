@@ -173,11 +173,18 @@ export default function Product({
 							onClick={onOpen}>
 							{data?.name}
 						</Heading>
-						{data?.creator && (
+						{data?.creator ? (
 							<Address
 								fontSize={"sm"}
 								label={t<string>("common:product:createdBy")}
 								address={data.creator}
+								alignItems="center"
+							/>
+						) : (
+							<Address
+								fontSize={"sm"}
+								label={t<string>("common:product:ownedBy")}
+								address={data.owner_of}
 								alignItems="center"
 							/>
 						)}
