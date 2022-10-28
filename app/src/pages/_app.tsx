@@ -5,10 +5,8 @@ import Head from "next/head";
 import {SessionProvider} from "next-auth/react";
 import {appWithTranslation} from "next-i18next";
 
-import Loader from "@components/Loader";
 import Providers from "@contexts/Providers";
 import ErrorBoundary from "@errors/ErrorBoundary";
-import useAccount from "@hooks/useAccount";
 import MainLayout from "@layouts/Main";
 
 import "focus-visible/dist/focus-visible";
@@ -19,7 +17,6 @@ dynamic(() => import("webxr-polyfill"), {ssr: false});
 
 function Page({Component, pageProps: {session, ...pageProps}}): JSX.Element {
 	const [mounted, setMounted] = useState(false);
-	const {isConnecting} = useAccount();
 
 	useEffect(() => setMounted(true), []);
 	if (!mounted) return null;
@@ -33,7 +30,7 @@ function Page({Component, pageProps: {session, ...pageProps}}): JSX.Element {
 			<SessionProvider session={session} refetchInterval={0}>
 				<MainLayout>
 					<ErrorBoundary>
-						{isConnecting ? <Loader /> : <Component {...pageProps} />}
+						<Component {...pageProps} />
 					</ErrorBoundary>
 				</MainLayout>
 			</SessionProvider>
