@@ -27,7 +27,7 @@ export default function useUser() {
 	}, [isLoadingUser, address, userData, error]);
 
 	return {
-		id: userData?.user._id,
+		id: userData?.user?._id,
 		username: username,
 		user: userData?.user,
 		isLoading: isLoadingUser,
