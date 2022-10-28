@@ -1,5 +1,5 @@
 import {User} from "@packages/mongo";
-import {GraphQLJSON, SchemaComposer} from "graphql-compose";
+import {SchemaComposer} from "graphql-compose";
 import {composeWithMongoose} from "graphql-compose-mongoose";
 
 import {searchArgs, wrapAccessResolve} from "@utils/graphql";
@@ -7,12 +7,6 @@ import {searchArgs, wrapAccessResolve} from "@utils/graphql";
 export function userSchemaComposer(schemaComposer: SchemaComposer) {
 	// User
 	const UserTC = composeWithMongoose(User, {schemaComposer});
-	UserTC.addFields({
-		planimetry: {
-			type: GraphQLJSON,
-			resolve: (source: any) => JSON.parse(source.planimetry),
-		},
-	});
 
 	// Add search filter
 	const userPaginationResolver = UserTC.getResolver("pagination").addFilterArg(searchArgs);
@@ -44,8 +38,11 @@ export function userSchemaComposer(schemaComposer: SchemaComposer) {
 				if (!isAuthenticated) return false;
 				const user = await User.findOne({account});
 				if (!user) return false;
-				await User.updateOne({account}, {"planimetry": JSON.stringify(args.planimetry)});
-				return User.findOne({account});
+				user.planimetry = args.planimetry;
+				user.markModified("planimetry");
+				await user.save();
+				console.log(user);
+				return user;
 			},
 		},
 	});

@@ -17,6 +17,8 @@ export type Scalars = {
 	Date: any;
 	/** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
 	JSON: any;
+	/** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
+	JSONObject: any;
 	/**
 	 * The `ID` scalar type represents a unique MongoDB identifier in collection.
 	 * MongoDB by default use 12-byte ObjectId value
@@ -139,7 +141,7 @@ export type FilterCountUserInput = {
 	favourites?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	icon?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
-	planimetry?: InputMaybe<FilterCountUserPlanimetryInput>;
+	planimetry?: InputMaybe<Scalars["JSON"]>;
 	search?: InputMaybe<Scalars["String"]>;
 	updated_at?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
@@ -150,10 +152,6 @@ export type FilterCountUserOperatorsInput = {
 	_id?: InputMaybe<FilterCountUser_IdOperatorsInput>;
 	account?: InputMaybe<FilterCountUserAccountOperatorsInput>;
 	username?: InputMaybe<FilterCountUserUsernameOperatorsInput>;
-};
-
-export type FilterCountUserPlanimetryInput = {
-	type?: InputMaybe<Scalars["JSON"]>;
 };
 
 export type FilterCountUserUsernameOperatorsInput = {
@@ -282,7 +280,7 @@ export type FilterFindManyUserInput = {
 	favourites?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	icon?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
-	planimetry?: InputMaybe<FilterFindManyUserPlanimetryInput>;
+	planimetry?: InputMaybe<Scalars["JSON"]>;
 	search?: InputMaybe<Scalars["String"]>;
 	updated_at?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
@@ -293,10 +291,6 @@ export type FilterFindManyUserOperatorsInput = {
 	_id?: InputMaybe<FilterFindManyUser_IdOperatorsInput>;
 	account?: InputMaybe<FilterFindManyUserAccountOperatorsInput>;
 	username?: InputMaybe<FilterFindManyUserUsernameOperatorsInput>;
-};
-
-export type FilterFindManyUserPlanimetryInput = {
-	type?: InputMaybe<Scalars["JSON"]>;
 };
 
 export type FilterFindManyUserUsernameOperatorsInput = {
@@ -424,7 +418,7 @@ export type FilterFindOneUserInput = {
 	favourites?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	icon?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
-	planimetry?: InputMaybe<FilterFindOneUserPlanimetryInput>;
+	planimetry?: InputMaybe<Scalars["JSON"]>;
 	updated_at?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
@@ -434,10 +428,6 @@ export type FilterFindOneUserOperatorsInput = {
 	_id?: InputMaybe<FilterFindOneUser_IdOperatorsInput>;
 	account?: InputMaybe<FilterFindOneUserAccountOperatorsInput>;
 	username?: InputMaybe<FilterFindOneUserUsernameOperatorsInput>;
-};
-
-export type FilterFindOneUserPlanimetryInput = {
-	type?: InputMaybe<Scalars["JSON"]>;
 };
 
 export type FilterFindOneUserUsernameOperatorsInput = {
@@ -745,7 +735,7 @@ export type UpdateByIdUserInput = {
 	favourites?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
 	icon?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Array<InputMaybe<Scalars["Float"]>>>;
-	planimetry?: InputMaybe<UpdateByIdUserPlanimetryInput>;
+	planimetry?: InputMaybe<Scalars["JSON"]>;
 	updated_at?: InputMaybe<Scalars["Date"]>;
 	username?: InputMaybe<Scalars["String"]>;
 };
@@ -764,10 +754,6 @@ export type UpdateByIdUserPayload = {
 	recordId?: Maybe<Scalars["MongoID"]>;
 };
 
-export type UpdateByIdUserPlanimetryInput = {
-	type?: InputMaybe<Scalars["JSON"]>;
-};
-
 export type User = {
 	__typename?: "User";
 	_id: Scalars["MongoID"];
@@ -777,7 +763,7 @@ export type User = {
 	favourites?: Maybe<Array<Maybe<Scalars["Float"]>>>;
 	icon?: Maybe<Scalars["String"]>;
 	likes?: Maybe<Array<Maybe<Scalars["Float"]>>>;
-	planimetry?: Maybe<Scalars["JSON"]>;
+	planimetry?: Maybe<Scalars["JSONObject"]>;
 	updated_at?: Maybe<Scalars["Date"]>;
 	username: Scalars["String"];
 };

@@ -27,9 +27,7 @@ const UserSchema = new mongoose.Schema(
 			default: [],
 		},
 		planimetry: {
-			type: {
-				type: mongoose.Schema.Types.Mixed,
-			},
+			type: mongoose.Schema.Types.Mixed,
 		},
 	},
 	{timestamps: {createdAt: "created_at", updatedAt: "updated_at"}},
