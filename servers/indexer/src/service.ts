@@ -1,7 +1,7 @@
 import * as ethers from "ethers";
 import {connectDatabase, MarketItem} from "@packages/mongo";
 import logger from "@/logger";
-import {getAddresses} from "@/config";
+import {getAddresses, ChainId} from "@/config";
 import {createMarketItem, updateMarketItem} from "@/mapper";
 import {convertToItem} from "@/utils";
 
@@ -26,6 +26,7 @@ export default async function service() {
 	contract.on("MarketItemCreated", (token_id, creator, seller, owner_of, price, sold) => {
 		logger.info("Event MarketItemCreated");
 		const item = {
+			network_id: ChainId,
 			token_address: MarketAddress,
 			token_id,
 			price,
@@ -33,7 +34,7 @@ export default async function service() {
 			seller,
 			owner_of,
 			sold,
-		};
+		} as Item;
 		logger.debug("MarketItemCreated", item);
 		createMarketItem(contract, item);
 	});

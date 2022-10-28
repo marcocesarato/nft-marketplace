@@ -2,6 +2,7 @@ query MarketItem($filter: FilterFindOneMarketItemInput) {
 	marketItem(filter: $filter) {
 		_id
 		name
+		network_id
 		token_address
 		token_id
 		token_uri

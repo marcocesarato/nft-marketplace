@@ -3,10 +3,11 @@ import axios from "axios";
 import logger from "@/logger";
 import {formatUnits, resolveIPFSLink} from "@/utils";
 import {MarketItem} from "@packages/mongo";
+import {ChainId} from "@/config";
 
 export async function createMarketItem(
 	contract: any,
-	{token_id, token_address, creator, seller, owner_of, price, sold}: Item,
+	{network_id, token_id, token_address, creator, seller, owner_of, price, sold}: Item,
 ) {
 	try {
 		logger.debug(`Creating Item #${token_id}`);
@@ -52,6 +53,7 @@ export async function createMarketItem(
 		MarketItem.create(
 			{
 				_id: token_id,
+				network_id,
 				token_address: token_address,
 				token_id: token_id,
 				token_uri: tokenURI,

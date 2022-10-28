@@ -26,6 +26,7 @@ export type NativeTokenItem = {
 export type MarketTokenItem = {
 	_id: string | null;
 	name: string | null;
+	network_id: number | null;
 	token_id: number | null;
 	token_address: string | null;
 	token_uri: string | null;

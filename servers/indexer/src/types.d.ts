@@ -8,6 +8,7 @@ type ContractItem = {
 };
 
 type Item = {
+	network_id: number;
 	token_address?: string;
 	token_id: string;
 	creator: string;

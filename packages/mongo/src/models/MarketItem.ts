@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const MarketItemSchema = new mongoose.Schema(
 	{
 		_id: {type: Number, required: true},
+		network_id: {type: String, required: true, trim: true},
 		token_address: {type: String, required: true, trim: true},
 		token_id: {type: Number, required: true, trim: true},
 		token_uri: {type: String, required: true, trim: true},

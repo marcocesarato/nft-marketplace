@@ -1,5 +1,5 @@
 import {BigNumberish, ethers} from "ethers";
-import {getAddresses} from "@/config";
+import {getAddresses, ChainId} from "@/config";
 
 export function resolveIPFSLink(uri: string | null | undefined): string | null | undefined {
 	return uri?.replace("ipfs://", "https://ipfs.io/ipfs/") || null;
@@ -19,6 +19,7 @@ export function formatUnits(value: BigNumberish, unitName: BigNumberish = 18): n
 export function convertToItem(value: ContractItem): Item {
 	const {MarketAddress} = getAddresses();
 	return {
+		network_id: ChainId,
 		token_id: value.tokenId,
 		token_address: MarketAddress,
 		creator: value.creator,
