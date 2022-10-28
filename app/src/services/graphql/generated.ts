@@ -70,6 +70,7 @@ export type FilterCountMarketItemInput = {
 	image?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Scalars["Float"]>;
 	name?: InputMaybe<Scalars["String"]>;
+	network_id?: InputMaybe<Scalars["String"]>;
 	owner_of?: InputMaybe<Scalars["String"]>;
 	price?: InputMaybe<Scalars["String"]>;
 	price_formatted?: InputMaybe<Scalars["String"]>;
@@ -212,6 +213,7 @@ export type FilterFindManyMarketItemInput = {
 	image?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Scalars["Float"]>;
 	name?: InputMaybe<Scalars["String"]>;
+	network_id?: InputMaybe<Scalars["String"]>;
 	owner_of?: InputMaybe<Scalars["String"]>;
 	price?: InputMaybe<Scalars["String"]>;
 	price_formatted?: InputMaybe<Scalars["String"]>;
@@ -354,6 +356,7 @@ export type FilterFindOneMarketItemInput = {
 	image?: InputMaybe<Scalars["String"]>;
 	likes?: InputMaybe<Scalars["Float"]>;
 	name?: InputMaybe<Scalars["String"]>;
+	network_id?: InputMaybe<Scalars["String"]>;
 	owner_of?: InputMaybe<Scalars["String"]>;
 	price?: InputMaybe<Scalars["String"]>;
 	price_formatted?: InputMaybe<Scalars["String"]>;
@@ -474,6 +477,7 @@ export type MarketItem = {
 	is_liked?: Maybe<Scalars["Boolean"]>;
 	likes?: Maybe<Scalars["Float"]>;
 	name: Scalars["String"];
+	network_id: Scalars["String"];
 	owner_of: Scalars["String"];
 	price: Scalars["String"];
 	/** Price formatted */
@@ -929,6 +933,7 @@ export type MarketItemQuery = {
 		__typename?: "MarketItem";
 		_id: number;
 		name: string;
+		network_id: string;
 		token_address: string;
 		token_id: number;
 		token_uri: string;
@@ -971,6 +976,7 @@ export type MarketItemsQuery = {
 		__typename?: "MarketItem";
 		_id: number;
 		name: string;
+		network_id: string;
 		token_address: string;
 		token_id: number;
 		token_uri: string;
@@ -1466,6 +1472,7 @@ export const MarketItemDocument = gql`
 		marketItem(filter: $filter) {
 			_id
 			name
+			network_id
 			token_address
 			token_id
 			token_uri
@@ -1539,6 +1546,7 @@ export const MarketItemsDocument = gql`
 		marketItems(filter: $filter, skip: $skip, limit: $limit, sort: $sort) {
 			_id
 			name
+			network_id
 			token_address
 			token_id
 			token_uri
