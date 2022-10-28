@@ -223,7 +223,7 @@ class SocketioAdapter {
 	}
 
 	disconnect() {
-		this.socket.disconnect();
+		this.socket?.disconnect();
 	}
 }
 
