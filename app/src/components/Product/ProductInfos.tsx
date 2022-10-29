@@ -88,11 +88,19 @@ export default function ProductInfos({
 					fontSize={{base: "2xl", sm: "4xl", lg: "5xl"}}>
 					{data?.name}
 				</Heading>
-				{data?.creator && (
+				{data?.creator ? (
 					<Address
 						fontSize={"sm"}
 						label={t<string>("common:product:createdBy")}
-						address={data?.creator}
+						address={data.creator}
+						alignItems="center"
+					/>
+				) : (
+					<Address
+						fontSize={"sm"}
+						label={t<string>("common:product:ownedBy")}
+						address={data.owner_of}
+						alignItems="center"
 					/>
 				)}
 				{data?.seller && data?.seller !== data?.creator && (
