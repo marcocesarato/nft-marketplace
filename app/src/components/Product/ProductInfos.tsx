@@ -1,4 +1,5 @@
 import {useMemo, useRef, useState} from "react";
+import NextLink from "next/link";
 import {
 	Box,
 	Button,
@@ -150,40 +151,35 @@ export default function ProductInfos({
 						<TableContainer>
 							<Table>
 								<Tbody>
-									{data?.attributes.map(
-										(attribute: TokenAttribute, index: number) => (
-											<Tr key={attribute.trait_type}>
-												<Td>
-													<Text fontWeight={"bold"}>
-														{attribute.trait_type}
+									{data?.attributes.map((attribute: TokenAttribute) => (
+										<Tr key={attribute.trait_type}>
+											<Td>
+												<Text fontWeight={"bold"}>
+													{attribute.trait_type}
+												</Text>
+											</Td>
+											<Td>
+												{attribute.display_type === "date" ? (
+													<Text>
+														{new Date(
+															attribute.value,
+														).toLocaleDateString()}
 													</Text>
-												</Td>
-												<Td>
-													{attribute.display_type === "date" ? (
-														<Text>
-															{new Date(
-																attribute.value,
-															).toLocaleDateString()}
-														</Text>
-													) : attribute.display_type === "url" ? (
-														<Text>
-															<a href={attribute.value}>
-																{attribute.value}
-															</a>
-														</Text>
-													) : attribute.display_type ===
-															"boost_percentage" ||
-													  attribute.display_type === "percentage" ? (
-														<Progress
-															value={parseInt(attribute.value)}
-														/>
-													) : (
-														<Text>{attribute.value}</Text>
-													)}
-												</Td>
-											</Tr>
-										),
-									)}
+												) : attribute.display_type === "url" ? (
+													<Text>
+														<NextLink href={attribute.value}>
+															{attribute.value}
+														</NextLink>
+													</Text>
+												) : attribute.display_type === "boost_percentage" ||
+												  attribute.display_type === "percentage" ? (
+													<Progress value={parseInt(attribute.value)} />
+												) : (
+													<Text>{attribute.value}</Text>
+												)}
+											</Td>
+										</Tr>
+									))}
 								</Tbody>
 							</Table>
 						</TableContainer>
