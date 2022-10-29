@@ -41,7 +41,7 @@ export default function useMarket() {
 
 			successToast({
 				title: t<string>("common:action.purchased"),
-				description: t<string>("common:action.success.sellMessage"),
+				description: t<string>("common:action.success.purchasedMessage"),
 			});
 
 			callback && callback();
