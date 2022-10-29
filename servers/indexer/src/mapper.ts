@@ -3,7 +3,6 @@ import axios from "axios";
 import logger from "@/logger";
 import {formatUnits, resolveIPFSLink} from "@/utils";
 import {MarketItem} from "@packages/mongo";
-import {ChainId} from "@/config";
 
 export async function createMarketItem(
 	contract: any,
@@ -17,6 +16,8 @@ export async function createMarketItem(
 		const tokenURIResolve = resolveIPFSLink(tokenURI);
 		if (!tokenURIResolve) {
 			logger.warn(`Item #${token_id} tokenURI not found`);
+		} else {
+			logger.debug(`Item #${token_id} tokenURI: ${tokenURIResolve}`);
 		}
 		const fallbackMetadata: ItemMetadata = {
 			name: `#${token_id.toString()}`,
@@ -32,7 +33,7 @@ export async function createMarketItem(
 						return fallbackMetadata;
 					})
 			: fallbackMetadata;
-		console.log(tokenURIResolve);
+
 		if (tokenURIResolve && !metadata) {
 			logger.warn(`Item #${token_id} metadata not found or empty`);
 		}

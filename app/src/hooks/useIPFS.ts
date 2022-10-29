@@ -13,7 +13,7 @@ export default function useIPFS() {
 				headers: {"Content-Type": "multipart/form-data"},
 			});
 			setIsUploading(false);
-			return resolveIPFSUrl(data.url);
+			return data.url;
 		} catch (err) {
 			setIsUploading(false);
 			throw err;

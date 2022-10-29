@@ -105,6 +105,7 @@
 			},
 			"description": "Compila il form e vendi la tua risorsa digitale",
 			"minting": "Minting del token, segui le istruzioni sul tuo wallet...",
+			"requiredFields": "(*) Campi richiesti",
 			"shortTitle": "Vendi asset",
 			"title": "Vendi risorsa digitale",
 			"uploading": "Caricamento dati in corso..."

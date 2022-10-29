@@ -351,22 +351,9 @@ export const ObjectsModels: {[key: string]: ObjectModel} = {
 	"sofa": {
 		name: "sofa",
 		type: ObjectModelTypeEnum.Object,
-		image: "/assets/objects/sofa/sofa.jpg",
-		assets: [
-			{
-				id: "sofa-obj",
-				src: "/assets/objects/sofa/sofa.obj",
-				type: GalleryAssetTypeEnum.Item,
-			},
-			{
-				id: "sofa-mtl",
-				src: "/assets/objects/sofa/sofa.mtl",
-				type: GalleryAssetTypeEnum.Item,
-			},
-		],
+		image: "/assets/models/sofa/sofa.jpg",
 		attributes: {
-			"src": "src: #sofa-obj;",
-			"mtl": "src: #sofa-mtl;",
+			"gltf-model": `${process.env.NEXT_PUBLIC_URL}/assets/models/sofa/sofa.glb`,
 			"scale": "2 2 2",
 			"shadow": "receive:true;cast:true",
 			"physx-body-from-model": "type:static;",

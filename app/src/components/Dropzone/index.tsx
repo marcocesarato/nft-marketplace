@@ -4,20 +4,55 @@ import {AiOutlineCloudUpload} from "react-icons/ai";
 import {Center, Heading, Icon, Text, useColorModeValue} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
-import {acceptImage} from "@configs/uploads";
+import {acceptAudio, acceptImage, acceptModel, acceptVideo} from "@configs/uploads";
 
-export default function Dropzone({onFileAccepted}): JSX.Element {
+export enum DropzoneTypeEnum {
+	All = "All",
+	Image = "Image",
+	Animation = "Animation",
+}
+type DropzoneProps = {
+	name: string;
+	type: DropzoneTypeEnum;
+	onFileAccepted: (acceptedFiles: File) => void;
+};
+
+const acceptImageMime = {"image/*": acceptImage};
+const acceptModelMime = {"application/octet-stream": acceptModel};
+const acceptVideoMime = {"video/*": acceptVideo};
+const acceptAudioMime = {"audio/*": acceptAudio};
+const acceptAnimationMime = {
+	...acceptModelMime,
+	...acceptVideoMime,
+	...acceptAudioMime,
+};
+const acceptAllMime = {
+	...acceptImageMime,
+	...acceptModelMime,
+	...acceptVideoMime,
+	...acceptAudioMime,
+};
+
+export default function Dropzone({
+	onFileAccepted,
+	type,
+	name = "dropzone",
+}: DropzoneProps): JSX.Element {
 	const {t} = useTranslation();
 	const onDrop = useCallback(
-		(acceptedFiles) => {
+		(acceptedFiles: File[]) => {
 			onFileAccepted(acceptedFiles[0]);
 		},
 		[onFileAccepted],
 	);
-
 	const {getRootProps, getInputProps, isDragActive} = useDropzone({
 		onDrop,
-		accept: {"image/*": acceptImage},
+		accept:
+			type === DropzoneTypeEnum.Image
+				? acceptImageMime
+				: type === DropzoneTypeEnum.Animation
+				? acceptAnimationMime
+				: acceptAllMime,
 		maxFiles: 1,
 		multiple: false,
 	});
@@ -41,7 +76,7 @@ export default function Dropzone({onFileAccepted}): JSX.Element {
 			flexDirection="column"
 			borderColor={borderColor}
 			{...getRootProps()}>
-			<input {...getInputProps()} />
+			<input {...getInputProps()} name={name} />
 			<Heading>
 				<Icon color={"gray.500"} as={AiOutlineCloudUpload} mr={2} />
 			</Heading>

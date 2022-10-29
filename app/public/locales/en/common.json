@@ -105,6 +105,7 @@
 			},
 			"description": "Fill the form and sell your digital asset",
 			"minting": "Minting token, follow the instructions on your wallet...",
+			"requiredFields": "(*) Fields required",
 			"shortTitle": "Sell Assets",
 			"title": "Sell Assets",
 			"uploading": "Uploading data..."

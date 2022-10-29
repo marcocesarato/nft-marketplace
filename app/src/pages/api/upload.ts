@@ -6,8 +6,9 @@ import {getToken} from "next-auth/jwt";
 import nextConnect from "next-connect";
 import path from "path";
 
-import type {NextApiRequestFiles} from "@app/types";
+import type {GenericObject, NextApiRequestFiles} from "@app/types";
 import {uploadFiles} from "@services/api";
+import {slug} from "@utils/formatters";
 
 import middleware from "./middleware";
 
@@ -25,7 +26,12 @@ const handler = nextConnect<NextApiRequestFiles, NextApiResponse>()
 
 		const {body, files} = req;
 		try {
-			const metadaUrl = await storeToIPFS(files.file[0], body.name[0], body.description[0]);
+			const metadaUrl = await storeToIPFS(
+				body.name[0],
+				body.description[0],
+				files.image[0],
+				files.animation?.[0],
+			);
 			return res.status(200).json({
 				url: metadaUrl,
 			});
@@ -36,12 +42,14 @@ const handler = nextConnect<NextApiRequestFiles, NextApiResponse>()
 		}
 	});
 
-async function storeToIPFS(data: File, name: string, description: string) {
-	const fileName = path.basename(data.path);
-	const type = mime.lookup(data.path);
+async function storeToIPFS(name: string, description: string, image: File, animation?: File) {
+	const slugName = slug(name);
 
 	// Image
-	const contentBuffer = await fs.promises.readFile(data.path);
+	const imageFileName = path.basename(image.path);
+	const imageType = mime.lookup(image.path);
+
+	const contentBuffer = await fs.promises.readFile(image.path);
 	const content = contentBuffer.toString("base64");
 
 	// Image thumbnail
@@ -52,28 +60,46 @@ async function storeToIPFS(data: File, name: string, description: string) {
 		responseType: "base64",
 	});
 
+	const files = [
+		{
+			path: `images/${imageFileName}`,
+			content: `data:${imageType};base64,${content}`,
+		},
+		{
+			path: `thumbs/${imageFileName}`,
+			content: `data:${imageType};base64,${thumbContent}`,
+		},
+	];
+
+	if (animation) {
+		// Animation
+		const animationFileName = path.basename(animation.path);
+		const contentBuffer = await fs.promises.readFile(animation.path);
+		const content = contentBuffer.toString("base64");
+		files.push({
+			path: `animations/${animationFileName}`,
+			content: content,
+		});
+	}
+
 	// Upload
-	const images = await uploadFiles([
-		{
-			path: `images/${fileName}`,
-			content: `data:${type};base64,${content}`,
-		},
-		{
-			path: `thumbs/${fileName}`,
-			content: `data:${type};base64,${thumbContent}`,
-		},
-	]);
+	const uploads = await uploadFiles(files);
 
 	const metataJson = {
-		image: images[0].path,
-		thumbnail: images[1].path,
+		image: uploads[0].path,
+		thumbnail: uploads[1].path,
 		name,
 		description,
-	};
+	} as GenericObject;
+
+	if (animation && uploads[2]) {
+		metataJson.animation_url = uploads[2].path;
+	}
+
 	const metadataContent = Buffer.from(JSON.stringify(metataJson)).toString("base64");
 	const metadata = await uploadFiles([
 		{
-			path: `metadata/${fileName}`,
+			path: `metadata/${slugName}.json`,
 			content: `data:application/json;base64,${metadataContent}`,
 		},
 	]);

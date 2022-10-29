@@ -7,11 +7,12 @@ import useToast from "@hooks/useToast";
 import {isString} from "@utils/objects";
 import {parseUnits} from "@utils/units";
 
-type SellInput = {
+export type SellInput = {
 	price: string;
 	name: string;
 	description: string;
-	file: any;
+	image: any;
+	animation?: any;
 };
 
 export default function useMarket() {
@@ -47,8 +48,8 @@ export default function useMarket() {
 			await transaction.wait();
 
 			successToast({
-				title: t<string>("common:page.action.purchased"),
-				description: t<string>("common:page.action.success.purchased"),
+				title: t<string>("common:action.purchased"),
+				description: t<string>("common:action.success.sellMessage"),
 			});
 
 			callback && callback();
@@ -73,8 +74,8 @@ export default function useMarket() {
 			await transaction.wait();
 
 			successToast({
-				title: t<string>("common:page.action.sell"),
-				description: t<string>("common:page.action.success.sell"),
+				title: t<string>("common:action.sell"),
+				description: t<string>("common:action.success.sellMessage"),
 			});
 		} catch (error) {
 			errorToast({
@@ -98,8 +99,8 @@ export default function useMarket() {
 			await transaction.wait();
 
 			successToast({
-				title: t<string>("common:page.action.sell"),
-				description: t<string>("common:page.action.success.sell"),
+				title: t<string>("common:action.sell"),
+				description: t<string>("common:page.action.success.sellMessage"),
 			});
 		} catch (error) {
 			errorToast({

@@ -45,3 +45,17 @@ export function formatBalance(number: number): string {
 
 	return result;
 }
+
+export function slug(s: string) {
+	return s
+		.toString()
+		.normalize("NFD")
+		.replace(/[\u0300-\u036f]/g, "")
+		.toLowerCase()
+		.replace(/\s+/g, "-")
+		.replace(/&/g, "-and-")
+		.replace(/[^\w-]+/g, "")
+		.replace(/--+/g, "-")
+		.replace(/^-+/, "")
+		.replace(/-+$/, "");
+}
