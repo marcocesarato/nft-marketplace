@@ -6,7 +6,7 @@ export function getPath(uri: string | null | undefined): string {
 	return uri?.split("?")[0].split("#")[0] || "";
 }
 
-export function getEmbeddedIPFSImageUrl(uri: string | null | undefined): string {
+export function getEmbeddedIPFSUrl(uri: string | null | undefined): string {
 	const basePath = `${process.env.NEXT_PUBLIC_URL}/api/cors?url=`;
 	const query = encodeURIComponent(uri);
 	return basePath + query;
@@ -42,7 +42,7 @@ export function getIPFSGatewayUrl(url: string): string {
 }
 
 export function resolveIPFSUrl(url: string): string {
-	return getEmbeddedIPFSImageUrl(getIPFSGatewayUrl(url));
+	return getEmbeddedIPFSUrl(getIPFSGatewayUrl(url));
 }
 
 /**

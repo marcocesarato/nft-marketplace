@@ -3,11 +3,12 @@ import {Flex} from "@chakra-ui/react";
 import {BakeShadows, OrbitControls, Stage} from "@react-three/drei";
 import {Canvas} from "@react-three/fiber";
 
+import {TokenItem} from "@app/types";
 import Frame from "@components/Frame";
+import Model from "@components/Model";
 import useIPFS from "@hooks/useIPFS";
-import {getEmbeddedIPFSImageUrl} from "@utils/url";
 
-export default function Product3DViewer({data}): JSX.Element {
+export default function Product3DViewer({data}: {data: TokenItem}): JSX.Element {
 	const {resolveLink} = useIPFS();
 	return (
 		<Flex position="relative" height="70vh">
@@ -17,12 +18,16 @@ export default function Product3DViewer({data}): JSX.Element {
 						environment="city"
 						intensity={0.5}
 						contactShadow={{opacity: 0.7, blur: 2}}>
-						<Frame
-							url={getEmbeddedIPFSImageUrl(resolveLink(data.image))}
-							rotation={[0, 0, 0]}
-							position={[0, 0, 0]}
-							disableHover={true}
-						/>
+						{data.animation_url ? (
+							<Model src={resolveLink(data.animation_url)} />
+						) : (
+							<Frame
+								url={resolveLink(data.image)}
+								rotation={[0, 0, 0]}
+								position={[0, 0, 0]}
+								disableHover={true}
+							/>
+						)}
 					</Stage>
 					<BakeShadows />
 				</Suspense>
