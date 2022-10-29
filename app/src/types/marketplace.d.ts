@@ -73,3 +73,12 @@ type TokenAttribute = {
 	value: string;
 	display_type?: string | null;
 };
+
+type SellInput = {
+	price?: string;
+	name: string;
+	description: string;
+	image: any;
+	animation?: any;
+	externalUrl?: string;
+};

@@ -7,14 +7,6 @@ import useToast from "@hooks/useToast";
 import {isString} from "@utils/objects";
 import {parseUnits} from "@utils/units";
 
-export type SellInput = {
-	price: string;
-	name: string;
-	description: string;
-	image: any;
-	animation?: any;
-};
-
 export default function useMarket() {
 	const {data: signer, isError, isLoading, error} = useSigner();
 	const {
@@ -61,13 +53,13 @@ export default function useMarket() {
 		}
 	}
 
-	async function sell(url: string, formInput: SellInput) {
+	async function sell(url: string, price: string) {
 		try {
 			await switchNetworkAsync();
 
 			const listingPrice = await contract.getListingPrice();
-			const price = parseUnits(formInput.price, "ether");
-			const transaction = await contract.createToken(url, price, {
+			const priceEther = parseUnits(price, "ether");
+			const transaction = await contract.createToken(url, priceEther, {
 				value: listingPrice,
 			});
 

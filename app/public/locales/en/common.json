@@ -99,15 +99,22 @@
 				"create": "Create digital asset"
 			},
 			"asset": {
-				"description": "Asset description",
+				"description": "Description",
+                "descriptionSubtitle": "The item's detail page will display the description next to the item's image.",
+                "externalUrl": "External link",
+                "externalUrlSubtitle": "The item's detail page will have a link to this URL that users can click to access additional information. If you have a webpage with extra information, feel free to link to it.",
 				"image": "Image",
 				"item": "Item (Video, Audio or 3D Model)",
-				"name": "Asset name",
-				"price": "Asset price in"
+				"name": "Name",
+                "placeholder": {
+                    "description": "Provide a detailed description of the item",
+                    "name": "Item name"
+                },
+				"price": "Price in"
 			},
 			"description": "Fill the form and sell your digital asset",
 			"minting": "Minting token, follow the instructions on your wallet...",
-			"requiredFields": "(*) Fields required",
+			"requiredFields": "Required fields",
 			"shortTitle": "Sell Assets",
 			"title": "Sell Assets",
 			"uploading": "Uploading data..."

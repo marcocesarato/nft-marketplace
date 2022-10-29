@@ -99,15 +99,22 @@
 				"create": "Crea risorsa digitale"
 			},
 			"asset": {
-				"description": "Descrizione della risorsa",
+				"description": "Descrizione",
+                "descriptionSubtitle": "La pagina dei dettagli dell'articolo visualizzerà la descrizione accanto all'immagine dell'articolo.",
+                "externalUrl": "Collegamento esterno",
+                "externalUrlSubtitle": "La pagina dei dettagli dell'articolo conterrà un collegamento a questo URL su cui gli utenti possono fare clic per accedere a informazioni aggiuntive. Se hai una pagina web con informazioni extra, sentiti libero di collegarti ad essa.",
 				"image": "Immagine",
 				"item": "Elemento (Video, Audio o Modello 3D)",
-				"name": "Nome della risorsa",
-				"price": "Prezzo della risorsa in"
+				"name": "Nome",
+                "placeholder": {
+                    "description": "Fornisci una descrizione dettagliata dell'oggetto",
+                    "name": "Nome oggetto"
+                },
+                "price": "Prezzo in"
 			},
 			"description": "Compila il form e vendi la tua risorsa digitale",
 			"minting": "Minting del token, segui le istruzioni sul tuo wallet...",
-			"requiredFields": "(*) Campi richiesti",
+			"requiredFields": "Campi richiesti",
 			"shortTitle": "Vendi asset",
 			"title": "Vendi risorsa digitale",
 			"uploading": "Caricamento dati in corso..."

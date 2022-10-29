@@ -9,20 +9,22 @@ import {
 	Image,
 	Input,
 	Stack,
-	Text,
 	Textarea,
 } from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
+import {SellInput} from "@app/types";
 import Content from "@components/Content";
 import Dropzone, {DropzoneTypeEnum} from "@components/Dropzone";
 import Header from "@components/Header";
 import Loader from "@components/Loader";
+import Required from "@components/Required";
+import Subtitle from "@components/Subititle";
 import ErrorAlert from "@errors/ErrorAlert";
 import useAccount from "@hooks/useAccount";
 import useBalance from "@hooks/useBalance";
 import useIPFS from "@hooks/useIPFS";
-import useMarket, {SellInput} from "@hooks/useMarket";
+import useMarket from "@hooks/useMarket";
 import {getStaticPropsLocale} from "@utils/i18n";
 
 export const getStaticProps = getStaticPropsLocale;
@@ -40,6 +42,7 @@ export default function Sell(): JSX.Element {
 		description: "",
 		image: null,
 		animation: null,
+		externalUrl: null,
 	});
 	const [isProcessing, setProcessing] = useState(false);
 	const router = useRouter();
@@ -53,27 +56,28 @@ export default function Sell(): JSX.Element {
 
 	async function createSale(url: string) {
 		setMessage(t<string>("common:page.sell.minting"));
-		await sell(url, formInput);
+		await sell(url, formInput.price);
 		setMessage("");
 		router.push("/explore");
 	}
 
-	function createFormDataFile(name: string, description: string, image: File, animation?: File) {
+	function createFormDataFile(input: SellInput) {
 		const formData = new FormData();
-		formData.append("name", name);
-		formData.append("description", description);
-		formData.append("image", image);
-		formData.append("animation", animation);
+		formData.append("name", input.name);
+		formData.append("description", input.description);
+		formData.append("image", input.image);
+		formData.append("animation", input.animation);
+		formData.append("externalUrl", input.externalUrl);
 		return formData;
 	}
 
 	async function createMarket() {
-		const {name, description, price, image, animation} = formInput;
+		const {name, description, price, image} = formInput;
 		if (!name || !description || !price || !image) return;
 		try {
 			setProcessing(true);
 			setMessage(t<string>("common:page.sell.uploading"));
-			const formData = createFormDataFile(name, description, image, animation);
+			const formData = createFormDataFile(formInput);
 			const url = await uploadFile(formData);
 			createSale(url);
 		} catch (e) {
@@ -97,9 +101,10 @@ export default function Sell(): JSX.Element {
 					title={t<string>("common:page.sell.title")}
 					subtitle={t<string>("common:page.sell.description")}
 				/>
-				<Text fontSize="xs" align={"right"}>
+				<Subtitle fontSize="xs" align={"right"}>
+					<Required mr={2} />
 					{t<string>("common:page.sell.requiredFields")}
-				</Text>
+				</Subtitle>
 				{isMarketError && (
 					<ErrorAlert
 						error={t<string>("error:unexpectedError")}
@@ -113,16 +118,27 @@ export default function Sell(): JSX.Element {
 					/>
 				)}
 				<FormControl>
-					<FormLabel>{t<string>("common:page.sell.asset.name")} (*)</FormLabel>
+					<FormLabel>
+						{t<string>("common:page.sell.asset.name")}
+						<Required />
+					</FormLabel>
 					<Input
 						value={formInput.name}
+						placeholder={t<string>("common:page.sell.asset.placeholder.name")}
 						onChange={(e) => updateFormInput({...formInput, name: e.target.value})}
 					/>
 				</FormControl>
 				<FormControl>
-					<FormLabel>{t<string>("common:page.sell.asset.description")} (*)</FormLabel>
+					<FormLabel>
+						{t<string>("common:page.sell.asset.description")}
+						<Required />
+					</FormLabel>
+					<Subtitle fontSize="xs" colorScheme="gray">
+						{t<string>("common:page.sell.asset.descriptionSubtitle")}
+					</Subtitle>
 					<Textarea
 						value={formInput.description}
+						placeholder={t<string>("common:page.sell.asset.placeholder.description")}
 						onChange={(e) =>
 							updateFormInput({...formInput, description: e.target.value})
 						}
@@ -130,18 +146,37 @@ export default function Sell(): JSX.Element {
 				</FormControl>
 				<FormControl>
 					<FormLabel>
-						{t<string>("common:page.sell.asset.price")} {balance?.symbol} (*)
+						{t<string>("common:page.sell.asset.price")} {balance?.symbol}
+						<Required />
 					</FormLabel>
 					<Input
 						type="number"
 						min="0"
 						step=".01"
 						value={formInput.price}
+						placeholder="0.00"
 						onChange={(e) => updateFormInput({...formInput, price: e.target.value})}
 					/>
 				</FormControl>
 				<FormControl>
-					<FormLabel>{t<string>("common:page.sell.asset.image")} (*)</FormLabel>
+					<FormLabel>{t<string>("common:page.sell.asset.externalUrl")}</FormLabel>
+					<Subtitle fontSize="xs" colorScheme="gray">
+						{t<string>("common:page.sell.asset.externalUrlSubtitle")}
+					</Subtitle>
+					<Input
+						type="url"
+						value={formInput.externalUrl}
+						placeholder="https://yoursite.net/item/123"
+						onChange={(e) =>
+							updateFormInput({...formInput, externalUrl: e.target.value})
+						}
+					/>
+				</FormControl>
+				<FormControl>
+					<FormLabel>
+						{t<string>("common:page.sell.asset.image")}
+						<Required />
+					</FormLabel>
 					<Dropzone
 						onFileAccepted={onChangeImage}
 						type={DropzoneTypeEnum.Image}
