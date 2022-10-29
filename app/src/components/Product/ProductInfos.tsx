@@ -1,6 +1,11 @@
 import {useMemo, useRef, useState} from "react";
 import NextLink from "next/link";
 import {
+	Accordion,
+	AccordionButton,
+	AccordionIcon,
+	AccordionItem,
+	AccordionPanel,
 	Box,
 	Button,
 	Heading,
@@ -100,7 +105,7 @@ export default function ProductInfos({
 				{showQRCode && (
 					<Popover>
 						<PopoverTrigger>
-							<Button variant="link">{t<string>("common:product:qrcode")}</Button>
+							<Button my={4}>{t<string>("common:product:qrcode")}</Button>
 						</PopoverTrigger>
 						<PopoverContent w="auto">
 							<PopoverArrow />
@@ -120,16 +125,84 @@ export default function ProductInfos({
 				)}
 			</Box>
 
+			<Accordion defaultIndex={[0]} allowMultiple>
+				<AccordionItem>
+					<AccordionButton>
+						<Box flex="1" textAlign="left" fontWeight="bold">
+							{t<string>("common:product.description")}
+						</Box>
+						<AccordionIcon />
+					</AccordionButton>
+					<AccordionPanel pb={4}>{data?.description || "No description."}</AccordionPanel>
+				</AccordionItem>
+
+				{data.external_url && (
+					<AccordionItem>
+						<AccordionButton>
+							<Box flex="1" textAlign="left" fontWeight="bold">
+								{t<string>("common:product.externalUrl")}
+							</Box>
+							<AccordionIcon />
+						</AccordionButton>
+						<AccordionPanel pb={4}>
+							<NextLink href={data.external_url}>{data.external_url}</NextLink>
+						</AccordionPanel>
+					</AccordionItem>
+				)}
+
+				{data?.attributes && data?.attributes.length > 0 && (
+					<AccordionItem>
+						<AccordionButton>
+							<Box flex="1" textAlign="left">
+								{t<string>("common:product.attributes")}
+							</Box>
+							<AccordionIcon />
+						</AccordionButton>
+						<AccordionPanel pb={4}>
+							<TableContainer>
+								<Table>
+									<Tbody>
+										{data?.attributes.map((attribute: TokenAttribute) => (
+											<Tr key={attribute.trait_type}>
+												<Td>
+													<Text fontWeight={"bold"}>
+														{attribute.trait_type}
+													</Text>
+												</Td>
+												<Td>
+													{attribute.display_type === "date" ? (
+														<Text>
+															{new Date(
+																attribute.value,
+															).toLocaleDateString()}
+														</Text>
+													) : attribute.display_type === "url" ? (
+														<Text>
+															<NextLink href={attribute.value}>
+																{attribute.value}
+															</NextLink>
+														</Text>
+													) : attribute.display_type ===
+															"boost_percentage" ||
+													  attribute.display_type === "percentage" ? (
+														<Progress
+															value={parseInt(attribute.value)}
+														/>
+													) : (
+														<Text>{attribute.value}</Text>
+													)}
+												</Td>
+											</Tr>
+										))}
+									</Tbody>
+								</Table>
+							</TableContainer>
+						</AccordionPanel>
+					</AccordionItem>
+				)}
+			</Accordion>
+
 			<Box>
-				<Text
-					fontSize={{base: "16px", lg: "18px"}}
-					color={textColor}
-					fontWeight={"500"}
-					textTransform={"uppercase"}
-					mb={"4"}>
-					{t<string>("common:product.description")}
-				</Text>
-				<Text fontSize={"lg"}>{data?.description || "No description."}</Text>
 				{onPurchase && data?.price && (
 					<Text fontWeight={300} fontSize={"2xl"} mt={5}>
 						<Text as={"span"} fontWeight={"bold"}>
@@ -137,53 +210,6 @@ export default function ProductInfos({
 						</Text>{" "}
 						{data?.price_formatted || data?.price} {symbol}
 					</Text>
-				)}
-				{data?.attributes && data?.attributes.length > 0 && (
-					<Box>
-						<Text
-							fontSize={{base: "16px", lg: "18px"}}
-							color={textColor}
-							fontWeight={"500"}
-							textTransform={"uppercase"}
-							mt={"4"}>
-							{t<string>("common:product.attributes")}
-						</Text>
-						<TableContainer>
-							<Table>
-								<Tbody>
-									{data?.attributes.map((attribute: TokenAttribute) => (
-										<Tr key={attribute.trait_type}>
-											<Td>
-												<Text fontWeight={"bold"}>
-													{attribute.trait_type}
-												</Text>
-											</Td>
-											<Td>
-												{attribute.display_type === "date" ? (
-													<Text>
-														{new Date(
-															attribute.value,
-														).toLocaleDateString()}
-													</Text>
-												) : attribute.display_type === "url" ? (
-													<Text>
-														<NextLink href={attribute.value}>
-															{attribute.value}
-														</NextLink>
-													</Text>
-												) : attribute.display_type === "boost_percentage" ||
-												  attribute.display_type === "percentage" ? (
-													<Progress value={parseInt(attribute.value)} />
-												) : (
-													<Text>{attribute.value}</Text>
-												)}
-											</Td>
-										</Tr>
-									))}
-								</Tbody>
-							</Table>
-						</TableContainer>
-					</Box>
 				)}
 			</Box>
 		</Box>

@@ -100,17 +100,17 @@
 			},
 			"asset": {
 				"description": "Descrizione",
-                "descriptionSubtitle": "La pagina dei dettagli dell'articolo visualizzerà la descrizione accanto all'immagine dell'articolo.",
-                "externalUrl": "Collegamento esterno",
-                "externalUrlSubtitle": "La pagina dei dettagli dell'articolo conterrà un collegamento a questo URL su cui gli utenti possono fare clic per accedere a informazioni aggiuntive. Se hai una pagina web con informazioni extra, sentiti libero di collegarti ad essa.",
+				"descriptionSubtitle": "La pagina dei dettagli dell'articolo visualizzerà la descrizione accanto all'immagine dell'articolo.",
+				"externalUrl": "Collegamento esterno",
+				"externalUrlSubtitle": "La pagina dei dettagli dell'articolo conterrà un collegamento a questo URL su cui gli utenti possono fare clic per accedere a informazioni aggiuntive. Se hai una pagina web con informazioni extra, sentiti libero di collegarti ad essa.",
 				"image": "Immagine",
 				"item": "Elemento (Video, Audio o Modello 3D)",
 				"name": "Nome",
-                "placeholder": {
-                    "description": "Fornisci una descrizione dettagliata dell'oggetto",
-                    "name": "Nome oggetto"
-                },
-                "price": "Prezzo in"
+				"placeholder": {
+					"description": "Fornisci una descrizione dettagliata dell'oggetto",
+					"name": "Nome oggetto"
+				},
+				"price": "Prezzo in"
 			},
 			"description": "Compila il form e vendi la tua risorsa digitale",
 			"minting": "Minting del token, segui le istruzioni sul tuo wallet...",
@@ -135,9 +135,10 @@
 	"product": {
 		"attributes": "Attributi",
 		"createdBy": "Creato da",
-        "ownedBy": "Posseduto da",
 		"description": "Descrizione",
+		"externalUrl": "Collegamento esterno",
 		"item": "Articolo",
+		"ownedBy": "Posseduto da",
 		"price": "Prezzo",
 		"qrcode": "QR Code",
 		"soldBy": "Venduto da"
