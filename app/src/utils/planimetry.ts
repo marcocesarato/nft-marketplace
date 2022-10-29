@@ -1,7 +1,6 @@
 import {MapDirection, MapDirectionEnum, ObjectModelType, PlanimetryBlockTypeEnum} from "@app/enums";
 import type {GenericObject, PlanimetryBlock, PlanimetryMap, TokenItem} from "@app/types";
-
-import {acceptAudio, acceptObjects, acceptVideo} from "../configs/uploads";
+import {acceptAudio, acceptModel, acceptVideo} from "@configs/uploads";
 //import {debounce} from "@utils/common";
 
 export class PlanimetrySchema {
@@ -328,7 +327,7 @@ export class PlanimetrySchema {
 
 export function getObjectModelType(item: TokenItem): ObjectModelType {
 	if (item.animation_url) {
-		const isObject = acceptObjects.some(function (suffix: string) {
+		const isObject = acceptModel.some(function (suffix: string) {
 			return item.animation_url.endsWith(suffix);
 		});
 		if (isObject) return ObjectModelType.Object;

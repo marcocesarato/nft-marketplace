@@ -20,10 +20,12 @@ import {
 	WallSize,
 } from "@configs/gallery";
 import useGallery from "@contexts/Gallery";
+import {slug} from "@utils/formatters";
 
 import Ceiling from "./Ceiling";
 import Door from "./Door";
 import Floor from "./Floor";
+import Model from "./Model";
 import Picture from "./Picture";
 import Wall from "./Wall";
 import Window from "./Window";
@@ -137,19 +139,17 @@ export default function GalleryMap({planimetry}): JSX.Element {
 				if (!item) return;
 				const direction = getMapDirectionEnum(key);
 				const rotation = schema.getDirectionRotation(direction);
-				const itemPosition = (position = {
-					x: (x - map.width / 2) * WallSize,
-					y: WallHeight / 2,
-					z: (y - map.height / 2) * WallSize,
-				});
+				const itemKey = slug("picture" + block.id + item.data?.token_id);
 				switch (item.type) {
 					case ObjectModelTypeEnum.Picture:
-						const key = String("picture" + block.id + item.data?.token_id)
-							.replace(/[^A-Za-z0-9]/g, "")
-							.toLowerCase();
+						const itemPosition = (position = {
+							x: (x - map.width / 2) * WallSize,
+							y: WallHeight / 2,
+							z: (y - map.height / 2) * WallSize,
+						});
 						BlocksRender.push(
 							<Picture
-								key={key}
+								key={itemKey}
 								id={key}
 								sold={item.sold}
 								data={item.data}
@@ -161,6 +161,23 @@ export default function GalleryMap({planimetry}): JSX.Element {
 						);
 						break;
 					case ObjectModelTypeEnum.Object:
+						const modelPosition = (position = {
+							x: (x - map.width / 2) * WallSize,
+							y: 0,
+							z: (y - map.height / 2) * WallSize,
+						});
+						BlocksRender.push(
+							<Model
+								key={itemKey}
+								id={key}
+								sold={item.sold}
+								data={item.data}
+								src={item.src}
+								position={modelPosition}
+								direction={direction}
+								rotation={rotation}
+							/>,
+						);
 						break;
 				}
 			});

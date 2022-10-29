@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useRef, useState} from "react";
-import {Entity, Image, Plane, Text} from "@belivvr/aframe-react";
+import {Entity, Plane, Text} from "@belivvr/aframe-react";
 import {useTranslation} from "next-i18next";
 import {useToken} from "wagmi";
 
@@ -11,15 +11,13 @@ import useDebounceCallback from "@hooks/useDebounceCallback";
 import useMarket from "@hooks/useMarket";
 import {getEmbeddedIPFSUrl} from "@utils/url";
 
-export const defaultPictureAttributes = {
-	"height": WallSize,
-	"width": WallSize,
-	"shadow": {cast: false, receive: true},
+export const defaultModelAttributes = {
+	"shadow": {cast: true, receive: true},
 	"physx-body": "type: static",
 	"physx-restitution": "1.5",
 };
 
-type PictureProps = {
+type ModelProps = {
 	src: string;
 	id: string;
 	data: TokenItem;
@@ -30,7 +28,7 @@ type PictureProps = {
 	[key: string]: any;
 };
 
-export default function Picture({
+export default function Model({
 	src,
 	data,
 	id,
@@ -40,7 +38,7 @@ export default function Picture({
 	ratio = 0.8,
 	sold = true,
 	...props
-}: PictureProps): JSX.Element {
+}: ModelProps): JSX.Element {
 	const ref = useRef<HTMLElement>();
 	const purchaseRef = useRef<HTMLElement>();
 	const [openPanel, setOpenPanel] = useState(false);
@@ -90,14 +88,14 @@ export default function Picture({
 		}
 	}, [purchaseRef, purchaseItem]);
 
-	const picturePosition = {
+	const modelPosition = {
 		x: 0,
 		y: 0,
 		z: 0,
 	};
 	const panelPosition = {
 		x: 0,
-		y: 0,
+		y: WallSize / 2,
 		z: 0,
 	};
 	const threshold = 0.01;
@@ -105,13 +103,13 @@ export default function Picture({
 	switch (direction) {
 		case MapDirection.East:
 		case MapDirection.South:
-			picturePosition.z = wallSection + threshold;
+			modelPosition.z = wallSection + threshold;
 			panelPosition.z = wallSection + threshold * 2;
 			break;
 		case MapDirection.North:
 		case MapDirection.West:
 		default:
-			picturePosition.x = -wallSection - threshold;
+			modelPosition.x = -wallSection - threshold;
 			panelPosition.x = -wallSection - threshold * 2;
 	}
 
@@ -121,67 +119,69 @@ export default function Picture({
 	const textHeight = height * 0.9;
 	const textWidth = width * 0.9;
 	return (
-		<a-entity ref={ref} position={positionToString(position)}>
-			<Image
-				{...defaultPictureAttributes}
-				src={getEmbeddedIPFSUrl(src)}
-				position={picturePosition}
-				rotation={rotation}
-				height={height}
-				width={width}
-				{...props}
-			/>
-			{openPanel && !sold && (
-				<Entity position={panelPosition} rotation={rotation}>
-					<Plane
-						color="#000"
-						height={height}
-						width={width}
-						material={{opacity: 0.8, transparent: true}}>
-						<a-plane
-							ref={purchaseRef}
-							color="#FFF"
-							height={0.5}
-							width={2}
-							position={`0 -1 ${threshold}`}>
-							<Text
-								value={
-									t<string>("common:action.purchase") +
-									" " +
-									(data.price_formatted || data.price) +
-									" " +
-									token?.symbol
-								}
-								height={textHeight}
-								width={textWidth}
-								align="center"
-								color="#000"
-							/>
-						</a-plane>
-					</Plane>
-					<Text
-						value={data.name}
-						height={textHeight}
-						width={textWidth}
-						align="center"
-						position={{x: 0, y: 1, z: 0}}
-					/>
-					<Text
-						value={`Description: ${data.description}`}
-						height={textHeight}
-						width={textWidth}
-						align="center"
-						position={{x: 0, y: 0.7, z: 0}}
-					/>
-					<Text
-						value={`Token Address: ${data.token_address}/${data.token_id}`}
-						height={textHeight}
-						width={textWidth}
-						align="center"
-						position={{x: 0, y: 0, z: 0}}
-					/>
-				</Entity>
-			)}
-		</a-entity>
+		<>
+			<a-entity ref={ref} position={positionToString(position)} id="CIAO">
+				<Entity
+					gltfModel={getEmbeddedIPFSUrl(src)}
+					position={{x: 12, y: 0, z: 4.8}}
+					rotation={rotation}
+					scale={{x: 2.5, y: 2.5, z: 2.5}}
+					autocenter={2.5}
+					animation-mixer
+				/>
+				{openPanel && !sold && (
+					<Entity position={panelPosition} rotation={{x: 0, y: -90, z: 0}}>
+						<Plane
+							class="room-model-panel"
+							color="#000"
+							height={height}
+							width={width}
+							material={{opacity: 0.8, transparent: true}}>
+							<a-plane
+								ref={purchaseRef}
+								color="#FFF"
+								height={0.5}
+								width={2}
+								position={`0 -1 ${threshold}`}>
+								<Text
+									value={
+										t<string>("common:action.purchase") +
+										" " +
+										(data.price_formatted || data.price) +
+										" " +
+										token?.symbol
+									}
+									height={textHeight}
+									width={textWidth}
+									align="center"
+									color="#000"
+								/>
+							</a-plane>
+						</Plane>
+						<Text
+							value={data.name}
+							height={textHeight}
+							width={textWidth}
+							align="center"
+							position={{x: 0, y: 1, z: 0}}
+						/>
+						<Text
+							value={`Description: ${data.description}`}
+							height={textHeight}
+							width={textWidth}
+							align="center"
+							position={{x: 0, y: 0.7, z: 0}}
+						/>
+						<Text
+							value={`Token Address: ${data.token_address}/${data.token_id}`}
+							height={textHeight}
+							width={textWidth}
+							align="center"
+							position={{x: 0, y: 0, z: 0}}
+						/>
+					</Entity>
+				)}
+			</a-entity>
+		</>
 	);
 }
