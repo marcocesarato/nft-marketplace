@@ -101,16 +101,23 @@ export default function Model({
 	const threshold = 0.01;
 	const wallSection = WallSize / 6;
 	switch (direction) {
+		case MapDirection.West:
+			modelPosition.x = -wallSection - threshold;
+			panelPosition.x = -wallSection - threshold * 2;
+			break;
 		case MapDirection.East:
+			modelPosition.x = wallSection + threshold;
+			panelPosition.x = wallSection + threshold * 2;
+			break;
 		case MapDirection.South:
 			modelPosition.z = wallSection + threshold;
 			panelPosition.z = wallSection + threshold * 2;
 			break;
 		case MapDirection.North:
-		case MapDirection.West:
 		default:
-			modelPosition.x = -wallSection - threshold;
-			panelPosition.x = -wallSection - threshold * 2;
+			modelPosition.z = -wallSection - threshold;
+			panelPosition.z = -wallSection - threshold * 2;
+			break;
 	}
 
 	const positionToString = (p) => Object.values(p).join(" ");

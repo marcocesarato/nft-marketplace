@@ -103,12 +103,18 @@ export default function Picture({
 	const threshold = 0.01;
 	const wallSection = WallSize / 6;
 	switch (direction) {
+		case MapDirection.North:
+			picturePosition.z = -wallSection - threshold;
+			panelPosition.z = -wallSection - threshold * 2;
+			break;
 		case MapDirection.East:
+			picturePosition.x = wallSection + threshold;
+			panelPosition.x = wallSection + threshold * 2;
+			break;
 		case MapDirection.South:
 			picturePosition.z = wallSection + threshold;
 			panelPosition.z = wallSection + threshold * 2;
 			break;
-		case MapDirection.North:
 		case MapDirection.West:
 		default:
 			picturePosition.x = -wallSection - threshold;

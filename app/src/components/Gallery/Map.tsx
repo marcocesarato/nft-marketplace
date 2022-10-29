@@ -133,7 +133,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 				break;
 		}
 		// Items
-		if (!isColumn && !isIncidenceSegment) {
+		if ((!isColumn && !isIncidenceSegment) || block.type === PlanimetryBlockTypeEnum.Floor) {
 			Object.keys(block.items || {}).forEach(async (key) => {
 				const item = block.items[key];
 				if (!item) return;
