@@ -100,6 +100,8 @@
 			},
 			"asset": {
 				"description": "Asset description",
+				"image": "Image",
+				"item": "Item (Video, Audio or 3D Model)",
 				"name": "Asset name",
 				"price": "Asset price in"
 			},

@@ -141,7 +141,7 @@ export default function Sell(): JSX.Element {
 					/>
 				</FormControl>
 				<FormControl>
-					<FormLabel>Image (*)</FormLabel>
+					<FormLabel>{t<string>("common:page.sell.asset.image")} (*)</FormLabel>
 					<Dropzone
 						onFileAccepted={onChangeImage}
 						type={DropzoneTypeEnum.Image}
@@ -169,7 +169,7 @@ export default function Sell(): JSX.Element {
 					)}
 				</FormControl>
 				<FormControl>
-					<FormLabel>Item (3D Models, Video or Audio)</FormLabel>
+					<FormLabel>{t<string>("common:page.sell.asset.item")}</FormLabel>
 					<Dropzone
 						onFileAccepted={(file) => updateFormInput({...formInput, animation: file})}
 						type={DropzoneTypeEnum.Animation}
