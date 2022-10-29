@@ -1,4 +1,4 @@
-import {useMemo} from "react";
+import {useCallback, useMemo} from "react";
 import {CloseIcon} from "@chakra-ui/icons";
 import {
 	Accordion,
@@ -7,22 +7,19 @@ import {
 	AccordionItem,
 	AccordionPanel,
 	Box,
+	Center,
 	IconButton,
 	Image,
 	Select,
 	VStack,
 } from "@chakra-ui/react";
 
-import {
-	GalleryAssetTypeEnum,
-	MapDirectionEnum,
-	ObjectModelTypeEnum,
-	PlanimetryBlockType,
-	PlanimetryBlockTypeEnum,
-} from "@app/enums";
-import {NativeTokenItem} from "@app/types";
+import {MapDirectionEnum, PlanimetryBlockType, PlanimetryBlockTypeEnum} from "@app/enums";
+import {TokenItem} from "@app/types";
+import AssetOnSalePicker from "@components/AssetPicker/OnSale";
 import AssetOwnedPicker from "@components/AssetPicker/Owned";
 import useGallery from "@contexts/Gallery";
+import {getObjectModelType} from "@utils/planimetry";
 
 export default function GalleryBlockDetails(): JSX.Element {
 	const {schema, selected, onChangeBlockMetadata, onChangeBlock, onSelect} = useGallery();
@@ -47,6 +44,30 @@ export default function GalleryBlockDetails(): JSX.Element {
 		() => (schema ? schema.getBlocksInsideRoom() : new Set()),
 		[schema],
 	);
+	const handleChangeItem = useCallback(
+		(section: number, asset: TokenItem) => {
+			const objectModelType = getObjectModelType(asset);
+			selected.items = selected.items ?? {};
+			selected.items[section] = {
+				name: asset.name,
+				image: asset.image,
+				type: objectModelType,
+				src: asset.animation_url ?? asset.image,
+				data: asset,
+				sold: asset.sold !== false,
+			};
+			onChangeBlockMetadata(selected.id, selected);
+		},
+		[onChangeBlockMetadata, selected],
+	);
+	const handleClearItem = useCallback(
+		(section: number) => {
+			selected.items = selected.items ?? {};
+			selected.items[section] = null;
+			onChangeBlockMetadata(selected.id, selected);
+		},
+		[onChangeBlockMetadata, selected],
+	);
 	const sections = {
 		"ceiling": false,
 		"floor": false,
@@ -63,6 +84,7 @@ export default function GalleryBlockDetails(): JSX.Element {
 		if (selected.type === PlanimetryBlockTypeEnum.Floor && insideWallFloor.has(selected.id)) {
 			sections.floor = true;
 			sections.ceiling = true;
+			enableItems = true;
 		} else if (selected.type === PlanimetryBlockTypeEnum.Wall) {
 			neightbours.forEach((neightbour) => {
 				if (
@@ -73,6 +95,10 @@ export default function GalleryBlockDetails(): JSX.Element {
 					sections[neightbour.direction] = true;
 				}
 			});
+			// Disable if more than 2 items per wall
+			if (Object.values(sections).filter(Boolean).length > 2) {
+				enableItems = false;
+			}
 		}
 	} else {
 		return <VStack flex={1} maxWidth={300}></VStack>;
@@ -145,59 +171,45 @@ export default function GalleryBlockDetails(): JSX.Element {
 											/>
 										</Box>
 									)}
-									{key === "floor" || key === "ceiling" ? (
+									<Center gap={2}>
 										<AssetOwnedPicker
 											width="full"
 											size="sm"
 											mb={2}
+											display={
+												!selected.items?.[section] ||
+												selected.items?.[section]?.sold
+													? "block"
+													: "none"
+											}
 											value={selected.items?.[section]}
-											label="Add new object"
+											label={
+												key === "floor" || key === "ceiling"
+													? "Place object"
+													: "Place picture"
+											}
 											labelClean="Remove"
-											onChange={() => {}}
-											onClean={() => {
-												selected.items = selected.items ?? {};
-												selected.items[section] = null;
-												onChangeBlockMetadata(selected.id, selected);
-											}}
+											onChange={handleChangeItem.bind(this, section)}
+											onClean={handleClearItem.bind(this, section)}
 										/>
-									) : (
-										<AssetOwnedPicker
+										<AssetOnSalePicker
 											width="full"
 											size="sm"
 											mb={2}
+											display={
+												!selected.items?.[section]?.sold ? "block" : "none"
+											}
 											value={selected.items?.[section]}
-											label="Add new painting"
+											label={
+												key === "floor" || key === "ceiling"
+													? "Sell object"
+													: "Sell picture"
+											}
 											labelClean="Remove"
-											onChange={(asset: NativeTokenItem) => {
-												const assetId =
-													asset.token_address +
-													asset.token_id +
-													selected.id +
-													section;
-												selected.items = selected.items ?? {};
-												selected.items[section] = {
-													name: asset.name,
-													image: asset.image,
-													type: ObjectModelTypeEnum.Picture,
-													src: `#${assetId}`,
-													assets: [
-														{
-															id: assetId,
-															src: asset.image,
-															type: GalleryAssetTypeEnum.Image,
-														},
-													],
-													data: asset,
-												};
-												onChangeBlockMetadata(selected.id, selected);
-											}}
-											onClean={() => {
-												selected.items = selected.items ?? {};
-												selected.items[section] = null;
-												onChangeBlockMetadata(selected.id, selected);
-											}}
+											onChange={handleChangeItem.bind(this, section)}
+											onClean={handleClearItem.bind(this, section)}
 										/>
-									)}
+									</Center>
 								</AccordionPanel>
 							</AccordionItem>
 						);

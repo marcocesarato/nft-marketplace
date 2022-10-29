@@ -44,9 +44,9 @@ export type ObjectModel = {
 	name: string;
 	image: string;
 	type: ObjectModelType;
-	assets: GalleryAsset[];
 	src?: string;
 	data?: TokenItem;
+	sold?: boolean;
 	attributes?: {
 		[key: string]: string;
 	};

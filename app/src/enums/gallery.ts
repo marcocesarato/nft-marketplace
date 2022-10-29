@@ -7,9 +7,9 @@ export enum PlanimetryBlockType {
 
 export enum ObjectModelType {
 	Picture = "Picture",
+	Video = "Video",
+	Audio = "Audio",
 	Object = "Object",
-	GLFT = "GLFT",
-	GLB = "GLB",
 }
 
 export enum GalleryActionType {

@@ -142,12 +142,6 @@ export default function GalleryMap({planimetry}): JSX.Element {
 					y: WallHeight / 2,
 					z: (y - map.height / 2) * WallSize,
 				});
-				// Load item assets
-				item.assets?.forEach(async (asset) => {
-					if (!assets.has(asset.id)) {
-						assets.set(asset.id, {...asset, src: item.image});
-					}
-				});
 				switch (item.type) {
 					case ObjectModelTypeEnum.Picture:
 						const key = String("picture" + block.id + item.data?.token_id)
@@ -157,6 +151,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 							<Picture
 								key={key}
 								id={key}
+								sold={item.sold}
 								data={item.data}
 								src={item.src}
 								position={itemPosition}

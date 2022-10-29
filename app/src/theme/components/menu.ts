@@ -12,6 +12,7 @@ const Menu: ComponentStyleConfig = {
 			borderWidth: 0,
 			shadow: "lg",
 			bg: mode("gray.50", "gray.800")(props),
+			zIndex: 9999,
 		},
 		divider: {
 			borderColor: mode("gray.300", "gray.500")(props),

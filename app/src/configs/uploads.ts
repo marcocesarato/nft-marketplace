@@ -14,15 +14,8 @@ export const acceptImage = [
 	".ico",
 ];
 
-export const acceptMultimedia = [
-	".gltf",
-	".glb",
-	".webm",
-	".mp4",
-	".m4v",
-	".ogv",
-	".ogg",
-	".mp3",
-	".wav",
-	".oga",
-];
+export const acceptAudio = [".ogg", ".mp3", ".wav", ".oga"];
+export const acceptVideo = [".webm", ".mp4", ".m4v", ".ogv"];
+export const acceptMultimedia = [...acceptAudio, ...acceptVideo];
+
+export const acceptObjects = [".gltf", ".glb"];

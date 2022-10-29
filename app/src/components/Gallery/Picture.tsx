@@ -13,7 +13,7 @@ import useMarket from "@hooks/useMarket";
 export const defaultPictureAttributes = {
 	"height": WallSize,
 	"width": WallSize,
-	"shadow": {cast: true, receive: true},
+	"shadow": {cast: false, receive: false},
 	"physx-body": "type: static",
 	"physx-restitution": "1.5",
 };
@@ -33,10 +33,11 @@ export default function Picture({
 	src,
 	data,
 	id,
-	ratio = 0.8,
 	direction,
 	position,
 	rotation,
+	ratio = 0.8,
+	sold = true,
 	...props
 }: PictureProps): JSX.Element {
 	const ref = useRef<HTMLElement>();
@@ -135,7 +136,7 @@ export default function Picture({
 				width={width}
 				{...props}
 			/>
-			{openPanel && data.price && (
+			{openPanel && !sold && (
 				<Entity position={panelPosition} rotation={rotation}>
 					<Plane
 						color="#000"
@@ -153,6 +154,7 @@ export default function Picture({
 									t<string>("common:action.purchase") +
 									" " +
 									(data.price_formatted || data.price) +
+									" " +
 									token?.symbol
 								}
 								height={textHeight}
