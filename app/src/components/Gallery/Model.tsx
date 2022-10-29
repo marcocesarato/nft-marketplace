@@ -120,7 +120,7 @@ export default function Model({
 	const textWidth = width * 0.9;
 	return (
 		<>
-			<a-entity ref={ref} position={positionToString(position)} id="CIAO">
+			<a-entity ref={ref} position={positionToString(position)}>
 				<Entity
 					gltfModel={getEmbeddedIPFSUrl(src)}
 					position={{x: 12, y: 0, z: 4.8}}
