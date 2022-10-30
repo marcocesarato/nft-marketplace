@@ -3,12 +3,13 @@ import type {BigNumberish} from "ethers";
 import {Chain} from "wagmi";
 
 import {GenericObject, TokenItem} from "@app/types";
+import {ChainId} from "@configs/chain";
 
 import {deepMerge, isString} from "./objects";
 import {resolveIPFSUrl} from "./url";
 
 export function chainHex(chain: Chain): string {
-	return `0x${chain.id.toString(16)}`;
+	return `0x${(chain?.id || ChainId).toString(16)}`;
 }
 
 export const convertEtherToPrice = (ether: BigNumberish, etherPrice: number): string =>
