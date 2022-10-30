@@ -24,7 +24,7 @@ function Page({Component, pageProps: {session, ...pageProps}}): JSX.Element {
 	return (
 		<>
 			<Head>
-				<title>NFT Marketplace</title>
+				<title>NFT MarketVerse</title>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			</Head>
 			<SessionProvider session={session} refetchInterval={0}>

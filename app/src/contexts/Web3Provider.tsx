@@ -18,7 +18,7 @@ const appName = "NFT MarketVerse";
 const selectedChains =
 	process.env.NODE_ENV !== "production"
 		? allChains
-		: [...defaultChains, chain.polygon, chain.optimism, chain.arbitrum];
+		: [...defaultChains, chain.polygon, chain.polygonMumbai, chain.optimism, chain.arbitrum];
 
 const {provider, webSocketProvider, chains} = configureChains(selectedChains, [
 	//alchemyProvider({apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY, priority: 0, weight: 1}),
