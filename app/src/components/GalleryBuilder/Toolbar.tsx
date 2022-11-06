@@ -36,7 +36,11 @@ import useGallery from "@contexts/Gallery";
 
 import ToolButton from "./ToolButton";
 
-export default function Toolbar({onSave}): JSX.Element {
+export default function Toolbar({
+	onSave,
+	isCanvasMode = false,
+	setCanvasMode = (e: boolean) => {},
+}): JSX.Element {
 	const {
 		mode,
 		size,
@@ -73,7 +77,7 @@ export default function Toolbar({onSave}): JSX.Element {
 						</AccordionButton>
 					</h2>
 					<AccordionPanel pb={4}>
-						<HStack width={"full"}>
+						<HStack width={"full"} mb={4}>
 							<NumberInput
 								value={mapSize}
 								onChange={(_, value) => setMapSize(value)}
@@ -93,6 +97,20 @@ export default function Toolbar({onSave}): JSX.Element {
 								onClick={onOpenResizeMap}
 								icon={<CheckIcon />}
 							/>
+						</HStack>
+						<HStack width={"full"}>
+							<ToolButton
+								justifyContent="center"
+								onClick={() => setCanvasMode(false)}
+								isActive={!isCanvasMode}>
+								2D
+							</ToolButton>
+							<ToolButton
+								justifyContent="center"
+								onClick={() => setCanvasMode(true)}
+								isActive={isCanvasMode}>
+								3D
+							</ToolButton>
 						</HStack>
 					</AccordionPanel>
 				</AccordionItem>

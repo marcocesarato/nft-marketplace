@@ -1,4 +1,4 @@
-import {useCallback, useEffect} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {Box, HStack} from "@chakra-ui/react";
 
 import {PlanimetryMap} from "@app/types";
@@ -9,13 +9,14 @@ import {clone} from "@utils/converters";
 
 import Details from "./Details";
 import Map from "./Map";
+import Map3D from "./Map3D";
 import Toolbar from "./Toolbar";
 
 export default function GalleryBuilder(): JSX.Element {
 	const {schema, setSchema} = useGallery();
 	const {user, isLoading} = useUser();
 	const [userUpdate] = useUserUpdatePlanimetryMutation();
-
+	const [isCanvasMode, setCanvasMode] = useState(false);
 	const onSave = useCallback(() => {
 		if (schema.isValidPlanimetry()) {
 			const schemaMap = schema.getMap();
@@ -38,8 +39,12 @@ export default function GalleryBuilder(): JSX.Element {
 	return (
 		<Box>
 			<HStack isInline alignItems={"flex-start"} justifyContent="space-between">
-				<Toolbar onSave={onSave} />
-				<Map />
+				<Toolbar
+					onSave={onSave}
+					isCanvasMode={isCanvasMode}
+					setCanvasMode={setCanvasMode}
+				/>
+				{isCanvasMode ? <Map3D /> : <Map />}
 				<Details />
 			</HStack>
 		</Box>
