@@ -6,26 +6,30 @@ Watch your Digital Art on the wall of your home. Use the VR viewer to see all yo
 
 ## Summary
 
--   [Summary](#summary)
--   [Setup](#setup)
-    -   [Local Setup](#local-setup)
-    -   [Using Docker](#using-docker)
-        -   [Makefile](#makefile)
-    -   [Configuration](#configuration)
-        -   [Dotenv](#dotenv)
-        -   [Variables](#variables)
--   [Requirements](#requirements)
-    -   [Background informations](#background-informations)
-    -   [Connect Metamask to Polygon](#connect-metamask-to-polygon)
--   [Technology Stack](#technology-stack)
-    -   [Main](#main)
-    -   [Other](#other)
--   [Workflows](#workflows)
--   [Structure](#structure)
--   [Coding Style](#coding-style-coding-style-md)
--   [How to Contribute](#how-to-contribute-contributing-md)
--   [How to Release](#how-to-release-docs-release-md)
--   [How to Deploy](#how-to-deploy-docs-deploy-md)
+1. [Summary](#summary)
+2. [Setup](#setup)
+    1. [Local Setup](#local-setup)
+    2. [Using Docker](#using-docker)
+        1. [Makefile](#makefile)
+    3. [Configuration](#configuration)
+        1. [Dotenv](#dotenv)
+        2. [Variables](#variables)
+3. [Requirements](#requirements)
+    1. [Background informations](#background-informations)
+    2. [Connect Metamask to Polygon](#connect-metamask-to-polygon)
+4. [Architecture](#architecture)
+    1. [Layered](#layered)
+    2. [Flow](#flow)
+    3. [Components](#components-docs-images-architecture-components-png)
+    4. [Tech Stack](#tech-stack)
+        1. [Main](#main)
+        2. [Other](#other)
+5. [Workflows](#workflows)
+6. [Structure](#structure)
+7. [Coding Style](#coding-style-coding-style-md)
+8. [How to Contribute](#how-to-contribute-contributing-md)
+9. [How to Release](#how-to-release-docs-release-md)
+10. [How to Deploy](#how-to-deploy-docs-deploy-md)
 
 ## Setup
 
@@ -125,11 +129,29 @@ If you are new in the blockchain world and you need more background information 
 
 How to connect Polygon Testnet to MetaMask wallet? The easiest way to get it done is by searching "MATIC" on [Chainlist](https://chainlist.org/) and clicking "Add To Metamask" on "Matic (Polygon) Testnet Mumbai", and you are good to go.
 
-## Technology Stack
+## Architecture
 
-![](/docs/images/tech-stack.png)
+### Layered
 
-### Main
+Here is the architecture of the project representing modules and components with similar functionalities organized into horizontal layers.
+
+![](/docs/images/layered-architecture.png)
+
+### Flow
+
+Here is represented the flow of data that passes through the modules and components of the architecture.
+
+![](/docs/images/flow-architecture.png)
+
+### [Components](/docs/images/architecture-components.png)
+
+This is an informational document to highlight the components used in the solution and services.
+
+### Tech Stack
+
+The tech stack is the combination of technologies used to build and run the project.
+
+#### Main
 
 -   **Web Framework:** [React](https://reactjs.org/) / [NextJS](https://nextjs.org/) (with [TypeScript](https://www.typescriptlang.org/))
 -   **API:** [GraphQL](https://graphql.org/) / [Apollo Server](https://www.apollographql.com/)
@@ -142,7 +164,7 @@ How to connect Polygon Testnet to MetaMask wallet? The easiest way to get it don
 -   **Cross Reality:** [WebXR](https://immersive-web.github.io/) / [ThreeJS](https://threejs.org/)
 -   **Web Socket:** [socket.io](https://socket.io)
 
-### Other
+#### Other
 
 -   [Solidity](https://docs.soliditylang.org/) - Smart Contracts
 -   [Mongoose](https://mongoosejs.com/) - MongoDB object modeling
