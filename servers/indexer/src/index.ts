@@ -1,6 +1,6 @@
 import logger from "@/logger";
 import service from "@/service";
-import {dotenvLoad} from "@packages/dotenv";
+import {dotenvLoad} from "dotenv-mono";
 
 // Load env
 dotenvLoad();

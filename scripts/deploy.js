@@ -4,7 +4,7 @@
 const {ethers} = require("hardhat");
 const fs = require("fs");
 const path = require("path");
-const {DotEnv} = require("@packages/dotenv");
+const {DotEnv} = require("dotenv-mono");
 
 const dotenv = dotenvLoad();
 

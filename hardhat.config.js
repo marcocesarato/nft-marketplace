@@ -1,7 +1,7 @@
 require("@nomiclabs/hardhat-ethers");
 require("@nomiclabs/hardhat-waffle");
 require("@openzeppelin/hardhat-upgrades");
-const {dotenvLoad} = require("@packages/dotenv");
+const {dotenvLoad} = require("dotenv-mono");
 
 // Load env
 dotenvLoad();

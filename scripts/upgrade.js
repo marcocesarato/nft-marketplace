@@ -3,7 +3,7 @@
  */
 const {ethers, upgrades} = require("hardhat");
 const fs = require("fs");
-const {dotenvLoad} = require("@packages/dotenv");
+const {dotenvLoad} = require("dotenv-mono");
 
 dotenvLoad();
 
