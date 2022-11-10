@@ -47,7 +47,7 @@ export default function Home(): JSX.Element {
 					/>
 				</Box>
 			</Box>
-			<Box mx="auto" px={6} pb={4}>
+			<Box mx="auto" px={6} pb={4} overflowX="hidden">
 				<HStack w="full" mb="6" mt={{base: 6, xl: 0}}>
 					<Box
 						textAlign={{
