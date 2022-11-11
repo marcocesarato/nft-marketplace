@@ -20,7 +20,7 @@
 		"winston-daily-rotate-file": "^4.7.1"
 	},
 	"devDependencies": {
-		"dotenv-mono": "0.1.1",
+		"dotenv-mono": "0.2.0",
 		"@packages/eslint-config": "*",
 		"@types/node": "^18.11.9",
 		"ts-node": "^10.9.1",

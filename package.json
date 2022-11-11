@@ -39,7 +39,7 @@
 		"@openzeppelin/contracts": "^4.7.3",
 		"@openzeppelin/contracts-upgradeable": "^4.7.3",
 		"@openzeppelin/hardhat-upgrades": "^1.21.0",
-		"dotenv-mono": "0.1.1",
+		"dotenv-mono": "0.2.0",
 		"@packages/eslint-config": "*",
 		"@typescript-eslint/eslint-plugin": "^5.42.0",
 		"@typescript-eslint/parser": "^5.42.0",
