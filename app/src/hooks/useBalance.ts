@@ -8,7 +8,7 @@ export default function useNativeBalance() {
 	const {address} = useAccount();
 	const {setConfig} = useConfig();
 	const {data, isError, isLoading} = useBalance({
-		addressOrName: address,
+		address: address,
 	});
 
 	const display = useMemo(() => {
