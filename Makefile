@@ -13,11 +13,11 @@ $(error The ENV variable is invalid.)
 endif
 
 ifeq ($(ENV), prod)
-COMPOSE_FILE = docker-compose.yml
+COMPOSE_FILE = "$(CURDIR)/docker-compose.yml"
 else
-COMPOSE_FILE = docker-compose.$(ENV).yml
+COMPOSE_FILE = "$(CURDIR)/docker-compose.$(ENV).yml"
 endif
-ENV_FILE = $(CURDIR)/.env
+ENV_FILE = "$(CURDIR)/.env"
 
 # Colors
 Color_Off=\033[0m
