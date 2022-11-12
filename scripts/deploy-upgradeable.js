@@ -4,9 +4,7 @@
 const {ethers, upgrades} = require("hardhat");
 const fs = require("fs");
 const path = require("path");
-const {dotenvLoad} = require("dotenv-mono");
-
-const dotenv = dotenvLoad();
+const dotenv = require("dotenv-mono").load();
 
 const main = async () => {
 	const [deployer] = await ethers.getSigners();

@@ -1,9 +1,8 @@
 const {i18n} = require("./next-i18next.config");
-const {dotenvLoad} = require("dotenv-mono");
 const runtimeCaching = require("next-pwa/cache");
 
-// Load env
-dotenvLoad();
+// Load environment
+require("dotenv-mono").load();
 
 const isDev = process.env.NODE_ENV === "development";
 const withPWA = require("next-pwa")({

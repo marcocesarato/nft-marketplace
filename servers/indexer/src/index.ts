@@ -2,13 +2,13 @@ import logger from "@/logger";
 import service from "@/service";
 import {dotenvLoad} from "dotenv-mono";
 
-// Load env
-dotenvLoad();
-
 function main() {
+	// Load env
+	dotenvLoad();
+	// Start service
 	service().catch((error: Error) => {
 		logger.error(error.message);
-		service(); // Restart service
+		service(); // Restart service on error
 	});
 	process.stdin.resume();
 }
