@@ -71,7 +71,7 @@
 		"socket.io-client": "^4.5.3",
 		"three": "0.143.0",
 		"three-to-cannon": "^4.3.0",
-		"wagmi": "^0.8.1",
+		"wagmi": "^0.8.2",
 		"webxr-polyfill": "^2.0.3"
 	},
 	"devDependencies": {
@@ -93,7 +93,7 @@
 		"@types/three": "0.143.0",
 		"@types/webxr": "^0.5.0",
 		"cypress": "^11.0.1",
-		"dotenv-mono": "1.0.1",
+		"dotenv-mono": "1.1.0",
 		"eslint-config-next": "13.0.3",
 		"eslint-config-react-app": "7.0.1",
 		"eslint-plugin-chai-friendly": "^0.7.2",
