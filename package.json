@@ -59,5 +59,10 @@
 	"lint-staged": {
 		"*.{js,jsx,ts,tsx}": "eslint --fix",
 		"*.{json,md}": "prettier --write"
+	},
+	"standard-version": {
+		"scripts": {
+			"postchangelog": "prettier -w CHANGELOG.md"
+		}
 	}
 }
