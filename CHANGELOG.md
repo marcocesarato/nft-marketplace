@@ -91,3 +91,5 @@ All notable changes to this project will be documented in this file. See [standa
 -   user logged out user ([ecf4616](http://10.40.3.152:13000/gogsadmin/nft-marketplace/commit/ecf4616c7e4066b54f0bb18602ebd50c74ab5d40))
 -   view transfers languages ([3183dc5](http://10.40.3.152:13000/gogsadmin/nft-marketplace/commit/3183dc5c20999564fad25052c1382e098ff23920))
 -   warning size prop missing ([4d50a17](http://10.40.3.152:13000/gogsadmin/nft-marketplace/commit/4d50a172b9229fae8dce76ea31cae16c46bb029c))
+
+## [1.0.0-beta.1](http://10.40.3.152:13000/gogsadmin/nft-marketplace/compare/...v1.0.0-beta.1) (2022-06-23)
