@@ -2,12 +2,7 @@
 
 # Local env files
 .env
-.env.parser
-.env.local
-.env.*.production
-.env.*.development
-.env.*.test
-.env.*.local
+.env.*
 
 # Dependencies
 node_modules
