@@ -38,7 +38,7 @@ export {default as Owned} from "./Owned";
 export {default as Transfers} from "./Transfers";
 
 export type AccountProps = {
-	id: string;
+	id: string | string[];
 };
 
 export default function Account({id}: AccountProps): JSX.Element {

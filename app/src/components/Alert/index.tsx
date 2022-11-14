@@ -13,13 +13,13 @@ import {
 type AlertProps = {
 	title: string;
 	content: string;
-	confirmText: string;
-	cancelText: string;
+	confirmText?: string;
+	cancelText?: string;
 	onConfirm: () => void;
 	onCancel: () => void;
 	isOpen: boolean;
 	onClose: () => void;
-	color: string;
+	color?: string;
 };
 
 export default function Alert({
