@@ -1,0 +1,60 @@
+{
+	"data": {
+		"marketItems": [
+			{
+				"_id": 3,
+				"name": "Orange Plum",
+				"network_id": "0",
+				"token_address": "0xDB6e381a571DBEB7c46617418dC3D6bcB98d1384",
+				"token_id": 3,
+				"token_uri": "https://ipfs.moralis.io:2053/ipfs/QmcYJbXBDp1DBWjrXw9voK6yxYbj1i37EF2DJxZQRSwxC3/metadata/peach.json",
+				"creator": "0xad35c27c74677759afeb435c4e7e09e7946c5c4f",
+				"seller": "0xad35c27c74677759afeb435c4e7e09e7946c5c4f",
+				"owner_of": "0xdb6e381a571dbeb7c46617418dc3d6bcb98d1384",
+				"price": "5000000000000000",
+				"price_formatted": 5,
+				"sold": false,
+				"description": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam",
+				"external_url": "null",
+				"animation_url": null,
+				"youtube_url": null,
+				"attributes": [],
+				"image": "http://localhost:3000/api/cors?url=https%3A%2F%2Fipfs.moralis.io%3A2053%2Fipfs%2FQmUxoEd3g4kjQszpo34yYjUuzJjZ2hweE7nMWf3CKGYagm",
+				"thumbnail": "http://localhost:3000/api/cors?url=https%3A%2F%2Fipfs.moralis.io%3A2053%2Fipfs%2FQmUxoEd3g4kjQszpo34yYjUuzJjZ2hweE7nMWf3CKGYagm",
+				"likes": 22,
+				"is_liked": true,
+				"is_favourited": true,
+				"updated_at": "2022-10-31T19:35:02.345Z",
+				"created_at": "2022-10-31T19:35:02.345Z",
+				"__typename": "MarketItem"
+			},
+			{
+				"_id": 3,
+				"name": "Pink Chair",
+				"network_id": "0",
+				"token_address": "0xDB6e381a571DBEB7c46617418dC3D6bcB98d1384",
+				"token_id": 3,
+				"token_uri": "https://ipfs.moralis.io:2053/ipfs/QmcYJbXBDp1DBWjrXw9voK6yxYbj1i37EF2DJxZQRSwxC3/metadata/peach.json",
+				"creator": "0xad35c27c74677759afeb435c4e7e09e7946c5c4f",
+				"seller": "0xad35c27c74677759afeb435c4e7e09e7946c5c4f",
+				"owner_of": "0xdb6e381a571dbeb7c46617418dc3d6bcb98d1384",
+				"price": "5000000000000000",
+				"price_formatted": 5,
+				"sold": false,
+				"description": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam",
+				"external_url": "null",
+				"animation_url": null,
+				"youtube_url": null,
+				"attributes": [],
+				"image": "http://localhost:3000/api/cors?url=https%3A%2F%2Fipfs.moralis.io%3A2053%2Fipfs%2FQmfTB5k68Wg8pgkRbNJSAxoohfZuWKh7GewpVEbKMzMwQ8",
+				"thumbnail": "http://localhost:3000/api/cors?url=https%3A%2F%2Fipfs.moralis.io%3A2053%2Fipfs%2FQmfTB5k68Wg8pgkRbNJSAxoohfZuWKh7GewpVEbKMzMwQ8",
+				"likes": 51,
+				"is_liked": false,
+				"is_favourited": false,
+				"updated_at": "2022-10-31T19:35:02.345Z",
+				"created_at": "2022-10-31T19:35:02.345Z",
+				"__typename": "MarketItem"
+			}
+		]
+	}
+}
