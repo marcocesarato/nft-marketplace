@@ -13,16 +13,16 @@ import {
 } from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
-import {GenericObject} from "@app/types";
+import {TokenItem} from "@app/types";
 import useIPFS from "@hooks/useIPFS";
 import {objectCamelToUnderscore} from "@utils/converters";
 
-type AssetPickerProps = {
-	items: GenericObject[];
-	value?: GenericObject;
+export type AssetPickerProps = {
+	items?: TokenItem[] | null;
+	value?: TokenItem;
 	label: string;
 	labelClean: string;
-	onChange: (asset: GenericObject) => void;
+	onChange: (asset: TokenItem | null | undefined) => void;
 	onClean: () => void;
 	[key: string]: any;
 };
@@ -36,7 +36,7 @@ export default function AssetPicker({
 	...props
 }: AssetPickerProps) {
 	const {t} = useTranslation();
-	const [selected, setSelected] = useState(value);
+	const [selected, setSelected] = useState<TokenItem | null | undefined>(value);
 	const {isOpen, onOpen, onClose} = useDisclosure();
 	const {resolveLink} = useIPFS();
 	useEffect(() => {
@@ -60,8 +60,8 @@ export default function AssetPicker({
 					<ModalCloseButton />
 					<ModalBody>
 						<SimpleGrid columns={5} spacing={2}>
-							{items.map((c) => {
-								c = objectCamelToUnderscore(c);
+							{items?.map((c) => {
+								c = objectCamelToUnderscore(c) as TokenItem;
 								const background = {
 									backgroundImage: resolveLink(c.thumbnail || c.image),
 									backgroundSize: "cover",
@@ -71,7 +71,7 @@ export default function AssetPicker({
 									<Button
 										key={c.token_address + c.token_id}
 										border={
-											selected?.token_address + selected?.token_id ===
+											`${selected?.token_address}${selected?.token_id}` ===
 											c.token_address + c.token_id
 												? "5px solid #553C9A"
 												: "none"

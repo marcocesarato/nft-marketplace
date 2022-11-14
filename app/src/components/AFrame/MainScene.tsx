@@ -2,8 +2,13 @@ import React, {useRef} from "react";
 import {Scene} from "@belivvr/aframe-react";
 import {Box} from "@chakra-ui/react";
 
-export default function MainScene({room, ...props}): JSX.Element {
-	const scene = useRef();
+type MainSceneProps = {
+	room: string;
+	[key: string]: any;
+};
+
+export default function MainScene({room, ...props}: MainSceneProps): JSX.Element {
+	const scene = useRef<HTMLDivElement | null>(null);
 
 	/*useEffect(() => {
 		if (scene.current) {

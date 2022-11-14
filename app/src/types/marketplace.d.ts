@@ -50,7 +50,7 @@ export type MarketTokenItem = {
 	attributes?: Array<TokenAttribute | null> | null;
 };
 
-export type TokenTransfer = {
+export type TokenTransaction = {
 	token_address: string;
 	token_id: string;
 	from_address: string;

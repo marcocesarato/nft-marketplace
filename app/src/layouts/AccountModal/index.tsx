@@ -120,7 +120,7 @@ export default function AccountModal({isOpen, onClose}): JSX.Element {
 							</LinkButton>
 							<LinkButton
 								ml={6}
-								href={`${chain?.blockExplorers.default.url}address/${address}`}
+								href={`${chain?.blockExplorers?.default.url}address/${address}`}
 								isExternal>
 								<ExternalLinkIcon mr={1} />
 								{t<string>("common:action.viewOnExplorer")}

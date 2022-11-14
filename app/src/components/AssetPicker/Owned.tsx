@@ -1,18 +1,18 @@
 import {useTranslation} from "next-i18next";
 import {useAccount, useNetwork} from "wagmi";
 
-import {NativeTokenItem} from "@app/types";
+import {TokenItem} from "@app/types";
 import AssetPicker from "@components/AssetPicker";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
 import {useWalletNFTsQuery} from "@services/graphql";
 import {chainHex, toTokenItems} from "@utils/converters";
 
-type AssetOwnedPickerProps = {
-	value?: NativeTokenItem;
+export type AssetOwnedPickerProps = {
+	value?: TokenItem;
 	label: string;
 	labelClean: string;
-	onChange: (asset: NativeTokenItem) => void;
+	onChange: (asset: TokenItem | null | undefined) => void;
 	onClean: () => void;
 	[key: string]: any;
 };
@@ -23,7 +23,7 @@ export default function AssetOwnedPicker(props: AssetOwnedPickerProps): JSX.Elem
 	const {data, loading, error} = useWalletNFTsQuery({
 		variables: {
 			chain: chainHex(chain),
-			address,
+			address: address as string,
 		},
 	});
 	const items = toTokenItems(data?.walletNFTs);

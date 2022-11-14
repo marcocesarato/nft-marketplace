@@ -4,7 +4,14 @@ import {Flex, Link, Text} from "@chakra-ui/react";
 import Avatar from "@components/Avatar";
 import {formatAddress} from "@utils/formatters";
 
-const Address = ({address, name = null, label = null, ...props}): JSX.Element => {
+export type AddressProps = {
+	address: string;
+	name?: string;
+	label?: string;
+	[key: string]: any;
+};
+
+const Address = ({address, name, label, ...props}: AddressProps): JSX.Element => {
 	return (
 		<Flex
 			direction={{base: "column", md: "row"}}

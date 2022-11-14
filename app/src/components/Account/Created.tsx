@@ -6,18 +6,14 @@ import Loading from "@components/Loading";
 import {useMarketItemsCreatedQuery} from "@services/graphql";
 import {toTokenItems} from "@utils/converters";
 
-type CreatedProps = {
+export type CreatedProps = {
 	address: string;
 	title?: string;
 	subtitle?: string;
 	[key: string]: any;
 };
 
-export default function Created({
-	address = null,
-	title = null,
-	subtitle = null,
-}: CreatedProps): JSX.Element {
+export default function Created({address, title, subtitle}: CreatedProps): JSX.Element {
 	const {t} = useTranslation();
 	const {data, error, loading} = useMarketItemsCreatedQuery({filter: {creator: address}});
 	const items = toTokenItems(data?.marketItems);

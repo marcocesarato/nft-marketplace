@@ -3,6 +3,7 @@ import {Box, Link} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 import {useNetwork} from "wagmi";
 
+import {TokenTransaction} from "@app/types";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
 import Table from "@components/Table";
@@ -12,7 +13,7 @@ import {chainHex} from "@utils/converters";
 import {formatAddress} from "@utils/formatters";
 import {formatUnits} from "@utils/units";
 
-type TransfersProps = {
+export type TransfersProps = {
 	address: string;
 	title?: string;
 	subtitle?: string;
@@ -21,8 +22,8 @@ type TransfersProps = {
 
 export default function Transfers({
 	address,
-	title = null,
-	subtitle = null,
+	title,
+	subtitle,
 	...props
 }: TransfersProps): JSX.Element {
 	const {t} = useTranslation();
@@ -41,7 +42,7 @@ export default function Transfers({
 			key: "from_address",
 			render: (from: string) => (
 				<Link
-					href={`${chain?.blockExplorers.default.url}/address/${from}`}
+					href={`${chain?.blockExplorers?.default.url}/address/${from}`}
 					isExternal
 					color="primary"
 					colorScheme="purple">
@@ -56,7 +57,7 @@ export default function Transfers({
 			key: "to_address",
 			render: (to: string) => (
 				<Link
-					href={`${chain?.blockExplorers.default.url}/address/${to}`}
+					href={`${chain?.blockExplorers?.default.url}/address/${to}`}
 					isExternal
 					color="primary"
 					colorScheme="purple">
@@ -84,7 +85,7 @@ export default function Transfers({
 			render: (hash: string) => (
 				<Box textAlign="right">
 					<Link
-						href={`${chain?.blockExplorers.default.url}/tx/${hash}`}
+						href={`${chain?.blockExplorers?.default.url}/tx/${hash}`}
 						isExternal
 						color="primary"
 						colorScheme="purple">
@@ -115,7 +116,7 @@ export default function Transfers({
 			<Table
 				data={items}
 				columns={columns}
-				rowKey={(record) => {
+				rowKey={(record: TokenTransaction) => {
 					key++;
 					return `${record.transaction_hash}-${key}`;
 				}}

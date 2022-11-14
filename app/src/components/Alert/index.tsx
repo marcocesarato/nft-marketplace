@@ -10,18 +10,30 @@ import {
 	Button,
 } from "@chakra-ui/react";
 
+type AlertProps = {
+	title: string;
+	content: string;
+	confirmText: string;
+	cancelText: string;
+	onConfirm: () => void;
+	onCancel: () => void;
+	isOpen: boolean;
+	onClose: () => void;
+	color: string;
+};
+
 export default function Alert({
 	title,
 	content,
-	confirmText = null,
-	cancelText = null,
+	confirmText,
+	cancelText,
 	onConfirm,
 	onCancel,
 	isOpen,
 	onClose,
 	color = "red",
-}) {
-	const cancelRef = useRef();
+}: AlertProps) {
+	const cancelRef = useRef<HTMLButtonElement | null>(null);
 	return (
 		<AlertDialog
 			motionPreset="slideInBottom"

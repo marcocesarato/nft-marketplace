@@ -7,14 +7,14 @@ import Loading from "@components/Loading";
 import {useWalletNFTsQuery} from "@services/graphql";
 import {chainHex, toTokenItems} from "@utils/converters";
 
-type OwnedProps = {
+export type OwnedProps = {
 	address: string;
 	title?: string;
 	subtitle?: string;
 	[key: string]: any;
 };
 
-export default function Owned({address, title = null, subtitle = null}: OwnedProps): JSX.Element {
+export default function Owned({address, title, subtitle}: OwnedProps): JSX.Element {
 	const {t} = useTranslation();
 	const {chain} = useNetwork();
 	const {data, loading, error} = useWalletNFTsQuery({

@@ -8,7 +8,7 @@ import {ChainId} from "@configs/chain";
 import {deepMerge, isString} from "./objects";
 import {resolveIPFSUrl} from "./url";
 
-export function chainHex(chain: Chain): string {
+export function chainHex(chain: Chain | null | undefined): string {
 	return `0x${(chain?.id || ChainId).toString(16)}`;
 }
 
@@ -50,7 +50,7 @@ export const convertAllStringToAttributes = (
 	attributes: GenericObject,
 	overwrite: GenericObject = {},
 ) => {
-	const newAttributes = {};
+	const newAttributes: GenericObject = {};
 	Object.keys(attributes).forEach((key) => {
 		const value = attributes[key];
 		if (typeof value === "string") {
@@ -104,10 +104,10 @@ export const normalizeItem = async (object: GenericObject) => {
 	return {...object, ...metadata};
 };
 
-export const toTokenItem = (object: GenericObject): TokenItem => {
-	return object as TokenItem;
+export const toTokenItem = (object?: any | null): TokenItem => {
+	return (object ?? {}) as TokenItem;
 };
 
-export const toTokenItems = (objects?: GenericObject[]): TokenItem[] => {
+export const toTokenItems = (objects?: any[] | null): TokenItem[] => {
 	return (objects as TokenItem[]) ?? [];
 };

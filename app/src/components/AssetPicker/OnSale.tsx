@@ -7,11 +7,11 @@ import Loading from "@components/Loading";
 import {useMarketItemsOwnedOnSaleQuery} from "@services/graphql";
 import {toTokenItems} from "@utils/converters";
 
-type AssetOnSalePickerProps = {
+export type AssetOnSalePickerProps = {
 	value?: TokenItem;
 	label: string;
 	labelClean: string;
-	onChange: (asset: TokenItem) => void;
+	onChange: (asset: TokenItem | null | undefined) => void;
 	onClean: () => void;
 	[key: string]: any;
 };

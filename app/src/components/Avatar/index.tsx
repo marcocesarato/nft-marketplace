@@ -1,6 +1,7 @@
 import {useEffect, useMemo, useRef} from "react";
 import {Avatar as ChakraAvatar} from "@chakra-ui/react";
 import styled from "@emotion/styled";
+// @ts-ignore
 import Jazzicon from "@metamask/jazzicon";
 
 const StyledIdenticon = styled.div`
@@ -11,8 +12,15 @@ const StyledIdenticon = styled.div`
 	overflow: hidden;
 `;
 
-const Avatar = function ({address, size = 16, ensImage = null, ...props}): JSX.Element {
-	const ref = useRef<HTMLDivElement>();
+export type AvatarProps = {
+	address: string;
+	size?: number;
+	ensImage?: string | null;
+	[key: string]: any;
+};
+
+const Avatar = function ({address, size = 16, ensImage, ...props}: AvatarProps): JSX.Element {
+	const ref = useRef<HTMLDivElement | null>(null);
 
 	useEffect(() => {
 		if (address && ref.current && !ensImage) {

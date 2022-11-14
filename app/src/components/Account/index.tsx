@@ -37,7 +37,11 @@ export {default as Favourites} from "./Favourites";
 export {default as Owned} from "./Owned";
 export {default as Transfers} from "./Transfers";
 
-export default function Account({id}): JSX.Element {
+export type AccountProps = {
+	id: string;
+};
+
+export default function Account({id}: AccountProps): JSX.Element {
 	const {t} = useTranslation();
 	const {chain} = useNetwork();
 	const router = useRouter();
@@ -88,7 +92,7 @@ export default function Account({id}): JSX.Element {
 						</Heading>
 						<Text color={"gray.500"}>Joined at {formatDate(user.created_at)}</Text>
 						<Link
-							href={`${chain?.blockExplorers.default.url}/address/${user.account}`}
+							href={`${chain?.blockExplorers?.default.url}/address/${user.account}`}
 							isExternal
 							color="primary"
 							fontSize="sm"
@@ -100,13 +104,13 @@ export default function Account({id}): JSX.Element {
 
 					<Stack direction={"row"} justify={"center"} spacing={6}>
 						<Stack spacing={0} align={"center"}>
-							<Text fontWeight={600}>{user.likes.length}</Text>
+							<Text fontWeight={600}>{user.likes?.length ?? 0}</Text>
 							<Text fontSize={"sm"} color={"gray.500"}>
 								Likes
 							</Text>
 						</Stack>
 						<Stack spacing={0} align={"center"}>
-							<Text fontWeight={600}>{user.favourites.length}</Text>
+							<Text fontWeight={600}>{user.favourites?.length ?? 0}</Text>
 							<Text fontSize={"sm"} color={"gray.500"}>
 								Favourites
 							</Text>
@@ -137,7 +141,9 @@ export default function Account({id}): JSX.Element {
 								<Created address={user.account} />
 							</TabPanel>
 							<TabPanel>
-								<Favourites items={user.favourites} />
+								<Favourites
+									items={user.favourites?.filter((a) => a != null) as number[]}
+								/>
 							</TabPanel>
 							<TabPanel>
 								<Transfers address={user.account} />

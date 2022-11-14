@@ -6,20 +6,16 @@ import Loading from "@components/Loading";
 import {useMarketItemsByIdsQuery} from "@services/graphql";
 import {toTokenItems} from "@utils/converters";
 
-type FavouritesProps = {
-	items: number[];
+export type FavouritesProps = {
+	items?: Array<number> | null;
 	title?: string;
 	subtitle?: string;
 	[key: string]: any;
 };
 
-export default function Favourites({
-	items,
-	title = null,
-	subtitle = null,
-}: FavouritesProps): JSX.Element {
+export default function Favourites({items, title, subtitle}: FavouritesProps): JSX.Element {
 	const {t} = useTranslation();
-	const {data, error, loading} = useMarketItemsByIdsQuery(items);
+	const {data, error, loading} = useMarketItemsByIdsQuery(items ?? []);
 	const marketItems = toTokenItems(data?.marketItems);
 
 	if (loading) return <Loading />;
