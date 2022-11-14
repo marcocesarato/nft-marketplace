@@ -28,6 +28,9 @@ const nextConfig = withPWA({
 	reactStrictMode: true,
 	output: "standalone",
 	poweredByHeader: false,
+	eslint: {
+		ignoreDuringBuilds: true,
+	},
 	experimental: {
 		externalDir: true,
 	},
