@@ -4,18 +4,16 @@ PROJECT_NAME=nft-marketplace
 # Environment
 include .env
 
-ifndef ENV
-$(error The ENV variable is missing.)
+ifndef NODE_ENV
+$(error The NODE_ENV variable is missing.)
 endif
 
-ifeq ($(filter $(ENV),dev prod),)
-$(error The ENV variable is invalid.)
-endif
-
-ifeq ($(ENV), prod)
+ifeq ($(NODE_ENV), production)
 COMPOSE_FILE = "$(CURDIR)/docker-compose.yml"
+else ifeq ($(NODE_ENV), development)
+COMPOSE_FILE = "$(CURDIR)/docker-compose.dev.yml"
 else
-COMPOSE_FILE = "$(CURDIR)/docker-compose.$(ENV).yml"
+COMPOSE_FILE = "$(CURDIR)/docker-compose.$(NODE_ENV).yml"
 endif
 ENV_FILE = "$(CURDIR)/.env"
 
