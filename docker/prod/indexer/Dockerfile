@@ -15,7 +15,7 @@ RUN apk update
 WORKDIR /main
 
 # First install the dependencies (as they change less often)
-COPY .gitignore .gitignore
+COPY .gitignore .env .env.local .env.production ./
 COPY --from=builder /main/out/json/ .
 COPY --from=builder /main/out/yarn.lock ./yarn.lock
 RUN yarn install --ignore-scripts --prefer-offline --frozen-lockfile --force

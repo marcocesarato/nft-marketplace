@@ -15,6 +15,7 @@ COMPOSE_FILE = "$(CURDIR)/docker-compose.dev.yml"
 else
 COMPOSE_FILE = "$(CURDIR)/docker-compose.$(NODE_ENV).yml"
 endif
+
 ENV_FILE = "$(CURDIR)/.env"
 
 # Colors
@@ -40,36 +41,36 @@ help: ## Show available commands
 	@echo ""
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(THIS_FILE) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  $(Color_Cyan)%-15s$(Color_Off) %s\n", $$1, $$2}'
 	@echo ""
-	@echo $(ECHO_FLAGS) "Current environment: $(Color_Cyan)$(ENV)$(Color_Off)"
-	@echo $(ECHO_FLAGS) "You can force the $(Color_Yellow)ENV$(Color_Off) variable inline or change it on $(Color_Green).env$(Color_Off) file"
-	@echo $(ECHO_FLAGS) "  Example: $(Color_Yellow)make ENV=prod [target] [options]$(Color_Off)"
+	@echo $(ECHO_FLAGS) "Current environment: $(Color_Cyan)$(NODE_ENV)$(Color_Off)"
+	@echo $(ECHO_FLAGS) "You can force the $(Color_Yellow)NODE_ENV$(Color_Off) variable inline or change it on $(Color_Green).env$(Color_Off) file"
+	@echo $(ECHO_FLAGS) "  Example: $(Color_Yellow)make NODE_ENV=prod [target] [options]$(Color_Off)"
 	@echo ""
 
 # Targets
 build: ## Builds docker image/s
-	$(info Building "$(ENV)" docker image/s)
-	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) --env-file $(ENV_FILE) build $(RUN_ARGS)
+	$(info Building "$(NODE_ENV)" docker image/s)
+	docker-compose --project-name $(PROJECT_NAME)_$(NODE_ENV) -f $(COMPOSE_FILE) --env-file $(ENV_FILE) build $(RUN_ARGS)
 start: ## Starts and build if needed docker container/s on background
-	$(info Starting "$(ENV)" docker container/s)
-	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) --env-file $(ENV_FILE) up -d
+	$(info Starting "$(NODE_ENV)" docker container/s)
+	docker-compose --project-name $(PROJECT_NAME)_$(NODE_ENV) -f $(COMPOSE_FILE) --env-file $(ENV_FILE) up -d
 stop: ## Stops and removes docker container/s
-	$(info Stopping "$(ENV)" docker container/s)
-	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) down
+	$(info Stopping "$(NODE_ENV)" docker container/s)
+	docker-compose --project-name $(PROJECT_NAME)_$(NODE_ENV) -f $(COMPOSE_FILE) down
 restart: stop start ## Restarts docker container/s
 logs: ## Prints out the last logs of the docker container/s
-	$(info Printing out the last logs of the "$(ENV)" docker container/s)
-	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) logs --tail=100 -f $(RUN_ARGS)
+	$(info Printing out the last logs of the "$(NODE_ENV)" docker container/s)
+	docker-compose --project-name $(PROJECT_NAME)_$(NODE_ENV) -f $(COMPOSE_FILE) logs --tail=100 -f $(RUN_ARGS)
 ps: ## Prints out the status of the docker containers
-	$(info Printing out the status of the "$(ENV)" docker containers)
-	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) ps
+	$(info Printing out the status of the "$(NODE_ENV)" docker containers)
+	docker-compose --project-name $(PROJECT_NAME)_$(NODE_ENV) -f $(COMPOSE_FILE) ps
 mongo: ## Opens a mongo shell in the database container
-	$(info Opens a mongo shell in the database "$(ENV)" container)
-	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) exec -T mongo mongosh -u "$(MONGODB_ROOT_USERNAME)" -p "$(MONGODB_ROOT_PASSWORD)"
+	$(info Opens a mongo shell in the database "$(NODE_ENV)" container)
+	docker-compose --project-name $(PROJECT_NAME)_$(NODE_ENV) -f $(COMPOSE_FILE) exec -T mongo mongosh -u "$(MONGODB_ROOT_USERNAME)" -p "$(MONGODB_ROOT_PASSWORD)"
 shell: ## Opens a shell in the app container
-	$(info Opens a shell in the "$(ENV)" app container)
-	docker-compose --project-name $(PROJECT_NAME)_$(ENV) -f $(COMPOSE_FILE) exec -T app sh
+	$(info Opens a shell in the "$(NODE_ENV)" app container)
+	docker-compose --project-name $(PROJECT_NAME)_$(NODE_ENV) -f $(COMPOSE_FILE) exec -T app sh
 clean: ## Removes all docker images
-	$(info Removing all "$(ENV)" docker images)
+	$(info Removing all "$(NODE_ENV)" docker images)
 	docker system prune -a
 login: ## Login to docker registry
 	$(info Login to Docker Hub.)

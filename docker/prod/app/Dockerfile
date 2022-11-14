@@ -15,7 +15,7 @@ RUN apk update
 WORKDIR /main
 
 # First install the dependencies (as they change less often)
-COPY .gitignore .gitignore
+COPY .gitignore .env .env.local .env.production ./
 COPY --from=builder /main/out/json/ .
 COPY --from=builder /main/out/yarn.lock ./yarn.lock
 RUN yarn install --ignore-scripts --prefer-offline --frozen-lockfile --force
@@ -51,7 +51,8 @@ COPY ./docker/prod/app/server.js app/server.js
 
 COPY --from=installer /main/app/next.config.js .
 COPY --from=installer /main/app/next-i18next.config.js ./
-COPY --from=installer /main/app/package.json .
+
+COPY --from=installer /main/app/public ./public
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
