@@ -30,9 +30,7 @@ function Swarm({count}) {
 			const s = Math.cos(t);
 			dummy.position.set(
 				xFactor + Math.cos((t / 10) * factor) + (Math.sin(t * 1) * factor) / 10,
-
 				yFactor + Math.sin((t / 10) * factor) + (Math.cos(t * 2) * factor) / 10,
-
 				zFactor + Math.cos((t / 10) * factor) + (Math.sin(t * 3) * factor) / 10,
 			);
 			dummy.scale.set(s, s, s);
@@ -47,8 +45,8 @@ function Swarm({count}) {
 		<>
 			<pointLight ref={light} distance={40} intensity={8} color="lightblue" />
 			<instancedMesh ref={mesh} args={[null, null, count]}>
-				<sphereGeometry attach="geometry" args={[0.2, 0]} />
-				<meshPhongMaterial attach="material" color="#805ad5" />
+				<sphereGeometry args={[0.2, 0]} />
+				<meshPhongMaterial color="#805ad5" />
 			</instancedMesh>
 		</>
 	);
@@ -58,7 +56,7 @@ export default function Particles({style = {}}) {
 	return (
 		<>
 			<Canvas camera={{fov: 100, position: [0, 0, 30]}} style={style}>
-				<fog attach="fog" args={["#805ad5", 50, 190]} />
+				<fog args={["#805ad5", 50, 190]} />
 				<pointLight distance={100} intensity={4} color="white" />
 				<Swarm count={500} />
 			</Canvas>
