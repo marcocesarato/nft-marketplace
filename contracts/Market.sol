@@ -54,9 +54,7 @@ contract Market is ERC721URIStorage, IERC721Receiver {
 		priceFeed = AggregatorV3Interface(0x686c626E48bfC5DC98a30a9992897766fed4Abd3);
 	}
 
-	/**
-	 * Always returns `IERC721Receiver.onERC721Received.selector`.
-	 */
+	/// Always returns `IERC721Receiver.onERC721Received.selector`.
 	function onERC721Received(
 		address,
 		address,
@@ -66,26 +64,24 @@ contract Market is ERC721URIStorage, IERC721Receiver {
 		return this.onERC721Received.selector;
 	}
 
-	/**
-	 * Returns the latest price
-	 */
+	/// Returns the latest price
 	function getLatestPrice() public view returns (uint256) {
 		(, int256 price, , , ) = priceFeed.latestRoundData();
 		return uint256(price);
 	}
 
-	/* Updates the listing price of the contract */
+	/// Updates the listing price of the contract
 	function updateListingPrice(uint256 _listingPrice) public payable {
 		require(owner == msg.sender, "Only marketplace owner can update listing price.");
 		listingPrice = _listingPrice;
 	}
 
-	/* Returns the listing price of the contract */
+	/// Returns the listing price of the contract
 	function getListingPrice() public view returns (uint256) {
 		return listingPrice;
 	}
 
-	/* Mints a token and lists it in the marketplace */
+	/// Mints a token and lists it in the marketplace */
 	function createToken(string memory tokenURI, uint256 price) public payable returns (uint256) {
 		_tokenIds.increment();
 		uint256 newTokenId = _tokenIds.current();
@@ -114,8 +110,8 @@ contract Market is ERC721URIStorage, IERC721Receiver {
 		emit MarketItemCreated(tokenId, msg.sender, msg.sender, address(this), price, false);
 	}
 
-	/* Creates the sale of a marketplace item */
-	/* Transfers ownership of the item, as well as funds between parties */
+	/// Creates the sale of a marketplace item
+	/// Transfers ownership of the item, as well as funds between parties
 	function createMarketSale(uint256 tokenId) public payable {
 		uint256 price = idToMarketItem[tokenId].price;
 		address seller = idToMarketItem[tokenId].seller;
@@ -138,7 +134,7 @@ contract Market is ERC721URIStorage, IERC721Receiver {
 		emit MarketItemUpdated(tokenId, seller, msg.sender, price, true);
 	}
 
-	/* allows someone to resell a token they have purchased */
+	/// Allows someone to resell a token they have purchased
 	function resellMarketItem(uint256 tokenId, uint256 price) public payable {
 		require(
 			idToMarketItem[tokenId].owner == msg.sender,
@@ -156,7 +152,7 @@ contract Market is ERC721URIStorage, IERC721Receiver {
 		emit MarketItemUpdated(tokenId, msg.sender, address(this), price, false);
 	}
 
-	/* Returns all market items */
+	/// Returns all market items
 	function fetchAllMarketItems() public view returns (MarketItem[] memory) {
 		uint256 itemCount = _tokenIds.current();
 		uint256 currentIndex = 0;
@@ -171,7 +167,7 @@ contract Market is ERC721URIStorage, IERC721Receiver {
 		return items;
 	}
 
-	/* Returns all unsold market items */
+	/// Returns all unsold market items
 	function fetchMarketItems() public view returns (MarketItem[] memory) {
 		uint256 itemCount = _tokenIds.current();
 		uint256 unsoldItemCount = _tokenIds.current() - _itemsSold.current();
@@ -194,7 +190,7 @@ contract Market is ERC721URIStorage, IERC721Receiver {
 		return item;
 	}
 
-	/* Returns only items that a user has purchased */
+	/// Returns only items that a user has purchased
 	function fetchItemsOwned() public view returns (MarketItem[] memory) {
 		uint256 totalItemCount = _tokenIds.current();
 		uint256 itemCount = 0;
@@ -218,7 +214,7 @@ contract Market is ERC721URIStorage, IERC721Receiver {
 		return items;
 	}
 
-	/* Returns only items a user has created */
+	/// Returns only items a user has created
 	function fetchItemsCreated() public view returns (MarketItem[] memory) {
 		uint256 totalItemCount = _tokenIds.current();
 		uint256 itemCount = 0;

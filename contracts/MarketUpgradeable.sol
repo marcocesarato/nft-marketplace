@@ -54,7 +54,7 @@ contract MarketUpgradeable is
 		bool sold
 	);
 
-	// Initializes the market.
+	/// Initializes the market.
 	function initialize() public initializer {
 		__ERC721_init("ACN Metaverse Tokens", "ACNT");
 		__ERC721URIStorage_init();
@@ -167,7 +167,7 @@ contract MarketUpgradeable is
 		emit MarketItemUpdated(tokenId, msg.sender, address(this), price, false);
 	}
 
-	/* Returns all market items */
+	/// Returns all market items
 	function fetchAllMarketItems() public view returns (MarketItem[] memory) {
 		uint256 itemCount = _tokenIds.current();
 		uint256 currentIndex = 0;
