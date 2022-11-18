@@ -1,11 +1,24 @@
 import {useColorModeValue, useToken} from "@chakra-ui/react";
 import {
+	connectorsForWallets,
 	darkTheme,
 	getDefaultWallets,
 	lightTheme,
 	RainbowKitProvider,
 	Theme,
 } from "@rainbow-me/rainbowkit";
+import {
+	argentWallet,
+	coinbaseWallet,
+	imTokenWallet,
+	injectedWallet,
+	ledgerWallet,
+	metaMaskWallet,
+	omniWallet,
+	rainbowWallet,
+	trustWallet,
+	walletConnectWallet,
+} from "@rainbow-me/rainbowkit/wallets";
 import {allChains, chain, configureChains, createClient, defaultChains, WagmiConfig} from "wagmi";
 //import {alchemyProvider} from "wagmi/providers/alchemy";
 import {publicProvider} from "wagmi/providers/public";
@@ -24,10 +37,28 @@ const {provider, webSocketProvider, chains} = configureChains(selectedChains, [
 	//alchemyProvider({apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY, priority: 0, weight: 1}),
 	publicProvider({priority: 1, weight: 2}),
 ]);
-const {connectors} = getDefaultWallets({
-	appName,
-	chains,
-});
+const connectors = connectorsForWallets([
+	{
+		groupName: "Recommended",
+		wallets: [
+			injectedWallet({chains}),
+			metaMaskWallet({chains}),
+			coinbaseWallet({chains, appName}),
+			walletConnectWallet({chains}),
+		],
+	},
+	{
+		groupName: "Others",
+		wallets: [
+			rainbowWallet({chains}),
+			ledgerWallet({chains}),
+			omniWallet({chains}),
+			trustWallet({chains}),
+			argentWallet({chains}),
+			imTokenWallet({chains}),
+		],
+	},
+]);
 const client = createClient({
 	provider,
 	webSocketProvider,
@@ -73,7 +104,8 @@ function Web3Provider({children}): JSX.Element {
 				coolMode
 				theme={rainbowTheme}
 				modalSize="wide"
-				avatar={Avatar}>
+				avatar={Avatar}
+				showRecentTransactions={true}>
 				{children}
 			</RainbowKitProvider>
 		</WagmiConfig>
