@@ -12,7 +12,7 @@
 		"static:serve": "yarn static:build && npx servor out index.html 5000",
 		"codegen:graphql": "graphql-codegen --config ./scripts/configs/codegen.graphql.yml",
 		"cypress": "cypress open",
-		"cypress:headless": "cypress run"
+		"test": "cypress run"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.7.1",

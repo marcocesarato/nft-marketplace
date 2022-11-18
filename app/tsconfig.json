@@ -17,6 +17,11 @@
 			"@utils/*": ["src/utils/*"]
 		}
 	},
-	"include": ["src", "next-env.d.ts"],
+	"include": [
+		"src",
+		"next-env.d.ts",
+		"../node_modules/cypress/types/mocha/index.d.ts",
+		"../node_modules/cypress/types/cypress-global-vars.d.ts"
+	],
 	"exclude": ["node_modules"]
 }

@@ -20,9 +20,8 @@
 		"lint:fix": "turbo run lint:fix",
 		"prepare": "husky install",
 		"release": "standard-version",
-		"test": "turbo run test",
-		"e2e": "turbo run dev cypress --parallel",
-		"e2e:headless": "turbo run dev cypress:headless --parallel"
+		"test": "turbo run dev test --parallel",
+		"cypress": "turbo run dev cypress --parallel"
 	},
 	"workspaces": [
 		"app",

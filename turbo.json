@@ -30,9 +30,6 @@
 		},
 		"cypress": {
 			"cache": false
-		},
-		"cypress:headless": {
-			"cache": false
 		}
 	},
 	"globalDependencies": [".env", "tsconfig.json"]
