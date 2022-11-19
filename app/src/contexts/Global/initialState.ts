@@ -3,7 +3,7 @@ import type {TGlobalContext} from "@app/types";
 const initialState: TGlobalContext = {
 	config: {
 		username: "",
-		symbol: "",
+		symbol: "ETH",
 		isOpenSidebar: false,
 	},
 	data: {},
