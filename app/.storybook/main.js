@@ -1,9 +1,10 @@
 const path = require("path");
 const {TsconfigPathsPlugin} = require("tsconfig-paths-webpack-plugin");
-module.exports = {
+const config = {
 	stories: ["../**/*.stories.mdx", "../**/*.stories.@(js|jsx|ts|tsx)"],
 	addons: [
-        "@chakra-ui/storybook-addon",
+		"@chakra-ui/storybook-addon",
+		"storybook-addon-i18next/register",
 		"@storybook/addon-links",
 		"@storybook/addon-essentials",
 		"@storybook/addon-interactions",
@@ -19,12 +20,21 @@ module.exports = {
 			include: /node_modules/,
 			type: "javascript/auto",
 		});
-        config.resolve.plugins = config.resolve.plugins || [];
-        config.resolve.plugins.push(
-            new TsconfigPathsPlugin({
-                configFile: path.resolve(__dirname, "../tsconfig.json"),
-            })
-        );
+		config.resolve.fallback = config.resolve.fallback = {
+			fs: false,
+			tls: false,
+			net: false,
+			module: false,
+			assert: false,
+			path: require.resolve("path-browserify"),
+		};
+		config.resolve.plugins = config.resolve.plugins || [];
+		config.resolve.plugins.push(
+			new TsconfigPathsPlugin({
+				configFile: path.resolve(__dirname, "../tsconfig.json"),
+			}),
+		);
 		return config;
 	},
 };
+module.exports = config;
