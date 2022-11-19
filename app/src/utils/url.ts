@@ -7,7 +7,12 @@ export function getPath(uri: string | null | undefined): string {
 }
 
 export function getEmbeddedIPFSUrl(uri: string | null | undefined): string {
-	if (uri?.startsWith(process.env.NEXT_PUBLIC_URL)) return uri;
+	if (
+		uri?.startsWith(process.env.NEXT_PUBLIC_URL) ||
+		process.env.STORYBOOK ||
+		process.env.NODE_ENV === "test"
+	)
+		return uri;
 	const basePath = `${process.env.NEXT_PUBLIC_URL}/api/cors?url=`;
 	const query = encodeURIComponent(uri);
 	return basePath + query;
