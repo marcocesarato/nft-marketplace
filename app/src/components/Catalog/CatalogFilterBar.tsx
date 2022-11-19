@@ -3,6 +3,8 @@ import {Box, Stack, useBreakpointValue} from "@chakra-ui/react";
 import {Select} from "chakra-react-select";
 import {useTranslation} from "next-i18next";
 
+import Container from "@components/Container";
+
 export default function CatalogFilterBar({
 	onFilter = (type: string, value: string | string[]) => {},
 	onSort = (sort: string) => {},
@@ -65,7 +67,7 @@ export default function CatalogFilterBar({
 						}}
 					/>*/}
 				</Box>
-				<Box flex={1}>
+				<Container>
 					<Select
 						instanceId="catalogFilterSortBy"
 						placeholder={t<string>("common:catalog.sortBy")}
@@ -76,7 +78,7 @@ export default function CatalogFilterBar({
 							onSort && onSort(option.value);
 						}}
 					/>
-				</Box>
+				</Container>
 			</Stack>
 		</Box>
 	);
