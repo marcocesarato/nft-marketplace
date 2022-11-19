@@ -6,10 +6,10 @@ import {SimpleGrid, Text} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
 import {TokenItem} from "@app/types";
+import Product3D from "@components/Product3D";
 import ProductAR from "@components/ProductAR";
 import useWebXR from "@hooks/useWebXR";
 
-import Product3DViewer from "./Product3DViewer";
 import ProductInfos from "./ProductInfos";
 import ProductModeButton from "./ProductModeButton";
 
@@ -49,7 +49,7 @@ export default function Index({
 			body = <ProductAR image={data.image} onClose={resetMode} />;
 			break;
 		case "3d":
-			body = <Product3DViewer data={data} />;
+			body = <Product3D data={data} />;
 			break;
 		default:
 			body = <ProductInfos data={data} onPurchase={onPurchase} />;
