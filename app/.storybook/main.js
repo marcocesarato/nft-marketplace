@@ -1,6 +1,14 @@
 const path = require("path");
+const fs = require("fs");
 const dotenv = require("dotenv-mono").load();
 const {TsconfigPathsPlugin} = require("tsconfig-paths-webpack-plugin");
+
+// Get styles for preview
+const rainbowCss = fs.readFileSync("../node_modules/@rainbow-me/rainbowkit/dist/index.css", {
+    encoding: "utf8",
+    flag: "r",
+});
+
 const config = {
 	stories: ["../**/*.stories.mdx", "../**/*.stories.@(js|jsx|ts|tsx)"],
 	staticDirs: ["../public"],
@@ -13,9 +21,12 @@ const config = {
 		"@storybook/addon-interactions",
 	],
 	framework: "@storybook/react",
-	features: {emotionAlias: false},
+	features: {emotionAlias: false, interactionsDebugger: true},
 	core: {
 		builder: "@storybook/builder-webpack5",
+		options: {
+			lazyCompilation: true,
+		},
 	},
 	env: (config) => {
 		return {
@@ -26,7 +37,7 @@ const config = {
 	},
 	webpackFinal: async (config) => {
 		config.module.rules.push({
-			test: /\.mjs$/,
+			test: /\.mjs$/i,
 			include: /node_modules/,
 			type: "javascript/auto",
 		});
@@ -46,5 +57,11 @@ const config = {
 		);
 		return config;
 	},
+	previewHead: (head) => `
+        ${head}
+        <style>
+         ${rainbowCss}
+        </style>
+    `,
 };
 module.exports = config;

@@ -65,7 +65,7 @@ const client = createClient({
 	connectors,
 });
 
-function Web3Provider({children}): JSX.Element {
+function Web3Provider({web3Client = null, children}): JSX.Element {
 	const [primary, whiteAlpha800, whiteAlpha200, black, white] = useToken("colors", [
 		"primary",
 		"whiteAlpha.800",
@@ -97,7 +97,7 @@ function Web3Provider({children}): JSX.Element {
 		},
 	) as Theme;
 	return (
-		<WagmiConfig client={client}>
+		<WagmiConfig client={web3Client ?? client}>
 			<RainbowKitProvider
 				chains={chains}
 				coolMode
