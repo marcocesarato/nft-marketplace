@@ -4,7 +4,7 @@ import {Box, SimpleGrid, useBreakpointValue} from "@chakra-ui/react";
 import {motion} from "framer-motion";
 
 import {TokenItem} from "@app/types";
-import Product from "@components/Product";
+import ProductCard from "@components/ProductCard";
 import useAccount from "@hooks/useAccount";
 import useMarket from "@hooks/useMarket";
 
@@ -88,7 +88,7 @@ export default function Catalog({
 				{[...data]
 					.sort((a, b) => (sortBy && sort[sortBy](a, b)) || sort["newest"](a, b))
 					.map((product, i: number) => (
-						<Product
+						<ProductCard
 							variants={productVariant}
 							key={product?.token_address + product?.token_id || i}
 							data={product}

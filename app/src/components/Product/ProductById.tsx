@@ -3,11 +3,10 @@ import {useTranslation} from "next-i18next";
 import Content from "@components/Content";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
+import Product from "@components/Product";
 import useMarket from "@hooks/useMarket";
 import {useMarketItemQuery} from "@services/graphql";
 import {toTokenItem} from "@utils/converters";
-
-import ProductDetails from "./ProductDetails";
 
 export default function ProductById({id}: {id: string}): JSX.Element {
 	const {t} = useTranslation();
@@ -29,7 +28,7 @@ export default function ProductById({id}: {id: string}): JSX.Element {
 		);
 	return (
 		<Content flex="1" p="8">
-			<ProductDetails data={item} onPurchase={!item.sold ? purchase : null} />
+			<Product data={item} onPurchase={!item.sold ? purchase : null} />
 		</Content>
 	);
 }

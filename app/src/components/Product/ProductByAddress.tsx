@@ -4,10 +4,9 @@ import {useNetwork} from "wagmi";
 import Content from "@components/Content";
 import Header from "@components/Header";
 import Loading from "@components/Loading";
+import Product from "@components/Product";
 import {useAccountNFTQuery} from "@services/graphql";
 import {chainHex, toTokenItem} from "@utils/converters";
-
-import ProductDetails from "./ProductDetails";
 
 export default function ProductByAddress({address, token_address, token_id}): JSX.Element {
 	const {t} = useTranslation();
@@ -32,7 +31,7 @@ export default function ProductByAddress({address, token_address, token_id}): JS
 		);
 	return (
 		<Content flex="1" p="8">
-			<ProductDetails data={item} />
+			<Product data={item} />
 		</Content>
 	);
 }

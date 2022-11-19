@@ -7,7 +7,7 @@ import {
 	ModalOverlay,
 } from "@chakra-ui/react";
 
-import ProductDetails from "./ProductDetails";
+import Product from "@components/Product";
 
 export default function ProductModal({data, isOpen, onPurchase, onClose, ...props}): JSX.Element {
 	return (
@@ -17,7 +17,7 @@ export default function ProductModal({data, isOpen, onPurchase, onClose, ...prop
 				<ModalHeader />
 				<ModalCloseButton />
 				<ModalBody position="relative">
-					<ProductDetails data={data} onPurchase={onPurchase} onClose={onClose} />
+					<Product data={data} onPurchase={onPurchase} onClose={onClose} />
 				</ModalBody>
 			</ModalContent>
 		</Modal>
