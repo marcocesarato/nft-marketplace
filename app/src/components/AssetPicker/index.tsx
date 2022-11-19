@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {
 	Button,
 	Modal,
@@ -13,26 +13,30 @@ import {
 } from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
+import {ObjectModelType} from "@app/enums";
 import {TokenItem} from "@app/types";
 import useIPFS from "@hooks/useIPFS";
 import {objectCamelToUnderscore} from "@utils/converters";
+import {getObjectModelType} from "@utils/planimetry";
 
 export type AssetPickerProps = {
 	items?: TokenItem[] | null;
+	type?: ObjectModelType | ObjectModelType[];
 	value?: TokenItem;
 	label: string;
-	labelClean: string;
-	onChange: (asset: TokenItem | null | undefined) => void;
-	onClean: () => void;
+	cleanLabel: string;
+	onChange?: (asset: TokenItem | null | undefined) => void;
+	onClean?: () => void;
 	[key: string]: any;
 };
 export default function AssetPicker({
 	items,
+	type,
 	value,
 	label,
-	labelClean,
-	onChange,
-	onClean,
+	cleanLabel,
+	onChange = (_) => {},
+	onClean = () => {},
 	...props
 }: AssetPickerProps) {
 	const {t} = useTranslation();
@@ -42,6 +46,16 @@ export default function AssetPicker({
 	useEffect(() => {
 		setSelected(value);
 	}, [value]);
+	const filteredItems = useMemo(() => {
+		return (
+			items?.filter((item) => {
+				if (!type) return true;
+				const itemType = getObjectModelType(item);
+				if (Array.isArray(type)) return type.includes(itemType);
+				return itemType === type;
+			}) ?? []
+		);
+	}, [items]);
 	return (
 		<>
 			<Button onClick={onOpen} {...props}>
@@ -49,7 +63,7 @@ export default function AssetPicker({
 			</Button>
 			{value != null && (
 				<Button onClick={onClean} {...props}>
-					{labelClean}
+					{cleanLabel}
 				</Button>
 			)}
 
@@ -60,7 +74,7 @@ export default function AssetPicker({
 					<ModalCloseButton />
 					<ModalBody>
 						<SimpleGrid columns={5} spacing={2}>
-							{items?.map((c) => {
+							{filteredItems.map((c) => {
 								c = objectCamelToUnderscore(c) as TokenItem;
 								const background = {
 									backgroundImage: resolveLink(c.thumbnail || c.image),

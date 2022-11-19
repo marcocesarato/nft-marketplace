@@ -1,5 +1,6 @@
 import {useTranslation} from "next-i18next";
 
+import {ObjectModelType} from "@app/enums";
 import {TokenItem} from "@app/types";
 import AssetPicker from "@components/AssetPicker";
 import Header from "@components/Header";
@@ -9,10 +10,11 @@ import {toTokenItems} from "@utils/converters";
 
 export type AssetOnSalePickerProps = {
 	value?: TokenItem;
+	type?: ObjectModelType | ObjectModelType[];
 	label: string;
-	labelClean: string;
-	onChange: (asset: TokenItem | null | undefined) => void;
-	onClean: () => void;
+	cleanLabel: string;
+	onChange?: (asset: TokenItem | null | undefined) => void;
+	onClean?: () => void;
 	[key: string]: any;
 };
 export default function AssetOnSalePicker(props: AssetOnSalePickerProps): JSX.Element {

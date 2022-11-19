@@ -23,6 +23,7 @@ export enum GalleryActionType {
 export enum GalleryAssetType {
 	Image = "Image",
 	Item = "Item",
+	Video = "Video",
 }
 
 export enum GalleryBuilderMode {
@@ -72,6 +73,7 @@ export const GalleryActionTypeEnum = {
 export const GalleryAssetTypeEnum = {
 	Image: "Image" as GalleryAssetType,
 	Item: "Item" as GalleryAssetType,
+	Video: "Video" as GalleryAssetType,
 };
 
 export const GalleryBuilderModeEnum = {

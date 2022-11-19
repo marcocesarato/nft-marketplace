@@ -14,7 +14,12 @@ import {
 	VStack,
 } from "@chakra-ui/react";
 
-import {MapDirectionEnum, PlanimetryBlockType, PlanimetryBlockTypeEnum} from "@app/enums";
+import {
+	MapDirectionEnum,
+	ObjectModelType,
+	PlanimetryBlockType,
+	PlanimetryBlockTypeEnum,
+} from "@app/enums";
 import {TokenItem} from "@app/types";
 import AssetOnSalePicker from "@components/AssetPicker/OnSale";
 import AssetOwnedPicker from "@components/AssetPicker/Owned";
@@ -151,6 +156,7 @@ export default function GalleryBlockDetails(): JSX.Element {
 					Object.entries(sections).map(([key, value]) => {
 						if (!value) return null;
 						const section = key.toLowerCase();
+						const objectsPicker = key === "floor" || key === "ceiling";
 						return (
 							<AccordionItem key={`details-${selected.id}-${key}`}>
 								<h2>
@@ -173,6 +179,14 @@ export default function GalleryBlockDetails(): JSX.Element {
 									)}
 									<Center gap={2}>
 										<AssetOwnedPicker
+											type={
+												objectsPicker
+													? ObjectModelType.Object
+													: [
+															ObjectModelType.Picture,
+															ObjectModelType.Video,
+													  ]
+											}
 											width="full"
 											size="sm"
 											mb={2}
@@ -183,16 +197,20 @@ export default function GalleryBlockDetails(): JSX.Element {
 													: "none"
 											}
 											value={selected.items?.[section]}
-											label={
-												key === "floor" || key === "ceiling"
-													? "Place object"
-													: "Place picture"
-											}
-											labelClean="Remove"
+											label={objectsPicker ? "Place object" : "Place picture"}
+											cleanLabel="Remove"
 											onChange={handleChangeItem.bind(this, section)}
 											onClean={handleClearItem.bind(this, section)}
 										/>
 										<AssetOnSalePicker
+											type={
+												objectsPicker
+													? ObjectModelType.Object
+													: [
+															ObjectModelType.Picture,
+															ObjectModelType.Video,
+													  ]
+											}
 											width="full"
 											size="sm"
 											mb={2}
@@ -200,12 +218,8 @@ export default function GalleryBlockDetails(): JSX.Element {
 												!selected.items?.[section]?.sold ? "block" : "none"
 											}
 											value={selected.items?.[section]}
-											label={
-												key === "floor" || key === "ceiling"
-													? "Sell object"
-													: "Sell picture"
-											}
-											labelClean="Remove"
+											label={objectsPicker ? "Sell object" : "Sell picture"}
+											cleanLabel="Remove"
 											onChange={handleChangeItem.bind(this, section)}
 											onClean={handleClearItem.bind(this, section)}
 										/>

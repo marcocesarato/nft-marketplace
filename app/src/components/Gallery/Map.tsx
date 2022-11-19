@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import {useEffect} from "react";
-import {AssetItem, Assets} from "@belivvr/aframe-react";
+import {AssetItem, Assets, Video} from "@belivvr/aframe-react";
 
 import {
 	GalleryAssetTypeEnum,
@@ -209,6 +209,8 @@ export default function GalleryMap({planimetry}): JSX.Element {
 							);
 						case GalleryAssetTypeEnum.Item:
 							return <AssetItem key={asset.id} id={asset.id} src={asset.src} />;
+						case GalleryAssetTypeEnum.Video:
+							return <Video key={asset.id} id={asset.id} src={asset.src} />;
 						default:
 							return null;
 					}
