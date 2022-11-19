@@ -21,6 +21,12 @@ import "./commands";
 
 import {mount} from "cypress/react18";
 
+// Storybook
+import {setGlobalConfig} from "@storybook/testing-react";
+import * as sbPreview from "../../.storybook/preview";
+
+setGlobalConfig(sbPreview);
+
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
 // Alternatively, can be defined in cypress/support/component.d.ts

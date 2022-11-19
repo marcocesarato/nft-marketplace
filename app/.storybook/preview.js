@@ -12,3 +12,9 @@ export const parameters = {
         theme: theme,
     },
 };
+
+export const decorators = [
+    (Story) => (
+        <Story />
+    ),
+];

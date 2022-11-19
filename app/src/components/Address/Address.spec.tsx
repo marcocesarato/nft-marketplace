@@ -1,13 +1,17 @@
-import Address from "@components/Address";
+import React from "react";
+import {composeStories} from "@storybook/testing-react";
 
+import * as stories from "./Address.stories";
+
+const {Basic, WithName, WithLabel} = composeStories(stories) as {[key: string]: React.ElementType};
 describe("<Address />", () => {
 	it("mounts", () => {
-		cy.mount(
-			<Address
-				address="0x00000000000000000000000000000000000000f"
-				name="Test"
-				label="Created by"
-			/>,
-		);
+		cy.mount(<Basic />);
+	});
+	it("mounts with name", () => {
+		cy.mount(<WithName />);
+	});
+	it("mounts with label", () => {
+		cy.mount(<WithLabel />);
 	});
 });

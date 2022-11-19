@@ -10,20 +10,22 @@ export default {
 
 const Template: ComponentStory<typeof Address> = (args) => <Address {...args} />;
 
+const address = "0x00000000000000000000000000000000000000f";
+
 export const Basic = Template.bind({});
 Basic.args = {
-	address: "0x00000000000000000000000000000000000000f",
+	address,
 };
 
 export const WithName = Template.bind({});
 WithName.args = {
-	address: "0x00000000000000000000000000000000000000f",
+	address,
 	name: "Test",
 };
 
 export const WithLabel = Template.bind({});
 WithLabel.args = {
-	address: "0x00000000000000000000000000000000000000f",
+	address,
 	name: "Test",
 	label: "Created by",
 };
