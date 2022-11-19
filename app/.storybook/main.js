@@ -6,7 +6,7 @@ const config = {
 	staticDirs: ["../public"],
 	addons: [
 		"@chakra-ui/storybook-addon",
-		"storybook-addon-next-router",
+		"storybook-addon-next",
 		"storybook-addon-i18next/register",
 		"@storybook/addon-links",
 		"@storybook/addon-essentials",
