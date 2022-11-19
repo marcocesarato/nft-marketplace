@@ -25,7 +25,7 @@
 				"__typename": "NFT"
 			},
 			{
-				"token_address": "0x72295a8e0dba59ed759ac7f097b894ade5ca40ed",
+				"token_address": "0x72295a8e0dba59ed759ac7f097b894ade5ca40ee",
 				"token_id": "2",
 				"contract_type": "ERC721",
 				"owner_of": "0xad35c27c74677759afeb435c4e7e09e7946c5c4f",
@@ -73,7 +73,7 @@
 			{
 				"name": "Sea",
 				"network_id": "0",
-				"token_address": "0xDB6e381a571DBEB7c46617418dC3D6bcB98d1384",
+				"token_address": "0xDB6e381a571DBEB7c46617418dC3D6bcB98d1385",
 				"token_id": 2,
 				"token_uri": "https://ipfs.moralis.io:2053/ipfs/QmQ2xG8GUEWDKxaqjVfrQkDWx5EuJqqYzbM3XxTJpwUwd3/metadata/sea.json",
 				"creator": "0xad35c27c74677759afeb435c4e7e09e7946c5c4f",
@@ -99,7 +99,7 @@
 			{
 				"name": "Peach",
 				"network_id": "0",
-				"token_address": "0xDB6e381a571DBEB7c46617418dC3D6bcB98d1384",
+				"token_address": "0xDB6e381a571DBEB7c46617418dC3D6bcB98d1386",
 				"token_id": 3,
 				"token_uri": "https://ipfs.moralis.io:2053/ipfs/QmcYJbXBDp1DBWjrXw9voK6yxYbj1i37EF2DJxZQRSwxC3/metadata/peach.json",
 				"creator": "0xad35c27c74677759afeb435c4e7e09e7946c5c4f",
