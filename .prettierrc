@@ -1,6 +1,7 @@
 {
 	"arrowParens": "always",
 	"bracketSameLine": true,
+	"jsxBracketSameLine": true,
 	"bracketSpacing": false,
 	"embeddedLanguageFormatting": "auto",
 	"htmlWhitespaceSensitivity": "css",
