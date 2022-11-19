@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 // @ts-ignore
 import Jazzicon from "@metamask/jazzicon";
 
-const StyledIdenticon = styled.div`
+const StyledIcon = styled.div`
 	height: 1rem;
 	width: 1rem;
 	border-radius: 100%;
@@ -29,14 +29,17 @@ const Avatar = function ({address, size = 16, ensImage, ...props}: AvatarProps):
 		}
 	}, [address, size, ensImage]);
 
+	const height = `${size}px`;
+	const width = `${size}px`;
+
 	const Icon = useMemo(() => {
-		return styled(StyledIdenticon)`
-			height: ${size}px;
-			width: ${size}px;
+		return styled(StyledIcon)`
+			height: ${height};
+			width: ${width};
 		`;
 	}, [size]);
 
-	if (ensImage) return <ChakraAvatar w={size} h={size} src={ensImage} {...props} />;
+	if (ensImage) return <ChakraAvatar w={width} h={height} src={ensImage} {...props} />;
 
 	return <Icon ref={ref} {...props} />;
 };

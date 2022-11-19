@@ -2,7 +2,6 @@ import {useColorModeValue, useToken} from "@chakra-ui/react";
 import {
 	connectorsForWallets,
 	darkTheme,
-	getDefaultWallets,
 	lightTheme,
 	RainbowKitProvider,
 	Theme,

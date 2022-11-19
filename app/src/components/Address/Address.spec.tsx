@@ -6,7 +6,7 @@ describe("<Address />", () => {
 			<Address
 				address="0x00000000000000000000000000000000000000f"
 				name="Test"
-				label="Address of"
+				label="Created by"
 			/>,
 		);
 	});
