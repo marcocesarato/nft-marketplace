@@ -1,5 +1,6 @@
 const {i18n} = require("./next-i18next.config");
 const runtimeCaching = require("next-pwa/cache");
+const {patchWebpackConfig} = require("next-global-css");
 
 // Load environment
 require("dotenv-mono").load();
@@ -38,7 +39,7 @@ const nextConfig = withPWA({
 		emotion: true,
 	},
 	i18n,
-	webpack: (config, {webpack, dev, isServer}) => {
+	webpack: (config, {webpack, dev, isServer, ...options}) => {
 		// graphql
 		config.module.rules.push({
 			test: /\.(graphql|gql)$/,
@@ -46,6 +47,11 @@ const nextConfig = withPWA({
 			loader: "graphql-tag/loader",
 		});
 		config.plugins = config.plugins || [];
+		// Cypress
+		if (process.env.CYPRESS === "true") {
+			//Allows importing the global.css file in cypress/support/component.ts
+			patchWebpackConfig(config, {webpack, dev, isServer, ...options});
+		}
 		return config;
 	},
 });
