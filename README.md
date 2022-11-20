@@ -161,8 +161,9 @@ The tech stack is the combination of technologies used to build and run the proj
 -   **File Storage:** [IPFS](https://ipfs.io/) / [NFT Storage](https://nft.storage/)
 -   **Ethereum Client:** [Ethers](https://github.com/ethers-io/ethers.js) / [Moralis](https://github.com/MoralisWeb3/Moralis-JS-SDK) / [Wagmi](https://wagmi.sh/)
 -   **Indexing Service:** [NodeJS](https://nodejs.org/)
--   **Cross Reality:** [WebXR](https://immersive-web.github.io/) / [ThreeJS](https://threejs.org/)
+-   **Cross Reality:** [WebXR](https://immersive-web.github.io/) / [AFrame](https://aframe.io/) / [ThreeJS](https://threejs.org/) / [React Three Fiber](https://docs.pmnd.rs/react-three-fiber)
 -   **Web Socket:** [socket.io](https://socket.io)
+-   **Testing:** [Cypress](https://www.cypress.io/) / [Storybook](https://storybook.js.org/)
 
 #### Other
 
@@ -170,9 +171,7 @@ The tech stack is the combination of technologies used to build and run the proj
 -   [Mongoose](https://mongoosejs.com/) - MongoDB object modeling
 -   [Chakra UI](https://chakra-ui.com/) - UI Library
 -   [Axios](https://github.com/axios/axios) - HTTP Client
--   [Apollo](https://www.apollographql.com/docs/react/) - GraphQL Client
--   [AFrame](https://aframe.io/) - XR Framework
--   [ThreeJS](https://threejs.org/) / [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) - 3D Rendering
+-   [Apollo](https://www.apollographql.com/docs/react/) - GraphQL Server and Client
 -   [React Icons](https://react-icons.github.io/react-icons/) - Icons
 -   [React i18next for NextJS](https://github.com/isaachinman/next-i18next) - i18n Library
 -   [React Error Boundary](https://github.com/bvaughn/react-error-boundary) - Error boundary
