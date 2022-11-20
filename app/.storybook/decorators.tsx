@@ -55,6 +55,7 @@ export const GlobalDecorators = [
 						<SessionProvider>
 							<Container
 								position="absolute"
+                                minHeight={500}
 								p={4}
 								left={4}
 								right={4}
