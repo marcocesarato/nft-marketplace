@@ -8,6 +8,16 @@
 	"short_name": "MarketVerse",
 	"description": "Watch your Digital Universe through the virtual reality",
 	"icons": [
+        {
+            "src": "/icon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-64x64.png",
+            "sizes": "64x64",
+            "type": "image/png"
+        },
 		{
 			"src": "/icon-192x192.png",
 			"sizes": "192x192",
