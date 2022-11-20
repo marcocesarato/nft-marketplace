@@ -61,7 +61,10 @@ const config = {
 	previewHead: (head) => `
         ${head}
         <style>
-         ${rainbowCss}
+            body::before {
+              display: none;
+            }
+            ${rainbowCss}
         </style>
     `,
 };

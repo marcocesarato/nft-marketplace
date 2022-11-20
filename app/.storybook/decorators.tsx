@@ -53,15 +53,7 @@ export const GlobalDecorators = [
 				<Providers web3Client={mockClient(mockWallet)}>
 					<I18nextProvider i18n={i18n}>
 						<SessionProvider>
-							<Container
-								position="absolute"
-								minHeight={500}
-								p={4}
-								left={4}
-								right={4}
-								borderRadius={5}>
-								<Story />
-							</Container>
+                            <Story />
 						</SessionProvider>
 					</I18nextProvider>
 				</Providers>

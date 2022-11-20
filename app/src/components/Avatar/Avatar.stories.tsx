@@ -12,8 +12,7 @@ const Template: ComponentStory<typeof Avatar> = (args) => <Avatar {...args} />;
 
 const size = 64;
 const address = "0x00000000000000000000000000000000000000f";
-const ensImage =
-	"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+const ensImage = "default"; // it should be an url
 
 export const Basic = Template.bind({});
 Basic.args = {
