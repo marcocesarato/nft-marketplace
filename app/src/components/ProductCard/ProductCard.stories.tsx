@@ -18,6 +18,9 @@ Basic.args = {
 	data: itemOnSale,
 	maxW: 350,
 };
+
+const actionPurchase = action("onPurchase");
+
 export const Owned = Template.bind({});
 Owned.args = {
 	data: itemOwned,
@@ -26,8 +29,8 @@ Owned.args = {
 export const Purchasable = Template.bind({});
 Purchasable.args = {
 	data: itemOnSale,
-	onPurchase: () => {
-		action("purchase");
+	onPurchase: (e) => {
+		actionPurchase(e);
 	},
 	maxW: 350,
 };

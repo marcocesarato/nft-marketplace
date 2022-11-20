@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {MouseEvent, useState} from "react";
 import {
 	AiFillHeart,
 	AiFillStar,
@@ -33,9 +33,9 @@ import {
 	useRemoveFromFavouritesMutation,
 } from "@services/graphql";
 
-type ProductProps = {
+export type ProductProps = {
 	data: TokenItem;
-	onPurchase?: () => void;
+	onPurchase?: (e?: MouseEvent) => void;
 	[key: string]: any;
 };
 
@@ -253,9 +253,9 @@ export default function Product({
 								fontWeight="medium"
 								rounded="xl"
 								textTransform="uppercase"
-								onClick={(e) => {
+								onClick={(e: MouseEvent) => {
 									e.preventDefault();
-									onPurchase();
+									onPurchase(e);
 								}}
 								_hover={{
 									bg: "gray.700",
