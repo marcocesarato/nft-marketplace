@@ -11,9 +11,9 @@ import {withI18next} from "storybook-addon-i18next";
 import i18n from "./i18n";
 
 import Providers from "../src/contexts/Providers";
-import Container from "../src/components/Container";
 
 import "focus-visible/dist/focus-visible";
+import "@rainbow-me/rainbowkit/styles.css";
 
 /**
  * Global Decorator.
@@ -53,7 +53,7 @@ export const GlobalDecorators = [
 				<Providers web3Client={mockClient(mockWallet)}>
 					<I18nextProvider i18n={i18n}>
 						<SessionProvider>
-                            <Story />
+							<Story />
 						</SessionProvider>
 					</I18nextProvider>
 				</Providers>
