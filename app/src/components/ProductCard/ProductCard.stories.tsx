@@ -1,8 +1,9 @@
 import React from "react";
+import {action} from "@storybook/addon-actions";
 import {ComponentMeta, ComponentStory} from "@storybook/react";
 
-import items from "@/cypress/fixtures/marketItemsFavourites.json";
-import itemsOwned from "@/cypress/fixtures/walletNFTs.json";
+import itemOnSale from "@/cypress/fixtures/marketItemOnSale.json";
+import itemOwned from "@/cypress/fixtures/marketItemOwned.json";
 import ProductCard from "@components/ProductCard";
 
 export default {
@@ -14,17 +15,19 @@ const Template: ComponentStory<typeof ProductCard> = (args) => <ProductCard {...
 
 export const Basic = Template.bind({});
 Basic.args = {
-	data: items.data.marketItems[0],
+	data: itemOnSale,
 	maxW: 350,
 };
 export const Owned = Template.bind({});
 Owned.args = {
-	data: itemsOwned.data.walletNFTs[0],
+	data: itemOwned,
 	maxW: 350,
 };
 export const Purchasable = Template.bind({});
 Purchasable.args = {
-	data: items.data.marketItems[0],
-	onPurchase: () => {},
+	data: itemOnSale,
+	onPurchase: () => {
+		action("purchase");
+	},
 	maxW: 350,
 };

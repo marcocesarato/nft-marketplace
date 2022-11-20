@@ -1,0 +1,23 @@
+{
+	"token_address": "0x72295a8e0dba59ed759ac7f097b894ade5ca40ed",
+	"token_id": 1,
+	"contract_type": "ERC721",
+	"owner_of": "0xad35c27c74677759afeb435c4e7e09e7946c5c4f",
+	"block_number": "27326102",
+	"block_number_minted": "27326074",
+	"token_uri": "https://ipfs.moralis.io:2053/ipfs/bafyreihgemz354mlfs75or5ts5uao7grkfbxd3g4r5m5yvmrb2bbqiseey/metadata.json",
+	"amount": "1",
+	"name": "Green Apple",
+	"symbol": "ACNT",
+	"token_hash": "998192614a012675b2f631fb9f3861a8",
+	"last_token_uri_sync": "2022-07-25T09:35:01.966Z",
+	"last_metadata_sync": "2022-07-25T09:35:12.186Z",
+	"description": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit, amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam",
+	"image": "https://ipfs.io/ipfs/bafybeibwe5favbrvg6wasmgb3ftudrr2qd2bvcu6dfbtliymvxoa7bh77e/17-QmZCvVy4vHSMIhGKnzM1-.png",
+	"thumbnail": "https://ipfs.io/ipfs/bafybeiged33wowxu275iy6jyb5vae3fi7rs64e2s3gedjy3sjrd47hlctq/17-QmZCvVy4vHSMIhGKnzM1-.png",
+	"attributes": null,
+	"external_url": null,
+	"animation_url": null,
+	"youtube_url": null,
+	"__typename": "NFT"
+}
