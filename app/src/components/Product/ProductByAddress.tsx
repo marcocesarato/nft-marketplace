@@ -8,7 +8,17 @@ import Product from "@components/Product";
 import {useAccountNFTQuery} from "@services/graphql";
 import {chainHex, toTokenItem} from "@utils/converters";
 
-export default function ProductByAddress({address, token_address, token_id}): JSX.Element {
+export type ProductByAddressProps = {
+	address: string;
+	token_address: string;
+	token_id: number | string;
+};
+
+export default function ProductByAddress({
+	address,
+	token_address,
+	token_id,
+}: ProductByAddressProps): JSX.Element {
 	const {t} = useTranslation();
 	const {chain} = useNetwork();
 	const {data, error, loading} = useAccountNFTQuery({
@@ -16,7 +26,7 @@ export default function ProductByAddress({address, token_address, token_id}): JS
 			chain: chainHex(chain),
 			address,
 			token_address,
-			token_id,
+			token_id: Number(token_id),
 		},
 	});
 	const item = toTokenItem(data?.accountNFT);

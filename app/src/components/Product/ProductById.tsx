@@ -8,7 +8,9 @@ import useMarket from "@hooks/useMarket";
 import {useMarketItemQuery} from "@services/graphql";
 import {toTokenItem} from "@utils/converters";
 
-export default function ProductById({id}: {id: string}): JSX.Element {
+export type ProductByIdProps = {id: string};
+
+export default function ProductById({id}: ProductByIdProps): JSX.Element {
 	const {t} = useTranslation();
 	const {purchase} = useMarket();
 
