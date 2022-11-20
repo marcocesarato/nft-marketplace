@@ -1,6 +1,7 @@
 import {useMemo, useRef} from "react";
 import {BsLayoutSidebar, BsLayoutSidebarInset} from "react-icons/bs";
-import {Box} from "@chakra-ui/react";
+import {Box, ResponsiveValue} from "@chakra-ui/react";
+import * as CSS from "csstype";
 import {useTranslation} from "next-i18next";
 
 import useRoutes from "@hooks/useRoutes";
@@ -15,7 +16,13 @@ import SidebarSection from "./SidebarSection";
 //import {signOut} from "next-auth/react";
 //import useAccount from "@hooks/useAccount";
 
-function Sidebar({title, ...props}): JSX.Element {
+export type SidebarProps = {
+	title: string;
+	position?: ResponsiveValue<CSS.Property.Position>;
+	[key: string]: any;
+};
+
+function Sidebar({title, position = "fixed", compress, ...props}: SidebarProps): JSX.Element {
 	const {t} = useTranslation();
 	const routes = useRoutes();
 	//const {isConnected} = useAccount();
