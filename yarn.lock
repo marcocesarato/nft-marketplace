@@ -5834,6 +5834,28 @@
     rpc-websockets "^7.5.0"
     superstruct "^0.14.2"
 
+"@storybook/addon-a11y@^6.5.13":
+  version "6.5.13"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-6.5.13.tgz#3934b12dc2f3bf7a1a1bc660aa7b84b856bc2b6c"
+  integrity sha512-+Tcl/4LWRh3ygLUZFGvkjT42CF/tJcP+kgsIho7i2MxpgZyD6+BUhL9srPZusjbR+uHcHXJ/yxw/vxFQ+UCTLA==
+  dependencies:
+    "@storybook/addons" "6.5.13"
+    "@storybook/api" "6.5.13"
+    "@storybook/channels" "6.5.13"
+    "@storybook/client-logger" "6.5.13"
+    "@storybook/components" "6.5.13"
+    "@storybook/core-events" "6.5.13"
+    "@storybook/csf" "0.0.2--canary.4566f4d.1"
+    "@storybook/theming" "6.5.13"
+    axe-core "^4.2.0"
+    core-js "^3.8.2"
+    global "^4.4.0"
+    lodash "^4.17.21"
+    react-sizeme "^3.0.1"
+    regenerator-runtime "^0.13.7"
+    ts-dedent "^2.0.0"
+    util-deprecate "^1.0.2"
+
 "@storybook/addon-actions@6.5.13", "@storybook/addon-actions@^6.5.13":
   version "6.5.13"
   resolved "https://registry.yarnpkg.com/@storybook/addon-actions/-/addon-actions-6.5.13.tgz#84535dda78c7fe15fc61f19a23ed1440952f3c76"
@@ -9673,6 +9695,11 @@ aws4@^1.8.0:
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.11.0.tgz#d61f46d83b2519250e2784daf5b09479a8b41c59"
   integrity sha512-xh1Rl34h6Fi1DC2WWKfxUTVqRsNnr6LsKz2+hfwDxQJWmrx8+c7ylaqBMcHfl1U1r2dsifOvKX3LQuLNZ+XSvA==
+
+axe-core@^4.2.0:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.5.2.tgz#823fdf491ff717ac3c58a52631d4206930c1d9f7"
+  integrity sha512-u2MVsXfew5HBvjsczCv+xlwdNnB1oQR9HlAcsejZttNjKKSkeDNVwB1vMThIUIFI9GoT57Vtk8iQLwqOfAkboA==
 
 axe-core@^4.4.3:
   version "4.4.3"

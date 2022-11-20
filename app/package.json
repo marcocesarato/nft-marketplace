@@ -90,6 +90,7 @@
 		"@next/eslint-plugin-next": "^13.0.4",
 		"@packages/eslint-config": "*",
 		"@packages/ts-config": "*",
+		"@storybook/addon-a11y": "^6.5.13",
 		"@storybook/addon-actions": "^6.5.13",
 		"@storybook/addon-essentials": "^6.5.13",
 		"@storybook/addon-interactions": "^6.5.13",

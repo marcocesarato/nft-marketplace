@@ -16,6 +16,7 @@ const config = {
 		"@chakra-ui/storybook-addon",
 		"storybook-addon-next",
 		"storybook-addon-i18next/register",
+		"@storybook/addon-a11y",
 		"@storybook/addon-links",
 		"@storybook/addon-essentials",
 		"@storybook/addon-interactions",
