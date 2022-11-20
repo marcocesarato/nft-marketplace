@@ -22,7 +22,7 @@ import {getObjectModelType} from "@utils/planimetry";
 export type AssetPickerProps = {
 	items?: TokenItem[] | null;
 	type?: ObjectModelType | ObjectModelType[];
-	value?: TokenItem;
+	value: TokenItem;
 	label: string;
 	cleanLabel: string;
 	onChange?: (asset: TokenItem | null | undefined) => void;

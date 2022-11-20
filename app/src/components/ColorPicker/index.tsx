@@ -13,7 +13,12 @@ import {
 	SimpleGrid,
 } from "@chakra-ui/react";
 
-export default function ColorPicker({value, onChange}) {
+export type ColorPickerProps = {
+	value: string | null | undefined;
+	onChange: (value: string) => void;
+};
+
+export default function ColorPicker({value, onChange}: ColorPickerProps) {
 	const colors = [
 		"",
 		"#718096",

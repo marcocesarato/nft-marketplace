@@ -13,9 +13,15 @@ import {
 } from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
+import {TextureAsset} from "@app/types";
 import {Textures} from "@configs/gallery";
 
-export default function TexturePicker({value, onChange}) {
+export type TexturePickerProps = {
+	value: TextureAsset | null | undefined;
+	onChange: (value: TextureAsset) => void;
+};
+
+export default function TexturePicker({value, onChange}: TexturePickerProps) {
 	const {t} = useTranslation();
 	const options = [
 		{
@@ -73,7 +79,7 @@ export default function TexturePicker({value, onChange}) {
 											if (!c.name) {
 												return onChange(null);
 											}
-											onChange(c);
+											onChange(c as TextureAsset);
 										}}></Button>
 								);
 							})}

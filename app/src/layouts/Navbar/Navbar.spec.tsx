@@ -14,7 +14,7 @@ const withDecorators = (Story) => (
 	</MemoryRouterProvider>
 );
 
-describe("<Catalog />", () => {
+describe("<Navbar />", () => {
 	it("mounts", () => {
 		cy.mount(withDecorators(Basic));
 	});
