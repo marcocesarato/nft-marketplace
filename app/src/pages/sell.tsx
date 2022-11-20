@@ -66,8 +66,8 @@ export default function Sell(): JSX.Element {
 		formData.append("name", input.name);
 		formData.append("description", input.description);
 		formData.append("image", input.image);
-		formData.append("animation", input.animation);
-		formData.append("externalUrl", input.externalUrl);
+		formData.append("animation", input.animation || null);
+		formData.append("externalUrl", input.externalUrl || null);
 		return formData;
 	}
 

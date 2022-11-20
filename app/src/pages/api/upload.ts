@@ -26,15 +26,15 @@ const handler = nextConnect<NextApiRequestFiles, NextApiResponse>()
 
 		const {body, files} = req;
 		try {
-			const metadaUrl = await storeToIPFS({
+			const metadataUrl = await storeToIPFS({
 				name: body.name[0],
 				description: body.description[0],
 				image: files.image[0],
 				animation: files.animation?.[0],
-				externalUrl: body.externalUrl[0],
+				externalUrl: body.externalUrl?.[0],
 			});
 			return res.status(200).json({
-				url: metadaUrl,
+				url: metadataUrl,
 			});
 		} catch (error) {
 			console.error("Error uploading file: ", error);
@@ -86,7 +86,7 @@ async function storeToIPFS({name, description, image, animation, externalUrl}: S
 	// Upload
 	const uploads = await uploadFiles(files);
 
-	const metataJson = {
+	const metadataUrl = {
 		image: uploads[0].path,
 		thumbnail: uploads[1].path,
 		name,
@@ -95,7 +95,7 @@ async function storeToIPFS({name, description, image, animation, externalUrl}: S
 		external_url: externalUrl || undefined,
 	} as GenericObject;
 
-	const metadataContent = Buffer.from(JSON.stringify(metataJson)).toString("base64");
+	const metadataContent = Buffer.from(JSON.stringify(metadataUrl)).toString("base64");
 	const metadata = await uploadFiles([
 		{
 			path: `metadata/${slugName}.json`,
