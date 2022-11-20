@@ -5,8 +5,8 @@ const {TsconfigPathsPlugin} = require("tsconfig-paths-webpack-plugin");
 
 // Get styles for preview
 const rainbowCss = fs.readFileSync("../node_modules/@rainbow-me/rainbowkit/dist/index.css", {
-    encoding: "utf8",
-    flag: "r",
+	encoding: "utf8",
+	flag: "r",
 });
 
 const config = {
