@@ -1,4 +1,4 @@
-import React from "react";
+import React, {MouseEvent} from "react";
 import {Box, Image} from "@chakra-ui/react";
 import {action} from "@storybook/addon-actions";
 import {useArgs} from "@storybook/client-api";
@@ -13,15 +13,18 @@ export default {
 	component: AssetPicker,
 } as ComponentMeta<typeof AssetPicker>;
 
+const actionChange = action("onChange");
+const actionClean = action("onClean");
+
 const Template: ComponentStory<typeof AssetPicker> = (args) => {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [_, updateArgs] = useArgs();
 	const handle = (value: TokenItem | null | undefined) => {
-		action("onChangeAsset");
+		actionChange(value);
 		updateArgs({...args, value});
 	};
-	const handleClean = () => {
-		action("onClean");
+	const handleClean = (e: MouseEvent) => {
+		actionClean(e);
 		updateArgs({...args, value: null});
 	};
 	return (

@@ -11,11 +11,13 @@ export default {
 	component: TexturePicker,
 } as ComponentMeta<typeof TexturePicker>;
 
+const actionChange = action("onChange");
+
 const Template: ComponentStory<typeof TexturePicker> = (args) => {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [_, updateArgs] = useArgs();
 	const handle = (value: TextureAsset) => {
-		action("changeTexture");
+		actionChange(value);
 		updateArgs({...args, value});
 	};
 	return <TexturePicker {...args} onChange={handle} />;

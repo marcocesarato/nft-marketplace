@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from "react";
+import {MouseEvent, useEffect, useMemo, useState} from "react";
 import {
 	Button,
 	Modal,
@@ -26,7 +26,7 @@ export type AssetPickerProps = {
 	label: string;
 	cleanLabel: string;
 	onChange?: (asset: TokenItem | null | undefined) => void;
-	onClean?: () => void;
+	onClean?: (e) => void;
 	[key: string]: any;
 };
 export default function AssetPicker({
@@ -36,7 +36,7 @@ export default function AssetPicker({
 	label,
 	cleanLabel,
 	onChange = (_) => {},
-	onClean = () => {},
+	onClean = (e?: MouseEvent) => {},
 	...props
 }: AssetPickerProps) {
 	const {t} = useTranslation();
