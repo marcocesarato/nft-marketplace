@@ -10,14 +10,14 @@ const size = 64; // Check on stories file
 describe("<Avatar />", () => {
 	it("mounts", () => {
 		cy.mount(<Basic />)
-			.get("[data-testid=image-container]")
+			.getByTestId("image-container")
 			.should("have.css", "width", `${size}px`)
 			.should("have.css", "height", `${size}px`);
 	});
 
 	it("mounts with ensImage", () => {
 		cy.mount(<Image />)
-			.get("[data-testid=image-container]")
+			.getByTestId("image-container")
 			.should("have.css", "width", `${size}px`)
 			.should("have.css", "height", `${size}px`);
 	});
