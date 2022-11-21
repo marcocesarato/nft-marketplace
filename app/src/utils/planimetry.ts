@@ -1,4 +1,4 @@
-import {MapDirection, MapDirectionEnum, ObjectModelType, PlanimetryBlockTypeEnum} from "@app/enums";
+import {MapDirection, ObjectModelType, PlanimetryBlockType} from "@app/enums";
 import type {GenericObject, PlanimetryBlock, PlanimetryMap, TokenItem} from "@app/types";
 import {acceptAudio, acceptModel, acceptVideo} from "@configs/uploads";
 //import {debounce} from "@utils/common";
@@ -8,8 +8,8 @@ export class PlanimetrySchema {
 	private blocksInsideRoom: Set<number> = new Set();
 	private blocksOutsideRoom: Set<number> = new Set();
 	private connectedBlockTypes = [
-		[PlanimetryBlockTypeEnum.Door, PlanimetryBlockTypeEnum.Floor],
-		[PlanimetryBlockTypeEnum.Window, PlanimetryBlockTypeEnum.Wall],
+		[PlanimetryBlockType.Door, PlanimetryBlockType.Floor],
+		[PlanimetryBlockType.Window, PlanimetryBlockType.Wall],
 	];
 	//private debouncedAdjustSpawn: () => void;
 
@@ -87,42 +87,42 @@ export class PlanimetrySchema {
 		const y = Math.floor(i / this.map.width);
 		if (x > 0)
 			neighbors.push({
-				direction: MapDirectionEnum.West,
+				direction: MapDirection.West,
 				...this.map.blocks[i - 1],
 			});
 		if (x < this.map.width - 1)
 			neighbors.push({
-				direction: MapDirectionEnum.East,
+				direction: MapDirection.East,
 				...this.map.blocks[i + 1],
 			});
 		if (y > 0)
 			neighbors.push({
-				direction: MapDirectionEnum.North,
+				direction: MapDirection.North,
 				...this.map.blocks[i - this.map.width],
 			});
 		if (y < this.map.height - 1)
 			neighbors.push({
-				direction: MapDirectionEnum.South,
+				direction: MapDirection.South,
 				...this.map.blocks[i + this.map.width],
 			});
 		if (x > 0 && y > 0)
 			neighbors.push({
-				direction: MapDirectionEnum.NorthWest,
+				direction: MapDirection.NorthWest,
 				...this.map.blocks[i - this.map.width - 1],
 			});
 		if (x < this.map.width - 1 && y > 0)
 			neighbors.push({
-				direction: MapDirectionEnum.NorthEast,
+				direction: MapDirection.NorthEast,
 				...this.map.blocks[i - this.map.width + 1],
 			});
 		if (x > 0 && y < this.map.height - 1)
 			neighbors.push({
-				direction: MapDirectionEnum.SouthWest,
+				direction: MapDirection.SouthWest,
 				...this.map.blocks[i + this.map.width - 1],
 			});
 		if (x < this.map.width - 1 && y < this.map.height - 1)
 			neighbors.push({
-				direction: MapDirectionEnum.SouthEast,
+				direction: MapDirection.SouthEast,
 				...this.map.blocks[i + this.map.width + 1],
 			});
 		return neighbors;
@@ -165,7 +165,7 @@ export class PlanimetrySchema {
 			toCheck.delete(i);
 			if (
 				this.isMapBorder(i) &&
-				(!this.map.blocks[i] || this.map.blocks[i].type === PlanimetryBlockTypeEnum.Floor)
+				(!this.map.blocks[i] || this.map.blocks[i].type === PlanimetryBlockType.Floor)
 			) {
 				const {connected, visited} = this.getConnectedBlocks(i);
 				toCheck = new Set([...toCheck].filter((x) => !visited.has(x)));
@@ -183,8 +183,7 @@ export class PlanimetrySchema {
 		this.blocksInsideRoom = new Set(
 			[...allBlocks].filter(
 				(x) =>
-					!outsidePlanes.has(x) &&
-					this.map.blocks[x].type === PlanimetryBlockTypeEnum.Floor,
+					!outsidePlanes.has(x) && this.map.blocks[x].type === PlanimetryBlockType.Floor,
 			),
 		);
 		return this.blocksInsideRoom;
@@ -193,10 +192,10 @@ export class PlanimetrySchema {
 	public isRoomPerimeter(i: number) {
 		const block = this.map.blocks[i];
 		const outsideWalls = this.getBlocksOutsideRoom();
-		if (block.type === PlanimetryBlockTypeEnum.Floor) return outsideWalls.has(i);
+		if (block.type === PlanimetryBlockType.Floor) return outsideWalls.has(i);
 		const neighbors = this.getNeighbors(i);
 		for (const neighbor of neighbors) {
-			if (neighbor.type === PlanimetryBlockTypeEnum.Floor && outsideWalls.has(neighbor.id))
+			if (neighbor.type === PlanimetryBlockType.Floor && outsideWalls.has(neighbor.id))
 				return true;
 		}
 		return false;
@@ -204,8 +203,7 @@ export class PlanimetrySchema {
 
 	public isBlockColorable(i: number): boolean {
 		const block = this.map.blocks[i];
-		if (block.type === PlanimetryBlockTypeEnum.Floor && !this.isBlockInsideWalls(i))
-			return false;
+		if (block.type === PlanimetryBlockType.Floor && !this.isBlockInsideWalls(i)) return false;
 		return true;
 	}
 
@@ -219,32 +217,32 @@ export class PlanimetrySchema {
 	}
 
 	public getLongestConnectedBlocksDirection(i: number): MapDirection {
-		const {connected: connectedNorth} = this.getConnectedBlocks(i, MapDirectionEnum.North);
-		const {connected: connectedSouth} = this.getConnectedBlocks(i, MapDirectionEnum.South);
-		const {connected: connectedWest} = this.getConnectedBlocks(i, MapDirectionEnum.West);
-		const {connected: connectedEast} = this.getConnectedBlocks(i, MapDirectionEnum.East);
+		const {connected: connectedNorth} = this.getConnectedBlocks(i, MapDirection.North);
+		const {connected: connectedSouth} = this.getConnectedBlocks(i, MapDirection.South);
+		const {connected: connectedWest} = this.getConnectedBlocks(i, MapDirection.West);
+		const {connected: connectedEast} = this.getConnectedBlocks(i, MapDirection.East);
 		const max = Math.max(
 			connectedNorth.size,
 			connectedSouth.size,
 			connectedWest.size,
 			connectedEast.size,
 		);
-		if (max === connectedNorth.size) return MapDirectionEnum.North;
-		if (max === connectedSouth.size) return MapDirectionEnum.South;
-		if (max === connectedWest.size) return MapDirectionEnum.West;
-		if (max === connectedEast.size) return MapDirectionEnum.East;
-		return MapDirectionEnum.North;
+		if (max === connectedNorth.size) return MapDirection.North;
+		if (max === connectedSouth.size) return MapDirection.South;
+		if (max === connectedWest.size) return MapDirection.West;
+		if (max === connectedEast.size) return MapDirection.East;
+		return MapDirection.North;
 	}
 
 	public getDirectionRotation(direction: MapDirection) {
 		switch (direction) {
-			case MapDirectionEnum.South:
+			case MapDirection.South:
 				return {x: 0, y: 0, z: 0};
-			case MapDirectionEnum.West:
+			case MapDirection.West:
 				return {x: 0, y: -90, z: 0};
-			case MapDirectionEnum.East:
+			case MapDirection.East:
 				return {x: 0, y: -270, z: 0};
-			case MapDirectionEnum.North:
+			case MapDirection.North:
 			default:
 				return {x: 0, y: 180, z: 0};
 		}
@@ -256,7 +254,7 @@ export class PlanimetrySchema {
 		const neighbors = this.getNeighbors(block.id);
 		let isColumn = true;
 		neighbors.forEach((neighbor: PlanimetryBlock) => {
-			if (neighbor.type !== PlanimetryBlockTypeEnum.Floor) {
+			if (neighbor.type !== PlanimetryBlockType.Floor) {
 				isColumn = false;
 			}
 		});
@@ -266,15 +264,15 @@ export class PlanimetrySchema {
 	public isStraightSegment(i: number): boolean {
 		const neighbors = this.getNeighbors(i);
 		const intsersections = [
-			[MapDirectionEnum.North, MapDirectionEnum.South],
-			[MapDirectionEnum.West, MapDirectionEnum.East],
+			[MapDirection.North, MapDirection.South],
+			[MapDirection.West, MapDirection.East],
 		];
 		for (const [a, b] of intsersections) {
 			const blockA = neighbors.find(
-				(x) => x.type !== PlanimetryBlockTypeEnum.Floor && x.direction === a,
+				(x) => x.type !== PlanimetryBlockType.Floor && x.direction === a,
 			);
 			const blockB = neighbors.find(
-				(x) => x.type !== PlanimetryBlockTypeEnum.Floor && x.direction === b,
+				(x) => x.type !== PlanimetryBlockType.Floor && x.direction === b,
 			);
 			if (blockA && blockB) {
 				return true;
@@ -288,17 +286,17 @@ export class PlanimetrySchema {
 		if (!block) return false;
 		const neighbors = this.getNeighbors(block.id);
 		const intsersections = [
-			[MapDirectionEnum.North, MapDirectionEnum.East],
-			[MapDirectionEnum.North, MapDirectionEnum.West],
-			[MapDirectionEnum.South, MapDirectionEnum.East],
-			[MapDirectionEnum.South, MapDirectionEnum.West],
+			[MapDirection.North, MapDirection.East],
+			[MapDirection.North, MapDirection.West],
+			[MapDirection.South, MapDirection.East],
+			[MapDirection.South, MapDirection.West],
 		];
 		for (const [a, b] of intsersections) {
 			const blockA = neighbors.find(
-				(x) => x.type !== PlanimetryBlockTypeEnum.Floor && x.direction === a,
+				(x) => x.type !== PlanimetryBlockType.Floor && x.direction === a,
 			);
 			const blockB = neighbors.find(
-				(x) => x.type !== PlanimetryBlockTypeEnum.Floor && x.direction === b,
+				(x) => x.type !== PlanimetryBlockType.Floor && x.direction === b,
 			);
 			if (blockA && blockB) return true;
 		}

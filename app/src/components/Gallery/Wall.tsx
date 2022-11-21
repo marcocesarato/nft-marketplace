@@ -1,6 +1,6 @@
 import {Box, Cylinder, Entity} from "@belivvr/aframe-react";
 
-import {MapDirection, MapDirectionEnum, PlanimetryBlockTypeEnum} from "@app/enums";
+import {MapDirection, PlanimetryBlockType} from "@app/enums";
 import {GenericObject, PlanimetryBlock, TextureAsset} from "@app/types";
 import {DefaultColor, DefaultWallTexture, Textures, WallHeight, WallSize} from "@configs/gallery";
 import {convertAllStringToAttributes} from "@utils/converters";
@@ -16,10 +16,10 @@ export const DefaultWallAttributes = {
 };
 
 const externalBlocks = [
-	MapDirectionEnum.North,
-	MapDirectionEnum.South,
-	MapDirectionEnum.East,
-	MapDirectionEnum.West,
+	MapDirection.North,
+	MapDirection.South,
+	MapDirection.East,
+	MapDirection.West,
 ];
 
 type WallProps = {
@@ -57,10 +57,10 @@ export default function Wall({
 	const floorPosition = {x: position.x, y: 0, z: position.z};
 	const ceilingPosition = {x: position.x, y: WallHeight, z: position.z};
 	const blocksPosition = {
-		[MapDirectionEnum.North]: {x: position.x, y: position.y, z: position.z - wallSize},
-		[MapDirectionEnum.South]: {x: position.x, y: position.y, z: position.z + wallSize},
-		[MapDirectionEnum.East]: {x: position.x + wallSize, y: position.y, z: position.z},
-		[MapDirectionEnum.West]: {x: position.x - wallSize, y: position.y, z: position.z},
+		[MapDirection.North]: {x: position.x, y: position.y, z: position.z - wallSize},
+		[MapDirection.South]: {x: position.x, y: position.y, z: position.z + wallSize},
+		[MapDirection.East]: {x: position.x + wallSize, y: position.y, z: position.z},
+		[MapDirection.West]: {x: position.x - wallSize, y: position.y, z: position.z},
 	};
 
 	// Materials
@@ -78,7 +78,7 @@ export default function Wall({
 	const blocksTexture: {[key: string]: GenericObject} = {};
 	const blocksColor: {[key: string]: string} = {};
 	neighbors.forEach((neighbor: PlanimetryBlock) => {
-		if (neighbor.type === PlanimetryBlockTypeEnum.Floor) {
+		if (neighbor.type === PlanimetryBlockType.Floor) {
 			if (externalBlocks.includes(neighbor.direction) || isIncidence) {
 				floors.push(neighbor);
 			}

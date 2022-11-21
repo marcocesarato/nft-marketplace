@@ -9,7 +9,7 @@ import {useMarketItemsOwnedOnSaleQuery} from "@services/graphql";
 import {toTokenItems} from "@utils/converters";
 
 export type AssetOnSalePickerProps = {
-	value?: TokenItem;
+	value: TokenItem;
 	type?: ObjectModelType | ObjectModelType[];
 	label: string;
 	cleanLabel: string;

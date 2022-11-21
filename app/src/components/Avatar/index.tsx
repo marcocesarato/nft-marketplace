@@ -39,7 +39,7 @@ const Avatar = function ({address, size = 16, ensImage, ...props}: AvatarProps):
 			height: ${height};
 			width: ${width};
 		`;
-	}, [size]);
+	}, [height, width]);
 
 	if (ensImage)
 		return <ChakraAvatar w={width} h={height} src={ensImage} {...props} {...testId} />;

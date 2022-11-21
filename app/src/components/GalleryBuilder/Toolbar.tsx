@@ -28,7 +28,7 @@ import {
 	VStack,
 } from "@chakra-ui/react";
 
-import {GalleryBuilderModeEnum} from "@app/enums";
+import {GalleryBuilderMode} from "@app/enums";
 import Alert from "@components/Alert";
 import ColorPicker from "@components/ColorPicker";
 import TexturePicker from "@components/TexturePicker";
@@ -127,35 +127,35 @@ export default function Toolbar({
 						<VStack spacing={4}>
 							<ToolButton
 								icon={<IoScanOutline />}
-								onClick={() => onChangeMode(GalleryBuilderModeEnum.Select)}
-								isActive={mode === GalleryBuilderModeEnum.Select}>
+								onClick={() => onChangeMode(GalleryBuilderMode.Select)}
+								isActive={mode === GalleryBuilderMode.Select}>
 								Select block
 							</ToolButton>
 							<HStack width={"full"}>
 								<ToolButton
 									icon={<IoHammerOutline />}
-									onClick={() => onChangeMode(GalleryBuilderModeEnum.Planimetry)}
-									isActive={mode === GalleryBuilderModeEnum.Planimetry}>
+									onClick={() => onChangeMode(GalleryBuilderMode.Planimetry)}
+									isActive={mode === GalleryBuilderMode.Planimetry}>
 									Build walls
 								</ToolButton>
 								<ToolButton
 									icon={<TbDoor />}
-									onClick={() => onChangeMode(GalleryBuilderModeEnum.Doors)}
-									isActive={mode === GalleryBuilderModeEnum.Doors}
+									onClick={() => onChangeMode(GalleryBuilderMode.Doors)}
+									isActive={mode === GalleryBuilderMode.Doors}
 									w="auto"
 								/>
 								<ToolButton
 									icon={<TbWindow />}
-									onClick={() => onChangeMode(GalleryBuilderModeEnum.Windows)}
-									isActive={mode === GalleryBuilderModeEnum.Windows}
+									onClick={() => onChangeMode(GalleryBuilderMode.Windows)}
+									isActive={mode === GalleryBuilderMode.Windows}
 									w="auto"
 								/>
 							</HStack>
 							<HStack width={"full"}>
 								<ToolButton
 									icon={<IoColorPaletteOutline />}
-									onClick={() => onChangeMode(GalleryBuilderModeEnum.Color)}
-									isActive={mode === GalleryBuilderModeEnum.Color}>
+									onClick={() => onChangeMode(GalleryBuilderMode.Color)}
+									isActive={mode === GalleryBuilderMode.Color}>
 									Apply color/texture
 								</ToolButton>
 								<ColorPicker value={color} onChange={onChangeColor} />
@@ -163,14 +163,14 @@ export default function Toolbar({
 							</HStack>
 							<ToolButton
 								icon={<IoAccessibilitySharp />}
-								onClick={() => onChangeMode(GalleryBuilderModeEnum.Spawn)}
-								isActive={mode === GalleryBuilderModeEnum.Spawn}>
+								onClick={() => onChangeMode(GalleryBuilderMode.Spawn)}
+								isActive={mode === GalleryBuilderMode.Spawn}>
 								Place spawn
 							</ToolButton>
 							<ToolButton
 								icon={<IoRemoveCircleOutline />}
-								onClick={() => onChangeMode(GalleryBuilderModeEnum.Erase)}
-								isActive={mode === GalleryBuilderModeEnum.Erase}>
+								onClick={() => onChangeMode(GalleryBuilderMode.Erase)}
+								isActive={mode === GalleryBuilderMode.Erase}>
 								Erase block
 							</ToolButton>
 							<ToolButton

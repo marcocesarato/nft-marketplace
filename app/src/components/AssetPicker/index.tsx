@@ -55,7 +55,7 @@ export default function AssetPicker({
 				return itemType === type;
 			}) ?? []
 		);
-	}, [items]);
+	}, [items, type]);
 	return (
 		<>
 			<Button onClick={onOpen} {...props}>

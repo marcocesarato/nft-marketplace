@@ -1,4 +1,4 @@
-/* global AFRAME, THREE */
+/* global AFRAME */
 
 AFRAME.registerComponent("autocenter", {
 	schema: {type: "number", default: 1},

@@ -3,12 +3,7 @@ import {IoAccessibilitySharp} from "react-icons/io5";
 import {TbDoor, TbWindow} from "react-icons/tb";
 import {Box} from "@chakra-ui/react";
 
-import {
-	GalleryBuilderModeEnum,
-	MapDirectionEnum,
-	PlanimetryBlockType,
-	PlanimetryBlockTypeEnum,
-} from "@app/enums";
+import {GalleryBuilderMode, MapDirection, PlanimetryBlockType} from "@app/enums";
 import {Textures} from "@configs/gallery";
 import useGallery from "@contexts/Gallery";
 import {clone} from "@utils/converters";
@@ -43,9 +38,9 @@ function Block({item, size}): JSX.Element {
 			.length;
 	}, [data]);
 	const isSpawn = useMemo(() => data?.id === schema.getSpawn(), [data?.id, schema]);
-	const isDoor = useMemo(() => data?.type === PlanimetryBlockTypeEnum.Door, [data?.type]);
-	const isWindow = useMemo(() => data?.type === PlanimetryBlockTypeEnum.Window, [data?.type]);
-	const isWall = useMemo(() => data?.type === PlanimetryBlockTypeEnum.Wall, [data?.type]);
+	const isDoor = useMemo(() => data?.type === PlanimetryBlockType.Door, [data?.type]);
+	const isWindow = useMemo(() => data?.type === PlanimetryBlockType.Window, [data?.type]);
+	const isWall = useMemo(() => data?.type === PlanimetryBlockType.Wall, [data?.type]);
 	const blockStyle = useMemo(() => {
 		const blockSize = `${size}px`;
 		const defaultWallColor = "#cbd5e0";
@@ -75,36 +70,36 @@ function Block({item, size}): JSX.Element {
 			const neightbours = schema.getNeighbors(data.id);
 			neightbours.forEach((neightbour) => {
 				if (
-					neightbour.type !== PlanimetryBlockTypeEnum.Wall &&
-					neightbour.type !== PlanimetryBlockTypeEnum.Door &&
-					neightbour.type !== PlanimetryBlockTypeEnum.Window
+					neightbour.type !== PlanimetryBlockType.Wall &&
+					neightbour.type !== PlanimetryBlockType.Door &&
+					neightbour.type !== PlanimetryBlockType.Window
 				) {
 					switch (neightbour.direction) {
-						case MapDirectionEnum.North:
+						case MapDirection.North:
 							styles.borderTop = wallBorder;
 							break;
-						case MapDirectionEnum.South:
+						case MapDirection.South:
 							styles.borderBottom = wallBorder;
 							break;
-						case MapDirectionEnum.East:
+						case MapDirection.East:
 							styles.borderRight = wallBorder;
 							break;
-						case MapDirectionEnum.West:
+						case MapDirection.West:
 							styles.borderLeft = wallBorder;
 							break;
 					}
 				} else {
 					switch (neightbour.direction) {
-						case MapDirectionEnum.North:
+						case MapDirection.North:
 							styles.borderTop = "none";
 							break;
-						case MapDirectionEnum.South:
+						case MapDirection.South:
 							styles.borderBottom = "none";
 							break;
-						case MapDirectionEnum.East:
+						case MapDirection.East:
 							styles.borderRight = "none";
 							break;
-						case MapDirectionEnum.West:
+						case MapDirection.West:
 							styles.borderLeft = "none";
 							break;
 					}
@@ -131,9 +126,9 @@ function Block({item, size}): JSX.Element {
 			styles.borderRight = selectedBorder;
 		}
 		if (
-			mode === GalleryBuilderModeEnum.Planimetry ||
-			mode === GalleryBuilderModeEnum.Erase ||
-			mode === GalleryBuilderModeEnum.Color
+			mode === GalleryBuilderMode.Planimetry ||
+			mode === GalleryBuilderMode.Erase ||
+			mode === GalleryBuilderMode.Color
 		) {
 			styles.cursor = "crosshair";
 		}
@@ -161,40 +156,40 @@ function Block({item, size}): JSX.Element {
 			}
 			let wallType: PlanimetryBlockType;
 			switch (mode) {
-				case GalleryBuilderModeEnum.Doors:
-					wallType = PlanimetryBlockTypeEnum.Door;
+				case GalleryBuilderMode.Doors:
+					wallType = PlanimetryBlockType.Door;
 				// eslint-disable-next-line no-fallthrough
-				case GalleryBuilderModeEnum.Windows:
+				case GalleryBuilderMode.Windows:
 					if (!wallType) {
-						wallType = PlanimetryBlockTypeEnum.Window;
+						wallType = PlanimetryBlockType.Window;
 					}
 					if (itemsCount > 0) break;
 					if (isRightMouse) {
-						blockData.type = PlanimetryBlockTypeEnum.Wall;
+						blockData.type = PlanimetryBlockType.Wall;
 						onChangeBlock(data.id, blockData);
 						break;
 					}
 				// eslint-disable-next-line no-fallthrough
-				case GalleryBuilderModeEnum.Planimetry:
+				case GalleryBuilderMode.Planimetry:
 					if (!isRightMouse) {
-						blockData.type = wallType ?? PlanimetryBlockTypeEnum.Wall;
+						blockData.type = wallType ?? PlanimetryBlockType.Wall;
 						onChangeBlock(data.id, blockData);
 						break;
 					}
 				// eslint-disable-next-line no-fallthrough
-				case GalleryBuilderModeEnum.Erase:
+				case GalleryBuilderMode.Erase:
 					onChangeBlock(data.id, {
 						id: data.id,
-						type: PlanimetryBlockTypeEnum.Floor,
+						type: PlanimetryBlockType.Floor,
 					});
 					break;
-				case GalleryBuilderModeEnum.Select:
+				case GalleryBuilderMode.Select:
 					onSelect(data);
 					break;
-				case GalleryBuilderModeEnum.Spawn:
+				case GalleryBuilderMode.Spawn:
 					onChangeSpawn(data.id);
 					break;
-				case GalleryBuilderModeEnum.Color:
+				case GalleryBuilderMode.Color:
 					if (schema.isBlockColorable(data.id)) {
 						blockData.color = isRightMouse ? null : color;
 						blockData.texture = isRightMouse ? null : texture?.name;
@@ -222,20 +217,20 @@ function Block({item, size}): JSX.Element {
 	const handleMouseEnter = useCallback(() => {
 		if (mouseDown) {
 			switch (mode) {
-				case GalleryBuilderModeEnum.Planimetry:
+				case GalleryBuilderMode.Planimetry:
 					if (!mouseRightDown) {
-						blockData.type = PlanimetryBlockTypeEnum.Wall;
+						blockData.type = PlanimetryBlockType.Wall;
 						onChangeBlock(data.id, blockData);
 						break;
 					}
 				// eslint-disable-next-line no-fallthrough
-				case GalleryBuilderModeEnum.Erase:
+				case GalleryBuilderMode.Erase:
 					onChangeBlock(data.id, {
 						id: data.id,
-						type: PlanimetryBlockTypeEnum.Floor,
+						type: PlanimetryBlockType.Floor,
 					});
 					break;
-				case GalleryBuilderModeEnum.Color:
+				case GalleryBuilderMode.Color:
 					if (schema.isBlockColorable(data.id)) {
 						blockData.color = mouseRightDown ? null : color;
 						blockData.texture = mouseRightDown ? null : texture?.name;

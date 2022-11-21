@@ -1,4 +1,4 @@
-import {GalleryBuilderModeEnum, PlanimetryBlockTypeEnum} from "@app/enums";
+import {GalleryBuilderMode, PlanimetryBlockType} from "@app/enums";
 import type {PlanimetryMap, TGalleryContext} from "@app/types";
 import {MaxMapSize, MinMapSize} from "@configs/gallery";
 import {clone} from "@utils/converters";
@@ -14,7 +14,7 @@ export function createInitialSchema(mapSize: number): PlanimetrySchema {
 	for (let i = 0; i < size * size; i++) {
 		map.blocks[i] = {
 			id: i,
-			type: PlanimetryBlockTypeEnum.Floor,
+			type: PlanimetryBlockType.Floor,
 		};
 	}
 	const schema = new PlanimetrySchema(clone(map));
@@ -22,7 +22,7 @@ export function createInitialSchema(mapSize: number): PlanimetrySchema {
 	// Set all border to wall
 	for (let i = 0; i < size * size; i++) {
 		if (schema.isMapBorder(i)) {
-			map.blocks[i].type = PlanimetryBlockTypeEnum.Wall;
+			map.blocks[i].type = PlanimetryBlockType.Wall;
 		}
 	}
 	schema.setMap(map);
@@ -34,7 +34,7 @@ export function createInitialState(): TGalleryContext {
 	return {
 		schema: createInitialSchema(MinMapSize),
 		size: MinMapSize,
-		mode: GalleryBuilderModeEnum.Select,
+		mode: GalleryBuilderMode.Select,
 		selected: null,
 		mouseDown: false,
 		mouseRightDown: false,

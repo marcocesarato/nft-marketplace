@@ -10,7 +10,7 @@ import {useWalletNFTsQuery} from "@services/graphql";
 import {chainHex, toTokenItems} from "@utils/converters";
 
 export type AssetOwnedPickerProps = {
-	value?: TokenItem;
+	value: TokenItem;
 	type?: ObjectModelType | ObjectModelType[];
 	label: string;
 	cleanLabel: string;

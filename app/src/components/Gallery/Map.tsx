@@ -2,12 +2,7 @@
 import {useEffect} from "react";
 import {AssetItem, Assets, Video} from "@belivvr/aframe-react";
 
-import {
-	GalleryAssetTypeEnum,
-	getMapDirectionEnum,
-	ObjectModelTypeEnum,
-	PlanimetryBlockTypeEnum,
-} from "@app/enums";
+import {GalleryAssetType, getMapDirection, ObjectModelType, PlanimetryBlockType} from "@app/enums";
 import {GalleryAsset, TextureAsset} from "@app/types";
 import {MainCamera} from "@components/AFrame";
 import {
@@ -76,9 +71,9 @@ export default function GalleryMap({planimetry}): JSX.Element {
 		const isStraightSegment = schema.isStraightSegment(block.id);
 		// Block render
 		switch (block.type) {
-			case PlanimetryBlockTypeEnum.Door:
-			case PlanimetryBlockTypeEnum.Wall:
-			case PlanimetryBlockTypeEnum.Window:
+			case PlanimetryBlockType.Door:
+			case PlanimetryBlockType.Wall:
+			case PlanimetryBlockType.Window:
 				position = {
 					x: (x - map.width / 2) * WallSize,
 					y: WallHeight / 2,
@@ -86,9 +81,9 @@ export default function GalleryMap({planimetry}): JSX.Element {
 				};
 				const WallComponent =
 					!isIncidenceSegment && !isColumn && isStraightSegment
-						? block.type === PlanimetryBlockTypeEnum.Door
+						? block.type === PlanimetryBlockType.Door
 							? Door
-							: block.type === PlanimetryBlockTypeEnum.Window
+							: block.type === PlanimetryBlockType.Window
 							? Window
 							: Wall
 						: Wall;
@@ -105,7 +100,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 					/>,
 				);
 				break;
-			case PlanimetryBlockTypeEnum.Floor:
+			case PlanimetryBlockType.Floor:
 				if (!schema.isBlockInsideWalls(block.id)) return;
 				position = {
 					x: (x - map.width / 2) * WallSize,
@@ -133,15 +128,15 @@ export default function GalleryMap({planimetry}): JSX.Element {
 				break;
 		}
 		// Items
-		if ((!isColumn && !isIncidenceSegment) || block.type === PlanimetryBlockTypeEnum.Floor) {
+		if ((!isColumn && !isIncidenceSegment) || block.type === PlanimetryBlockType.Floor) {
 			Object.keys(block.items || {}).forEach(async (key) => {
 				const item = block.items[key];
 				if (!item) return;
-				const direction = getMapDirectionEnum(key);
+				const direction = getMapDirection(key);
 				const rotation = schema.getDirectionRotation(direction);
 				const itemKey = slug("picture" + block.id + item.data?.token_id);
 				switch (item.type) {
-					case ObjectModelTypeEnum.Picture:
+					case ObjectModelType.Picture:
 						const itemPosition = (position = {
 							x: (x - map.width / 2) * WallSize,
 							y: WallHeight / 2,
@@ -160,7 +155,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 							/>,
 						);
 						break;
-					case ObjectModelTypeEnum.Object:
+					case ObjectModelType.Object:
 						const modelPosition = (position = {
 							x: (x - map.width / 2) * WallSize,
 							y: 0,
@@ -196,7 +191,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 			<Assets>
 				{assetList.map((asset) => {
 					switch (asset.type) {
-						case GalleryAssetTypeEnum.Image:
+						case GalleryAssetType.Image:
 							// eslint-disable-next-line jsx-a11y/alt-text
 							return (
 								<img
@@ -207,9 +202,9 @@ export default function GalleryMap({planimetry}): JSX.Element {
 									crossOrigin="anonymous"
 								/>
 							);
-						case GalleryAssetTypeEnum.Item:
+						case GalleryAssetType.Item:
 							return <AssetItem key={asset.id} id={asset.id} src={asset.src} />;
-						case GalleryAssetTypeEnum.Video:
+						case GalleryAssetType.Video:
 							return <Video key={asset.id} id={asset.id} src={asset.src} />;
 						default:
 							return null;

@@ -1,6 +1,6 @@
 import {createContext, useCallback, useContext, useMemo, useReducer, useState} from "react";
 
-import {GalleryActionTypeEnum, GalleryBuilderMode} from "@app/enums";
+import {GalleryActionType, GalleryBuilderMode} from "@app/enums";
 import type {
 	GenericObject,
 	PlanimetryBlock,
@@ -46,7 +46,7 @@ export const GalleryProvider = ({children}): JSX.Element => {
 
 	const setSchema = useCallback((map: PlanimetryMap) => {
 		dispatch({
-			type: GalleryActionTypeEnum.SetData,
+			type: GalleryActionType.SetData,
 			payload: map,
 		});
 	}, []);
@@ -54,7 +54,7 @@ export const GalleryProvider = ({children}): JSX.Element => {
 	const setBlock = useCallback(
 		(id: number, value: PlanimetryBlock) => {
 			dispatch({
-				type: GalleryActionTypeEnum.SetBlock,
+				type: GalleryActionType.SetBlock,
 				payload: {id, value},
 				callback: updateSelected,
 			});
@@ -65,7 +65,7 @@ export const GalleryProvider = ({children}): JSX.Element => {
 	const setBlockMetadata = useCallback(
 		(id: number, value: GenericObject) => {
 			dispatch({
-				type: GalleryActionTypeEnum.SetBlockMetadata,
+				type: GalleryActionType.SetBlockMetadata,
 				payload: {
 					id,
 					value,
@@ -79,7 +79,7 @@ export const GalleryProvider = ({children}): JSX.Element => {
 	const setSpawn = useCallback(
 		(id: number) => {
 			dispatch({
-				type: GalleryActionTypeEnum.SetSpawn,
+				type: GalleryActionType.SetSpawn,
 				payload: id,
 			});
 			if (selected?.id === id) {
@@ -92,7 +92,7 @@ export const GalleryProvider = ({children}): JSX.Element => {
 	const setMapSize = useCallback(
 		(size: number) => {
 			dispatch({
-				type: GalleryActionTypeEnum.SetSize,
+				type: GalleryActionType.SetSize,
 				payload: size,
 				callback: cleanSelected,
 			});
@@ -102,7 +102,7 @@ export const GalleryProvider = ({children}): JSX.Element => {
 
 	const resetMap = useCallback(() => {
 		dispatch({
-			type: GalleryActionTypeEnum.ResetMap,
+			type: GalleryActionType.ResetMap,
 			callback: cleanSelected,
 		});
 	}, [cleanSelected]);

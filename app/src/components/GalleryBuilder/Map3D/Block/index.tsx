@@ -1,6 +1,6 @@
 import {useMemo} from "react";
 
-import {PlanimetryBlockTypeEnum} from "@app/enums";
+import {PlanimetryBlockType} from "@app/enums";
 import useGallery from "@contexts/Gallery";
 import {clone} from "@utils/converters";
 
@@ -15,19 +15,19 @@ export default function Block3D(props) {
 	const data = useMemo(() => schema.getBlock(blockId), [blockId, schema]);
 	const blockData = useMemo(() => clone(data), [data]);
 
-	if (blockData.type === PlanimetryBlockTypeEnum.Wall) {
+	if (blockData.type === PlanimetryBlockType.Wall) {
 		return <Wall {...props} />;
 	}
 
-	if (blockData.type === PlanimetryBlockTypeEnum.Window) {
+	if (blockData.type === PlanimetryBlockType.Window) {
 		return <Window {...props} />;
 	}
 
-	if (blockData.type === PlanimetryBlockTypeEnum.Door) {
+	if (blockData.type === PlanimetryBlockType.Door) {
 		return <Door {...props} />;
 	}
 
-	if (blockData.type === PlanimetryBlockTypeEnum.Window) {
+	if (blockData.type === PlanimetryBlockType.Window) {
 		return <Window {...props} />;
 	}
 

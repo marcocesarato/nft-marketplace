@@ -3,7 +3,7 @@ import {OrbitControls} from "@react-three/drei";
 import {Vector3} from "three";
 import {DoubleSide} from "three/src/constants";
 
-import {GalleryBuilderModeEnum, PlanimetryBlockType, PlanimetryBlockTypeEnum} from "@app/enums";
+import {GalleryBuilderMode, PlanimetryBlockType} from "@app/enums";
 import useGallery from "@contexts/Gallery";
 import {clone} from "@utils/converters";
 
@@ -46,32 +46,32 @@ function Map(): JSX.Element {
 				).length;
 				let wallType: PlanimetryBlockType;
 				switch (mode) {
-					case GalleryBuilderModeEnum.Doors:
-						wallType = PlanimetryBlockTypeEnum.Door;
+					case GalleryBuilderMode.Doors:
+						wallType = PlanimetryBlockType.Door;
 					// eslint-disable-next-line no-fallthrough
-					case GalleryBuilderModeEnum.Windows:
+					case GalleryBuilderMode.Windows:
 						if (!wallType) {
-							wallType = PlanimetryBlockTypeEnum.Window;
+							wallType = PlanimetryBlockType.Window;
 						}
 						if (itemsCount > 0) break;
 					// eslint-disable-next-line no-fallthrough
-					case GalleryBuilderModeEnum.Planimetry:
-						blockData.type = wallType ?? PlanimetryBlockTypeEnum.Wall;
+					case GalleryBuilderMode.Planimetry:
+						blockData.type = wallType ?? PlanimetryBlockType.Wall;
 						onChangeBlock(data.id, blockData);
 						break;
-					case GalleryBuilderModeEnum.Erase:
+					case GalleryBuilderMode.Erase:
 						onChangeBlock(data.id, {
 							id: data.id,
-							type: PlanimetryBlockTypeEnum.Floor,
+							type: PlanimetryBlockType.Floor,
 						});
 						break;
-					case GalleryBuilderModeEnum.Select:
+					case GalleryBuilderMode.Select:
 						onSelect(data);
 						break;
-					case GalleryBuilderModeEnum.Spawn:
+					case GalleryBuilderMode.Spawn:
 						onChangeSpawn(data.id);
 						break;
-					case GalleryBuilderModeEnum.Color:
+					case GalleryBuilderMode.Color:
 						if (schema.isBlockColorable(data.id)) {
 							blockData.color = color;
 							blockData.texture = texture?.name;

@@ -14,12 +14,7 @@ import {
 	VStack,
 } from "@chakra-ui/react";
 
-import {
-	MapDirectionEnum,
-	ObjectModelType,
-	PlanimetryBlockType,
-	PlanimetryBlockTypeEnum,
-} from "@app/enums";
+import {MapDirection, ObjectModelType, PlanimetryBlockType} from "@app/enums";
 import {TokenItem} from "@app/types";
 import AssetOnSalePicker from "@components/AssetPicker/OnSale";
 import AssetOwnedPicker from "@components/AssetPicker/Owned";
@@ -30,13 +25,13 @@ export default function GalleryBlockDetails(): JSX.Element {
 	const {schema, selected, onChangeBlockMetadata, onChangeBlock, onSelect} = useGallery();
 	const blockTypesOptions = useMemo(() => {
 		const types = [
-			{value: PlanimetryBlockTypeEnum.Wall.toString(), label: "Wall"},
-			{value: PlanimetryBlockTypeEnum.Floor.toString(), label: "Floor"},
+			{value: PlanimetryBlockType.Wall.toString(), label: "Wall"},
+			{value: PlanimetryBlockType.Floor.toString(), label: "Floor"},
 		];
 		if (selected && schema.isStraightSegment(selected.id)) {
-			types.push({value: PlanimetryBlockTypeEnum.Window.toString(), label: "Window"});
+			types.push({value: PlanimetryBlockType.Window.toString(), label: "Window"});
 			if (!schema.isRoomPerimeter(selected.id)) {
-				types.push({value: PlanimetryBlockTypeEnum.Door.toString(), label: "Door"});
+				types.push({value: PlanimetryBlockType.Door.toString(), label: "Door"});
 			}
 		}
 		return types;
@@ -76,24 +71,24 @@ export default function GalleryBlockDetails(): JSX.Element {
 	const sections = {
 		"ceiling": false,
 		"floor": false,
-		[MapDirectionEnum.North]: false,
-		[MapDirectionEnum.West]: false,
-		[MapDirectionEnum.East]: false,
-		[MapDirectionEnum.South]: false,
+		[MapDirection.North]: false,
+		[MapDirection.West]: false,
+		[MapDirection.East]: false,
+		[MapDirection.South]: false,
 	};
 	let enableItems = false;
 	if (selected) {
 		const isColumn = schema.isColumn(selected.id);
 		const isIncidenceSegment = schema.isIncidenceSegment(selected.id);
 		enableItems = !isColumn && !isIncidenceSegment;
-		if (selected.type === PlanimetryBlockTypeEnum.Floor && insideWallFloor.has(selected.id)) {
+		if (selected.type === PlanimetryBlockType.Floor && insideWallFloor.has(selected.id)) {
 			sections.floor = true;
 			sections.ceiling = true;
 			enableItems = true;
-		} else if (selected.type === PlanimetryBlockTypeEnum.Wall) {
+		} else if (selected.type === PlanimetryBlockType.Wall) {
 			neightbours.forEach((neightbour) => {
 				if (
-					neightbour.type === PlanimetryBlockTypeEnum.Floor &&
+					neightbour.type === PlanimetryBlockType.Floor &&
 					insideWallFloor.has(neightbour.id) &&
 					sections.hasOwnProperty(neightbour.direction)
 				) {
