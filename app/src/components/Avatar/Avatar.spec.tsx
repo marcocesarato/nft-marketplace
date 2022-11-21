@@ -5,9 +5,10 @@ import * as stories from "./Avatar.stories";
 
 const {Basic, Image} = composeStories(stories) as {[key: string]: React.ElementType};
 
+const size = 64; // Check on stories file
+
 describe("<Avatar />", () => {
 	it("mounts", () => {
-		const size = 64; // Check on storybook file
 		cy.mount(<Basic />)
 			.get("[data-testid=image-container]")
 			.should("have.css", "width", `${size}px`)
@@ -15,7 +16,6 @@ describe("<Avatar />", () => {
 	});
 
 	it("mounts with ensImage", () => {
-		const size = 64;
 		cy.mount(<Image />)
 			.get("[data-testid=image-container]")
 			.should("have.css", "width", `${size}px`)
