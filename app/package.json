@@ -12,7 +12,7 @@
 		"static:serve": "yarn static:build && npx servor out index.html 5000",
 		"codegen:graphql": "graphql-codegen --config ./scripts/configs/codegen.graphql.yml",
 		"cypress": "cypress open",
-		"test": "cypress run --parallel",
+		"test": "cypress run --component",
 		"storybook": "start-storybook -p 6006",
 		"build-storybook": "build-storybook"
 	},

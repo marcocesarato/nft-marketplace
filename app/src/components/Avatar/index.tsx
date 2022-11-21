@@ -4,6 +4,8 @@ import styled from "@emotion/styled";
 // @ts-ignore
 import Jazzicon from "@metamask/jazzicon";
 
+import useTestId from "@hooks/useTestId";
+
 const StyledIcon = styled.div`
 	height: 1rem;
 	width: 1rem;
@@ -21,7 +23,7 @@ export type AvatarProps = {
 
 const Avatar = function ({address, size = 16, ensImage, ...props}: AvatarProps): JSX.Element {
 	const ref = useRef<HTMLDivElement | null>(null);
-
+	const testId = useTestId("image-container");
 	useEffect(() => {
 		if (address && ref.current && !ensImage) {
 			ref.current.innerHTML = "";
@@ -39,9 +41,10 @@ const Avatar = function ({address, size = 16, ensImage, ...props}: AvatarProps):
 		`;
 	}, [size]);
 
-	if (ensImage) return <ChakraAvatar w={width} h={height} src={ensImage} {...props} />;
+	if (ensImage)
+		return <ChakraAvatar w={width} h={height} src={ensImage} {...props} {...testId} />;
 
-	return <Icon ref={ref} {...props} />;
+	return <Icon ref={ref} {...props} {...testId} />;
 };
 
 export default Avatar;

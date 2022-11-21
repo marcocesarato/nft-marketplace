@@ -9,8 +9,7 @@ describe("<Avatar />", () => {
 	it("mounts", () => {
 		const size = 64; // Check on storybook file
 		cy.mount(<Basic />)
-			.get("svg")
-			.parent()
+			.get("[data-testid=image-container]")
 			.should("have.css", "width", `${size}px`)
 			.should("have.css", "height", `${size}px`);
 	});
@@ -18,8 +17,7 @@ describe("<Avatar />", () => {
 	it("mounts with ensImage", () => {
 		const size = 64;
 		cy.mount(<Image />)
-			.get("img")
-			.parent()
+			.get("[data-testid=image-container]")
 			.should("have.css", "width", `${size}px`)
 			.should("have.css", "height", `${size}px`);
 	});
