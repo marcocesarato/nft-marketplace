@@ -25,6 +25,9 @@ import {mount} from "cypress/react18";
 import {setGlobalConfig} from "@storybook/testing-react";
 import * as sbPreview from "../../.storybook/preview";
 
+// Router mock
+import {MemoryRouterProvider} from "next-router-mock/MemoryRouterProvider";
+
 setGlobalConfig(sbPreview);
 
 // Augment the Cypress namespace to include type definitions for
@@ -39,7 +42,10 @@ declare global {
 	}
 }
 
-Cypress.Commands.add("mount", mount);
+Cypress.Commands.add("mount", (component, options = {}) => {
+	const wrapped = <MemoryRouterProvider>{component}</MemoryRouterProvider>;
+	return mount(wrapped, options);
+});
 
 // Example use:
 // cy.mount(<MyComponent />)
