@@ -8,6 +8,7 @@ export default defineConfig({
 			// implement node event listeners here
 			return config;
 		},
+		video: false,
 	},
 	component: {
 		specPattern: [
@@ -18,5 +19,6 @@ export default defineConfig({
 			framework: "next",
 			bundler: "webpack",
 		},
+		video: false,
 	},
 });
