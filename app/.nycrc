@@ -1,0 +1,22 @@
+{
+    "all": true,
+    "sourceMap": true,
+    "instrument": true,
+    "excludeAfterRemap": true,
+    "reporter": [
+        "html",
+        "json"
+    ],
+    "include": "src/**/*.{js,jsx,ts,tsx}",
+    "exclude": [
+        "cypress/**/*",
+        "src/**/*.{cy,spec,stories,test}.{js,jsx,ts,tsx}",
+        "src/**/*.d.ts",
+        "src/components/AFrame/utils",
+        "src/pages/api/**/*",
+        "src/services/graphql/schema/**/*",
+        "src/types/**/*",
+        "src/utils/polyfills",
+        "src/utils/polyfills"
+    ]
+}

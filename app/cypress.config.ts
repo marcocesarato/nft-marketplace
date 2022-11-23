@@ -4,13 +4,14 @@ export default defineConfig({
 	projectId: "3ogoph",
 	e2e: {
 		baseUrl: "http://localhost:3000",
+		video: false,
 		setupNodeEvents(on, config) {
-			// implement node event listeners here
+			require("@cypress/code-coverage/task")(on, config);
 			return config;
 		},
-		video: false,
 	},
 	component: {
+		video: false,
 		specPattern: [
 			"cypress/component/**/*.{cy,spec}.{js,jsx,ts,tsx}",
 			"src/**/*.{cy,spec}.{js,jsx,ts,tsx}",
@@ -19,6 +20,9 @@ export default defineConfig({
 			framework: "next",
 			bundler: "webpack",
 		},
-		video: false,
+		setupNodeEvents(on, config) {
+			require("@cypress/code-coverage/task")(on, config);
+			return config;
+		},
 	},
 });

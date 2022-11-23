@@ -9,6 +9,7 @@ const {Basic} = composeStories(stories) as {
 
 describe("<Navbar />", () => {
 	it("mounts", () => {
+		cy.intercept("https://cloudflare-eth.com/**");
 		cy.mount(<Basic />);
 	});
 });
