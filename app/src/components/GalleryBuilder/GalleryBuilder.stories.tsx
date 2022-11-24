@@ -6,7 +6,7 @@ import GalleryBuilder from "@components/GalleryBuilder";
 import {UsersDocument} from "@services/graphql/generated";
 
 export default {
-	title: "Components / GalleryBuilder",
+	title: "Components / Gallery / GalleryBuilder",
 	component: GalleryBuilder,
 } as ComponentMeta<typeof GalleryBuilder>;
 

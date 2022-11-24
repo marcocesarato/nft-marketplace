@@ -5,7 +5,7 @@ import user from "@/cypress/fixtures/user.json";
 import Gallery from "@components/Gallery";
 
 export default {
-	title: "Components / Gallery",
+	title: "Components / Gallery / Gallery VR",
 	component: Gallery,
 } as ComponentMeta<typeof Gallery>;
 
