@@ -7,7 +7,7 @@
         "html",
         "json"
     ],
-    "include": "src/**/*.{js,jsx,ts,tsx}",
+    "include": ["src/**/*.{js,jsx,ts,tsx}"],
     "exclude": [
         "cypress/**/*",
         "src/**/*.{cy,spec,stories,test}.{js,jsx,ts,tsx}",
