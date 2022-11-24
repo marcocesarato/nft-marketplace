@@ -1,5 +1,3 @@
-import {formatEther} from "@ethersproject/units";
-import type {BigNumberish} from "ethers";
 import {Chain} from "wagmi";
 
 import {GenericObject, TokenItem} from "@app/types";
@@ -11,9 +9,6 @@ import {resolveIPFSUrl} from "./url";
 export function chainHex(chain: Chain | null | undefined): string {
 	return `0x${(chain?.id || ChainId).toString(16)}`;
 }
-
-export const convertEtherToPrice = (ether: BigNumberish, etherPrice: number): string =>
-	((etherPrice ?? 0) * parseFloat(formatEther(ether ?? 0))).toFixed(2);
 
 export const clone = (obj: any): any => {
 	return JSON.parse(
