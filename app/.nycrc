@@ -13,10 +13,9 @@
         "src/**/*.{cy,spec,stories,test}.{js,jsx,ts,tsx}",
         "src/**/*.d.ts",
         "src/components/AFrame/utils",
-        "src/pages/api/**/*",
-        "src/services/graphql/schema/**/*",
-        "src/types/**/*",
-        "src/utils/polyfills",
+        "src/pages/api",
+        "src/services/graphql/schema",
+        "src/type",
         "src/utils/polyfills"
     ]
 }
