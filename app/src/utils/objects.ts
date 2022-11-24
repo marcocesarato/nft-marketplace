@@ -19,7 +19,7 @@ export function isString(x: any): boolean {
 /**
  * Deep merge two objects.
  * @param target
- * @param ...sources
+ * @param sources
  */
 export function deepMerge(target: GenericObject, ...sources: GenericObject[]): GenericObject {
 	target ??= {};
