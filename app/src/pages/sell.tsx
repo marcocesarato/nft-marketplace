@@ -15,7 +15,7 @@ import {useTranslation} from "next-i18next";
 
 import {SellInput} from "@app/types";
 import Content from "@components/Content";
-import Dropzone, {DropzoneTypeEnum} from "@components/Dropzone";
+import Dropzone, {DropzoneType} from "@components/Dropzone";
 import Header from "@components/Header";
 import Loader from "@components/Loader";
 import Required from "@components/Required";
@@ -179,7 +179,7 @@ export default function Sell(): JSX.Element {
 					</FormLabel>
 					<Dropzone
 						onFileAccepted={onChangeImage}
-						type={DropzoneTypeEnum.Image}
+						type={DropzoneType.Image}
 						name="image"
 					/>
 					{imageUrl && (
@@ -207,7 +207,7 @@ export default function Sell(): JSX.Element {
 					<FormLabel>{t<string>("common:page.sell.asset.item")}</FormLabel>
 					<Dropzone
 						onFileAccepted={(file) => updateFormInput({...formInput, animation: file})}
-						type={DropzoneTypeEnum.Animation}
+						type={DropzoneType.Animation}
 						name="animation"
 					/>
 					{formInput.animation && (
