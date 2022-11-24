@@ -35,6 +35,7 @@
 //     }
 //   }
 // }
+import "@cypress/code-coverage/support";
 
 Cypress.Commands.add("getByTestId", (id: string): Cypress.Chainable<JQuery<HTMLElement>> => {
 	return cy.get(`[data-testid="${id}"]`);

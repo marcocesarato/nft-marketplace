@@ -18,6 +18,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 
 ENV NODE_ENV development
 
+COPY docker/dev/app/.babelrc ./.babelrc
 COPY --from=builder /main/node_modules ./node_modules
 
 EXPOSE 3000

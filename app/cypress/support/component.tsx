@@ -14,20 +14,17 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import "./commands";
-
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
-
-import "@cypress/code-coverage/support";
-import {mount} from "cypress/react18";
-
 // Storybook
 import {setGlobalConfig} from "@storybook/testing-react";
-import * as sbPreview from "../../.storybook/preview";
-
+// Alternatively you can use CommonJS syntax:
+// require('./commands')
+import {mount} from "cypress/react18";
 // Router mock
 import {MemoryRouterProvider} from "next-router-mock/MemoryRouterProvider";
+
+import "./commands";
+
+import * as sbPreview from "../../.storybook/preview";
 
 setGlobalConfig(sbPreview);
 
