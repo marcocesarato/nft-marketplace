@@ -4,7 +4,7 @@ import {ComponentMeta, ComponentStory} from "@storybook/react";
 import BottomBar from "@layouts/BottomBar";
 
 export default {
-	title: "Layouts / Mobile / Bottom Bar",
+	title: "Layouts / Bottom Bar",
 	component: BottomBar,
 } as ComponentMeta<typeof BottomBar>;
 

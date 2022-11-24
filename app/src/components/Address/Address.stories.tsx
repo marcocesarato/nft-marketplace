@@ -4,7 +4,7 @@ import {ComponentMeta, ComponentStory} from "@storybook/react";
 import Address from "@components/Address";
 
 export default {
-	title: "Components / Address",
+	title: "Components / Data Display / Address",
 	component: Address,
 } as ComponentMeta<typeof Address>;
 

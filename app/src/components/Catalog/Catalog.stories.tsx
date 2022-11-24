@@ -6,7 +6,7 @@ import itemsOwned from "@/cypress/fixtures/walletNFTs.json";
 import Catalog from "@components/Catalog";
 
 export default {
-	title: "Components / Catalog",
+	title: "Components / Data Display / Catalog",
 	component: Catalog,
 } as ComponentMeta<typeof Catalog>;
 

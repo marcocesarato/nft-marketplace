@@ -6,7 +6,7 @@ import {ComponentMeta, ComponentStory} from "@storybook/react";
 import ColorPicker from "@components/ColorPicker";
 
 export default {
-	title: "Components / Color Picker",
+	title: "Components / Forms / Color Picker",
 	component: ColorPicker,
 } as ComponentMeta<typeof ColorPicker>;
 

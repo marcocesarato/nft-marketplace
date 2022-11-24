@@ -6,7 +6,7 @@ import user from "@/cypress/fixtures/user.json";
 import Dropzone, {DropzoneType} from "@components/Dropzone";
 
 export default {
-	title: "Components / Dropzone",
+	title: "Components / Forms / Dropzone",
 	component: Dropzone,
 } as ComponentMeta<typeof Dropzone>;
 

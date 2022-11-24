@@ -9,7 +9,7 @@ import {TokenItem} from "@app/types";
 import AssetPicker from "@components/AssetPicker";
 
 export default {
-	title: "Components / Asset Picker",
+	title: "Components / Forms / Asset Picker",
 	component: AssetPicker,
 } as ComponentMeta<typeof AssetPicker>;
 

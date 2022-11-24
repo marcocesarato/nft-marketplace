@@ -7,7 +7,7 @@ import {TextureAsset} from "@app/types";
 import TexturePicker from "@components/TexturePicker";
 
 export default {
-	title: "Components / Texture Picker",
+	title: "Components / Forms / Texture Picker",
 	component: TexturePicker,
 } as ComponentMeta<typeof TexturePicker>;
 

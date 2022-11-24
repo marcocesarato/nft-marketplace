@@ -7,7 +7,7 @@ import itemOwned from "@/cypress/fixtures/marketItemOwned.json";
 import ProductCard from "@components/ProductCard";
 
 export default {
-	title: "Components / Product / Card",
+	title: "Components / Data Display / Product Card",
 	component: ProductCard,
 } as ComponentMeta<typeof ProductCard>;
 

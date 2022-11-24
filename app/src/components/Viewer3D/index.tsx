@@ -8,7 +8,7 @@ import Frame from "@components/Frame";
 import Model from "@components/Model";
 import useIPFS from "@hooks/useIPFS";
 
-export default function Product3D({data}: {data: TokenItem}): JSX.Element {
+export default function Viewer3D({data}: {data: TokenItem}): JSX.Element {
 	const {resolveLink} = useIPFS();
 	return (
 		<Flex position="relative" height="70vh">

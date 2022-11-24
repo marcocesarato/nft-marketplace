@@ -6,8 +6,8 @@ import {SimpleGrid, Text} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
 import {TokenItem} from "@app/types";
-import Product3D from "@components/Product3D";
 import ProductAR from "@components/ProductAR";
+import Product3D from "@components/Viewer3D";
 import useWebXR from "@hooks/useWebXR";
 
 import ProductInfos from "./ProductInfos";
