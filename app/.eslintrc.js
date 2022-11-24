@@ -7,7 +7,7 @@ module.exports = {
 	},
 	overrides: [
 		{
-			files: ["*.js", "*.jsx", "*.ts", "*.tsx"],
+			files: ["*.{js,jsx,ts,tsx}"],
 			rules: {
 				"simple-import-sort/exports": "warn",
 				"import/first": "warn",
@@ -41,10 +41,24 @@ module.exports = {
 			},
 		},
 		{
-			files: ["*.stories.tsx", "src/locales/**/*", "./src/theme/components/**/*.ts"],
+			files: [
+				"*.stories.{js,jsx,ts,tsx}",
+				"src/locales/**/*",
+				"./src/theme/components/**/*.{js,jsx,ts,tsx}",
+			],
 			rules: {
 				"import/no-anonymous-default-export": "off",
 			},
 		},
+		{
+			files: ["*.{cy,spec,test}.{js,jsx,ts,tsx}"],
+			extends: ["plugin:cypress/recommended", "plugin:chai-friendly/recommended"],
+			rules: {
+				"@typescript-eslint/no-unused-expressions": "off",
+			},
+		},
 	],
+	env: {
+		"cypress/globals": true,
+	},
 };
