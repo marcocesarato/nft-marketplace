@@ -17,7 +17,7 @@ export default function Product3D({data}: {data: TokenItem}): JSX.Element {
 					<Stage
 						environment="city"
 						intensity={0.5}
-						contactShadow={{opacity: 0.7, blur: 2}}>
+						shadows={{type: "contact", opacity: 0.7, blur: 2}}>
 						{data.animation_url ? (
 							<Model src={resolveLink(data.animation_url)} />
 						) : (
