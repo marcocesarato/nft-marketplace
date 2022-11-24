@@ -40,13 +40,5 @@ Cypress.Commands.add("getByTestId", (id: string): Cypress.Chainable<JQuery<HTMLE
 	return cy.get(`[data-testid="${id}"]`);
 });
 
-declare global {
-	namespace Cypress {
-		interface Chainable {
-			getByTestId(id: string): Cypress.Chainable<JQuery<HTMLElement>>;
-		}
-	}
-}
-
 // Prevent TypeScript from reading file as legacy script
 export {};

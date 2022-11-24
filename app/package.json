@@ -14,7 +14,8 @@
 		"codegen:graphql": "graphql-codegen --config ./scripts/configs/codegen.graphql.yml",
 		"cypress": "cypress open",
 		"test": "cypress run --component",
-		"coverage": "cypress run --component && start ./coverage/index.html",
+		"test:unit": "cypress run --component --spec \"src/**/*.test.ts\"",
+		"coverage": "cypress run --component; start ./coverage/index.html",
 		"storybook": "start-storybook -p 6006",
 		"build-storybook": "build-storybook"
 	},

@@ -1,8 +1,4 @@
 {
 	"extends": "@packages/ts-config/cypress.json",
-	"include": [
-		"**/*.ts",
-		"../../node_modules/cypress/types/mocha/index.d.ts",
-		"../../node_modules/cypress/types/cypress-global-vars.d.ts"
-	]
+	"include": ["**/*.ts", "cypress.d.ts"]
 }

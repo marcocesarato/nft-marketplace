@@ -13,8 +13,8 @@ export default defineConfig({
 	component: {
 		video: false,
 		specPattern: [
-			"cypress/component/**/*.{cy,spec}.{js,jsx,ts,tsx}",
-			"src/**/*.{cy,spec}.{js,jsx,ts,tsx}",
+			"cypress/component/**/*.{cy,spec,test}.{js,jsx,ts,tsx}",
+			"src/**/*.{cy,spec,test}.{js,jsx,ts,tsx}",
 		],
 		devServer: {
 			framework: "next",
