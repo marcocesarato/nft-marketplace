@@ -15,3 +15,4 @@ cache
 abis
 public
 coverage
+.nyc_output
