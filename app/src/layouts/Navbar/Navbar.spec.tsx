@@ -9,7 +9,12 @@ const {Basic} = composeStories(stories) as {
 
 describe("<Navbar />", () => {
 	it("mounts", () => {
-		cy.intercept("https://cloudflare-eth.com/**");
+		cy.intercept("*", (request) => {
+			request.reply({
+				statusCode: 200,
+				fixture: "ok.json",
+			});
+		});
 		cy.mount(<Basic />);
 	});
 });
