@@ -4,40 +4,47 @@ import {formatUnits, isNumeric, parseEther, parseUnits} from "@utils/units";
 
 describe("parseEther", () => {
 	it("should expose a function", () => {
-		expect(parseEther).to.not.be.undefined;
+		assert.isDefined(parseEther, "is defined");
+		assert.isFunction(parseEther, "is a function");
 	});
 
-	it("parseEther should return expected output", () => {
+	it("should return expected output", () => {
 		expect(parseEther(1)).to.equal("1000000000000000000");
 	});
 });
 
 describe("parseUnits", () => {
 	it("should expose a function", () => {
-		expect(parseUnits).to.not.be.undefined;
+		assert.isDefined(parseUnits, "is defined");
+		assert.isFunction(parseUnits, "is a function");
 	});
 
-	it("parseUnits should return expected output", () => {
+	it("should return expected output", () => {
+		expect(parseUnits("1")).to.equal("1000000000000000000");
 		expect(parseUnits("1", 18)).to.equal("1000000000000000000");
+		expect(parseUnits("1", "18")).to.equal("1000000000000000000");
 	});
 });
 
 describe("formatUnits", () => {
 	it("should expose a function", () => {
-		expect(formatUnits).to.not.be.undefined;
+		assert.isDefined(formatUnits, "is defined");
+		assert.isFunction(formatUnits, "is a function");
 	});
 
-	it("formatUnits should return expected output", () => {
+	it("should return expected output", () => {
 		expect(formatUnits("1000000000000000000" as BigNumberish)).to.equal(1);
 	});
 });
 
 describe("isNumeric", () => {
 	it("should expose a function", () => {
-		expect(isNumeric).to.not.be.undefined;
+		assert.isDefined(isNumeric, "is defined");
+		assert.isFunction(isNumeric, "is a function");
 	});
 
-	it("isNumeric should return expected output", () => {
+	it("should return expected output", () => {
+		expect(isNumeric(10)).to.be.false;
 		expect(isNumeric("10")).to.be.true;
 		expect(isNumeric("1-0")).to.be.false;
 	});
