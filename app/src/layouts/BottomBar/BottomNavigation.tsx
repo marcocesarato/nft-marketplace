@@ -1,10 +1,10 @@
 import React from "react";
 import {
 	Box,
-	createStylesContext,
 	forwardRef,
 	HTMLChakraProps,
 	omitThemingProps,
+	StylesProvider,
 	ThemingProps,
 	useMultiStyleConfig,
 } from "@chakra-ui/react";
@@ -24,7 +24,6 @@ export interface IBottomNavigationProps
 
 export const BottomNavigation = forwardRef<IBottomNavigationProps, "nav">(
 	({value, onChange, showLabel, ...props}, ref) => {
-		const [StylesProvider] = createStylesContext("BottomNavigation");
 		const styles = useMultiStyleConfig("BottomNavigation", props);
 		const ownProps = omitThemingProps(props);
 
