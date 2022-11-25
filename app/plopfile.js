@@ -43,4 +43,26 @@ module.exports = (plop) => {
 			},
 		],
 	});
+	plop.setGenerator("page", {
+		description: "App Page",
+		prompts: [
+			{
+				type: "input",
+				name: "name",
+				message: "Page name:",
+			},
+		],
+		actions: [
+			{
+				type: "add",
+				path: "src/pages/{{lowerCase name}}.tsx",
+				templateFile: "templates/page/page.hbs",
+			},
+			{
+				type: "add",
+				path: "cypress/component/pages/{{lowerCase name}}.spec.tsx",
+				templateFile: "templates/page/page.spec.hbs",
+			},
+		],
+	});
 };
