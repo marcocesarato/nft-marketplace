@@ -1,4 +1,15 @@
 {
 	"extends": "@packages/ts-config/cypress.json",
-	"include": ["**/*.ts", "cypress.d.ts"]
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["../*"],
+			"@app/*": ["../src/*"],
+			"@pages/*": ["../src/pages/*"]
+		},
+		"esModuleInterop": true,
+		"jsx": "react"
+	},
+	"include": ["**/*.ts", "e2e", "component", "cypress.d.ts"],
+	"exclude": ["node_modules"]
 }

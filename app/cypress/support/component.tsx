@@ -23,25 +23,23 @@ import {mount} from "cypress/react18";
 import {MemoryRouterProvider} from "next-router-mock/MemoryRouterProvider";
 
 import "./commands";
+import "../global.d";
 
+import {withMainDecorator} from "../../.storybook/decorators";
 import * as sbPreview from "../../.storybook/preview";
 
 setGlobalConfig(sbPreview);
 
-// Augment the Cypress namespace to include type definitions for
-// your custom command.
-// Alternatively, can be defined in cypress/support/component.d.ts
-// with a <reference path="./component" /> at the top of your spec.
-declare global {
-	namespace Cypress {
-		interface Chainable {
-			mount: typeof mount;
-		}
-	}
-}
+const withRouterProvider = (component) => <MemoryRouterProvider>{component}</MemoryRouterProvider>;
 
 Cypress.Commands.add("mount", (component, options = {}) => {
-	const wrapped = <MemoryRouterProvider>{component}</MemoryRouterProvider>;
+	const wrapped = withRouterProvider(component);
+	return mount(wrapped, options);
+});
+
+Cypress.Commands.add("mountPage", (component, options = {}) => {
+	const wrappedRouter = withRouterProvider(component);
+	const wrapped = withMainDecorator(() => wrappedRouter);
 	return mount(wrapped, options);
 });
 
