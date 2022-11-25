@@ -56,6 +56,13 @@ const config = {
 				configFile: path.resolve(__dirname, "../tsconfig.json"),
 			}),
 		);
+		config.resolve.alias = config.resolve.alias || {};
+		config.resolve.alias = {
+			...config.resolve.alias,
+			"next-i18next": "react-i18next",
+			"next/dist/next-server/lib/router-context": "next-router-mock",
+		};
+
 		return config;
 	},
 	previewHead: (head) => `
