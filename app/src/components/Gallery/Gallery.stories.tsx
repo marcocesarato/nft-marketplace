@@ -1,8 +1,8 @@
 import React from "react";
 import {ComponentMeta, ComponentStory} from "@storybook/react";
 
-import user from "@/cypress/fixtures/user.json";
 import Gallery from "@components/Gallery";
+import user from "@fixtures/user.json";
 
 export default {
 	title: "Components / Gallery / Virtual Space",

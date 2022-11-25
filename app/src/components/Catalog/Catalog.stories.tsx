@@ -1,9 +1,9 @@
 import React from "react";
 import {ComponentMeta, ComponentStory} from "@storybook/react";
 
-import items from "@/cypress/fixtures/marketItemsFavourites.json";
-import itemsOwned from "@/cypress/fixtures/walletNFTs.json";
 import Catalog from "@components/Catalog";
+import items from "@fixtures/marketItemsFavourites.json";
+import itemsOwned from "@fixtures/walletNFTs.json";
 
 export default {
 	title: "Components / Data Display / Catalog",

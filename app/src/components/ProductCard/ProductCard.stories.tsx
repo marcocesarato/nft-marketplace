@@ -2,9 +2,9 @@ import React from "react";
 import {action} from "@storybook/addon-actions";
 import {ComponentMeta, ComponentStory} from "@storybook/react";
 
-import itemOnSale from "@/cypress/fixtures/marketItemOnSale.json";
-import itemOwned from "@/cypress/fixtures/marketItemOwned.json";
 import ProductCard from "@components/ProductCard";
+import itemOnSale from "@fixtures/marketItemOnSale.json";
+import itemOwned from "@fixtures/marketItemOwned.json";
 
 export default {
 	title: "Components / Data Display / Product Card",

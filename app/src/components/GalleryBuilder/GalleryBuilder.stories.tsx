@@ -1,8 +1,8 @@
 import React from "react";
 import {ComponentMeta, ComponentStory} from "@storybook/react";
 
-import user from "@/cypress/fixtures/user.json";
 import GalleryBuilder from "@components/GalleryBuilder";
+import user from "@fixtures/user.json";
 import {UsersDocument} from "@services/graphql/generated";
 
 export default {

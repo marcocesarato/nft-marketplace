@@ -2,8 +2,8 @@ import React from "react";
 import {action} from "@storybook/addon-actions";
 import {ComponentMeta, ComponentStory} from "@storybook/react";
 
-import user from "@/cypress/fixtures/user.json";
 import Dropzone, {DropzoneType} from "@components/Dropzone";
+import user from "@fixtures/user.json";
 
 export default {
 	title: "Components / Forms / Dropzone",

@@ -4,9 +4,9 @@ import {action} from "@storybook/addon-actions";
 import {useArgs} from "@storybook/client-api";
 import {ComponentMeta, ComponentStory} from "@storybook/react";
 
-import items from "@/cypress/fixtures/walletNFTs.json";
 import {TokenItem} from "@app/types";
 import AssetPicker from "@components/AssetPicker";
+import items from "@fixtures/walletNFTs.json";
 
 export default {
 	title: "Components / Forms / Asset Picker",

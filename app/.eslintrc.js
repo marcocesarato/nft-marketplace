@@ -21,7 +21,7 @@ module.exports = {
 							["^react", "^next/", "^@?\\w"],
 							// Internal packages.
 							[
-								"^@(app|abis|configs|contexts|layouts|components|errors|hooks|utils|database|models|services|assets|)(/.*|$)",
+								"^@(app|abis|configs|contexts|layouts|components|errors|fixtures|pages|hooks|utils|database|models|services|assets|)(/.*|$)",
 							],
 							// Side effect imports.
 							["^\\u0000"],

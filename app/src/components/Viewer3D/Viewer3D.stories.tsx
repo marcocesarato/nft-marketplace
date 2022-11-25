@@ -1,9 +1,9 @@
 import React from "react";
 import {ComponentMeta, ComponentStory} from "@storybook/react";
 
-import item from "@/cypress/fixtures/marketItemOnSale.json";
-import itemModel from "@/cypress/fixtures/walletNFTAnimationModel.json";
 import Product3D from "@components/Viewer3D";
+import item from "@fixtures/marketItemOnSale.json";
+import itemModel from "@fixtures/walletNFTAnimationModel.json";
 
 export default {
 	title: "Components / Data Display / 3D Viewer",
