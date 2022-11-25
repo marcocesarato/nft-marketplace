@@ -6,7 +6,7 @@ import item from "@fixtures/marketItemOnSale.json";
 import itemModel from "@fixtures/walletNFTAnimationModel.json";
 
 export default {
-	title: "Components / Data Display / 3D Viewer",
+	title: "Components / Data Display / Viewer 3D",
 	component: Viewer3D,
 } as ComponentMeta<typeof Viewer3D>;
 

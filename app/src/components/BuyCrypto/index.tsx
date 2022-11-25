@@ -3,7 +3,7 @@ import {Box, useColorModeValue} from "@chakra-ui/react";
 
 const OnramperWidget = dynamic(() => import("@onramper/widget"), {ssr: false});
 
-export default function WidgetContainer() {
+export default function BuyCrypto() {
 	const darkMode = useColorModeValue(false, true);
 
 	return (

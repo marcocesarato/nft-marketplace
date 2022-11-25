@@ -6,7 +6,7 @@ import user from "@fixtures/user.json";
 import {UsersDocument} from "@services/graphql/generated";
 
 export default {
-	title: "Components / Gallery / Builder",
+	title: "Components / Forms / Gallery Builder",
 	component: GalleryBuilder,
 } as ComponentMeta<typeof GalleryBuilder>;
 

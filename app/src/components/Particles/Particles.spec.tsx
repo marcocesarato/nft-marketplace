@@ -1,13 +1,13 @@
 import React from "react";
 import {composeStories} from "@storybook/testing-react";
 
-import * as stories from "./Sidebar.stories";
+import * as stories from "./Particles.stories";
 
 const {Basic} = composeStories(stories) as {
 	[key: string]: React.ElementType;
 };
 
-describe("<Sidebar />", () => {
+describe("<Particles />", () => {
 	it("mounts", () => {
 		cy.mount(<Basic />);
 	});

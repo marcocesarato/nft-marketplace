@@ -5,7 +5,7 @@ import Gallery from "@components/Gallery";
 import user from "@fixtures/user.json";
 
 export default {
-	title: "Components / Gallery / Virtual Space",
+	title: "Components / Data Display / Gallery",
 	component: Gallery,
 } as ComponentMeta<typeof Gallery>;
 
