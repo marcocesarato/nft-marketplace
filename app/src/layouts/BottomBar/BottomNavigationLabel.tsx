@@ -1,9 +1,9 @@
 import {useMemo} from "react";
 import {
 	Box,
+	createStylesContext,
 	forwardRef,
 	HTMLChakraProps,
-	StylesProvider,
 	SystemStyleObject,
 	useStyles,
 } from "@chakra-ui/react";
@@ -15,6 +15,7 @@ interface IBottomNavigationLabelProps extends HTMLChakraProps<"div"> {}
 
 export const BottomNavigationLabel = forwardRef<IBottomNavigationLabelProps, "div">(
 	(props, ref) => {
+		const [StylesProvider] = createStylesContext("BottomNavigationLabel");
 		const {showLabel} = useBottomNavigationContext();
 		const {isSelected} = useBottomNavigationItemContext();
 		const styles = useStyles();
