@@ -50,7 +50,7 @@ export default function Account({id}: AccountProps): JSX.Element {
 	const {data, loading, error} = useUserQuery({
 		variables: {
 			filter: {
-				account: id.toString(),
+				account: id?.toString(),
 			},
 		},
 	});
