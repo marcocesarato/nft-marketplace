@@ -1,11 +1,11 @@
 import React from "react";
 import {composeStories} from "@storybook/testing-react";
 
-import * as stories from "./Product3D.stories";
+import * as stories from "./Viewer3D.stories";
 
 const {Basic, Model} = composeStories(stories) as {[key: string]: React.ElementType};
 
-describe("<Product3D />", () => {
+describe("<Viewer3D />", () => {
 	it("mounts", () => {
 		cy.mount(<Basic />);
 	});

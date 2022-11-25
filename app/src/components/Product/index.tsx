@@ -7,7 +7,7 @@ import {useTranslation} from "next-i18next";
 
 import {TokenItem} from "@app/types";
 import ProductAR from "@components/ProductAR";
-import Product3D from "@components/Viewer3D";
+import Viewer3D from "@components/Viewer3D";
 import useWebXR from "@hooks/useWebXR";
 
 import ProductInfos from "./ProductInfos";
@@ -49,7 +49,7 @@ export default function Index({
 			body = <ProductAR image={data.image} onClose={resetMode} />;
 			break;
 		case "3d":
-			body = <Product3D data={data} />;
+			body = <Viewer3D data={data} />;
 			break;
 		default:
 			body = <ProductInfos data={data} onPurchase={onPurchase} />;
