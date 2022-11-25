@@ -17,14 +17,14 @@ export default function SingleAsset(): JSX.Element {
 	const {id} = router.query;
 	const content = useMemo(() => {
 		if (isNumeric(id as string)) {
-			return <ProductById id={id as string} />;
+			return <ProductById id={String(id)} />;
 		}
-		const splitted = (id as string).split("/");
-		if (splitted.length === 3) {
+		const split = String(id).split("/");
+		if (split.length === 3) {
 			const data = {
-				"address": splitted[0],
-				"token_address": splitted[1],
-				"token_id": splitted[2],
+				"address": split[0],
+				"token_address": split[1],
+				"token_id": split[2],
 			};
 
 			return <ProductByAddress {...data} />;
