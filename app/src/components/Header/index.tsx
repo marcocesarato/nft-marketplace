@@ -1,6 +1,6 @@
 import {Box, Heading} from "@chakra-ui/react";
 
-import Subtitle from "@components/Subititle";
+import Subtitle from "@components/Subtitle";
 
 export default function Header({title, subtitle}): JSX.Element {
 	return (

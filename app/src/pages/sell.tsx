@@ -19,7 +19,7 @@ import Dropzone, {DropzoneType} from "@components/Dropzone";
 import Header from "@components/Header";
 import Loader from "@components/Loader";
 import Required from "@components/Required";
-import Subtitle from "@components/Subititle";
+import Subtitle from "@components/Subtitle";
 import ErrorAlert from "@errors/ErrorAlert";
 import useAccount from "@hooks/useAccount";
 import useBalance from "@hooks/useBalance";
