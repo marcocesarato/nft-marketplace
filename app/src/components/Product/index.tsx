@@ -6,8 +6,8 @@ import {SimpleGrid, Text} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
 import {TokenItem} from "@app/types";
-import ProductAR from "@components/ProductAR";
 import Viewer3D from "@components/Viewer3D";
+import ViewerAR from "@components/ViewerAR";
 import useWebXR from "@hooks/useWebXR";
 
 import ProductInfos from "./ProductInfos";
@@ -43,10 +43,10 @@ export default function Index({
 	let body: ReactNode;
 	switch (mode) {
 		case "ar":
-			body = <ProductAR image={data.image} onClose={resetMode} />;
+			body = <ViewerAR image={data.image} onClose={resetMode} />;
 			break;
 		case "vr":
-			body = <ProductAR image={data.image} onClose={resetMode} />;
+			body = <ViewerAR image={data.image} onClose={resetMode} />;
 			break;
 		case "3d":
 			body = <Viewer3D data={data} />;

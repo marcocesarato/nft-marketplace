@@ -12,7 +12,12 @@ import ARController from "./ARController";
 
 export const MotionBox = motion(Box); // Animated box
 
-export default function ProductAR({image, onClose}): JSX.Element {
+export type ViewerARProps = {
+	image: string;
+	onClose?: Function;
+};
+
+export default function ViewerAR({image, onClose}: ViewerARProps): JSX.Element {
 	const {t} = useTranslation();
 	const [init, setInit] = useState(false);
 	const [showTip, setShowTip] = useState(true);
