@@ -99,7 +99,7 @@ Below some of the most important targets:
 
 ### Configuration
 
-The project is based over Moralis API (but its functions is code wrapped to permit to be replaced easly based on future needs).
+The project is based over Moralis API (but its functions is code wrapped to permit to be replaced easily based on future needs).
 
 #### Dotenv
 
@@ -203,11 +203,11 @@ The other important directories to keep in mind are:
 
 -   **Scripts** (Path: `scripts`)
 
-    This folder contains generic scripts but in particular here we can find the deploy script that allows us to deploy our smart contracts on the blockchain via hardhat.
+    This folder contains generic scripts but in particular here we can find the deployment script that allows us to deploy our smart contracts on the blockchain via hardhat.
 
 -   **Application Binary Interface** (Path: `packages/abis`)
 
-    The smart contract's ABIs are contained here. They are very similar to API so they are a human-readable representation of a code’s interface. ABI defines the methods and structures used to interact with the binary contract, just like API does but on a lower-level.
+    The smart contract's ABIs are contained here. They are very similar to API, so they are a human-readable representation of a code’s interface. ABI defines the methods and structures used to interact with the binary contract, just like API does but on a lower-level.
 
 ## [Coding Style](./CODING_STYLE.md)
 
