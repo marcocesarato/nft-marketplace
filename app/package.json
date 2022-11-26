@@ -13,13 +13,13 @@
 		"codegen": "plop",
 		"codegen:graphql": "graphql-codegen --config ./scripts/configs/codegen.graphql.yml",
 		"cypress": "cypress open",
+		"storybook": "start-storybook -p 6006",
+		"storybook:build": "build-storybook",
 		"test": "cypress run --component",
 		"test:e2e": "cypress run",
 		"test:unit": "cypress run --component --spec \"src/**/*.test.ts\"",
-		"coverage": "cypress run --component && start ./coverage/index.html",
-		"report-coverage": "start ./coverage/index.html",
-		"storybook": "start-storybook -p 6006",
-		"build-storybook": "build-storybook"
+		"coverage": "cypress run && cypress run --component && start ./coverage/index.html",
+		"coverage:report": "start ./coverage/index.html"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.7.1",
@@ -100,6 +100,7 @@
 		"@packages/ts-config": "*",
 		"@storybook/addon-a11y": "^6.5.13",
 		"@storybook/addon-actions": "^6.5.13",
+		"@storybook/addon-docs": "^6.5.13",
 		"@storybook/addon-essentials": "^6.5.13",
 		"@storybook/addon-interactions": "^6.5.13",
 		"@storybook/addon-links": "^6.5.13",
