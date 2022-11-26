@@ -79,6 +79,8 @@ The source's folders hierarchy should maintain the following example structure:
 The app use [Plop.js](https://plopjs.com/) as template generator and [GraphQL Code Generator](https://the-guild.dev/graphql/codegen) to generate the GraphQL client.
 The templates files are inside the `templates` folder.
 
+> Note: remember to start the dev environment (`yarn dev`) before to run GraphQL Codegen command
+
 ```shell
 # To run the template generator
 yarn codegen
