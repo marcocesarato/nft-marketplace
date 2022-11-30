@@ -1,6 +1,8 @@
 import Moralis from "moralis";
 import type {NextApiRequest, NextApiResponse} from "next";
 
+import {startMoralis} from "@services/api";
+
 const future = new Date();
 future.setDate(future.getDate() + 30);
 
@@ -15,7 +17,7 @@ const config = {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	const {address, chain, network} = req.body;
 
-	await Moralis.start({apiKey: process.env.MORALIS_API_KEY});
+	await startMoralis();
 
 	try {
 		if (!config.domain || !config.uri) {

@@ -59,8 +59,8 @@ export function walletSchemaComposer(schemaComposer: SchemaComposer) {
 				address: "String!",
 				token_address: "String",
 			},
-			resolve: async (_, {chain, address, token_address = null}) => {
-				return await getWalletNFTs(chain, address, {token_address});
+			resolve: async (_, {chain, address}) => {
+				return await getWalletNFTs(chain, address);
 			},
 		},
 		accountNFT: {
@@ -72,8 +72,8 @@ export function walletSchemaComposer(schemaComposer: SchemaComposer) {
 				token_address: "String",
 				token_id: "Int",
 			},
-			resolve: async (_, {chain, address, token_address = null, token_id = null}) => {
-				return (await getWalletNFTs(chain, address, {token_id, token_address})?.[0]) || {};
+			resolve: async (_, {chain, address}) => {
+				return (await getWalletNFTs(chain, address)?.[0]) || {};
 			},
 		},
 		walletNFTTransfers: {

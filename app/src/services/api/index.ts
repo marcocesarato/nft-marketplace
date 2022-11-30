@@ -1,25 +1,23 @@
-import {EvmChain} from "@moralisweb3/evm-utils";
 import Moralis from "moralis";
 
 import {GenericObject} from "@app/types";
 import {normalizeItem} from "@utils/converters";
 
-let isStarted = false;
-async function start() {
-	if (!isStarted) {
+export async function startMoralis() {
+	if (!global.moralisIsStarted) {
 		await Moralis.start({apiKey: process.env.MORALIS_API_KEY});
-		isStarted = true;
+		global.moralisIsStarted = true;
 	}
 }
 
 export async function getWalletNFTs(
-	chain: number | `${number}`,
+	chain: number | string,
 	address: string,
 	{token_id = null, ...options}: GenericObject = {},
 ) {
-	await start();
+	await startMoralis();
 	const result = await Moralis.EvmApi.nft.getWalletNFTs({
-		chain: EvmChain.create(chain),
+		chain: chain,
 		address: address,
 		...options,
 	});
@@ -35,13 +33,13 @@ export async function getWalletNFTs(
 }
 
 export async function getWalletNFTTransfers(
-	chain: number | `${number}`,
+	chain: number | string,
 	address: string,
 	options: GenericObject = {},
 ) {
-	await start();
+	await startMoralis();
 	const result = await Moralis.EvmApi.nft.getWalletNFTTransfers({
-		chain: EvmChain.create(chain),
+		chain: chain,
 		address: address,
 		...options,
 	});
@@ -51,7 +49,7 @@ export async function getWalletNFTTransfers(
 export async function uploadFiles(
 	abi: {path: string; content: string}[],
 ): Promise<{path: string}[]> {
-	await start();
+	await startMoralis();
 	const response = await Moralis.EvmApi.ipfs.uploadFolder({
 		abi,
 	});

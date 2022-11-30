@@ -3,6 +3,7 @@ import NextAuth, {NextAuthOptions, Session} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 import {ISession} from "@app/types";
+import {startMoralis} from "@services/api";
 
 export const authOptions: NextAuthOptions = {
 	providers: [
@@ -25,7 +26,7 @@ export const authOptions: NextAuthOptions = {
 				try {
 					const {message, signature} = credentials as Record<string, string>;
 
-					await Moralis.start({apiKey: process.env.MORALIS_API_KEY});
+					await startMoralis();
 
 					const {address, profileId, expirationTime, uri} = (
 						await Moralis.Auth.verify({message, signature, network: "evm"})
