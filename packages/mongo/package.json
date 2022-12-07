@@ -10,7 +10,7 @@
 	},
 	"dependencies": {
 		"mongodb-client-encryption": "^2.3.0",
-		"mongoose": "^6.7.4"
+		"mongoose": "^6.8.0"
 	},
 	"devDependencies": {
 		"@packages/ts-config": "*",
