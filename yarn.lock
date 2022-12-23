@@ -8480,6 +8480,11 @@
   resolved "https://registry.yarnpkg.com/@wagmi/chains/-/chains-0.1.5.tgz#a8e3f27fd819f75cabd10d9cb2b009f6b992a19c"
   integrity sha512-ZYyrkx5k4Eoy2WM63TYTOPwiNFrylCMPhR3rjMiSHjrB5Sh97bPPU0z1EtxzDkZJJxVxmb09kQdeBrs/Mwkd3w==
 
+"@wagmi/chains@^0.1.6":
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/@wagmi/chains/-/chains-0.1.6.tgz#668120a0142b1ec95531a4b72305b57f6341c089"
+  integrity sha512-QC4HMPXw6qUfAI+NfCwyx9Q3+bGjnFkV/zXVTA/R7bvDv5vZgSdM6zRFXcXAdCfinWY3uEEk22j1SRqa2NglaA==
+
 "@wagmi/connectors@0.1.2":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@wagmi/connectors/-/connectors-0.1.2.tgz#121fe5919ff2781b3175a0687b991bf4a30f5d15"
