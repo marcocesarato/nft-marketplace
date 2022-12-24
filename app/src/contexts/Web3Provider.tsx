@@ -19,59 +19,16 @@ import {
 	walletConnectWallet,
 } from "@rainbow-me/rainbowkit/wallets";
 import {configureChains, createClient, WagmiConfig} from "wagmi";
-import {
-	arbitrum,
-	arbitrumGoerli,
-	avalanche,
-	avalancheFuji,
-	bsc,
-	bscTestnet,
-	fantom,
-	fantomTestnet,
-	foundry,
-	goerli,
-	hardhat,
-	localhost,
-	mainnet,
-	optimism,
-	optimismGoerli,
-	polygon,
-	polygonMumbai,
-	sepolia,
-} from "wagmi/chains";
 //import {alchemyProvider} from "wagmi/providers/alchemy";
 import {publicProvider} from "wagmi/providers/public";
 
 import Avatar from "@components/Avatar";
+import {Chains} from "@configs/chain";
 import {deepMerge} from "@utils/objects";
 
 const appName = "NFT MarketVerse";
 
-const selectedChains =
-	process.env.NODE_ENV === "production"
-		? [mainnet, avalanche, polygon, bsc, fantom, optimism, arbitrum]
-		: [
-				localhost,
-				hardhat,
-				mainnet,
-				avalanche,
-				foundry,
-				avalancheFuji,
-				goerli,
-				sepolia,
-				polygon,
-				polygonMumbai,
-				bsc,
-				bscTestnet,
-				fantom,
-				fantomTestnet,
-				optimism,
-				optimismGoerli,
-				arbitrum,
-				arbitrumGoerli,
-		  ];
-
-const {provider, webSocketProvider, chains} = configureChains(selectedChains, [
+const {provider, webSocketProvider, chains} = configureChains(Chains, [
 	//alchemyProvider({apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY, priority: 0, weight: 1}),
 	publicProvider({priority: 1, weight: 2}),
 ]);
