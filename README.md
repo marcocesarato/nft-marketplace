@@ -15,7 +15,7 @@ Watch your Digital Art on the wall of your home. Use the VR viewer to see all yo
         1. [Dotenv](#dotenv)
         2. [Variables](#variables)
 3. [Requirements](#requirements)
-    1. [Background informations](#background-informations)
+    1. [Web3 Concepts](#web3-concepts)
     2. [Connect Metamask to Polygon](#connect-metamask-to-polygon)
 4. [Architecture](#architecture)
     1. [Layered](#layered)
@@ -119,9 +119,9 @@ To deploy to the blockchain, test or main networks, we need to configure hardhat
 -   [Moralis](https://moralis.io/) Account
 -   [WebXR API Emulator](https://blog.mozvr.com/webxr-emulator-extension/) _(optional)_
 
-### Background informations
+### Web3 Concepts
 
-If you are new in the blockchain world and you need more background information about read this page.
+If you are new in the blockchain world, and you need more background information about read this page.
 
 **[Go to the page >](./docs/infos.md)**
 
