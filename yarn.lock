@@ -5098,10 +5098,10 @@
     path "^0.12.7"
     ts-node "^10.8.1"
 
-"@onramper/widget@^2.2.31":
-  version "2.2.31"
-  resolved "https://registry.yarnpkg.com/@onramper/widget/-/widget-2.2.31.tgz#37962c199ddf9a3f26b05f40e06e82902236ea18"
-  integrity sha512-RC7ALUlVGPZP4Qi7LqOhvM75i3yyoA1JYWrEYpjbohXkVLpZC1MwIQMrfnYrNrvHl92Fg5OUouXKpiRTEe1ecg==
+"@onramper/widget@^2.2.32":
+  version "2.2.32"
+  resolved "https://registry.yarnpkg.com/@onramper/widget/-/widget-2.2.32.tgz#c160cbbf316821abf7ad245b52864e335ec8cf64"
+  integrity sha512-ASiqhXZ443syyem0Coqwdv8A0jV4vxp0K5jrfJDbbPgzXqTDpsoChVnrh9zl/0n/TWvwkT2hDWR82UP/hj93RQ==
   dependencies:
     "@onramper/flag-icons" "^1.0.3"
     "@onramper/moonpay-adapter" "^1.6.19"

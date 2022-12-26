@@ -30,7 +30,7 @@
 		"@emotion/styled": "11.10.5",
 		"@metamask/jazzicon": "^2.0.0",
 		"@moralisweb3/next": "^2.10.3",
-		"@onramper/widget": "^2.2.31",
+		"@onramper/widget": "^2.2.32",
 		"@packages/abis": "*",
 		"@packages/mongo": "*",
 		"@rainbow-me/rainbowkit": "^0.8.1",
