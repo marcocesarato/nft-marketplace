@@ -1,12 +1,13 @@
 import {Suspense} from "react";
 import {Wallet} from "ethers";
-import {chain, configureChains, createClient, defaultChains} from "wagmi";
+import {configureChains, createClient} from "wagmi";
 import {publicProvider} from "wagmi/providers/public";
 import {MockConnector} from "@wagmi/core/connectors/mock";
 import {I18nextProvider} from "react-i18next";
 import {SessionProvider} from "next-auth/react";
 import {Story} from "@storybook/react";
 import {withI18next} from "storybook-addon-i18next";
+import {mainnet} from "@wagmi/core/chains";
 
 import i18n from "./i18n";
 
@@ -14,15 +15,14 @@ import Providers from "../src/contexts/Providers";
 
 import "focus-visible/dist/focus-visible";
 import "@rainbow-me/rainbowkit/styles.css";
+import {Chains} from "../src/configs/chain";
 
 export const withMainDecorator = (Story) => {
 	const mockWallet = new Wallet(
 		"0x874f84bec39a17e36ba4a6b4d238ff944b4cb478cb5d5efc6e784d7bf4f2ff80",
 	);
 
-	const {chains, provider, webSocketProvider} = configureChains(defaultChains, [
-		publicProvider(),
-	]);
+	const {chains, provider, webSocketProvider} = configureChains(Chains, [publicProvider()]);
 
 	/**
 	 * A wagmi client which provides access to the given Wallet instance.
@@ -37,7 +37,7 @@ export const withMainDecorator = (Story) => {
 					chains,
 					options: {
 						signer: wallet,
-						chainId: chain.mainnet.id,
+						chainId: mainnet.id,
 					},
 				}),
 			],

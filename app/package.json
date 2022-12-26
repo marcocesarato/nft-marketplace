@@ -18,8 +18,8 @@
 		"test": "cypress run --component",
 		"test:e2e": "cypress run",
 		"test:unit": "cypress run --component --spec \"src/**/*.test.ts\"",
-		"coverage": "cypress run && cypress run --component && start ./coverage/index.html",
-		"coverage:report": "start ./coverage/index.html"
+		"test:coverage": "nyc --check-coverage yarn test",
+		"report:coverage": "start ./coverage/index.html"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.7.3",

@@ -53,6 +53,8 @@ const config = {
 			module: false,
 			assert: false,
 			path: require.resolve("path-browserify"),
+			crypto: require.resolve("crypto-browserify"),
+			stream: require.resolve("stream-browserify"),
 		};
 		config.resolve.plugins = config.resolve.plugins || [];
 		config.resolve.plugins.push(
