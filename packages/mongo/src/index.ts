@@ -33,6 +33,7 @@ export async function connectDatabase(): Promise<Mongoose> {
 		};
 
 		cached.promise = connect(`${MONGODB_URI}/${MONGODB_DATABASE}`, opts).then((mongoose) => {
+			mongoose.set("strictQuery", true);
 			return mongoose;
 		});
 	}
