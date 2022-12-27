@@ -34,6 +34,7 @@ const nextConfig = withPWA({
 	},
 	experimental: {
 		externalDir: true,
+		esmExternals: false,
 	},
 	compiler: {
 		emotion: true,

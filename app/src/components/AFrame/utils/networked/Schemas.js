@@ -9,7 +9,16 @@ class Schemas {
 	createDefaultSchema(name) {
 		return {
 			template: name,
-			components: ["position", "rotation"],
+			components: [
+				{
+					component: "position",
+					requiresNetworkUpdate: NAF.utils.vectorRequiresUpdate(0.001),
+				},
+				{
+					component: "rotation",
+					requiresNetworkUpdate: NAF.utils.vectorRequiresUpdate(0.5),
+				},
+			],
 		};
 	}
 
@@ -77,11 +86,6 @@ class Schemas {
 	}
 
 	validateTemplate(schema, el) {
-		if (this.deprecatedTemplateTag(el)) {
-			NAF.log.error(
-				`The usage of ${el.tagName} is deprecated. We suggest using <naf-template> instead.`,
-			);
-		}
 		if (!this.isTemplateTag(el)) {
 			NAF.log.error(
 				`Template for ${schema.template} is not a <naf-template> tag. Instead found: ${el.tagName}`,
@@ -112,10 +116,6 @@ class Schemas {
 
 	clear() {
 		this.schemaDict = {};
-	}
-
-	deprecatedTemplateTag(el) {
-		return el.tagName.toLowerCase() === "template";
 	}
 }
 

@@ -12,7 +12,8 @@ export default function useAFrame(callback?: () => void) {
 				// Polyfills
 				require("@utils/polyfills/geometry");
 				// Libs
-				require("aframe-extras");
+				require("aframe-extras/dist/aframe-extras.controls.min");
+				require("aframe-extras/dist/components/sphere-collider.min");
 				require("aframe-environment-component");
 				require("handy-work/build/esm/handy-work.standalone");
 				// Utils
