@@ -12,7 +12,7 @@ export default function MapSpawn({row, column}) {
 	});
 	return (
 		<mesh ref={meshRef} position={position} castShadow receiveShadow>
-			<dodecahedronBufferGeometry args={[0.4, 0]} />
+			<dodecahedronGeometry args={[0.4, 0]} />
 			<meshNormalMaterial />
 		</mesh>
 	);

@@ -1107,7 +1107,7 @@ class Geometry extends THREE.EventDispatcher {
 	toBufferGeometry() {
 		const geometry = new DirectGeometry().fromGeometry(this);
 
-		const buffergeometry = new THREE.BufferGeometry();
+		const buffergeometry = new THREE.Geometry();
 
 		const positions = new Float32Array(geometry.vertices.length * 3);
 		buffergeometry.setAttribute(
@@ -1226,7 +1226,7 @@ class Geometry extends THREE.EventDispatcher {
 	}
 
 	static createBufferGeometryFromObject(object) {
-		let buffergeometry = new THREE.BufferGeometry();
+		let buffergeometry = new THREE.Geometry();
 
 		const geometry = object.geometry;
 
@@ -1544,7 +1544,7 @@ class Face3 {
 THREE.Geometry = Geometry;
 THREE.Face3 = Face3;
 
-THREE.BufferGeometryUtils = {
+THREE.GeometryUtils = {
 	computeTangents: function (geometry) {
 		const index = geometry.index;
 		const attributes = geometry.attributes;
@@ -1559,7 +1559,7 @@ THREE.BufferGeometryUtils = {
 			attributes.uv === undefined
 		) {
 			console.warn(
-				"THREE.BufferGeometry: Missing required attributes (index, position, normal or uv) in BufferGeometry.computeTangents()",
+				"THREE.Geometry: Missing required attributes (index, position, normal or uv) in BufferGeometry.computeTangents()",
 			);
 			return;
 		}
@@ -1702,8 +1702,8 @@ THREE.BufferGeometryUtils = {
 	},
 
 	/**
-	 * @param  {Array<THREE.BufferGeometry>} geometries
-	 * @return {THREE.BufferGeometry}
+	 * @param  {Array<THREE.Geometry>} geometries
+	 * @return {THREE.Geometry}
 	 */
 	mergeBufferGeometries: function (geometries, useGroups) {
 		const isIndexed = geometries[0].index !== null;
@@ -1714,7 +1714,7 @@ THREE.BufferGeometryUtils = {
 		const attributes = {};
 		const morphAttributes = {};
 
-		const mergedGeometry = new THREE.BufferGeometry();
+		const mergedGeometry = new THREE.Geometry();
 
 		let offset = 0;
 

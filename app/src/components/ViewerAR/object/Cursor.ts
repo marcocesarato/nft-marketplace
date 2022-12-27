@@ -1,4 +1,4 @@
-import {CircleBufferGeometry, Mesh, MeshBasicMaterial, RingBufferGeometry} from "three";
+import {CircleGeometry, Mesh, MeshBasicMaterial, RingGeometry} from "three";
 import * as BufferGeometryUtils from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
 /**
@@ -11,8 +11,8 @@ export default class Cursor extends Mesh {
 	public onAction = null;
 	constructor(geometry?, material?) {
 		if (!geometry) {
-			const ring = new RingBufferGeometry(0.045, 0.05, 32).rotateX(-Math.PI / 2);
-			const dot = new CircleBufferGeometry(0.005, 32).rotateX(-Math.PI / 2);
+			const ring = new RingGeometry(0.045, 0.05, 32).rotateX(-Math.PI / 2);
+			const dot = new CircleGeometry(0.005, 32).rotateX(-Math.PI / 2);
 			geometry = BufferGeometryUtils.mergeBufferGeometries([ring, dot]);
 		}
 

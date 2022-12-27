@@ -1,4 +1,4 @@
-import {BoxBufferGeometry, Group, Mesh, MeshPhysicalMaterial, TextureLoader} from "three";
+import {BoxGeometry, Group, Mesh, MeshPhysicalMaterial, TextureLoader} from "three";
 
 const texture = new TextureLoader();
 
@@ -24,7 +24,7 @@ export default class Picture extends Group {
 		];
 
 		const d = (width + height) / 40;
-		const pictureGeo = new BoxBufferGeometry(width, d, height).translate(0, d / 2, 0);
+		const pictureGeo = new BoxGeometry(width, d, height).translate(0, d / 2, 0);
 		const pictureMesh = new Mesh(pictureGeo, pictureMats);
 		pictureMesh.castShadow = true;
 		pictureMesh.receiveShadow = true;

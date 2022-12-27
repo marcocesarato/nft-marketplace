@@ -9,7 +9,7 @@ import {
 	Mesh,
 	PCFSoftShadowMap,
 	PerspectiveCamera,
-	PlaneBufferGeometry,
+	PlaneGeometry,
 	Scene,
 	ShadowMaterial,
 	Vector2,
@@ -167,7 +167,7 @@ export default class ARController {
 			this.depthDataTexture,
 		);
 
-		this.floorMesh = new Mesh(new PlaneBufferGeometry(100, 100, 1, 1), this.shadowMaterial);
+		this.floorMesh = new Mesh(new PlaneGeometry(100, 100, 1, 1), this.shadowMaterial);
 		this.floorMesh.rotation.set(-Math.PI / 2, 0, 0);
 		this.floorMesh.castShadow = false;
 		this.floorMesh.receiveShadow = true;
