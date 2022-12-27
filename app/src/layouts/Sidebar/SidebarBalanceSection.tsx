@@ -18,10 +18,14 @@ function SidebarBalanceSection(): JSX.Element {
 			<Heading ps="15px" fontSize={"2xl"} fontWeight={500}>
 				{display}
 			</Heading>
-			{/*<LineChart
+			<LineChart
 				chartData={[
+					{
+						name: t<string>("common:account.balance"),
+						data: [200, 400, 300, 500, 400],
+					},
 				]}
-			/>*/}
+			/>
 		</Box>
 	);
 }

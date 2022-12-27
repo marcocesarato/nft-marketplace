@@ -79,7 +79,7 @@ export default function LineChart({chartData}): JSX.Element {
 				series={chartData}
 				type="line"
 				height={250}
-				w="100%"
+				width="100%"
 			/>
 		</>
 	);
