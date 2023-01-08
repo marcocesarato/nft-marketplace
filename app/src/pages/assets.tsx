@@ -6,7 +6,7 @@ import useAccount from "@hooks/useAccount";
 import {getStaticPropsLocale} from "@utils/i18n";
 
 export const getStaticProps = getStaticPropsLocale;
-export default function MyAssets(): JSX.Element {
+export default function AssetsPage(): JSX.Element {
 	const {t} = useTranslation();
 	const {address} = useAccount();
 	return (

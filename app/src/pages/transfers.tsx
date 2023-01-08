@@ -7,7 +7,7 @@ import useAccount from "@hooks/useAccount";
 import {getStaticPropsLocale} from "@utils/i18n";
 
 export const getStaticProps = getStaticPropsLocale;
-export default function MyTransfers(): JSX.Element {
+export default function TransfersPage(): JSX.Element {
 	const {t} = useTranslation();
 	const {isConnected, address} = useAccount();
 

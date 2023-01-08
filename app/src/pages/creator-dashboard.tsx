@@ -11,7 +11,7 @@ import {toTokenItems} from "@utils/converters";
 import {getStaticPropsLocale} from "@utils/i18n";
 
 export const getStaticProps = getStaticPropsLocale;
-export default function CreatorDashboard(): JSX.Element {
+export default function CreatorDashboardPage(): JSX.Element {
 	const {t} = useTranslation();
 	const {isConnected} = useAccount();
 	const {data, error, loading} = useMarketItemsCreatedQuery();

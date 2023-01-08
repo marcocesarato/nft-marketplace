@@ -20,7 +20,7 @@ import {toTokenItems} from "@utils/converters";
 import {getStaticPropsLocale} from "@utils/i18n";
 
 export const getStaticProps = getStaticPropsLocale;
-export default function Home(): JSX.Element {
+export default function HomePage(): JSX.Element {
 	const {t} = useTranslation();
 	const {isSidebarCompress} = useSidebar();
 	const {data, loading, error} = useMarketItemsOnSaleQuery();

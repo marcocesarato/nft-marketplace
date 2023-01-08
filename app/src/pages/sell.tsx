@@ -28,7 +28,7 @@ import useMarket from "@hooks/useMarket";
 import {getStaticPropsLocale} from "@utils/i18n";
 
 export const getStaticProps = getStaticPropsLocale;
-export default function Sell(): JSX.Element {
+export default function SellPage(): JSX.Element {
 	const {t} = useTranslation();
 	const {isConnected} = useAccount();
 	const {data: balance} = useBalance();

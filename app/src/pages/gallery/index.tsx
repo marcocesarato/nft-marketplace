@@ -13,7 +13,7 @@ import {getStaticPropsLocale} from "@utils/i18n";
 import {getGalleryBuilderUrl} from "@utils/url";
 
 export const getStaticProps = getStaticPropsLocale;
-export default function MyGallery(): JSX.Element {
+export default function GalleryPage(): JSX.Element {
 	const {user, isLoading} = useUser();
 	const {isConnected} = useAccount();
 	const {t} = useTranslation();

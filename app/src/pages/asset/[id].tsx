@@ -11,7 +11,7 @@ import {isNumeric} from "@utils/units";
 
 export const getStaticPaths = getStaticPathsFallback;
 export const getStaticProps = getStaticPropsLocale;
-export default function SingleAsset(): JSX.Element {
+export default function AssetPage(): JSX.Element {
 	const {t} = useTranslation();
 	const router = useRouter();
 	const {id} = router.query;

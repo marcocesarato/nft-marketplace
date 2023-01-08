@@ -8,7 +8,7 @@ import useAccount from "@hooks/useAccount";
 import {getStaticPropsLocale} from "@utils/i18n";
 
 export const getStaticProps = getStaticPropsLocale;
-export default function Crypto(): JSX.Element {
+export default function BuyCryptoPage(): JSX.Element {
 	const {isConnected} = useAccount();
 	const {t} = useTranslation();
 

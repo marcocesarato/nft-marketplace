@@ -6,7 +6,7 @@ import {getStaticPathsFallback} from "@utils/paths";
 
 export const getStaticPaths = getStaticPathsFallback;
 export const getStaticProps = getStaticPropsLocale;
-export default function UserAccount(): JSX.Element {
+export default function AccountPage(): JSX.Element {
 	const router = useRouter();
 	const {id} = router.query;
 

@@ -12,7 +12,7 @@ import {getStaticPathsFallback} from "@utils/paths";
 
 export const getStaticPaths = getStaticPathsFallback;
 export const getStaticProps = getStaticPropsLocale;
-export default function AccountGallery(): JSX.Element {
+export default function AccountGalleryPage(): JSX.Element {
 	const {t} = useTranslation();
 	const router = useRouter();
 	const {id} = router.query;

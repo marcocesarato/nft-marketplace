@@ -9,7 +9,7 @@ import {toTokenItems} from "@utils/converters";
 import {getStaticPropsLocale} from "@utils/i18n";
 
 export const getStaticProps = getStaticPropsLocale;
-export default function Explore(): JSX.Element {
+export default function ExplorePage(): JSX.Element {
 	const {t} = useTranslation();
 	const {data, loading, error} = useMarketItemsOnSaleQuery();
 	const items = toTokenItems(data?.marketItems);
