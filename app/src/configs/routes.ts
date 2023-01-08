@@ -1,5 +1,6 @@
 import {
 	AiFillBoxPlot,
+	AiFillCalendar,
 	AiFillCompass,
 	AiFillDashboard,
 	AiFillFolderOpen,
@@ -25,6 +26,7 @@ export const routesAuthenticated = [
 	},
 	{label: "common:page.gallery.shortTitle", href: "/gallery", icon: AiFillBoxPlot},
 	{label: "common:page.assets.shortTitle", href: "/assets", icon: AiFillFolderOpen},
+	{label: "common:page.events.shortTitle", href: "/events", icon: AiFillCalendar},
 	{label: "common:page.sell.shortTitle", href: "/sell", icon: AiFillShopping},
 ];
 

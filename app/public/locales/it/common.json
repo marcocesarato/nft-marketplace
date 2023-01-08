@@ -73,6 +73,12 @@
 			},
 			"title": "Dashboard"
 		},
+        "events": {
+            "description": "Gestisci i tuoi eventi programmati",
+            "empty": "Nessun evento trovato",
+            "shortTitle": "Eventi",
+            "title": "Eventi programmati"
+        },
 		"explore": {
 			"description": "Esplora le ultime opere d'arte in vendita",
 			"empty": "Nessun articolo trovato sul mercato",

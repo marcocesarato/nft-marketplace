@@ -73,6 +73,12 @@
 			},
 			"title": "Creator Dashboard"
 		},
+        "events": {
+            "description": "Manage your scheduled events",
+            "empty": "No events found",
+            "shortTitle": "Events",
+            "title": "Scheduled Events"
+        },
 		"explore": {
 			"description": "Explore latest arts on sale",
 			"empty": "No items on marketplace",
