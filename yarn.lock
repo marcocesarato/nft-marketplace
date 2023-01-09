@@ -5443,10 +5443,10 @@
   resolved "https://registry.yarnpkg.com/@react-spring/types/-/types-9.6.1.tgz#913d3a68c5cbc1124fdb18eff919432f7b6abdde"
   integrity sha512-POu8Mk0hIU3lRXB3bGIGe4VHIwwDsQyoD1F394OK7STTiX9w4dG3cTLljjYswkQN+hDSHRrj4O36kuVa7KPU8Q==
 
-"@react-three/drei@^9.51.16":
-  version "9.51.16"
-  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-9.51.16.tgz#1f5e38919d09bee95ca021bd23850d38d63ac77c"
-  integrity sha512-FNGin/spioXXA/wOrHovDOaWdy2mIBXTkf9euTDQI2PMzAnF6189lWavhaBxTiHD2/13z+Syh78dwy8vm9DMWQ==
+"@react-three/drei@9.51.21":
+  version "9.51.21"
+  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-9.51.21.tgz#db522f9312cb9f5a4484e2777daa46ffd4c77504"
+  integrity sha512-0dlpeucb8O+lJ9b8UbPcAv2F593ji7beFoA8yMJAxemPp0xjOxCn1cAhPqDItYDAOWC/ms0UFQfLKBUePgsrWA==
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@react-spring/three" "^9.3.1"
@@ -5456,6 +5456,7 @@
     lodash.clamp "^4.0.3"
     lodash.omit "^4.5.0"
     lodash.pick "^4.4.0"
+    maath "^0.5.1"
     meshline "^3.1.6"
     react-composer "^5.0.3"
     react-merge-refs "^1.1.0"
@@ -17063,10 +17064,10 @@ i18next@^21.6.11:
   dependencies:
     "@babel/runtime" "^7.17.2"
 
-i18next@^22.4.8:
-  version "22.4.8"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-22.4.8.tgz#7a3c5d26a93e8e5f32eee07b58484e2f721fb45b"
-  integrity sha512-XSOy17ZWqflOiJRYE/dzv6vDle2Se32dnHREHb93UnZzZ1+UnvQ8yKtt1fpNL3zvXz5AwCqqixrtTVZmRetaiQ==
+i18next@^22.4.9:
+  version "22.4.9"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-22.4.9.tgz#98c8384c6bd41ff937da98b1e809ba03d3b41053"
+  integrity sha512-8gWMmUz460KJDQp/ob3MNUX84cVuDRY9PLFPnV8d+Qezz/6dkjxwOaH70xjrCNDO+JrUL25iXfAIN9wUkInNZw==
   dependencies:
     "@babel/runtime" "^7.20.6"
 
@@ -19193,6 +19194,11 @@ ltgt@~2.1.1:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/ltgt/-/ltgt-2.1.3.tgz#10851a06d9964b971178441c23c9e52698eece34"
   integrity sha512-5VjHC5GsENtIi5rbJd+feEpDKhfr7j0odoUR2Uh978g+2p93nd5o34cTjQWohXsPsCZeqoDnIqEf88mPCe0Pfw==
+
+maath@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/maath/-/maath-0.5.1.tgz#7e190ee69053d4e04125f399f73d4e63f1b94e05"
+  integrity sha512-qSyiavNFnB957lGQiGvHr+fEgG3ZXrk2upniCAAMsZb54NaZfMLMFakHqp+22OKlix5UNwYqJ8vFeO4hAq0U1Q==
 
 magic-string@^0.25.0, magic-string@^0.25.7:
   version "0.25.9"
