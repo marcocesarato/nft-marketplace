@@ -15,8 +15,8 @@ export default function Viewer3D({data}: {data: TokenItem}): JSX.Element {
 			<Canvas shadows dpr={[1, 2]} camera={{position: [0, 0, 0], fov: 60}}>
 				<Suspense fallback={null}>
 					<Stage
-						environment="city"
 						intensity={0.5}
+						environment="city"
 						shadows={{type: "contact", opacity: 0.7, blur: 2}}>
 						{data.animation_url ? (
 							<Model src={resolveLink(data.animation_url)} />
