@@ -48,7 +48,7 @@ export default function MainScene({room, ...props}: MainSceneProps): JSX.Element
 				loading-screen="dotsColor: #000; backgroundColor: #FFF"
 				deviceOrientationPermissionUI={{enabled: true}}
 				networked-scene={
-					`serverURL: ${process.env.NEXT_PUBLIC_URL}/api/socket;` +
+					`serverURL: /api/socket;` +
 					/*audio: true;*/
 					`room: ${room};
                     adapter: socketio;

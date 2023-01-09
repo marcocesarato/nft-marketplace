@@ -4,7 +4,7 @@ import {ApolloClient, ApolloProvider, HttpLink, InMemoryCache} from "@apollo/cli
 function Provider({children}): JSX.Element {
 	const apolloClient = useMemo(() => {
 		const httpLink = new HttpLink({
-			uri: `${process.env.NEXT_PUBLIC_URL}/api/graphql`,
+			uri: `/api/graphql`,
 			credentials: "same-origin",
 		});
 		return new ApolloClient({

@@ -353,7 +353,7 @@ export const ObjectsModels: {[key: string]: ObjectModel} = {
 		type: ObjectModelType.Object,
 		image: "/assets/models/sofa/sofa.jpg",
 		attributes: {
-			"gltf-model": `${process.env.NEXT_PUBLIC_URL}/assets/models/sofa/sofa.glb`,
+			"gltf-model": `/assets/models/sofa/sofa.glb`,
 			"scale": "2 2 2",
 			"shadow": "receive:true;cast:true",
 			"physx-body-from-model": "type:static;",

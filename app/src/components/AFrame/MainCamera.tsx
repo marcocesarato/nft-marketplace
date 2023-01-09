@@ -178,12 +178,8 @@ export default function MainCamera({
 						radius="0.01"></Entity>
 				</Entity>
 
-				<Entity
-					id="animated-f"
-					gltfModel={`${process.env.NEXT_PUBLIC_URL}/assets/models/animated-m.glb`}></Entity>
-				<Entity
-					id="animated-m"
-					gltfModel={`${process.env.NEXT_PUBLIC_URL}/assets/models/animated-m.glb`}></Entity>
+				<Entity id="animated-f" gltfModel={`/assets/models/animated-f.glb`}></Entity>
+				<Entity id="animated-m" gltfModel={`/assets/models/animated-m.glb`}></Entity>
 			</Entity>
 			{children}
 		</>

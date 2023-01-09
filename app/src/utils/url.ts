@@ -13,21 +13,21 @@ export function getEmbeddedIPFSUrl(uri: string | null | undefined): string {
 		process.env.NODE_ENV === "test"
 	)
 		return uri;
-	const basePath = `${process.env.NEXT_PUBLIC_URL}/api/cors?url=`;
+	const basePath = `/api/cors?url=`;
 	const query = encodeURIComponent(uri);
 	return basePath + query;
 }
 
 export function getGalleryBuilderUrl() {
-	return `${process.env.NEXT_PUBLIC_URL}/builder`;
+	return `/builder`;
 }
 
 export function getGalleryUrl(address: string = "") {
-	return `${process.env.NEXT_PUBLIC_URL}/gallery/${address}`;
+	return `/gallery/${address}`;
 }
 
 export function getAccountUrl(address: string) {
-	return `${process.env.NEXT_PUBLIC_URL}/account/${address}`;
+	return `/account/${address}`;
 }
 
 export function getAssetUrl(data: GenericObject | string) {
@@ -39,7 +39,7 @@ export function getAssetUrl(data: GenericObject | string) {
 			data?._id ||
 			encodeURIComponent(data?.owner_of + "/" + data?.token_address + "/" + data?.token_id);
 	}
-	return `${process.env.NEXT_PUBLIC_URL}/asset/${query}`;
+	return `/asset/${query}`;
 }
 
 export function getIPFSGatewayUrl(url: string): string {
