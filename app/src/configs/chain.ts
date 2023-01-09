@@ -25,7 +25,17 @@ export const ChainId = Number(
 
 export const Chains =
 	process.env.NODE_ENV === "production"
-		? [mainnet, avalanche, polygon, bsc, fantom, optimism, arbitrum]
+		? [
+				mainnet,
+				avalanche,
+				polygon,
+				bsc,
+				fantom,
+				foundry,
+				optimism,
+				arbitrum,
+				/*for testing*/ polygonMumbai,
+		  ]
 		: [
 				localhost,
 				hardhat,
