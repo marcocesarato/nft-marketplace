@@ -1,4 +1,4 @@
-import {connect, Mongoose} from "mongoose";
+import mongoose, {Mongoose} from "mongoose";
 
 // Models
 export * from "./models";
@@ -32,10 +32,8 @@ export async function connectDatabase(): Promise<Mongoose> {
 			bufferCommands: false,
 		};
 
-		cached.promise = connect(`${MONGODB_URI}/${MONGODB_DATABASE}`, opts).then((mongoose) => {
-			mongoose.set("strictQuery", true);
-			return mongoose;
-		});
+		mongoose.set("strictQuery", true);
+		cached.promise = mongoose.connect(`${MONGODB_URI}/${MONGODB_DATABASE}`, opts);
 	}
 	cached.conn = await cached.promise;
 	return cached.conn;
