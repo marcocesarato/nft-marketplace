@@ -10,7 +10,6 @@ const baseStyle = {
 		display: "flex",
 		justifyContent: "space-between",
 		zIndex: 9999,
-
 		px: 4,
 		py: 2,
 	},

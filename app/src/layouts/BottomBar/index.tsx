@@ -1,7 +1,7 @@
 import {useCallback, useMemo} from "react";
 import {AiOutlineMenu} from "react-icons/ai";
 import {useRouter} from "next/router";
-import {As, Box} from "@chakra-ui/react";
+import {As} from "@chakra-ui/react";
 import {useTranslation} from "next-i18next";
 
 import {useMenu} from "@contexts/Global";
@@ -45,21 +45,16 @@ export default function BottomNavigationBar(props): JSX.Element {
 		[router, onToggleMenu],
 	);
 	return (
-		<>
-			<BottomNavigation
-				{...props}
-				value={getPath(router?.asPath)}
-				showLabel="never"
-				onChange={handleChange}>
-				<Content />
-				<BottomNavigationItem value="menu">
-					<BottomNavigationIcon as={AiOutlineMenu} />
-					<BottomNavigationLabel>
-						{t<string>("common:action.openMenu")}
-					</BottomNavigationLabel>
-				</BottomNavigationItem>
-			</BottomNavigation>
-			<Box {...props} height="115px" />
-		</>
+		<BottomNavigation
+			{...props}
+			value={getPath(router?.asPath)}
+			showLabel="never"
+			onChange={handleChange}>
+			<Content />
+			<BottomNavigationItem value="menu">
+				<BottomNavigationIcon as={AiOutlineMenu} />
+				<BottomNavigationLabel>{t<string>("common:action.openMenu")}</BottomNavigationLabel>
+			</BottomNavigationItem>
+		</BottomNavigation>
 	);
 }

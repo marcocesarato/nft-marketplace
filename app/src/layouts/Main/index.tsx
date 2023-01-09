@@ -1,3 +1,5 @@
+import {Box} from "@chakra-ui/react";
+
 import Viewport from "@components/Viewport";
 import useSidebar from "@hooks/useSidebar";
 import BottomBar from "@layouts/BottomBar";
@@ -22,10 +24,11 @@ export default function Main({children}: {children: React.ReactNode}): JSX.Eleme
 						: `calc(100% - ${sidebarWidth})`,
 				}}>
 				<Navbar />
-				<PanelContainer pb={{base: "80px", lg: "0"}}>
+				<PanelContainer>
 					{children}
-					<BottomBar display={{base: "flex", lg: "none"}} />
+					<Box minHeight="95px" display={{base: "flex", lg: "none"}} />
 				</PanelContainer>
+				<BottomBar display={{base: "flex", lg: "none"}} />
 			</MainPanel>
 		</Viewport>
 	);

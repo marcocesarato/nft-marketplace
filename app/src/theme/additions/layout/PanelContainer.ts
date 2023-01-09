@@ -2,6 +2,7 @@ import {mode} from "@chakra-ui/theme-tools";
 
 const PanelContainer = {
 	baseStyle: (props) => ({
+		flexDirection: "column",
 		minHeight: "calc(100vh - 94px)",
 		maxHeight: "calc(100vh - 94px)",
 		overflowY: "auto",
