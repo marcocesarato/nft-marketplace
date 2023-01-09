@@ -1,7 +1,6 @@
 import {useEffect, useRef, useState} from "react";
-import {Image, Text, useCursor} from "@react-three/drei";
-import {useFrame} from "@react-three/fiber";
-import {Color, MathUtils} from "three";
+import {Image, Text} from "@react-three/drei";
+import {Color} from "three";
 
 import {pictureSize} from "@utils/image";
 
@@ -13,24 +12,12 @@ export default function Frame({
 	disableHover = false,
 	...props
 }): JSX.Element {
-	const [hovered, hover] = useState(false);
 	const image = useRef();
 	const frame = useRef();
 	const [ratio, setRatio] = useState(1);
 	const [direction, setDirection] = useState("vertical");
 	const scaleX = direction === "vertical" ? 1 : ratio;
 	const scaleY = direction === "vertical" ? ratio : 1;
-	useCursor(hovered);
-	useFrame((state) => {
-		if (!image?.current || !frame?.current) return;
-		const img = image.current as any;
-		img.scale.x = MathUtils.lerp(img.scale.x, 0.85 * (hovered ? 0.85 : 1), 0.1);
-		img.scale.y = MathUtils.lerp(img.scale.y, 0.9 * (hovered ? 0.905 : 1), 0.1);
-		(frame.current as any).material.color.lerp(
-			color.set(hovered ? "orange" : "white").convertSRGBToLinear(),
-			0.1,
-		);
-	});
 	useEffect(() => {
 		const loadPicture = async () => {
 			const sizes = await pictureSize(url);
@@ -47,15 +34,7 @@ export default function Frame({
 
 	return (
 		<group {...props}>
-			<mesh
-				name={id || text}
-				onPointerOver={(e) => {
-					e.stopPropagation();
-					hover(true && !disableHover);
-				}}
-				onPointerOut={() => hover(false)}
-				scale={[scaleX, scaleY, 0.05]}
-				position={[0, scaleY / 2, 0]}>
+			<mesh name={id || text} scale={[scaleX, scaleY, 0.05]} position={[0, scaleY / 2, 0]}>
 				<boxGeometry />
 				<meshStandardMaterial
 					color="#151515"

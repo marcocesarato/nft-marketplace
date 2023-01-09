@@ -1,7 +1,10 @@
-import {useLoader} from "@react-three/fiber";
-import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
+import {useLayoutEffect} from "react";
+import {useGLTF} from "@react-three/drei";
 
 export default function Model({src}: {src: string}) {
-	const gltf = useLoader(GLTFLoader, src);
-	return <primitive object={gltf.scene as any} scale={0.4} />;
+	const {scene} = useGLTF(src) as any;
+	useLayoutEffect(() => {
+		scene.traverse((obj) => obj.isMesh && (obj.receiveShadow = obj.castShadow = true));
+	});
+	return <primitive object={scene} />;
 }

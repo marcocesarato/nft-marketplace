@@ -13,7 +13,7 @@ export function getEmbeddedIPFSUrl(uri: string | null | undefined): string {
 		process.env.NODE_ENV === "test"
 	)
 		return uri;
-	const basePath = `/api/cors?url=`;
+	const basePath = `${process.env.NEXT_PUBLIC_URL}/api/cors?url=`;
 	const query = encodeURIComponent(uri);
 	return basePath + query;
 }

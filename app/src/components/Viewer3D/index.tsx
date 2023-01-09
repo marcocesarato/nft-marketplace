@@ -30,8 +30,8 @@ export default function Viewer3D({data}: {data: TokenItem}): JSX.Element {
 						)}
 					</Stage>
 					<BakeShadows />
+					<OrbitControls makeDefault={true} autoRotate={true} />
 				</Suspense>
-				<OrbitControls makeDefault autoRotate />
 			</Canvas>
 		</Flex>
 	);
