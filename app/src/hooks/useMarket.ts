@@ -47,6 +47,7 @@ export default function useMarket() {
 			callback && callback();
 		} catch (error) {
 			errorToast({
+				title: t<string>("error:title"),
 				description: error.message,
 			});
 			throw error;
@@ -71,6 +72,7 @@ export default function useMarket() {
 			});
 		} catch (error) {
 			errorToast({
+				title: t<string>("error:title"),
 				description: error.message,
 			});
 			throw error;
@@ -96,6 +98,7 @@ export default function useMarket() {
 			});
 		} catch (error) {
 			errorToast({
+				title: t<string>("error:title"),
 				description: error.message,
 			});
 			throw error;
