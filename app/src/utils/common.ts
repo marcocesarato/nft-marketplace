@@ -33,3 +33,7 @@ export function throttle(fn: (args: any[]) => any, wait: number) {
 		}
 	};
 }
+
+export function limitWords(string: string, words: number = 10) {
+	return string.split(/\s+/, words).join(" ");
+}

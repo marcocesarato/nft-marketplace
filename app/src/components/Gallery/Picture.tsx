@@ -6,9 +6,11 @@ import {useToken} from "wagmi";
 import {MapDirection} from "@app/enums";
 import {TokenItem} from "@app/types";
 import {WallSize} from "@configs/gallery";
+import {useConfig} from "@contexts/Global";
 import useAccount from "@hooks/useAccount";
 import useDebounceCallback from "@hooks/useDebounceCallback";
 import useMarket from "@hooks/useMarket";
+import {limitWords} from "@utils/common";
 import {getEmbeddedIPFSUrl} from "@utils/url";
 
 export const defaultPictureAttributes = {
@@ -50,10 +52,11 @@ export default function Picture({
 	const {data: token} = useToken({
 		address: data.token_address as `0x${string}`,
 	});
+	const {symbol} = useConfig();
 
 	const handlePurchase = useCallback(() => {
 		if (isConnected) {
-			purchase(data.token_id, Number(data.price));
+			purchase(data.token_id, data.price);
 		}
 	}, [data, isConnected, purchase]);
 
@@ -156,7 +159,7 @@ export default function Picture({
 									" " +
 									(data.price_formatted || data.price) +
 									" " +
-									token?.symbol
+									(token?.symbol ?? symbol)
 								}
 								height={textHeight}
 								width={textWidth}
@@ -166,18 +169,11 @@ export default function Picture({
 						</a-plane>
 					</Plane>
 					<Text
-						value={data.name}
+						value={`${data.name}\n\n${limitWords(data.description, 25)}`}
 						height={textHeight}
 						width={textWidth}
 						align="center"
 						position={{x: 0, y: 1, z: 0}}
-					/>
-					<Text
-						value={`Description: ${data.description}`}
-						height={textHeight}
-						width={textWidth}
-						align="center"
-						position={{x: 0, y: 0.7, z: 0}}
 					/>
 					<Text
 						value={`Token Address: ${data.token_address}/${data.token_id}`}

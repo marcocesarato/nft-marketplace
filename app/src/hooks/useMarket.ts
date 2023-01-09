@@ -31,7 +31,7 @@ export default function useMarket() {
 		try {
 			await switchNetworkAsync();
 
-			/* user will be prompted to pay the asking proces to complete the transaction */
+			/* user will be prompted to pay the asking process to complete the transaction */
 			const priceFormatted = !isString(price) ? parseUnits(price, "ether") : price;
 			const transaction = await contract.createMarketSale(token_id, {
 				value: priceFormatted,
