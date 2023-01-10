@@ -28,7 +28,9 @@ async function socketRoute(req: NextApiRequest, res: NextApiResponseWithSocket) 
 	const rooms = {};
 
 	const onConnection = (socket: Socket) => {
-		log("User connected", socket.id);
+		const socketId = socket.id;
+
+		log("User connected", socketId);
 
 		let curRoom = null;
 
@@ -43,7 +45,7 @@ async function socketRoute(req: NextApiRequest, res: NextApiResponseWithSocket) 
 			}
 
 			const joinedTime = Date.now();
-			rooms[room].occupants[socket.id] = joinedTime;
+			rooms[room].occupants[socket.id] = {joinedTime, muted: false};
 			curRoom = room;
 
 			log(`${socket.id} joined room ${room}`);
@@ -76,6 +78,14 @@ async function socketRoute(req: NextApiRequest, res: NextApiResponseWithSocket) 
 					delete rooms[curRoom];
 				}
 			}
+		});
+
+		socket.on("voice", function (data) {
+			const occupants = rooms[curRoom]?.occupants ?? {};
+			Object.keys(occupants).forEach((id) => {
+				if (id !== socket.id && !occupants[id].muted)
+					socket.broadcast.to(id).emit("sendVoice", data);
+			});
 		});
 	};
 

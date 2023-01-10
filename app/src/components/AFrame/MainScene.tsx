@@ -1,6 +1,8 @@
-import React, {useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import {Scene} from "@belivvr/aframe-react";
 import {Box} from "@chakra-ui/react";
+
+import {socketAudio} from "@utils/common";
 
 type MainSceneProps = {
 	room: string;
@@ -16,6 +18,10 @@ export default function MainScene({room, ...props}: MainSceneProps): JSX.Element
 			canvas?.setAttribute("tabindex", "0");
 		}
 	}, [scene]);*/
+
+	useEffect(() => {
+		socketAudio(room);
+	}, [room]);
 
 	return (
 		<Box id="main-scene" ref={scene} style={{position: "relative"}}>
