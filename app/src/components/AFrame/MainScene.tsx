@@ -47,13 +47,11 @@ export default function MainScene({room, ...props}: MainSceneProps): JSX.Element
 				raycaster="objects: [html]; interval:100;"
 				loading-screen="dotsColor: #000; backgroundColor: #FFF"
 				deviceOrientationPermissionUI={{enabled: true}}
-				networked-scene={
-					`serverURL: /api/socket;` +
-					/*audio: true;*/
-					`room: ${room};
+				networked-scene={`serverURL: /api/socket;
+					audio: true;
+					room: ${room};
                     adapter: socketio;
-                    connectOnLoad: true;`
-				}
+                    connectOnLoad: true;`}
 				{...props}
 			/>
 		</Box>
