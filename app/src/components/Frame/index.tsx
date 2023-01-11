@@ -1,20 +1,12 @@
 import {useEffect, useRef, useState} from "react";
 import {Image, Text} from "@react-three/drei";
 import {useFrame} from "@react-three/fiber";
-import {Color, MathUtils} from "three";
+import {MathUtils} from "three";
 
 import {pictureSize} from "@utils/image";
 
-export default function Frame({
-	url,
-	text = "",
-	id = null,
-	color = new Color(),
-	disableHover = false,
-	...props
-}): JSX.Element {
+export default function Frame({url, text = "", id = null, ...props}): JSX.Element {
 	const image = useRef();
-	const [sizes, setSizes] = useState(null);
 	const [ratio, setRatio] = useState(1);
 	const [direction, setDirection] = useState("vertical");
 	const scaleX = direction === "vertical" ? 1 : ratio;
@@ -29,19 +21,18 @@ export default function Frame({
 				setRatio(s.height / s.width);
 				setDirection("vertical");
 			}
-			setSizes(s);
 		};
 		loadPicture();
 	}, [url]);
-	useFrame(() => {
+	useFrame((state) => {
 		if (!image?.current) return;
 		const img = image.current as any;
-		img.scale.x = MathUtils.lerp(img.scale.x, 0.95, 0.1);
-		img.scale.y = MathUtils.lerp(img.scale.y, 0.95, 0.1);
+		img.scale.y = MathUtils.lerp(img.scale.x, 0.95, 0.1);
+		img.scale.x = MathUtils.lerp(img.scale.y, 0.95, 0.1);
 	});
 	return (
 		<group {...props}>
-			<mesh name={id || text} scale={[scaleX, scaleY, 0.05]} position={[0, scaleY / 2, 0]}>
+			<mesh raycast={() => null} scale={[scaleX, scaleY, 0.05]} position={[0, scaleY / 2, 0]}>
 				<boxGeometry />
 				<meshStandardMaterial
 					color="#151515"
@@ -49,9 +40,7 @@ export default function Frame({
 					roughness={0.5}
 					envMapIntensity={2}
 				/>
-				{sizes && (
-					<Image ref={image} raycast={() => null} position={[0, 0, 0.6]} url={url} />
-				)}
+				<Image raycast={() => null} ref={image} position={[0, 0, 0.51]} url={url} />
 			</mesh>
 			{text && (
 				<Text
