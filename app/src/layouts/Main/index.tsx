@@ -17,6 +17,7 @@ export default function Main({children}: {children: React.ReactNode}): JSX.Eleme
 			<MainPanel
 				display="flex"
 				flexDirection="column"
+				zIndex={10}
 				w={{
 					base: "100%",
 					lg: !isOpenSidebar
@@ -24,11 +25,11 @@ export default function Main({children}: {children: React.ReactNode}): JSX.Eleme
 						: `calc(100% - ${sidebarWidth})`,
 				}}>
 				<Navbar />
-				<PanelContainer>
+				<PanelContainer zIndex={1}>
 					{children}
 					<Box minHeight="95px" display={{base: "flex", lg: "none"}} />
 				</PanelContainer>
-				<BottomBar display={{base: "flex", lg: "none"}} />
+				<BottomBar zIndex={10} display={{base: "flex", lg: "none"}} />
 			</MainPanel>
 		</Viewport>
 	);
