@@ -17,6 +17,32 @@ The app expose the following microservices:
 -   IPFS Upload
 -   IPFS Proxy Gateway _(to bypass the CORS policy)_
 
+### Source hierarchy
+
+The source's folders hierarchy should maintain the following example structure:
+
+```text
+├── components
+│   ├── Component
+│   │   ├── SubComponent
+│   │   │   ├── SubComponent.spec.tsx
+│   │   │   ├── SubComponent.stories.tsx
+│   │   │   ├── index.tsx
+│   │   ├──  Component.spec.tsx
+│   │   ├──  Component.stories.tsx
+│   │   ├──  index.tsx
+├── hooks
+│   ├── useHook.tsx
+│   ├── useData
+│   │   ├──  useData.test.tsx
+│   │   ├──  index.tsx
+├── contexts
+│   ├── Global
+│   │   ├──  index.tsx
+│   │   ├──  reducer.ts
+│   │   ├──  initialState.ts
+```
+
 ## Structure
 
 The app's source code is mostly contained within the `src` path (Alias: `@app`). Below are the most important folder to be mentioned.
@@ -47,32 +73,6 @@ The app's source code is mostly contained within the `src` path (Alias: `@app`).
 
 -   **Scripts** _(Path: `scripts`)_:
     This folder contains generic scripts but in particular here we can find the graphql generation configurations.
-
-### Source hierarchy
-
-The source's folders hierarchy should maintain the following example structure:
-
-```text
-├── components
-│   ├── Component
-│   │   ├── SubComponent
-│   │   │   ├── SubComponent.spec.tsx
-│   │   │   ├── SubComponent.stories.tsx
-│   │   │   ├── index.tsx
-│   │   ├──  Component.spec.tsx
-│   │   ├──  Component.stories.tsx
-│   │   ├──  index.tsx
-├── hooks
-│   ├── useHook.tsx
-│   ├── useData
-│   │   ├──  useData.test.tsx
-│   │   ├──  index.tsx
-├── contexts
-│   ├── Global
-│   │   ├──  index.tsx
-│   │   ├──  reducer.ts
-│   │   ├──  initialState.ts
-```
 
 ## Code generation
 
