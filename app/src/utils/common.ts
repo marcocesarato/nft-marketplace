@@ -1,5 +1,22 @@
 import {io} from "socket.io-client";
 
+export const socketConnection = {
+	_instance: null,
+	get instance() {
+		return (async () => {
+			try {
+				if (!this._instance) {
+					await fetch("/api/socket");
+					this._instance = io();
+				}
+				return this._instance;
+			} catch (e) {
+				return null;
+			}
+		})();
+	},
+};
+
 export function debounce(
 	func: (args: IArguments) => any,
 	wait: number,
@@ -41,8 +58,7 @@ export function limitWords(string: string, words: number = 10) {
 }
 
 export async function socketAudio(room: string) {
-	await fetch("/api/socket");
-	const socket = io();
+	const socket = await socketConnection.instance;
 	if (
 		!(navigator as any).getUserMedia &&
 		!(navigator as any).webkitGetUserMedia &&
@@ -69,16 +85,17 @@ export async function socketAudio(room: string) {
 		mediaRecorder.start();
 
 		// Stop recording after 1 seconds and broadcast it to server
-		setTimeout(function () {
+		setInterval(function () {
 			mediaRecorder.stop();
 			mediaRecorder.start();
 		}, 1000);
 	});
 
-	socket.on("sendVoice", function (arrayBuffer) {
+	socket.on("audioStream", function (arrayBuffer) {
 		const blob = new Blob([arrayBuffer], {"type": "audio/ogg; codecs=opus"});
-		const audio = document.createElement("audio");
-		audio.src = window.URL.createObjectURL(blob);
+		const audio = new Audio();
+		audio.src = URL.createObjectURL(blob);
 		audio.play();
+		console.log(audio.src);
 	});
 }

@@ -1,5 +1,7 @@
 /* global NAF, io */
 
+import {socketConnection} from "@utils/common";
+
 class WebRtcPeer {
 	constructor(localId, remoteId, sendSignalFunc) {
 		this.localId = localId;
@@ -341,8 +343,7 @@ class WebrtcAdapter {
 			}*/
 
 			NAF.log.write("Attempting to connect to socket.io");
-			await fetch(self.wsUrl);
-			const socket = (self.socket = io());
+			const socket = (self.socket = await socketConnection.instance);
 
 			socket.on("connect", () => {
 				NAF.log.write("User connected", socket.id);

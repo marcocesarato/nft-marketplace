@@ -1,5 +1,7 @@
 /* global NAF, io */
 
+import {socketConnection} from "@utils/common";
+
 /**
  * SocketIO Adapter (socketio)
  * networked-scene: serverURL needs to be ws://localhost:8080 when running locally
@@ -69,8 +71,7 @@ class SocketioAdapter {
 			}*/
 
 			NAF.log.write("Attempting to connect to socket.io");
-			await fetch(self.wsUrl);
-			const socket = (self.socket = io());
+			const socket = (self.socket = await socketConnection.instance);
 
 			socket.on("connect", () => {
 				NAF.log.write("User connected", socket.id);

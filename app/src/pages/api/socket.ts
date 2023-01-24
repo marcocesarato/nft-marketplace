@@ -84,7 +84,7 @@ async function socketRoute(req: NextApiRequest, res: NextApiResponseWithSocket) 
 			const occupants = rooms[curRoom]?.occupants ?? {};
 			Object.keys(occupants).forEach((id) => {
 				if (id !== socket.id && !occupants[id].muted)
-					socket.broadcast.to(id).emit("sendVoice", data);
+					socket.in(curRoom).to(id).emit("audioStream", data);
 			});
 		});
 	};
