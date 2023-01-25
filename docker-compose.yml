@@ -44,5 +44,12 @@ services:
             - ./docker/dev/mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
         ports:
             - 27017-27019:27017-27019
+    ipfs:
+        image: ipfs/go-ipfs:latest
+        ports:
+            - 4001:4001
+            - 5001:5000
+            - 8080:8080
+        command: ipfs daemon --enable-pubsub-experiment
 volumes:
     mongodata:
