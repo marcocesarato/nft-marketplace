@@ -35,6 +35,7 @@ contract MarketUpgradeable is
 		address payable owner;
 		uint256 price;
 		bool sold;
+        // bytes memory signature;
 	}
 
 	event MarketItemCreated(
@@ -44,6 +45,7 @@ contract MarketUpgradeable is
 		address owner,
 		uint256 price,
 		bool sold
+        // bytes memory signature
 	);
 
 	event MarketItemUpdated(
@@ -53,6 +55,12 @@ contract MarketUpgradeable is
 		uint256 price,
 		bool sold
 	);
+
+    /// Constructor
+    constructor() public {
+        // Initialize the contract
+        initialize();
+    }
 
 	/// Initializes the market.
 	function initialize() public initializer {
