@@ -1,8 +1,6 @@
-import dynamic from "next/dynamic";
-import {ApexOptions} from "apexcharts";
+import {useEffect, useState} from "react";
 
-const ReactApexChart = dynamic(() => import("react-apexcharts"), {ssr: false});
-const chartOptions: ApexOptions = {
+const chartOptions = {
 	chart: {
 		toolbar: {
 			show: false,
@@ -71,16 +69,25 @@ const chartOptions: ApexOptions = {
 };
 
 export default function LineChart({chartData}): JSX.Element {
+	const [Chart, setChart] = useState<any>();
+	useEffect(() => {
+		async function loadComponent() {
+			const m = await import("react-apexcharts");
+			setChart(() => m?.default);
+		}
+		loadComponent();
+	}, []);
 	return (
 		<>
-			{/* @ts-ignore */}
-			<ReactApexChart
-				options={chartOptions}
-				series={chartData}
-				type="line"
-				height={250}
-				width="100%"
-			/>
+			{Chart && typeof window !== "undefined" && (
+				<Chart
+					options={chartOptions}
+					series={chartData}
+					type="line"
+					height={250}
+					width="100%"
+				/>
+			)}
 		</>
 	);
 }
