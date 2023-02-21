@@ -25,7 +25,7 @@ export default function MainScene({room, ...props}: MainSceneProps): JSX.Element
 
 	return (
 		<Box id="main-scene" ref={scene} style={{position: "relative"}}>
-			{/*<Box id="rpm-container">
+			<Box id="rpm-container">
 				<iframe
 					id="rpm-container-iframe"
 					src="https://8thwall.readyplayer.me/avatar"
@@ -38,7 +38,7 @@ export default function MainScene({room, ...props}: MainSceneProps): JSX.Element
 						width: "100%",
 						height: "100%",
 					}}></iframe>
-			</Box>*/}
+			</Box>
 			<Scene
 				fog={{type: "linear", color: "#000", far: 30, near: 10}}
 				background={{color: "skyblue"}}
