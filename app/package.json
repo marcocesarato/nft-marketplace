@@ -83,7 +83,7 @@
 		"socket.io-client": "^4.6.1",
 		"three": "0.150.1",
 		"three-to-cannon": "^4.3.0",
-		"wagmi": "^0.11.7",
+		"wagmi": "^0.12.0",
 		"webxr-polyfill": "^2.0.3"
 	},
 	"devDependencies": {
