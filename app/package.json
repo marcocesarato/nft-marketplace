@@ -51,7 +51,7 @@
 		"chakra-react-select": "^4.6.0",
 		"ethers": "^5.7.2",
 		"focus-visible": "^5.2.0",
-		"framer-motion": "10.3.1",
+		"framer-motion": "10.3.2",
 		"graphql": "^16.6.0",
 		"graphql-compose": "^9.0.10",
 		"graphql-compose-mongoose": "^9.8.0",
