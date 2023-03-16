@@ -53,22 +53,21 @@ export default async function service() {
 	await Promise.all(
 		history.map(async (contractItem: ContractItem) => {
 			const item = convertToItem(contractItem);
-			MarketItem.findOne(
-				{token_id: item.token_id},
-				function (err: Error, existingToken: any) {
-					if (err) return logger.error(err.message);
-					if (!existingToken) {
-						createMarketItem(contract, item);
-					} else if (
-						existingToken.price.toString() !== item.price.toString() ||
-						existingToken.sold !== item.sold ||
-						existingToken.owner_of.toLowerCase() !== item.owner_of.toLowerCase() ||
-						existingToken.seller.toLowerCase() !== item.seller.toLowerCase()
-					) {
-						updateMarketItem(item.token_id, item);
-					}
-				},
-			);
+			try {
+				const existingToken = await MarketItem.findOne({token_id: item.token_id});
+				if (!existingToken) {
+					createMarketItem(contract, item);
+				} else if (
+					existingToken.price.toString() !== item.price.toString() ||
+					existingToken.sold !== item.sold ||
+					existingToken.owner_of.toLowerCase() !== item.owner_of.toLowerCase() ||
+					existingToken.seller.toLowerCase() !== item.seller.toLowerCase()
+				) {
+					updateMarketItem(item.token_id, item);
+				}
+			} catch (err) {
+				return logger.error(err.message);
+			}
 		}),
 	);
 	logger.debug("History synchronization finished");

@@ -53,6 +53,16 @@ const nextConfig = withPWA({
 			//Allows importing the global.css file in cypress/support/component.ts
 			patchWebpackConfig(config, {webpack, dev, isServer, ...options});
 		}
+		config.resolve = {
+			...config.resolve,
+			fallback: {
+				"fs": false,
+				"path": false,
+				"os": false,
+				"net": false,
+				"tls": false,
+			},
+		};
 		return config;
 	},
 });
