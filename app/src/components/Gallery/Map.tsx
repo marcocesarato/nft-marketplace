@@ -50,7 +50,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 		});
 	});
 
-	const BlocksRender = [];
+	const blocks = [];
 	map.blocks.forEach((block) => {
 		const x = block.id % map.width;
 		const y = Math.floor(block.id / map.width);
@@ -88,7 +88,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 							: Wall
 						: Wall;
 
-				BlocksRender.push(
+				blocks.push(
 					<WallComponent
 						key={"wall" + block.id}
 						neighbors={neighbors}
@@ -107,7 +107,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 					y: 0,
 					z: (y - map.height / 2) * WallSize,
 				};
-				BlocksRender.push(
+				blocks.push(
 					<Floor
 						key={"floor" + block.id}
 						position={position}
@@ -121,7 +121,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 					y: WallHeight,
 					z: (y - map.height / 2) * WallSize,
 				};
-				BlocksRender.push(
+				blocks.push(
 					<Ceiling key={"ceilling" + block.id} position={position} navmesh={false} />,
 				);
 
@@ -142,7 +142,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 							y: WallHeight / 2,
 							z: (y - map.height / 2) * WallSize,
 						});
-						BlocksRender.push(
+						blocks.push(
 							<Picture
 								key={itemKey}
 								id={key}
@@ -161,7 +161,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 							y: 0,
 							z: (y - map.height / 2) * WallSize,
 						});
-						BlocksRender.push(
+						blocks.push(
 							<Model
 								key={itemKey}
 								id={key}
@@ -212,7 +212,7 @@ export default function GalleryMap({planimetry}): JSX.Element {
 				})}
 			</Assets>
 			{/* Blocks */}
-			{BlocksRender}
+			{blocks}
 			{/* Camera */}
 			<MainCamera
 				userHeight={CameraHeight}
