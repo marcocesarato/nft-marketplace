@@ -28,6 +28,7 @@
 		"@chakra-ui/react": "^2.5.1",
 		"@emotion/react": "11.10.6",
 		"@emotion/styled": "11.10.6",
+		"@everipedia/wagmi-magic-connector": "^0.10.0",
 		"@metamask/jazzicon": "^2.0.0",
 		"@moralisweb3/next": "^2.14.3",
 		"@onramper/widget": "^2.2.33",

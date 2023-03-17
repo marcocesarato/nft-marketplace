@@ -24,6 +24,7 @@ import {publicProvider} from "wagmi/providers/public";
 
 import Avatar from "@components/Avatar";
 import {Chains} from "@configs/chain";
+import {rainbowMagicConnector} from "@contexts/RainbowMagicConnector";
 import {deepMerge} from "@utils/objects";
 
 const appName = "NFT MarketVerse";
@@ -40,6 +41,7 @@ const connectors = connectorsForWallets([
 			metaMaskWallet({chains}),
 			coinbaseWallet({chains, appName}),
 			walletConnectWallet({chains}),
+			rainbowMagicConnector({chains}),
 		],
 	},
 	{
