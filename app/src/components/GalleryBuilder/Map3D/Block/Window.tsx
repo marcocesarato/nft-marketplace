@@ -23,7 +23,7 @@ export default function MapWindow({blockId, row, column}) {
 		data.texture && Object.prototype.hasOwnProperty.call(Textures, data.texture)
 			? Textures[data.texture]
 			: DefaultWallTexture;
-	const textureMap = useLoader(TextureLoader, texture.image) as any;
+	const textureMap = useLoader(TextureLoader as any, texture.image) as any;
 
 	return (
 		<>

@@ -20,7 +20,7 @@ export default function MapWall(props) {
 		data.texture && Object.prototype.hasOwnProperty.call(Textures, data.texture)
 			? Textures[data.texture]
 			: DefaultWallTexture;
-	const textureMap = useLoader(TextureLoader, texture.image) as any;
+	const textureMap = useLoader(TextureLoader as any, texture.image) as any;
 	const hasItems = Object.values(data.items || {}).filter(Boolean).length > 0;
 
 	let mesh = (

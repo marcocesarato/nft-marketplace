@@ -19,7 +19,7 @@ export default function MapFloor({blockId, row, column}) {
 		data.texture && Object.prototype.hasOwnProperty.call(Textures, data.texture)
 			? Textures[data.texture]
 			: DefaultFloorTexture;
-	const textureMap = useLoader(TextureLoader, texture.image) as any;
+	const textureMap = useLoader(TextureLoader as any, texture.image) as any;
 	const hasItems = Object.values(data.items || {}).filter(Boolean).length > 0;
 
 	return (
