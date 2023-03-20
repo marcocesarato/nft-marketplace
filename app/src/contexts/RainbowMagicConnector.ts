@@ -20,7 +20,10 @@ export const rainbowMagicConnector = ({chains}: any): Wallet => ({
 				},
 				accentColor: "#9461e3",
 			},
-		}) as any;
+			OAuthOptions: {
+				providers: ["google", "twitter", "discord"],
+			},
+		} as any) as any;
 		return {
 			connector,
 		};
