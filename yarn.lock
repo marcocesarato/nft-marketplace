@@ -5062,15 +5062,10 @@
     rendered-country-flags "^1.2.0"
     start "^5.1.0"
 
-"@openzeppelin/contracts-upgradeable@^4.7.3":
-  version "4.8.1"
-  resolved "https://registry.yarnpkg.com/@openzeppelin/contracts-upgradeable/-/contracts-upgradeable-4.8.1.tgz#363f7dd08f25f8f77e16d374350c3d6b43340a7a"
-  integrity sha512-1wTv+20lNiC0R07jyIAbHU7TNHKRwGiTGRfiNnA8jOWjKT98g5OgLpYWOi40Vgpk8SPLA9EvfJAbAeIyVn+7Bw==
-
-"@openzeppelin/contracts-upgradeable@^4.8.2":
-  version "4.8.2"
-  resolved "https://registry.yarnpkg.com/@openzeppelin/contracts-upgradeable/-/contracts-upgradeable-4.8.2.tgz#edef522bdbc46d478481391553bababdd2199e27"
-  integrity sha512-zIggnBwemUmmt9IS73qxi+tumALxCY4QEs3zLCII78k0Gfse2hAOdAkuAeLUzvWUpneMUfFE5sGHzEUSTvn4Ag==
+"@openzeppelin/contracts-upgradeable@^4.7.3", "@openzeppelin/contracts-upgradeable@^4.9.2":
+  version "4.9.2"
+  resolved "https://registry.yarnpkg.com/@openzeppelin/contracts-upgradeable/-/contracts-upgradeable-4.9.2.tgz#a817c75688f8daede420052fbcb34e52482e769e"
+  integrity sha512-siviV3PZV/fHfPaoIC51rf1Jb6iElkYWnNYZ0leO23/ukXuvOyoC/ahy8jqiV7g+++9Nuo3n/rk5ajSN/+d/Sg==
 
 "@openzeppelin/contracts-v0.7@npm:@openzeppelin/contracts@v3.4.2":
   version "3.4.2"
@@ -25355,10 +25350,8 @@ watchpack@^1.7.4:
   resolved "https://registry.yarnpkg.com/watchpack/-/watchpack-1.7.5.tgz#1267e6c55e0b9b5be44c2023aed5437a2c26c453"
   integrity sha512-9P3MWk6SrKjHsGkLT2KHXdQ/9SNkyoJbabxnKOoJepsvJjJG8uYTR3yTPxPQvNDI3w4Nz1xnE0TLHK4RIVe/MQ==
   dependencies:
-    chokidar "^3.4.1"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
-    watchpack-chokidar2 "^2.0.1"
   optionalDependencies:
     chokidar "^3.4.1"
     watchpack-chokidar2 "^2.0.1"
