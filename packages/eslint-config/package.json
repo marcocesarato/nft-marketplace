@@ -10,7 +10,7 @@
 	"dependencies": {
 		"eslint-config-prettier": "^8.6.0",
 		"eslint-config-turbo": "latest",
-		"eslint-plugin-etc": "2.0.2",
+		"eslint-plugin-etc": "2.0.3",
 		"eslint-plugin-flowtype": "8.0.3",
 		"eslint-plugin-prettier": "^4.2.1",
 		"eslint-plugin-simple-import-sort": "^10.0.0"
